@@ -16,6 +16,12 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
+    "paths": {
+      "super-jss": [
+        "dist/super-jss/super-jss",
+        "dist/super-jss"
+      ]
+    },
     "lib": [
       "es2018",
       "dom"
