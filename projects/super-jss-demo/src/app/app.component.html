@@ -1,16 +1,41 @@
-<div [sJss]="{padding:theme.spacing(5),
-     backgroundColor:theme.palette.primary.main}">
-  <h4 [sJss]="{display:'flex',
-      justifyContent:'center',
-      color:theme.palette.primary.contrastText} ">
-    SUPER JSS
-  </h4>
 
-  <body1 [sJss]="{display:'flex',
+<div [sJss]="{padding:'20px',
+     backgroundColor:'rgb(20, 122, 129)'}">
+  <h3 [sJss]="{display:'flex',
       justifyContent:'center',
-      color:theme.palette.primary.contrastText} ">
-  -- npm i super-jss --
-  </body1>
+      color:'white'} ">
+    SUPER JSS
+  </h3>
+  <span [sJss]="{display:'flex',
+      justifyContent:'center',
+      color:'white'} ">
+     css with superpowers for Angular
+  </span>
 </div>
-<div>
+
+<div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
+  <h4 [sJss]>Installation</h4>
+  <span>To install and save in your package.json dependencies, run:</span>
+  <code>
+    npm i super-jss@latest
+  </code>
+</div>
+<div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
+  <h4 [sJss]>Add to your project</h4>
+  <span [sJss]="">Be sure SuperJssModule is included in your app module</span>
+  <img [sJss]="{maxWidth:'250px'}" src="assets/module.jpg" alt="">
+</div>
+
+<div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
+  <h4 [sJss]>Basic usage</h4>
+  <span [sJss]="">In any component.html add [sJss] to use the jss powers</span>
+  <img [sJss]="{maxWidth:'410px'}" src="assets/basic-usage.jpg" alt="">
+</div>
+
+<div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
+  <h4 [sJss]>Usage with breakpoints</h4>
+  <span [sJss]="">This superpower allows the usage of breakpoints in the jss style</span>
+  <span [sJss]="">to any property add the breakpoint object </span>
+  <code>xs:string, md:string, sm:string, lg:string, xl:string</code>
+  <img [sJss]="{maxWidth:'410px'}" src="assets/basic-usage-breakpoints.jpg" alt="">
 </div>
