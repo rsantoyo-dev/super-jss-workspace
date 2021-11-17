@@ -12,6 +12,6 @@ export class AppComponent {
   theme:ITheme
   constructor(sjService:SuperJssService) {
     this.theme = sjService.theme();
-    this.theme.palette.primary.main="#ff0000"
+    this.theme.palette.primary.main="#3056ca"
   }
 }
