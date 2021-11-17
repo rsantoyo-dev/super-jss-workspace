@@ -24,7 +24,6 @@ export interface ITheme {
     BODY1?: SJss,
     BODY2?: SJss,
     CAPTION?: SJss,
-
   };
   palette: {
     common: {
@@ -42,7 +41,6 @@ export interface ITheme {
       primary: string,
       secondary: string,
       disabled: string
-
     }
   }
 }

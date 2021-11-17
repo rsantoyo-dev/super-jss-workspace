@@ -20,7 +20,8 @@ export class SuperJssService{
     return this.currentTheme
   }
 
-  defaultTheme(): ITheme {
+  defaultTheme():
+    ITheme {
     return {
       breakpoints: {xs: 0, sm: 600, md: 900, lg: 1200, xl: 1320},
       spacing: (factor) => `${0.25 * factor}rem`,
@@ -91,5 +92,4 @@ export class SuperJssService{
 
     }
   }
-
 }

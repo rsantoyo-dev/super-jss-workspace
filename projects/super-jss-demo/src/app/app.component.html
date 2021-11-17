@@ -1,14 +1,14 @@
 
-<div [sJss]="{padding:'20px',
-     backgroundColor:'rgb(20, 122, 129)'}">
+<div [sJss]="{padding:{xs:theme.spacing(2)},
+     backgroundColor:theme.palette.primary.main}">
   <h3 [sJss]="{display:'flex',
       justifyContent:'center',
-      color:'white'} ">
+      color:theme.palette.primary.contrastText} ">
     SUPER JSS
   </h3>
   <span [sJss]="{display:'flex',
       justifyContent:'center',
-      color:'white'} ">
+      color:theme.palette.primary.contrastText} ">
      css with superpowers for Angular
   </span>
 </div>
@@ -38,4 +38,25 @@
   <span [sJss]="">to any property add the breakpoint object </span>
   <code>xs:string, md:string, sm:string, lg:string, xl:string</code>
   <img [sJss]="{maxWidth:'410px'}" src="assets/basic-usage-breakpoints.jpg" alt="">
+</div>
+
+<div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
+  <h4 [sJss]>Usage with theme</h4>
+  <span [sJss]="">This superpower allows the usage of a theme</span>
+
+  <img [sJss]="{maxWidth:'410px'}" src="assets/theme-usage.jpg" alt="">
+  <span [sJss]="">To do so, add the SuperJss Service in the ts constructor, and define a theme variable</span>
+  <img [sJss]="{maxWidth:'358px'}" src="assets/theme-usage-def.jpg" alt="">
+</div>
+
+<div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
+  <h4 [sJss]>Theme Override</h4>
+  <span [sJss]="">override any theme definition</span>
+  <img [sJss]="{maxWidth:'410px'}" src="assets/theme-usage-def-override.jpg" alt="">
+</div>
+
+<div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
+  <h4 [sJss]>Theme Definition</h4>
+  <span [sJss]="">This is the original theme, you can update any value</span>
+  <img [sJss]="{maxWidth:'587px'}" src="assets/theme1.jpg" alt="">
 </div>
