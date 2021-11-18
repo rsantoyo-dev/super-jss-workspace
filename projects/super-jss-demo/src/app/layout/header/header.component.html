@@ -1,0 +1,29 @@
+<div [sJss]="{display:'flex', backgroundColor:theme.palette.primary.main, justifyContent:'space-between'}">
+  <div [sJss]="{display:'flex',
+
+  flexDirection:'column',
+  padding:{xs:theme.spacing(2)}}"
+  >
+    <h3 [sJss]="{display:'flex',
+    justifyContent:'center',
+    color:theme.palette.primary.contrastText} ">
+      SUPER JSS
+    </h3>
+    <span [sJss]="{display:'flex',
+    justifyContent:'center',
+    color:theme.palette.primary.contrastText} ">
+    css with superpowers for Angular
+    </span>
+  </div>
+  <div [sJss]="{display:'flex', alignItems:'center', justifyContent:'center', width:theme.spacing(15)}">
+    <div [sJss]="{width:theme.spacing(5),
+    height:theme.spacing(5),
+    backgroundColor:theme.palette.common.white,
+    borderRadius:'50%'
+    }"
+    (click)="colorClicked()"
+    >
+    </div>
+  </div>
+</div>
+
