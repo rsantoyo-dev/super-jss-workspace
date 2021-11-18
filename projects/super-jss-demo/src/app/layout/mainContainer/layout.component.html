@@ -1,50 +1,54 @@
 <sJssDemo-header></sJssDemo-header>
+<div [sJss]="{padding:theme.spacing(3)}">
+  <div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
+    <h4 [sJss]="{color:theme.palette.primary.main}">
+      Installation
+    </h4>
+    <span>To install and save in your package.json dependencies, run:</span>
+    <code>
+      npm i super-jss@latest
+    </code>
+  </div>
+  <div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
+    <h4 [sJss]>Add to your project</h4>
+    <span [sJss]="">Be sure SuperJssModule is included in your app module</span>
+    <img [sJss]="{maxWidth:'250px'}" src="assets/module.jpg" alt="">
+  </div>
 
-<div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
-  <h4 [sJss]="{color:theme.palette.primary.main}">Installation</h4>
-  <span>To install and save in your package.json dependencies, run:</span>
-  <code>
-    npm i super-jss@latest
-  </code>
-</div>
-<div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
-  <h4 [sJss]>Add to your project</h4>
-  <span [sJss]="">Be sure SuperJssModule is included in your app module</span>
-  <img [sJss]="{maxWidth:'250px'}" src="assets/module.jpg" alt="">
+  <div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
+    <h4 [sJss]>Basic usage</h4>
+    <span [sJss]="">In any component.html add [sJss] to use the jss powers</span>
+    <img [sJss]="{maxWidth:'410px'}" src="assets/basic-usage.jpg" alt="">
+  </div>
+
+  <div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
+    <h4 [sJss]>Usage with breakpoints</h4>
+    <span [sJss]="">This superpower allows the usage of breakpoints in the jss style</span>
+    <span [sJss]="">to any property add the breakpoint object </span>
+    <code>xs:string, md:string, sm:string, lg:string, xl:string</code>
+    <img [sJss]="{maxWidth:'410px'}" src="assets/basic-usage-breakpoints.jpg" alt="">
+  </div>
+
+  <div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
+    <h4 [sJss]>Usage with theme</h4>
+    <span [sJss]="">This superpower allows the usage of a theme</span>
+
+    <img [sJss]="{maxWidth:'410px'}" src="assets/theme-usage.jpg" alt="">
+    <span [sJss]="">To do so, add the SuperJss Service in the ts constructor, and define a theme variable</span>
+    <img [sJss]="{maxWidth:'358px'}" src="assets/theme-usage-def.jpg" alt="">
+  </div>
+
+  <div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
+    <h4 [sJss]>Theme Override</h4>
+    <span [sJss]="">override any theme definition</span>
+    <img [sJss]="{maxWidth:'410px'}" src="assets/theme-usage-def-override.jpg" alt="">
+  </div>
+
+  <div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
+    <h4 [sJss]>Theme Definition</h4>
+    <span [sJss]="">This is the original theme, you can update any value</span>
+    <img [sJss]="{maxWidth:'587px'}" src="assets/theme1.jpg" alt="">
+  </div>
 </div>
 
-<div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
-  <h4 [sJss]>Basic usage</h4>
-  <span [sJss]="">In any component.html add [sJss] to use the jss powers</span>
-  <img [sJss]="{maxWidth:'410px'}" src="assets/basic-usage.jpg" alt="">
-</div>
-
-<div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
-  <h4 [sJss]>Usage with breakpoints</h4>
-  <span [sJss]="">This superpower allows the usage of breakpoints in the jss style</span>
-  <span [sJss]="">to any property add the breakpoint object </span>
-  <code>xs:string, md:string, sm:string, lg:string, xl:string</code>
-  <img [sJss]="{maxWidth:'410px'}" src="assets/basic-usage-breakpoints.jpg" alt="">
-</div>
-
-<div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
-  <h4 [sJss]>Usage with theme</h4>
-  <span [sJss]="">This superpower allows the usage of a theme</span>
-
-  <img [sJss]="{maxWidth:'410px'}" src="assets/theme-usage.jpg" alt="">
-  <span [sJss]="">To do so, add the SuperJss Service in the ts constructor, and define a theme variable</span>
-  <img [sJss]="{maxWidth:'358px'}" src="assets/theme-usage-def.jpg" alt="">
-</div>
-
-<div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
-  <h4 [sJss]>Theme Override</h4>
-  <span [sJss]="">override any theme definition</span>
-  <img [sJss]="{maxWidth:'410px'}" src="assets/theme-usage-def-override.jpg" alt="">
-</div>
-
-<div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
-  <h4 [sJss]>Theme Definition</h4>
-  <span [sJss]="">This is the original theme, you can update any value</span>
-  <img [sJss]="{maxWidth:'587px'}" src="assets/theme1.jpg" alt="">
-</div>
 
