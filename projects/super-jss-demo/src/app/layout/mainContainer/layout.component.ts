@@ -11,7 +11,7 @@ export class LayoutComponent implements OnInit {
 
   theme:ITheme
   constructor(sjService:SuperJssService) {
-    this.theme = sjService.currentTheme;
+    this.theme = sjService.theme;
   }
 
   ngOnInit(): void {

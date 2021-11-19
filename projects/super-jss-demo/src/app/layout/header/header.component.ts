@@ -11,25 +11,21 @@ export class HeaderComponent implements OnInit {
 
   theme:ITheme
   constructor(private sjService:SuperJssService) {
-    this.theme = sjService.currentTheme
+    this.theme = sjService.theme
   }
 
   ngOnInit(): void {
   }
 
   colorClicked(){
-    let th:ITheme = {...this.sjService.currentTheme}
+    let th:ITheme = {...this.sjService.theme}
     if(this.theme.palette.primary.main ==='#ff3366'){
       th.palette.primary.main = this.sjService.defaultTheme().palette.primary.main
     }
     else{
       th.palette.primary.main='#ff3366'
     }
-
-
     this.theme = {...th}
-
-
   }
 
 }

@@ -6,10 +6,10 @@ import {ITheme} from "./super-jss-model";
 })
 export class SuperJssService{
 
-  currentTheme: ITheme
+  theme: ITheme
 
   constructor() {
-    this.currentTheme = this.defaultTheme()
+    this.theme = this.defaultTheme()
   }
 
 
