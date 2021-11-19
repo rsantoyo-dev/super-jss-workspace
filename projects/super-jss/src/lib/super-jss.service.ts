@@ -12,16 +12,8 @@ export class SuperJssService{
     this.currentTheme = this.defaultTheme()
   }
 
-  setTheme(theme: ITheme) {
-    this.currentTheme = theme
-  }
 
-  theme() {
-    return this.currentTheme
-  }
-
-  defaultTheme():
-    ITheme {
+  defaultTheme(): ITheme {
     return {
       breakpoints: {xs: 0, sm: 600, md: 900, lg: 1200, xl: 1320},
       spacing: (factor) => `${0.25 * factor}rem`,
@@ -33,7 +25,7 @@ export class SuperJssService{
         H4: {fontSize: {xs: '1.8em', md: '2em'}, fontWeight: 'bolder'},
         H5: {fontSize: {xs: '1.5em', md: '1.8em'}, fontWeight: 'bolder'},
         H6: {fontSize: {xs: '1em', md: '1.2em'}, fontWeight: 'bolder'},
-        BODY1: {fontSize: '1em', fontWeight: 'normal'},
+        P: {fontSize: '1em', fontWeight: 'normal'},
         SPAN: {fontSize: '0.8em', fontWeight: 'normal'},
       },
       palette: {

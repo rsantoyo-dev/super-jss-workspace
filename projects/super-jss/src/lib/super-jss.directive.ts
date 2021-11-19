@@ -19,12 +19,13 @@ export class SuperJssDirective implements OnInit, OnChanges {
   }
 
   constructor(private jssStyleService: SuperJssService, private vcr: ViewContainerRef) {
-    this.theme = jssStyleService.theme();
+    this.theme = jssStyleService.currentTheme;
     this.superDivElement = vcr.element.nativeElement;
   }
 
   ngOnChanges(changes: SimpleChanges){
     if(changes.sJss){
+     this.jssStyleService.currentTheme = (this.theme)
       this.applyStyles()
     }
   }
@@ -34,8 +35,8 @@ export class SuperJssDirective implements OnInit, OnChanges {
   }
 
   applyStyles(){
-    this.applyTypography(this.superDivElement, this.theme, window.innerWidth);
-    this.applyStylesToElement(this.superDivElement, this.sJss ? this.sJss : {}, this.theme, window.innerWidth);
+    this.applyTypography(this.superDivElement, this.jssStyleService.currentTheme, window.innerWidth);
+    this.applyStylesToElement(this.superDivElement, this.sJss ? this.sJss : {}, this.jssStyleService.currentTheme, window.innerWidth);
   }
 
   applyTypography(el: HTMLElement, theme: ITheme, screenWidth: number = 0) {

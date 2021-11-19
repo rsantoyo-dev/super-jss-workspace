@@ -1,29 +1,21 @@
-<div
-  [sJss]="{display:'flex',
-  backgroundColor:theme.palette.primary.main,
-  justifyContent:'space-between',
-  padding:theme.spacing(3)}">
+<div [sJss]="{display:'flex',
+    backgroundColor:theme.palette.primary.main,
+    justifyContent:'space-between',
+    padding:theme.spacing(3)}">
   <div [sJss]="{display:'flex',
-  flexDirection:'column',
-  padding:{xs:theme.spacing(2)}}"
+        justifyContent:'center',
+        alignItems:'center',
+        padding:{xs:theme.spacing(2)}}"
   >
-    <h3 [sJss]="{display:'flex',
-    color:theme.palette.primary.contrastText} ">
-      SUPER JSS
-    </h3>
-    <span [sJss]="{display:'flex',
-    color:theme.palette.primary.contrastText} ">
-    css with superpowers for Angular
+    <img [sJss]="{maxWidth:theme.spacing(8)}" src="assets/sjss_white.png" alt="">
+    <span [sJss]="{display:'flex', color:theme.palette.primary.contrastText, marginLeft:theme.spacing(2)} ">
+      Super Jss
     </span>
   </div>
   <div [sJss]="{display:'flex', alignItems:'center', justifyContent:'center', width:theme.spacing(15)}">
-    <div [sJss]="{width:theme.spacing(5),
-    height:theme.spacing(5),
-    backgroundColor:theme.palette.common.white,
-    borderRadius:'50%'
-    }"
-         (click)="colorClicked()"
-    >
+    <div [sJss]="{width:theme.spacing(5), height:theme.spacing(5), backgroundColor:theme.palette.common.white,
+         borderRadius:'50%'}"
+         (click)="colorClicked()">
     </div>
   </div>
 </div>
