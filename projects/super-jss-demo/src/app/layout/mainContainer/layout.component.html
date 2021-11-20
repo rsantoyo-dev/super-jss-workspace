@@ -6,8 +6,9 @@
       How to start?
     </h4>
     <p [sJss]>To install and save in your package.json dependencies, run:</p>
-
-    <sJssDemo-code-snippet>npm i super-jss@latest</sJssDemo-code-snippet>
+    <code [sJss]="{backgroundColor:theme.palette.common.gray.light, padding:theme.spacing(3)}">
+      npm i super-jss@latest
+    </code>
   </div>
 
   <div [sJss]="{display:'flex', flexDirection:'column', marginBottom:theme.spacing(2)}">
@@ -15,7 +16,10 @@
       Add To your project
     </h4>
     <p [sJss]>in your app.module, be sure to import SuperJssModule</p>
-    <sJssDemo-code-snippet>imports: [SuperJssModule]</sJssDemo-code-snippet>
+    <code [sJss]="{backgroundColor:theme.palette.common.gray.light, padding:theme.spacing(3)}">
+      imports: [SuperJssModule]
+    </code>
+
   </div>
 
   <iframe src="https://stackblitz.com/edit/angular-ivy-vewzoz?embed=1&file=src/app/app.component.ts"
