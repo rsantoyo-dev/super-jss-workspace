@@ -1,19 +1,27 @@
 <sJssDemo-header></sJssDemo-header>
+
 <div [sJss]="{padding:theme.spacing(3)}">
-  <div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
+  <div [sJss]="{display:'flex', flexDirection:'column', marginBottom:theme.spacing(2)}">
     <h4 [sJss]="{color:theme.palette.primary.main}">
-      Installation
+      How to start?
     </h4>
-    <span>To install and save in your package.json dependencies, run:</span>
-    <code>
-      npm i super-jss@latest
-    </code>
+    <p [sJss]>To install and save in your package.json dependencies, run:</p>
+
+    <sJssDemo-code-snippet>npm i super-jss@latest</sJssDemo-code-snippet>
   </div>
-  <div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
-    <h4 [sJss]>Add to your project</h4>
-    <span [sJss]="">Be sure SuperJssModule is included in your app module</span>
-    <img [sJss]="{maxWidth:'250px'}" src="assets/module.jpg" alt="">
+
+  <div [sJss]="{display:'flex', flexDirection:'column', marginBottom:theme.spacing(2)}">
+    <h4 [sJss]="{color:theme.palette.primary.main}">
+      Add To your project
+    </h4>
+    <p [sJss]>in your app.module, be sure to import SuperJssModule</p>
+    <sJssDemo-code-snippet>imports: [SuperJssModule]</sJssDemo-code-snippet>
   </div>
+
+  <iframe src="https://stackblitz.com/edit/angular-ivy-vewzoz?embed=1&file=src/app/app.component.ts"
+          [sJss]="{display:'flex', justifyContent:'center', width:'100%', height:'500px'}">
+  </iframe>
+
 
   <div [sJss]="{padding:theme.spacing(3), display:'flex', flexDirection:'column'}">
     <h4 [sJss]>Basic usage</h4>
