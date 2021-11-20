@@ -1,17 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ITheme, SJss, SuperJssService} from "super-jss";
 
 @Component({
   selector: 'sJssDemo-code-snippet',
-  template: `
-    <div [sJss]="sjRoot">
-      <code >
-        <ng-content>
-        </ng-content>
-      </code>
-    </div>
-    `,
-  styles: []
+  templateUrl: './code-snippet.component.html',
+
 })
 export class CodeSnippetComponent implements OnInit {
 
@@ -27,13 +20,7 @@ export class CodeSnippetComponent implements OnInit {
 
   }
 
-
   ngOnInit(): void {
-
-  }
-
-  styles() {
-
   }
 
 }
