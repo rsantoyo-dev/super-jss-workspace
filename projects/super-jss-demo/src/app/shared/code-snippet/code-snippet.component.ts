@@ -11,7 +11,7 @@ export class CodeSnippetComponent implements OnInit {
   theme: ITheme;
   sjRoot: SJss;
 
-  constructor(private jsService: SuperJssService) {
+  constructor(jsService: SuperJssService) {
     this.theme = jsService.theme
     this.sjRoot = {
       backgroundColor: this.theme.palette.common.gray.light,
