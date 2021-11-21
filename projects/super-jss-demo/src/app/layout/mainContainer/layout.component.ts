@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ITheme} from "../../../../../super-jss/src/lib/super-jss-model";
 import {SuperJssService} from "../../../../../super-jss/src/lib/super-jss.service";
-import {HighlightResult} from "ngx-highlightjs";
+
 
 @Component({
   selector: 'sJssDemo-layout',
