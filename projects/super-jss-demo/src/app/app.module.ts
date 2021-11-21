@@ -6,6 +6,7 @@ import {SuperJssModule} from "../../../super-jss/src/lib/super-jss.module";
 import { HeaderComponent } from './layout/header/header.component';
 import { LayoutComponent } from './layout/mainContainer/layout.component';
 import { CodeSnippetComponent } from './shared/code-snippet/code-snippet.component';
+import {HighlightModule} from "ngx-highlightjs";
 
 
 
@@ -18,10 +19,12 @@ import { CodeSnippetComponent } from './shared/code-snippet/code-snippet.compone
     LayoutComponent,
     CodeSnippetComponent,
 
+
   ],
     imports: [
         BrowserModule,
-        SuperJssModule
+        SuperJssModule,
+        HighlightModule
     ],
   providers: [],
   bootstrap: [AppComponent]

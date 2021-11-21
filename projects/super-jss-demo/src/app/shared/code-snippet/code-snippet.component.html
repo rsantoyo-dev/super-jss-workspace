@@ -1,3 +1,4 @@
+<!--
 <div [sJss]="{paddingTop:theme.spacing(3), marginBottom:theme.spacing(1)}">
   <code [sJss]="{
         backgroundColor:theme.palette.common.gray.light,
@@ -5,7 +6,18 @@
         borderRadius:theme.spacing(2)
         }">
 
-    <ng-content></ng-content>
+
+
   </code>
 </div>
+-->
+<code [sJss]="{ }">
+  <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
+
+        display:'flex',
+        padding:theme.spacing(3),
+        borderRadius:theme.spacing(2)}">
+        <ng-content></ng-content>
+     </pre>
+</code>
 
