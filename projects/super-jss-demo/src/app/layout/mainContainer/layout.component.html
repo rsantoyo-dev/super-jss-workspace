@@ -6,12 +6,16 @@
       HOW TO START?
     </h5>
     <p [sJss]>Install and save in your package.json dependencies, by runnning:</p>
-    <!--<code [sJss]="{backgroundColor:theme.palette.common.gray.light, padding:theme.spacing(3)}">
-      npm i super-jss@latest
-    </code>-->
-    <sJssDemo-code-snippet>
-      npm i super-jss@latest
-    </sJssDemo-code-snippet>
+    <code [sJss]="{ }">
+      <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
+
+        display:'flex',
+        padding:theme.spacing(3),
+        borderRadius:theme.spacing(2)}">
+          npm i super-jss@latest
+      </pre>
+    </code>
+
   </div>
 
   <div [sJss]="{display:'flex', flexDirection:'column', marginBottom:theme.spacing(2)}">
@@ -19,9 +23,16 @@
       Add To your project
     </h5>
     <p [sJss]>in your app.module, be sure to import SuperJssModule</p>
-    <sJssDemo-code-snippet>
-      imports: [SuperJssModule]
-    </sJssDemo-code-snippet>
+    <code [sJss]="{ }">
+      <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
+
+        display:'flex',
+        padding:theme.spacing(3),
+        borderRadius:theme.spacing(2)}">
+         imports: [SuperJssModule]
+      </pre>
+    </code>
+
   </div>
 
   <div [sJss]="{display:'flex', flexDirection:'column', marginBottom:theme.spacing(2)}">
@@ -29,13 +40,27 @@
       Crate SuperJss content
     </h5>
     <p [sJss]>add a SJss variable</p>
-    <sJssDemo-code-snippet>
-      {{snippetBasicSjss}}
-    </sJssDemo-code-snippet>
+    <code [sJss]="{ }">
+      <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
+
+        display:'flex',
+        padding:theme.spacing(3),
+        borderRadius:theme.spacing(2)}">
+         {{snippetBasicSjss}}
+      </pre>
+    </code>
+
     <p [sJss]>and use it in your HTML element by adding the tag [sJss]</p>
-    <sJssDemo-code-snippet>
-      {{snippetBasicHtml}}
-    </sJssDemo-code-snippet>
+    <code [sJss]="{ }">
+      <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
+
+        display:'flex',
+        padding:theme.spacing(3),
+        borderRadius:theme.spacing(2)}">
+         {{snippetBasicHtml}}
+      </pre>
+    </code>
+
   </div>
 
 

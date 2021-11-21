@@ -12,7 +12,7 @@ export class LayoutComponent implements OnInit {
 
   theme: ITheme
 
-  snippetBasicSjss =`header: SJss = {
+  snippetBasicSjss = `header: SJss = {
     padding: '3rem',
     backgroundColor: 'gray',
     color: 'white',
