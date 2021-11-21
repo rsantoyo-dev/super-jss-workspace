@@ -2,25 +2,38 @@
 
 <div [sJss]="{padding:theme.spacing(3)}">
   <div [sJss]="{display:'flex', flexDirection:'column', marginBottom:theme.spacing(2)}">
-    <h4 [sJss]="{color:theme.palette.primary.main}">
-      How to start?
-    </h4>
-    <p [sJss]>To install and save in your package.json dependencies, run:</p>
-    <code [sJss]="{backgroundColor:theme.palette.common.gray.light, padding:theme.spacing(3)}">
+    <h5 [sJss]="{color:theme.palette.primary.main}">
+      HOW TO START?
+    </h5>
+    <p [sJss]>Install and save in your package.json dependencies, by runnning:</p>
+    <!--<code [sJss]="{backgroundColor:theme.palette.common.gray.light, padding:theme.spacing(3)}">
       npm i super-jss@latest
-    </code>
+    </code>-->
+    <sJssDemo-code-snippet>
+      npm i super-jss@latest
+    </sJssDemo-code-snippet>
   </div>
 
   <div [sJss]="{display:'flex', flexDirection:'column', marginBottom:theme.spacing(2)}">
-    <h4 [sJss]="{color:theme.palette.primary.main}">
+    <h5 [sJss]="{color:theme.palette.primary.main}">
       Add To your project
-    </h4>
+    </h5>
     <p [sJss]>in your app.module, be sure to import SuperJssModule</p>
-    <code [sJss]="{backgroundColor:theme.palette.common.gray.light, padding:theme.spacing(3)}">
+    <sJssDemo-code-snippet>
       imports: [SuperJssModule]
-    </code>
-
+    </sJssDemo-code-snippet>
   </div>
+
+  <div [sJss]="{display:'flex', flexDirection:'column', marginBottom:theme.spacing(2)}">
+    <h5 [sJss]="{color:theme.palette.primary.main}">
+      Crate SuperJss content
+    </h5>
+    <p [sJss]>in your app.module, be sure to import SuperJssModule</p>
+    <sJssDemo-code-snippet>
+      header: SJss =  padding: '3rem', backgroundColor: 'gray', color: 'white';
+    </sJssDemo-code-snippet>
+  </div>
+
 
   <iframe src="https://stackblitz.com/edit/angular-ivy-vewzoz?embed=1&file=src/app/app.component.ts"
           [sJss]="{display:'flex', justifyContent:'center', width:'100%', height:'500px'}">
