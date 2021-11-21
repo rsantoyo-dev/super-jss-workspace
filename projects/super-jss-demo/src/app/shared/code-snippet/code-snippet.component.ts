@@ -9,8 +9,8 @@ export class CodeSnippetComponent implements OnInit {
 
   theme: ITheme
 
-  constructor(sj: SuperJssService) {
-    this.theme = sj.theme;
+  constructor(private sjService: SuperJssService) {
+    this.theme = sjService.theme;
   }
 
 
