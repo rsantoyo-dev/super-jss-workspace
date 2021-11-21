@@ -6,32 +6,33 @@
       HOW TO START?
     </h5>
     <p [sJss]>Install and save in your package.json dependencies, by runnning:</p>
-    <code [sJss]="{ }">
-      <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
+    <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
 
         display:'flex',
         padding:theme.spacing(3),
         borderRadius:theme.spacing(2)}">
-          npm i super-jss@latest
-      </pre>
-    </code>
+        <code>npm i super-jss@latest</code>
+
+    </pre>
+
 
   </div>
+
 
   <div [sJss]="{display:'flex', flexDirection:'column', marginBottom:theme.spacing(2)}">
     <h5 [sJss]="{color:theme.palette.primary.main}">
       Add To your project
     </h5>
     <p [sJss]>in your app.module, be sure to import SuperJssModule</p>
-    <code [sJss]="{ }">
-      <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
+    <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
 
         display:'flex',
         padding:theme.spacing(3),
         borderRadius:theme.spacing(2)}">
-         imports: [SuperJssModule]
-      </pre>
-    </code>
+        <code>imports: [SuperJssModule]</code>
+
+    </pre>
+
 
   </div>
 
@@ -40,26 +41,27 @@
       Crate SuperJss content
     </h5>
     <p [sJss]>add a SJss variable</p>
-    <code [sJss]="{ }">
-      <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
+
+    <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
 
         display:'flex',
         padding:theme.spacing(3),
         borderRadius:theme.spacing(2)}">
-         {{snippetBasicSjss}}
-      </pre>
-    </code>
+        <code>{{snippetBasicSjss}}</code>
+
+    </pre>
+
 
     <p [sJss]>and use it in your HTML element by adding the tag [sJss]</p>
-    <code [sJss]="{ }">
-      <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
+    <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
 
         display:'flex',
         padding:theme.spacing(3),
         borderRadius:theme.spacing(2)}">
-         {{snippetBasicHtml}}
-      </pre>
-    </code>
+        <code [innerHTML]>{{snippetBasicHtml}}</code>
+
+    </pre>
+
 
   </div>
 
