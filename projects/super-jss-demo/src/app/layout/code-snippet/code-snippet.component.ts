@@ -3,7 +3,8 @@ import {ITheme, SuperJssService} from "super-jss";
 
 @Component({
   selector: 'sJssDemo-code-snippet',
-  templateUrl: './code-snippet.component.html'
+  templateUrl: './code-snippet.component.html',
+  styleUrls: ['./code-snippet.component.scss']
 })
 export class CodeSnippetComponent implements OnInit {
 
