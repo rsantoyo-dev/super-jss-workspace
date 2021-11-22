@@ -9,8 +9,8 @@ import {ITheme, SuperJssService} from "super-jss";
 export class CodeSnippetComponent implements OnInit {
 
   theme:ITheme
-  constructor(private sj:SuperJssService) {
-    this.theme = sj.theme;
+  constructor(private superJssService:SuperJssService) {
+    this.theme = superJssService.theme;
   }
 
   ngOnInit(): void {
