@@ -6,14 +6,8 @@
       HOW TO START?
     </h5>
     <p [sJss]>Install and save in your package.json dependencies, by runnning:</p>
-    <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
 
-        display:'flex',
-        padding:theme.spacing(3),
-        borderRadius:theme.spacing(2)}">
-        <code>npm i super-jss@latest</code>
-
-    </pre>
+    <sJssDemo-code-snippet><code [innerHTML]>npm i super-jss@latest</code></sJssDemo-code-snippet>
 
 
   </div>
@@ -24,14 +18,8 @@
       Add To your project
     </h5>
     <p [sJss]>in your app.module, be sure to import SuperJssModule</p>
-    <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
 
-        display:'flex',
-        padding:theme.spacing(3),
-        borderRadius:theme.spacing(2)}">
-        <code>imports: [SuperJssModule]</code>
-
-    </pre>
+    <sJssDemo-code-snippet><code [innerHTML]>imports: [SuperJssModule]</code></sJssDemo-code-snippet>
 
 
   </div>
@@ -41,27 +29,11 @@
       Crate SuperJss content
     </h5>
     <p [sJss]>add a SJss variable</p>
-
-    <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
-
-        display:'flex',
-        padding:theme.spacing(3),
-        borderRadius:theme.spacing(2)}">
-        <code>{{snippetBasicSjss}}</code>
-
-    </pre>
-
-
+    <sJssDemo-code-snippet><code [innerHTML]>{{snippetBasicSjss}}</code></sJssDemo-code-snippet>
     <p [sJss]>and use it in your HTML element by adding the tag [sJss]</p>
-    <pre [sJss]="{backgroundColor:theme.palette.common.gray.light,
-
-        display:'flex',
-        padding:theme.spacing(3),
-        borderRadius:theme.spacing(2)}">
-        <code [innerHTML]>{{snippetBasicHtml}}</code>
-
-    </pre>
-
+    <sJssDemo-code-snippet><code [innerHTML]>{{snippetBasicHtml}}</code></sJssDemo-code-snippet>
+    <p [sJss]>or simply use inline html, and avoid naming conventions</p>
+    <sJssDemo-code-snippet><code [innerHTML]>{{snippetInlineHtml}}</code></sJssDemo-code-snippet>
 
   </div>
 

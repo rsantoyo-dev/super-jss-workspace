@@ -15,11 +15,17 @@ export class LayoutComponent implements OnInit {
   snippetBasicSjss = `header: SJss = {
     padding: '3rem',
     backgroundColor: 'gray',
-    color: 'white',
-  }`
+    color: 'white'
+  }`;
+
   snippetBasicHtml =`<div [sJss]="header">
     HELLO WORLD USING SUPER JSS
- </div>`
+ </div>`;
+
+  snippetInlineHtml =`<div [sJss]="{padding: '3rem', backgroundColor: 'gray', color: 'white'}">
+    HELLO WORLD USING SUPER JSS
+ </div>`;
+
   constructor(sjService: SuperJssService) {
     this.theme = sjService.theme;
 
