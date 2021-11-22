@@ -8,7 +8,7 @@ import {ITheme, SuperJssService} from "super-jss";
 export class CodeSnippetComponent implements OnInit {
 
   theme:ITheme
-  constructor(sj:SuperJssService) {
+  constructor(private sj:SuperJssService) {
     this.theme = sj.theme;
   }
 
