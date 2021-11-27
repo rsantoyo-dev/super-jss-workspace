@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ITheme, SuperJssService} from "super-jss";
+import {SJssTheme, SuperJssService} from "super-jss";
 
 @Component({
   selector: 'sJssDemo-code-snippet',
@@ -8,7 +8,7 @@ import {ITheme, SuperJssService} from "super-jss";
 })
 export class CodeSnippetComponent implements OnInit {
 
-  theme:ITheme
+  theme:SJssTheme
   constructor(private superJssService:SuperJssService) {
     this.theme = superJssService.theme;
   }

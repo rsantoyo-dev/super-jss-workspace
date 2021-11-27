@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import {ITheme} from "./super-jss-model";
+import {SJssTheme} from "./super-jss-model";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class SuperJssService{
 
-  theme: ITheme
+  theme: SJssTheme
 
   constructor() {
     this.theme = this.defaultTheme()
   }
 
 
-  defaultTheme(): ITheme {
+  defaultTheme(): SJssTheme {
     return {
       breakpoints: {xs: 0, sm: 600, md: 900, lg: 1200, xl: 1320},
       spacing: (factor) => `${0.25 * factor}rem`,

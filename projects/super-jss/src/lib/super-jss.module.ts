@@ -2,9 +2,6 @@ import { NgModule } from '@angular/core';
 import { SuperJssComponent } from './super-jss.component';
 import { SuperJssDirective } from './super-jss.directive';
 
-
-
-
 @NgModule({
   declarations: [
     SuperJssComponent,

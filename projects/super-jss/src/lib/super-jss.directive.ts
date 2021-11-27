@@ -1,5 +1,5 @@
 import {Directive, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewContainerRef} from '@angular/core';
-import {IBreakingStyle, ITheme, SJss} from "./super-jss-model";
+import {SJss, SJssBreakingStyle, SJssTheme} from "./super-jss-model";
 import {SuperJssService} from "./super-jss.service";
 
 
@@ -10,7 +10,7 @@ export class SuperJssDirective implements OnInit, OnChanges {
 
   @Input() sJss?: SJss;
 
-  theme: ITheme;
+  theme: SJssTheme;
   superDivElement: HTMLElement;
 
   @HostListener('window:resize', ['$event'])
@@ -39,7 +39,7 @@ export class SuperJssDirective implements OnInit, OnChanges {
     this.applyStylesToElement(this.superDivElement, this.sJss ? this.sJss : {}, this.jssStyleService.theme, window.innerWidth);
   }
 
-  applyTypography(el: HTMLElement, theme: ITheme, screenWidth: number = 0) {
+  applyTypography(el: HTMLElement, theme: SJssTheme, screenWidth: number = 0) {
     Object.keys(theme.typography)?.forEach(key => {
       const jss: SJss = {marginBlockStart: '0', marginBlockEnd: '0', ...theme.typography.default}
       if (el.nodeName === key) {
@@ -49,7 +49,7 @@ export class SuperJssDirective implements OnInit, OnChanges {
     })
   }
 
-  applyStylesToElement(el: HTMLElement, jssStyle: SJss = {}, theme: ITheme, screenWidth: number = 0): void {
+  applyStylesToElement(el: HTMLElement, jssStyle: SJss = {}, theme: SJssTheme, screenWidth: number = 0): void {
     if (jssStyle) {
       Object.keys(jssStyle)?.forEach(key => {
         // @ts-ignore
@@ -58,7 +58,7 @@ export class SuperJssDirective implements OnInit, OnChanges {
     }
   }
 
-  applyStyle(styleValue: IBreakingStyle | string | undefined, screenWidth: number, theme: ITheme, defaultValue: string = ''): string {
+  applyStyle(styleValue: SJssBreakingStyle | string | undefined, screenWidth: number, theme: SJssTheme, defaultValue: string = ''): string {
     let style: string | undefined = "";
     switch (typeof styleValue) {
       case 'undefined':

@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
   selector: 'sjss-super-jss',
   template: `
     <div [sJss]="{padding:'35px'}">
-
        <h1 [sJss]>sd</h1>
     </div>
   `,
