@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SJssTheme} from "../../../../../super-jss/src/lib/super-jss-model";
-import {SuperJssService} from "super-jss";
+import {ThemeHandlerService} from "../../theme/theme-handler.service";
 
 
 @Component({
@@ -10,23 +10,25 @@ import {SuperJssService} from "super-jss";
 })
 export class HeaderComponent implements OnInit {
 
-  theme:SJssTheme
-  constructor(private sjService:SuperJssService) {
-    this.theme = sjService.theme
+  theme:SJssTheme ;
+  constructor(private themeService: ThemeHandlerService) {
+    this.theme= themeService._theme;
+   themeService.getTheme().subscribe(t=>{this.theme = t})
   }
 
   ngOnInit(): void {
   }
 
   colorClicked(){
-    let th:SJssTheme = {...this.sjService.theme}
-    if(this.theme.palette.primary.main ==='#ff3366'){
-      th.palette.primary.main = this.sjService.defaultTheme().palette.primary.main
+    let th:SJssTheme | null = {...this.theme}
+
+    if(th.palette.primary.main === '#ff3366'){
+      th.palette.primary.main = '#003366';
+      this.themeService.setTheme(th);
+      return;
     }
-    else{
-      th.palette.primary.main='#ff3366'
-    }
-    this.theme = {...th}
+    th.palette.primary.main = '#ff3366';
+
   }
 
 }

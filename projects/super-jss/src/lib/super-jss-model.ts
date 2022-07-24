@@ -6,7 +6,7 @@ export interface SJssBreakpoints {
   xl: number | string,
 }
 
-export interface SJssTheme {
+export interface SJssTheme{
   breakpoints: SJssBreakpoints,
   spacing: (val: number) => string;
 

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SJssTheme} from "../../../../../super-jss/src/lib/super-jss-model";
-import {SuperJssService} from "../../../../../super-jss/src/lib/super-jss.service";
+import {ThemeHandlerService} from "../../theme/theme-handler.service";
 
 
 
@@ -11,7 +11,7 @@ import {SuperJssService} from "../../../../../super-jss/src/lib/super-jss.servic
 })
 export class LayoutComponent implements OnInit {
 
-  theme: SJssTheme
+  theme: SJssTheme;
 
   snippetBasicSjss = `header: SJss = {
     padding: '3rem',
@@ -27,10 +27,14 @@ export class LayoutComponent implements OnInit {
     HELLO WORLD USING SUPER JSS
  </div>`;
 
-  constructor(sjService: SuperJssService) {
-    this.theme = sjService.theme;
-
+  constructor(themeService: ThemeHandlerService) {
+    this.theme = themeService._theme;
+    themeService.getTheme().subscribe((t) => {
+      this.theme = t
+    })
   }
+
+
 
   ngOnInit(): void {
   }
