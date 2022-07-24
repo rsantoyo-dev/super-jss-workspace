@@ -77,6 +77,7 @@ app.component.html
 Help me to continue working on the library
 
 [Paypal me superjss](https://www.paypal.com/paypalme/superjss)
+</br>
 [Paypal me rsantoyodev](https://www.paypal.com/paypalme/rsantoyodev)
 
 
