@@ -65,13 +65,20 @@ app.component.html
 ```
 
 ## quick links
-###quick demo
+##quick demo
 [https://superjss.netlify.app/](https://superjss.netlify.app/)
 
-###stackblitz
+##stackblitz
 [flex Demo](https://stackblitz.com/edit/angular-ivy-vewzoz?file=src%2Fapp%2Fapp.component.html)
 </br>
 [header example](https://stackblitz.com/edit/angular-ivy-vewzoz?file=src%2Fapp%2Fapp.component.html)
+
+##Fundraise me
+Help me to continue working on the library
+
+[Paypal me superjss](https://www.paypal.com/paypalme/superjss)
+[Paypal me rsantoyodev](https://www.paypal.com/paypalme/rsantoyodev)
+
 
 
 <!---
