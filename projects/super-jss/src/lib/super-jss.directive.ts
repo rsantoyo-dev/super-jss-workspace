@@ -4,11 +4,12 @@ import {SuperJssService} from "./super-jss.service";
 
 
 @Directive({
-  selector: '[sJss]'
+  selector: "[sJss], [sj]"
 })
 export class SuperJssDirective implements OnInit, OnChanges {
 
   @Input() sJss?: SJss;
+  @Input() sj?: SJss;
 
   theme: SJssTheme;
   superDivElement: HTMLElement;
@@ -21,13 +22,27 @@ export class SuperJssDirective implements OnInit, OnChanges {
   constructor(private jssStyleService: SuperJssService, private vcr: ViewContainerRef) {
     this.theme = jssStyleService.theme;
     this.superDivElement = vcr.element.nativeElement;
+    jssStyleService.getTheme().subscribe(t=>{
+      this.theme = t;
+      this.applyThemeToStyles();
+    })
   }
+
+
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.sJss) {
-      this.jssStyleService.theme = (this.theme)
-      this.applyStyles()
+      this.sj = this.sJss;
+      this.applyThemeToStyles();
     }
+    if (changes.sj) {
+      this.sJss = this.sj;
+      this.applyThemeToStyles();
+    }
+  }
+  applyThemeToStyles(){
+    this.jssStyleService.theme = (this.theme)
+    this.applyStyles()
   }
 
   ngOnInit(): void {

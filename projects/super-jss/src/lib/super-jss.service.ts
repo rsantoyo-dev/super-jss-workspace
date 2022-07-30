@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {SJssTheme} from "./super-jss-model";
+import {BehaviorSubject, Observable} from "rxjs";
 
 
 @Injectable({
@@ -8,9 +9,20 @@ import {SJssTheme} from "./super-jss-model";
 export class SuperJssService{
 
   theme: SJssTheme
+  themeChanges: BehaviorSubject<SJssTheme>;
+
 
   constructor() {
     this.theme = this.defaultTheme()
+    this.themeChanges = new BehaviorSubject<SJssTheme>(this.theme);
+  }
+
+  setTheme(newValue:SJssTheme): void {
+    this.theme = newValue;
+    this.themeChanges.next(this.theme);
+  }
+  getTheme(): Observable<SJssTheme> {
+    return this.themeChanges.asObservable();
   }
 
 

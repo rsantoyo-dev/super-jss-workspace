@@ -22,12 +22,21 @@ export class HeaderComponent implements OnInit {
   colorClicked(){
     let th:SJssTheme | null = {...this.theme}
 
-    if(th.palette.primary.main === '#ff3366'){
+    if( th.palette.primary.main === '#147a81'){
+
       th.palette.primary.main = '#003366';
+      th.breakpoints.md='750';
+      th.spacing = (factor) => `${0.5 * factor}rem`;
       this.themeService.setTheme(th);
+
       return;
     }
-    th.palette.primary.main = '#ff3366';
+
+    else{
+
+      this.themeService.setTheme(this.themeService.getDefaultTheme());
+    }
+
 
   }
 

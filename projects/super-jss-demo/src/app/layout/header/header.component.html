@@ -1,19 +1,19 @@
-<div [sJss]="{display:'flex',
+<div [sj]="{display:'flex',
     backgroundColor:theme.palette.primary.main,
-    justifyContent:'space-between',
+    justifyContent:{xs: 'space-between', md:'center'},
     padding:theme.spacing(3)}">
-  <div [sJss]="{display:'flex',
+  <div [sj]="{display:'flex',
         justifyContent:'center',
         alignItems:'center',
         padding:{xs:theme.spacing(2)}}"
   >
-    <img [sJss]="{maxWidth:theme.spacing(8)}" src="assets/sjss_white.png" alt="">
-    <span [sJss]="{display:'flex', color:theme.palette.primary.contrastText, marginLeft:theme.spacing(2)} ">
+    <img [sj]="{maxWidth:theme.spacing(8)}" src="assets/sjss_white.png" alt="">
+    <span [sj]="{display:'flex', color:theme.palette.primary.contrastText, marginLeft:theme.spacing(2)} ">
       Super Jss
     </span>
   </div>
-  <div [sJss]="{display:'flex', alignItems:'center', justifyContent:'center', width:theme.spacing(15)}">
-    <div [sJss]="{width:theme.spacing(5), height:theme.spacing(5), backgroundColor:theme.palette.common.white,
+  <div [sj]="{display:'flex', alignItems:'center', justifyContent:'center', width:theme.spacing(15)}">
+    <div [sj]="{width:theme.spacing(5), height:theme.spacing(5), backgroundColor:theme.palette.common.white,
          borderRadius:'50%'}"
          (click)="colorClicked()">
     </div>
