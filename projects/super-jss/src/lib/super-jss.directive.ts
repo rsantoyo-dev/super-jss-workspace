@@ -29,9 +29,9 @@ export class SuperJssDirective implements OnInit, OnChanges {
   }
 
 
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes.sJss) {
+      console.log('Please note that [sJss] notation is deprecated, use [sj] instead.');
       this.sj = this.sJss;
       this.applyThemeToStyles();
     }

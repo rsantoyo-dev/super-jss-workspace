@@ -1,3 +1,6 @@
+### ...what is new?
+  - use [sj] instead of [sjss] for quicker use
+  - responsive theme and breakpoints
 # @super-jss/core
 
 Super Jss is a css library, with the power of javascript, but with responsive superpowers.
@@ -23,11 +26,11 @@ app.module.ts
 >[basic usage example](https://stackblitz.com/edit/angular-ivy-vewzoz?file=src%2Fapp%2Fapp.component.html)
 
 
-SuperJss is ready to be used by using [sJss] = "{...jssObject}" in any html tag 
+SuperJss is ready to be used by using [sj] = "{...jssObject}" in any html tag 
 ```html
 <h2>Example of code</h2>
 
-<div [sJss]="{
+<div [sj]="{
     backgroundColor: 'red', 
     color:'white', 
     display: 'flex',
@@ -54,14 +57,14 @@ export class AppComponent {
 ## Typography
 Use any html tag from H1 to H6, P or span, and add the directive Sjss
 ```html
-<h1 [sJss]>Hello world H1</h1>
-<h2 [sJss]>Hello world H1</h2>
-<h3 [sJss]>Hello world H3</h3>
-<h4 [sJss]>Hello world h4</h4>
-<h5 [sJss]>Hello world H5</h5>
-<h6 [sJss]>Hello world H6</h6>
-<p [sJss]>Hello world P</p>
-<span [sJss]>Hello world span</span>
+<h1 [sj]>Hello world H1</h1>
+<h2 [sj]>Hello world H1</h2>
+<h3 [sj]>Hello world H3</h3>
+<h4 [sj]>Hello world h4</h4>
+<h5 [sj]>Hello world H5</h5>
+<h6 [sj]>Hello world H6</h6>
+<p [sj]>Hello world P</p>
+<span [sj]>Hello world span</span>
 ```
 
 ## Responsive implementation
@@ -72,7 +75,7 @@ Every property is responsive by adding breakpoints inside the object
 ```html
 <h2>Example of code</h2>
 
-<div [sJss]="{
+<div [sj]="{
     backgroundColor: {xs:'red', sm:'blue', md:'green', lg:'purple', xl:'orange'}, 
     color:{xs:'white', md:'gray'}, 
     display: 'flex',
@@ -84,7 +87,7 @@ Every property is responsive by adding breakpoints inside the object
 
 app.component.html
 ```html
-<div [sJss]="myClass">HELLO WORLD, SJss Class</div>
+<div [sj]="myClass">HELLO WORLD, SJss Class</div>
 ```
 
 ## Using theme
@@ -102,7 +105,7 @@ export class AppComponent {
 ```
 app.component.html
 ```html
-<div [sJss]="{xs:theme.palette.primary.main, sm:theme.palette.primary.light}">HELLO WORLD, SJss Class</div>
+<div [sj]="{xs:theme.palette.primary.main, sm:theme.palette.primary.light}">HELLO WORLD, SJss Class</div>
 ```
 
 ## Reactive theme

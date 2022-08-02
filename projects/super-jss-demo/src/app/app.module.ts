@@ -7,11 +7,6 @@ import { HeaderComponent } from './layout/header/header.component';
 import { LayoutComponent } from './layout/mainContainer/layout.component';
 import { CodeSnippetComponent } from './layout/code-snippet/code-snippet.component';
 
-
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
