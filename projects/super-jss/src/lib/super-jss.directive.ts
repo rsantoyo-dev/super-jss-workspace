@@ -1,7 +1,6 @@
 import {Directive, Input, OnChanges, OnInit, SimpleChanges, ViewContainerRef} from '@angular/core';
 import {SJss, SJssBreakingStyle, SJssTheme} from "./super-jss-model";
-import {SJssThemeService} from "./core/s-jss-theme.service";
-
+import {SJssThemeService} from "./s-jss-theme.service";
 
 @Directive({
   selector: "[sJss], [sj]"

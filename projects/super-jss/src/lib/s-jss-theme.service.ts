@@ -1,5 +1,5 @@
 import { Injectable} from '@angular/core';
-import {SJssTheme} from "../super-jss-model";
+import {SJssTheme} from "./super-jss-model";
 import {BehaviorSubject, fromEvent} from "rxjs";
 
 @Injectable({

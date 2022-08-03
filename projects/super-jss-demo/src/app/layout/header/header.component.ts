@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {SJssThemeService} from "../../../../../super-jss/src/lib/s-jss-theme.service";
 import {SJssTheme} from "../../../../../super-jss/src/lib/super-jss-model";
-import {SJssThemeService} from "../../../../../super-jss/src/lib/core/s-jss-theme.service";
-
 
 
 @Component({
@@ -11,10 +10,10 @@ import {SJssThemeService} from "../../../../../super-jss/src/lib/core/s-jss-them
 })
 export class HeaderComponent implements OnInit {
 
-  theme:SJssTheme ;
+  theme:SJssTheme
   constructor(private themeService: SJssThemeService) {
     this.theme= themeService.defaultTheme();
-   themeService.themeChanges$.subscribe(t=>{this.theme = t})
+   themeService.themeChanges().subscribe(t=>{this.theme = t})
   }
 
   ngOnInit(): void {

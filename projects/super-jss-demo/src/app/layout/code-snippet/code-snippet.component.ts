@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {SJssThemeService} from "../../../../../super-jss/src/lib/s-jss-theme.service";
 import {SJssTheme} from "../../../../../super-jss/src/lib/super-jss-model";
-import {SJssThemeService} from "../../../../../super-jss/src/lib/core/s-jss-theme.service";
+
 
 
 @Component({
