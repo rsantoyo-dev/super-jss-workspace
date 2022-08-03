@@ -21,11 +21,13 @@ export class HeaderComponent implements OnInit {
   }
 
   colorClicked(){
-    let th:SJssTheme | null = {...this.theme}
+    let th:SJssTheme | null = {...this.theme};
+
 
     if( th.palette.primary.main === '#147a81'){
 
-      th.palette.primary.main = '#003366';
+      th.palette.primary = th.palette.secondary;
+      th.palette.secondary = th.palette.primary;
       th.breakpoints.md='750';
       th.spacing = (factor) => `${0.5 * factor}rem`;
       this.themeService.setTheme(th);

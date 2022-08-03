@@ -98,8 +98,8 @@ app.component.ts
 ```js
 export class AppComponent {
   theme: SJssTheme;
-  constructor(superJssService: SuperJssService) {
-    this.theme =superJssService.defaultTheme();
+  constructor(themeService: SJssThemeService) {
+    this.theme =themeService.defaultTheme();
   }
 }
 ```
@@ -111,66 +111,61 @@ app.component.html
 ## Reactive theme
 Use this if you need to override, or update the theme any time in the app.
 
-Step1: create a directive that will handle the theme.
+Step1: subscribe to theme changes in any component.
 
 ```js
-@Injectable({
-  providedIn: 'root'
-})
-export class ThemeHandlerService {
+export class AnyComponent{
 
-  _theme: SJssTheme
-  themeChanges: BehaviorSubject<SJssTheme>;
-
-  constructor(superJssService: SuperJssService) {
-    this._theme =superJssService.defaultTheme();
-    this.themeChanges = new BehaviorSubject<SJssTheme>(this._theme);
-  }
-  setTheme(newValue:SJssTheme): void {
-    this._theme = newValue;
-    this.themeChanges.next(this._theme);
-  }
-  getTheme(): Observable<SJssTheme> {
-    return this.themeChanges.asObservable();
+  theme: SJssTheme;
+  constructor(themeService: SJssThemeService) {
+    this.theme = themeService.defaultTheme();
+    themeService.themeChanges().subscribe((t) => {this.theme = t})
   }
 }
 ```
-step2: get the theme by subscribing to themeService.getTheme to apply it in any class
+step2: Update the theme from any component
 ```js
-export class Component1 {
+export class AnyComponent{
 
   theme: SJssTheme;
-
-  constructor(themeService: ThemeHandlerService) {
-    this.theme = themeService._theme;
-    themeService.getTheme().subscribe((theme) => {this.theme = theme})
+  constructor(private themeService: SJssThemeService) {
+    this.theme = themeService.defaultTheme();
+    themeService.themeChanges().subscribe((t) => {this.theme = t});
+    this.modifyTheme();
   }
-}
-```
-
-step2: set or update the theme by using ThemeHandlerService.setTheme(newTheme:SJssTheme) to apply it in any class
-```js
-export class Component2 {
-
-  theme: SJssTheme;
-
-  constructor(themeService: ThemeHandlerService) {
-    this.theme = themeService._theme;
-    themeService.getTheme().subscribe((theme) => {this.theme = theme})
-    updateTheme();
-  }
-  updateTheme(){
-    let myTheme:SJssTheme | null = {...this.theme}
-    myTheme.palette.primary.main === '#ff3366'
-    myTheme.palette.primary.light === '#ff6699'
+  
+  modifyTheme(){
+    const th:SJssTheme | null = {...this.theme};      
+    th.palette.primary.main = '#003366';
+    th.palette.secondary = '#663300';
+    th.breakpoints.md='750';
+    th.spacing = (factor) => `${0.3 * factor}rem`;
     this.themeService.setTheme(th);
   }
 }
 ```
+get current Breakpoint if it is needed
+```js
+export class AnyComponent{
+
+  theme: SJssTheme;
+  screenSize: string | undefined= ''
+  constructor(private themeService: SJssThemeService) {
+    this.theme = themeService.defaultTheme();
+    themeService.themeChanges().subscribe((t) => {
+        this.theme = t
+    });
+    themeService.breakpointChanges().subscribe(bp=>{
+        this.screenSize = bp;
+    })   
+  }
+}
+```
+
 NOTE: The default theme object is the following, any value may be updated.
 ```js
 {
-  breakpoints: {xs: 0, sm: 600, md: 900, lg: 1200, xl: 1320},
+  breakpoints: {xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536},
   spacing: (factor) => `${0.25 * factor}rem`,
     typography: {
   default: {fontFamily: '"Roboto","Helvetica"', fontSize: '1.2em'},
@@ -201,9 +196,9 @@ NOTE: The default theme object is the following, any value may be updated.
         contrastText: '#f9fff7',
     },
     secondary: {
-      main: '#a724cc',
-        light: '#d54ffa',
-        dark: '#840c9f',
+      main: '#c72488',
+        light: '#e54f99',
+        dark: '#aa0c3f',
         contrastText: '#e7d9bf',
     },
     error: {
