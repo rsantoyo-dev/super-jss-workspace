@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SJssTheme} from "../../../../../super-jss/src/lib/super-jss-model";
-import {ThemeHandlerService} from "../../theme/theme-handler.service";
+import {SJssThemeService} from "../../../../../super-jss/src/lib/core/s-jss-theme.service";
 
 
 
@@ -12,6 +12,7 @@ import {ThemeHandlerService} from "../../theme/theme-handler.service";
 export class LayoutComponent implements OnInit {
 
   theme: SJssTheme;
+  screenSize: string | undefined= ''
 
   snippetBasicSjss = `header: SJss = {
     padding: '3rem',
@@ -19,19 +20,23 @@ export class LayoutComponent implements OnInit {
     color: 'white'
   }`;
 
-  snippetBasicHtml =`<div [sJss]="header">
+  snippetBasicHtml =`<div [sj]="header">
     HELLO WORLD USING SUPER JSS
  </div>`;
 
-  snippetInlineHtml =`<div [sJss]="{padding: '3rem', backgroundColor: 'gray', color: 'white'}">
+  snippetInlineHtml =`<div [sj]="{padding: '3rem', backgroundColor: 'gray', color: 'white'}">
     HELLO WORLD USING SUPER JSS
  </div>`;
 
-  constructor(themeService: ThemeHandlerService) {
-    this.theme = themeService._theme;
-    themeService.getTheme().subscribe((t) => {
+  constructor(themeService: SJssThemeService) {
+    this.theme = themeService.defaultTheme();
+    themeService.themeChanges().subscribe((t) => {
       this.theme = t
     })
+    themeService.breakpointChanges().subscribe(bp=>{
+      this.screenSize = bp;
+    })
+
   }
 
 

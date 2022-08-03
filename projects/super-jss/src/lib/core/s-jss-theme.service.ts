@@ -1,21 +1,37 @@
-import { Injectable } from '@angular/core';
-import {SJssTheme} from "./super-jss-model";
-import {BehaviorSubject} from "rxjs";
-
+import { Injectable} from '@angular/core';
+import {SJssTheme} from "../super-jss-model";
+import {BehaviorSubject, fromEvent} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-export class SuperJssService{
+export class SJssThemeService {
 
-  private theme: SJssTheme
+  private theme: SJssTheme;
+  private breakPoint:string | undefined = 'xs';
   readonly themeChanges$: BehaviorSubject<SJssTheme>;
+  readonly breakPointChanges$: BehaviorSubject<string | undefined>;
 
 
   constructor() {
-    console.log('SuperJssService deprecated, please use SJssThemeService')
     this.theme = this.defaultTheme()
     this.themeChanges$ = new BehaviorSubject<SJssTheme>(this.theme);
+    this.breakPointChanges$ = new BehaviorSubject<string | undefined>(this.breakPoint);
+    this.themeChanges().subscribe(()=>{this.onResize()});
+    fromEvent(window, 'resize').subscribe(() => this.onResize());
+    fromEvent(window, 'load').subscribe(() => this.onResize());
+  }
+
+  onResize(){
+    const bp = Object.keys(this.theme.breakpoints)
+      // @ts-ignore
+      .filter(key =>(this.theme.breakpoints[key] <window.innerWidth ? window.innerWidth : 0) && key)
+      .pop();
+
+    if(bp!==this.breakPoint){
+      this.breakPoint = bp;
+      this.breakPointChanges$.next(this.breakPoint);
+    }
   }
 
   setTheme(newValue:SJssTheme): void {
@@ -26,11 +42,16 @@ export class SuperJssService{
   themeChanges(): BehaviorSubject<SJssTheme> {
     return this.themeChanges$;
   }
+  breakpointChanges(): BehaviorSubject<string | undefined> {
+    return this.breakPointChanges$;
+  }
+
+
 
 
   defaultTheme(): SJssTheme {
     return {
-      breakpoints: {xs: 350, sm: 600, md: 900, lg: 1200, xl: 1536},
+      breakpoints: {xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536},
       spacing: (factor) => `${0.25 * factor}rem`,
       typography: {
         default: {fontFamily: '"Roboto","Helvetica"', fontSize: '1.2em'},
@@ -61,9 +82,9 @@ export class SuperJssService{
           contrastText: '#f9fff7',
         },
         secondary: {
-          main: '#a724cc',
-          light: '#d54ffa',
-          dark: '#840c9f',
+          main: '#c72488',
+          light: '#e54f99',
+          dark: '#aa0c3f',
           contrastText: '#e7d9bf',
         },
         error: {

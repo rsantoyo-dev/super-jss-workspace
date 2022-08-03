@@ -4,6 +4,7 @@ export interface SJssBreakpoints {
   md: number | string,
   lg: number | string,
   xl: number | string,
+
 }
 
 export interface SJssTheme{

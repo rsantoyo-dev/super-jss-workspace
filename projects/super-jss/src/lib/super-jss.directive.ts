@@ -1,6 +1,6 @@
-import {Directive, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewContainerRef} from '@angular/core';
+import {Directive, Input, OnChanges, OnInit, SimpleChanges, ViewContainerRef} from '@angular/core';
 import {SJss, SJssBreakingStyle, SJssTheme} from "./super-jss-model";
-import {SuperJssService} from "./super-jss.service";
+import {SJssThemeService} from "./core/s-jss-theme.service";
 
 
 @Directive({
@@ -14,44 +14,39 @@ export class SuperJssDirective implements OnInit, OnChanges {
   theme: SJssTheme;
   superDivElement: HTMLElement;
 
-  @HostListener('window:resize', ['$event'])
-  onWindowResize() {
-    this.applyStyles()
-  }
-
-  constructor(private jssStyleService: SuperJssService, private vcr: ViewContainerRef) {
-    this.theme = jssStyleService.theme;
+  constructor(private themeService: SJssThemeService, private vcr: ViewContainerRef) {
+    this.theme = themeService.defaultTheme();
     this.superDivElement = vcr.element.nativeElement;
-    jssStyleService.getTheme().subscribe(t=>{
+    themeService.themeChanges().subscribe(t=>{
       this.theme = t;
-      this.applyThemeToStyles();
+      this.applyStyles();
+    })
+    themeService.breakpointChanges().subscribe(()=>{
+      this.applyStyles();
     })
   }
-
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.sJss) {
       console.log('Please note that [sJss] notation is deprecated, use [sj] instead.');
       this.sj = this.sJss;
-      this.applyThemeToStyles();
+      this.applyStyles();
     }
     if (changes.sj) {
       this.sJss = this.sj;
-      this.applyThemeToStyles();
+      this.applyStyles();
     }
-  }
-  applyThemeToStyles(){
-    this.jssStyleService.theme = (this.theme)
-    this.applyStyles()
   }
 
   ngOnInit(): void {
     this.applyStyles()
+
   }
 
+
   applyStyles() {
-    this.applyTypography(this.superDivElement, this.jssStyleService.theme, window.innerWidth);
-    this.applyStylesToElement(this.superDivElement, this.sJss ? this.sJss : {}, this.jssStyleService.theme, window.innerWidth);
+    this.applyTypography(this.superDivElement, this.theme, window.innerWidth);
+    this.applyStylesToElement(this.superDivElement, this.sJss ? this.sJss : {}, this.theme, window.innerWidth);
   }
 
   applyTypography(el: HTMLElement, theme: SJssTheme, screenWidth: number = 0) {

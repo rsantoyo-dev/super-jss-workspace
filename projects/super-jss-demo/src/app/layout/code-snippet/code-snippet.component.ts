@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SJssTheme} from "../../../../../super-jss/src/lib/super-jss-model";
-import {ThemeHandlerService} from "../../theme/theme-handler.service";
+import {SJssThemeService} from "../../../../../super-jss/src/lib/core/s-jss-theme.service";
 
 
 @Component({
@@ -11,9 +11,9 @@ import {ThemeHandlerService} from "../../theme/theme-handler.service";
 export class CodeSnippetComponent implements OnInit {
 
   theme:SJssTheme
-  constructor(private themeService: ThemeHandlerService) {
-    this.theme= themeService._theme;
-    themeService.getTheme().subscribe(t=>{this.theme = t})
+  constructor(private themeService: SJssThemeService) {
+    this.theme = this.themeService.defaultTheme();
+    themeService.themeChanges$.subscribe(t=>{this.theme = t})
   }
 
   ngOnInit(): void {

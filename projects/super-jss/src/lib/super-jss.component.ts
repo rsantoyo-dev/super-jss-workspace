@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'sjss-super-jss',
   template: `
-    <div [sJss]="{padding:'35px'}">
-       <h1 [sJss]>sd</h1>
+    <div [sj]="{padding:'35px'}">
+       <h1 [sj]>sd</h1>
     </div>
   `,
   styles: [
