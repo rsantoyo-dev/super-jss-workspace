@@ -39,7 +39,6 @@ export class SuperJssDirective implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.applyStyles()
-
   }
 
 
@@ -59,21 +58,20 @@ export class SuperJssDirective implements OnInit, OnChanges {
   }
 
   applyStylesToElement(el: HTMLElement, jssStyle: SJss = {}, theme: SJssTheme, screenWidth: number = 0): void {
-    if (jssStyle) {
       Object.keys(jssStyle)?.forEach(key => {
         // @ts-ignore
         el.style[key] = this.applyStyle(jssStyle[key], screenWidth, theme)
       })
     }
-  }
 
-  applyStyle(styleValue: SJssBreakingStyle | string | undefined, screenWidth: number, theme: SJssTheme, defaultValue: string = ''): string {
+
+  applyStyle(styleValue: SJssBreakingStyle | string | undefined, screenWidth: number, theme: SJssTheme): string {
     let style: string | undefined = "";
     switch (typeof styleValue) {
       case 'undefined':
         return style;
       case 'string':
-        return styleValue ? styleValue : defaultValue;
+        return styleValue ? styleValue : '';
       case 'object':
         Object.keys(styleValue)?.forEach(key => {
           if ((key === 'xs' || key === 'sm' || key === 'md' || key === 'lg' || key === 'xl')
