@@ -3,11 +3,10 @@ import {SJss, SJssBreakingStyle, SJssTheme} from "./super-jss-model";
 import {SJssThemeService} from "./s-jss-theme.service";
 
 @Directive({
-  selector: "[sJss], [sj]"
+  selector: "[sj]"
 })
 export class SuperJssDirective implements OnInit, OnChanges {
 
-  @Input() sJss?: SJss;
   @Input() sj?: SJss;
 
   theme: SJssTheme;
@@ -26,14 +25,7 @@ export class SuperJssDirective implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
-    if (changes.sJss) {
-      console.log('Please note that [sJss] notation is deprecated, use [sj] instead.');
-      this.sj = this.sJss;
-      this.applyStyles();
-    }
     if (changes.sj) {
-      this.sJss = this.sj;
       this.applyStyles();
     }
   }
@@ -42,10 +34,9 @@ export class SuperJssDirective implements OnInit, OnChanges {
     this.applyStyles()
   }
 
-
   applyStyles() {
     this.applyTypography(this.superDivElement, this.theme, window.innerWidth);
-    this.applyStylesToElement(this.superDivElement, this.sJss ? this.sJss : {}, this.theme, window.innerWidth);
+    this.applyStylesToElement(this.superDivElement, this.sj ? this.sj : {}, this.theme, window.innerWidth);
   }
 
   applyTypography(el: HTMLElement, theme: SJssTheme, screenWidth: number) {
