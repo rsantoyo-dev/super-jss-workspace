@@ -7,8 +7,8 @@ import {BehaviorSubject, fromEvent} from "rxjs";
 })
 export class SJssThemeService {
 
-  private theme: SJssTheme;
-  private breakPoint:string | undefined = 'xs';
+  theme: SJssTheme;
+  breakPoint:string | undefined = 'xs';
   readonly themeChanges$: BehaviorSubject<SJssTheme>;
   readonly breakPointChanges$: BehaviorSubject<string | undefined>;
 
@@ -25,7 +25,7 @@ export class SJssThemeService {
   onResize(){
     const bp = Object.keys(this.theme.breakpoints)
       // @ts-ignore
-      .filter(key =>(this.theme.breakpoints[key] <window.innerWidth ? window.innerWidth : 0) && key)
+      .filter(key =>(this.theme.breakpoints[key] <this.getInnerWidth() ? this.getInnerWidth() : 0) && key)
       .pop();
 
     if(bp!==this.breakPoint){
@@ -46,7 +46,9 @@ export class SJssThemeService {
     return this.breakPointChanges$;
   }
 
-
+  getInnerWidth(){
+    return window.innerWidth;
+  }
 
 
   defaultTheme(): SJssTheme {
