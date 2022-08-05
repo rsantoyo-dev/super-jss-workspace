@@ -27,7 +27,6 @@ export class SuperJssService{
     return this.themeChanges$;
   }
 
-
   defaultTheme(): SJssTheme {
     return {
       breakpoints: {xs: 350, sm: 600, md: 900, lg: 1200, xl: 1536},

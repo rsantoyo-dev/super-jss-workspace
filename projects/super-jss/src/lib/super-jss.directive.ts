@@ -26,6 +26,7 @@ export class SuperJssDirective implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log(changes)
     if (changes.sJss) {
       console.log('Please note that [sJss] notation is deprecated, use [sj] instead.');
       this.sj = this.sJss;
@@ -47,7 +48,7 @@ export class SuperJssDirective implements OnInit, OnChanges {
     this.applyStylesToElement(this.superDivElement, this.sJss ? this.sJss : {}, this.theme, window.innerWidth);
   }
 
-  applyTypography(el: HTMLElement, theme: SJssTheme, screenWidth: number = 0) {
+  applyTypography(el: HTMLElement, theme: SJssTheme, screenWidth: number) {
     Object.keys(theme.typography)?.forEach(key => {
       const jss: SJss = {marginBlockStart: '0', marginBlockEnd: '0', ...theme.typography.default}
       if (el.nodeName === key) {
@@ -57,7 +58,7 @@ export class SuperJssDirective implements OnInit, OnChanges {
     })
   }
 
-  applyStylesToElement(el: HTMLElement, jssStyle: SJss = {}, theme: SJssTheme, screenWidth: number = 0): void {
+  applyStylesToElement(el: HTMLElement, jssStyle: SJss, theme: SJssTheme, screenWidth: number): void {
       Object.keys(jssStyle)?.forEach(key => {
         // @ts-ignore
         el.style[key] = this.applyStyle(jssStyle[key], screenWidth, theme)
@@ -68,8 +69,7 @@ export class SuperJssDirective implements OnInit, OnChanges {
   applyStyle(styleValue: SJssBreakingStyle | string | undefined, screenWidth: number, theme: SJssTheme): string {
     let style: string | undefined = "";
     switch (typeof styleValue) {
-      case 'undefined':
-        return style;
+
       case 'string':
         return styleValue ? styleValue : '';
       case 'object':
