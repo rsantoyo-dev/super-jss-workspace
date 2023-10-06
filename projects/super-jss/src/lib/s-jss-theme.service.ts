@@ -1,56 +1,108 @@
-import { Injectable} from '@angular/core';
-import {SJssTheme} from "./super-jss-model";
-import {BehaviorSubject, fromEvent} from "rxjs";
+import { Injectable } from '@angular/core';
+import { SJssTheme } from "./super-jss-model";
+import { BehaviorSubject, fromEvent, Subscription } from "rxjs";
+
+// Enumeration representing the various breakpoints
+export enum Breakpoints {
+  XS = 'xs',
+  SM = 'sm',
+  MD = 'md',
+  LG = 'lg',
+  XL = 'xl'
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class SJssThemeService {
 
+  // Represents the current theme configuration
   theme: SJssTheme;
-  breakPoint:string | undefined = 'xs';
-  readonly themeChanges$: BehaviorSubject<SJssTheme>;
-  readonly breakPointChanges$: BehaviorSubject<string | undefined>;
 
+  // Holds the current active breakpoint value
+  breakPoint: Breakpoints | undefined = Breakpoints.XS;
+
+  // Observable to track changes in the theme
+  readonly themeChanges$: BehaviorSubject<SJssTheme>;
+
+  // Observable to track changes in the active breakpoint
+  readonly breakPointChanges$: BehaviorSubject<Breakpoints | undefined>;
+
+  // Subscription container to manage all active subscriptions
+  subscriptions: Subscription = new Subscription();
 
   constructor() {
-    this.theme = this.defaultTheme()
+    // Set the initial theme to the default configuration
+    this.theme = this.defaultTheme();
+
+    // Initialize observables with the current theme and breakpoint values
     this.themeChanges$ = new BehaviorSubject<SJssTheme>(this.theme);
-    this.breakPointChanges$ = new BehaviorSubject<string | undefined>(this.breakPoint);
-    this.themeChanges().subscribe(()=>{this.onResize()});
-    fromEvent(window, 'resize').subscribe(() => this.onResize());
-    fromEvent(window, 'load').subscribe(() => this.onResize());
+    this.breakPointChanges$ = new BehaviorSubject<Breakpoints | undefined>(this.breakPoint);
+
+    // Subscribe to theme changes and window events to handle responsive behavior
+    this.subscriptions.add(this.themeChanges().subscribe(() => { this.onResize() }));
+    this.subscriptions.add(fromEvent(window, 'resize').subscribe(() => this.onResize()));
+    this.subscriptions.add(fromEvent(window, 'load').subscribe(() => this.onResize()));
   }
 
-  onResize(){
-    const bp = Object.keys(this.theme.breakpoints)
-      // @ts-ignore
-      .filter(key =>(this.theme.breakpoints[key] <this.getInnerWidth() ? this.getInnerWidth() : 0) && key)
-      .pop();
+  /**
+   * Determines the current breakpoint based on the window's width.
+   * @returns The current breakpoint as a string.
+   */
+  determineBreakpoint(): Breakpoints | undefined {
+    return Object.keys(this.theme.breakpoints)
+      .filter(key => (this.theme.breakpoints[key as Breakpoints] < this.getInnerWidth() ? this.getInnerWidth() : 0) && key)
+      .pop() as Breakpoints;
+  }
 
-    if(bp!==this.breakPoint){
+  /**
+   * Handles the window resize event and updates the active breakpoint.
+   */
+  onResize() {
+    const bp = this.determineBreakpoint();
+    if (bp !== this.breakPoint) {
       this.breakPoint = bp;
       this.breakPointChanges$.next(this.breakPoint);
     }
   }
 
-  setTheme(newValue:SJssTheme): void {
+  /**
+   * Updates the theme configuration.
+   * @param newValue - The new theme configuration.
+   */
+  setTheme(newValue: SJssTheme): void {
     this.theme = newValue;
     this.themeChanges$.next(this.theme);
   }
 
+  /**
+   * Provides an observable to track theme changes.
+   * @returns An observable of the theme.
+   */
   themeChanges(): BehaviorSubject<SJssTheme> {
     return this.themeChanges$;
   }
-  breakpointChanges(): BehaviorSubject<string | undefined> {
+
+  /**
+   * Provides an observable to track breakpoint changes.
+   * @returns An observable of the breakpoint.
+   */
+  breakpointChanges(): BehaviorSubject<Breakpoints | undefined> {
     return this.breakPointChanges$;
   }
 
-  getInnerWidth(){
+  /**
+   * Retrieves the current window width.
+   * @returns The width of the window.
+   */
+  getInnerWidth(): number {
     return window.innerWidth;
   }
 
-
+  /**
+   * Provides the default theme configuration.
+   * @returns The default theme configuration.
+   */
   defaultTheme(): SJssTheme {
     return {
       breakpoints: {xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536},
@@ -121,5 +173,13 @@ export class SJssThemeService {
       }
 
     }
+  }
+
+  /**
+   * Lifecycle hook to clean up resources when the service is destroyed.
+   */
+  ngOnDestroy(): void {
+    // Unsubscribe from all active subscriptions
+    this.subscriptions.unsubscribe();
   }
 }

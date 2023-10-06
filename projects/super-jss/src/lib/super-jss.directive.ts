@@ -1,6 +1,7 @@
 import {Directive, Input, OnChanges, OnInit, SimpleChanges, ViewContainerRef} from '@angular/core';
 import {SJss, SJssBreakingStyle, SJssTheme} from "./super-jss-model";
-import {SJssThemeService} from "./s-jss-theme.service";
+import {Breakpoints, SJssThemeService} from "./s-jss-theme.service";
+import {Subscription} from "rxjs";
 
 @Directive({
   selector: "[sj]"
@@ -11,25 +12,37 @@ export class SuperJssDirective implements OnInit, OnChanges {
 
   theme: SJssTheme;
   superDivElement: HTMLElement;
+  private subscriptions: Subscription = new Subscription();
 
   constructor(private themeService: SJssThemeService, private vcr: ViewContainerRef) {
+    // Initialize with the default theme
     this.theme = themeService.defaultTheme();
     this.superDivElement = vcr.element.nativeElement;
-    themeService.themeChanges().subscribe(t=>{
-      this.theme = t;
-      this.applyStyles();
-    })
-    themeService.breakpointChanges().subscribe(()=>{
-      this.applyStyles();
-    })
+
+    // Subscribe to theme changes and apply styles accordingly
+    this.subscriptions.add(
+      themeService.themeChanges().subscribe(t => {
+        this.theme = t;
+        this.applyStyles();
+      })
+    );
+
+    // Subscribe to breakpoint changes and apply styles accordingly
+    this.subscriptions.add(
+      themeService.breakpointChanges().subscribe(() => {
+        this.applyStyles();
+      })
+    );
   }
 
+  // Detect changes in the input and apply styles if necessary
   ngOnChanges(changes: SimpleChanges) {
     if (changes.sj) {
       this.applyStyles();
     }
   }
 
+  // Apply styles on initialization
   ngOnInit(): void {
     this.applyStyles()
   }
@@ -59,22 +72,28 @@ export class SuperJssDirective implements OnInit, OnChanges {
 
   applyStyle(styleValue: SJssBreakingStyle | string | undefined, screenWidth: number, theme: SJssTheme): string {
     let style: string | undefined = "";
-    switch (typeof styleValue) {
 
+    switch (typeof styleValue) {
       case 'string':
         return styleValue ? styleValue : '';
       case 'object':
-        Object.keys(styleValue)?.forEach(key => {
-          if ((key === 'xs' || key === 'sm' || key === 'md' || key === 'lg' || key === 'xl')
-            && (styleValue[key] && screenWidth > theme.breakpoints[key])) {
-            style = styleValue[key];
+        Object.keys(styleValue).forEach(key => {
+          if (Object.values(Breakpoints).includes(key as Breakpoints)
+            && styleValue[key as Breakpoints]
+            && screenWidth > theme.breakpoints[key as Breakpoints]) {
+            style = styleValue[key as Breakpoints];
           }
-        })
+        });
         break;
     }
-    return style
+    return style || "";
   }
 
+
+  ngOnDestroy(): void {
+    // Unsubscribe from all active subscriptions
+    this.subscriptions.unsubscribe();
+  }
 
 }
 
