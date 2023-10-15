@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SJssTheme} from "../../../../../super-jss/src/lib/super-jss-model";
 import {SJssThemeService} from "../../../../../super-jss/src/lib/s-jss-theme.service";
-
-
-
-
+import {SJssStyles} from "super-jss";
 @Component({
   selector: 'sJssDemo-layout',
   templateUrl: './layout.component.html',
@@ -15,21 +12,10 @@ export class LayoutComponent implements OnInit {
   theme: SJssTheme;
   screenSize: string | undefined= ''
 
-  snippetBasicSjss = `header: SJss = {
-    padding: '3rem',
-    backgroundColor: 'gray',
-    color: 'white'
-  }`;
-
-  snippetBasicHtml =`<div [sj]="header">
-    HELLO WORLD USING SUPER JSS
- </div>`;
-
-  snippetInlineHtml =`<div [sj]="{padding: '3rem', backgroundColor: 'gray', color: 'white'}">
-    HELLO WORLD USING SUPER JSS
- </div>`;
+  centered: SJssStyles = {display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'gray'};
 
   constructor(themeService: SJssThemeService) {
+    window.location.href = 'https://medium.com/@viejorichard/super-jss-a-library-for-responsive-css-styles-85691b210450';
     this.theme = themeService.defaultTheme();
     themeService.themeChanges().subscribe((t) => {
       this.theme = t

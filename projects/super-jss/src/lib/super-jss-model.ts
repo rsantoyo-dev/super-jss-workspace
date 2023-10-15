@@ -12,19 +12,19 @@ export interface SJssTheme{
   spacing: (val: number) => string;
 
   typography: {
-    default: SJss,
-    H6?: SJss,
-    H5?: SJss,
-    H4?: SJss,
-    H3?: SJss,
-    H2?: SJss,
-    H1?: SJss,
-    P?: SJss,
-    SPAN?: SJss,
-    STRONG?: SJss,
-    BODY1?: SJss,
-    BODY2?: SJss,
-    CAPTION?: SJss,
+    default: SJssStyles,
+    H6?: SJssStyles,
+    H5?: SJssStyles,
+    H4?: SJssStyles,
+    H3?: SJssStyles,
+    H2?: SJssStyles,
+    H1?: SJssStyles,
+    P?: SJssStyles,
+    SPAN?: SJssStyles,
+    STRONG?: SJssStyles,
+    BODY1?: SJssStyles,
+    BODY2?: SJssStyles,
+    CAPTION?: SJssStyles,
   };
   palette: {
     common: {
@@ -61,7 +61,10 @@ export interface SJssBreakingStyle {
   xl?: string,
 }
 
-export interface SJss {
+export type SJss = (SJssStyles | SJssStyles[]);
+
+export interface SJssStyles {
+  [key: string]: SJssBreakingStyle | string | undefined;
   alignContent?: SJssBreakingStyle | string;
   alignItems?: SJssBreakingStyle | string;
   alignSelf?: SJssBreakingStyle | string;

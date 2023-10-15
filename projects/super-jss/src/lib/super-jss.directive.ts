@@ -1,7 +1,7 @@
-import {Directive, Input, OnChanges, OnInit, SimpleChanges, ViewContainerRef} from '@angular/core';
-import {SJss, SJssBreakingStyle, SJssTheme} from "./super-jss-model";
-import {Breakpoints, SJssThemeService} from "./s-jss-theme.service";
-import {Subscription} from "rxjs";
+import { Directive, Input, OnChanges, OnInit, SimpleChanges, ViewContainerRef } from '@angular/core';
+import {SJss, SJssBreakingStyle, SJssStyles, SJssTheme} from "./super-jss-model";
+import { Breakpoints, SJssThemeService } from "./s-jss-theme.service";
+import { Subscription } from "rxjs";
 
 @Directive({
   selector: "[sj]"
@@ -44,56 +44,68 @@ export class SuperJssDirective implements OnInit, OnChanges {
 
   // Apply styles on initialization
   ngOnInit(): void {
-    this.applyStyles()
+    this.applyStyles();
   }
 
+  // Main method to apply styles
   applyStyles() {
     this.applyTypography(this.superDivElement, this.theme, window.innerWidth);
     this.applyStylesToElement(this.superDivElement, this.sj ? this.sj : {}, this.theme, window.innerWidth);
   }
 
+  // Apply typography styles based on the theme and element type
   applyTypography(el: HTMLElement, theme: SJssTheme, screenWidth: number) {
-    Object.keys(theme.typography)?.forEach(key => {
-      const jss: SJss = {marginBlockStart: '0', marginBlockEnd: '0', ...theme.typography.default}
-      if (el.nodeName === key) {
-        // @ts-ignore
-        this.applyStylesToElement(el, {...jss, ...theme.typography[key]}, theme, screenWidth)
+    Object.keys(theme.typography).forEach(key => {
+      const jss: SJss = { marginBlockStart: '0', marginBlockEnd: '0', ...theme.typography.default };
+      const specificStyle: SJss | undefined = theme.typography[key as keyof typeof theme.typography];
+      if (el.nodeName === key && specificStyle) {
+        this.applyStylesToElement(el, { ...jss, ...specificStyle }, theme, screenWidth);
       }
-    })
+    });
   }
 
+  // Apply styles to an element based on the provided JSS style
   applyStylesToElement(el: HTMLElement, jssStyle: SJss, theme: SJssTheme, screenWidth: number): void {
-      Object.keys(jssStyle)?.forEach(key => {
-        // @ts-ignore
-        el.style[key] = this.applyStyle(jssStyle[key], screenWidth, theme)
-      })
+    if (Array.isArray(jssStyle)) {
+      jssStyle.forEach(styleObj => {
+        this.setStyleProperties(el, styleObj, theme, screenWidth);
+      });
+    } else {
+      this.setStyleProperties(el, jssStyle, theme, screenWidth);
     }
-
-
-  applyStyle(styleValue: SJssBreakingStyle | string | undefined, screenWidth: number, theme: SJssTheme): string {
-    let style: string | undefined = "";
-
-    switch (typeof styleValue) {
-      case 'string':
-        return styleValue ? styleValue : '';
-      case 'object':
-        Object.keys(styleValue).forEach(key => {
-          if (Object.values(Breakpoints).includes(key as Breakpoints)
-            && styleValue[key as Breakpoints]
-            && screenWidth > theme.breakpoints[key as Breakpoints]) {
-            style = styleValue[key as Breakpoints];
-          }
-        });
-        break;
-    }
-    return style || "";
   }
 
+  // Helper method to set style properties on an element
+  setStyleProperties(el: HTMLElement, styleObj: SJssStyles, theme: SJssTheme, screenWidth: number): void {
+    Object.keys(styleObj).forEach(key => {
+      try {
+        el.style[key as any] = this.applyStyle(styleObj[key], screenWidth, theme);
+      } catch (error) {
+        console.error(`Failed to apply style for key: ${key}`, error);
+      }
+    });
+  }
 
+  // Determine the appropriate style value based on screen width and theme
+  applyStyle(styleValue: SJssBreakingStyle | string | undefined, screenWidth: number, theme: SJssTheme): string {
+    let style: string = "";
+
+    if (typeof styleValue === 'string') {
+      return styleValue;
+    } else if (typeof styleValue === 'object') {
+      Object.keys(styleValue).forEach(key => {
+        if (Object.values(Breakpoints).includes(key as Breakpoints)
+          && styleValue[key as Breakpoints]
+          && screenWidth > theme.breakpoints[key as Breakpoints]) {
+          style = styleValue[key as Breakpoints]!;
+        }
+      });
+    }
+    return style;
+  }
+
+  // Cleanup: Unsubscribe from all active subscriptions
   ngOnDestroy(): void {
-    // Unsubscribe from all active subscriptions
     this.subscriptions.unsubscribe();
   }
-
 }
-

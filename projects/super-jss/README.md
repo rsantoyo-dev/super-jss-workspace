@@ -39,6 +39,24 @@ Apply styles to your HTML elements using the `[sj]` directive:
 <div [sj]="{backgroundColor: 'red', color:'white'}">HELLO WORLD</div>
 ```
 
+### Combining Multiple Styles
+
+Super JSS allows you to combine multiple styles by passing them as an array:
+
+in Typescript:
+```typescript
+centered: SJssStyles = {display: 'flex', justifyContent: 'center', alignItems: 'center'};
+```
+in Html:
+```html
+<div [sj]="[{padding: theme.spacing(3)}, centered]">Centered Content</div>
+```
+
+or just in Html:
+```html
+<div [sj]="[{padding: theme.spacing(3)}, {display: 'flex', justifyContent: 'center', alignItems: 'center'}]">Centered Content</div>
+```
+
 ### Responsive Design
 
 Define styles for different breakpoints:
@@ -63,16 +81,27 @@ Use any html tag from H1 to H6, P or span, and add the directive Sjss
 
 Super JSS provides a theming mechanism. You can subscribe to theme changes in any component and update the theme as needed. [More details on theming...](https://medium.com/@viejorichard/super-jss-how-to-override-a-theme-64d8da14e3fb)
 
+## How it works
+>
+>[Super JSS: A Library for Responsive CSS Styles](https://medium.com/@viejorichard/super-jss-a-library-for-responsive-css-styles-85691b210450)
+> 
+>[Super JSS: How to override a theme](https://medium.com/@viejorichard/super-jss-how-to-override-a-theme-64d8da14e3fb)
+> 
 
-## quick demo
->[https://superjss.netlify.app/](https://superjss.netlify.app/)
+
+
 
 ## stackblitz
->[Flex-box Responsive Demo](https://stackblitz.com/edit/angular-ivy-ieshja)
->
->[Theme Handler Demo](https://stackblitz.com/edit/angular-ivy-atzazr)
 >
 >[basic usage example](https://stackblitz.com/edit/angular-ivy-vewzoz?file=src%2Fapp%2Fapp.component.html)
+> 
+>[Flex-box Responsive Demo](https://stackblitz.com/edit/angular-ivy-ieshja)
+> 
+>[Theme Handler Demo](https://stackblitz.com/edit/angular-ivy-atzazr)
+
+ 
+## quick demo
+>[https://superjss.netlify.app/](https://superjss.netlify.app/)
 
 ## Fundraise me
 Help me to continue working on the library

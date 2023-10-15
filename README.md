@@ -1,27 +1,47 @@
 # SuperJssWorkspace
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.11.
+This workspace contains the SuperJss library, a powerful tool for applying styles dynamically in Angular applications. The library provides a directive that makes it easy to bind styles to elements based on various conditions and breakpoints.
 
-## Development server
+## Getting Started
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+To run the entire project:
 
-## Code scaffolding
+```bash
+ng serve
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This will start a development server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Build
+## Working with the SuperJss Library
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+To work with the SuperJss library, navigate to the library's directory:
 
-## Running unit tests
+```bash
+cd projects/super-jss
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Building the Library
 
-## Running end-to-end tests
+To build the SuperJss library:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+ng build super-jss
+```
 
-## Further help
+If you want to observe changes and rebuild the library automatically, use the `--watch` flag:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+ng build super-jss --watch
+```
+
+## Additional Commands
+
+- **Generate Components & More**: Use `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+- **Running Unit Tests**: Execute `ng test` to run the unit tests via Karma.
+
+- **Running End-to-End Tests**: Execute `ng e2e` to run the end-to-end tests. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+
+## Further Help
+
+For more help on the Angular CLI, use `ng help` or check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
