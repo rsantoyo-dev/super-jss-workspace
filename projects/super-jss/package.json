@@ -1,6 +1,33 @@
 {
   "name": "super-jss",
-  "version": "0.0.713",
+  "version": "0.0.716",
+  "description": "A powerful library for responsive CSS styles in Angular applications.",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rsantoyo-dev/super-jss-workspace"
+  },
+  "keywords": [
+    "css",
+    "jss",
+    "responsive",
+    "styles",
+    "angular",
+    "angular-library",
+    "css-in-js",
+    "styling",
+    "web-design",
+    "mobile-first",
+    "breakpoints",
+    "adaptive",
+    "web-development",
+    "ui",
+    "ux",
+    "design-system",
+    "theming"
+  ],
+  "author": "Your Name <ricardo.santoyo@hotmail.com>",
+  "homepage": "https://medium.com/@viejorichard/super-jss-a-library-for-responsive-css-styles-85691b210450",
   "peerDependencies": {
     "@angular/common": "^16.2.9",
     "@angular/core": "^16.2.9"
