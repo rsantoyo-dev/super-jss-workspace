@@ -26,8 +26,6 @@ export class SuperJssDirective implements OnChanges {
       combineLatest([this.theme$, this.screenWidth$, this.sj$])
         .pipe(
           tap(([theme, screenWidth, sj]) => {
-            console.log('Inside combineLatest tap:', theme, screenWidth, 'sj', sj);
-
             const el: HTMLElement = vcr.element.nativeElement;
             applyTypography(el, theme, screenWidth);
             applyStylesToElement(el, sj ? sj : {}, theme, screenWidth);

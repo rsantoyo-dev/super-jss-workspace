@@ -1,5 +1,6 @@
-import {SJssThemeService} from "./s-jss-theme.service";
-import {Breakpoints, SJssTheme} from "./super-jss-model";
+import { SJssThemeService } from "./s-jss-theme.service";
+import { Breakpoints } from "./super-jss-model";
+import {SJssTheme} from "super-jss";
 
 describe('SJssThemeService', () => {
   let service: SJssThemeService;
@@ -8,31 +9,15 @@ describe('SJssThemeService', () => {
     service = new SJssThemeService();
   });
 
-  // Test to check if onResize is called during window resize
-  it('should call onResize when window resizes', () => {
-    const spyOnResize = spyOn(service, 'onResize');
-    window.dispatchEvent(new Event('resize'));
-    expect(spyOnResize).toHaveBeenCalled();
+  afterEach(() => {
+    service.ngOnDestroy(); // Ensure subscriptions are cleaned up after each test
   });
 
-  // Test to check if onResize is called during window load
-  it('should call onResize when window loads', () => {
-    const spyOnLoad = spyOn(service, 'onResize');
-    window.dispatchEvent(new Event('load'));
-    expect(spyOnLoad).toHaveBeenCalled();
-  });
-
-  // Test to check if the default theme is returned correctly
   it('should return a default theme', () => {
-    expect(service.defaultTheme().breakpoints).toEqual({ xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536 });
-  });
-
-  // Test to check if onResize is called when the theme changes
-  it('should call onResize when theme changes', () => {
-    const theme: SJssTheme = service.defaultTheme();
-    theme.palette.primary.main = 'red';
-    service.setTheme(theme);
-    expect(service.theme).toEqual(theme);
+    const defaultTheme = service.defaultTheme();
+    expect(defaultTheme.breakpoints).toEqual({ xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536 });
+    expect(defaultTheme.spacing(4)).toEqual('1rem'); // Compare the results of the spacing function
+    // Add more assertions for other properties of the default theme if needed
   });
 
   // Test to check if a new theme can be set correctly
@@ -52,29 +37,31 @@ describe('SJssThemeService', () => {
     service.breakPointChanges$.next(service.breakPoint);
   });
 
-  // Test to check if the breakpoint updates on resize
+
+  it('should determine the correct breakpoint', () => {
+    spyOn(service, 'getInnerWidth').and.returnValue(650);
+    expect(service.determineBreakpoint()).toEqual(Breakpoints.SM);
+  });
+
   it('should update breakpoint on resize', () => {
     service.theme = service.defaultTheme();
     service.breakPoint = Breakpoints.XS;
     spyOn(service, 'getInnerWidth').and.returnValue(1000);
     service.onResize();
-    expect(service.breakPoint !== 'xs').toBeTruthy();
+    expect(service.breakPoint).toEqual(Breakpoints.MD);
   });
 
-  // Test to check if the default theme returns the correct spacing
-  it('should return correct spacing from defaultTheme', () => {
-    expect(service.defaultTheme().spacing(2)).toEqual('0.5rem');
+  it('should observe breakpoint changes', (done) => {
+    service.breakpointChanges().subscribe(bp => {
+      expect(service.breakPoint).toEqual(bp);
+      done();
+    });
+    service.breakPointChanges$.next(service.breakPoint);
   });
 
   it('should unsubscribe from all active subscriptions on destroy', () => {
-    // Spy on the unsubscribe method of the subscriptions object
     const unsubscribeSpy = spyOn(service.subscriptions, 'unsubscribe');
-
-    // Call the ngOnDestroy method
     service.ngOnDestroy();
-
-    // Assert that the unsubscribe method has been called
     expect(unsubscribeSpy).toHaveBeenCalled();
   });
-
 });

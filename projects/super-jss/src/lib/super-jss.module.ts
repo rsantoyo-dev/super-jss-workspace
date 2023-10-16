@@ -9,7 +9,6 @@ import { SuperJssDirective } from './super-jss.directive';
   ],
   exports: [
     SuperJssDirective,
-
   ]
 })
 export class SuperJssModule { }
