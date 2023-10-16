@@ -1,5 +1,5 @@
-import {Breakpoints, SJssThemeService} from "./s-jss-theme.service";
-import {SJssTheme} from "./super-jss-model";
+import {SJssThemeService} from "./s-jss-theme.service";
+import {Breakpoints, SJssTheme} from "./super-jss-model";
 
 describe('SJssThemeService', () => {
   let service: SJssThemeService;

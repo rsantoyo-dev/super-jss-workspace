@@ -15,7 +15,7 @@ export class LayoutComponent implements OnInit {
   centered: SJssStyles = {display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'gray'};
 
   constructor(themeService: SJssThemeService) {
-    window.location.href = 'https://medium.com/@viejorichard/super-jss-a-library-for-responsive-css-styles-85691b210450';
+    //window.location.href = 'https://medium.com/@viejorichard/super-jss-a-library-for-responsive-css-styles-85691b210450';
     this.theme = themeService.defaultTheme();
     themeService.themeChanges().subscribe((t) => {
       this.theme = t

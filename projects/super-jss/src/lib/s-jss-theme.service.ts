@@ -1,15 +1,8 @@
 import { Injectable } from '@angular/core';
-import { SJssTheme } from "./super-jss-model";
+import {Breakpoints, SJssTheme} from "./super-jss-model";
 import { BehaviorSubject, fromEvent, Subscription } from "rxjs";
 
 // Enumeration representing the various breakpoints
-export enum Breakpoints {
-  XS = 'xs',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl'
-}
 
 @Injectable({
   providedIn: 'root'
