@@ -2,7 +2,6 @@
   "name": "super-jss",
   "version": "0.0.719",
   "description": "A powerful library for responsive CSS styles in Angular applications.",
-
   "repository": {
     "type": "git",
     "url": "https://github.com/rsantoyo-dev/super-jss-workspace"
@@ -34,6 +33,7 @@
     "@angular/core": "^16.2.9"
   },
   "dependencies": {
+    "@angular/router": "^16.2.9",
     "tslib": "^2.3.0"
   }
 }
