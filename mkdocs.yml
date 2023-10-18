@@ -1,4 +1,4 @@
-theme: material
+theme: mkdocs
 site_name: Super JSS
 nav:
   - Home: index.md
