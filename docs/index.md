@@ -23,8 +23,9 @@ By treating styles as a dynamic part of the application logic, Super JSS empower
 - **Developer Experience**: With clear syntax and powerful features, Super JSS aims to enhance the developer experience, making styling more intuitive and less cumbersome.
 
 - **Responsive Styling**: Super JSS offers a simple yet powerful way to define responsive styles that adapt based on the device's width.
-- **Theming**: Super JSS provides a robust theming mechanism that allows for easy customization of styles.
-- **Typography**: Super JSS offers a simple way to apply predefined typography styles to your text elements.
+
+- **Theming**: Super JSS provides a robust theming mechanism that allows for easy customization of styles.- **Typography**: Super JSS offers a simple way to apply predefined typography styles to your text elements.
+
 - **CSS Support**: Super JSS supports all CSS properties, including pseudo-classes and pseudo-elements.
 
 ## Next Steps
