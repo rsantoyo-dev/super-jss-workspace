@@ -4,7 +4,7 @@
   "description": "A powerful library for responsive CSS styles in Angular applications.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rsantoyo-dev/super-jss-workspace"
+    "url": "https://github.com/rsantoyo-dev/super-jss"
   },
   "keywords": [
     "css",

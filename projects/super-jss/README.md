@@ -2,7 +2,7 @@
 
 Super JSS is a dynamic CSS library tailored for Angular applications. It brings the power of JavaScript to styling, allowing developers to craft responsive designs and themes with ease.
 
-![Super JSS Logo](path_to_logo_if_available.png) <!-- If you have a logo, you can link it here -->
+![Super JSS Logo](../../sjss_blue.png)
 
 ## 🌟 Features
 
@@ -67,5 +67,3 @@ If you find Super JSS useful, consider supporting its development:
 For inquiries, feedback, or issues, reach out at [ricardo.santoyo@hotmail.com](mailto:ricardo.santoyo@hotmail.com).
 
 ---
-
-**Note**: Make sure to replace `path_to_logo_if_available.png` with the actual path to your logo if you have one. This structure provides a clear and concise overview of your library, its features, and how to get started, along with important links.
