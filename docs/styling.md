@@ -1,4 +1,6 @@
-# Styling
+# Styling with Super JSS
+
+Super JSS allows for easy and dynamic styling in Angular applications. One of the key features is that all CSS properties are camel-cased, making it intuitive and easy to remember or find.
 
 ### 1.  Basic Styling:
 
@@ -30,4 +32,6 @@ Define styles for various breakpoints to ensure responsiveness.
 <div [sj]="{backgroundColor: {xs:'red', sm:'blue', md:'green', lg:'purple', xl:'orange'}}">RESPONSIVE DIV</div>
 ```
 
+---
 
+[← Installation](installation.md) | [Home](index.md) | [Responsive Styles →](responsive-style.md)

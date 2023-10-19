@@ -24,3 +24,7 @@ import { SuperJssModule } from 'super-jss';
   imports: [SuperJssModule],
   ...
 })
+```
+---
+
+[⬅️ Previous: Welcome to Super JSS](index.md) | [Next: Styling ➡️](styling.md)

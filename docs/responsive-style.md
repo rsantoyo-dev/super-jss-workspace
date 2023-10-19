@@ -48,3 +48,7 @@ With the combined styles:
 
 - The div will have a responsive background color based on the device width.
 - The div will also have a flex layout, with its direction changing from column on smaller devices to row on larger devices.
+
+---
+
+[← Styling](styling.md) | [Home](index.md) | [Typography →](typography.md)

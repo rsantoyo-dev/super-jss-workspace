@@ -78,3 +78,7 @@ ngOnDestroy() {
 ## Conclusion
 
 By following these steps, you can effectively override the default theme in SuperJSS, ensuring your application adheres to your specific design requirements. Remember, responsibly managing your subscriptions by unsubscribing in the `ngOnDestroy` method is crucial to prevent memory leaks and maintain optimal performance in your Angular applications.
+
+---
+
+[← Typography](typography.md) | [Home](index.md) | [Examples →](examples.md)

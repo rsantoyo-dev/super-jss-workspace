@@ -19,3 +19,7 @@ Dive into this example to see how SuperJSS can be used in conjunction with flexb
 [StackBlitz: Theme Handler Demo](https://stackblitz.com/edit/superjss-theme-handler)
 
 This demo showcases the powerful theming capabilities of SuperJSS. Learn how to override and customize themes for your application.
+
+---
+
+[← Theming](theming.md) | [Home](index.md) 

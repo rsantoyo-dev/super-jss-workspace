@@ -18,3 +18,6 @@ You can use any HTML tag from H1 to H6, P, or span, and add the `sj` directive t
 ```
 These styles are defined in the SJssTheme interface under the typography property. Each tag (H1 to H6, P, span, etc.) corresponds to a specific style definition. By using the sj directive, you're telling Super JSS to apply the associated style from the theme to that tag.
 
+---
+
+[← Responsive Styles](responsive-style.md) | [Home](index.md) | [Theming →](theming.md)

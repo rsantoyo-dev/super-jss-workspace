@@ -22,10 +22,23 @@ By treating styles as a dynamic part of the application logic, Super JSS empower
 
 - **Developer Experience**: With clear syntax and powerful features, Super JSS aims to enhance the developer experience, making styling more intuitive and less cumbersome.
 
-## How Does It Compare?
-
-While there are other styling solutions available, Super JSS stands out due to its focus on dynamic capabilities tailored for Angular. Its design decisions are influenced by the need for runtime theming and styling in modern web applications. For a detailed comparison with other popular libraries, check out our [Comparison with Other Libraries](comparison.md) section.
+- **Responsive Styling**: Super JSS offers a simple yet powerful way to define responsive styles that adapt based on the device's width.
+- **Theming**: Super JSS provides a robust theming mechanism that allows for easy customization of styles.
+- **Typography**: Super JSS offers a simple way to apply predefined typography styles to your text elements.
+- **CSS Support**: Super JSS supports all CSS properties, including pseudo-classes and pseudo-elements.
 
 ## Next Steps
 
 Ready to dive deeper? Explore the subsequent sections to discover the powerful features of Super JSS and learn how to integrate it into your Angular projects.
+
+[Installation](installation.md) - Get started with Super JSS by setting it up in your Angular project.
+
+[Styling](styling.md) - Learn the basics of defining styles with Super JSS.
+
+[Responsive Styling](responsive-style.md) - Discover how to create responsive designs with ease.
+
+[Typography](typography.md) - Understand how Super JSS handles typography.
+
+[Theming](theming.md) - Dive deep into the theming capabilities of Super JSS.
+
+[Examples](examples.md) - Check out practical examples to see Super JSS in action.
