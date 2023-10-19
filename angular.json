@@ -1,0 +1,144 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "super-jss": {
+      "projectType": "library",
+      "root": "projects/super-jss",
+      "sourceRoot": "projects/super-jss/src",
+      "prefix": "sjss",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/super-jss/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/super-jss/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/super-jss/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/super-jss/src/test.ts",
+            "tsConfig": "projects/super-jss/tsconfig.spec.json",
+            "karmaConfig": "projects/super-jss/karma.conf.js"
+          }
+        }
+      }
+    },
+    "super-jss-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/super-jss-demo",
+      "sourceRoot": "projects/super-jss-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/super-jss-demo",
+            "index": "projects/super-jss-demo/src/index.html",
+            "main": "projects/super-jss-demo/src/main.ts",
+            "polyfills": "projects/super-jss-demo/src/polyfills.ts",
+            "tsConfig": "projects/super-jss-demo/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/super-jss-demo/src/favicon.ico",
+              "projects/super-jss-demo/src/assets"
+            ],
+            "styles": [
+              "projects/super-jss-demo/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/super-jss-demo/src/environments/environment.ts",
+                  "with": "projects/super-jss-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "super-jss-demo:build:production"
+            },
+            "development": {
+              "browserTarget": "super-jss-demo:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "super-jss-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/super-jss-demo/src/test.ts",
+            "polyfills": "projects/super-jss-demo/src/polyfills.ts",
+            "tsConfig": "projects/super-jss-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/super-jss-demo/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/super-jss-demo/src/favicon.ico",
+              "projects/super-jss-demo/src/assets"
+            ],
+            "styles": [
+              "projects/super-jss-demo/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "3e8140b1-1969-43bb-9a59-1d72b6c6582b"
+  }
+}

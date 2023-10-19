@@ -1,0 +1,9 @@
+theme: material
+site_name: Super JSS
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Features: features.md
+  - API Reference: api.md
+  - Examples: examples.md
+
