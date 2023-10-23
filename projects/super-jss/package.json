@@ -1,6 +1,6 @@
 {
   "name": "super-jss",
-  "version": "1.0.1",
+  "version": "1.0.12",
   "description": "A powerful library for responsive CSS styles in Angular applications.",
   "repository": {
     "type": "git",
@@ -23,17 +23,55 @@
     "ui",
     "ux",
     "design-system",
-    "theming"
+    "theming",
+    "theming-engine",
+    "theming-library",
+    "theming-framework",
+    "theming-tool",
+    "theming-solution",
+    "angular-theming",
+    "angular-theming-engine",
+    "angular-theming-library",
+    "angular-theming-framework",
+    "angular-theming-tool",
+    "css-in-js",
+    "css-in-js-library",
+    "css-in-js-framework",
+    "css-in-js-tool",
+    "css-in-js-solution",
+    "css-in-js-engine",
+    "css-in-js-utility",
+    "css-in-js-utility-library",
+    "css-in-js-utility-framework",
+    "css-in-js-utility-tool",
+    "css-in-js-utility-solution",
+    "css-in-js-utility-engine",
+    "css-in-js-utility-library",
+    "javascript-css",
+    "javascript-css-library",
+    "responsive-css",
+    "responsive-css-library",
+    "responsive-css-framework",
+    "responsive-angular",
+    "responsive-angular-library",
+    "responsive-angular-framework",
+    "responsive-angular-tool",
+    "responsive-angular-solution",
+    "mui-for-angular",
+    "material-ui-for-angular",
+    "tailwind-vs-super-jss",
+    "custom-design",
+    "custom-design-system"
+
   ],
   "author": "Ricardo Santoyo <ricardo.santoyo@hotmail.com>",
   "license": "MIT",
-  "homepage": "https://medium.com/@viejorichard/super-jss-a-library-for-responsive-css-styles-85691b210450",
+  "homepage": "https://www.sjss.dev",
   "peerDependencies": {
     "@angular/common": "^16.2.9",
     "@angular/core": "^16.2.9"
   },
   "dependencies": {
-    "@angular/router": "^16.2.9",
     "tslib": "^2.3.0"
   },
   "contributors": [
@@ -42,6 +80,6 @@
   "files": ["dist", "README.md"],
   "main": "dist/index.js",
   "scripts": {
-    "test": "ng test --project=super-jss"
+    "test": "ng test"
   }
 }

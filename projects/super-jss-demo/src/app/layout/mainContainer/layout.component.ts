@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {SJssTheme} from "../../../../../super-jss/src/lib/super-jss-model";
-import {SJssThemeService} from "../../../../../super-jss/src/lib/s-jss-theme.service";
-import {SJssStyles} from "super-jss";
+import {SJssTheme, SJssStyles, SJssThemeService} from "super-jss";
+
 @Component({
   selector: 'sJssDemo-layout',
   templateUrl: './layout.component.html',

@@ -1,4 +1,4 @@
-import {SJssTheme} from "./super-jss-model";
+import {SJssTheme} from "../model";
 
 export const defaultThemeConfig = (): SJssTheme => {
   return {

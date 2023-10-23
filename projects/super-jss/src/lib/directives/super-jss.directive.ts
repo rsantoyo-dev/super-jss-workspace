@@ -1,9 +1,9 @@
 import { Directive, Input, OnChanges, SimpleChanges, ViewContainerRef } from '@angular/core';
-import { SJss, SJssTheme } from "./super-jss-model";
-import { SJssThemeService } from "./s-jss-theme.service";
+import { SJss, SJssTheme } from "../model";
+import { SJssThemeService } from "../services";
 import { BehaviorSubject, combineLatest, Subscription } from "rxjs";
 import { tap } from "rxjs/operators";
-import {applyStylesToElement, applyTypography} from "./super-jss-core-methods";
+import {applyStylesToElement, applyTypography} from "../helpers";
 
 
 @Directive({

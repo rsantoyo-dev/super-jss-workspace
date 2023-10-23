@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {SJssThemeService} from "../../../../../super-jss/src/lib/s-jss-theme.service";
-import {SJssTheme} from "../../../../../super-jss/src/lib/super-jss-model";
+import {SJssTheme, SJssThemeService} from "super-jss";
 
 
 @Component({
@@ -35,7 +34,6 @@ export class HeaderComponent implements OnInit {
     }
 
     else{
-
       this.themeService.setTheme(this.themeService.defaultTheme());
     }
 

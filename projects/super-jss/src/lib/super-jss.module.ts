@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SuperJssDirective } from './super-jss.directive';
+import { SuperJssDirective } from './directives';
 
 @NgModule({
   declarations: [

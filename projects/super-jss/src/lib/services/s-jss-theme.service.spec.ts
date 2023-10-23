@@ -1,5 +1,5 @@
 import { SJssThemeService } from "./s-jss-theme.service";
-import { Breakpoints } from "./super-jss-model";
+import { Breakpoints } from "../model";
 import {SJssTheme} from "super-jss";
 
 describe('SJssThemeService', () => {
