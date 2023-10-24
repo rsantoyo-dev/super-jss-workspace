@@ -1,9 +1,10 @@
 import {SJss, SJssBreakingStyle, SJssStyles, SJssTheme} from "../model";
-import {Breakpoints} from "../model";
+import {Breakpoints} from "super-jss";
+
 
 export const applyTypography = (el: HTMLElement, theme: SJssTheme, screenWidth: number) => {
   Object.keys(theme.typography).forEach(key => {
-    const jss: SJss = { marginBlockStart: '0', marginBlockEnd: '0', ...theme.typography.default };
+    const jss: SJssStyles = { marginBlockStart: '0', marginBlockEnd: '0', ...theme.typography.default };
     const specificStyle: SJss | undefined = theme.typography[key as keyof typeof theme.typography];
     if (el.nodeName === key && specificStyle) {
       applyStylesToElement(el, { ...jss, ...specificStyle }, theme, screenWidth);

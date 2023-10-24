@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SJssTheme, SJssThemeService} from "super-jss";
 
 
+
 @Component({
   selector: 'sJssDemo-header',
   templateUrl: './header.component.html',
@@ -10,6 +11,10 @@ import {SJssTheme, SJssThemeService} from "super-jss";
 export class HeaderComponent implements OnInit {
 
   theme:SJssTheme
+
+ /* SjCenter:SJssStyles = {
+    display:'flex',
+  }*/
   constructor(private themeService: SJssThemeService) {
     this.theme= themeService.defaultTheme();
    themeService.themeChanges().subscribe(t=>{this.theme = t})

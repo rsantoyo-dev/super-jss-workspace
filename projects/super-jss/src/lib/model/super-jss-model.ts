@@ -1,16 +1,10 @@
-export enum Breakpoints {
-  XS = 'xs',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl'
-}
 export interface SJssBreakpoints {
   xs: number | string,
   sm: number | string,
   md: number | string,
   lg: number | string,
   xl: number | string,
+
 }
 
 export interface SJssTheme{

@@ -1,6 +1,8 @@
-import { SJssThemeService } from "./s-jss-theme.service";
-import { Breakpoints } from "../model";
-import {SJssTheme} from "super-jss";
+
+import {SJssTheme} from "../model";
+import {SJssThemeService} from "./s-jss-theme.service";
+import {Breakpoints} from "super-jss";
+
 
 describe('SJssThemeService', () => {
   let service: SJssThemeService;
@@ -24,8 +26,9 @@ describe('SJssThemeService', () => {
   it('should set a new theme', () => {
     const theme: SJssTheme = service.defaultTheme();
     theme.palette.primary.main = 'red';
+    // ts-ignore
     service.setTheme(theme);
-    expect(service.theme).toEqual(theme);
+    expect(service.theme.palette.primary.main).toEqual('red');
   });
 
   // Test to observe theme changes

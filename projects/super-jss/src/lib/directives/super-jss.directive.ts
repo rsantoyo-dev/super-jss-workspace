@@ -1,9 +1,10 @@
 import { Directive, Input, OnChanges, SimpleChanges, ViewContainerRef } from '@angular/core';
-import { SJss, SJssTheme } from "../model";
+import {SJss, SJssTheme} from "../model";
 import { SJssThemeService } from "../services";
 import { BehaviorSubject, combineLatest, Subscription } from "rxjs";
 import { tap } from "rxjs/operators";
 import {applyStylesToElement, applyTypography} from "../helpers";
+
 
 
 @Directive({
@@ -11,13 +12,13 @@ import {applyStylesToElement, applyTypography} from "../helpers";
 })
 export class SuperJssDirective implements OnChanges {
 
-  @Input() set sj(value: SJss | undefined) {
+  @Input() set sj(value: SJss) {
     this.sj$.next(value);
   }
 
   private theme$ = new BehaviorSubject<SJssTheme>(this.themeService.defaultTheme());
   private screenWidth$ = new BehaviorSubject<number>(window.innerWidth);
-  private sj$ = new BehaviorSubject<SJss | undefined>(undefined);
+  private sj$ = new BehaviorSubject<SJss>([{}]);
 
   private subscriptions: Subscription = new Subscription();
 

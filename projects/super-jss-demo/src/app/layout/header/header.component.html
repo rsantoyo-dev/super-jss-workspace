@@ -1,7 +1,9 @@
-<div [sj]="{display:'flex',
-    backgroundColor:theme.palette.primary.main,
-    justifyContent:{xs: 'space-between', md:'center'},
-    padding:theme.spacing(3)}">
+<div [sj]="[{
+      display:'flex',
+      backgroundColor:theme.palette.primary.main,
+      justifyContent: {xs:'space-between', sm:'flex-start'},
+      padding:theme.spacing(3)}
+    ]">
   <div [sj]="{display:'flex',
         justifyContent:'center',
         alignItems:'center',
