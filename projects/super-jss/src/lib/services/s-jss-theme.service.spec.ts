@@ -18,7 +18,7 @@ describe('SJssThemeService', () => {
   it('should return a default theme', () => {
     const defaultTheme = service.defaultTheme();
     expect(defaultTheme.breakpoints).toEqual({ xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536 });
-    expect(defaultTheme.spacing(4)).toEqual('1rem'); // Compare the results of the spacing function
+    expect(defaultTheme.spacing(1)).toEqual('1rem'); // Compare the results of the spacing function
     // Add more assertions for other properties of the default theme if needed
   });
 

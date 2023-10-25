@@ -1,10 +1,9 @@
 export interface SJssBreakpoints {
-  xs: number | string,
-  sm: number | string,
-  md: number | string,
-  lg: number | string,
-  xl: number | string,
-
+  xs: number,
+  sm: number,
+  md: number,
+  lg: number,
+  xl: number,
 }
 
 export interface SJssTheme{
@@ -62,7 +61,6 @@ export interface SJssBreakingStyle {
 }
 
 export type SJss = (SJssStyles | SJssStyles[]);
-
 export interface SJssStyles {
   [key: string]: SJssBreakingStyle | string | undefined;
   alignContent?: SJssBreakingStyle | string;

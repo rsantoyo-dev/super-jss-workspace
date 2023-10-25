@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {SJssTheme, SJssThemeService} from "super-jss";
-
-
+import {SJssTheme, SJssThemeService} from 'projects/super-jss/src/lib/';
+import { SJssStyles } from "super-jss";
 
 @Component({
   selector: 'sJssDemo-header',
@@ -10,14 +9,21 @@ import {SJssTheme, SJssThemeService} from "super-jss";
 })
 export class HeaderComponent implements OnInit {
 
-  theme:SJssTheme
+  theme:SJssTheme;
 
- /* SjCenter:SJssStyles = {
-    display:'flex',
-  }*/
+  sjMyClassPadding:SJssStyles ={};
+
   constructor(private themeService: SJssThemeService) {
     this.theme= themeService.defaultTheme();
-   themeService.themeChanges().subscribe(t=>{this.theme = t})
+
+   themeService.themeChanges().subscribe(t=>{
+     this.setClasses()
+     this.theme = t
+   })
+  }
+
+  setClasses(){
+    this.sjMyClassPadding = {padding:{xs:this.theme.spacing(1), md:this.theme.spacing(2)}}
   }
 
   ngOnInit(): void {
@@ -28,21 +34,18 @@ export class HeaderComponent implements OnInit {
 
 
     if( th.palette.primary.main === '#147a81'){
-
       th.palette.primary = th.palette.secondary;
       th.palette.secondary = th.palette.primary;
-      th.breakpoints.md='750';
+      th.breakpoints.md=750;
       th.spacing = (factor) => `${0.5 * factor}rem`;
       this.themeService.setTheme(th);
-
+      /*console.log(this.themeService.theme.breakpoints)*/
       return;
     }
 
     else{
       this.themeService.setTheme(this.themeService.defaultTheme());
     }
-
-
   }
 
 }

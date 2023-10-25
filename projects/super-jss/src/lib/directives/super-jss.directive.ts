@@ -1,9 +1,9 @@
 import { Directive, Input, OnChanges, SimpleChanges, ViewContainerRef } from '@angular/core';
-import {SJss, SJssTheme} from "../model";
+import { SJss } from "../model";
 import { SJssThemeService } from "../services";
 import { BehaviorSubject, combineLatest, Subscription } from "rxjs";
 import { tap } from "rxjs/operators";
-import {applyStylesToElement, applyTypography} from "../helpers";
+import { applyStylesToElement, applyTypography } from "../helpers";
 
 
 
@@ -16,7 +16,6 @@ export class SuperJssDirective implements OnChanges {
     this.sj$.next(value);
   }
 
-  private theme$ = new BehaviorSubject<SJssTheme>(this.themeService.defaultTheme());
   private screenWidth$ = new BehaviorSubject<number>(window.innerWidth);
   private sj$ = new BehaviorSubject<SJss>([{}]);
 
@@ -24,19 +23,15 @@ export class SuperJssDirective implements OnChanges {
 
   constructor(private themeService: SJssThemeService, private vcr: ViewContainerRef) {
     this.subscriptions.add(
-      combineLatest([this.theme$, this.screenWidth$, this.sj$])
+      combineLatest([themeService.themeChanges$, this.screenWidth$, this.sj$])
         .pipe(
           tap(([theme, screenWidth, sj]) => {
             const el: HTMLElement = vcr.element.nativeElement;
             applyTypography(el, theme, screenWidth);
-            applyStylesToElement(el, sj ? sj : {}, theme, screenWidth);
+            applyStylesToElement(el, sj, theme, screenWidth);
           })
         )
         .subscribe()
-    );
-
-    this.subscriptions.add(
-      this.themeService.themeChanges().subscribe(this.theme$)
     );
 
     this.subscriptions.add(
