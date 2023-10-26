@@ -7,18 +7,16 @@ import { LayoutComponent } from './layout/mainContainer/layout.component';
 import { SuperJssModule } from "../../../super-jss/src/lib";
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     LayoutComponent
   ],
-  imports: [
-    BrowserModule,
-    SuperJssModule,
-    SuperJssModule,
-  ],
+    imports: [
+        BrowserModule,
+        SuperJssModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

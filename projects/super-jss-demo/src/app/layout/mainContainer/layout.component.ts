@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {SJssTheme, SJssStyles, SJssThemeService} from "super-jss";
+import {SJssStyles, SJssTheme, SJssThemeService} from "../../../../../super-jss/src/lib";
 
 @Component({
   selector: 'sJssDemo-layout',

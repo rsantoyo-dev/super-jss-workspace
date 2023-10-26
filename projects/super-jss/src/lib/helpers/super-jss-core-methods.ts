@@ -1,5 +1,4 @@
-import {SJss, SJssStyles, SJssTheme} from "../model";
-import {Breakpoints} from "super-jss";
+import {Breakpoints, SJss, SJssStyles, SJssTheme} from "../model";
 
 
 export const applyTypography = (el: HTMLElement, theme: SJssTheme, screenWidth: number) => {

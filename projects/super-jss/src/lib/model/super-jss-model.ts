@@ -1,3 +1,10 @@
+export enum Breakpoints {
+  XS = 'xs',
+  SM = 'sm',
+  MD = 'md',
+  LG = 'lg',
+  XL = 'xl'
+}
 export interface SJssBreakpoints {
   xs: number,
   sm: number,
@@ -5,6 +12,8 @@ export interface SJssBreakpoints {
   lg: number,
   xl: number,
 }
+
+
 
 export interface SJssTheme{
   breakpoints: SJssBreakpoints,

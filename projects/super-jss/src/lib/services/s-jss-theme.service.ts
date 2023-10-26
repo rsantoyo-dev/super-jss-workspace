@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {SJssTheme} from "../model";
+import {Breakpoints, SJssTheme} from "../model";
 import { BehaviorSubject, fromEvent, Subscription } from "rxjs";
-import { defaultThemeConfig } from "../theme/s-jss-default-theme";
-import {Breakpoints} from "super-jss";
+import { defaultThemeConfig } from "../theme";
+
 
 // Enumeration representing the various breakpoints
 

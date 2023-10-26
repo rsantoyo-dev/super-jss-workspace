@@ -1,9 +1,6 @@
 
-import {SJssTheme} from "../model";
+import {Breakpoints, SJssTheme} from "../model";
 import {SJssThemeService} from "./s-jss-theme.service";
-import {Breakpoints} from "super-jss";
-
-
 describe('SJssThemeService', () => {
   let service: SJssThemeService;
 
@@ -17,7 +14,7 @@ describe('SJssThemeService', () => {
 
   it('should return a default theme', () => {
     const defaultTheme = service.defaultTheme();
-    expect(defaultTheme.breakpoints).toEqual({ xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536 });
+    expect(defaultTheme.breakpoints).toEqual({xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536});
     expect(defaultTheme.spacing(1)).toEqual('1rem'); // Compare the results of the spacing function
     // Add more assertions for other properties of the default theme if needed
   });

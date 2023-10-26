@@ -1,6 +1,6 @@
 {
   "name": "super-jss",
-  "version": "1.0.2",
+  "version": "1.0.24",
   "description": "A powerful library for responsive CSS styles in Angular applications.",
   "repository": {
     "type": "git",
@@ -76,10 +76,6 @@
   },
   "contributors": [
     "Ricardo Santoyo <ricardo.santoyo@hotmail.com>"
-  ],
-  "files": ["dist", "README.md"],
-  "main": "dist/index.js",
-  "scripts": {
-    "test": "ng test"
-  }
+  ]
+
 }

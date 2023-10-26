@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {SJssTheme, SJssThemeService} from 'projects/super-jss/src/lib/';
-import { SJssStyles } from "super-jss";
+import {SJssStyles, SJssTheme, SJssThemeService} from 'projects/super-jss/src/lib/';
+
 
 @Component({
   selector: 'sJssDemo-header',
