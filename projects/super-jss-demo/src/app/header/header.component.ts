@@ -23,6 +23,7 @@ export class HeaderComponent {
   toggleTheme = signal(false);
   theme= signal(this.themeService.defaultTheme())
   constructor(private themeService: SJssThemeService) {
+
     this.themeService.themeChanges$.subscribe(theme => {
       this.theme.set(theme);
     })

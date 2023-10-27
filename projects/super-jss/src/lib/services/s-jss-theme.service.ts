@@ -12,13 +12,13 @@ import { defaultThemeConfig } from "../theme";
 export class SJssThemeService {
 
   // Represents the current theme configuration
-  theme: SJssTheme;
+  theme: SJssTheme = this.defaultTheme();
 
   // Holds the current active breakpoint value
   breakPoint: Breakpoints = Breakpoints.XS;
 
   // Observable to track changes in the theme
-  themeChanges$: BehaviorSubject<SJssTheme>;
+  themeChanges$: BehaviorSubject<SJssTheme> = new BehaviorSubject<SJssTheme>(this.defaultTheme());
 
   // Observable to track changes in the active breakpoint
   breakPointChanges$: BehaviorSubject<Breakpoints>;
@@ -31,7 +31,6 @@ export class SJssThemeService {
     this.theme = this.defaultTheme();
 
     // Initialize observables with the current theme and breakpoint values
-    this.themeChanges$ = new BehaviorSubject<SJssTheme>(this.defaultTheme());
     this.breakPointChanges$ = new BehaviorSubject<Breakpoints>(this.breakPoint);
 
     // Subscribe to theme changes and window events to handle responsive behavior
@@ -65,7 +64,6 @@ export class SJssThemeService {
    * Handles the window resize event and updates the active breakpoint.
    */
   onResize() {
-
     const bp = this.determineBreakpoint();
     if (bp !== this.breakPoint) {
       this.breakPoint = bp;
