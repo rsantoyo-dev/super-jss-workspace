@@ -1,4 +1,4 @@
-import {Breakpoints, SJss, SJssStyles, SJssTheme} from "../model";
+ import {Breakpoints, SJss, SJssStyles, SJssTheme} from "../model";
 
 
 export const applyTypography = (el: HTMLElement, theme: SJssTheme, screenWidth: number) => {
@@ -11,14 +11,13 @@ export const applyTypography = (el: HTMLElement, theme: SJssTheme, screenWidth: 
   });
 };
 
-export const isEmptySj = (sj: SJss) => Object.keys(sj).length === 0 && Object.keys(sj).length === 0;
+export const isEmptySj = (sj: SJss) => !sj || sj && Object.keys(sj).length === 0 && Object.keys(sj).length === 0;
 
 export const applyStylesToElement = (el: HTMLElement, jssStyle: SJss, theme: SJssTheme, screenWidth: number) => {
-
-  if (isEmptySj(jssStyle) && el) {
+  if ((isEmptySj(jssStyle) && el)) {
     return;
   }
-  if (Object.keys(jssStyle).length >= 0 || Array.isArray(jssStyle)) {
+  if (jssStyle && Object.keys(jssStyle).length >= 0 || Array.isArray(jssStyle)) {
     if (Array.isArray(jssStyle)) {
       jssStyle.forEach(styleObj => {
         setStyleProperties(el, styleObj, theme, screenWidth);

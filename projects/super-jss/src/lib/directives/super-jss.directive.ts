@@ -4,14 +4,10 @@ import { SJssThemeService } from "../services";
 import { BehaviorSubject, combineLatest, Subscription } from "rxjs";
 import { tap } from "rxjs/operators";
 import { applyStylesToElement, applyTypography } from "../helpers";
-
-
-
 @Directive({
   selector: "[sj]"
 })
 export class SuperJssDirective implements OnChanges {
-
   @Input() set sj(value: SJss) {
     this.sj$.next(value);
   }

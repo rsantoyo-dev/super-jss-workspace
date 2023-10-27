@@ -69,7 +69,7 @@ export interface SJssBreakingStyle {
   xl?: string,
 }
 
-export type SJss = (SJssStyles | SJssStyles[]);
+export type SJss = (SJssStyles | SJssStyles[] | undefined);
 export interface SJssStyles {
   [key: string]: SJssBreakingStyle | string | undefined;
   alignContent?: SJssBreakingStyle | string;
