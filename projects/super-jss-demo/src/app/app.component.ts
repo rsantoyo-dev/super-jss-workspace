@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
-import {SJss, SuperJssModule } from "projects/super-jss/src/lib";
-import {SJssTheme, SJssThemeService} from "super-jss";
+import {SJss, SJssTheme, SJssThemeService, SuperJssModule } from "projects/super-jss/src/lib";
+
 
 @Component({ selector: 'app-root',
   standalone: true,
