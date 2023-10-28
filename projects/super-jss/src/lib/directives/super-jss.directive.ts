@@ -31,10 +31,10 @@ export class SuperJssDirective implements OnChanges {
     );
 
     this.subscriptions.add(
-      this.themeService.breakpointChanges().subscribe(() => {
+      this.themeService.breakPoint$.subscribe(() => {
         this.screenWidth$.next(window.innerWidth);
       })
-    );
+    )
   }
 
   ngOnChanges(changes: SimpleChanges) {
