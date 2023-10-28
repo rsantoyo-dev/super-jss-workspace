@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable, signal, WritableSignal} from '@angular/core';
 import {Breakpoints, SJssTheme} from "../model";
 import { BehaviorSubject, fromEvent, Subscription } from "rxjs";
 import { defaultThemeConfig } from "../theme";
+import {toObservable} from "@angular/core/rxjs-interop";
 
 
 // Enumeration representing the various breakpoints
@@ -11,14 +12,11 @@ import { defaultThemeConfig } from "../theme";
 })
 export class SJssThemeService {
 
-  // Represents the current theme configuration
-  theme: SJssTheme = this.defaultTheme();
+  theme = signal(this.defaultTheme());
+  theme$ = toObservable(this.theme);
 
   // Holds the current active breakpoint value
   breakPoint: Breakpoints = Breakpoints.XS;
-
-  // Observable to track changes in the theme
-  themeChanges$: BehaviorSubject<SJssTheme> = new BehaviorSubject<SJssTheme>(this.defaultTheme());
 
   // Observable to track changes in the active breakpoint
   breakPointChanges$: BehaviorSubject<Breakpoints>;
@@ -27,16 +25,10 @@ export class SJssThemeService {
   subscriptions: Subscription = new Subscription();
 
   constructor() {
-    // Set the initial theme to the default configuration
-    this.theme = this.defaultTheme();
-
     // Initialize observables with the current theme and breakpoint values
     this.breakPointChanges$ = new BehaviorSubject<Breakpoints>(this.breakPoint);
 
-    // Subscribe to theme changes and window events to handle responsive behavior
-    this.subscriptions.add(this.themeChanges$.subscribe(theme => {
-
-      this.theme = theme;
+    this.subscriptions.add(this.theme$.subscribe(theme => {
       this.onResize()
     }));
     this.subscriptions.add(fromEvent(window, 'resize').subscribe(() => this.onResize()));
@@ -47,11 +39,11 @@ export class SJssThemeService {
    * Determines the current breakpoint based on the window's width.
    * @returns The current breakpoint as a string.
    */
-  determineBreakpoint(): Breakpoints {
+  determineBreakpoint(theme:WritableSignal<SJssTheme>): Breakpoints {
     const width = this.getInnerWidth();
     let breakpoint: Breakpoints = Breakpoints.XS;
-    for (const key in this.theme.breakpoints) {
-      if (this.theme.breakpoints[key as Breakpoints] <= width) {
+    for (const key in theme().breakpoints) {
+      if (theme().breakpoints[key as Breakpoints] <= width) {
         breakpoint = key as Breakpoints;
       } else {
         break;
@@ -64,7 +56,7 @@ export class SJssThemeService {
    * Handles the window resize event and updates the active breakpoint.
    */
   onResize() {
-    const bp = this.determineBreakpoint();
+    const bp = this.determineBreakpoint(this.theme);
     if (bp !== this.breakPoint) {
       this.breakPoint = bp;
       this.breakPointChanges$.next(this.breakPoint);
@@ -76,15 +68,7 @@ export class SJssThemeService {
    * @param newValue - The new theme configuration.
    */
   setTheme(newValue: SJssTheme): void {
-    this.themeChanges$.next(newValue);
-  }
-
-  /**
-   * Provides an observable to track theme changes.
-   * @returns An observable of the theme.
-   */
-  themeChanges(): BehaviorSubject<SJssTheme> {
-    return this.themeChanges$;
+    this.theme.set(newValue);
   }
 
   /**

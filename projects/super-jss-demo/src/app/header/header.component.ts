@@ -1,7 +1,6 @@
 import {Component, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {SuperJssModule} from "super-jss";
-import {SJssThemeService} from "../../../../super-jss/src/lib";
+import {SJssThemeService, SuperJssModule} from "../../../../super-jss/src/lib";
 
 @Component({
   selector: 'app-header',
@@ -23,22 +22,18 @@ export class HeaderComponent {
   toggleTheme = signal(false);
   theme= signal(this.themeService.defaultTheme())
   constructor(private themeService: SJssThemeService) {
-
-    this.themeService.themeChanges$.subscribe(theme => {
+    this.themeService.theme$.subscribe(theme => {
       this.theme.set(theme);
     })
   }
   updateTheme = () => {
     this.toggleTheme.set(!this.toggleTheme());
-    this.themeService.setTheme(!this.toggleTheme() ?
-      this.themeService.defaultTheme() :
-      {...this.theme(),
-        palette:{
-          ...this.theme().palette,
-          secondary:{...this.theme().palette.secondary, main:'red'}
-        }
-      }
-    );
+    this.themeService.theme.mutate(theme => {
+      theme.palette.secondary.main = this.toggleTheme() ? 'red' : this.themeService.defaultTheme().palette.secondary.main;
+      theme.palette.secondary.dark = this.toggleTheme() ? 'purple' : this.themeService.defaultTheme().palette.secondary.dark;
+    })
+
+
   }
 
 }

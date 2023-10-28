@@ -25,7 +25,7 @@ export class AppComponent {
     backgroundColor: t.palette.common.gray.light
   }
   constructor(private themeService: SJssThemeService) {
-    this.themeService.themeChanges$.subscribe(theme => {
+    this.themeService.theme$.subscribe(theme => {
       this.theme.set(theme);
     })
   }

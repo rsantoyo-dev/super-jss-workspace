@@ -19,7 +19,7 @@ export class SuperJssDirective implements OnChanges {
 
   constructor(private themeService: SJssThemeService, private vcr: ViewContainerRef) {
     this.subscriptions.add(
-      combineLatest([themeService.themeChanges$, this.screenWidth$, this.sj$])
+      combineLatest([themeService.theme$, this.screenWidth$, this.sj$])
         .pipe(
           tap(([theme, screenWidth, sj]) => {
             const el: HTMLElement = vcr.element.nativeElement;
