@@ -1,11 +1,8 @@
-import {Injectable, signal, WritableSignal} from '@angular/core';
-import {Breakpoints, SJssTheme} from "../model";
-import { fromEvent, Subscription } from "rxjs";
+import { Injectable, signal, WritableSignal, effect } from '@angular/core';
+import { Breakpoints, SJssTheme } from "../model";
 import { defaultThemeConfig } from "../theme";
-import {toObservable} from "@angular/core/rxjs-interop";
+import { determineBreakpoint } from "./helpers";
 
-
-// Enumeration representing the various breakpoints
 
 @Injectable({
   providedIn: 'root'
@@ -13,60 +10,29 @@ import {toObservable} from "@angular/core/rxjs-interop";
 export class SJssThemeService {
 
   theme = signal(this.defaultTheme());
-  theme$ = toObservable(this.theme);
 
-  breakPoint = signal(Breakpoints.XS);
-  breakPoint$ = toObservable(this.breakPoint);
-
+  breakPoint: WritableSignal<Breakpoints> = signal(Breakpoints.XS);
   innerWidth = signal(window.innerWidth);
 
-  subscriptions: Subscription = new Subscription();
-
   constructor() {
-    this.subscriptions.add(this.theme$.subscribe(() => {
-      this.onResize()
-    }));
-    this.subscriptions.add(fromEvent(window, 'resize').subscribe(() => this.onResize()));
-    this.subscriptions.add(fromEvent(window, 'load').subscribe(() => this.onResize()));
+    effect(() => {this.onResize(this.theme)}, { allowSignalWrites: true });
+    window.addEventListener('resize', () => this.onResize(this.theme));
+    window.addEventListener('load', () => this.onResize(this.theme));
   }
 
   /**
-   * Determines the current breakpoint based on the window's width.
-   * @returns The current breakpoint as a string.
+   * Updates the breakpoint and inner width values.
+   * @param theme - The current theme configuration.
    */
-  determineBreakpoint(theme:WritableSignal<SJssTheme>): Breakpoints {
-    const width = this.innerWidth();
-    let breakpoint: Breakpoints = Breakpoints.XS;
-    for (const key in theme().breakpoints) {
-      if (theme().breakpoints[key as Breakpoints] <= width) {
-        breakpoint = key as Breakpoints;
-      } else {
-        break;
-      }
-    }
-    return breakpoint;
-  }
-
-  /**
-   * Handles the window resize event and updates the active breakpoint.
-   */
-  onResize() {
+  onResize(theme:WritableSignal<SJssTheme>) {
     this.innerWidth.set(window.innerWidth);
-    const bp = this.determineBreakpoint(this.theme);
+    const bp = determineBreakpoint(theme, this.innerWidth);
     this.breakPoint.set((bp !== this.breakPoint()) ? bp : this.breakPoint());
   }
 
   /**
-   * Updates the theme configuration.
-   * @param newValue - The new theme configuration.
-   */
-  setTheme(newValue: SJssTheme): void {
-    this.theme.set(newValue);
-  }
-
-  /**
-   * Provides the default theme configuration.
-   * @returns The default theme configuration.
+   * Provides the current theme configuration.
+   * @returns The current theme configuration.
    */
   defaultTheme(): SJssTheme {
     return defaultThemeConfig();
@@ -77,6 +43,7 @@ export class SJssThemeService {
    */
   ngOnDestroy(): void {
     // Unsubscribe from all active subscriptions
-    this.subscriptions.unsubscribe();
+    window.removeEventListener('resize', () => this.onResize(this.theme));
+    window.removeEventListener('load', () => this.onResize(this.theme));
   }
 }

@@ -1,4 +1,4 @@
- import {Breakpoints, SJss, SJssStyles, SJssTheme} from "../model";
+import {Breakpoints, SJss, SJssStyles, SJssTheme} from "../model";
 
 
 export const applyTypography = (el: HTMLElement, theme: SJssTheme, screenWidth: number) => {
@@ -27,6 +27,7 @@ export const applyStylesToElement = (el: HTMLElement, jssStyle: SJss, theme: SJs
     }
   }
 }
+
 const setStyleProperties = (el: HTMLElement, styleObj: SJssStyles, theme: SJssTheme, screenWidth: number) => {
   Object.keys(styleObj).forEach(key => {
      try {

@@ -1,50 +1,30 @@
-import { Directive, Input, OnChanges, SimpleChanges, ViewContainerRef } from '@angular/core';
+import { Directive, Input, SimpleChanges, ViewContainerRef, effect, signal } from '@angular/core';
 import { SJss } from "../model";
 import { SJssThemeService } from "../services";
-import { BehaviorSubject, combineLatest, Subscription } from "rxjs";
-import { tap } from "rxjs/operators";
-import { applyStylesToElement, applyTypography } from "../helpers";
+import { applyStylesToElement, applyTypography } from "./helpers";
 @Directive({
   selector: "[sj]"
 })
-export class SuperJssDirective implements OnChanges {
+export class SuperJssDirective {
+
+  sjInput= signal<SJss>({});
+
   @Input() set sj(value: SJss) {
-    this.sj$.next(value);
+    this.sjInput.set(value);
   }
-
-  private screenWidth$ = new BehaviorSubject<number>(window.innerWidth);
-  private sj$ = new BehaviorSubject<SJss>([{}]);
-
-  private subscriptions: Subscription = new Subscription();
 
   constructor(private themeService: SJssThemeService, private vcr: ViewContainerRef) {
-    this.subscriptions.add(
-      combineLatest([themeService.theme$, this.screenWidth$, this.sj$])
-        .pipe(
-          tap(([theme, screenWidth, sj]) => {
-            const el: HTMLElement = vcr.element.nativeElement;
-            applyTypography(el, theme, screenWidth);
-            applyStylesToElement(el, sj, theme, screenWidth);
-          })
-        )
-        .subscribe()
-    );
-
-    this.subscriptions.add(
-      this.themeService.breakPoint$.subscribe(() => {
-        this.screenWidth$.next(window.innerWidth);
-      })
-    )
+    effect(() => {
+      const el: HTMLElement = this.vcr.element.nativeElement;
+      applyTypography(el, this.themeService.theme(), this.themeService.innerWidth());
+      applyStylesToElement(el, this.sjInput(), this.themeService.theme(), this.themeService.innerWidth());
+    });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+   ngOnChanges(changes: SimpleChanges) {
     if (changes.sj) {
-      this.sj$.next(changes.sj.currentValue);
+      this.sjInput.set(changes.sj.currentValue);
     }
-  }
+  } 
 
-  // Cleanup: Unsubscribe from all active subscriptions
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
 }

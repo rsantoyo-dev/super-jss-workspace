@@ -13,8 +13,6 @@ export interface SJssBreakpoints {
   xl: number,
 }
 
-
-
 export interface SJssTheme{
   breakpoints: SJssBreakpoints,
   spacing: (val: number) => string;

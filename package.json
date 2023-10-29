@@ -7,8 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build-library": "ng build super-jss",
-    "publish": "cd dist/super-jss && npm publish"
+    "publish": "cd dist/super-jss && npm publish",
+    "sj-build": "ng build super-jss",
+    "sj-watch": "ng build super-jss --watch"
   },
   "dependencies": {
     "@angular/animations": "^16.2.9",
@@ -21,7 +22,6 @@
     "@angular/router": "^16.2.9",
     "microlight": "^0.0.7",
     "rainbow-code": "^2.1.7",
-    "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.3"
   },

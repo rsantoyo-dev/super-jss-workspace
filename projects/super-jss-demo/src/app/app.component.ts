@@ -1,4 +1,4 @@
-import {Component, signal} from "@angular/core";
+import {Component, effect, signal} from "@angular/core";
 import {SJss, SJssTheme, SJssThemeService, SuperJssModule } from "projects/super-jss/src/lib";
 import {HeaderComponent} from "./header/header.component";
 @Component({ selector: 'app-root',
@@ -17,17 +17,15 @@ import {HeaderComponent} from "./header/header.component";
 export class AppComponent {
 
   theme = signal(this.themeService.defaultTheme());
-  sjMainBootstrap = (t:SJssTheme) => <SJss> {
+  sjMainBootstrap = (theme:SJssTheme) => <SJss> {
     display:'flex',
     flexDirection:'column',
     width:'100%',
     height:'100vh',
-    backgroundColor: t.palette.common.gray.light
+    backgroundColor: {xs: theme.palette.common.gray.light, md: theme.palette.common.gray.dark},
   }
   constructor(private themeService: SJssThemeService) {
-    this.themeService.theme$.subscribe(theme => {
-      this.theme.set(theme);
-    })
+    effect(() => {this.theme = this.themeService.theme});
   }
 
 }
