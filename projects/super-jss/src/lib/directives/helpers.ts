@@ -39,17 +39,39 @@ const setStyleProperties = (el: HTMLElement, styleObj: SJssStyles, theme: SJssTh
   });
 };
 
+const applyShortcuts = (styleValue: string, theme: SJssTheme): string => {
+  if (styleValue === 'sj-primary') {
+    return theme.palette.primary.main;
+  }
+  else if (styleValue === 'sj-secondary') {
+    return theme.palette.secondary.main;
+  }
+  else if (styleValue === 'sj-gray-light') {
+    return theme.palette.common.gray.light;
+  }
+  else if (styleValue === 'sj-gray-dark') {
+    return theme.palette.common.gray.dark;
+  }
+  else {
+    return styleValue;
+  }
+}
+
 const applyStyle = (styleValue: SJssStyles | string, screenWidth: number, theme: SJssTheme): string => {
   let style: string = "";
   if (typeof styleValue === "string") {
-    return styleValue;
+    return applyShortcuts(styleValue, theme);
   }
   else if (typeof styleValue === 'object') {
     Object.keys(styleValue).forEach(key => {
+
       if (Object.values(Breakpoints).includes(key as Breakpoints) &&
         styleValue[key] &&
         screenWidth>theme.breakpoints[key as Breakpoints])
       {
+        if (typeof styleValue === "string") {
+          style = applyShortcuts(styleValue[key as Breakpoints], theme);
+        }        
         style = styleValue[key as Breakpoints]! as string;
       }
     });

@@ -21,6 +21,8 @@ export class SuperJssDirective {
     });
   }
 
+  
+
    ngOnChanges(changes: SimpleChanges) {
     if (changes.sj) {
       this.sjInput.set(changes.sj.currentValue);

@@ -5,28 +5,22 @@ import {HeaderComponent} from "./header/header.component";
   standalone: true,
   imports: [SuperJssModule, HeaderComponent],
   template: `
-    <div [sj]="sjMainBootstrap(theme())">
+    <div [sj]="sjMainBootstrap()">
       <app-header></app-header>
         <h3 [sj]="">Super-JSS Demo</h3>
       </div>
-      <div [sj]="{display:'flex', justifyContent:'center', height:theme().spacing(30), backgroundColor:theme().palette.common.gray.light}">
+      <div [sj]="{display:'flex', justifyContent:'center', height:'30rem', backgroundColor:'sj-gray-light'}">
           test
       </div>
   `})
 
 export class AppComponent {
-
-  theme = signal(this.themeService.defaultTheme());
-  sjMainBootstrap = (theme:SJssTheme) => <SJss> {
+  sjMainBootstrap = () => <SJss> {
     display:'flex',
     flexDirection:'column',
     width:'100%',
     height:'100vh',
-    backgroundColor: {xs: theme.palette.common.gray.light, md: theme.palette.common.gray.dark},
+    backgroundColor: {xs: 'sj-gray-light', md: 'sj-gray-dark'},
   }
-  constructor(private themeService: SJssThemeService) {
-    effect(() => {this.theme = this.themeService.theme});
-  }
-
 }
 
