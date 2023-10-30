@@ -15,6 +15,7 @@ export interface SJssBreakpoints {
 
 export enum SjQuick {
   primary = 'sj-primary',
+  primaryLight = 'sj-primary-light',
   secondary = 'sj-secondary',
   grayLight = 'sj-gray-light',
   grayDark = 'sj-gray-dark'

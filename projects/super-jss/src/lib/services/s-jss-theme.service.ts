@@ -1,24 +1,25 @@
 import { Injectable, signal, WritableSignal, effect } from '@angular/core';
 import { Breakpoints, SJssTheme } from "../model";
-import { defaultThemeConfig } from "../theme";
-import { determineBreakpoint } from "./helpers";
 
-const thGlobal = signal(defaultThemeConfig())
+import { determineBreakpoint } from "./helpers";
+import { theme } from '../directives';
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class SJssThemeService {
-  theme = signal(this.defaultTheme());
+  //theme = signal(this.defaultTheme());
   breakPoint: WritableSignal<Breakpoints> = signal(Breakpoints.XS);
   innerWidth = signal(window.innerWidth);
 
   constructor() {
     effect(() => {
-      this.onResize(this.theme)
+      this.onResize(theme)
     }, { allowSignalWrites: true });
 
-    window.addEventListener('resize', () => this.onResize(this.theme));
-    window.addEventListener('load', () => this.onResize(this.theme));
+    window.addEventListener('resize', () => this.onResize(theme));
+    window.addEventListener('load', () => this.onResize(theme));
   }
 
   /**
@@ -30,21 +31,13 @@ export class SJssThemeService {
     const bp = determineBreakpoint(theme, this.innerWidth);
     this.breakPoint.set((bp !== this.breakPoint()) ? bp : this.breakPoint());
   }
-  
-  /**
-   * Provides the current theme configuration.
-   * @returns The current theme configuration.
-   */
-  defaultTheme(): SJssTheme {
-    return defaultThemeConfig();
-  }
 
   /**
    * Lifecycle hook to clean up resources when the service is destroyed.
    */
   ngOnDestroy(): void {
     // Unsubscribe from all active subscriptions
-    window.removeEventListener('resize', () => this.onResize(this.theme));
-    window.removeEventListener('load', () => this.onResize(this.theme));
+    window.removeEventListener('resize', () => this.onResize(theme));
+    window.removeEventListener('load', () => this.onResize(theme));
   }
 }

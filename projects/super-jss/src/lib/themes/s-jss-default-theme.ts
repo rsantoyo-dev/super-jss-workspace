@@ -28,7 +28,7 @@ export const defaultThemeConfig = (): SJssTheme => {
       },
       primary: {
         main: '#147a81',
-        light: '#5aeae7',
+        light: '#64bac1',
         dark: '#0f5d73',
         contrastText: '#f9fff7',
       },

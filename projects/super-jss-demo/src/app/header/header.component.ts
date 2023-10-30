@@ -1,6 +1,7 @@
-import { Component, effect, signal } from '@angular/core';
+
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SJssThemeService, SuperJssModule, SjQuick } from '../../../../super-jss/src/lib';
+import { SuperJssModule, SjQuick, theme, defaultThemeConfig, } from '../../../../super-jss/src/lib';
 
 @Component({
   selector: 'app-header',
@@ -13,8 +14,8 @@ import { SJssThemeService, SuperJssModule, SjQuick } from '../../../../super-jss
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: { xs: theme().spacing(5), md: theme().spacing(5) },
-        backgroundColor: {xs:SjQuick.secondary, md:SjQuick.secondary},
+        padding: { xs: theme().spacing(5), md: theme().spacing(8) },
+        backgroundColor: {xs:SjQuick.primary, md:SjQuick.primaryLight},
       }"
     >
       <h3 [sj]="{ color: theme().palette.common.white }">SUPER-JSS-DEMO</h3>
@@ -25,28 +26,25 @@ import { SJssThemeService, SuperJssModule, SjQuick } from '../../../../super-jss
   `,
 })
 export class HeaderComponent {
-  protected readonly SjQuick = SjQuick;
-  toggleTheme = signal(false);
-  theme = signal(this.themeService.defaultTheme());  
 
-  constructor(private themeService: SJssThemeService) {
-    effect(() => {
-      this.theme = this.themeService.theme;
-    });
-  }
+  protected readonly SjQuick = SjQuick;
+  protected readonly theme = signal(theme());
+
+  toggleTheme = signal(false);
+
   updateTheme = () => {
     this.toggleTheme.set(!this.toggleTheme());
-    this.themeService.theme.mutate((theme) => {
-      theme.palette.secondary.main = this.toggleTheme()
-        ? 'red'
-        : this.themeService.defaultTheme().palette.secondary.main;
-      theme.palette.secondary.dark = this.toggleTheme()
-        ? 'purple'
-        : this.themeService.defaultTheme().palette.secondary.dark;
+    theme.mutate((theme) => {
+      theme.palette.primary.main = this.toggleTheme()
+        ? '#003366'
+        : defaultThemeConfig().palette.primary.main;
+      theme.palette.primary.light = this.toggleTheme()
+        ? '#6699ff'
+        : defaultThemeConfig().palette.primary.light;
       theme.breakpoints.md = this.toggleTheme()
         ? 750
-        : this.themeService.defaultTheme().breakpoints.md;
+        : defaultThemeConfig().breakpoints.md;
     });
   };
-  
+
 }

@@ -1,5 +1,8 @@
-import {Breakpoints, SJss, SJssStyles, SJssTheme} from "../model";
+import { signal } from "@angular/core";
+import {Breakpoints, SJss, SJssStyles, SJssTheme, SjQuick} from "../model";
+import { defaultThemeConfig } from "../themes";
 
+export const theme = signal(defaultThemeConfig())
 
 export const applyTypography = (el: HTMLElement, theme: SJssTheme, screenWidth: number) => {
   Object.keys(theme.typography).forEach(key => {
@@ -43,11 +46,17 @@ const applyShortcuts = (styleValue: string, theme: SJssTheme): string => {
   if (styleValue === 'sj-primary') {
     return theme.palette.primary.main;
   }
+  else if (styleValue === SjQuick.primaryLight) {
+    return theme.palette.primary.light;
+  }
   else if (styleValue === 'sj-secondary') {
     return theme.palette.secondary.main;
   }
   else if (styleValue === 'sj-gray-light') {
     return theme.palette.common.gray.light;
+  }
+  else if (styleValue === 'sj-gray-dark') {
+    return theme.palette.common.gray.dark;
   }
   else if (styleValue === 'sj-gray-dark') {
     return theme.palette.common.gray.dark;
