@@ -13,6 +13,13 @@ export interface SJssBreakpoints {
   xl: number,
 }
 
+export enum SjQuick {
+  primary = 'sj-primary',
+  secondary = 'sj-secondary',
+  grayLight = 'sj-gray-light',
+  grayDark = 'sj-gray-dark'
+}
+
 export interface SJssTheme{
   breakpoints: SJssBreakpoints,
   spacing: (val: number) => string;

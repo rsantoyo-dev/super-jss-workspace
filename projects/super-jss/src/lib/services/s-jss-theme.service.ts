@@ -3,6 +3,7 @@ import { Breakpoints, SJssTheme } from "../model";
 import { defaultThemeConfig } from "../theme";
 import { determineBreakpoint } from "./helpers";
 
+const thGlobal = signal(defaultThemeConfig())
 @Injectable({
   providedIn: 'root'
 })
@@ -10,9 +11,6 @@ export class SJssThemeService {
   theme = signal(this.defaultTheme());
   breakPoint: WritableSignal<Breakpoints> = signal(Breakpoints.XS);
   innerWidth = signal(window.innerWidth);
-
-  
-  
 
   constructor() {
     effect(() => {
@@ -32,7 +30,6 @@ export class SJssThemeService {
     const bp = determineBreakpoint(theme, this.innerWidth);
     this.breakPoint.set((bp !== this.breakPoint()) ? bp : this.breakPoint());
   }
-
   
   /**
    * Provides the current theme configuration.

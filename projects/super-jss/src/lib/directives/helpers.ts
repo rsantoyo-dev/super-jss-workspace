@@ -64,15 +64,11 @@ const applyStyle = (styleValue: SJssStyles | string, screenWidth: number, theme:
   }
   else if (typeof styleValue === 'object') {
     Object.keys(styleValue).forEach(key => {
-
       if (Object.values(Breakpoints).includes(key as Breakpoints) &&
         styleValue[key] &&
         screenWidth>theme.breakpoints[key as Breakpoints])
       {
-        if (typeof styleValue === "string") {
-          style = applyShortcuts(styleValue[key as Breakpoints], theme);
-        }        
-        style = styleValue[key as Breakpoints]! as string;
+        style =  applyShortcuts(styleValue[key]! as string, theme);
       }
     });
   }

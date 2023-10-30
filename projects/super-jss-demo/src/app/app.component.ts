@@ -1,5 +1,5 @@
 import {Component, effect, signal} from "@angular/core";
-import {SJss, SJssTheme, SJssThemeService, SuperJssModule } from "projects/super-jss/src/lib";
+import {SJss, SJssTheme, SJssThemeService, SuperJssModule, SjQuick } from "projects/super-jss/src/lib";
 import {HeaderComponent} from "./header/header.component";
 @Component({ selector: 'app-root',
   standalone: true,
@@ -7,10 +7,8 @@ import {HeaderComponent} from "./header/header.component";
   template: `
     <div [sj]="sjMainBootstrap()">
       <app-header></app-header>
-        <h3 [sj]="">Super-JSS Demo</h3>
-      </div>
-      <div [sj]="{display:'flex', justifyContent:'center', height:'30rem', backgroundColor:'sj-gray-light'}">
-          test
+      <div [sj]="{display:'flex', height:'100%', justifyContent:'center', alignItems:'center'}">
+        <h3 [sj]>Super-JSS Demo</h3>
       </div>
   `})
 
@@ -20,7 +18,7 @@ export class AppComponent {
     flexDirection:'column',
     width:'100%',
     height:'100vh',
-    backgroundColor: {xs: 'sj-gray-light', md: 'sj-gray-dark'},
+    backgroundColor: {xs: SjQuick.grayDark, md: SjQuick.grayLight},
   }
 }
 
