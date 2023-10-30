@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "publish": "cd dist/super-jss && npm publish",
+    "pack": "cd dist/super-jss && npm pack",
     "sj-build": "ng build super-jss",
     "sj-watch": "ng build super-jss --watch",
     "lint": "ng lint"

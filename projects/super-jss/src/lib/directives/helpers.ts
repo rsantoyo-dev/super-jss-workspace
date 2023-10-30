@@ -1,8 +1,27 @@
+
 import { signal } from "@angular/core";
 import {Breakpoints, SJss, SJssStyles, SJssTheme, SjQuick} from "../model";
-import { defaultThemeConfig } from "../themes";
+import { innerWidth, breakPoint } from "./public-api";
 
-export const theme = signal(defaultThemeConfig())
+export const activeListeners = signal(false);
+
+export const onResize = (theme: SJssTheme) => {
+  innerWidth.set(window.innerWidth);
+  const bp = determineBreakpoint(theme, innerWidth());
+  breakPoint.set((bp !== breakPoint()) ? bp : breakPoint());
+}
+
+export const determineBreakpoint = (theme: SJssTheme, innerWidth: number): Breakpoints => {
+  let breakpoint: Breakpoints = Breakpoints.XS;
+  for (const key in theme.breakpoints) {
+    if (theme.breakpoints[key as Breakpoints] <= innerWidth) {
+      breakpoint = key as Breakpoints;
+    } else {
+      break;
+    }
+  }
+  return breakpoint;
+}
 
 export const applyTypography = (el: HTMLElement, theme: SJssTheme, screenWidth: number) => {
   Object.keys(theme.typography).forEach(key => {
@@ -31,7 +50,7 @@ export const applyStylesToElement = (el: HTMLElement, jssStyle: SJss, theme: SJs
   }
 }
 
-const setStyleProperties = (el: HTMLElement, styleObj: SJssStyles, theme: SJssTheme, screenWidth: number) => {
+export const setStyleProperties = (el: HTMLElement, styleObj: SJssStyles, theme: SJssTheme, screenWidth: number) => {
   Object.keys(styleObj).forEach(key => {
      try {
        // @ts-ignore

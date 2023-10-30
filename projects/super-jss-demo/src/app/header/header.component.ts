@@ -1,7 +1,9 @@
 
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SuperJssModule, SjQuick, theme, defaultThemeConfig, } from '../../../../super-jss/src/lib';
+
+import { SuperJssModule, SjQuick, theme, defaultThemeConfig } from 'projects/super-jss/src/lib';
+
 
 @Component({
   selector: 'app-header',
@@ -31,7 +33,7 @@ export class HeaderComponent {
   protected readonly theme = signal(theme());
 
   toggleTheme = signal(false);
-
+  
   updateTheme = () => {
     this.toggleTheme.set(!this.toggleTheme());
     theme.mutate((theme) => {

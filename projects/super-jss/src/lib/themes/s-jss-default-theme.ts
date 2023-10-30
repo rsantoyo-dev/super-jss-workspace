@@ -3,7 +3,7 @@ import {SJssTheme} from "../model";
 export const defaultThemeConfig = (): SJssTheme => {
   return {
     breakpoints: {xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536},
-    spacing: (factor) => `${0.8*factor}rem`,
+    spacing: (factor) => `${1*factor}rem`,
     typography: {
       default: {fontFamily: '"Roboto","Helvetica"', fontSize: '1.2em'},
       H1: {fontSize: {xs: '3em', md: '3.5em'}, fontWeight: 'bold'},
