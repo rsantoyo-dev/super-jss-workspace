@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {SJss,  SuperJssModule, SjQuick } from "projects/super-jss/src/lib";
+import {SJss,  SuperJssModule, sjColor, sjSpace } from "projects/super-jss/src/lib";
 import {HeaderComponent} from "./header/header.component";
 @Component({ selector: 'app-root',
   standalone: true,
@@ -16,13 +16,13 @@ import {HeaderComponent} from "./header/header.component";
 export class AppComponent {
   sjMainBootstrap:SJss = {
     display:'flex',
-    flexDirection:'column',
+    flexDirection: 'column',
     width:'100%',
     height:'100vh',
-    backgroundColor: {xs: SjQuick.dark, md: SjQuick.neutral},
+    backgroundColor: {xs: sjColor.dark, md: sjColor.neutral},
   }
 
   sjMainScreen:SJss = {
-    display:'flex', height:'100%', justifyContent:'center', alignItems:'center'}
+    display:'flex', height:'100%', justifyContent:'center', alignItems:'center', backgroundColor: sjColor.successDark, padding: sjSpace(2)}
 }
 

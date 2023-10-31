@@ -2,7 +2,7 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SuperJssModule, SjQuick, theme, defaultThemeConfig } from 'projects/super-jss/src/lib';
+import { SuperJssModule, sjColor, theme, defaultThemeConfig } from 'projects/super-jss/src/lib';
 
 
 @Component({
@@ -16,12 +16,12 @@ import { SuperJssModule, SjQuick, theme, defaultThemeConfig } from 'projects/sup
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: { xs: theme().spacing(5), md: theme().spacing(8) },
-        backgroundColor: {xs:SjQuick.primary, md:SjQuick.primaryLight},
+        padding: { xs: theme().spacing(8), md: theme().spacing(8) },
+        backgroundColor: {xs:sjColor.primary, md:sjColor.primaryLight},
       }"
     >
       <h3 [sj]="{ color: theme().palette.common.light.main }">SUPER-JSS-DEMO</h3>
-      <span (click)="updateTheme()" [sj]="{ color: SjQuick.neutralDark }"
+      <span (click)="updateTheme()" [sj]="{ color: sjColor.neutralDark }"
         >click here to update theme</span
       >
     </div>
@@ -29,7 +29,7 @@ import { SuperJssModule, SjQuick, theme, defaultThemeConfig } from 'projects/sup
 })
 export class HeaderComponent {
 
-  protected readonly SjQuick = SjQuick;
+  protected readonly sjColor = sjColor;
   protected readonly theme = signal(theme());
 
   toggleTheme = signal(false);

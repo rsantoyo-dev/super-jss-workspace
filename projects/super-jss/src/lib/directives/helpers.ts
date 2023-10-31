@@ -1,6 +1,6 @@
 
 import { signal } from "@angular/core";
-import {Breakpoints, SJss, SJssStyles, SJssTheme, SjQuick} from "../model";
+import { Breakpoints, SJss, SJssStyles, SJssTheme, sjColor } from "../model";
 import { innerWidth, breakPoint } from "./public-api";
 
 export const activeListeners = signal(false);
@@ -61,54 +61,56 @@ export const setStyleProperties = (el: HTMLElement, styleObj: SJssStyles, theme:
   });
 };
 
-const applyShortcuts = (styleValue: string, theme: SJssTheme): string => {
+export const applyShortcuts = (styleValue: string, theme: SJssTheme): string => {
   const mappings = {
-    [SjQuick.primary]: theme.palette.primary.main,
-    [SjQuick.primaryLight]: theme.palette.primary.light,
-    [SjQuick.primaryDark]: theme.palette.primary.dark,
-    [SjQuick.primaryContrast]: theme.palette.primary.contrastText,
+    [sjColor.primary]: theme.palette.primary.main,
+    [sjColor.primaryLight]: theme.palette.primary.light,
+    [sjColor.primaryDark]: theme.palette.primary.dark,
+    [sjColor.primaryContrast]: theme.palette.primary.contrastText,
 
-    [SjQuick.secondary]: theme.palette.secondary.main,
-    [SjQuick.secondaryLight]: theme.palette.secondary.light,
-    [SjQuick.secondaryDark]: theme.palette.secondary.dark,
-    [SjQuick.secondaryContrast]: theme.palette.secondary.contrastText,
+    [sjColor.secondary]: theme.palette.secondary.main,
+    [sjColor.secondaryLight]: theme.palette.secondary.light,
+    [sjColor.secondaryDark]: theme.palette.secondary.dark,
+    [sjColor.secondaryContrast]: theme.palette.secondary.contrastText,
 
-    [SjQuick.tertiary]: theme.palette.tertiary.main,
-    [SjQuick.tertiaryLight]: theme.palette.tertiary.light,
-    [SjQuick.tertiaryDark]: theme.palette.tertiary.dark,
-    [SjQuick.tertiaryContrast]: theme.palette.tertiary.contrastText,
+    [sjColor.tertiary]: theme.palette.tertiary.main,
+    [sjColor.tertiaryLight]: theme.palette.tertiary.light,
+    [sjColor.tertiaryDark]: theme.palette.tertiary.dark,
+    [sjColor.tertiaryContrast]: theme.palette.tertiary.contrastText,
 
-    [SjQuick.error]: theme.palette.error.main,
-    [SjQuick.errorLight]: theme.palette.error.light,
-    [SjQuick.errorDark]: theme.palette.error.dark,
+    [sjColor.error]: theme.palette.error.main,
+    [sjColor.errorLight]: theme.palette.error.light,
+    [sjColor.errorDark]: theme.palette.error.dark,
 
-    [SjQuick.warning]: theme.palette.warning.main,
-    [SjQuick.warningLight]: theme.palette.warning.light,
-    [SjQuick.warningDark]: theme.palette.warning.dark,
+    [sjColor.warning]: theme.palette.warning.main,
+    [sjColor.warningLight]: theme.palette.warning.light,
+    [sjColor.warningDark]: theme.palette.warning.dark,
 
-    [SjQuick.info]: theme.palette.info.main,
-    [SjQuick.infoLight]: theme.palette.info.light,
-    [SjQuick.infoDark]: theme.palette.info.dark,
+    [sjColor.info]: theme.palette.info.main,
+    [sjColor.infoLight]: theme.palette.info.light,
+    [sjColor.infoDark]: theme.palette.info.dark,
 
-    [SjQuick.success]: theme.palette.success.main,
-    [SjQuick.successLight]: theme.palette.success.light,
-    [SjQuick.successDark]: theme.palette.success.dark,
+    [sjColor.success]: theme.palette.success.main,
+    [sjColor.successLight]: theme.palette.success.light,
+    [sjColor.successDark]: theme.palette.success.dark,
 
-    [SjQuick.dark]: theme.palette.common.dark.main,
-    [SjQuick.darkDark]: theme.palette.common.dark.dark,
-    [SjQuick.darkLight]: theme.palette.common.dark.light,
+    [sjColor.dark]: theme.palette.common.dark.main,
+    [sjColor.darkDark]: theme.palette.common.dark.dark,
+    [sjColor.darkLight]: theme.palette.common.dark.light,
 
-    [SjQuick.light]: theme.palette.common.light.main,
-    [SjQuick.lighDark]: theme.palette.common.light.dark,
-    [SjQuick.lightLight]: theme.palette.common.light.light,
+    [sjColor.light]: theme.palette.common.light.main,
+    [sjColor.lighDark]: theme.palette.common.light.dark,
+    [sjColor.lightLight]: theme.palette.common.light.light,
 
-    [SjQuick.neutral]: theme.palette.common.neutral.main,
-    [SjQuick.neutralDark]: theme.palette.common.neutral.dark,
-    [SjQuick.neutralLight]: theme.palette.common.neutral.light,
+    [sjColor.neutral]: theme.palette.common.neutral.main,
+    [sjColor.neutralDark]: theme.palette.common.neutral.dark,
+    [sjColor.neutralLight]: theme.palette.common.neutral.light,
   };
 
   return mappings[styleValue as keyof typeof mappings] || styleValue;
 };
+
+
 
 
 const applyStyle = (styleValue: SJssStyles | string, screenWidth: number, theme: SJssTheme): string => {
