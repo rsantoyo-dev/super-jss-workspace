@@ -19,7 +19,7 @@ export class AppComponent {
     flexDirection:'column',
     width:'100%',
     height:'100vh',
-    backgroundColor: {xs: SjQuick.grayDark, md: SjQuick.grayLight},
+    backgroundColor: {xs: SjQuick.dark, md: SjQuick.neutral},
   }
 
   sjMainScreen:SJss = {

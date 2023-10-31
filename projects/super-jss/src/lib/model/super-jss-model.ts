@@ -16,10 +16,53 @@ export interface SJssBreakpoints {
 export enum SjQuick {
   primary = 'sj-primary',
   primaryLight = 'sj-primary-light',
+  primaryDark = 'sj-primary-dark',
+  primaryContrast = 'sj-primary-contrast',
+  
   secondary = 'sj-secondary',
-  grayLight = 'sj-gray-light',
-  grayDark = 'sj-gray-dark'
+  secondaryLight = 'sj-secondary-light',
+  secondaryDark = 'sj-secondary-dark',
+  secondaryContrast = 'sj-secondary-contrast',
+  
+  tertiary = 'sj-tertiary',
+  tertiaryLight = 'sj-tertiary-light',
+  tertiaryDark = 'sj-tertiary-dark',
+  tertiaryContrast = 'sj-tertiary-contrast',
+  
+  error = 'sj-error',
+  errorLight = 'sj-error-light',
+  errorDark = 'sj-error-dark',
+  
+  warning = 'sj-warning',
+  warningLight = 'sj-warning-light',
+  warningDark = 'sj-warning-dark',
+  
+  info = 'sj-info',
+  infoLight = 'sj-info-light',
+  infoDark = 'sj-info-dark',
+  
+  success = 'sj-success',
+  successLight = 'sj-success-light',
+  successDark = 'sj-success-dark',
+  
+  textPrimary = 'sj-text-primary',
+  textSecondary = 'sj-text-secondary',
+  textDisabled = 'sj-text-disabled',
+
+  
+  dark = 'sj-common-dark',
+  darkDark = 'sj-common-dark-dark',
+  darkLight = 'sj-common-dark-light',
+
+  light = 'sj-common-light',
+  lighDark = 'sj-common-light-dark',
+  lightLight = 'sj-common-light-light', 
+
+  neutral = 'sj-common-neutral',
+  neutralDark = 'sj-common-neutral-dark',
+  neutralLight = 'sj-common-neutral-light',
 }
+
 
 export interface SJssTheme{
   breakpoints: SJssBreakpoints,
@@ -42,12 +85,13 @@ export interface SJssTheme{
   };
   palette: {
     common: {
-      black: string,
-      white: string,
-      gray: SJssColorOption
+      dark: SJssColorOption,
+      light: SJssColorOption,
+      neutral: SJssColorOption
     },
     primary: SJssColorOption,
     secondary: SJssColorOption,
+    tertiary: SJssColorOption,
     error: SJssColorOption,
     warning: SJssColorOption,
     info: SJssColorOption,

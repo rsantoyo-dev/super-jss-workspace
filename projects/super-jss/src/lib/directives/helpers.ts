@@ -62,28 +62,54 @@ export const setStyleProperties = (el: HTMLElement, styleObj: SJssStyles, theme:
 };
 
 const applyShortcuts = (styleValue: string, theme: SJssTheme): string => {
-  if (styleValue === 'sj-primary') {
-    return theme.palette.primary.main;
-  }
-  else if (styleValue === SjQuick.primaryLight) {
-    return theme.palette.primary.light;
-  }
-  else if (styleValue === 'sj-secondary') {
-    return theme.palette.secondary.main;
-  }
-  else if (styleValue === 'sj-gray-light') {
-    return theme.palette.common.gray.light;
-  }
-  else if (styleValue === 'sj-gray-dark') {
-    return theme.palette.common.gray.dark;
-  }
-  else if (styleValue === 'sj-gray-dark') {
-    return theme.palette.common.gray.dark;
-  }
-  else {
-    return styleValue;
-  }
-}
+  const mappings = {
+    [SjQuick.primary]: theme.palette.primary.main,
+    [SjQuick.primaryLight]: theme.palette.primary.light,
+    [SjQuick.primaryDark]: theme.palette.primary.dark,
+    [SjQuick.primaryContrast]: theme.palette.primary.contrastText,
+
+    [SjQuick.secondary]: theme.palette.secondary.main,
+    [SjQuick.secondaryLight]: theme.palette.secondary.light,
+    [SjQuick.secondaryDark]: theme.palette.secondary.dark,
+    [SjQuick.secondaryContrast]: theme.palette.secondary.contrastText,
+
+    [SjQuick.tertiary]: theme.palette.tertiary.main,
+    [SjQuick.tertiaryLight]: theme.palette.tertiary.light,
+    [SjQuick.tertiaryDark]: theme.palette.tertiary.dark,
+    [SjQuick.tertiaryContrast]: theme.palette.tertiary.contrastText,
+
+    [SjQuick.error]: theme.palette.error.main,
+    [SjQuick.errorLight]: theme.palette.error.light,
+    [SjQuick.errorDark]: theme.palette.error.dark,
+
+    [SjQuick.warning]: theme.palette.warning.main,
+    [SjQuick.warningLight]: theme.palette.warning.light,
+    [SjQuick.warningDark]: theme.palette.warning.dark,
+
+    [SjQuick.info]: theme.palette.info.main,
+    [SjQuick.infoLight]: theme.palette.info.light,
+    [SjQuick.infoDark]: theme.palette.info.dark,
+
+    [SjQuick.success]: theme.palette.success.main,
+    [SjQuick.successLight]: theme.palette.success.light,
+    [SjQuick.successDark]: theme.palette.success.dark,
+
+    [SjQuick.dark]: theme.palette.common.dark.main,
+    [SjQuick.darkDark]: theme.palette.common.dark.dark,
+    [SjQuick.darkLight]: theme.palette.common.dark.light,
+
+    [SjQuick.light]: theme.palette.common.light.main,
+    [SjQuick.lighDark]: theme.palette.common.light.dark,
+    [SjQuick.lightLight]: theme.palette.common.light.light,
+
+    [SjQuick.neutral]: theme.palette.common.neutral.main,
+    [SjQuick.neutralDark]: theme.palette.common.neutral.dark,
+    [SjQuick.neutralLight]: theme.palette.common.neutral.light,
+  };
+
+  return mappings[styleValue as keyof typeof mappings] || styleValue;
+};
+
 
 const applyStyle = (styleValue: SJssStyles | string, screenWidth: number, theme: SJssTheme): string => {
   let style: string = "";

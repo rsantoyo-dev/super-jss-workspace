@@ -17,57 +17,74 @@ export const defaultThemeConfig = (): SJssTheme => {
     },
     palette: {
       common: {
-        black: "#030303",
-        white: "#fafafa",
-        gray: {
-          main: '#888888',
-          light: '#aaaaaa',
-          dark: '#555555',
-          contrastText: '#dddddd',
+        dark: {
+          main: '#2C3E50', // Dark blue-gray
+          light: '#34495E',
+          dark: '#1A2836',
+          contrastText: '#ECF0F1', // Light gray for contrast
+        },
+        light: {
+          main: '#ECF0F1', // Light gray
+          light: '#F7F9FA',
+          dark: '#D0D3D4',
+          contrastText: '#2C3E50', // Dark blue-gray for contrast
+        },
+        neutral: {
+          main: '#95A5A6', // Neutral gray
+          light: '#AAB7B8',
+          dark: '#7D8A8B',
+          contrastText: '#FFFFFF', // White for contrast
         }
       },
       primary: {
-        main: '#147a81',
-        light: '#64bac1',
-        dark: '#0f5d73',
-        contrastText: '#f9fff7',
+        main: '#3498DB', // Vibrant blue
+        light: '#5DADE2',
+        dark: '#1F618D',
+        contrastText: '#FFFFFF', // White for contrast
       },
       secondary: {
-        main: '#c72488',
-        light: '#e54f99',
-        dark: '#aa0c3f',
-        contrastText: '#e7d9bf',
+        main: '#E74C3C', // Vibrant red
+        light: '#EA6E5A',
+        dark: '#AF2718',
+        contrastText: '#FFFFFF', // White for contrast
+      },
+      tertiary: {
+        main: '#F39C12', // Vibrant orange
+        light: '#F7BC60',
+        dark: '#BA7810',
+        contrastText: '#FFFFFF', // White for contrast
       },
       error: {
-        main: '#cc1d1d',
-        light: '#e3543d',
-        dark: '#801f13',
-        contrastText: '#e7d9bf',
+        main: '#C0392B', // Darker red for errors
+        light: '#D15B4A',
+        dark: '#8D2917',
+        contrastText: '#FFFFFF', // White for contrast
       },
       warning: {
-        main: '#be5419',
-        light: '#f39363',
-        dark: '#b03c08',
-        contrastText: '#e7d9bf',
+        main: '#F1C40F', // Vibrant yellow for warnings
+        light: '#F4D346',
+        dark: '#B7950B',
+        contrastText: '#2C3E50', // Dark blue-gray for contrast
       },
       info: {
-        main: '#0b619f',
-        light: '#3795d9',
-        dark: '#073556',
-        contrastText: '#e7d9bf',
+        main: '#2980B9', // Darker blue for info
+        light: '#4097C2',
+        dark: '#1C5A8A',
+        contrastText: '#FFFFFF', // White for contrast
       },
       success: {
-        main: '#35850e',
-        light: '#7eee47',
-        dark: '#163807',
-        contrastText: '#e7d9bf',
+        main: '#27AE60', // Vibrant green for success
+        light: '#58C483',
+        dark: '#1E7D43',
+        contrastText: '#FFFFFF', // White for contrast
       },
       text: {
-        primary: '#e7e7e7',
-        secondary: '#1a1a1a',
-        disabled: 'rgba(16,16,16,0.39)',
+        primary: '#2C3E50', // Dark blue-gray for primary text
+        secondary: '#7D8A8B', // Neutral gray for secondary text
+        disabled: 'rgba(44, 62, 80, 0.39)', // Dark blue-gray with transparency for disabled text
       },
     }
+    
 
   }
 }

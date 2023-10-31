@@ -20,8 +20,8 @@ import { SuperJssModule, SjQuick, theme, defaultThemeConfig } from 'projects/sup
         backgroundColor: {xs:SjQuick.primary, md:SjQuick.primaryLight},
       }"
     >
-      <h3 [sj]="{ color: theme().palette.common.white }">SUPER-JSS-DEMO</h3>
-      <span (click)="updateTheme()" [sj]="{ color: SjQuick.grayDark }"
+      <h3 [sj]="{ color: theme().palette.common.light.main }">SUPER-JSS-DEMO</h3>
+      <span (click)="updateTheme()" [sj]="{ color: SjQuick.neutralDark }"
         >click here to update theme</span
       >
     </div>
