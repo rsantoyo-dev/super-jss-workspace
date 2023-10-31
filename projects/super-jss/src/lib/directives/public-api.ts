@@ -1,7 +1,6 @@
 import { signal } from "@angular/core";
-import { defaultThemeConfig } from "../themes/s-jss-default-theme";
-import { Breakpoints, sjColor } from "../model";
-import { applyShortcuts } from "./helpers";
+import { defaultThemeConfig } from "../themes";
+import { Breakpoints } from "../model";
 
 export const theme = signal(defaultThemeConfig());
 export const innerWidth = signal(window.innerWidth);

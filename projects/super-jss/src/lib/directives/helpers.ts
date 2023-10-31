@@ -99,7 +99,7 @@ export const applyShortcuts = (styleValue: string, theme: SJssTheme): string => 
     [sjColor.darkLight]: theme.palette.common.dark.light,
 
     [sjColor.light]: theme.palette.common.light.main,
-    [sjColor.lighDark]: theme.palette.common.light.dark,
+    [sjColor.lightDark]: theme.palette.common.light.dark,
     [sjColor.lightLight]: theme.palette.common.light.light,
 
     [sjColor.neutral]: theme.palette.common.neutral.main,
@@ -109,10 +109,6 @@ export const applyShortcuts = (styleValue: string, theme: SJssTheme): string => 
 
   return mappings[styleValue as keyof typeof mappings] || styleValue;
 };
-
-
-
-
 const applyStyle = (styleValue: SJssStyles | string, screenWidth: number, theme: SJssTheme): string => {
   let style: string = "";
   if (typeof styleValue === "string") {
@@ -130,4 +126,3 @@ const applyStyle = (styleValue: SJssStyles | string, screenWidth: number, theme:
   }
   return style;
 };
-

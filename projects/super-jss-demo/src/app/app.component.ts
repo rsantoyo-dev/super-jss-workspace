@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {SJss,  SuperJssModule, sjColor, sjSpace } from "projects/super-jss/src/lib";
+import {SJss, SuperJssModule, sjColor, sjSpace, breakPoint} from "projects/super-jss/src/lib";
 import {HeaderComponent} from "./header/header.component";
 @Component({ selector: 'app-root',
   standalone: true,
@@ -9,6 +9,7 @@ import {HeaderComponent} from "./header/header.component";
       <app-header></app-header>
       <div [sj]="sjMainScreen">
         <h3 [sj]="">Super-JSS Demo</h3>
+        <h6 [sj]="{color:sjColor.primary}">Breakpoint: {{breakPoint()}}</h6>
       </div>
     </div>
   `})
@@ -23,6 +24,8 @@ export class AppComponent {
   }
 
   sjMainScreen:SJss = {
-    display:'flex', height:'100%', justifyContent:'center', alignItems:'center', backgroundColor: sjColor.successDark, padding: sjSpace(2)}
+    display:'flex', flexDirection: 'column', height:'100%', justifyContent:'center', alignItems:'center', backgroundColor: sjColor.neutral, padding: sjSpace(2)}
+  protected readonly breakPoint = breakPoint;
+  protected readonly sjColor = sjColor;
 }
 

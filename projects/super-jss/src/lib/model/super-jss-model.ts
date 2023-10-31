@@ -18,45 +18,45 @@ export enum sjColor {
   primaryLight = 'sj-primary-light',
   primaryDark = 'sj-primary-dark',
   primaryContrast = 'sj-primary-contrast',
-  
+
   secondary = 'sj-secondary',
   secondaryLight = 'sj-secondary-light',
   secondaryDark = 'sj-secondary-dark',
   secondaryContrast = 'sj-secondary-contrast',
-  
+
   tertiary = 'sj-tertiary',
   tertiaryLight = 'sj-tertiary-light',
   tertiaryDark = 'sj-tertiary-dark',
   tertiaryContrast = 'sj-tertiary-contrast',
-  
+
   error = 'sj-error',
   errorLight = 'sj-error-light',
   errorDark = 'sj-error-dark',
-  
+
   warning = 'sj-warning',
   warningLight = 'sj-warning-light',
   warningDark = 'sj-warning-dark',
-  
+
   info = 'sj-info',
   infoLight = 'sj-info-light',
   infoDark = 'sj-info-dark',
-  
+
   success = 'sj-success',
   successLight = 'sj-success-light',
   successDark = 'sj-success-dark',
-  
+
   textPrimary = 'sj-text-primary',
   textSecondary = 'sj-text-secondary',
   textDisabled = 'sj-text-disabled',
 
-  
+
   dark = 'sj-common-dark',
   darkDark = 'sj-common-dark-dark',
   darkLight = 'sj-common-dark-light',
 
   light = 'sj-common-light',
-  lighDark = 'sj-common-light-dark',
-  lightLight = 'sj-common-light-light', 
+  lightDark = 'sj-common-light-dark',
+  lightLight = 'sj-common-light-light',
 
   neutral = 'sj-common-neutral',
   neutralDark = 'sj-common-neutral-dark',
@@ -125,8 +125,6 @@ type SJssSystemBreakpoints<T> = {
   lg?: T;
   xl?: T;
 };
-
-type CombinedBreakpoints<T> = SJssBreakingStyle & SJssSystemBreakpoints<T>;
 
 type AlignContentT = 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'space-between' | 'space-around' | 'space-evenly';
 type AlignItemsT = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';

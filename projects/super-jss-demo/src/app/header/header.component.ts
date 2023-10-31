@@ -2,7 +2,7 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SuperJssModule, sjColor, theme, defaultThemeConfig } from 'projects/super-jss/src/lib';
+import {SuperJssModule, sjColor, theme, defaultThemeConfig, sjSpace} from 'projects/super-jss/src/lib';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { SuperJssModule, sjColor, theme, defaultThemeConfig } from 'projects/sup
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: { xs: theme().spacing(8), md: theme().spacing(8) },
+        padding: { xs: sjSpace(2), md: sjSpace(8) },
         backgroundColor: {xs:sjColor.primary, md:sjColor.primaryLight},
       }"
     >
@@ -33,7 +33,7 @@ export class HeaderComponent {
   protected readonly theme = signal(theme());
 
   toggleTheme = signal(false);
-  
+
   updateTheme = () => {
     this.toggleTheme.set(!this.toggleTheme());
     theme.mutate((theme) => {
@@ -49,4 +49,5 @@ export class HeaderComponent {
     });
   };
 
+  protected readonly sjSpace = sjSpace;
 }
