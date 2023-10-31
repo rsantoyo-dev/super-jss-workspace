@@ -16,15 +16,19 @@ import {SuperJssModule, sjColor, theme, defaultThemeConfig, sjSpace} from 'proje
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: { xs: sjSpace(2), md: sjSpace(8) },
+        padding: { xs: sjSpace(1.5), md: sjSpace(2) },
         backgroundColor: {xs:sjColor.primary, md:sjColor.primaryLight},
       }"
     >
-      <h3 [sj]="{ color: theme().palette.common.light.main }">SUPER-JSS-DEMO</h3>
-      <span (click)="updateTheme()" [sj]="{ color: sjColor.neutralDark }"
-        >click here to update theme</span
-      >
+      <h3 [sj]="{ color: sjColor.primaryContrast}">SUPER-JSS-DEMO</h3>
+      <span (click)="updateTheme()"  [sj]="{ color: sjColor.primaryDark, cursor: 'pointer' }">
+        click here to update theme
+      </span>
     </div>
+    <div [sj]="{backgroundColor:sjColor.tertiaryLight}">
+      sd
+    </div>
+
   `,
 })
 export class HeaderComponent {

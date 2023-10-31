@@ -24,7 +24,7 @@ export class AppComponent {
   }
 
   sjMainScreen:SJss = {
-    display:'flex', flexDirection: 'column', height:'100%', justifyContent:'center', alignItems:'center', backgroundColor: sjColor.neutral, padding: sjSpace(2)}
+    display:'flex', flexDirection: 'column', height:'100%', justifyContent:'center', alignItems:'center', backgroundColor: sjColor.light, padding: sjSpace(2)}
   protected readonly breakPoint = breakPoint;
   protected readonly sjColor = sjColor;
 }
