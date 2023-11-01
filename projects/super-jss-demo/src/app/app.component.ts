@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { SJss, SuperJssModule, sjColor, sjSpace, breakPoint, sjGetBreakpointValue, Breakpoints } from "projects/super-jss/src/lib";
+import { SJss, SuperJssModule, sjColor, sjSpace, sjBreakPoint, sjGetBreakpointValue, Breakpoints } from "projects/super-jss/src/lib";
 import { HeaderComponent } from "./header/header.component";
 import { PaletteComponent } from "./components/palette/palette.component";
 
@@ -49,7 +49,7 @@ export class AppComponent {
     width: '100%',
   };
 
-  protected readonly breakPoint = breakPoint;
+  protected readonly breakPoint = sjBreakPoint;
   protected readonly sjColor = sjColor;
 }
 

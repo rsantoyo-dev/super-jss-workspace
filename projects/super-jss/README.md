@@ -1,7 +1,6 @@
 # Super JSS Library
 
-Super JSS is a dynamic CSS library tailored for Angular applications. It brings the power of JavaScript to styling, allowing developers to craft responsive designs and themes with ease.
-
+Super JSS is a dynamic CSS library designed for Angular applications, making styling with JavaScript objects a breeze. It's all about giving developers the power to create responsive designs effortlessly. With Super JSS, you're not just writing styles; you're crafting a responsive experience with the simplicity of JavaScript. It's fast, it's light, and it's built to supercharge your Angular apps with a flair of elegance and ease.
 
 ## 🌟 Features
 
@@ -34,6 +33,57 @@ import { SuperJssModule } from 'super-jss';
   imports: [SuperJssModule],
   ...
 })
+```
+### Quick Example
+
+```typescript
+import {Component} from "@angular/core";
+import {sjColor, sjSpace} from "super-jss";
+
+@Component({
+  selector: 'app-demo',
+  template: `
+    <div [sj]="{backgroundColor:'light-blue', padding:'8px'}">
+      Welcome to Super JSS!
+    </div>
+  `
+})
+export class DemoComponent {}
+```
+
+### Advanced quick dynamic example customizing theme
+
+```typescript
+import {Component} from "@angular/core";
+import {sjColor, sjSpace} from "super-jss";
+
+@Component({
+  selector: 'app-demo',
+  template: `
+    <div [sj]="[sjDemoClass, sjDemoBorder]">
+      Welcome to Super JSS!
+    </div>
+  `
+})
+export class DemoComponent {
+  sjDemoClass = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: {xs: sjSpace(1), md: sjSpace(2)},
+    backgroundColor: sjColor.primary
+  };
+  sjDemoBorder = {
+    border: {xs:  sjSpace(1)+' solid black', md: sjSpace(2)+' solid black'}
+  };
+
+  constructor() {
+    sjTheme.mutate((theme) => {
+      theme.color.primary = 'red';
+    });
+  }
+}
 ```
 
 ## 📖 Documentation

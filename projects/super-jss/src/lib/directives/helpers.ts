@@ -1,14 +1,14 @@
 
 import { signal } from "@angular/core";
 import { Breakpoints, SJss, SJssStyles, SJssTheme, sjColor } from "../model";
-import { innerWidth, breakPoint } from "./public-api";
+import { sjInnerWidth, sjBreakPoint } from "./public-api";
 
 export const activeListeners = signal(false);
 
 export const onResize = (theme: SJssTheme) => {
-  innerWidth.set(window.innerWidth);
-  const bp = determineBreakpoint(theme, innerWidth());
-  breakPoint.set((bp !== breakPoint()) ? bp : breakPoint());
+  sjInnerWidth.set(window.innerWidth);
+  const bp = determineBreakpoint(theme, sjInnerWidth());
+  sjBreakPoint.set((bp !== sjBreakPoint()) ? bp : sjBreakPoint());
 }
 
 export const determineBreakpoint = (theme: SJssTheme, innerWidth: number): Breakpoints => {
