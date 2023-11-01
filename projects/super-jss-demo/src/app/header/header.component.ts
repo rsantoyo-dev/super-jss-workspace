@@ -1,3 +1,4 @@
+import { sjShadow } from './../sjStyling/sjStyles';
 
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,7 +17,7 @@ import {SuperJssModule, sjColor, theme, defaultThemeConfig, sjSpace} from 'proje
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: { xs: sjSpace(1.5), md: sjSpace(2) },
+        padding: { xs: sjSpace(1), md: sjSpace(2) },
         backgroundColor: {xs:sjColor.primary, md:sjColor.primaryLight},
       }"
     >
@@ -25,8 +26,10 @@ import {SuperJssModule, sjColor, theme, defaultThemeConfig, sjSpace} from 'proje
         click here to update theme
       </span>
     </div>
-    <div [sj]="{backgroundColor:sjColor.tertiaryLight}">
-      sd
+    <div [sj]="[{backgroundColor:sjColor.secondaryLight, padding: sjSpace(0.5), display: 'flex', justifyContent:'center'}, sjShadow]">
+      <span [sj]="{color:sjColor.secondaryDark, fontSize:sjSpace(1)}">
+        sjBreakpoints: {{JSON.stringify(theme().breakpoints)}}
+      </span>
     </div>
 
   `,
@@ -35,6 +38,8 @@ export class HeaderComponent {
 
   protected readonly sjColor = sjColor;
   protected readonly theme = signal(theme());
+  protected readonly sjShadow = sjShadow;
+
 
   toggleTheme = signal(false);
 
@@ -54,4 +59,5 @@ export class HeaderComponent {
   };
 
   protected readonly sjSpace = sjSpace;
+  protected readonly JSON = JSON;
 }

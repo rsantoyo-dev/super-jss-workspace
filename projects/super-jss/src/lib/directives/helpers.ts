@@ -61,7 +61,7 @@ export const setStyleProperties = (el: HTMLElement, styleObj: SJssStyles, theme:
   });
 };
 
-export const applyShortcuts = (styleValue: string, theme: SJssTheme): string => {
+export const convertQuickAccessToStyle = (styleValue: string, theme: SJssTheme): string => {
   const mappings = {
     [sjColor.primary]: theme.palette.primary.main,
     [sjColor.primaryLight]: theme.palette.primary.light,
@@ -112,7 +112,7 @@ export const applyShortcuts = (styleValue: string, theme: SJssTheme): string => 
 const applyStyle = (styleValue: SJssStyles | string, screenWidth: number, theme: SJssTheme): string => {
   let style: string = "";
   if (typeof styleValue === "string") {
-    return applyShortcuts(styleValue, theme);
+    return convertQuickAccessToStyle(styleValue, theme);
   }
   else if (typeof styleValue === 'object') {
     Object.keys(styleValue).forEach(key => {
@@ -120,7 +120,7 @@ const applyStyle = (styleValue: SJssStyles | string, screenWidth: number, theme:
         styleValue[key] &&
         screenWidth>theme.breakpoints[key as Breakpoints])
       {
-        style =  applyShortcuts(styleValue[key]! as string, theme);
+        style =  convertQuickAccessToStyle(styleValue[key]! as string, theme);
       }
     });
   }

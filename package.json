@@ -11,7 +11,8 @@
     "pack": "cd dist/super-jss && npm pack",
     "sj-build": "ng build super-jss",
     "sj-watch": "ng build super-jss --watch",
-    "lint": "ng lint"
+    "sj-component": "ng g c $1 --standalone --inline-template"
+    
   },
   "dependencies": {
     "@angular/animations": "^16.2.9",

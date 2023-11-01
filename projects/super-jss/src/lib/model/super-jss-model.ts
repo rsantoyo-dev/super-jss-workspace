@@ -50,18 +50,39 @@ export enum sjColor {
   textDisabled = 'sj-text-disabled',
 
 
-  dark = 'sj-common-dark',
-  darkDark = 'sj-common-dark-dark',
-  darkLight = 'sj-common-dark-light',
+  dark = 'sj-dark',
+  darkDark = 'sj-dark-dark',
+  darkLight = 'sj-dark-light',
 
-  light = 'sj-common-light',
-  lightDark = 'sj-common-light-dark',
-  lightLight = 'sj-common-light-light',
+  light = 'sj-light',
+  lightDark = 'sj-light-dark',
+  lightLight = 'sj-light-light',
 
-  neutral = 'sj-common-neutral',
-  neutralDark = 'sj-common-neutral-dark',
-  neutralLight = 'sj-common-neutral-light',
+  neutral = 'sj-neutral',
+  neutralDark = 'sj-neutral-dark',
+  neutralLight = 'sj-neutral-light',
 }
+
+export interface Palette {
+  common: {
+    dark: SJssColorOption,
+    light: SJssColorOption,
+    neutral: SJssColorOption
+  },
+  primary: SJssColorOption,
+  secondary: SJssColorOption,
+  tertiary: SJssColorOption,
+  error: SJssColorOption,
+  warning: SJssColorOption,
+  info: SJssColorOption,
+  success: SJssColorOption,
+  text: {
+    primary: string,
+    secondary: string,
+    disabled: string
+  }
+}
+  
 
 
 export interface SJssTheme{
@@ -83,25 +104,7 @@ export interface SJssTheme{
     BODY2?: SJssStyles,
     CAPTION?: SJssStyles,
   };
-  palette: {
-    common: {
-      dark: SJssColorOption,
-      light: SJssColorOption,
-      neutral: SJssColorOption
-    },
-    primary: SJssColorOption,
-    secondary: SJssColorOption,
-    tertiary: SJssColorOption,
-    error: SJssColorOption,
-    warning: SJssColorOption,
-    info: SJssColorOption,
-    success: SJssColorOption,
-    text: {
-      primary: string,
-      secondary: string,
-      disabled: string
-    }
-  }
+  palette: Palette
 }
 
 export interface SJssColorOption {
@@ -430,7 +433,6 @@ export interface SJssStyles {
   listStyleImage?: SJssBreakingStyle | string; // This is typically a URL value like "url('path/to/image.png')"
   listStylePosition?: SJStyleListStylePosition | ListStylePositionT;
   listStyleType?: SJStyleListStyleType | ListStyleTypeT;
-
   margin?: SJStyleMargin | MarginT;
   marginBlockEnd?: SJssBreakingStyle | string;
   marginBlockStart?: SJssBreakingStyle | string;

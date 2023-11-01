@@ -1,30 +1,54 @@
-import {Component} from "@angular/core";
-import {SJss, SuperJssModule, sjColor, sjSpace, breakPoint} from "projects/super-jss/src/lib";
-import {HeaderComponent} from "./header/header.component";
-@Component({ selector: 'app-root',
+import { Component } from "@angular/core";
+import { SJss, SuperJssModule, sjColor, sjSpace, breakPoint, sjGetBreakpointValue, Breakpoints } from "projects/super-jss/src/lib";
+import { HeaderComponent } from "./header/header.component";
+import { PaletteComponent } from "./components/palette/palette.component";
+
+@Component({
+  selector: 'app-root',
   standalone: true,
-  imports: [SuperJssModule, HeaderComponent],
   template: `
-    <div [sj]="sjMainBootstrap">
+    <div [sj]="sjAppBootstrap">
       <app-header></app-header>
-      <div [sj]="sjMainScreen">
-        <h3 [sj]="">Super-JSS Demo</h3>
-        <h6 [sj]="{color:sjColor.primary}">Breakpoint: {{breakPoint()}}</h6>
+      <div [sj]="sjMainBootstrap">
+        <div [sj]="sjMainContent">
+          <app-palette [sj]="sjAppPalette"></app-palette>
+        </div>
+        
       </div>
     </div>
-  `})
-
+  `,
+  imports: [SuperJssModule, HeaderComponent, PaletteComponent]
+})
 export class AppComponent {
-  sjMainBootstrap:SJss = {
-    display:'flex',
+  sjAppBootstrap: SJss = {
+    display: 'flex',
     flexDirection: 'column',
-    width:'100%',
-    height:'100vh',
-    backgroundColor: {xs: sjColor.dark, md: sjColor.neutral},
-  }
+    width: '100%',
+    minHeight: '100vh',
 
-  sjMainScreen:SJss = {
-    display:'flex', flexDirection: 'column', height:'100%', justifyContent:'center', alignItems:'center', backgroundColor: sjColor.light, padding: sjSpace(2)}
+  };
+
+  sjMainBootstrap: SJss = {
+    display: 'flex',
+    justifyContent: 'center',
+  };
+  
+  sjMainContent: SJss = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: { xs: sjSpace(1), md: sjSpace(2) },
+    width: { xs: '100%' },
+    maxWidth: sjGetBreakpointValue(Breakpoints.LG),
+
+  };
+
+  sjAppPalette: SJss = {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+  };
+
   protected readonly breakPoint = breakPoint;
   protected readonly sjColor = sjColor;
 }
