@@ -91,18 +91,18 @@ export interface SJssTheme{
 
   typography: {
     default: SJssStyles,
-    H6?: SJssStyles,
-    H5?: SJssStyles,
-    H4?: SJssStyles,
-    H3?: SJssStyles,
-    H2?: SJssStyles,
-    H1?: SJssStyles,
-    P?: SJssStyles,
-    SPAN?: SJssStyles,
-    STRONG?: SJssStyles,
-    BODY1?: SJssStyles,
-    BODY2?: SJssStyles,
-    CAPTION?: SJssStyles,
+    H6: SJssStyles,
+    H5: SJssStyles,
+    H4: SJssStyles,
+    H3: SJssStyles,
+    H2: SJssStyles,
+    H1: SJssStyles,
+    P: SJssStyles,
+    SPAN: SJssStyles,
+    STRONG: SJssStyles,
+    BODY1: SJssStyles,
+    BODY2: SJssStyles,
+    CAPTION: SJssStyles,
   };
   palette: Palette
 }

@@ -14,6 +14,10 @@ export const defaultThemeConfig = (): SJssTheme => {
       H6: {fontSize: {xs: '1em', md: '1.2em'}, fontWeight: 'bolder'},
       P: {fontSize: '1em', fontWeight: 'normal'},
       SPAN: {fontSize: '0.8em', fontWeight: 'normal'},
+      STRONG: {fontSize: '1em', fontWeight: 'bold'},
+      BODY1: {fontSize: '1em', fontWeight: 'normal'},
+      BODY2: {fontSize: '0.8em', fontWeight: 'normal'},
+      CAPTION: {fontSize: '0.6em', fontWeight: 'normal'},
     },
     palette: {
       common: {

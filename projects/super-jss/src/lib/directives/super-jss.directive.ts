@@ -17,6 +17,7 @@ export class SuperJssDirective {
   constructor(private vcr: ViewContainerRef) {
     effect(() => {
       const el: HTMLElement = this.vcr.element.nativeElement;
+      console.log('el', theme().breakpoints);
       applyTypography(el, theme(), innerWidth());
       applyStylesToElement(el, this.sjInput(), theme(), innerWidth());
     });
