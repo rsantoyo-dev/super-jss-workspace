@@ -56,7 +56,7 @@ export class HeaderComponent {
             dark: '#B08D57', // Darker Mustard
             contrastText: '#FFFFFF', // White for contrast
           }
-        : defaultThemeConfig().palette.primary;
+        : defaultThemeConfig().palette.secondary;
 
         theme.palette.tertiary = this.toggleTheme()
         ? {
@@ -65,7 +65,7 @@ export class HeaderComponent {
             dark: '#00008B', // Darker Blue
             contrastText: '#FFFFFF', // White for contrast
           }
-        : defaultThemeConfig().palette.primary;
+        : defaultThemeConfig().palette.tertiary;
 
       theme.breakpoints.md = this.toggleTheme() ? 750 : defaultThemeConfig().breakpoints.md;
     });
