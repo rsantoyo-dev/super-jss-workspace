@@ -97,15 +97,17 @@ export class DemoComponent {
 Dive deep into Super JSS's capabilities:
 
 - [Official Documentation](https://rsantoyo-dev.github.io/super-jss/)
-- [How Super JSS Works](https://medium.com/@viejorichard/super-jss-a-library-for-responsive-css-styles-85691b210450)
-- [Theming with Super JSS](https://medium.com/@viejorichard/super-jss-how-to-override-a-theme-64d8da14e3fb)
 
 ## 🎨 Demos
 
-- [Demo App](https://stackblitz.com/edit/angular-ivy-atzazr?file=src%2Fapp%2Fapp.component.ts):
-  Show typography, theme handler updating palette, fonts, and breakpoints.
+- Demo App: this Project can be seen in [StackBlitz](https://stackblitz.com/edit/angular-ivy-atzazr?file=src%2Fapp%2Fapp.component.ts),
+[github repo](https://github.com/rsantoyo-dev/super-jss/tree/master/projects/super-jss-demo/src), or deployed to [superjss](https://superjss.netlify.app/),:
+  Show typography, theme handler updating palette, fonts, and breakpoints. or [github repo](https://github.com/rsantoyo-dev/super-jss/tree/master/projects/super-jss-demo/src):
 
+## 📖 Articles
 
+- [How Super JSS Works](https://medium.com/@viejorichard/super-jss-a-library-for-responsive-css-styles-85691b210450)
+- [Theming with Super JSS](https://medium.com/@viejorichard/super-jss-how-to-override-a-theme-64d8da14e3fb)
 
 ## 💖 Support
 

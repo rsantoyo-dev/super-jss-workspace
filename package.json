@@ -24,6 +24,7 @@
     "@angular/router": "^16.2.9",
     "microlight": "^0.0.7",
     "rainbow-code": "^2.1.7",
+    "super-jss": "^1.0.31",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.3"
   },
