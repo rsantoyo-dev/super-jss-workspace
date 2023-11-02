@@ -1,7 +1,8 @@
 import { sjShadow } from '../sjStyling/sjStyles';
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SuperJssModule, sjColor, sjTheme, defaultThemeConfig, sjSpace } from 'projects/super-jss/src/lib';
+import { SuperJssModule, sjColor, sjTheme, defaultThemeConfig, sjSpace } from 'super-jss';
+import {appTheme} from "../sjStyling/themeHandler";
 
 @Component({
   selector: 'app-header',
@@ -36,14 +37,14 @@ import { SuperJssModule, sjColor, sjTheme, defaultThemeConfig, sjSpace } from 'p
       }
     ]">
       <span [sj]="{ color: sjColor.secondaryDark, fontSize: sjSpace(1) }">
-        sjBreakpoints: {{ JSON.stringify(theme().breakpoints) }}
+        sjBreakpoints: {{ JSON.stringify(myTheme().breakpoints) }}
       </span>
     </div>
   `,
 })
 export class HeaderComponent {
   protected readonly sjColor = sjColor;
-  protected readonly theme = signal(sjTheme());
+  protected readonly myTheme = signal(appTheme());
   protected readonly sjShadow = sjShadow;
   protected readonly sjSpace = sjSpace;
   protected readonly JSON = JSON;
@@ -52,7 +53,22 @@ export class HeaderComponent {
 
   updateTheme = () => {
     this.toggleTheme.set(!this.toggleTheme());
-    sjTheme.mutate((theme) => {
+    appTheme.mutate((theme) => {
+
+      theme.typography.default = this.toggleTheme()
+        ? {
+          fontFamily: 'Courier New',
+        }
+        : defaultThemeConfig().typography.default;
+
+      theme.typography.H1 = this.toggleTheme()
+      ? {
+          fontSize: {xs: sjSpace(3), md: sjSpace(4)},
+          fontWeight: 'bold',
+        }
+        : defaultThemeConfig().typography.H1;
+
+
       theme.palette.primary = this.toggleTheme()
         ? {
             main: '#800080', // Purple
@@ -84,5 +100,6 @@ export class HeaderComponent {
         ? 750
         : defaultThemeConfig().breakpoints.md;
     });
+    sjTheme.set(appTheme());
   };
 }

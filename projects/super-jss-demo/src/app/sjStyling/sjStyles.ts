@@ -1,5 +1,7 @@
-import { SJssStyles, sjColor, sjSpace } from 'projects/super-jss/src/lib';
+import { SJssStyles, sjColor, sjSpace, defaultThemeConfig } from 'super-jss';
+import {signal} from "@angular/core";
 
+export const appTheme = signal(defaultThemeConfig());
 export const sjBorder: SJssStyles = {
     borderStyle: 'solid',
     borderWidth: sjSpace(0.1),

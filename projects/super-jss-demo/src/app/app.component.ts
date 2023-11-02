@@ -1,7 +1,9 @@
 import { Component } from "@angular/core";
-import { SJss, SuperJssModule, sjColor, sjSpace, sjBreakPoint, sjGetBreakpointValue, Breakpoints } from "projects/super-jss/src/lib";
+
 import { HeaderComponent } from "./header/header.component";
 import { PaletteComponent } from "./components/palette/palette.component";
+import {TypographyComponent} from "./components/typography/typography.component";
+import { SuperJssModule, SJss, sjSpace, sjGetBreakpointValue, sjBreakPoint, Breakpoints, sjColor } from "super-jss";
 
 @Component({
   selector: 'app-root',
@@ -11,13 +13,14 @@ import { PaletteComponent } from "./components/palette/palette.component";
       <app-header></app-header>
       <div [sj]="sjMainBootstrap">
         <div [sj]="sjMainContent">
+          <app-typography [sj]="sjAppPalette"></app-typography>
           <app-palette [sj]="sjAppPalette"></app-palette>
         </div>
-        
+
       </div>
     </div>
   `,
-  imports: [SuperJssModule, HeaderComponent, PaletteComponent]
+  imports: [SuperJssModule, HeaderComponent, PaletteComponent, TypographyComponent]
 })
 export class AppComponent {
   sjAppBootstrap: SJss = {
@@ -32,7 +35,7 @@ export class AppComponent {
     display: 'flex',
     justifyContent: 'center',
   };
-  
+
   sjMainContent: SJss = {
     display: 'flex',
     flexDirection: 'column',
