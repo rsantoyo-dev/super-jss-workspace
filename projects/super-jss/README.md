@@ -56,6 +56,7 @@ export class DemoComponent {}
 ```typescript
 import {Component} from "@angular/core";
 import {sjColor, sjSpace} from "super-jss";
+import {sjTheme} from "./public-api";
 
 @Component({
   selector: 'app-demo',
@@ -74,14 +75,19 @@ export class DemoComponent {
     padding: {xs: sjSpace(1), md: sjSpace(2)},
     backgroundColor: sjColor.primary
   };
+
   sjDemoBorder = {
-    border: {xs:  sjSpace(1)+' solid black', md: sjSpace(2)+' solid black'}
+    border: {xs: sjSpace(1) + ' solid black', md: sjSpace(2) + ' solid black'}
   };
 
+  appTheme = signal(defaultThemeConfig());
+
   constructor() {
-    sjTheme.mutate((theme) => {
+    this.appTheme.mutate((theme) => {
       theme.color.primary = 'red';
     });
+    // will update all components that use sjTheme
+    sjTheme.set(this.appTheme);
   }
 }
 ```
@@ -96,9 +102,9 @@ Dive deep into Super JSS's capabilities:
 
 ## 🎨 Demos
 
-- [Basic Usage](https://stackblitz.com/edit/angular-ivy-vewzoz?file=src%2Fapp%2Fapp.component.html)
-- [Flex-box Responsive Demo](https://stackblitz.com/edit/angular-ivy-ieshja)
-- [Theme Handler Demo](https://stackblitz.com/edit/angular-ivy-atzazr)
+- [Demo App](https://stackblitz.com/edit/angular-ivy-atzazr?file=src%2Fapp%2Fapp.component.ts):
+  Show typography, theme handler updating palette, fonts, and breakpoints.
+
 
 
 ## 💖 Support
