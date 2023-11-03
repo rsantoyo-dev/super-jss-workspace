@@ -1,7 +1,7 @@
 theme: material
 site_name: Super JSS
 site_url: https://rsantoyo-dev.github.io/super-jss/
-base_url: /docs/
+base_url: ./docs/
 nav:
   - Home: index.md
   - Installation: installation.md
