@@ -100,7 +100,7 @@ Dive deep into Super JSS's capabilities:
 
 ## 🎨 Demos
 
-- Demo App: this Project can be seen in [StackBlitz](https://stackblitz.com/edit/angular-ivy-atzazr?file=src%2Fapp%2Fapp.component.ts),
+- Demo App: this Project can be seen in [StackBlitz](https://stackblitz.com/edit/stackblitz-starters-mccv77?file=src%2Fmain.ts),
 [github repo](https://github.com/rsantoyo-dev/super-jss/tree/master/projects/super-jss-demo/src), or deployed to [superjss](https://superjss.netlify.app/),:
   Show typography, theme handler updating palette, fonts, and breakpoints. or [github repo](https://github.com/rsantoyo-dev/super-jss/tree/master/projects/super-jss-demo/src):
 

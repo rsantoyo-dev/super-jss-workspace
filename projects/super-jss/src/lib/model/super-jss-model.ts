@@ -13,6 +13,10 @@ export interface SJssBreakpoints {
   xl: number,
 }
 
+/**
+ * Enum representing the available color options for the Super JSS library.
+ * Each color option is represented as a string value that can be used as a CSS class.
+ */
 export enum sjColor {
   primary = 'sj-primary',
   primaryLight = 'sj-primary-light',
@@ -85,6 +89,40 @@ export interface Palette {
   
 
 
+/**
+ * Defines the interface for the Super JSS theme object.
+ * @interface
+ */
+export interface SJssTheme {
+  breakpoints: SJssBreakpoints;
+  spacing: (val: number) => string;
+
+  /**
+   * Defines the typography styles for the theme.
+   * @property
+   */
+  typography: {
+    default: SJssStyles;
+    H6: SJssStyles;
+    H5: SJssStyles;
+    H4: SJssStyles;
+    H3: SJssStyles;
+    H2: SJssStyles;
+    H1: SJssStyles;
+    P: SJssStyles;
+    SPAN: SJssStyles;
+    STRONG: SJssStyles;
+    BODY1: SJssStyles;
+    BODY2: SJssStyles;
+    CAPTION: SJssStyles;
+  };
+
+  /**
+   * Defines the color palette for the theme.
+   * @property
+   */
+  palette: Palette;
+}
 export interface SJssTheme{
   breakpoints: SJssBreakpoints,
   spacing: (val: number) => string;
@@ -114,6 +152,9 @@ export interface SJssColorOption {
   contrastText: string,
 }
 
+/**
+ * Defines the breaking style for different screen sizes.
+ */
 export interface SJssBreakingStyle {
   xs?: string,
   sm?: string,
@@ -250,6 +291,22 @@ export type SJStyleRubyAlign = SJssSystemBreakpoints<RubyAlignT>;
 export type SJStyleRubyPosition = SJssSystemBreakpoints<RubyPositionT>;
 
 export type SJss = (SJssStyles | SJssStyles[] | undefined);
+/**
+ * Interface for defining styles in Super JSS.
+ * @remarks
+ * This interface defines a set of properties that can be used to style elements in Super JSS.
+ * Each property can be a string or an object of type SJssBreakingStyle, 
+ * where SJssBreakingStyle is an object that defines the style for different screen sizes.
+ * example:
+ * ```typescript
+ * const styles: SJssStyles = {
+ * display: 'flex',
+ *   margin: {xs: '0', sm: '10px', md: '20px', lg: '30px', xl: '40px'},
+ *   justifyContent: {xs: 'center', sm: 'flex-start', md: 'flex-end', lg: 'space-between', xl: 'space-around'},
+ * }
+ * 
+ * @public
+ */
 export interface SJssStyles {
 
   [key: string]: SJssBreakingStyle | string  | undefined;
