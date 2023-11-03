@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#installation" class="md-skip">
+        <a href="#responsive-styles-with-super-jss" class="md-skip">
           Skip to content
         </a>
       
@@ -217,8 +217,6 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -247,8 +245,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -257,30 +253,23 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    Prerequisites
+  <a href="#responsive-styles-with-super-jss" class="md-nav__link">
+    Responsive Styles with Super JSS
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation_1" class="md-nav__link">
-    Installation
+  <a href="#simple-example" class="md-nav__link">
+    Simple Example
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#integration" class="md-nav__link">
-    Integration
-  </a>
-  
-    <nav class="md-nav" aria-label="Integration">
+    <nav class="md-nav" aria-label="Simple Example">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-importing-the-module" class="md-nav__link">
-    1.  Importing the Module:
+  <a href="#advanced-example" class="md-nav__link">
+    Advanced Example
   </a>
   
 </li>
@@ -410,8 +399,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -420,30 +407,23 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    Prerequisites
+  <a href="#responsive-styles-with-super-jss" class="md-nav__link">
+    Responsive Styles with Super JSS
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation_1" class="md-nav__link">
-    Installation
+  <a href="#simple-example" class="md-nav__link">
+    Simple Example
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#integration" class="md-nav__link">
-    Integration
-  </a>
-  
-    <nav class="md-nav" aria-label="Integration">
+    <nav class="md-nav" aria-label="Simple Example">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-importing-the-module" class="md-nav__link">
-    1.  Importing the Module:
+  <a href="#advanced-example" class="md-nav__link">
+    Advanced Example
   </a>
   
 </li>
@@ -468,28 +448,72 @@
                   
 
 
-<h1 id="installation">Installation</h1>
-<h2 id="prerequisites">Prerequisites</h2>
-<ul>
-<li>An existing Angular project.</li>
-<li>Node.js and npm installed on your machine.</li>
-</ul>
-<h2 id="installation_1">Installation</h2>
-<p>To begin, install the Super JSS library using npm:</p>
-<pre><code class="language-bash">npm i super-jss
-</code></pre>
-<h2 id="integration">Integration</h2>
-<h3 id="1-importing-the-module">1.  Importing the Module:</h3>
-<p>Open your app.module.ts and import the SuperJssModule.</p>
-<pre><code class="language-typescript">import { SuperJssModule } from 'super-jss';
+  <h1>Installation</h1>
 
-@NgModule({
-  imports: [SuperJssModule],
-  ...
-})
+<h2 id="responsive-styles-with-super-jss">Responsive Styles with Super JSS</h2>
+<p>Super JSS simplifies the creation of responsive styles in Angular applications, allowing styles to adapt based on the device's width without the complexity of signals for style definitions.</p>
+<h2 id="simple-example">Simple Example</h2>
+<p>Define responsive styles directly in your component's template using the <code>[sj]</code> directive to apply a responsive background color:</p>
+<pre><code class="language-html">&lt;div [sj]=&quot;responsiveBackground&quot;&gt;Responsive Background Color Div&lt;/div&gt;
 </code></pre>
+<p>In your component's TypeScript file:</p>
+<pre><code class="language-typescript">import { SJssStyles } from 'super-jss';
+
+export class MyComponent {
+  responsiveBackground: SJssStyles = {
+    backgroundColor: {
+      xs: 'red',
+      sm: 'blue',
+      md: 'green',
+      lg: 'purple',
+      xl: 'orange'
+    }
+  };
+}
+
+</code></pre>
+<p>With this setup, the div will display:</p>
+<p>A red background on extra small devices.
+Blue on small devices.
+Green on medium devices.
+Purple on large devices.
+Orange on extra large devices.</p>
+<h3 id="advanced-example">Advanced Example</h3>
+<p>For more complex responsive designs, define and combine multiple responsive styles in your TypeScript:</p>
+<pre><code class="language-typescript">import { SJssStyles } from 'super-jss';
+
+export class MyComponent {
+  responsiveBackgroundColor: SJssStyles = {
+    backgroundColor: {
+      xs: 'red',
+      sm: 'blue',
+      md: 'green',
+      lg: 'yellow',
+      xl: 'purple'
+    }
+  };
+
+  responsiveFlexLayout: SJssStyles = {
+    display: 'flex',
+    flexDirection: {
+      xs: 'column',
+      md: 'row'
+    }
+  };
+}
+
+</code></pre>
+<p>Applying these combined responsive styles in your component's HTML:</p>
+<pre><code class="language-html">&lt;div [sj]=&quot;[responsiveBackgroundColor, responsiveFlexLayout]&quot;&gt;
+  &lt;p&gt;Advanced Styled Div&lt;/p&gt;
+  &lt;p&gt;Super-jss&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<p>With these combined styles:</p>
+<p>The div's background color will change responsively based on the screen width.
+The flex layout will switch from a column arrangement on smaller screens to a row arrangement on larger screens, providing an optimal layout across different devices.</p>
 <hr />
-<p><a href="../">⬅️ Previous: Welcome to Super JSS</a> | <a href="../styling/">Next: Styling ➡️</a></p>
+<p><a href="../styling/">← Styling</a> | <a href="../">Home</a> | <a href="../typography/">Typography →</a></p>
 
 
 
