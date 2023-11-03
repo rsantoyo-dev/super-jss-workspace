@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#responsive-styles-with-super-jss" class="md-skip">
+        <a href="#responsive-styles" class="md-skip">
           Skip to content
         </a>
       
@@ -255,6 +255,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -283,6 +285,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -291,29 +295,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#responsive-styles-with-super-jss" class="md-nav__link">
-    Responsive Styles with Super JSS
+  <a href="#simple-example" class="md-nav__link">
+    Simple Example
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#simple-example" class="md-nav__link">
-    Simple Example
-  </a>
-  
-    <nav class="md-nav" aria-label="Simple Example">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#advanced-example" class="md-nav__link">
     Advanced Example
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -399,6 +390,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -407,29 +400,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#responsive-styles-with-super-jss" class="md-nav__link">
-    Responsive Styles with Super JSS
+  <a href="#simple-example" class="md-nav__link">
+    Simple Example
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#simple-example" class="md-nav__link">
-    Simple Example
-  </a>
-  
-    <nav class="md-nav" aria-label="Simple Example">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#advanced-example" class="md-nav__link">
     Advanced Example
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -448,70 +428,49 @@
                   
 
 
-  <h1>Responsive Styling</h1>
-
-<h2 id="responsive-styles-with-super-jss">Responsive Styles with Super JSS</h2>
-<p>Super JSS simplifies the creation of responsive styles in Angular applications, allowing styles to adapt based on the device's width without the complexity of signals for style definitions.</p>
-<h2 id="simple-example">Simple Example</h2>
-<p>Define responsive styles directly in your component's template using the <code>[sj]</code> directive to apply a responsive background color:</p>
-<pre><code class="language-html">&lt;div [sj]=&quot;responsiveBackground&quot;&gt;Responsive Background Color Div&lt;/div&gt;
+<h1 id="responsive-styles">Responsive Styles</h1>
+<p>With Super JSS, you can define responsive styles that adapt based on the device's width.</p>
+<h3 id="simple-example">Simple Example</h3>
+<p>Apply a responsive background color directly in your component's HTML:</p>
+<pre><code class="language-html">&lt;div [sj]=&quot;{backgroundColor: {xs:'red', sm:'blue', md:'green', lg:'purple', xl:'orange'}}&quot;&gt;Responsive Background Color Div&lt;/div&gt;
 </code></pre>
-<p>In your component's TypeScript file:</p>
-<pre><code class="language-typescript">import { SJssStyles } from 'super-jss';
-
-export class MyComponent {
-  responsiveBackground: SJssStyles = {
-    backgroundColor: {
-      xs: 'red',
-      sm: 'blue',
-      md: 'green',
-      lg: 'purple',
-      xl: 'orange'
-    }
-  };
-}
-
-</code></pre>
-<p>With this setup, the div will display:</p>
-<p>A red background on extra small devices.
-Blue on small devices.
-Green on medium devices.
-Purple on large devices.
-Orange on extra large devices.</p>
+<p>In this example:</p>
+<ul>
+<li>The div will have a red background on extra small devices.</li>
+<li>A blue background on small devices.</li>
+<li>A green background on medium devices.</li>
+<li>A purple background on large devices.</li>
+<li>And an orange background on extra large devices.</li>
+</ul>
 <h3 id="advanced-example">Advanced Example</h3>
-<p>For more complex responsive designs, define and combine multiple responsive styles in your TypeScript:</p>
-<pre><code class="language-typescript">import { SJssStyles } from 'super-jss';
-
-export class MyComponent {
-  responsiveBackgroundColor: SJssStyles = {
-    backgroundColor: {
-      xs: 'red',
-      sm: 'blue',
-      md: 'green',
-      lg: 'yellow',
-      xl: 'purple'
-    }
-  };
-
-  responsiveFlexLayout: SJssStyles = {
-    display: 'flex',
-    flexDirection: {
-      xs: 'column',
-      md: 'row'
-    }
-  };
-}
-
+<p>For more intricate designs, you can define responsive styles:</p>
+<pre><code class="language-typescript">// Define some styles
+const responsiveBackgroundColor: SJssStyles = {
+  backgroundColor: {
+  xs: 'red',
+  sm: 'blue',
+  md: 'green',
+  lg: 'yellow',
+  xl: 'purple'
+  }
+};
+// Define some more styles
+const responsiveFlexLayout: SJssStyles = {
+  display: 'flex',
+  flexDirection: {xs: 'column', md: 'row'}
+};
 </code></pre>
 <p>Applying these combined responsive styles in your component's HTML:</p>
 <pre><code class="language-html">&lt;div [sj]=&quot;[responsiveBackgroundColor, responsiveFlexLayout]&quot;&gt;
   &lt;p&gt;Advanced Styled Div&lt;/p&gt;
   &lt;p&gt;Super-jss&lt;/p&gt;
-&lt;/div&gt;
+&lt;/p&gt;
 </code></pre>
-<p>With these combined styles:</p>
-<p>The div's background color will change responsively based on the screen width.
-The flex layout will switch from a column arrangement on smaller screens to a row arrangement on larger screens, providing an optimal layout across different devices.</p>
+<p>With the combined styles:</p>
+<ul>
+<li>The div will have a responsive background color based on the device width.</li>
+<li>The div will also have a flex layout, with its direction changing from column on smaller devices to row on larger devices.</li>
+</ul>
 <hr />
 <p><a href="../styling/">← Styling</a> | <a href="../">Home</a> | <a href="../typography/">Typography →</a></p>
 

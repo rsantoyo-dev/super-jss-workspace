@@ -418,15 +418,14 @@
 <p>Super JSS provides a robust theming mechanism for typography. By simply adding the <code>sj</code> directive to your HTML tags, you can apply predefined styles from the theme to your text elements. This ensures consistency and a professional look across your application.</p>
 <h2 id="usage">Usage</h2>
 <p>You can use any HTML tag from H1 to H6, P, or span, and add the <code>sj</code> directive to apply the predefined typography styles:</p>
-<pre><code class="language-html">&lt;h1 [sj]=&quot;&quot;&gt;Hello world H1&lt;/h1&gt;
-&lt;h2 [sj]=&quot;&quot;&gt;Hello world H2&lt;/h2&gt;
-&lt;h3 [sj]=&quot;&quot;&gt;Hello world H3&lt;/h3&gt;
-&lt;h4 [sj]=&quot;&quot;&gt;Hello world H4&lt;/h4&gt;
-&lt;h5 [sj]=&quot;&quot;&gt;Hello world H5&lt;/h5&gt;
-&lt;h6 [sj]=&quot;&quot;&gt;Hello world H6&lt;/h6&gt;
-&lt;p [sj]=&quot;&quot;&gt;Hello world P&lt;/p&gt;
-&lt;span [sj]=&quot;&quot;&gt;Hello world span&lt;/span&gt;
-&lt;strong [sj]=&quot;&quot;&gt;Hello world span&lt;/strong&gt;
+<pre><code class="language-html">&lt;h1 [sj]&gt;Hello world H1&lt;/h1&gt;
+&lt;h2 [sj]&gt;Hello world H2&lt;/h2&gt;
+&lt;h3 [sj]&gt;Hello world H3&lt;/h3&gt;
+&lt;h4 [sj]&gt;Hello world H4&lt;/h4&gt;
+&lt;h5 [sj]&gt;Hello world H5&lt;/h5&gt;
+&lt;h6 [sj]&gt;Hello world H6&lt;/h6&gt;
+&lt;p [sj]&gt;Hello world P&lt;/p&gt;
+&lt;span [sj]&gt;Hello world span&lt;/span&gt;
 </code></pre>
 <p>These styles are defined in the SJssTheme interface under the typography property. Each tag (H1 to H6, P, span, etc.) corresponds to a specific style definition. By using the sj directive, you're telling Super JSS to apply the associated style from the theme to that tag.</p>
 <hr />
