@@ -1,78 +1,25 @@
-# Theming in SuperJSS
+# Theming with Super JSS
 
-Theming is a powerful feature in SuperJSS that allows for consistent styling across your application. By defining a theme, you can ensure that components maintain a uniform appearance in line with your design guidelines. However, there are times when you might need to override these default styles. Here's how you can do it effectively and safely.
+Super JSS provides a robust theming system that allows you to define and switch themes dynamically in your Angular applications. Theming is essential for creating consistent styling across your application and for enabling features like dark mode.
 
-## Overriding a Theme
+## Defining a Theme
 
-To customize your application's look and feel, you might need to override the default theme provided by SuperJSS. This process involves using the `SJssThemeService` and responsibly managing your subscriptions to prevent memory leaks.
-
-Here's a step-by-step guide:
-
-### Step 1: Subscribing to Theme Changes
-
-First, you need to subscribe to the theme changes in your component. This step ensures that your component stays updated with the latest theme information.
+You can define a theme as a set of style properties that can be applied globally across your application.
 
 ```typescript
-import { Component, OnDestroy } from '@angular/core';
-import { SJssTheme, SJssThemeService } from 'superjss';
-import { Subscription } from 'rxjs';
+import { defaultThemeConfig, SJTheme } from 'super-jss';
 
-@Component({
-  selector: 'app-theme-demo',
-  template: `
-    <div [style.backgroundColor]="theme?.palette.primary.main">
-      Themed Component
-    </div>
-  `
-})
-export class ThemeDemoComponent implements OnDestroy {
-  theme: SJssTheme | null = null;
-  private themeSubscription: Subscription;
-
-  constructor(private sjssThemeService: SJssThemeService) {
-    this.themeSubscription = this.sjssThemeService.themeChanges().subscribe((newTheme) => {
-      this.theme = newTheme;
-    });
-  }
-
-  ngOnDestroy() {
-    // Prevent memory leaks by unsubscribing when the component is destroyed
-    this.themeSubscription.unsubscribe();
-  }
-}
+const myTheme: SJTheme = defaultThemeConfig();
+myTheme.palette.primary.main = '#007bff'; // Blue
+myTheme.palette.secondary.main = '#dc3545'; // Red
 ```
-
-### Step 2: Overriding the Theme
-
-You can modify the theme's properties according to your project's requirements. Here's how you can do it:
-
+Applying a Theme
+Once you have defined a theme, you can apply it using the sjTheme.set method.
 ```typescript
+import { sjTheme } from 'super-jss';
 
-
-modifyTheme() {
-  // Clone the current theme to avoid mutating the original object
-  const updatedTheme: SJssTheme = { ...this.theme };
-
-  // Customize the theme's properties
-  updatedTheme.palette.primary.main = '#003366'; // Change the primary color
-  // ... (other modifications)
-
-  // Update the theme globally
-  this.sjssThemeService.setTheme(updatedTheme);
-}
-```
-
-### Step 3: Unsubscribing from Observables
-
-When your component is destroyed, it's crucial to unsubscribe from the theme changes subscription. Failing to do so can lead to memory leaks, as the subscription remains active and continues to listen for changes.
-
-```typescript
-// ... (inside the ThemeDemoComponent class)
-
-ngOnDestroy() {
-  // Clean up the subscription to prevent memory leaks
-  this.themeSubscription.unsubscribe();
-}
+// Apply the theme globally
+sjTheme.set(myTheme);
 ```
 
 ## Conclusion

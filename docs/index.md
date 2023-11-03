@@ -1,37 +1,71 @@
 # Welcome to Super JSS Documentation
 
-Super JSS is an innovative approach to styling in Angular applications, providing a dynamic way to handle CSS using JavaScript. If you're familiar with the concept of CSS-in-JS from the React ecosystem, Super JSS brings a similar capability to Angular, but with its own unique features and benefits.
+Welcome to the official documentation of Super JSS, the dynamic CSS library for Angular that is revolutionizing the way you apply styles to your applications. Inspired by the dynamic capabilities of UI libraries like Material UI, Styled Components, and Vuetify, Super JSS extends these concepts within the Angular ecosystem, which traditionally lacked such dynamic styling approaches. Built using the latest features of Angular 16, Super JSS leverages the power of signals, making state management for styles incredibly easy, fast, and intuitive. With Super JSS, you can effortlessly create responsive, themeable, and highly customizable user interfaces using the power and simplicity of JavaScript.
 
 ## What is Super JSS?
 
-**Super JSS** stands for Super JavaScript Stylesheets, a dynamic styling solution tailored for Angular applications. It offers developers the flexibility to define styles as JavaScript objects, making it easier to adjust and apply styles conditionally based on the application's state.
+**Super JSS** (Super JavaScript Stylesheets) is a cutting-edge library that brings the power of JavaScript to the world of styling in Angular. By utilizing Angular 16's signals, it allows you to define your styles as JavaScript objects, providing a dynamic and powerful way to manage your application's appearance without the complexity of RxJS.
 
 ## The Philosophy Behind Super JSS
 
-In the modern web development landscape, the need for dynamic theming and styling has become increasingly prevalent. Whether it's for user-customizable themes, dark mode, or responsive designs, developers require tools that offer both flexibility and performance. Super JSS was born out of this necessity.
+Drawing inspiration from the best practices of established UI frameworks, Super JSS is built on the belief that styling should be as dynamic and flexible as the components it styles. With the recent upgrade to Angular 16 and the removal of all RxJS dependencies, Super JSS has become even more streamlined and efficient. It's not just about applying static CSS; it's about creating a styling ecosystem that responds to user interactions, application state, and environmental changes in real-time.
 
-By treating styles as a dynamic part of the application logic, Super JSS empowers developers to create more interactive and responsive user experiences.
+## Key Features
 
-## Key Benefits
+- **Dynamic Styling**: Create and manage styles with the full power of JavaScript, enabling dynamic and conditional styling with ease.
+- **Responsive Design**: Effortlessly adapt your styles to different screen sizes and orientations, ensuring a consistent experience across all devices.
+- **Seamless Theming**: Switch themes on the fly, providing users with a customizable and inclusive interface.
+- **Enhanced Typography**: Take control of your text with enhanced support for all HTML typography elements.
+- **Optimized Performance**: Built with Angular 16 signals for a fast and smooth user experience without the overhead of RxJS.
 
-- **Flexibility**: Define styles as JavaScript objects, allowing for dynamic and conditional styling based on application state.
+## Why Choose Super JSS?
 
-- **Performance**: Despite its dynamic nature, Super JSS is optimized for speed, ensuring minimal impact on application performance.
+Super JSS is not just another styling library. It's a thoughtfully designed tool that integrates deeply with Angular, providing a developer experience that is both intuitive and enjoyable. It's the perfect blend of power, simplicity, and performance, designed to meet the demands of modern web development.
 
-- **Integration with Angular**: Designed specifically for Angular, it integrates seamlessly, making it a natural choice for Angular developers.
+## Lightweight and Fast
 
-- **Developer Experience**: With clear syntax and powerful features, Super JSS aims to enhance the developer experience, making styling more intuitive and less cumbersome.
+In addition to its dynamic capabilities, Super JSS is incredibly lightweight. The library's minified version is under 8KB, and the minified+gzipped version is less than 3KB, ensuring your apps remain fast and responsive without sacrificing functionality.
 
-## How Does It Compare?
+## Community and Support
 
-While there are other styling solutions available, Super JSS stands out due to its focus on dynamic capabilities tailored for Angular. Its design decisions are influenced by the need for runtime theming and styling in modern web applications. For a detailed comparison with other popular libraries, check out our [Comparison with Other Libraries](comparison.md) section.
+Join the growing community of developers who are adopting Super JSS to push the boundaries of what's possible with Angular styling. Share your experiences, get support, and contribute to the project:
+
+- [Super JSS on GitHub](https://github.com/rsantoyo-dev/super-jss)
+- [Connect with the Community](https://community.super-jss.com)
+- [Follow Development Updates on Twitter](https://twitter.com/super_jss)
+
+## Ready to Start?
+
+Embark on your journey to mastering Super JSS by exploring our comprehensive documentation:
+
+- [Installation Guide](installation.md): Get started with the setup and integration of Super JSS into your Angular projects.
+- [Styling Basics](styling.md): Learn the fundamentals of dynamic styling with Super JSS.
+- [Responsive Styling](responsive-style.md): Dive into creating responsive designs with ease.
+- [Typography](typography.md): Enhance your text elements with Super JSS's typography features.
+- [Theming](theming.md): Discover how to implement and switch themes dynamically.
+- [Examples](examples.md): See Super JSS in action with our collection of practical examples.
+
+Begin crafting beautiful, responsive, and dynamic user interfaces with unparalleled ease today.
 
 ## Additional Resources
 
 - [Super JSS on GitHub](https://github.com/rsantoyo-dev/super-jss)
-
 - [Articles by Richard on Medium](https://medium.com/@viejorichard)
 
-## Next Steps
+## 🎨 Demos
 
-Ready to dive deeper? Explore the subsequent sections to discover the powerful features of Super JSS and learn how to integrate it into your Angular projects.
+- Demo App: this Project can be seen in [StackBlitz](https://stackblitz.com/edit/angular-ivy-atzazr?file=src%2Fapp%2Fapp.component.ts),
+  [github repo](https://github.com/rsantoyo-dev/super-jss/tree/master/projects/super-jss-demo/src), or deployed to [superjss](https://superjss.netlify.app/),:
+  Show typography, theme handler updating palette, fonts, and breakpoints. or [github repo](https://github.com/rsantoyo-dev/super-jss/tree/master/projects/super-jss-demo/src):
+
+## 💖 Support
+
+If you find Super JSS useful, consider supporting its development:
+
+- [☕ Buy me a coffee](https://buymeacoffee.com/superjss)
+- [Support Super JSS](https://opencollective.com/super-jss)
+- [Support Developer](https://patreon.com/superjss)
+
+## 📬 Contact
+
+For inquiries, feedback, or issues, reach out at [ricardo.santoyo@hotmail.com](mailto:ricardo.santoyo@hotmail.com).
