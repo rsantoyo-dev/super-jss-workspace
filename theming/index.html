@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#theming-in-superjss" class="md-skip">
+        <a href="#theming-with-super-jss" class="md-skip">
           Skip to content
         </a>
       
@@ -333,36 +333,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overriding-a-theme" class="md-nav__link">
-    Overriding a Theme
+  <a href="#defining-a-theme" class="md-nav__link">
+    Defining a Theme
   </a>
-  
-    <nav class="md-nav" aria-label="Overriding a Theme">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-subscribing-to-theme-changes" class="md-nav__link">
-    Step 1: Subscribing to Theme Changes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-overriding-the-theme" class="md-nav__link">
-    Step 2: Overriding the Theme
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-unsubscribing-from-observables" class="md-nav__link">
-    Step 3: Unsubscribing from Observables
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -427,36 +400,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overriding-a-theme" class="md-nav__link">
-    Overriding a Theme
+  <a href="#defining-a-theme" class="md-nav__link">
+    Defining a Theme
   </a>
-  
-    <nav class="md-nav" aria-label="Overriding a Theme">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-subscribing-to-theme-changes" class="md-nav__link">
-    Step 1: Subscribing to Theme Changes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-overriding-the-theme" class="md-nav__link">
-    Step 2: Overriding the Theme
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-unsubscribing-from-observables" class="md-nav__link">
-    Step 3: Unsubscribing from Observables
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -482,65 +428,22 @@
                   
 
 
-<h1 id="theming-in-superjss">Theming in SuperJSS</h1>
-<p>Theming is a powerful feature in SuperJSS that allows for consistent styling across your application. By defining a theme, you can ensure that components maintain a uniform appearance in line with your design guidelines. However, there are times when you might need to override these default styles. Here's how you can do it effectively and safely.</p>
-<h2 id="overriding-a-theme">Overriding a Theme</h2>
-<p>To customize your application's look and feel, you might need to override the default theme provided by SuperJSS. This process involves using the <code>SJssThemeService</code> and responsibly managing your subscriptions to prevent memory leaks.</p>
-<p>Here's a step-by-step guide:</p>
-<h3 id="step-1-subscribing-to-theme-changes">Step 1: Subscribing to Theme Changes</h3>
-<p>First, you need to subscribe to the theme changes in your component. This step ensures that your component stays updated with the latest theme information.</p>
-<pre><code class="language-typescript">import { Component, OnDestroy } from '@angular/core';
-import { SJssTheme, SJssThemeService } from 'superjss';
-import { Subscription } from 'rxjs';
+<h1 id="theming-with-super-jss">Theming with Super JSS</h1>
+<p>Super JSS provides a robust theming system that allows you to define and switch themes dynamically in your Angular applications. Theming is essential for creating consistent styling across your application and for enabling features like dark mode.</p>
+<h2 id="defining-a-theme">Defining a Theme</h2>
+<p>You can define a theme as a set of style properties that can be applied globally across your application.</p>
+<pre><code class="language-typescript">import { defaultThemeConfig, SJTheme } from 'super-jss';
 
-@Component({
-  selector: 'app-theme-demo',
-  template: `
-    &lt;div [style.backgroundColor]=&quot;theme?.palette.primary.main&quot;&gt;
-      Themed Component
-    &lt;/div&gt;
-  `
-})
-export class ThemeDemoComponent implements OnDestroy {
-  theme: SJssTheme | null = null;
-  private themeSubscription: Subscription;
-
-  constructor(private sjssThemeService: SJssThemeService) {
-    this.themeSubscription = this.sjssThemeService.themeChanges().subscribe((newTheme) =&gt; {
-      this.theme = newTheme;
-    });
-  }
-
-  ngOnDestroy() {
-    // Prevent memory leaks by unsubscribing when the component is destroyed
-    this.themeSubscription.unsubscribe();
-  }
-}
+const myTheme: SJTheme = defaultThemeConfig();
+myTheme.palette.primary.main = '#007bff'; // Blue
+myTheme.palette.secondary.main = '#dc3545'; // Red
 </code></pre>
-<h3 id="step-2-overriding-the-theme">Step 2: Overriding the Theme</h3>
-<p>You can modify the theme's properties according to your project's requirements. Here's how you can do it:</p>
-<pre><code class="language-typescript">
+<p>Applying a Theme
+Once you have defined a theme, you can apply it using the sjTheme.set method.</p>
+<pre><code class="language-typescript">import { sjTheme } from 'super-jss';
 
-modifyTheme() {
-  // Clone the current theme to avoid mutating the original object
-  const updatedTheme: SJssTheme = { ...this.theme };
-
-  // Customize the theme's properties
-  updatedTheme.palette.primary.main = '#003366'; // Change the primary color
-  // ... (other modifications)
-
-  // Update the theme globally
-  this.sjssThemeService.setTheme(updatedTheme);
-}
-</code></pre>
-<h3 id="step-3-unsubscribing-from-observables">Step 3: Unsubscribing from Observables</h3>
-<p>When your component is destroyed, it's crucial to unsubscribe from the theme changes subscription. Failing to do so can lead to memory leaks, as the subscription remains active and continues to listen for changes.</p>
-<pre><code class="language-typescript">// ... (inside the ThemeDemoComponent class)
-
-ngOnDestroy() {
-  // Clean up the subscription to prevent memory leaks
-  this.themeSubscription.unsubscribe();
-}
+// Apply the theme globally
+sjTheme.set(myTheme);
 </code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>By following these steps, you can effectively override the default theme in SuperJSS, ensuring your application adheres to your specific design requirements. Remember, responsibly managing your subscriptions by unsubscribing in the <code>ngOnDestroy</code> method is crucial to prevent memory leaks and maintain optimal performance in your Angular applications.</p>
