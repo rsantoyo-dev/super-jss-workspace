@@ -1,19 +1,17 @@
-import { SJssStyles, sjColor, sjSpace, defaultThemeConfig } from 'super-jss';
-import {signal} from "@angular/core";
+import { SjStyle } from "projects/super-jss/src/lib/models/interfaces";
 
-export const appTheme = signal(defaultThemeConfig());
-export const sjBorder: SJssStyles = {
+export const sjBorder: SjStyle = {
     borderStyle: 'solid',
-    borderWidth: sjSpace(0.1),
-    borderColor: sjColor.lightDark,
-    borderRadius: sjSpace(0.5),
+    borderWidth: 0.1,
+    borderColor: 'light',
+    borderRadius: 0.5,
 };
 
-export const sjShadow: SJssStyles = {
-    boxShadow: `${sjSpace(0.2)} ${sjSpace(0.3)} ${sjSpace(0.3)}  #0001`,
+export const sjShadow: SjStyle = {
+    boxShadow: `2px 3px 3px #0001`,
 };
 
-export const sjBorderShadow: SJssStyles = {
+export const sjBorderShadow: SjStyle = {
     ...sjBorder,
     ...sjShadow,
 };

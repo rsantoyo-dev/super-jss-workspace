@@ -1,105 +1,90 @@
-import { sjShadow } from '../sjStyling/sjStyles';
-import { Component, signal } from '@angular/core';
+import {Component, effect, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SuperJssModule, sjColor, sjTheme, defaultThemeConfig, sjSpace } from 'super-jss';
-import {appTheme} from "../sjStyling/themeHandler";
+import {SjDirective} from 'super-jss';
+import { SjThemeService } from 'super-jss';
+
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, SuperJssModule],
+  imports: [CommonModule, SjDirective],
   template: `
-    <div [sj]="[
-      {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: { xs: sjSpace(1), md: sjSpace(2) },
-        backgroundColor: { xs: sjColor.primary, md: sjColor.primaryLight }
-      },
-      sjShadow
-    ]">
-      <h3 [sj]="{ color: sjColor.primaryContrast }">SUPER-JSS-DEMO</h3>
+    <div [sj]="
+      {d: 'flex',       fxDir: 'column',
+        fxAItems: 'center',
+        fxJustify: 'center',
+        p: { xs: 1, md: 3 },
+        bg: { xs: 'primary', md: 'primary.light'}
+      }">
+      <h3 [sj]="{ color: 'primary.contrast' }">SUPER-JSS-DEMO</h3>
       <span
         (click)="updateTheme()"
-        [sj]="{ color: sjColor.primaryDark, cursor: 'pointer' }"
+        [sj]="{ color: 'primary.dark', cursor: 'pointer' }"
       >
         click here to update theme
       </span>
     </div>
-    <div [sj]="[
+    <div [sj]="
       {
-        backgroundColor: sjColor.secondaryLight,
-        padding: sjSpace(0.5),
+        bg: 'secondary.light',
+        padding: 0.5,
         display: 'flex',
         justifyContent: 'center'
       }
-    ]">
-      <span [sj]="{ color: sjColor.secondaryDark, fontSize: sjSpace(1) }">
-        sjBreakpoints: {{ JSON.stringify(myTheme().breakpoints) }}
+    ">
+      <span [sj]="{ color: 'secondary.dark', fontSize: 1 }">
+         sjBreakpoints: {{ JSON.stringify(breakpoints)}}
       </span>
     </div>
   `,
 })
 export class HeaderComponent {
-  protected readonly sjColor = sjColor;
-  protected readonly myTheme = signal(appTheme());
-  protected readonly sjShadow = sjShadow;
-  protected readonly sjSpace = sjSpace;
-  protected readonly JSON = JSON;
+
+  defaultThemeConfig = this.th.sjTheme();
 
   toggleTheme = signal(false);
 
-  updateTheme = () => {
+  breakpoints =  this.th.breakpoints();
+
+  constructor(private th:SjThemeService) {
+    effect(() => {
+      this.breakpoints = this.th.breakpoints();
+    })
+  }
+
+  updateTheme() {
+    if(!this.toggleTheme()) {
+      this.th.setPalette({
+        primary: {
+          main: this.th.colors().purple[500],
+          light: this.th.colors().purple[200],
+          dark: this.th.colors().purple[700],
+          contrast: this.th.colors().orange[300],
+        },
+        secondary: {
+          main: this.th.colors().yellow[500],
+          light: this.th.colors().yellow[200],
+          dark: this.th.colors().yellow[700],
+          contrast: this.th.colors().purple[700],
+        }
+      });
+      this.th.setBreakpoints({
+        sm: 630,
+        md: 900,
+      });
+      this.th.setTypography({
+        default: { fontFamily: 'Courier New'},
+      });
+    }
+    else{
+      this.th.setPalette(this.defaultThemeConfig.palette);
+      this.th.setBreakpoints(this.defaultThemeConfig.breakpoints);
+      this.th.setTypography(this.defaultThemeConfig.typography);
+    }
+
     this.toggleTheme.set(!this.toggleTheme());
-    appTheme.mutate((theme) => {
 
-      theme.typography.default = this.toggleTheme()
-        ? {
-          fontFamily: 'Courier New',
-        }
-        : defaultThemeConfig().typography.default;
+  }
 
-      theme.typography.H1 = this.toggleTheme()
-      ? {
-          fontSize: {xs: sjSpace(3), md: sjSpace(4)},
-          fontWeight: 'bold',
-        }
-        : defaultThemeConfig().typography.H1;
-
-
-      theme.palette.primary = this.toggleTheme()
-        ? {
-            main: '#800080', // Purple
-            light: '#E0B0FF', // Lighter Purple
-            dark: '#4B0082', // Darker Purple
-            contrastText: '#FFFFFF' // White for contrast
-          }
-        : defaultThemeConfig().palette.primary;
-
-      theme.palette.secondary = this.toggleTheme()
-        ? {
-            main: '#FFDB58', // Mustard
-            light: '#FFEA70', // Lighter Mustard
-            dark: '#B08D57', // Darker Mustard
-            contrastText: '#FFFFFF' // White for contrast
-          }
-        : defaultThemeConfig().palette.secondary;
-
-      theme.palette.tertiary = this.toggleTheme()
-        ? {
-            main: '#0000FF', // Blue
-            light: '#8A2BE2', // Lighter Blue
-            dark: '#00008B', // Darker Blue
-            contrastText: '#FFFFFF' // White for contrast
-          }
-        : defaultThemeConfig().palette.tertiary;
-
-      theme.breakpoints.md = this.toggleTheme()
-        ? 750
-        : defaultThemeConfig().breakpoints.md;
-    });
-    sjTheme.set(appTheme());
-  };
+  protected readonly JSON = JSON;
 }

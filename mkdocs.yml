@@ -1,0 +1,13 @@
+theme: material
+site_name: Super JSS
+site_url: https://rsantoyo-dev.github.io/super-jss-workspace/
+base_url: /super-jss-workspace/docs/
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Styling: styling.md
+  - Responsive Styling: responsive-style.md
+  - Typography: typography.md
+  - Theming: theming.md
+  - Examples: examples.md
+

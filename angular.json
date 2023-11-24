@@ -51,7 +51,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/super-jss-demo",
+            "outputPath": "dist/super-jss-demo/browser",
             "index": "projects/super-jss-demo/src/index.html",
             "main": "projects/super-jss-demo/src/main.ts",
             "polyfills": "projects/super-jss-demo/src/polyfills.ts",

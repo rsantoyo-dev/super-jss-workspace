@@ -1,5 +1,6 @@
 export * from './directives/index';
-export * from './model/index';
-export * from './themes/index';
-export * from './super-jss.module';
+export * from './services/index';
+export * from './models/interfaces';
+
+
 

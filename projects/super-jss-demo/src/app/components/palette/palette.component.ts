@@ -1,23 +1,25 @@
 import {Component, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { sjBorderShadow, sjBorder } from '../../sjStyling/sjStyles';
-import {appTheme} from "../../sjStyling/themeHandler";
-import {sjColor, SuperJssModule, sjSpace, sjGetStyle, sjTheme } from "super-jss";
+
+import {SjDirective} from 'super-jss';
+import {sjBorder, sjBorderShadow} from "../../sjStyling/sjStyles";
 
 @Component({
   selector: 'app-palette',
   standalone: true,
-  imports: [CommonModule, SuperJssModule],
+  imports: [CommonModule, SjDirective],
   template: `
+    <h3 [sj]="{c: 'primary'}">Palette</h3>
     <div *ngFor="let color of demoColors()"
       [sj]="[{
-        display: 'flex',
-        flexDirection: 'column',
-        margin: sjSpace(1),
-        padding: sjSpace(1),
+        d: 'flex',
+        fxDir: 'column',
+        my: 1,
+        p: 1,
+        bg: 'light.light',
        }, sjBorderShadow]"
     >
-      <p [sj]="[{padding:sjSpace(0.5)+' '+sjSpace(1), color:color[0], fontWeight:'bold'}]">{{ color[0] }}</p>
+      <p [sj]="{c:color[0], fontWeight:'bold'}">{{ color[0] }}</p>
       <div [sj]="{display:'flex', flexDirection:{xs:'column', md:'row'}}">
         <div *ngFor="let colorVariant of color" [sj]="[
           {
@@ -25,14 +27,13 @@ import {sjColor, SuperJssModule, sjSpace, sjGetStyle, sjTheme } from "super-jss"
             flexGrow: '1',
             flexDirection: 'column',
             alignItems: 'center',
-            padding: sjSpace(1),
-            margin: sjSpace(0.2)+' '+sjSpace(0.5),
-            backgroundColor: colorVariant,
-
+            padding: 0.5,
+            margin: 0.5,
+            backgroundColor: colorVariant
           }, sjBorder]"
         >
-          <span [sj]="">{{ colorVariant }}</span>
-          <h6 [sj]="">{{ sjGetStyle(colorVariant) }}</h6>
+          <span [sj]="{c:'neutral.dark'}">{{ colorVariant }}</span>
+
         </div>
       </div>
 
@@ -40,25 +41,24 @@ import {sjColor, SuperJssModule, sjSpace, sjGetStyle, sjTheme } from "super-jss"
   `
 })
 export class PaletteComponent {
-    demoColors = signal([
-      [sjColor.primary, sjColor.primaryLight, sjColor.primaryDark, sjColor.primaryContrast],
-      [sjColor.secondary, sjColor.secondaryLight, sjColor.secondaryDark, sjColor.secondaryContrast],
-      [sjColor.tertiary, sjColor.tertiaryLight, sjColor.tertiaryDark, sjColor.tertiaryContrast],
-      [sjColor.error, sjColor.errorLight, sjColor.errorDark],
-      [sjColor.warning, sjColor.warningLight, sjColor.warningDark],
-      [sjColor.info, sjColor.infoLight, sjColor.infoDark],
-      [sjColor.success, sjColor.successLight, sjColor.successDark],
-      [sjColor.textPrimary, sjColor.textSecondary, sjColor.textDisabled],
-      [sjColor.dark, sjColor.darkDark, sjColor.darkLight],
-      [sjColor.light, sjColor.lightLight, sjColor.lightDark]
-    ]);
 
-      // assign to local variables for template
-    sjSpace = sjSpace;
-    sjBorder = sjBorder;
-    sjGetStyle = sjGetStyle;
-    sjBorderShadow = sjBorderShadow;
-    constructor() {
-      sjTheme.set(appTheme())
-    }
+
+  demoColors = signal([
+    ['primary','primary.light', 'primary.dark', 'primary.contrast'],
+    ['secondary', 'secondary.light', 'secondary.dark', 'secondary.contrast'],
+    ['tertiary', 'tertiary.light', 'tertiary.dark', 'tertiary.contrast'],
+    ['success', 'success.light', 'success.dark', 'success.contrast'],
+    ['info', 'info.light', 'info.dark', 'info.contrast'],
+    ['warning', 'warning.light', 'warning.dark', 'warning.contrast'],
+    ['error', 'error.light', 'error.dark', 'error.contrast'],
+    ['dark', 'dark.light', 'dark.dark', 'dark.contrast'],
+    ['neutral', 'neutral.light', 'neutral.dark', 'neutral.contrast'],
+    ['light', 'light.light', 'light.dark', 'light.contrast'],
+
+  ]);
+
+  protected readonly sjBorderShadow = sjBorderShadow;
+  protected readonly sjBorder = sjBorder;
 }
+
+
