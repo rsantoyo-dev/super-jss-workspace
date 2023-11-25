@@ -13,17 +13,20 @@ To begin, install the Super JSS library using npm:
 npm i super-jss
 ```
 ## Integration
-### 1.  Importing the Module:
-
-Open your app.module.ts and import the SuperJssModule.
+### 1.  Importing the Directive in any component:
 
 ```typescript
-import { SuperJssModule } from 'super-jss';
-
-@NgModule({
-  imports: [SuperJssModule],
-  ...
+import {SjDirective} from "super-jss";
+@Component({
+  standalone: true,
+  selector: 'app-demo',
+  template: `
+     <div [sj]="{backgroundColor: '#aa5645', padding: '10px'}">
+        Welcome to Super JSS!
+      </div>    
+  `
 })
+export class DemoComponent {}
 ```
 ---
 

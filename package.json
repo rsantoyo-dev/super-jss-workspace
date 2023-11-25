@@ -12,7 +12,10 @@
     "pack": "cd dist/super-jss && npm pack",
     "sj-build": "ng build super-jss",
     "sj-watch": "ng build super-jss --watch",
-    "sj-component": "ng g c $1 --standalone --inline-template"
+    "sj-component": "ng g c $1 --standalone --inline-template",
+    "mkdocs": "mkdocs serve",
+    "mkdocs-build": "mkdocs build",
+    "mkdocs-deploy": "mkdocs gh-deploy"
   },
   "dependencies": {
     "@angular/animations": "^17.0.0",

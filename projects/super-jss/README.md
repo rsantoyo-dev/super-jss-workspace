@@ -203,13 +203,10 @@ Dive deep into Super JSS's capabilities:
 ## 🎨 Demos
 
 - Demo App: this Project can be seen in [StackBlitz](https://stackblitz.com/edit/super-js?file=src%2Fmain.ts),
-[github repo](https://github.com/rsantoyo-dev/super-jss/tree/master/projects/super-jss-demo/src), or deployed to [superjss](https://superjss.netlify.app/),:
-  Show typography, theme handler updating palette, fonts, and breakpoints. or [github repo](https://github.com/rsantoyo-dev/super-jss/tree/master/projects/super-jss-demo/src):
-
 ## 📖 Articles
 
 - [How Super JSS Works](https://medium.com/@viejorichard/super-jss-a-library-for-responsive-css-styles-85691b210450)
-- [Theming with Super JSS](https://medium.com/@viejorichard/super-jss-how-to-override-a-theme-64d8da14e3fb)
+
 
 ## 💖 Support
 
