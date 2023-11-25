@@ -279,8 +279,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-importing-the-module" class="md-nav__link">
-    1.  Importing the Module:
+  <a href="#1-importing-the-directive-in-any-component" class="md-nav__link">
+    1.  Importing the Directive in any component:
   </a>
   
 </li>
@@ -442,8 +442,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-importing-the-module" class="md-nav__link">
-    1.  Importing the Module:
+  <a href="#1-importing-the-directive-in-any-component" class="md-nav__link">
+    1.  Importing the Directive in any component:
   </a>
   
 </li>
@@ -479,14 +479,18 @@
 <pre><code class="language-bash">npm i super-jss
 </code></pre>
 <h2 id="integration">Integration</h2>
-<h3 id="1-importing-the-module">1.  Importing the Module:</h3>
-<p>Open your app.module.ts and import the SuperJssModule.</p>
-<pre><code class="language-typescript">import { SuperJssModule } from 'super-jss';
-
-@NgModule({
-  imports: [SuperJssModule],
-  ...
+<h3 id="1-importing-the-directive-in-any-component">1.  Importing the Directive in any component:</h3>
+<pre><code class="language-typescript">import {SjDirective} from &quot;super-jss&quot;;
+@Component({
+  standalone: true,
+  selector: 'app-demo',
+  template: `
+     &lt;div [sj]=&quot;{backgroundColor: '#aa5645', padding: '10px'}&quot;&gt;
+        Welcome to Super JSS!
+      &lt;/div&gt;    
+  `
 })
+export class DemoComponent {}
 </code></pre>
 <hr />
 <p><a href="../">⬅️ Previous: Welcome to Super JSS</a> | <a href="../styling/">Next: Styling ➡️</a></p>
