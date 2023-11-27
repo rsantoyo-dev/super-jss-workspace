@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/</loc>
-         <lastmod>2023-11-25</lastmod>
+         <lastmod>2023-11-27</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/basic-usage/</loc>
+         <lastmod>2023-11-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/examples/</loc>
-         <lastmod>2023-11-25</lastmod>
+         <lastmod>2023-11-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/installation/</loc>
-         <lastmod>2023-11-25</lastmod>
+         <lastmod>2023-11-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/responsive-style/</loc>
-         <lastmod>2023-11-25</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/styling/</loc>
-         <lastmod>2023-11-25</lastmod>
+         <lastmod>2023-11-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/theming/</loc>
-         <lastmod>2023-11-25</lastmod>
+         <lastmod>2023-11-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/typography/</loc>
-         <lastmod>2023-11-25</lastmod>
+         <lastmod>2023-11-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

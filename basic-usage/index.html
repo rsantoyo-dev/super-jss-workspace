@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://rsantoyo-dev.github.io/super-jss-workspace/styling/">
+        <link rel="canonical" href="https://rsantoyo-dev.github.io/super-jss-workspace/basic-usage/">
       
       
         <link rel="prev" href="../installation/">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Styling - Super JSS</title>
+        <title>Basic Usage - Super JSS</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#styling-with-super-jss" class="md-skip">
+        <a href="#basic-usage" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Styling
+              Basic Usage
             
           </span>
         </div>
@@ -236,14 +236,12 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
   <span class="md-ellipsis">
-    Styling
+    Basic Usage
   </span>
   
 
@@ -254,7 +252,7 @@
         
   
   <span class="md-ellipsis">
-    Styling
+    Basic Usage
   </span>
   
 
@@ -266,8 +264,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -276,16 +272,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-basic-styling" class="md-nav__link">
-    1. Basic Styling:
+  <a href="#basic-usage" class="md-nav__link">
+    Basic Usage
   </a>
   
-    <nav class="md-nav" aria-label="1. Basic Styling:">
+    <nav class="md-nav" aria-label="Basic Usage">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#2-combining-styles" class="md-nav__link">
-    2.  Combining Styles:
+  <a href="#importing-and-using-sjdirective" class="md-nav__link">
+    Importing and Using SjDirective
   </a>
   
 </li>
@@ -396,8 +392,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -406,16 +400,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-basic-styling" class="md-nav__link">
-    1. Basic Styling:
+  <a href="#basic-usage" class="md-nav__link">
+    Basic Usage
   </a>
   
-    <nav class="md-nav" aria-label="1. Basic Styling:">
+    <nav class="md-nav" aria-label="Basic Usage">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#2-combining-styles" class="md-nav__link">
-    2.  Combining Styles:
+  <a href="#importing-and-using-sjdirective" class="md-nav__link">
+    Importing and Using SjDirective
   </a>
   
 </li>
@@ -440,43 +434,31 @@
                   
 
 
-<h1 id="styling-with-super-jss">Styling with Super JSS</h1>
-<p>Super JSS enhances Angular applications with dynamic styling capabilities, allowing you to define styles using JavaScript objects for a more interactive and responsive user experience.</p>
-<h2 id="1-basic-styling">1. Basic Styling:</h2>
-<p>The <code>[sj]</code> directive in Super JSS accepts either a single object or an array of objects conforming to the <code>SJssStyles</code> interface. Each object represents a set of CSS properties, with keys as the camel-cased version of the CSS property names.</p>
-<pre><code class="language-html">&lt;div [sj]=&quot;{backgroundColor: 'red', padding: '1rem'}&quot;&gt;Stylish Component&lt;/div&gt;
-</code></pre>
-<h3 id="2-combining-styles">2.  Combining Styles:</h3>
-<p>Super JSS supports combining multiple styles, which can be defined as class properties and then applied together in your template.</p>
-<p>Here's a standalone class example:</p>
-<pre><code class="language-typescript">import { Component } from '@angular/core';
-import { SJssStyles } from 'super-jss';
+  <h1>Basic Usage</h1>
 
-@Component({
-  selector: 'app-demo',
-  template: `
-    &lt;div [sj]=&quot;[styleOne, globalBorder]&quot;&gt;Combined Styles&lt;/div&gt;
-  `
-})
-export class DemoComponent {
-  styleOne: SJssStyles = {
-    backgroundColor: 'red',
-    padding: '1rem'
-  };
-}
-
-// Assuming globalBorder is a global style defined elsewhere in the application:
-export const globalBorder: SJssStyles = {
-  border: '1px solid black',
-  borderRadius: '4px'
-};
-
-</code></pre>
-<p>In your component's HTML:</p>
-<pre><code class="language-html">&lt;div [sj]=&quot;[styleOne, styleTwo]&quot;&gt;Combined Styles&lt;/div&gt;
-</code></pre>
-<hr />
-<p><a href="../installation/">← Installation</a> | <a href="../">Home</a> | <a href="../responsive-style/">Responsive Styles →</a></p>
+<h2 id="basic-usage">Basic Usage</h2>
+<p>Super JSS simplifies the process of applying dynamic styles in Angular applications. Below is a guide to importing and using <code>SjDirective</code> and some basic examples to get you started.</p>
+<h3 id="importing-and-using-sjdirective">Importing and Using <code>SjDirective</code></h3>
+<ol>
+<li><strong>Import the Directive:</strong>
+   To use Super JSS in your component, first import the <code>SjDirective</code> from the Super JSS package.</li>
+</ol>
+<p><code>typescript
+   import {SjDirective} from "super-jss";</code>
+2. <strong>Apply the Directive:</strong>
+    Apply the <code>SjDirective</code> to the element you want to style. The directive accepts a single object or an array of objects. The object keys are the CSS properties, and the values are the responsive CSS values. The directive will automatically apply the styles to the element.</p>
+<p><code>typescript
+    @Component({
+      selector: 'app-demo',
+      template: `
+        &lt;div [sj]="{backgroundColor: '#aa5645', padding: '10px'}"&gt;
+          Welcome to Super JSS!
+        &lt;/div&gt;
+      `
+    })
+    export class DemoComponent {}</code></p>
+<p>The div will have varying padding sizes depending on the screen width, thanks to the responsive design capabilities of Super JSS.</p>
+<p>This section of the documentation provides a clear and straightforward guide for developers to start using Super JSS in their Angular projects. It demonstrates the ease with which they can apply dynamic and responsive styles, highlighting the library's flexibility and power.</p>
 
 
 
