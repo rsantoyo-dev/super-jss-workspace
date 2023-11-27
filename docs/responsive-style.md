@@ -76,4 +76,4 @@ The div's background color will change responsively based on the screen width.
 The flex layout will switch from a column arrangement on smaller screens to a row arrangement on larger screens, providing an optimal layout across different devices.
 ---
 
-[← Styling](styling.md) | [Home](index.md) | [Typography →](typography.md)
+[← Styling](basic-usage.md) | [Home](index.md) | [Typography →](typography.md)

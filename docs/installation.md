@@ -30,4 +30,4 @@ export class DemoComponent {}
 ```
 ---
 
-[⬅️ Previous: Welcome to Super JSS](index.md) | [Next: Styling ➡️](styling.md)
+[⬅️ Previous: Welcome to Super JSS](index.md) | [Next: Styling ➡️](basic-usage.md)

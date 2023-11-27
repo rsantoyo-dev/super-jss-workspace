@@ -141,9 +141,7 @@ function getCssPropertiesForCustomShorthand(key: keyof SjShorthandCustomStyle): 
             return ['borderLeft', 'borderRight'];
         case 'by':
             return ['borderTop', 'borderBottom'];
-      // Add more cases as needed for new custom shorthand keys
-        default:
-            return [];
+
     }
 }
 
@@ -157,19 +155,18 @@ function getCssPropertiesForCustomShorthand(key: keyof SjShorthandCustomStyle): 
  */
 
 function applySjCustomShorthand(element: HTMLElement, key: keyof SjShorthandCustomStyle, sjStyle: SjStyle, screenWidth: number, theme: SjTheme): void {
-    //let cssProperties: Array<keyof CSSStyleDeclaration>;
-    let cssProperties = getCssPropertiesForCustomShorthand(key);
-    let cssKey = key as keyof SjShorthandCustomStyle;
-    let value = sjStyle[cssKey];
-    cssProperties.forEach(cssProperty => {
-        const cssDeclaration: Partial<CSSStyleDeclaration> = {
-            [cssProperty]: typeof value === 'string' ? value
-              : typeof value === 'number' ? theme.spacing(value)
-                : getStyleByScreenWidth(value as ResponsiveStyle, theme, screenWidth)
-        };
-        applyCssStyle(element, cssDeclaration, theme);
-    });
-
+  //let cssProperties: Array<keyof CSSStyleDeclaration>;
+  let cssProperties = getCssPropertiesForCustomShorthand(key);
+  let cssKey = key as keyof SjShorthandCustomStyle;
+  let value = sjStyle[cssKey];
+  cssProperties.forEach(cssProperty => {
+      const cssDeclaration: Partial<CSSStyleDeclaration> = {
+          [cssProperty]: typeof value === 'string' ? value
+            : typeof value === 'number' ? theme.spacing(value)
+              : getStyleByScreenWidth(value as ResponsiveStyle, theme, screenWidth)
+      };
+      applyCssStyle(element, cssDeclaration, theme);
+  });
 }
 
 /**
@@ -272,7 +269,6 @@ const resolveThemeColor = (value: string, theme: SjTheme): string => {
  */
 export const applyTypography = (el: HTMLElement, theme: SjTheme, screenWidth: number) => {
     // Loop through each typography style in the theme
-  console.log('el.nodeName', el.nodeName, theme.typography[el.nodeName as keyof typeof theme.typography])
     if(theme.typography[el.nodeName as keyof typeof theme.typography]){
 
         Object.keys(theme.typography).forEach(key => {
