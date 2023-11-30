@@ -8,13 +8,11 @@
       
       
       
-        <link rel="canonical" href="https://rsantoyo-dev.github.io/super-jss-workspace/responsive-style/">
+        <link rel="canonical" href="https://rsantoyo-dev.github.io/super-jss-workspace/contact/">
       
       
-        <link rel="prev" href="../styling-shortcuts/">
+        <link rel="prev" href="../examples/">
       
-      
-        <link rel="next" href="../colors/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +20,7 @@
     
     
       
-        <title>Responsive Styling - Super JSS</title>
+        <title>Contact - Super JSS</title>
       
     
     
@@ -66,11 +64,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#responsive-styling-with-sjss" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -103,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Responsive Styling
+              Contact
             
           </span>
         </div>
@@ -266,29 +259,9 @@
       
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Responsive Styling
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../responsive-style/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -297,40 +270,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#breakpoint-upscaling-in-sjss" class="md-nav__link">
-    Breakpoint Upscaling in SJSS
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example-responsive-styling-in-a-component" class="md-nav__link">
-    Example: Responsive Styling in a Component
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -434,9 +373,16 @@
       
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../contact/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -445,6 +391,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -466,30 +413,6 @@
   
   
   
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#breakpoint-upscaling-in-sjss" class="md-nav__link">
-    Breakpoint Upscaling in SJSS
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example-responsive-styling-in-a-component" class="md-nav__link">
-    Example: Responsive Styling in a Component
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -504,72 +427,9 @@
                   
 
 
-<h1 id="responsive-styling-with-sjss">Responsive Styling with SJSS</h1>
-<p>Super JavaScript Stylesheets (SJSS) provides a powerful and intuitive system for implementing responsive designs in Angular applications. Using a combination of predefined and customizable breakpoints, developers can easily define styles that adapt to different screen sizes.</p>
-<h2 id="breakpoint-upscaling-in-sjss">Breakpoint Upscaling in SJSS</h2>
-<p>In SJSS, breakpoints are designed with an 'upscaling' approach. This means:</p>
-<ul>
-<li><strong>Breakpoint Application</strong>: A style defined for a smaller breakpoint (e.g., xs) will apply to larger breakpoints until a new style is specified.</li>
-<li><strong>Continuity Across Breakpoints</strong>: If a style is set for xs, it will continue to be effective for sm, md, lg, etc., until a larger breakpoint explicitly overrides it.</li>
-<li><strong>Initial Definition</strong>: If the initial style is defined for a larger breakpoint (e.g., md or above), xs and sm will adopt this style unless explicitly overridden.</li>
-</ul>
-<h2 id="example-responsive-styling-in-a-component">Example: Responsive Styling in a Component</h2>
-<p>Consider a scenario where you want your Angular component to adapt its style based on the screen size. SJSS makes this straightforward with responsive style properties. Here's an example:</p>
-<pre><code class="language-typescript">import { Component } from &quot;@angular/core&quot;;
-import { SjDirective } from &quot;super-jss&quot;;
+  <h1>Contact</h1>
 
-@Component({
-  standalone: true,
-  selector: 'app-responsive-demo',
-  template: `
-    &lt;div [sj]=&quot;{
-      p: {
-        xs: '5px',    // Padding for extra small screens
-        md: '10px',   // Padding for medium screens
-        lg: '15px'    // Padding for large screens
-        xl: '20px'   // Padding for extra large screens
-        xxl: '25px'  // Padding for extra extra large screens        
-      },
-      bg: {
-        xs: '#6699ff', // Background color for extra small screens
-        md: '#99ff66', // Background color for medium screens
-        lg: '#ff6699'  // Background color for large screens
-      }
-    }&quot;&gt;
-      Responsive SJSS Component!
-    &lt;/div&gt;
-  `
-})
-export class ResponsiveDemoComponent {}
-</code></pre>
-<h1 id="updating-breakpoints">Updating Breakpoints</h1>
-<p>To customize breakpoints in your Angular application, SJSS provides the SjThemeService, which is particularly powerful and user-friendly due to its use of Angular signals. This approach minimizes boilerplate and simplifies state management. Once set, these breakpoints are automatically recognized across the application through the sjDirective, ensuring a seamless and consistent responsive experience.</p>
-<pre><code class="language-typescript">import { Component } from &quot;@angular/core&quot;;
-import { SjDirective } from &quot;super-jss&quot;;
-import { SjThemeService } from &quot;super-jss&quot;;
 
-@Component({
-  standalone: true,
-  selector: 'app-responsive-demo',
-  template: `
-    &lt;div (click)=&quot;updateBreakpoints()&quot; [sj]=&quot;{p: { xs: '5px', md: '10px' }}&quot;&gt;
-      Responsive SJSS Component!
-    &lt;/div&gt;
-  `
-  })
-  export class ResponsiveDemoComponent {
-    //not recommended to change xs: unless your specifications does not care about mini devices, covered by xs
-    constructor(private sjTheme: SjThemeService) {}
-    updateBreakpoints(): void {
-      this.sjTheme.setBreakpoints({
-        sm: 660, // optional: a new breakpoint assiged to sm
-        md: 980, // optional a new breakpoint assiged to md
-        // add lg, xl, or xxl if needed.
-      });
-    }
-  }
-</code></pre>
-<p>This flexibility in defining and updating breakpoints allows developers to tailor responsive behavior to specific needs, ensuring optimal user experience across all devices.</p>
 
 
 

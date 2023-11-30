@@ -11,6 +11,21 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/colors-palette/</loc>
+         <lastmod>2023-11-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/colors/</loc>
+         <lastmod>2023-11-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/contact/</loc>
+         <lastmod>2023-11-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/examples/</loc>
          <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
@@ -21,7 +36,17 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/padding-margin/</loc>
+         <lastmod>2023-11-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/responsive-style/</loc>
+         <lastmod>2023-11-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/styling-shortcuts/</loc>
          <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>

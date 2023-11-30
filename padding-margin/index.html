@@ -8,13 +8,9 @@
       
       
       
-        <link rel="canonical" href="https://rsantoyo-dev.github.io/super-jss-workspace/responsive-style/">
+        <link rel="canonical" href="https://rsantoyo-dev.github.io/super-jss-workspace/padding-margin/">
       
       
-        <link rel="prev" href="../styling-shortcuts/">
-      
-      
-        <link rel="next" href="../colors/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +18,7 @@
     
     
       
-        <title>Responsive Styling - Super JSS</title>
+        <title>Shorthand Properties - Super JSS</title>
       
     
     
@@ -67,7 +63,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#responsive-styling-with-sjss" class="md-skip">
+        <a href="#shorthand-properties" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +99,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Responsive Styling
+              Shorthand Properties
             
           </span>
         </div>
@@ -266,29 +262,9 @@
       
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Responsive Styling
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../responsive-style/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -297,40 +273,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#breakpoint-upscaling-in-sjss" class="md-nav__link">
-    Breakpoint Upscaling in SJSS
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example-responsive-styling-in-a-component" class="md-nav__link">
-    Example: Responsive Styling in a Component
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -476,15 +418,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#breakpoint-upscaling-in-sjss" class="md-nav__link">
-    Breakpoint Upscaling in SJSS
+  <a href="#quick-reference-table" class="md-nav__link">
+    Quick Reference Table
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-responsive-styling-in-a-component" class="md-nav__link">
-    Example: Responsive Styling in a Component
+  <a href="#shorthand-is-optional" class="md-nav__link">
+    Shorthand is Optional
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-with-shorthand" class="md-nav__link">
+    Example with Shorthand:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-with-traditional-properties" class="md-nav__link">
+    Example with Traditional Properties:
   </a>
   
 </li>
@@ -504,72 +460,111 @@
                   
 
 
-<h1 id="responsive-styling-with-sjss">Responsive Styling with SJSS</h1>
-<p>Super JavaScript Stylesheets (SJSS) provides a powerful and intuitive system for implementing responsive designs in Angular applications. Using a combination of predefined and customizable breakpoints, developers can easily define styles that adapt to different screen sizes.</p>
-<h2 id="breakpoint-upscaling-in-sjss">Breakpoint Upscaling in SJSS</h2>
-<p>In SJSS, breakpoints are designed with an 'upscaling' approach. This means:</p>
-<ul>
-<li><strong>Breakpoint Application</strong>: A style defined for a smaller breakpoint (e.g., xs) will apply to larger breakpoints until a new style is specified.</li>
-<li><strong>Continuity Across Breakpoints</strong>: If a style is set for xs, it will continue to be effective for sm, md, lg, etc., until a larger breakpoint explicitly overrides it.</li>
-<li><strong>Initial Definition</strong>: If the initial style is defined for a larger breakpoint (e.g., md or above), xs and sm will adopt this style unless explicitly overridden.</li>
-</ul>
-<h2 id="example-responsive-styling-in-a-component">Example: Responsive Styling in a Component</h2>
-<p>Consider a scenario where you want your Angular component to adapt its style based on the screen size. SJSS makes this straightforward with responsive style properties. Here's an example:</p>
-<pre><code class="language-typescript">import { Component } from &quot;@angular/core&quot;;
-import { SjDirective } from &quot;super-jss&quot;;
-
-@Component({
-  standalone: true,
-  selector: 'app-responsive-demo',
-  template: `
-    &lt;div [sj]=&quot;{
-      p: {
-        xs: '5px',    // Padding for extra small screens
-        md: '10px',   // Padding for medium screens
-        lg: '15px'    // Padding for large screens
-        xl: '20px'   // Padding for extra large screens
-        xxl: '25px'  // Padding for extra extra large screens        
-      },
-      bg: {
-        xs: '#6699ff', // Background color for extra small screens
-        md: '#99ff66', // Background color for medium screens
-        lg: '#ff6699'  // Background color for large screens
-      }
-    }&quot;&gt;
-      Responsive SJSS Component!
-    &lt;/div&gt;
-  `
-})
-export class ResponsiveDemoComponent {}
+<h1 id="shorthand-properties">Shorthand Properties</h1>
+<p>Super JavaScript Stylesheets (SJSS) offers a flexible approach to styling in Angular applications. While you can use convenient shorthand properties for padding, margin, and border, SJSS also accepts traditional camelCase CSS properties, ensuring you can style elements in the way that works best for you.</p>
+<h2 id="quick-reference-table">Quick Reference Table</h2>
+<table>
+<thead>
+<tr>
+<th>Shorthand</th>
+<th>Traditional CSS Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>px</code></td>
+<td><code>paddingLeft</code>, <code>paddingRight</code></td>
+<td>Horizontal padding (left &amp; right)</td>
+</tr>
+<tr>
+<td><code>py</code></td>
+<td><code>paddingTop</code>, <code>paddingBottom</code></td>
+<td>Vertical padding (top &amp; bottom)</td>
+</tr>
+<tr>
+<td><code>mx</code></td>
+<td><code>marginLeft</code>, <code>marginRight</code></td>
+<td>Horizontal margin (left &amp; right)</td>
+</tr>
+<tr>
+<td><code>my</code></td>
+<td><code>marginTop</code>, <code>marginBottom</code></td>
+<td>Vertical margin (top &amp; bottom)</td>
+</tr>
+<tr>
+<td><code>m</code></td>
+<td><code>margin</code></td>
+<td>Margin on all sides</td>
+</tr>
+<tr>
+<td><code>mt</code></td>
+<td><code>marginTop</code></td>
+<td>Margin-top</td>
+</tr>
+<tr>
+<td><code>ml</code></td>
+<td><code>marginLeft</code></td>
+<td>Margin-left</td>
+</tr>
+<tr>
+<td><code>mr</code></td>
+<td><code>marginRight</code></td>
+<td>Margin-right</td>
+</tr>
+<tr>
+<td><code>mb</code></td>
+<td><code>marginBottom</code></td>
+<td>Margin-bottom</td>
+</tr>
+<tr>
+<td><code>bx</code></td>
+<td><code>borderLeft</code>, <code>borderRight</code></td>
+<td>Horizontal border (left &amp; right)</td>
+</tr>
+<tr>
+<td><code>by</code></td>
+<td><code>borderTop</code>, <code>borderBottom</code></td>
+<td>Vertical border (top &amp; bottom)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="shorthand-is-optional">Shorthand is Optional</h2>
+<p>The use of shorthand properties in SJSS is entirely optional. You can choose to use them for a more concise style definition or stick with the traditional camelCase properties for padding, margin, and border. SJSS is designed to accommodate your preferred styling approach.</p>
+<h2 id="example-with-shorthand">Example with Shorthand:</h2>
+<pre><code class="language-typescript">  import {SjDirective} from &quot;super-jss&quot;;
+    @Component({selector: 'app-demo',
+      template: `
+          &lt;div [sj]=&quot;{
+            py: '8px', // Vertical padding
+            mx: '10px', // Horizontal margin
+            by: '2px solid black' // Top and bottom border
+          }&quot;&gt;
+            Welcome to Super JSS!
+          &lt;/div&gt;
+        `
+    })
+    export class DemoComponent {}
 </code></pre>
-<h1 id="updating-breakpoints">Updating Breakpoints</h1>
-<p>To customize breakpoints in your Angular application, SJSS provides the SjThemeService, which is particularly powerful and user-friendly due to its use of Angular signals. This approach minimizes boilerplate and simplifies state management. Once set, these breakpoints are automatically recognized across the application through the sjDirective, ensuring a seamless and consistent responsive experience.</p>
-<pre><code class="language-typescript">import { Component } from &quot;@angular/core&quot;;
-import { SjDirective } from &quot;super-jss&quot;;
-import { SjThemeService } from &quot;super-jss&quot;;
-
-@Component({
-  standalone: true,
-  selector: 'app-responsive-demo',
-  template: `
-    &lt;div (click)=&quot;updateBreakpoints()&quot; [sj]=&quot;{p: { xs: '5px', md: '10px' }}&quot;&gt;
-      Responsive SJSS Component!
-    &lt;/div&gt;
-  `
-  })
-  export class ResponsiveDemoComponent {
-    //not recommended to change xs: unless your specifications does not care about mini devices, covered by xs
-    constructor(private sjTheme: SjThemeService) {}
-    updateBreakpoints(): void {
-      this.sjTheme.setBreakpoints({
-        sm: 660, // optional: a new breakpoint assiged to sm
-        md: 980, // optional a new breakpoint assiged to md
-        // add lg, xl, or xxl if needed.
-      });
-    }
-  }
+<h2 id="example-with-traditional-properties">Example with Traditional Properties:</h2>
+<pre><code class="language-typescript">  import {SjDirective} from &quot;super-jss&quot;;
+    @Component({selector: 'app-demo',
+      template: `
+          &lt;div [sj]=&quot;{
+            paddingTop: '8px',
+            paddingBottom: '8px',
+            marginLeft: '10px',
+            marginRight: '10px',
+            borderTop: '2px solid black',
+            borderBottom: '2px solid black'
+          }&quot;&gt;
+            Welcome to Super JSS!
+          &lt;/div&gt;
+        `
+    })
+    export class DemoComponent {}
 </code></pre>
-<p>This flexibility in defining and updating breakpoints allows developers to tailor responsive behavior to specific needs, ensuring optimal user experience across all devices.</p>
+<p>Both examples achieve the same styling effect. The choice between shorthand and traditional properties depends on your coding style and project requirements.</p>
 
 
 
