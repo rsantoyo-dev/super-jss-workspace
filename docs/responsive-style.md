@@ -1,79 +1,75 @@
-## Responsive Styles with Super JSS
+# Responsive Styling with SJSS
 
-Super JSS simplifies the creation of responsive styles in Angular applications, allowing styles to adapt based on the device's width without the complexity of signals for style definitions.
+Super JavaScript Stylesheets (SJSS) provides a powerful and intuitive system for implementing responsive designs in Angular applications. Using a combination of predefined and customizable breakpoints, developers can easily define styles that adapt to different screen sizes.
 
-## Simple Example
+## Breakpoint Upscaling in SJSS
+In SJSS, breakpoints are designed with an 'upscaling' approach. This means:
 
-Define responsive styles directly in your component's template using the `[sj]` directive to apply a responsive background color:
+- **Breakpoint Application**: A style defined for a smaller breakpoint (e.g., xs) will apply to larger breakpoints until a new style is specified.
+- **Continuity Across Breakpoints**: If a style is set for xs, it will continue to be effective for sm, md, lg, etc., until a larger breakpoint explicitly overrides it.
+- **Initial Definition**: If the initial style is defined for a larger breakpoint (e.g., md or above), xs and sm will adopt this style unless explicitly overridden.
 
-```html
-<div [sj]="responsiveBackground">Responsive Background Color Div</div>
-```
+## Example: Responsive Styling in a Component
 
-In your component's TypeScript file:
-```typescript
-import { SJssStyles } from 'super-jss';
-
-export class MyComponent {
-  responsiveBackground: SJssStyles = {
-    backgroundColor: {
-      xs: 'red',
-      sm: 'blue',
-      md: 'green',
-      lg: 'purple',
-      xl: 'orange'
-    }
-  };
-}
-
-```
-With this setup, the div will display:
-
-A red background on extra small devices.
-Blue on small devices.
-Green on medium devices.
-Purple on large devices.
-Orange on extra large devices.
-
-### Advanced Example
-For more complex responsive designs, define and combine multiple responsive styles in your TypeScript:
+Consider a scenario where you want your Angular component to adapt its style based on the screen size. SJSS makes this straightforward with responsive style properties. Here's an example:
 
 ```typescript
-import { SJssStyles } from 'super-jss';
+import { Component } from "@angular/core";
+import { SjDirective } from "super-jss";
 
-export class MyComponent {
-  responsiveBackgroundColor: SJssStyles = {
-    backgroundColor: {
-      xs: 'red',
-      sm: 'blue',
-      md: 'green',
-      lg: 'yellow',
-      xl: 'purple'
-    }
-  };
-
-  responsiveFlexLayout: SJssStyles = {
-    display: 'flex',
-    flexDirection: {
-      xs: 'column',
-      md: 'row'
-    }
-  };
-}
-
-```
-Applying these combined responsive styles in your component's HTML:
-```html
-<div [sj]="[responsiveBackgroundColor, responsiveFlexLayout]">
-  <p>Advanced Styled Div</p>
-  <p>Super-jss</p>
-</div>
+@Component({
+  standalone: true,
+  selector: 'app-responsive-demo',
+  template: `
+    <div [sj]="{
+      p: {
+        xs: '5px',    // Padding for extra small screens
+        md: '10px',   // Padding for medium screens
+        lg: '15px'    // Padding for large screens
+        xl: '20px'   // Padding for extra large screens
+        xxl: '25px'  // Padding for extra extra large screens        
+      },
+      bg: {
+        xs: '#6699ff', // Background color for extra small screens
+        md: '#99ff66', // Background color for medium screens
+        lg: '#ff6699'  // Background color for large screens
+      }
+    }">
+      Responsive SJSS Component!
+    </div>
+  `
+})
+export class ResponsiveDemoComponent {}
 ```
 
-With these combined styles:
 
-The div's background color will change responsively based on the screen width.
-The flex layout will switch from a column arrangement on smaller screens to a row arrangement on larger screens, providing an optimal layout across different devices.
----
+# Updating Breakpoints
+To customize breakpoints in your Angular application, SJSS provides the SjThemeService, which is particularly powerful and user-friendly due to its use of Angular signals. This approach minimizes boilerplate and simplifies state management. Once set, these breakpoints are automatically recognized across the application through the sjDirective, ensuring a seamless and consistent responsive experience.
 
-[← Styling](basic-usage.md) | [Home](index.md) | [Typography →](typography.md)
+```typescript
+import { Component } from "@angular/core";
+import { SjDirective } from "super-jss";
+import { SjThemeService } from "super-jss";
+
+@Component({
+  standalone: true,
+  selector: 'app-responsive-demo',
+  template: `
+    <div (click)="updateBreakpoints()" [sj]="{p: { xs: '5px', md: '10px' }}">
+      Responsive SJSS Component!
+    </div>
+  `
+  })
+  export class ResponsiveDemoComponent {
+    //not recommended to change xs: unless your specifications does not care about mini devices, covered by xs
+    constructor(private sjTheme: SjThemeService) {}
+    updateBreakpoints(): void {
+      this.sjTheme.setBreakpoints({
+        sm: 660, // optional: a new breakpoint assiged to sm
+        md: 980, // optional a new breakpoint assiged to md
+        // add lg, xl, or xxl if needed.
+      });
+    }
+  }
+```
+This flexibility in defining and updating breakpoints allows developers to tailor responsive behavior to specific needs, ensuring optimal user experience across all devices.

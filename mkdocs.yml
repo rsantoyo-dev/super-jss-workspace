@@ -6,8 +6,12 @@ nav:
   - Home: index.md
   - Installation: installation.md
   - Basic Usage: basic-usage.md
+  - Styling Shortcuts: styling-shortcuts.md
   - Responsive Styling: responsive-style.md
+  - Colors: colors.md
+  - Palette: palette.md
   - Typography: typography.md
   - Theming: theming.md
-  - Examples: examples.md
+  - Practical Examples: examples.md
+  - Contact: contact.md
 

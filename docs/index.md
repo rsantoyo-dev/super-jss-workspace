@@ -1,29 +1,22 @@
-# Super JSS Library Documentation - Angular 17 Edition
+# Introduction to Super JavaScript Stylesheets (SJSS) - Angular 17 Edition
 
-###Introduction
+Welcome to Super JavaScript Stylesheets (SJSS) - a dynamic and responsive styling library designed for Angular applications. Seamlessly integrating with Angular 17, SJSS leverages the framework's latest advancements to make styling more intuitive, flexible, and maintainable. Whether you're building a small project or a large-scale enterprise application, SJSS is equipped to meet your styling needs with ease and efficiency.
 
-Welcome to the official documentation of Super JSS for Angular 17, a revolutionary dynamic CSS library that transforms the way styles are applied in Angular applications. Inspired by the dynamic capabilities of UI libraries like Material UI and Styled Components, Super JSS brings a unique approach to Angular, a framework traditionally without such dynamic styling options. With the latest features of Angular 17, including enhanced use of signals, Super JSS offers an intuitive and powerful way to manage styles reactively.
+## Purpose of SJSS
 
-## What is Super JSS?
-
-**Super JSS** (Super JavaScript Stylesheets) is a cutting-edge library that brings the power of JavaScript to the world of styling in Angular. By utilizing Angular 17's signals, it allows you to define your styles as JavaScript objects, providing a dynamic and powerful way to manage your application's appearance without the complexity of RxJS.
-
-## The Philosophy Behind Super JSS
-
-Drawing from established UI frameworks, Super JSS is founded on the idea that styling should be as dynamic as the components it styles. The upgrade to Angular 17 and the streamlined use of signals make Super JSS a lean and efficient tool, perfect for creating styles that respond in real time to user interactions and application states.
-## Key Features
-
-- **Dynamic Styling with JavaScript**: Create and manage styles with the full power of JavaScript, enabling dynamic and conditional styling with ease.
-- **Responsive Design**: Effortlessly adapt your styles to different screen sizes and orientations, ensuring a consistent experience across all devices.
-- **Simplified Shorthand Styling**: Utilize intuitive shorthand properties like p for padding, m for margin, and d: 'flex' for quick and efficient style definitions.
-- **Object-Based Styling**: Accepts style definitions as objects, providing flexibility and power in styling.
-- **Seamless Theming**: Switch themes on the fly, providing users with a customizable and inclusive interface.
+SJSS was created to simplify the process of applying styles in Angular applications. By combining the intuitive principles of JavaScript and CSS, SJSS introduces a powerful way to define and manage styles directly within your Angular components. This approach offers several benefits:
+- **Ease of Use**: Apply complex styles with simple and readable syntax.
+- **Responsive Design Made Simple**: Effortlessly create responsive layouts that adapt to different screen sizes.
+- **Dynamic Styling**: Update styles dynamically based on application state or user interactions.
+- **Simplified Theming**: Create and switch themes on the fly, providing users with a customizable and inclusive interface.
+- **Standalone directive**: SJSS is a standalone directive, so it can be used with any Angular component.
 - **Enhanced Typography**: Take control of your text with enhanced support for all HTML typography elements.
 - **Optimized Performance**: Built with Angular 17 signals for a fast and smooth user experience without the overhead of RxJS.
+- **Lightweight and Fast**: SJSS is incredibly lightweight, with the minified version under 8KB and the minified+gzipped version less than 3KB.
+- **Built for Angular**: SJSS is built specifically for Angular, ensuring compatibility and seamless integration with your Angular projects.
+- **Familiar Syntax**: SJSS uses a syntax that will be familiar to anyone who has used CSS or JavaScript, making it easy to learn and use.
 
-## Lightweight and Fast
-
-In addition to its dynamic capabilities, Super JSS is incredibly lightweight. The library's minified version is under 8KB, and the minified+gzipped version is less than 3KB, ensuring your apps remain fast and responsive without sacrificing functionality.
+In the following sections, we'll dive deeper into how to install, set up, and use SJSS in your Angular projects. You'll also find detailed examples, best practices, and everything you need to harness the full potential of SJSS.
 
 ## Community and Support
 

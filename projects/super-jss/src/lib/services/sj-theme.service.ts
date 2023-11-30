@@ -1,5 +1,5 @@
 import {Injectable, computed, signal, OnDestroy, WritableSignal} from '@angular/core';
-import {SjBreakPoints, SjPalette, SjTypography} from '../models/interfaces';
+import {SjBreakPoints, SjColors, SjPalette, SjTypography} from '../models/interfaces';
 import {getCurrentBreakpoint} from "../core/core-methods";
 @Injectable({
   providedIn: 'root'
@@ -264,6 +264,13 @@ export class SjThemeService implements OnDestroy{
   updateRender(){
     this.currentBreakpoint.set(getCurrentBreakpoint(this.sjTheme().breakpoints, window.innerWidth));
   }
+
+  /**
+   * Sets a new color for the theme.
+   * @param colors
+   */
+  public setColors(colors: Partial<SjColors>) {
+    this.colors.set({ ...this.colors(), ...colors });  }
 
   /**
    * Sets a new palette for the theme.

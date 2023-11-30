@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import {SjDirective} from 'super-jss';
 import { SjThemeService } from 'super-jss';
 
-
 @Component({
   selector: 'app-header',
   standalone: true,
