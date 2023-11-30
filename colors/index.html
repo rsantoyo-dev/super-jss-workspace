@@ -14,7 +14,7 @@
         <link rel="prev" href="../responsive-style/">
       
       
-        <link rel="next" href="../typography/">
+        <link rel="next" href="../palette/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -65,6 +65,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#color-palette-with-sjss" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -288,6 +293,19 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Colors
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -299,6 +317,53 @@
 
       </a>
       
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#color-palette-with-sjss_1" class="md-nav__link">
+    Color Palette with SJSS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-color-palette" class="md-nav__link">
+    Using the Color Palette
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#personalize-the-color-palette" class="md-nav__link">
+    Personalize the Color Palette
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#color-palette-default-reference" class="md-nav__link">
+    Color Palette Default Reference
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -309,7 +374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../palette.md" class="md-nav__link">
+      <a href="../palette/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -415,6 +480,44 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#color-palette-with-sjss_1" class="md-nav__link">
+    Color Palette with SJSS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-color-palette" class="md-nav__link">
+    Using the Color Palette
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#personalize-the-color-palette" class="md-nav__link">
+    Personalize the Color Palette
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#color-palette-default-reference" class="md-nav__link">
+    Color Palette Default Reference
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -429,9 +532,274 @@
                   
 
 
-  <h1>Colors</h1>
+<h1 id="color-palette-with-sjss">Color Palette with SJSS</h1>
+<h2 id="color-palette-with-sjss_1">Color Palette with SJSS</h2>
+<p>Super JavaScript Stylesheets (SJSS) provides a flexible and powerful system for managing color palettes in Angular applications. Utilizing the SJSS color palette, you can define and apply a consistent color scheme throughout your app.</p>
+<h2 id="using-the-color-palette">Using the Color Palette</h2>
+<p>In SJSS, colors can be accessed and used within components, either through direct styling or as part of responsive and shorthand styles. Here's an example of how to use the color palette in a component:</p>
+<pre><code class="language-typescript">import { Component } from &quot;@angular/core&quot;;
+import { SjDirective } from &quot;super-jss&quot;;
 
+  @Component({
+    standalone: true,
+    selector: 'app-colorful-component',
+    template: `
+      &lt;div [sj]=&quot;{ m: '2rem', p: '1rem', bg: 'blue' }&quot;&gt;
+       &lt;div [sj]=&quot;{ bg: 'orange.300', color: 'orange.contrast' }&quot;&gt;
+        This is a colorful component!
+       &lt;/div&gt;        
+      &lt;/div&gt;
+    `
+  })
+  export class ColorfulComponent {}
 
+</code></pre>
+<p>in this example, we're using the color palette to apply a background color to a div. We're also using the color palette to apply a background color and text color to a nested div.</p>
+<h2 id="personalize-the-color-palette">Personalize the Color Palette</h2>
+<p>The color palette can be accessed and modified through the SjThemeService. This service provides a powerful and user-friendly way to customize the color palette in your Angular application. Once set, these colors are automatically recognized across the application through the sjDirective, ensuring a seamless and consistent experience.</p>
+<p>any palette item is defined as</p>
+<pre><code class="language-typescript">  {
+    50: string,
+    100: string,
+    200: string,
+    300: string,
+    400: string,
+    500: string, // Default shade
+    600: string,
+    700: string,
+    800: string,
+    900: string,
+    contrast: string
+  } 
+</code></pre>
+<p>to update a color, please use the <code>updatePalette</code> method from the <code>SjThemeService</code> as follows:</p>
+<pre><code class="language-typescript">import { Component } from &quot;@angular/core&quot;;
+import { SjDirective } from &quot;super-jss&quot;;
+
+@Component({
+  standalone: true,
+  selector: 'app-colorful-component',
+  template: `
+    &lt;div (click)=&quot;updateColor()&quot; [sj]=&quot;{ m: '2rem', p: '1rem', bg: 'blue' }&quot;&gt;
+     &lt;div [sj]=&quot;{ bg: 'orange.300', color: 'orange.contrast' }&quot;&gt;
+      This is a colorful component!
+     &lt;/div&gt;        
+    &lt;/div&gt;
+  `
+})
+
+export class PaletteDemoComponent {
+  //not recommended to change xs: unless your specifications does not care about mini devices, covered by xs
+  constructor(private sjTheme: SjThemeService) {}
+  updateColor(): void {
+    this.sjTheme.setColors(
+      pink: {
+        50: '#dc3545',
+        100: '#d8bbd0',
+        200: '#d48fb1',
+        300: '#fd06292',
+        400: '#fc407a',
+        500: '#f91e63',
+        600: '#a81b60',
+        700: '#82185b',
+        800: '#8d1457',
+        900: '#680e4f',
+        contrast: '#d59242'
+      }
+    )
+  }
+}
+
+</code></pre>
+<h2 id="color-palette-default-reference">Color Palette Default Reference</h2>
+<table>
+<thead>
+<tr>
+<th>Color</th>
+<th>50</th>
+<th>100</th>
+<th>200</th>
+<th>300</th>
+<th>400</th>
+<th>500 (default)</th>
+<th>600</th>
+<th>700</th>
+<th>800</th>
+<th>900</th>
+<th>Contrast</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Blue</td>
+<td>#E3F2FD</td>
+<td>#BBDEFB</td>
+<td>#90CAF9</td>
+<td>#64B5F6</td>
+<td>#42A5F5</td>
+<td>#3498DB</td>
+<td>#2E86C1</td>
+<td>#1976D2</td>
+<td>#1565C0</td>
+<td>#0D47A1</td>
+<td>#c26d29</td>
+</tr>
+<tr>
+<td>Indigo</td>
+<td>#E8EAF6</td>
+<td>#C5CAE9</td>
+<td>#9FA8DA</td>
+<td>#7986CB</td>
+<td>#5C6BC0</td>
+<td>#3F51B5</td>
+<td>#3949AB</td>
+<td>#303F9F</td>
+<td>#283593</td>
+<td>#1A237E</td>
+<td>#f59242</td>
+</tr>
+<tr>
+<td>Purple</td>
+<td>#F3E5F5</td>
+<td>#E1BEE7</td>
+<td>#CE93D8</td>
+<td>#BA68C8</td>
+<td>#AB47BC</td>
+<td>#9C27B0</td>
+<td>#8E24AA</td>
+<td>#7B1FA2</td>
+<td>#6A1B9A</td>
+<td>#4A148C</td>
+<td>#f59242</td>
+</tr>
+<tr>
+<td>Pink</td>
+<td>#FCE4EC</td>
+<td>#F8BBD0</td>
+<td>#F48FB1</td>
+<td>#F06292</td>
+<td>#EC407A</td>
+<td>#E91E63</td>
+<td>#D81B60</td>
+<td>#C2185B</td>
+<td>#AD1457</td>
+<td>#880E4F</td>
+<td>#f59242</td>
+</tr>
+<tr>
+<td>Red</td>
+<td>#FFEBEE</td>
+<td>#FFCDD2</td>
+<td>#EF9A9A</td>
+<td>#E57373</td>
+<td>#EF5350</td>
+<td>#E74C3C</td>
+<td>#E53935</td>
+<td>#D32F2F</td>
+<td>#C62828</td>
+<td>#771010</td>
+<td>#f59242</td>
+</tr>
+<tr>
+<td>Orange</td>
+<td>#FFF3E0</td>
+<td>#FFE0B2</td>
+<td>#FFCC80</td>
+<td>#FFB74D</td>
+<td>#FFA726</td>
+<td>#F39C12</td>
+<td>#FB8C00</td>
+<td>#F57C00</td>
+<td>#EF6C00</td>
+<td>#bb4600</td>
+<td>#f59242</td>
+</tr>
+<tr>
+<td>Yellow</td>
+<td>#FFFDE7</td>
+<td>#FFF9C4</td>
+<td>#FFF59D</td>
+<td>#FFF176</td>
+<td>#FFEE58</td>
+<td>#FFEB3B</td>
+<td>#FDD835</td>
+<td>#FBC02D</td>
+<td>#F9A825</td>
+<td>#F57F17</td>
+<td>#f59242</td>
+</tr>
+<tr>
+<td>Green</td>
+<td>#E8F5E9</td>
+<td>#C8E6C9</td>
+<td>#A5D6A7</td>
+<td>#81C784</td>
+<td>#66BB6A</td>
+<td>#4CAF50</td>
+<td>#43A047</td>
+<td>#388E3C</td>
+<td>#2E7D32</td>
+<td>#1B5E20</td>
+<td>#f59242</td>
+</tr>
+<tr>
+<td>Teal</td>
+<td>#E0F2F1</td>
+<td>#B2DFDB</td>
+<td>#80CBC4</td>
+<td>#4DB6AC</td>
+<td>#26A69A</td>
+<td>#009688</td>
+<td>#00897B</td>
+<td>#00796B</td>
+<td>#00695C</td>
+<td>#004D40</td>
+<td>#f59242</td>
+</tr>
+<tr>
+<td>Cyan</td>
+<td>#E0F7FA</td>
+<td>#B2EBF2</td>
+<td>#80DEEA</td>
+<td>#4DD0E1</td>
+<td>#26C6DA</td>
+<td>#00BCD4</td>
+<td>#00ACC1</td>
+<td>#0097A7</td>
+<td>#00838F</td>
+<td>#006064</td>
+<td>#f59242</td>
+</tr>
+<tr>
+<td>Gray</td>
+<td>#FAFAFA</td>
+<td>#F5F5F5</td>
+<td>#EEEEEE</td>
+<td>#E0E0E0</td>
+<td>#BDBDBD</td>
+<td>#9E9E9E</td>
+<td>#757575</td>
+<td>#616161</td>
+<td>#424242</td>
+<td>#212121</td>
+<td>#f59242</td>
+</tr>
+<tr>
+<td>Black</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>#000000</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
 
 
 
