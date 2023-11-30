@@ -2,6 +2,25 @@ theme: material
 site_name: Super JSS
 site_url: https://rsantoyo-dev.github.io/super-jss-workspace/
 base_url: /super-jss-workspace/docs/
+plugins:
+  - search
+  - ultralytics:
+      verbose: True
+      enabled: True
+      default_image: ""
+      add_desc: True
+      add_image: True
+      add_keywords: True
+      add_share_buttons: True
+      add_dates: True
+      add_authors: True
+  - meta-descriptions:
+      export_csv: false
+      quiet: false
+      enable_checks: false
+      min_length: 50
+      max_length: 160
+      trim: false
 nav:
   - Home: index.md
   - Installation: installation.md
@@ -9,9 +28,5 @@ nav:
   - Styling Shortcuts: styling-shortcuts.md
   - Responsive Styling: responsive-style.md
   - Colors: colors.md
-  - Palette: palette.md
-  - Typography: typography.md
-  - Theming: theming.md
-  - Practical Examples: examples.md
-  - Contact: contact.md
+
 
