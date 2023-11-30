@@ -1,10 +1,14 @@
 {
   "name": "super-jss",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "description": "A powerful library for responsive CSS styles in Angular applications.",
   "repository": {
     "type": "git",
     "url": "https://github.com/rsantoyo-dev/super-jss"
+  },
+  "scripts": {
+    "ng": "ng",
+    "test": "ng test"
   },
   "keywords": [
     "css",
