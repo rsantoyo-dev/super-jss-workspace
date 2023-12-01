@@ -5,6 +5,7 @@ Welcome to Super JavaScript Stylesheets (SJSS) - a dynamic and responsive stylin
 ## Purpose of SJSS
 
 SJSS was created to simplify the process of applying styles in Angular applications. By combining the intuitive principles of JavaScript and CSS, SJSS introduces a powerful way to define and manage styles directly within your Angular components. This approach offers several benefits:
+
 - **Ease of Use**: Apply complex styles with simple and readable syntax.
 - **Responsive Design Made Simple**: Effortlessly create responsive layouts that adapt to different screen sizes.
 - **Dynamic Styling**: Update styles dynamically based on application state or user interactions.
