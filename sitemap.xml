@@ -2,62 +2,57 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/</loc>
-         <lastmod>2023-12-01</lastmod>
+         <lastmod>2023-12-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/basic-usage/</loc>
-         <lastmod>2023-12-01</lastmod>
+         <lastmod>2023-12-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/colors/</loc>
-         <lastmod>2023-12-01</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/contact/</loc>
-         <lastmod>2023-12-01</lastmod>
+         <lastmod>2023-12-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/examples/</loc>
-         <lastmod>2023-12-01</lastmod>
+         <lastmod>2023-12-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/installation/</loc>
-         <lastmod>2023-12-01</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/padding-margin/</loc>
-         <lastmod>2023-12-01</lastmod>
+         <lastmod>2023-12-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/palette/</loc>
-         <lastmod>2023-12-01</lastmod>
+         <lastmod>2023-12-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/responsive-style/</loc>
-         <lastmod>2023-12-01</lastmod>
+         <lastmod>2023-12-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/spacing/</loc>
+         <lastmod>2023-12-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/styling-shortcuts/</loc>
-         <lastmod>2023-12-01</lastmod>
+         <lastmod>2023-12-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/theming/</loc>
-         <lastmod>2023-12-01</lastmod>
+         <lastmod>2023-12-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://rsantoyo-dev.github.io/super-jss-workspace/typography/</loc>
-         <lastmod>2023-12-01</lastmod>
+         <lastmod>2023-12-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

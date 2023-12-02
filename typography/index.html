@@ -5,8 +5,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="Super JSS provides a robust theming mechanism for typography. By simply adding the sj directive to your HTML tags, you can apply predefined styles from the theme to your text elements. This ensures consistency and a professional look across your application." name="description"/>
+<meta content="SJSS offers a robust typography system that allows for the customization of text styles across various HTML elements." name="description"/>
 <link href="https://rsantoyo-dev.github.io/super-jss-workspace/typography/" rel="canonical"/>
+<link href="../palette/" rel="prev"/>
+<link href="../examples/" rel="next"/>
 <link href="../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.5.3, mkdocs-material-9.4.6" name="generator"/>
 <title>Typography - Super JSS</title>
@@ -14,15 +16,18 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../stylesheets/extra.css" rel="stylesheet"/>
 <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-<meta content="Typography" name="title"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><meta content="website" property="og:type"/><meta content="https://rsantoyo-dev.github.io/super-jss-workspace/typography" property="og:url"/><meta content="Typography" property="og:title"/><meta content="Super JSS provides a robust theming mechanism for typography. By simply adding the sj directive to your HTML tags, you can apply predefined styles from the theme to your text elements. This ensures consistency and a professional look across your application." property="og:description"/><meta content="summary_large_image" property="twitter:card"/><meta content="https://rsantoyo-dev.github.io/super-jss-workspace/typography" property="twitter:url"/><meta content="Typography" property="twitter:title"/><meta content="Super JSS provides a robust theming mechanism for typography. By simply adding the sj directive to your HTML tags, you can apply predefined styles from the theme to your text elements. This ensures consistency and a professional look across your application." property="twitter:description"/></head>
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-G3R4EFCCJF"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-G3R4EFCCJF",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-G3R4EFCCJF",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<meta content="Typography" name="title"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><meta content="website" property="og:type"/><meta content="https://rsantoyo-dev.github.io/super-jss-workspace/typography" property="og:url"/><meta content="Typography" property="og:title"/><meta content="SJSS offers a robust typography system that allows for the customization of text styles across various HTML elements." property="og:description"/><meta content="summary_large_image" property="twitter:card"/><meta content="https://rsantoyo-dev.github.io/super-jss-workspace/typography" property="twitter:url"/><meta content="Typography" property="twitter:title"/><meta content="SJSS offers a robust typography system that allows for the customization of text styles across various HTML elements." property="twitter:description"/></head>
 <body dir="ltr">
 <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#typography">
+<a class="md-skip" href="#typography-in-sjss">
           Skip to content
         </a>
 </div>
@@ -141,9 +146,60 @@
 </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="../spacing/">
+<span class="md-ellipsis">
+    Spacing
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../palette/">
 <span class="md-ellipsis">
     Palette
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Typography
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Typography
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-typography-in-components">
+    Using Typography in Components
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#typography-default-styles">
+    Typography Default Styles
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#customizing-typography">
+    Customizing Typography
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../examples/">
+<span class="md-ellipsis">
+    Examples
   </span>
 </a>
 </li>
@@ -162,8 +218,18 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#usage">
-    Usage
+<a class="md-nav__link" href="#using-typography-in-components">
+    Using Typography in Components
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#typography-default-styles">
+    Typography Default Styles
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#customizing-typography">
+    Customizing Typography
   </a>
 </li>
 </ul>
@@ -173,24 +239,132 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="typography">Typography</h1>
-<p>Super JSS provides a robust theming mechanism for typography. By simply adding the <code>sj</code> directive to your HTML tags, you can apply predefined styles from the theme to your text elements. This ensures consistency and a professional look across your application.</p>
-<h2 id="usage">Usage</h2>
-<p>You can use any HTML tag from H1 to H6, P, or span, and add the <code>sj</code> directive to apply the predefined typography styles:</p>
-<pre><code class="language-html">&lt;h1 [sj]=""&gt;Hello world H1&lt;/h1&gt;
-&lt;h2 [sj]=""&gt;Hello world H2&lt;/h2&gt;
-&lt;h3 [sj]=""&gt;Hello world H3&lt;/h3&gt;
-&lt;h4 [sj]=""&gt;Hello world H4&lt;/h4&gt;
-&lt;h5 [sj]=""&gt;Hello world H5&lt;/h5&gt;
-&lt;h6 [sj]=""&gt;Hello world H6&lt;/h6&gt;
-&lt;p [sj]=""&gt;Hello world P&lt;/p&gt;
-&lt;span [sj]=""&gt;Hello world span&lt;/span&gt;
-&lt;strong [sj]=""&gt;Hello world span&lt;/strong&gt;
+<h1 id="typography-in-sjss">Typography in SJSS</h1>
+<p>SJSS offers a robust typography system that allows for the customization of text styles across various HTML elements.</p>
+<h2 id="using-typography-in-components">Using Typography in Components</h2>
+<p>To apply these typography styles in SJSS, you can use the [sj] directive in your Angular components. For example:</p>
+<pre><code class="language-html">&lt;p [sj]&gt;This paragraph will use SJSS default styling.&lt;/p&gt;
+&lt;p [sj]="{ c: 'primary.main' }"&gt;This paragraph will have the primary color.&lt;/p&gt;
+
 </code></pre>
-<p>These styles are defined in the SJssTheme interface under the typography property. Each tag (H1 to H6, P, span, etc.) corresponds to a specific style definition. By using the sj directive, you're telling Super JSS to apply the associated style from the theme to that tag.</p>
+<p>In these examples, the first paragraph will be rendered with the default SJSS styling for <p> elements. The second paragraph will additionally have a text color corresponding to the primary color from the palette.</p>
+<h2 id="typography-default-styles">Typography Default Styles</h2>
+<p>SJSS provides default styles for various HTML elements. These styles are defined in the SjThemeService and can be customized as per your application's needs. The following table lists the default typography styles in SJSS:</p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Font-Size (xs/md)</th>
+<th>Font-Weight</th>
+<th>Line-Height</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Default</td>
+<td>1rem</td>
+<td>Normal</td>
+<td>1.6</td>
+</tr>
+<tr>
+<td>H1</td>
+<td>2.5rem / 3.5rem</td>
+<td>600</td>
+<td>4</td>
+</tr>
+<tr>
+<td>H2</td>
+<td>2rem / 3rem</td>
+<td>600</td>
+<td>3.5</td>
+</tr>
+<tr>
+<td>H3</td>
+<td>1.75rem / 2.5rem</td>
+<td>600</td>
+<td>3</td>
+</tr>
+<tr>
+<td>H4</td>
+<td>1.5rem / 2rem</td>
+<td>600</td>
+<td>2</td>
+</tr>
+<tr>
+<td>H5</td>
+<td>1.25rem / 1.75rem</td>
+<td>600</td>
+<td>2</td>
+</tr>
+<tr>
+<td>H6</td>
+<td>1rem / 1.25rem</td>
+<td>600</td>
+<td>1.5</td>
+</tr>
+<tr>
+<td>P</td>
+<td>1rem</td>
+<td>Normal</td>
+<td>1.4</td>
+</tr>
+<tr>
+<td>SPAN</td>
+<td>0.9rem</td>
+<td>Normal</td>
+<td>1.2</td>
+</tr>
+<tr>
+<td>STRONG</td>
+<td>1rem</td>
+<td>Bold</td>
+<td>1.2</td>
+</tr>
+<tr>
+<td>BODY</td>
+<td>1rem</td>
+<td>Normal</td>
+<td>1.2</td>
+</tr>
+<tr>
+<td>CAPTION</td>
+<td>0.8rem</td>
+<td>Normal</td>
+<td>1.2</td>
+</tr>
+</tbody>
+</table>
+<p>This table provides a comprehensive guide to the default typography settings in SJSS. Users can rely on this data to understand how text will be styled by default and make informed decisions about customizing these styles.</p>
+<h2 id="customizing-typography">Customizing Typography</h2>
+<p>SJSS allows for easy customization of typography styles. You can use the SjThemeService to update the default typography settings. For example:</p>
+<pre><code class="language-typescript">import { Component } from "@angular/core";
+import { SjDirective, SjThemeService } from "super-jss";
+
+@Component({
+  standalone: true,
+  selector: 'app-themed-component',
+  template: `
+    &lt;h3 (click)="updateFont()" [sj]="{ bg: 'primary.main', color: 'primary.contrast', p: 2, m: 1}"&gt;
+      Primary Themed Content
+    &lt;/h3&gt;
+  `
+})
+export class ThemedComponent {
+  constructor(private sjTheme: SjThemeService) {}
+  updateFont(): void {
+    this.sjTheme.setTypography({
+      h3: {
+        fontSize: '2rem',
+        fontWeight: 600,
+        lineHeight: 3
+      }
+    });
+  }
+}
+</code></pre>
 <hr/>
 <p><a href="../responsive-style/">← Responsive Styles</a> | <a href="../">Home</a> | <a href="../theming/">Theming →</a></p>
-<div class="git-info" style="font-size: 0.8em; text-align: right; margin-bottom: 10px;"><br/>Created 2023-11-23, Updated 2023-11-23<br/>Authors: <a href="https://github.com/rsantoyo-dev/super-jss-workspace/blob/main/docs/typography.md">ricardo.santoyo@hotmail.com</a> (1)</div>
+</p><div class="git-info" style="font-size: 0.8em; text-align: right; margin-bottom: 10px;"><br/>Created 2023-11-23, Updated 2023-12-01<br/>Authors: <a href="https://github.com/rsantoyo-dev/super-jss-workspace/blob/main/docs/typography.md">ricardo.santoyo@hotmail.com</a> (2)</div>
 <style>
                 .share-button:hover {
                     filter: brightness(1.2);
