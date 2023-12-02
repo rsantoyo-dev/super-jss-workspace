@@ -234,10 +234,12 @@ export class SjThemeService implements OnDestroy{
       }
     })
 
+  spacing = signal((factor: number): string => `${factor}rem`);
+
   sjTheme = computed(() => {
     return {
       breakpoints: this.breakpoints(),
-      spacing: (factor: number): string => `${factor*8}px`,
+      spacing: this.spacing(),
       typography: this.typography(),
       colors: this.colors(),
       palette: this.palette(),
@@ -271,6 +273,15 @@ export class SjThemeService implements OnDestroy{
    */
   public setColors(colors: Partial<SjColors>) {
     this.colors.set({ ...this.colors(), ...colors });  }
+
+  /**
+   * Sets a new spacing scale.
+   * @param newScale Function that defines the spacing scale.
+   */
+  public setSpacing(newScale: (factor: number) => string): void {
+    this.spacing.set(newScale);
+  }
+
 
   /**
    * Sets a new palette for the theme.

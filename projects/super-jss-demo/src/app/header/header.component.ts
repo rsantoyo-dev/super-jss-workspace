@@ -1,7 +1,6 @@
 import {Component, effect, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {SjDirective} from 'super-jss';
-import { SjThemeService } from 'super-jss';
+import {SjDirective, SjThemeService} from 'super-jss';
 
 @Component({
   selector: 'app-header',
@@ -74,12 +73,14 @@ export class HeaderComponent {
       this.th.setTypography({
         default: { fontFamily: 'Courier New'},
       });
+
+      this.th.setSpacing((factor: number) => `${10 * factor}px`);
     }
     else{
       this.th.setPalette(this.defaultThemeConfig.palette);
       this.th.setBreakpoints(this.defaultThemeConfig.breakpoints);
       this.th.setTypography(this.defaultThemeConfig.typography);
-    }
+}
 
     this.toggleTheme.set(!this.toggleTheme());
 

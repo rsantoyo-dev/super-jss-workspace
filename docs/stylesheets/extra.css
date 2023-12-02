@@ -1,0 +1,7 @@
+.md-header {
+  background-color: rgb(52, 152, 219);
+  border-bottom: 1px solid grey;
+  padding: 4px 8px;
+  position: relative;
+  z-index: 100;
+}

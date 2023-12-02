@@ -4,13 +4,14 @@ Super JSS simplifies the process of applying dynamic styles in Angular applicati
 
 ### Importing and Using `SjDirective`
 
-1. **Import the Directive:**
+- **Import the Directive:**
    To use Super JSS in your component, first import the `SjDirective` from the Super JSS package.
 
 ```typescript
   import { SjDirective } from "super-jss";
 ```
-2. **Apply the Directive:**
+
+- **Apply the Directive:**
     Apply the SjDirective to the element you want to style. The directive accepts a single object or an array of objects. The object keys are the CSS properties, and the values are the responsive CSS values. The directive will automatically apply the styles to the element.
 
 ```typescript
