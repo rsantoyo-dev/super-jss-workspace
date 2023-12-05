@@ -1,9 +1,21 @@
+
 # SJSS Styling Shortcuts
 
-Super JavaScript Stylesheets (SJSS) simplifies styling in Angular applications with a range of shorthand properties. These properties cover everything from padding and margin to flexbox layouts, making your code more concise and readable.
+Super JavaScript Stylesheets ([SJSS](https://www.npmjs.com/package/super-jss)) simplifies styling in Angular applications with a range of shorthand properties, covering everything from padding and margin to flexbox layouts.
 
-## Example: Using SJSS Shorthand in a Component
-Consider a scenario where you want to style a div within an Angular component. Using SJSS shorthand properties, you can easily define the styles directly within the component:
+## Table of Contents
+1. [Example Usage in a Component](#example-usage-in-a-component)
+2. [Shorthand Properties](#shorthand-properties)
+  - [Padding and Margin](#padding-and-margin)
+  - [Sizes](#sizes)
+  - [Borders](#borders)
+  - [Colors](#colors)
+  - [Flexbox](#flexbox)
+3. [Interactive Examples](#interactive-examples)
+
+### Example Usage in a Component
+Consider styling a `div` within an Angular component using SJSS shorthand properties:
+
 ```typescript
   import { Component } from "@angular/core";
   import { SjDirective } from "super-jss";
@@ -12,24 +24,24 @@ Consider a scenario where you want to style a div within an Angular component. U
     standalone: true,
     selector: 'app-demo',
     template: `
-      <div [sj]="{
-        py: '10px',
-        px: '20px',
-        m: '20px',
-        b: '1px solid black',
-        d: 'flex',
-        fxJustify: 'center',
-        fxAItems: 'center',
-        bg: '#aa5645'
-      }">
-        Welcome to Super JSS!
-      </div>
-    `
-  })
-  export class DemoComponent {}
+        <div [sj]="{
+          py: '10px',
+          px: '20px',
+          m: '20px',
+          b: '1px solid black',
+          d: 'flex',
+          fxJustify: 'center',
+          fxAItems: 'center',
+          bg: '#aa5645'
+        }">
+          Welcome to Super JSS!
+        </div>
+      `
+})
+export class DemoComponent {}
 ```
 
-In this example, we're using SJSS to apply padding, margin, border, flexbox properties, and background color to a div. The shorthand properties like p for padding, m for margin, b for border, and bg for background color, demonstrate the simplicity and power of SJSS.
+For interactive examples and more detailed usage, visit [SJSS on StackBlitz](https://stackblitz.com/edit/super-js?file=src%2Fmain.ts).
 
 Now, let's delve into the details of these shorthand properties.
 
@@ -100,3 +112,11 @@ Now, let's delve into the details of these shorthand properties.
 | `fxShrink` | `flexShrink`   | Flex shrink            |
 | `fxBasis`  | `flexBasis`    | Flex basis             |
 | `fxASelf`  | `alignSelf`    | Align self             |
+
+
+---
+
+[⬅️ Previous: Basic Usage](basic-usage.md) | [Next: Responsive Styling ➡️](responsive-style.md)
+
+---
+

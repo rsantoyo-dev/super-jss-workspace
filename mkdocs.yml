@@ -5,7 +5,7 @@ base_url: /super-jss-workspace/docs/
 extra:
   analytics:
     provider: google
-    property: G-G3R4EFCCJF
+
 plugins:
   - search
   - ultralytics:

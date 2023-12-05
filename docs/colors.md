@@ -1,7 +1,10 @@
 # Color Palette with SJSS
-
-## Color Palette with SJSS
 Super JavaScript Stylesheets (SJSS) provides a flexible and powerful system for managing color palettes in Angular applications. Utilizing the SJSS color palette, you can define and apply a consistent color scheme throughout your app.
+
+## Table of Contents
+1. [Using the Color Palette](#using-the-color-palette)
+2. [Personalizing the Color Palette](#personalizing-the-color-palette)
+3. [Color Palette Default Reference](#color-palette-default-reference)
 
 ## Using the Color Palette
 In SJSS, colors can be accessed and used within components, either through direct styling or as part of responsive and shorthand styles. Here's an example of how to use the color palette in a component:
@@ -103,3 +106,10 @@ export class PaletteDemoComponent {
 | Cyan   | #E0F7FA  | #B2EBF2  | #80DEEA  | #4DD0E1  | #26C6DA  | #00BCD4       | #00ACC1  | #0097A7  | #00838F  | #006064  | #f59242  |
 | Gray   | #FAFAFA  | #F5F5F5  | #EEEEEE  | #E0E0E0  | #BDBDBD  | #9E9E9E       | #757575  | #616161  | #424242  | #212121  | #f59242  |
 | Black  | -        | -        | -        | -        | -        | #000000       | -        | -        | -        | -        | -        |
+
+
+---
+
+[⬅️ Previous: Styling Shortcuts](styling-shortcuts.md) | [Next: Spacing ➡️](spacing.md)
+
+---

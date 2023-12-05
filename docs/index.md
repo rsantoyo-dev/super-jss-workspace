@@ -1,3 +1,7 @@
+Based on your provided content, here's an updated version of your `index.md` for the Super JavaScript Stylesheets (SJSS) - Angular 17 Edition documentation:
+
+---
+
 # Introduction to Super JavaScript Stylesheets (SJSS) - Angular 17 Edition
 
 Welcome to Super JavaScript Stylesheets (SJSS) - a dynamic and responsive styling library designed for Angular applications. Seamlessly integrating with Angular 17, SJSS leverages the framework's latest advancements to make styling more intuitive, flexible, and maintainable. Whether you're building a small project or a large-scale enterprise application, SJSS is equipped to meet your styling needs with ease and efficiency.
@@ -16,8 +20,6 @@ SJSS was created to simplify the process of applying styles in Angular applicati
 - **Lightweight and Fast**: SJSS is incredibly lightweight, with the minified version under 8KB and the minified+gzipped version less than 3KB.
 - **Built for Angular**: SJSS is built specifically for Angular, ensuring compatibility and seamless integration with your Angular projects.
 - **Familiar Syntax**: SJSS uses a syntax that will be familiar to anyone who has used CSS or JavaScript, making it easy to learn and use.
-
-In the following sections, we'll dive deeper into how to install, set up, and use SJSS in your Angular projects. You'll also find detailed examples, best practices, and everything you need to harness the full potential of SJSS.
 
 ## Community and Support
 
@@ -50,9 +52,10 @@ Begin crafting beautiful, responsive, and dynamic user interfaces with unparalle
 If you find Super JSS useful, consider supporting its development:
 
 - [☕ ☕ ☕ Buy me a coffee](https://buymeacoffee.com/superjss)
-- [Support Super JSS](https://opencollective.com/super-jss)
-- [Support Developer](https://patreon.com/superjss)
+
 
 ## 📬 Contact
 
 For inquiries, feedback, or issues, reach out at [ricardo.santoyo@hotmail.com](mailto:ricardo.santoyo@hotmail.com).
+
+[Previous: [Next: Installation Guide](installation.md)
