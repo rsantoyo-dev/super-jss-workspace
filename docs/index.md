@@ -1,7 +1,3 @@
-Based on your provided content, here's an updated version of your `index.md` for the Super JavaScript Stylesheets (SJSS) - Angular 17 Edition documentation:
-
----
-
 # Introduction to Super JavaScript Stylesheets (SJSS) - Angular 17 Edition
 
 Welcome to Super JavaScript Stylesheets (SJSS) - a dynamic and responsive styling library designed for Angular applications. Seamlessly integrating with Angular 17, SJSS leverages the framework's latest advancements to make styling more intuitive, flexible, and maintainable. Whether you're building a small project or a large-scale enterprise application, SJSS is equipped to meet your styling needs with ease and efficiency.
