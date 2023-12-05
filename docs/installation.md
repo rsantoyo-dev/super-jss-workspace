@@ -1,7 +1,3 @@
-Based on your provided content, I'll enhance the `installation.md` with deep linking and some improvements for clarity and user engagement. Here's the updated version:
-
----
-
 # Installation of Super JavaScript Stylesheets (SJSS)
 
 This section provides a step-by-step guide on installing and integrating Super JavaScript Stylesheets (SJSS) into your Angular projects, ensuring a smooth setup process.
