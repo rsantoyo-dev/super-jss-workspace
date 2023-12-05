@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="Super JavaScript Stylesheets (SJSS) simplifies styling in Angular applications with a range of shorthand properties. These properties cover everything from padding and margin to flexbox layouts, making your code more concise and readable." name="description"/>
+<meta content="Super JavaScript Stylesheets (SJSS) simplifies styling in Angular applications with a range of shorthand properties, covering everything from padding and margin to flexbox layouts." name="description"/>
 <link href="https://rsantoyo-dev.github.io/super-jss-workspace/styling-shortcuts/" rel="canonical"/>
 <link href="../basic-usage/" rel="prev"/>
 <link href="../responsive-style/" rel="next"/>
@@ -20,7 +20,7 @@
 <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
 <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-G3R4EFCCJF"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-G3R4EFCCJF",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-G3R4EFCCJF",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
 <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
-<meta content="Styling Shortcuts" name="title"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><meta content="website" property="og:type"/><meta content="https://rsantoyo-dev.github.io/super-jss-workspace/styling-shortcuts" property="og:url"/><meta content="Styling Shortcuts" property="og:title"/><meta content="Super JavaScript Stylesheets (SJSS) simplifies styling in Angular applications with a range of shorthand properties. These properties cover everything from padding and margin to flexbox layouts, making your code more concise and readable." property="og:description"/><meta content="summary_large_image" property="twitter:card"/><meta content="https://rsantoyo-dev.github.io/super-jss-workspace/styling-shortcuts" property="twitter:url"/><meta content="Styling Shortcuts" property="twitter:title"/><meta content="Super JavaScript Stylesheets (SJSS) simplifies styling in Angular applications with a range of shorthand properties. These properties cover everything from padding and margin to flexbox layouts, making your code more concise and readable." property="twitter:description"/></head>
+<meta content="Styling Shortcuts" name="title"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><meta content="website" property="og:type"/><meta content="https://rsantoyo-dev.github.io/super-jss-workspace/styling-shortcuts" property="og:url"/><meta content="Styling Shortcuts" property="og:title"/><meta content="Super JavaScript Stylesheets (SJSS) simplifies styling in Angular applications with a range of shorthand properties, covering everything from padding and margin to flexbox layouts." property="og:description"/><meta content="summary_large_image" property="twitter:card"/><meta content="https://rsantoyo-dev.github.io/super-jss-workspace/styling-shortcuts" property="twitter:url"/><meta content="Styling Shortcuts" property="twitter:title"/><meta content="Super JavaScript Stylesheets (SJSS) simplifies styling in Angular applications with a range of shorthand properties, covering everything from padding and margin to flexbox layouts." property="twitter:description"/></head>
 <body dir="ltr">
 <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
@@ -144,9 +144,18 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#example-using-sjss-shorthand-in-a-component">
-    Example: Using SJSS Shorthand in a Component
+<a class="md-nav__link" href="#table-of-contents">
+    Table of Contents
   </a>
+<nav aria-label="Table of Contents" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example-usage-in-a-component">
+    Example Usage in a Component
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#padding-and-margin">
@@ -233,9 +242,18 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#example-using-sjss-shorthand-in-a-component">
-    Example: Using SJSS Shorthand in a Component
+<a class="md-nav__link" href="#table-of-contents">
+    Table of Contents
   </a>
+<nav aria-label="Table of Contents" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example-usage-in-a-component">
+    Example Usage in a Component
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#padding-and-margin">
@@ -270,9 +288,20 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="sjss-styling-shortcuts">SJSS Styling Shortcuts</h1>
-<p>Super JavaScript Stylesheets (SJSS) simplifies styling in Angular applications with a range of shorthand properties. These properties cover everything from padding and margin to flexbox layouts, making your code more concise and readable.</p>
-<h2 id="example-using-sjss-shorthand-in-a-component">Example: Using SJSS Shorthand in a Component</h2>
-<p>Consider a scenario where you want to style a div within an Angular component. Using SJSS shorthand properties, you can easily define the styles directly within the component:</p>
+<p>Super JavaScript Stylesheets (<a href="https://www.npmjs.com/package/super-jss">SJSS</a>) simplifies styling in Angular applications with a range of shorthand properties, covering everything from padding and margin to flexbox layouts.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#example-usage-in-a-component">Example Usage in a Component</a></li>
+<li><a href="#shorthand-properties">Shorthand Properties</a></li>
+<li><a href="#padding-and-margin">Padding and Margin</a></li>
+<li><a href="#sizes">Sizes</a></li>
+<li><a href="#borders">Borders</a></li>
+<li><a href="#colors">Colors</a></li>
+<li><a href="#flexbox">Flexbox</a></li>
+<li><a href="#interactive-examples">Interactive Examples</a></li>
+</ol>
+<h3 id="example-usage-in-a-component">Example Usage in a Component</h3>
+<p>Consider styling a <code>div</code> within an Angular component using SJSS shorthand properties:</p>
 <pre><code class="language-typescript">  import { Component } from "@angular/core";
   import { SjDirective } from "super-jss";
 
@@ -280,23 +309,23 @@
     standalone: true,
     selector: 'app-demo',
     template: `
-      &lt;div [sj]="{
-        py: '10px',
-        px: '20px',
-        m: '20px',
-        b: '1px solid black',
-        d: 'flex',
-        fxJustify: 'center',
-        fxAItems: 'center',
-        bg: '#aa5645'
-      }"&gt;
-        Welcome to Super JSS!
-      &lt;/div&gt;
-    `
-  })
-  export class DemoComponent {}
+        &lt;div [sj]="{
+          py: '10px',
+          px: '20px',
+          m: '20px',
+          b: '1px solid black',
+          d: 'flex',
+          fxJustify: 'center',
+          fxAItems: 'center',
+          bg: '#aa5645'
+        }"&gt;
+          Welcome to Super JSS!
+        &lt;/div&gt;
+      `
+})
+export class DemoComponent {}
 </code></pre>
-<p>In this example, we're using SJSS to apply padding, margin, border, flexbox properties, and background color to a div. The shorthand properties like p for padding, m for margin, b for border, and bg for background color, demonstrate the simplicity and power of SJSS.</p>
+<p>For interactive examples and more detailed usage, visit <a href="https://stackblitz.com/edit/super-js?file=src%2Fmain.ts">SJSS on StackBlitz</a>.</p>
 <p>Now, let's delve into the details of these shorthand properties.</p>
 <ul>
 <li><strong>note</strong>: they are just shorthands, you can use the full css property in camelCase if you prefer.</li>
@@ -566,7 +595,10 @@
 </tr>
 </tbody>
 </table>
-<div class="git-info" style="font-size: 0.8em; text-align: right; margin-bottom: 10px;"><br/>Created 2023-11-29, Updated 2023-11-29<br/>Authors: <a href="https://github.com/rsantoyo-dev/super-jss-workspace/blob/main/docs/styling-shortcuts.md">ricardo.santoyo@hotmail.com</a> (1)</div>
+<hr/>
+<p><a href="../basic-usage/">⬅️ Previous: Basic Usage</a> | <a href="../responsive-style/">Next: Responsive Styling ➡️</a></p>
+<hr/>
+<div class="git-info" style="font-size: 0.8em; text-align: right; margin-bottom: 10px;"><br/>Created 2023-11-29, Updated 2023-12-04<br/>Authors: <a href="https://github.com/rsantoyo-dev/super-jss-workspace/blob/main/docs/styling-shortcuts.md">ricardo.santoyo@hotmail.com</a> (2)</div>
 <style>
                 .share-button:hover {
                     filter: brightness(1.2);
