@@ -5,13 +5,13 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="In SJSS, spacing is a versatile feature that allows for consistent and scalable space management throughout your application. Spacing can be applied to various properties like padding, margin, gap, and others, using a simple numeric factor system." name="description"/>
-<link href="https://rsantoyo-dev.github.io/super-jss-workspace/spacing/" rel="canonical"/>
-<link href="../colors/" rel="prev"/>
-<link href="../palette/" rel="next"/>
+<meta content="Super JSS streamlines the application of dynamic styles in Angular applications. This guide provides a detailed overview of importing and using the SjDirective, complemented by basic examples to illustrate its practical application." name="description"/>
+<link href="https://rsantoyo-dev.github.io/super-jss-workspace/basic-usage/" rel="canonical"/>
+<link href="../installation/" rel="prev"/>
+<link href="../styling-shortcuts/" rel="next"/>
 <link href="../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.5.3, mkdocs-material-9.4.6" name="generator"/>
-<title>Spacing - Super JSS</title>
+<title>Basic Usage - Super JSS</title>
 <link href="../assets/stylesheets/main.35e1ed30.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
@@ -20,14 +20,14 @@
 <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
 <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-G3R4EFCCJF"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-G3R4EFCCJF",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-G3R4EFCCJF",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
 <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
-<meta content="Spacing" name="title"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><meta content="website" property="og:type"/><meta content="https://rsantoyo-dev.github.io/super-jss-workspace/spacing" property="og:url"/><meta content="Spacing" property="og:title"/><meta content="In SJSS, spacing is a versatile feature that allows for consistent and scalable space management throughout your application. Spacing can be applied to various properties like padding, margin, gap, and others, using a simple numeric factor system." property="og:description"/><meta content="summary_large_image" property="twitter:card"/><meta content="https://rsantoyo-dev.github.io/super-jss-workspace/spacing" property="twitter:url"/><meta content="Spacing" property="twitter:title"/><meta content="In SJSS, spacing is a versatile feature that allows for consistent and scalable space management throughout your application. Spacing can be applied to various properties like padding, margin, gap, and others, using a simple numeric factor system." property="twitter:description"/></head>
+<meta content="Basic Usage" name="title"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><meta content="website" property="og:type"/><meta content="https://rsantoyo-dev.github.io/super-jss-workspace/basic-usage" property="og:url"/><meta content="Basic Usage" property="og:title"/><meta content="Super JSS streamlines the application of dynamic styles in Angular applications. This guide provides a detailed overview of importing and using the SjDirective, complemented by basic examples to illustrate its practical application." property="og:description"/><meta content="summary_large_image" property="twitter:card"/><meta content="https://rsantoyo-dev.github.io/super-jss-workspace/basic-usage" property="twitter:url"/><meta content="Basic Usage" property="twitter:title"/><meta content="Super JSS streamlines the application of dynamic styles in Angular applications. This guide provides a detailed overview of importing and using the SjDirective, complemented by basic examples to illustrate its practical application." property="twitter:description"/></head>
 <body dir="ltr">
 <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#spacing-in-sjss">
+<a class="md-skip" href="#basic-usage-of-super-javascript-stylesheets-sjss">
           Skip to content
         </a>
 </div>
@@ -51,7 +51,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Spacing
+              Basic Usage
             
           </span>
 </div>
@@ -117,12 +117,74 @@
   </span>
 </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../basic-usage/">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Basic Usage
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
 <span class="md-ellipsis">
     Basic Usage
   </span>
 </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#table-of-contents">
+    Table of Contents
+  </a>
+<nav aria-label="Table of Contents" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#importing-sjdirective">
+    Importing SjDirective
+  </a>
+<nav aria-label="Importing SjDirective" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#import-the-directive">
+    Import the Directive
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#applying-sjdirective">
+    Applying SjDirective
+  </a>
+<nav aria-label="Applying SjDirective" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#apply-the-directive">
+    Apply the Directive
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#responsive-styling-example">
+    Responsive Styling Example
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#further-resources">
+    Further Resources
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../styling-shortcuts/">
@@ -145,57 +207,12 @@
   </span>
 </a>
 </li>
-<li class="md-nav__item md-nav__item--active">
-<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
-<label class="md-nav__link md-nav__link--active" for="__toc">
-<span class="md-ellipsis">
-    Spacing
-  </span>
-<span class="md-nav__icon md-icon"></span>
-</label>
-<a class="md-nav__link md-nav__link--active" href="./">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../spacing/">
 <span class="md-ellipsis">
     Spacing
   </span>
 </a>
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#introduction-to-spacing">
-    Introduction to Spacing
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#default-spacing-configuration">
-    Default Spacing Configuration
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#using-spacing">
-    Using Spacing
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#customizing-spacing">
-    Customizing Spacing
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#updating-spacing">
-    Updating Spacing
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#best-practices">
-    Best Practices
-  </a>
-</li>
-</ul>
-</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../palette/">
@@ -233,34 +250,51 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#introduction-to-spacing">
-    Introduction to Spacing
+<a class="md-nav__link" href="#table-of-contents">
+    Table of Contents
+  </a>
+<nav aria-label="Table of Contents" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#importing-sjdirective">
+    Importing SjDirective
+  </a>
+<nav aria-label="Importing SjDirective" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#import-the-directive">
+    Import the Directive
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#applying-sjdirective">
+    Applying SjDirective
+  </a>
+<nav aria-label="Applying SjDirective" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#apply-the-directive">
+    Apply the Directive
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#responsive-styling-example">
+    Responsive Styling Example
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#default-spacing-configuration">
-    Default Spacing Configuration
+<a class="md-nav__link" href="#further-resources">
+    Further Resources
   </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#using-spacing">
-    Using Spacing
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#customizing-spacing">
-    Customizing Spacing
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#updating-spacing">
-    Updating Spacing
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#best-practices">
-    Best Practices
-  </a>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -269,31 +303,46 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="spacing-in-sjss">Spacing in SJSS</h1>
-<h2 id="introduction-to-spacing">Introduction to Spacing</h2>
-<p>In SJSS, spacing is a versatile feature that allows for consistent and scalable space management throughout your application. Spacing can be applied to various properties like padding, margin, gap, and others, using a simple numeric factor system.</p>
-<h2 id="default-spacing-configuration">Default Spacing Configuration</h2>
-<p>The default spacing in SJSS is defined as a function that converts a numeric factor into rem units. This approach ensures uniformity and ease of adjustments across different UI components.</p>
-<h2 id="using-spacing">Using Spacing</h2>
-<p>To apply spacing in SJSS, you can use shorthand properties with numeric factors. For example, { p: 1 } translates to padding of 1 rem.</p>
-<pre><code class="language-typescript">@Component({
-  template: `&lt;div [sj]="{ p: 1, m: 2 }"&gt;Content with padding and margin&lt;/div&gt;`
+<h1 id="basic-usage-of-super-javascript-stylesheets-sjss">Basic Usage of Super JavaScript Stylesheets (SJSS)</h1>
+<p>Super JSS streamlines the application of dynamic styles in Angular applications. This guide provides a detailed overview of importing and using the <code>SjDirective</code>, complemented by basic examples to illustrate its practical application.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#importing-sjdirective">Importing <code>SjDirective</code></a></li>
+<li><a href="#applying-sjdirective">Applying <code>SjDirective</code></a></li>
+<li><a href="#responsive-styling-example">Responsive Styling Example</a></li>
+<li><a href="#further-resources">Further Resources</a></li>
+</ol>
+<h3 id="importing-sjdirective">Importing <code>SjDirective</code></h3>
+<h4 id="import-the-directive">Import the Directive</h4>
+<p>To integrate Super JSS into your Angular component, start by importing <code>SjDirective</code>:</p>
+<pre><code class="language-typescript">import { SjDirective } from "super-jss";
+</code></pre>
+<h3 id="applying-sjdirective">Applying <code>SjDirective</code></h3>
+<h4 id="apply-the-directive">Apply the Directive</h4>
+<p><code>SjDirective</code> can be applied to any HTML element in your Angular template. It accepts either a single object or an array of objects for style definitions:</p>
+<pre><code class="language-typescript">import { Component } from '@angular/core';
+import { SjDirective } from "super-jss";
+
+@Component({
+  selector: 'app-demo',
+  template: `
+    &lt;div [sj]="{backgroundColor: '#aa5645', padding: '10px'}"&gt;
+      Welcome to Super JSS!
+    &lt;/div&gt;
+  `
 })
+export class DemoComponent {}
 </code></pre>
-<p>In this example, p: 1 applies 1 rem of padding, and m: 2 applies 2 rem of margin to the element.</p>
-<h2 id="customizing-spacing">Customizing Spacing</h2>
-<p>You can customize the spacing scale to fit the design needs of your application.</p>
-<h2 id="updating-spacing">Updating Spacing</h2>
-<p>The spacing can be updated using the setSpacing method. This method allows you to redefine how the numeric factors are translated into actual spacing values.</p>
-<pre><code class="language-typescript">  this.th.setSpacing((factor: number) =&gt; `${10 * factor}px`);
-</code></pre>
-<p>In this example, the spacing factor is scaled down, so 1 now represents 0.5 rem.</p>
-<h2 id="best-practices">Best Practices</h2>
-<p>Use consistent spacing units across your application to maintain a harmonious layout.
-Choose spacing values that align with your design system or UI guidelines.
-Consider using multiples of a base unit (like 0.25 rem, 0.5 rem, etc.) for a harmonious and scalable spacing system.
-By utilizing SJSS's spacing system, developers can ensure consistent and easy-to-manage spacing throughout their Angular applications, with the flexibility to adjust it as per their design requirements.</p>
-<div class="git-info" style="font-size: 0.8em; text-align: right; margin-bottom: 10px;"><br/>Created 2023-12-01, Updated 2023-12-01<br/>Authors: <a href="https://github.com/rsantoyo-dev/super-jss-workspace/blob/main/docs/spacing.md">ricardo.santoyo@hotmail.com</a> (1)</div>
+<h3 id="responsive-styling-example">Responsive Styling Example</h3>
+<p>In the above example, the <code>div</code> element is styled with a background color and padding. These styles are dynamically applied and responsive, showcasing the power and flexibility of Super JSS.</p>
+<h3 id="further-resources">Further Resources</h3>
+<p>For more information and advanced examples of using Super JSS, explore the following resources:
+- <a href="https://www.npmjs.com/package/super-jss">Super JSS on npm</a>: Detailed package information and installation guide.
+- <a href="https://stackblitz.com/edit/super-js?file=src%2Fmain.ts">Super JSS Demos on StackBlitz</a>: Interactive examples to understand Super JSS features better.</p>
+<hr/>
+<p><a href="../installation/">⬅️ Previous: Installation</a> | <a href="../styling-shortcuts/">Next: styling shortcuts ➡️</a></p>
+<hr/>
+<div class="git-info" style="font-size: 0.8em; text-align: right; margin-bottom: 10px;"><br/>Created 2023-11-27, Updated 2023-12-05<br/>Authors: <a href="https://github.com/rsantoyo-dev/super-jss-workspace/blob/main/docs/basic-usage.md">ricardo.santoyo@hotmail.com</a> (6)</div>
 <style>
                 .share-button:hover {
                     filter: brightness(1.2);
@@ -304,10 +353,10 @@ By utilizing SJSS's spacing system, developers can ensure consistent and easy-to
                 }
             </style>
 <div class="share-buttons">
-<button class="share-button" onclick="window.open('https://twitter.com/intent/tweet?url=https://rsantoyo-dev.github.io/super-jss-workspace/spacing', 'TwitterShare', 'width=550,height=680,menubar=no,toolbar=no'); return false;" style="background-color: #1da1f2; color: white; padding: 5px 10px; border-radius: 5px; margin-right: 10px; cursor: pointer; display: flex; align-items: center;">
+<button class="share-button" onclick="window.open('https://twitter.com/intent/tweet?url=https://rsantoyo-dev.github.io/super-jss-workspace/basic-usage', 'TwitterShare', 'width=550,height=680,menubar=no,toolbar=no'); return false;" style="background-color: #1da1f2; color: white; padding: 5px 10px; border-radius: 5px; margin-right: 10px; cursor: pointer; display: flex; align-items: center;">
 <i class="fa-brands fa-twitter" style="margin-right: 5px;"></i> Tweet
                 </button>
-<button class="share-button" onclick="window.open('https://www.linkedin.com/shareArticle?url=https://rsantoyo-dev.github.io/super-jss-workspace/spacing', 'LinkedinShare', 'width=550,height=730,menubar=no,toolbar=no'); return false;" style="background-color: #0077b5; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; display: flex; align-items: center;">
+<button class="share-button" onclick="window.open('https://www.linkedin.com/shareArticle?url=https://rsantoyo-dev.github.io/super-jss-workspace/basic-usage', 'LinkedinShare', 'width=550,height=730,menubar=no,toolbar=no'); return false;" style="background-color: #0077b5; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; display: flex; align-items: center;">
 <i class="fa-brands fa-linkedin" style="margin-right: 5px;"></i> Share
                 </button>
 </div>
