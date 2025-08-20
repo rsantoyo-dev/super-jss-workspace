@@ -49,12 +49,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/super-jss-demo/browser",
+            "outputPath": {
+              "base": "dist/super-jss-demo"
+            },
             "index": "projects/super-jss-demo/src/index.html",
-            "main": "projects/super-jss-demo/src/main.ts",
-            "polyfills": "projects/super-jss-demo/src/polyfills.ts",
+            "polyfills": [
+              "projects/super-jss-demo/src/polyfills.ts"
+            ],
             "tsConfig": "projects/super-jss-demo/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -64,7 +67,8 @@
             "styles": [
               "projects/super-jss-demo/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "projects/super-jss-demo/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -89,9 +93,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true

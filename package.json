@@ -18,25 +18,25 @@
     "mkdocs-deploy": "mkdocs gh-deploy"
   },
   "dependencies": {
-    "@angular/animations": "^17.3.12",
-    "@angular/common": "^17.3.12",
-    "@angular/compiler": "^17.3.12",
-    "@angular/core": "^17.3.12",
-    "@angular/forms": "^17.3.12",
-    "@angular/platform-browser": "^17.3.12",
-    "@angular/platform-browser-dynamic": "^17.3.12",
-    "@angular/platform-server": "^17.3.12",
-    "@angular/router": "^17.3.12",
+    "@angular/animations": "^18.2.13",
+    "@angular/common": "^18.2.13",
+    "@angular/compiler": "^18.2.13",
+    "@angular/core": "^18.2.13",
+    "@angular/forms": "^18.2.13",
+    "@angular/platform-browser": "^18.2.13",
+    "@angular/platform-browser-dynamic": "^18.2.13",
+    "@angular/platform-server": "^18.2.13",
+    "@angular/router": "^18.2.13",
     "microlight": "^0.0.7",
     "rainbow-code": "^2.1.7",
     "rxjs": "^7.8.2",
     "tslib": "^2.6.2",
-    "zone.js": "~0.14.2"
+    "zone.js": "~0.14.10"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.3.12",
-    "@angular/cli": "^17.3.12",
-    "@angular/compiler-cli": "^17.3.12",
+    "@angular-devkit/build-angular": "^18.2.20",
+    "@angular/cli": "^18.2.20",
+    "@angular/compiler-cli": "^18.2.13",
     "@compodoc/compodoc": "^1.1.21",
     "@netlify-builder/deploy": "5.0.0",
     "@types/jasmine": "~3.8.0",
@@ -50,7 +50,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "ng-packagr": "^17.3.0",
+    "ng-packagr": "^18.2.1",
     "typescript": "~5.4.5"
   }
 }
