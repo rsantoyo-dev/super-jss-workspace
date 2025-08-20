@@ -51,9 +51,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": {
-              "base": "dist/super-jss-demo"
-            },
+           "outputPath": "dist/super-jss-demo",
             "index": "projects/super-jss-demo/src/index.html",
             "polyfills": [
               "projects/super-jss-demo/src/polyfills.ts"
@@ -68,7 +66,7 @@
               "projects/super-jss-demo/src/styles.scss"
             ],
             "scripts": [],
-            "browser": "projects/super-jss-demo/src/main.ts"
+            "main": "projects/super-jss-demo/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -103,12 +101,15 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "super-jss-demo:build"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "super-jss-demo:build:production"
+             "buildTarget": "super-jss-demo:build:production"
             },
             "development": {
-              "browserTarget": "super-jss-demo:build:development"
+              "buildTarget": "super-jss-demo:build:production"
             }
           },
           "defaultConfiguration": "development"
@@ -116,7 +117,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "super-jss-demo:build"
+            "buildTarget": "super-jss-demo:build"
           }
         },
         "test": {
