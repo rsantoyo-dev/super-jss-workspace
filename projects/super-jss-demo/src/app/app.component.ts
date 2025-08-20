@@ -5,7 +5,6 @@ import { PaletteComponent } from "./components/palette/palette.component";
 import {SjDirective} from "super-jss";
 @Component({
     selector: 'app-root',
-    standalone: true,
     imports: [SjDirective, HeaderComponent, TypographyComponent, PaletteComponent],
     template: `
     <div [sj]="{d:'flex', fxDir: 'column', bg:'light'}">

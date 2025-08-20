@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import {SjDirective, SjThemeService} from 'super-jss';
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [CommonModule, SjDirective],
-  template: `
+    selector: 'app-header',
+    imports: [CommonModule, SjDirective],
+    template: `
     <div [sj]="
       {d: 'flex',       fxDir: 'column',
         fxAItems: 'center',
@@ -34,7 +33,7 @@ import {SjDirective, SjThemeService} from 'super-jss';
          sjBreakpoints: {{ JSON.stringify(breakpoints)}}
       </span>
     </div>
-  `,
+  `
 })
 export class HeaderComponent {
 

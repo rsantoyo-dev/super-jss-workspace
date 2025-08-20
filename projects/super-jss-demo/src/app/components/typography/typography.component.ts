@@ -4,10 +4,9 @@ import {SjDirective} from 'super-jss';
 import {sjBorderShadow} from "../../sjStyling/sjStyles";
 
 @Component({
-  selector: 'app-typography',
-  standalone: true,
-  imports: [CommonModule, SjDirective],
-  template: `
+    selector: 'app-typography',
+    imports: [CommonModule, SjDirective],
+    template: `
     <h3 [sj]="{c: 'primary', pb: 1 }">Typography:</h3>
     <div [sj]="[{d:'flex', fxDir:'column', bg:'light.light', p: 2 }, sjBorderShadow]">
       <h1 [sj]="{c: 'secondary'}">H1: <a href="https://www.npmjs.com/package/super-jss">Super JSS</a> leaps</h1>

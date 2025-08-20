@@ -4,9 +4,8 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 // Test component to simulate the usage of the directive
 @Component({
-  standalone: true,
-  imports: [SjDirective],
-  template: `
+    imports: [SjDirective],
+    template: `
     <h2 [sj]="{bg:'#003366', p:{xs:1, md:2, lg:4}, m:2}">About</h2>
     <h3 [sj]="{bg:'primary', c:'blue'}">Quote of the day:</h3>
     <h4 [sj]="[{bg:'primary.main',  px: 4, py:2, mx:2, my:2, bx:'solid', by:'solid'}, {c:'secondary.500'}]">Quote of the day:</h4>

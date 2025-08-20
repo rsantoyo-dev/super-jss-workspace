@@ -5,10 +5,9 @@ import {SjDirective} from 'super-jss';
 import {sjBorder, sjBorderShadow} from "../../sjStyling/sjStyles";
 
 @Component({
-  selector: 'app-palette',
-  standalone: true,
-  imports: [CommonModule, SjDirective],
-  template: `
+    selector: 'app-palette',
+    imports: [CommonModule, SjDirective],
+    template: `
     <h3 [sj]="{c: 'primary'}">Palette</h3>
     <div *ngFor="let color of demoColors()"
       [sj]="[{
