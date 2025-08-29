@@ -1,13 +1,16 @@
-import {Injectable, computed, signal, OnDestroy, WritableSignal} from '@angular/core';
-import {SjBreakPoints, SjColors, SjPalette, SjTypography} from '../models/interfaces';
+import {Injectable, computed, signal, OnDestroy, WritableSignal, Optional, Inject} from '@angular/core';
+import {SjBreakPoints, SjColors, SjPalette, SjTheme, SjTypography} from '../models/interfaces';
 import {getCurrentBreakpoint} from "../core/core-methods";
+import { deepMerge } from '../utils';
+import { SJ_THEME } from '../tokens';
+
 @Injectable({
   providedIn: 'root'
 })
 export class SjThemeService implements OnDestroy{
 
   // Signals to manage reactive state for breakpoints and theme configurations
-  breakpoints = signal({xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920, xxl: 2560});
+  breakpoints: WritableSignal<SjBreakPoints> = signal({xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920, xxl: 2560});
   typography: WritableSignal<SjTypography> = signal({
     default: {fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif', fontSize: 1, lineHeight: 1.6},
     H1: {fontSize: {xs: 2.5, md: 3.5}, fontWeight: '600', lineHeight: 4},
@@ -22,7 +25,7 @@ export class SjThemeService implements OnDestroy{
     BODY: {fontSize: 1, fontWeight: 'normal', lineHeight: 1.2},
     CAPTION: {fontSize: 0.8, fontWeight: 'normal', lineHeight: 1.2},
   });
-  colors = signal({
+  colors: WritableSignal<SjColors> = signal({
     blue: {
     50: '#E3F2FD',
     100: '#BBDEFB',
@@ -171,7 +174,7 @@ export class SjThemeService implements OnDestroy{
   });
 
   // Palette signal for managing theme's color palette
-  private palette = signal({
+  private palette: WritableSignal<SjPalette> = signal({
       primary: {
         main: this.colors().blue[500],
         light: this.colors().blue[300],
@@ -234,7 +237,7 @@ export class SjThemeService implements OnDestroy{
       }
     })
 
-  spacing = signal((factor: number): string => `${factor}rem`);
+  spacing: WritableSignal<(factor: number) => string> = signal((factor: number): string => `${factor}rem`);
 
   sjTheme = computed(() => {
     return {
@@ -254,7 +257,11 @@ export class SjThemeService implements OnDestroy{
    * This is necessary to update the theme according to the window size.
    */
 
-  constructor() {
+  constructor(@Optional() @Inject(SJ_THEME) private theme?: SjTheme) {
+    console.log('SjThemeService initialized: ', theme);
+    if (this.theme) {
+      this.setTheme(this.theme);
+    }
     window.addEventListener('resize', () => this.updateRender());
     window.addEventListener('load', () => this.updateRender());
   }
@@ -268,42 +275,20 @@ export class SjThemeService implements OnDestroy{
   }
 
   /**
-   * Sets a new color for the theme.
-   * @param colors
+   * Sets a new theme for the application.
+   * @param theme The theme to set.
    */
-  public setColors(colors: Partial<SjColors>) {
-    this.colors.set({ ...this.colors(), ...colors });  }
 
-  /**
-   * Sets a new spacing scale.
-   * @param newScale Function that defines the spacing scale.
-   */
-  public setSpacing(newScale: (factor: number) => string): void {
-    this.spacing.set(newScale);
+  public setTheme(theme: Partial<SjTheme>) {
+    console.log('Setting new theme:', theme);
+    const currentTheme = this.sjTheme();
+    const newTheme = deepMerge(currentTheme, theme);
+    this.breakpoints.set(newTheme.breakpoints);
+    this.typography.set(newTheme.typography);
+    this.colors.set(newTheme.colors);
+    this.palette.set(newTheme.palette);
+    this.spacing.set(newTheme.spacing);
   }
-
-
-  /**
-   * Sets a new palette for the theme.
-   * @param palette Partial configuration for the theme's palette.
-   */
-  public setPalette(palette: Partial<SjPalette>) {
-    this.palette.set({ ...this.palette(), ...palette });  }
-
-  /**
-   * Sets new breakpoints for the theme.
-   * @param breakpoints Partial configuration for the theme's breakpoints.
-   */
-  public setBreakpoints(breakpoints: Partial<SjBreakPoints>) {
-    this.breakpoints.set({...this.breakpoints(), ...breakpoints});
-  }
-
-  /**
-   * Sets new typography for the theme.
-   * @param typo Partial configuration for the theme's typography.
-   */
-  public setTypography(typo: Partial<SjTypography>) {
-    this.typography.set({ ...this.typography(), ...typo});  }
 
   /**
    * Lifecycle hook that is called when the service is destroyed.

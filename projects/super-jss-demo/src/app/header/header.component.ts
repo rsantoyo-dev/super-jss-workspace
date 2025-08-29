@@ -1,18 +1,21 @@
-import {Component, effect, signal} from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {SjDirective, SjThemeService} from 'super-jss';
+import { SjDirective, SjTheme, SjThemeService, SjTypography, SjPalette } from 'super-jss';
 
 @Component({
-    selector: 'app-header',
-    imports: [CommonModule, SjDirective],
-    template: `
-    <div [sj]="
-      {d: 'flex',       fxDir: 'column',
+  selector: 'app-header',
+  imports: [CommonModule, SjDirective],
+  template: `
+    <div
+      [sj]="{
+        d: 'flex',
+        fxDir: 'column',
         fxAItems: 'center',
         fxJustify: 'center',
         p: { xs: 1, md: 3 },
-        bg: { xs: 'primary', md: 'primary.light'}
-      }">
+        bg: { xs: 'primary', md: 'primary.light' }
+      }"
+    >
       <h3 [sj]="{ color: 'primary.contrast' }">SUPER-JSS-DEMO</h3>
       <span
         (click)="updateTheme()"
@@ -21,68 +24,56 @@ import {SjDirective, SjThemeService} from 'super-jss';
         click here to update theme
       </span>
     </div>
-    <div [sj]="
-      {
+    <div
+      [sj]="{
         bg: 'secondary.light',
         padding: 0.5,
         display: 'flex',
         justifyContent: 'center'
-      }
-    ">
+      }"
+    >
       <span [sj]="{ color: 'secondary.dark', fontSize: 1 }">
-         sjBreakpoints: {{ JSON.stringify(breakpoints)}}
+        sjBreakpoints: {{ JSON.stringify(breakpoints) }}
       </span>
     </div>
-  `
+  `,
 })
 export class HeaderComponent {
-
   defaultThemeConfig = this.th.sjTheme();
 
   toggleTheme = signal(false);
 
-  breakpoints =  this.th.breakpoints();
+  breakpoints = this.th.breakpoints();
 
-  constructor(private th:SjThemeService) {
+  newPalette: Partial<SjPalette> = {
+    primary: {
+      main: '#4caf50',
+      light: '#81c784',
+      dark: '#388e3c',
+      contrast: '#ffffff',
+    }
+  };
+
+  newTheme: Partial<SjTheme> = {
+        palette: this.newPalette as SjPalette,
+      };
+
+  constructor(private th: SjThemeService) {
     effect(() => {
       this.breakpoints = this.th.breakpoints();
-    })
+    });
   }
 
   updateTheme() {
-    if(!this.toggleTheme()) {
-      this.th.setPalette({
-        primary: {
-          main: this.th.colors().purple[500],
-          light: this.th.colors().purple[200],
-          dark: this.th.colors().purple[700],
-          contrast: this.th.colors().orange[300],
-        },
-        secondary: {
-          main: this.th.colors().yellow[500],
-          light: this.th.colors().yellow[200],
-          dark: this.th.colors().yellow[700],
-          contrast: this.th.colors().purple[700],
-        }
-      });
-      this.th.setBreakpoints({
-        sm: 630,
-        md: 900,
-      });
-      this.th.setTypography({
-        default: { fontFamily: 'Courier New'},
-      });
-
-      this.th.setSpacing((factor: number) => `${10 * factor}px`);
+    // toggle theme between default and a custom palette
+    if (!this.toggleTheme()) {
+      
+      this.th.setTheme(this.newTheme);
+    } else {
+      this.th.setTheme(this.defaultThemeConfig);
     }
-    else{
-      this.th.setPalette(this.defaultThemeConfig.palette);
-      this.th.setBreakpoints(this.defaultThemeConfig.breakpoints);
-      this.th.setTypography(this.defaultThemeConfig.typography);
-}
 
     this.toggleTheme.set(!this.toggleTheme());
-
   }
 
   protected readonly JSON = JSON;
