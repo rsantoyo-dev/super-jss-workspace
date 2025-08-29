@@ -6,6 +6,7 @@ import {
   WritableSignal,
   Optional,
   Inject,
+  Injector,
 } from '@angular/core';
 import {
   SjBreakPoints,
@@ -26,6 +27,7 @@ import {
   startWith,
   Subscription,
 } from 'rxjs';
+import { SjCssGeneratorService } from './sj-css-generator.service';
 
 @Injectable({
   providedIn: 'root',
@@ -286,6 +288,7 @@ export class SjThemeService implements OnDestroy {
 
   // Signal to track the current breakpoint
   currentBreakpoint = signal('xs');
+  themeVersion = signal(0);
   private resizeSubscription?: Subscription;
 
   /**
@@ -295,7 +298,8 @@ export class SjThemeService implements OnDestroy {
 
   constructor(
     @Optional() @Inject(SJ_THEME) private theme: SjTheme,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    private injector: Injector
   ) {
     if (this.theme) {
       this.setTheme(this.theme);
@@ -326,6 +330,12 @@ export class SjThemeService implements OnDestroy {
     this.colors.set(newTheme.colors);
     this.palette.set(newTheme.palette);
     this.spacing.set(newTheme.spacing);
+
+    // Clear the cache in SjCssGeneratorService
+    const cssGenerator = this.injector.get(SjCssGeneratorService);
+    cssGenerator.clearCache();
+
+    this.themeVersion.set(this.themeVersion() + 1);
   }
 
   /**

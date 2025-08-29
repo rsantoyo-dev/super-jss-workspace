@@ -1,6 +1,6 @@
 import { Component, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective, SjTheme, SjThemeService, SjTypography, SjPalette } from 'super-jss';
+import { SjDirective, SjTheme, SjThemeService, SjTypography, SjPalette, SjBreakPoints } from 'super-jss';
 
 @Component({
   selector: 'app-header',
@@ -56,6 +56,13 @@ export class HeaderComponent {
 
   newTheme: Partial<SjTheme> = {
         palette: this.newPalette as SjPalette,
+        breakpoints: {
+          xs: 0,
+          sm: 550,
+          md: 920,
+          lg: 1120,
+          xl: 1620,
+        } as SjBreakPoints
       };
 
   constructor(private th: SjThemeService) {

@@ -5,10 +5,10 @@ import {
   SimpleChanges,
   ViewContainerRef,
   effect,
+  Renderer2,
 } from "@angular/core";
-import { applyResponsiveStyle, applyTypography } from "../core/core-methods";
 import { SjStyle } from "../models/interfaces";
-import { SjThemeService } from "../services";
+import { SjThemeService, SjCssGeneratorService } from "../services";
 
 /**
  * Directive for applying dynamic styles, implementing SJSS (Super JavaScript Stylesheets) principles.
@@ -25,18 +25,27 @@ export class SjDirective implements OnChanges {
    */
   @Input() sj: SjStyle | SjStyle[] | undefined;
 
+  private lastClasses: string[] = [];
+
   /**
    * Constructs the SjDirective.
    *
    * @param vcr The ViewContainerRef provides access to the host element.
    * @param sjt The SjThemeService for accessing theme-related functionalities.
+   * @param cssGenerator The SjCssGeneratorService for generating CSS classes.
+   * @param renderer The Renderer2 for manipulating the DOM.
    */
-  constructor(public vcr: ViewContainerRef, private sjt: SjThemeService) {
-    // Initialize effect to re-render styles when the current breakpoint changes.
+  constructor(
+    public vcr: ViewContainerRef,
+    private sjt: SjThemeService,
+    private cssGenerator: SjCssGeneratorService,
+    private renderer: Renderer2
+  ) {
+    // Initialize effect to re-render styles when the current breakpoint or theme changes.
     effect(() => {
-      if (this.sjt.currentBreakpoint()) {
-        this.renderStyles();
-      }
+      this.sjt.currentBreakpoint(); // depend on currentBreakpoint
+      this.sjt.themeVersion(); // depend on themeVersion
+      this.renderStyles();
     });
   }
 
@@ -45,29 +54,13 @@ export class SjDirective implements OnChanges {
    * This method applies both typography and responsive styles.
    */
   private renderStyles(): void {
-    // Apply typography styles based on the current theme and window width.
-    applyTypography(this.vcr.element.nativeElement, this.sjt.sjTheme(), window.innerWidth);
+    this.lastClasses.forEach((c: string) => this.renderer.removeClass(this.vcr.element.nativeElement, c));
 
-    // Check if 'sj' input is defined.
     if (this.sj) {
-      // Apply responsive styles. If 'sj' is an array, loop through each style object.
-      if (Array.isArray(this.sj)) {
-        this.sj.forEach(style =>
-          applyResponsiveStyle(
-            this.vcr.element.nativeElement,
-            style as SjStyle,
-            window.innerWidth,
-            this.sjt.sjTheme()
-          )
-        );
-      } else {
-        applyResponsiveStyle(
-          this.vcr.element.nativeElement,
-          this.sj as SjStyle,
-          window.innerWidth,
-          this.sjt.sjTheme()
-        );
-      }
+      const styles = Array.isArray(this.sj) ? Object.assign({}, ...this.sj) : this.sj;
+      const classes = this.cssGenerator.getOrGenerateClasses(styles, this.sjt.sjTheme());
+      classes.forEach((c: string) => this.renderer.addClass(this.vcr.element.nativeElement, c));
+      this.lastClasses = classes;
     }
   }
 
