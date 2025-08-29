@@ -62,8 +62,39 @@
           "options": { "buildTarget": "super-jss-demo:build" }
         }
       }
+    },
+    "super-jss": {
+      "projectType": "library",
+      "root": "projects/super-jss",
+      "sourceRoot": "projects/super-jss/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/super-jss/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/super-jss/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/super-jss/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/super-jss/src/test.ts",
+            "tsConfig": "projects/super-jss/tsconfig.spec.json",
+            "karmaConfig": "projects/super-jss/karma.conf.js"
+          }
+        }
+      }
     }
-  }
+  },
   "schematics": {
     "@schematics/angular:component": {
       "type": "component"
