@@ -1,6 +1,7 @@
 import { Component, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective, SjTheme, SjThemeService, SjTypography, SjPalette, SjBreakPoints } from 'super-jss';
+import { SjDirective, SjTheme, SjThemeService } from 'super-jss';
+import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
 
 @Component({
   selector: 'app-header',
@@ -11,86 +12,72 @@ import { SjDirective, SjTheme, SjThemeService, SjTypography, SjPalette, SjBreakP
         d: 'flex',
         fxDir: 'column',
         fxAItems: 'center',
-        fxJustify: 'center',
-        p: { xs: 1, md: 3 },
-        bg: { xs: 'primary', md: 'primary.light' }
+        p: { xs: 2, md: 4 },
+        bg: 'primary.main',
+        boxShadow: '0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12)',
+        transition: 'all 0.3s ease-in-out'
       }"
     >
-      <h3 [sj]="{ color: 'primary.contrast' }">SUPER-JSS-DEMO</h3>
+      <h1 [sj]="{ color: 'primary.contrast', m: 0 }">SUPER-JSS</h1>
+      <p [sj]="{color: 'primary.contrast', m: 0, p:0}">The ultimate solution for dynamic styling</p>
       <span
         (click)="updateTheme()"
-        [sj]="{ color: 'primary.dark', cursor: 'pointer' }"
+        [sj]="{
+          color: 'secondary.contrast',
+          bg: 'secondary.main',
+          cursor: 'pointer',
+          p: '0.5rem 1rem',
+          mt: '1rem',
+          brad: '20px',
+          transition: 'all 0.3s ease-in-out',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+
+        }"
       >
-        click here to update theme
+        Toggle Theme
       </span>
     </div>
     <div
       [sj]="{
         bg: 'secondary.light',
-        padding: 0.5,
-        display: 'flex',
-        justifyContent: 'center'
+        p: 0.5,
+        d: 'flex',
+        fxJustify: 'center',
+        transition: 'all 0.3s ease-in-out',
+        alignItems: 'center',
+        flexDirection: 'column'
       }"
     >
       <span [sj]="{ color: 'secondary.dark', fontSize: 1 }">
         sjBreakpoints: {{ JSON.stringify(breakpoints) }}
       </span>
+      <span [sj]="{ color: 'secondary.dark', fontSize: 1 }">
+        Current Theme: {{ isDarkTheme() ? 'Golden Emerald' : 'Default Theme' }}
+      </span>
+      <span [sj]="{ color: 'secondary.dark', fontSize: 1 }">
+        currentBreakpoint: {{ th.currentBreakpoint() }}
+      </span>
     </div>
   `,
 })
 export class HeaderComponent {
-  defaultThemeConfig = this.th.sjTheme();
-
-  toggleTheme = signal(false);
-
+  isDarkTheme = signal(false);
   breakpoints = this.th.breakpoints();
+  defaultThemeConfig: Partial<SjTheme>;
 
-  newPalette: Partial<SjPalette> = {
-    primary: {
-      main: '#4caf50',
-      light: '#81c784',
-      dark: '#388e3c',
-      contrast: '#ffffff',
-    }
-  };
-  newTypography: Partial<SjTypography> = {
-    default: {
-      fontFamily: 'monospace',
-      fontSize: '26px',
-      fontWeight: '600',
-      lineHeight: '1.5',
-    }
-  };
+  constructor(public th: SjThemeService) {
 
-  newTheme: Partial<SjTheme> = {
-        palette: this.newPalette as SjPalette,
-        breakpoints: {
-          xs: 0,
-          sm: 550,
-          md: 920,
-          lg: 1120,
-          xl: 1620,
-        } as SjBreakPoints,
-        typography: this.newTypography as SjTypography
-      };
-
-  constructor(private th: SjThemeService) {
-    effect(() => {
-      this.breakpoints = this.th.breakpoints();
-    });
+    this.defaultThemeConfig = this.th.sjTheme();
   }
 
-  updateTheme() {
-    // toggle theme between default and a custom palette
-    if (!this.toggleTheme()) {
-      
-      this.th.setTheme(this.newTheme);
+  updateTheme(): void {
+    if (this.isDarkTheme()) {
+      this.th.setTheme(goldenEmeraldTheme);
     } else {
-      this.th.setTheme(this.defaultThemeConfig);
+       this.th.setTheme(this.defaultThemeConfig);    
     }
-
-    this.toggleTheme.set(!this.toggleTheme());
+    this.isDarkTheme.set(!this.isDarkTheme());
   }
-
-  protected readonly JSON = JSON;
+    protected readonly JSON = JSON;
 }
+
