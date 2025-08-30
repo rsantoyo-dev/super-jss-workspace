@@ -2,9 +2,9 @@ import { Component, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SjDirective, SjTheme, SjThemeService } from 'super-jss';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
-import { goldenEmeraldDarkTheme } from '../sjStyling/themes/golden-emerald-dark';
 
 @Component({
+  standalone: true,
   selector: 'app-header',
   imports: [CommonModule, SjDirective],
   template: `
@@ -53,7 +53,7 @@ import { goldenEmeraldDarkTheme } from '../sjStyling/themes/golden-emerald-dark'
         sjBreakpoints: {{ JSON.stringify(breakpoints) }}
       </span>
       <span [sj]="{ color: 'secondary.dark', fontSize: 1 }">
-        Current Theme: {{ isDarkTheme() ? 'Golden Emerald' : 'Default Theme' }}
+        Current Theme: {{ isCustomTheme() ? 'Golden Emerald' : 'Default Theme' }}
       </span>
       <span [sj]="{ color: 'secondary.dark', fontSize: 1 }">
         currentBreakpoint: {{ th.currentBreakpoint() }}
@@ -62,7 +62,7 @@ import { goldenEmeraldDarkTheme } from '../sjStyling/themes/golden-emerald-dark'
   `,
 })
 export class HeaderComponent {
-  isDarkTheme = signal(false);
+  isCustomTheme = signal(false);
   breakpoints = this.th.breakpoints();
   defaultThemeConfig: Partial<SjTheme>;
 
@@ -72,12 +72,8 @@ export class HeaderComponent {
   }
 
   updateTheme(): void {
-    if (this.isDarkTheme()) {
-      this.th.setTheme(goldenEmeraldTheme);
-    } else {
-       this.th.setTheme(this.defaultThemeConfig);    
-    }
-    this.isDarkTheme.set(!this.isDarkTheme());
+    this.isCustomTheme.set(!this.isCustomTheme());
+    this.th.setTheme(this.isCustomTheme() ? goldenEmeraldTheme : this.defaultThemeConfig)
   }
     protected readonly JSON = JSON;
 }
