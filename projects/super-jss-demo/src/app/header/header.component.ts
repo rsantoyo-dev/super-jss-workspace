@@ -2,6 +2,7 @@ import { Component, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SjDirective, SjTheme, SjThemeService } from 'super-jss';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
+import { goldenEmeraldDarkTheme } from '../sjStyling/themes/golden-emerald-dark';
 
 @Component({
   selector: 'app-header',
