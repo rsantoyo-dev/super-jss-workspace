@@ -6,6 +6,7 @@ import {
   ViewContainerRef,
   effect,
   Renderer2,
+  ElementRef,
 } from "@angular/core";
 import { SjStyle } from "../models/interfaces";
 import { SjThemeService, SjCssGeneratorService } from "../services";
@@ -16,7 +17,7 @@ import { SjThemeService, SjCssGeneratorService } from "../services";
  */
 @Directive({
   standalone: true, // Marks this directive as standalone, not requiring an NgModule.
-  selector: '[sj]' // The selector to be used for applying this directive in templates.
+  selector: '[sj], h1, h2, h3, h4, h5, h6, p, span, strong, body, caption' // The selector to be used for applying this directive in templates.
 })
 export class SjDirective implements OnChanges {
   /**
@@ -31,12 +32,14 @@ export class SjDirective implements OnChanges {
    * Constructs the SjDirective.
    *
    * @param vcr The ViewContainerRef provides access to the host element.
+   * @param el The ElementRef of the host element.
    * @param sjt The SjThemeService for accessing theme-related functionalities.
    * @param cssGenerator The SjCssGeneratorService for generating CSS classes.
    * @param renderer The Renderer2 for manipulating the DOM.
    */
   constructor(
     public vcr: ViewContainerRef,
+    private el: ElementRef,
     private sjt: SjThemeService,
     private cssGenerator: SjCssGeneratorService,
     private renderer: Renderer2
@@ -45,6 +48,7 @@ export class SjDirective implements OnChanges {
     effect(() => {
       this.sjt.currentBreakpoint(); // depend on currentBreakpoint
       this.sjt.themeVersion(); // depend on themeVersion
+      this.sjt.typography(); // depend on typography
       this.renderStyles();
     });
   }
@@ -56,9 +60,17 @@ export class SjDirective implements OnChanges {
   private renderStyles(): void {
     this.lastClasses.forEach((c: string) => this.renderer.removeClass(this.vcr.element.nativeElement, c));
 
-    if (this.sj) {
-      const styles = Array.isArray(this.sj) ? Object.assign({}, ...this.sj) : this.sj;
-      const classes = this.cssGenerator.getOrGenerateClasses(styles, this.sjt.sjTheme());
+    const theme = this.sjt.sjTheme();
+    const tagName = this.el.nativeElement.tagName.toUpperCase();
+    const typographyStyles = theme.typography[tagName as keyof typeof theme.typography] || {};
+    const defaultTypographyStyles = theme.typography.default || {};
+
+    const sjStyles = this.sj ? (Array.isArray(this.sj) ? Object.assign({}, ...this.sj) : this.sj) : {};
+
+    const mergedStyles = { ...defaultTypographyStyles, ...typographyStyles, ...sjStyles };
+
+    if (Object.keys(mergedStyles).length > 0) {
+      const classes = this.cssGenerator.getOrGenerateClasses(mergedStyles, theme);
       classes.forEach((c: string) => this.renderer.addClass(this.vcr.element.nativeElement, c));
       this.lastClasses = classes;
     }

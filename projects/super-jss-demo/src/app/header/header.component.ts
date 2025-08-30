@@ -53,6 +53,14 @@ export class HeaderComponent {
       contrast: '#ffffff',
     }
   };
+  newTypography: Partial<SjTypography> = {
+    default: {
+      fontFamily: 'monospace',
+      fontSize: '26px',
+      fontWeight: '600',
+      lineHeight: '1.5',
+    }
+  };
 
   newTheme: Partial<SjTheme> = {
         palette: this.newPalette as SjPalette,
@@ -62,7 +70,8 @@ export class HeaderComponent {
           md: 920,
           lg: 1120,
           xl: 1620,
-        } as SjBreakPoints
+        } as SjBreakPoints,
+        typography: this.newTypography as SjTypography
       };
 
   constructor(private th: SjThemeService) {
