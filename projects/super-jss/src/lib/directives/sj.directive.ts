@@ -74,6 +74,16 @@ export class SjDirective implements OnChanges {
       classes.forEach((c: string) => this.renderer.addClass(this.vcr.element.nativeElement, c));
       this.lastClasses = classes;
     }
+
+  if (Object.keys(mergedStyles).length > 0) {
+    const classes = this.cssGenerator.getOrGenerateClasses(mergedStyles, theme);
+    // ----> ADD THIS LINE <----
+    console.log('SJ Directive Generated Classes:', classes);
+
+    classes.forEach((c: string) => this.renderer.addClass(this.vcr.element.nativeElement, c));
+    this.lastClasses = classes;
+  }
+    
   }
 
   /**

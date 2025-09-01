@@ -47,44 +47,73 @@ export class CssGenerator {
 
   public generateAtomicCss(styles: SjStyle): Map<string, string> {
     const cssMap = new Map<string, string>();
+    this._generate(styles, cssMap);
+    return cssMap;
+  }
 
+  private _generate(
+    styles: SjStyle,
+    cssMap: Map<string, string>,
+    pseudoClass = '',
+    variantPrefix = ''
+  ): void {
     for (const key in styles) {
       const value = styles[key as keyof SjStyle];
-      const cssProperty = shorthandMappings[key] || key;
 
-      if (typeof value === 'object' && value !== null) {
-        // Handle responsive styles
-        for (const bp in value) {
-          const className = `sj-${this.kebabCase(
-            key
-          )}-${bp}-${this.sanitizeValue(value[bp as keyof ResponsiveStyle])}`;
-          const responsiveValue = this.resolveStyleValue(
-            key,
-            value[bp as keyof ResponsiveStyle]
-          );
-          const mediaQuery = `@media (min-width: ${
-            this.theme.breakpoints[bp as keyof SjBreakPoints]
-          }px) {
-  .${className} { ${this.kebabCase(
-            cssProperty as string
-          )}: ${responsiveValue}; }
-}`;
-          cssMap.set(className, mediaQuery);
-        }
+      if (key.startsWith('&')) {
+        const newPseudoClass = key.substring(1);
+        const newVariantPrefix = newPseudoClass.replace(/[^a-zA-Z0-9-]/g, '') + '-';
+        this._generate(
+          value as SjStyle,
+          cssMap,
+          newPseudoClass,
+          newVariantPrefix
+        );
       } else {
-        // Handle non-responsive styles
-        const className = `sj-${this.kebabCase(key)}-${this.sanitizeValue(
-          value
-        )}`;
-        const resolvedValue = this.resolveStyleValue(key, value);
-        const cssRule = `.${className} { ${this.kebabCase(
-          cssProperty as string
-        )}: ${resolvedValue}; }`;
-        cssMap.set(className, cssRule);
+        const cssProperty = shorthandMappings[key] || key;
+
+        if (typeof value === 'object' && value !== null) {
+          // Handle responsive styles
+          for (const bp in value) {
+            const className = `${variantPrefix}sj-${this.kebabCase(
+              key
+            )}-${bp}-${this.sanitizeValue(
+              value[bp as keyof ResponsiveStyle]
+            )}`;
+            const bpValue = value[bp as keyof ResponsiveStyle];
+            let responsiveValue: string;
+            if (
+              typeof bpValue === 'string' ||
+              typeof bpValue === 'number' ||
+              bpValue === undefined
+            ) {
+              responsiveValue = this.resolveStyleValue(key, bpValue);
+            } else {
+              // If bpValue is an object (SjStyle or ResponsiveStyle), skip or handle accordingly
+              responsiveValue = 'initial';
+            }
+            const mediaQuery = `@media (min-width: ${
+              this.theme.breakpoints[bp as keyof SjBreakPoints]
+            }px) {
+  .${className}${pseudoClass} { ${this.kebabCase(
+              cssProperty as string
+            )}: ${responsiveValue}; }
+}`;
+            cssMap.set(className, mediaQuery);
+          }
+        } else {
+          // Handle non-responsive styles
+          const className = `${variantPrefix}sj-${this.kebabCase(
+            key
+          )}-${this.sanitizeValue(value)}`;
+          const resolvedValue = this.resolveStyleValue(key, value);
+          const cssRule = `.${className}${pseudoClass} { ${this.kebabCase(
+            cssProperty as string
+          )}: ${resolvedValue}; }`;
+          cssMap.set(className, cssRule);
+        }
       }
     }
-
-    return cssMap;
   }
 
   private resolveStyleValue(

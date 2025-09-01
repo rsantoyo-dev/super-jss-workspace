@@ -29,9 +29,11 @@ import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
           cursor: 'pointer',
           p: '0.5rem 1rem',
           mt: '1rem',
-          brad: '20px',
           transition: 'all 0.3s ease-in-out',
           boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+          '&:hover': {
+            bg: 'secondary.dark',
+          }
 
         }"
       >

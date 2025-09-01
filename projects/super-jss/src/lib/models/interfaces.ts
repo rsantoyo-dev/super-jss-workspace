@@ -162,7 +162,17 @@ export type SjShorthandCustomStyle = {
 
 }
 export type SjStyle = {
-  [Property in keyof CSSStyleDeclaration | keyof SjShorthandStyle | keyof SjShorthandCustomStyle] ? : ResponsiveStyle | string | number;
+  [Property in keyof SjShorthandStyle | keyof SjShorthandCustomStyle]?:
+    | ResponsiveStyle
+    | string
+    | number;
+} & {
+  [key: string]:
+    | ResponsiveStyle
+    | string
+    | number
+    | SjStyle
+    | undefined;
 };
 
 
