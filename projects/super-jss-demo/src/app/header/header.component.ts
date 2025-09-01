@@ -2,6 +2,7 @@ import { Component, computed, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SjDirective, SjTheme, SjThemeService } from 'super-jss';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
+import { sjBorderShadow } from '../sjStyling/sjStyles';
 
 @Component({
   standalone: true,
@@ -23,19 +24,19 @@ import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
       <p [sj]="{color: 'primary.contrast', m: 0, p:0}">The ultimate solution for dynamic styling</p>
       <span
         (click)="updateTheme()"
-        [sj]="{
+        [sj]="[{
           color: 'secondary.contrast',
           bg: 'secondary.main',
           cursor: 'pointer',
           p: '0.5rem 1rem',
           mt: '1rem',
           transition: 'all 0.3s ease-in-out',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+        
           '&:hover': {
             bg: 'secondary.dark',
           }
 
-        }"
+        }, sjBorderShadow]"
       >
         Toggle Theme
       </span>
@@ -64,6 +65,8 @@ import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
   `,
 })
 export class HeaderComponent {
+    protected readonly sjBorderShadow = sjBorderShadow;
+
   isCustomTheme = signal(false);
     // Create a computed signal
     breakpoints = computed(() => this.th.breakpoints());
