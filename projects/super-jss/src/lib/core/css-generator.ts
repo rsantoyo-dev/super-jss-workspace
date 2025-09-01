@@ -45,9 +45,8 @@ const resolveThemeColor = (value: string, theme: SjTheme): string => {
 export class CssGenerator {
   constructor(private theme: SjTheme) {}
 
-  public generateAtomicCss(styles: SjStyle): [string[], string] {
-    const classes: string[] = [];
-    let css = '';
+  public generateAtomicCss(styles: SjStyle): Map<string, string> {
+    const cssMap = new Map<string, string>();
 
     for (const key in styles) {
       const value = styles[key as keyof SjStyle];
@@ -59,7 +58,6 @@ export class CssGenerator {
           const className = `sj-${this.kebabCase(
             key
           )}-${bp}-${this.sanitizeValue(value[bp as keyof ResponsiveStyle])}`;
-          classes.push(className);
           const responsiveValue = this.resolveStyleValue(
             key,
             value[bp as keyof ResponsiveStyle]
@@ -70,25 +68,23 @@ export class CssGenerator {
   .${className} { ${this.kebabCase(
             cssProperty as string
           )}: ${responsiveValue}; }
-}
-`;
-          css += mediaQuery;
+}`;
+          cssMap.set(className, mediaQuery);
         }
       } else {
         // Handle non-responsive styles
         const className = `sj-${this.kebabCase(key)}-${this.sanitizeValue(
           value
         )}`;
-        classes.push(className);
         const resolvedValue = this.resolveStyleValue(key, value);
-        css += `.${className} { ${this.kebabCase(
+        const cssRule = `.${className} { ${this.kebabCase(
           cssProperty as string
-        )}: ${resolvedValue}; }
-`;
+        )}: ${resolvedValue}; }`;
+        cssMap.set(className, cssRule);
       }
     }
 
-    return [classes, css];
+    return cssMap;
   }
 
   private resolveStyleValue(

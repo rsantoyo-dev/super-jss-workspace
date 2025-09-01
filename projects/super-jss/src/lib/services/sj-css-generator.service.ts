@@ -3,38 +3,50 @@ import { DOCUMENT } from '@angular/common';
 import { SjStyle, SjTheme } from '../models/interfaces';
 import { CssGenerator } from '../core/css-generator';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class SjCssGeneratorService {
-  private cache = new Map<string, string[]>();
+  private generatedClasses = new Set<string>();
   private renderer: Renderer2;
+  private styleEl: HTMLStyleElement;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private rendererFactory: RendererFactory2) {
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private rendererFactory: RendererFactory2
+  ) {
     this.renderer = this.rendererFactory.createRenderer(null, null);
+    this.styleEl = this.renderer.createElement('style');
+    this.renderer.setAttribute(this.styleEl, 'data-sjss', '');
+    this.renderer.appendChild(this.document.head, this.styleEl);
   }
 
   public getOrGenerateClasses(styles: SjStyle, theme: SjTheme): string[] {
-    const styleKey = JSON.stringify(styles);
-    if (this.cache.has(styleKey)) {
-      return this.cache.get(styleKey)!;
+    const cssGenerator = new CssGenerator(theme);
+    const cssMap = cssGenerator.generateAtomicCss(styles);
+    const classes = Array.from(cssMap.keys());
+    let newCss = '';
+
+    for (const [className, cssRule] of cssMap) {
+      if (!this.generatedClasses.has(className)) {
+        this.generatedClasses.add(className);
+        newCss += cssRule + '\n';
+      }
     }
 
-    const cssGenerator = new CssGenerator(theme);
-    const [classes, css] = cssGenerator.generateAtomicCss(styles);
-    
-    const styleEl = this.renderer.createElement('style');
-    this.renderer.setAttribute(styleEl, 'data-sjss', '');
-    const cssText = this.renderer.createText(css);
-    this.renderer.appendChild(styleEl, cssText);
-    this.renderer.appendChild(this.document.head, styleEl);
+    if (newCss) {
+      const cssText = this.renderer.createText(newCss);
+      this.renderer.appendChild(this.styleEl, cssText);
+    }
 
-    this.cache.set(styleKey, classes);
     return classes;
   }
 
   public clearCache() {
-    this.cache.clear();
-    // We also need to remove the generated <style> tags from the DOM
-    const styleTags = this.document.head.querySelectorAll('style[data-sjss]');
-    styleTags.forEach(tag => this.renderer.removeChild(this.document.head, tag));
+    this.generatedClasses.clear();
+    this.renderer.removeChild(this.document.head, this.styleEl);
+    this.styleEl = this.renderer.createElement('style');
+    this.renderer.setAttribute(this.styleEl, 'data-sjss', '');
+    this.renderer.appendChild(this.document.head, this.styleEl);
   }
 }

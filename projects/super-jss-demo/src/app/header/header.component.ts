@@ -1,4 +1,4 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SjDirective, SjTheme, SjThemeService } from 'super-jss';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
@@ -50,7 +50,7 @@ import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
       }"
     >
       <span [sj]="{ color: 'secondary.dark', fontSize: 1 }">
-        sjBreakpoints: {{ JSON.stringify(breakpoints) }}
+        sjBreakpoints: {{ JSON.stringify(this.th.breakpoints()) }}
       </span>
       <span [sj]="{ color: 'secondary.dark', fontSize: 1 }">
         Current Theme: {{ isCustomTheme() ? 'Golden Emerald' : 'Default Theme' }}
@@ -63,13 +63,13 @@ import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
 })
 export class HeaderComponent {
   isCustomTheme = signal(false);
-  breakpoints = this.th.breakpoints();
-  defaultThemeConfig: Partial<SjTheme>;
-
-  constructor(public th: SjThemeService) {
-
+    // Create a computed signal
+    breakpoints = computed(() => this.th.breakpoints());
+    defaultThemeConfig: Partial<SjTheme>;
+  
+   constructor(public th: SjThemeService) {
     this.defaultThemeConfig = this.th.sjTheme();
-  }
+   }
 
   updateTheme(): void {
     this.isCustomTheme.set(!this.isCustomTheme());
