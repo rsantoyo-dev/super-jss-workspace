@@ -105,11 +105,8 @@ export class CssGenerator {
   }
 
   private sanitizeValue(value: any): string {
-    if (typeof value === 'string') {
-      return value.replace(/[^a-zA-Z0-9-]/g, '-').replace(/\./g, '_');
-    }
     return String(value)
-      .replace(/[^a-zA-Z0-9-]/g, '-')
-      .replace(/\./g, '_');
+      .replace(/\./g, '_')
+      .replace(/[^a-zA-Z0-9_-]/g, '-');
   }
 }
