@@ -16,24 +16,31 @@ import { sjBorderShadow } from '../sjStyling/sjStyles';
         fxAItems: 'center',
         p: { xs: 2, md: 4 },
         bg: 'primary.main',
-        boxShadow: '0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12)',
+        boxShadow:
+          '0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12)',
         transition: 'all 0.3s ease-in-out'
       }"
     >
       <h1 [sj]="{ color: 'primary.contrast', m: 0 }">SUPER-JSS</h1>
-      <p [sj]="{color: 'primary.contrast', m: 0, p:0}">The ultimate solution for dynamic styling</p>
+      <p [sj]="{ color: 'primary.contrast', m: 0, p: 0 }">
+        The ultimate solution for dynamic styling
+      </p>
       <span
         (click)="updateTheme()"
         [sj]="[{
           color: 'secondary.contrast',
           bg: 'secondary.main',
           cursor: 'pointer',
-          p: '0.5rem 1rem',
+          p: 0.5,
           mt: '1rem',
           transition: 'all 0.3s ease-in-out',
         
           '&:hover': {
             bg: 'secondary.dark',
+            pl: 2,
+            pr: 2,
+            pt: 1.2,
+            pb: 1.2,
           }
 
         }, sjBorderShadow]"
@@ -56,7 +63,8 @@ import { sjBorderShadow } from '../sjStyling/sjStyles';
         sjBreakpoints: {{ JSON.stringify(this.th.breakpoints()) }}
       </span>
       <span [sj]="{ color: 'secondary.dark', fontSize: 1 }">
-        Current Theme: {{ isCustomTheme() ? 'Golden Emerald' : 'Default Theme' }}
+        Current Theme:
+        {{ isCustomTheme() ? 'Golden Emerald' : 'Default Theme' }}
       </span>
       <span [sj]="{ color: 'secondary.dark', fontSize: 1 }">
         currentBreakpoint: {{ th.currentBreakpoint() }}
@@ -65,21 +73,22 @@ import { sjBorderShadow } from '../sjStyling/sjStyles';
   `,
 })
 export class HeaderComponent {
-    protected readonly sjBorderShadow = sjBorderShadow;
+  protected readonly sjBorderShadow = sjBorderShadow;
 
   isCustomTheme = signal(false);
-    // Create a computed signal
-    breakpoints = computed(() => this.th.breakpoints());
-    defaultThemeConfig: Partial<SjTheme>;
-  
-   constructor(public th: SjThemeService) {
+  // Create a computed signal
+  breakpoints = computed(() => this.th.breakpoints());
+  defaultThemeConfig: Partial<SjTheme>;
+
+  constructor(public th: SjThemeService) {
     this.defaultThemeConfig = this.th.sjTheme();
-   }
+  }
 
   updateTheme(): void {
     this.isCustomTheme.set(!this.isCustomTheme());
-    this.th.setTheme(this.isCustomTheme() ? goldenEmeraldTheme : this.defaultThemeConfig)
+    this.th.setTheme(
+      this.isCustomTheme() ? goldenEmeraldTheme : this.defaultThemeConfig
+    );
   }
-    protected readonly JSON = JSON;
+  protected readonly JSON = JSON;
 }
-
