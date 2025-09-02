@@ -17,4 +17,5 @@ export const DEFAULT_TYPOGRAPHY: SjTypography = {
   STRONG: { fontSize: 1, fontWeight: 'bold', lineHeight: 1.2 },
   BODY: { fontSize: 1, fontWeight: 'normal', lineHeight: 1.2 },
   CAPTION: { fontSize: 0.8, fontWeight: 'normal', lineHeight: 1.2 },
+  SMALL: { fontSize: 0.85, fontWeight: 'normal', lineHeight: 1.2 },
 };

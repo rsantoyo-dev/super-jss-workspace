@@ -81,6 +81,7 @@ const typography: SjTypography = {
     STRONG: { fontSize: 1.1, fontWeight: 'bold', lineHeight: 1.2 },
     BODY: { fontSize: 1.1, fontWeight: 'normal', lineHeight: 1.2 },
     CAPTION: { fontSize: 0.9, fontWeight: 'normal', lineHeight: 1.2 },
+    SMALL: { fontSize: 0.85, fontWeight: 'normal', lineHeight: 1.2 },
 };
 
 const breakpoints: SjBreakPoints = {
