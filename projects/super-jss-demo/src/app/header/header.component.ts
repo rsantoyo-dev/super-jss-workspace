@@ -1,6 +1,13 @@
-import { Component, computed, effect, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective, SjTheme, SjThemeService } from 'super-jss';
+import {
+  SjDirective,
+  SjTheme,
+  SjThemeService,
+  defaultTheme,
+  desertTheme,
+  oceanTheme,
+} from 'super-jss';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
 import { sjBorderShadow } from '../sjStyling/sjStyles';
 
@@ -25,28 +32,33 @@ import { sjBorderShadow } from '../sjStyling/sjStyles';
       <p [sj]="{ color: 'primary.contrast', m: 0, p: 0 }">
         The ultimate solution for dynamic styling
       </p>
-      <span
-        (click)="updateTheme()"
-        [sj]="[{
-          color: 'secondary.contrast',
-          bg: 'secondary.main',
-          cursor: 'pointer',
-          p: 0.5,
-          mt: '1rem',
-          transition: 'all 0.3s ease-in-out',
-        
-          '&:hover': {
-            bg: 'secondary.dark',
-            pl: 2,
-            pr: 2,
-            pt: 1.2,
-            pb: 1.2,
-          }
+      <div [sj]="{ d: 'flex', fxWrap: 'wrap', fxJustify: 'center', mt: '1rem' }">
+        <span
+          *ngFor="let theme of themes"
+          (click)="setTheme(theme.theme, theme.name)"
+          [sj]="[
+            {
+              color: 'secondary.contrast',
+              bg: 'secondary.main',
+              cursor: 'pointer',
+              p: 0.5,
+              m: 0.5,
+              transition: 'all 0.3s ease-in-out',
 
-        }, sjBorderShadow]"
-      >
-        Toggle Theme
-      </span>
+              '&:hover': {
+                bg: 'secondary.dark',
+                pl: 2,
+                pr: 2,
+                pt: 1.2,
+                pb: 1.2,
+              },
+            },
+            sjBorderShadow
+          ]"
+        >
+          {{ theme.name }} ({{ theme.type }})
+        </span>
+      </div>
     </div>
     <div
       [sj]="{
@@ -64,7 +76,7 @@ import { sjBorderShadow } from '../sjStyling/sjStyles';
       </span>
       <span [sj]="{ color: 'secondary.dark', fontSize: 1 }">
         Current Theme:
-        {{ isCustomTheme() ? 'Golden Emerald' : 'Default Theme' }}
+        {{ currentThemeName() }}
       </span>
       <span [sj]="{ color: 'secondary.dark', fontSize: 1 }">
         currentBreakpoint: {{ th.currentBreakpoint() }}
@@ -75,20 +87,22 @@ import { sjBorderShadow } from '../sjStyling/sjStyles';
 export class HeaderComponent {
   protected readonly sjBorderShadow = sjBorderShadow;
 
-  isCustomTheme = signal(false);
+  themes = [
+    { name: 'Default', theme: defaultTheme, type: 'Library' },
+    { name: 'Desert', theme: desertTheme, type: 'Library' },
+    { name: 'Ocean', theme: oceanTheme, type: 'Library' },
+    { name: 'Golden Emerald', theme: goldenEmeraldTheme, type: 'Custom' },
+  ];
+  currentThemeName = signal('Default');
+
   // Create a computed signal
   breakpoints = computed(() => this.th.breakpoints());
-  defaultThemeConfig: Partial<SjTheme>;
 
-  constructor(public th: SjThemeService) {
-    this.defaultThemeConfig = this.th.sjTheme();
-  }
+  constructor(public th: SjThemeService) {}
 
-  updateTheme(): void {
-    this.isCustomTheme.set(!this.isCustomTheme());
-    this.th.setTheme(
-      this.isCustomTheme() ? goldenEmeraldTheme : this.defaultThemeConfig
-    );
+  setTheme(theme: Partial<SjTheme>, name: string): void {
+    this.th.setTheme(theme);
+    this.currentThemeName.set(name);
   }
   protected readonly JSON = JSON;
 }
