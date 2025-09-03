@@ -1,19 +1,19 @@
-# Typography in SJSS
+# Typography System
 
 SJSS offers a robust typography system that allows for the customization of text styles across various HTML elements.
 
 ## Using Typography in Components
-To apply these typography styles in SJSS, you can use the [sj] directive in your Angular components. For example:
+To apply these typography styles in SJSS, you can use the `[sj]` directive in your Angular components. For example:
 
 ```html
 <p [sj]>This paragraph will use SJSS default styling.</p>
 <p [sj]="{ c: 'primary.main' }">This paragraph will have the primary color.</p>
 
 ```
-In these examples, the first paragraph will be rendered with the default SJSS styling for <p> elements. The second paragraph will additionally have a text color corresponding to the primary color from the palette.
+In these examples, the first paragraph will be rendered with the default SJSS styling for `<p>` elements. The second paragraph will additionally have a text color corresponding to the primary color from the palette.
 
 ## Typography Default Styles
-SJSS provides default styles for various HTML elements. These styles are defined in the SjThemeService and can be customized as per your application's needs. The following table lists the default typography styles in SJSS:
+SJSS provides default styles for various HTML elements. These styles are defined in the `SjThemeService` and can be customized as per your application's needs. The following table lists the default typography styles in SJSS:
 
 | Element | Font-Size (xs/md) | Font-Weight | Line-Height |
 |---------|-------------------|-------------|-------------|
@@ -33,7 +33,7 @@ SJSS provides default styles for various HTML elements. These styles are defined
 This table provides a comprehensive guide to the default typography settings in SJSS. Users can rely on this data to understand how text will be styled by default and make informed decisions about customizing these styles.
 
 ## Customizing Typography
-SJSS allows for easy customization of typography styles. You can use the SjThemeService to update the default typography settings. For example:
+SJSS allows for easy customization of typography styles. You can use the `SjThemeService` to update the default typography settings.
 
 ```typescript
 import { Component } from "@angular/core";
@@ -41,26 +41,29 @@ import { SjDirective, SjThemeService } from "super-jss";
  
 @Component({
   standalone: true,
-  selector: 'app-themed-component',
+  selector: 'app-typography-update-demo',
   template: `
-    <h3 (click)="updateFont()" [sj]="{ bg: 'primary.main', color: 'primary.contrast', p: 2, m: 1}">
-      Primary Themed Content
-    </h3>
+    <button (click)="updateFont()" [sj]="{ p: 1, bg: 'primary.main', color: 'primary.contrast', borderRadius: '4px', cursor: 'pointer' }">
+      Update H3 Font
+    </button>
   `
 })
-export class ThemedComponent {
+export class TypographyUpdateDemoComponent {
   constructor(private sjTheme: SjThemeService) {}
   updateFont(): void {
-    this.sjTheme.setTypography({
-      h3: {
-        fontSize: '2rem',
-        fontWeight: 600,
-        lineHeight: 3
+    this.sjTheme.setTheme({
+      typography: {
+        H3: {
+          fontSize: '2rem',
+          fontWeight: '600',
+          lineHeight: 3
+        }
       }
     });
   }
 }
 ```
+
 ---
 
-[← Responsive Styles](responsive-style.md) | [Home](index.md) | [Theming →](theming.md)
+[⬅️ Previous: Responsive Styles](responsive-style.md) | [Next: Theming ➡️](theming.md)

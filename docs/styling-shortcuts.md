@@ -1,5 +1,4 @@
-
-# SJSS Styling Shortcuts
+# Styling Shorthands and Advanced Properties
 
 Super JavaScript Stylesheets ([SJSS](https://www.npmjs.com/package/super-jss)) simplifies styling in Angular applications with a range of shorthand properties, covering everything from padding and margin to flexbox layouts.
 
@@ -22,12 +21,12 @@ Consider styling a `div` within an Angular component using SJSS shorthand proper
   
   @Component({
     standalone: true,
-    selector: 'app-demo',
+    selector: 'app-shorthand-demo',
     template: `
         <div [sj]="{
-          py: '10px',
-          px: '20px',
-          m: '20px',
+          py: 1,
+          px: 2,
+          m: 2,
           b: '1px solid black',
           d: 'flex',
           fxJustify: 'center',
@@ -38,14 +37,14 @@ Consider styling a `div` within an Angular component using SJSS shorthand proper
         </div>
       `
 })
-export class DemoComponent {}
+export class ShorthandDemoComponent {}
 ```
 
 For interactive examples and more detailed usage, visit [SJSS on StackBlitz](https://stackblitz.com/edit/super-js?file=src%2Fmain.ts).
 
 Now, let's delve into the details of these shorthand properties.
 
-- **note**: they are just shorthands, you can use the full css property in camelCase if you prefer.
+- **note**: they are just shorthands, you can use the full css property in camelCase if you prefer. The `px`, `py`, `mx`, `my`, `bx`, and `by` shorthands are processed directly by the `SjDirective` for convenience.
 
 ## Padding and Margin
 
@@ -61,6 +60,10 @@ Now, let's delve into the details of these shorthand properties.
 | `mr`      | `marginRight`  | Margin right        |
 | `mb`      | `marginBottom` | Margin bottom       |
 | `ml`      | `marginLeft`   | Margin left         |
+| `px`      | `paddingLeft`, `paddingRight` | Horizontal padding |
+| `py`      | `paddingTop`, `paddingBottom` | Vertical padding   |
+| `mx`      | `marginLeft`, `marginRight` | Horizontal margin |
+| `my`      | `marginTop`, `marginBottom` | Vertical margin   |
 
 ## Sizes
 
@@ -117,6 +120,3 @@ Now, let's delve into the details of these shorthand properties.
 ---
 
 [⬅️ Previous: Basic Usage](basic-usage.md) | [Next: Responsive Styling ➡️](responsive-style.md)
-
----
-

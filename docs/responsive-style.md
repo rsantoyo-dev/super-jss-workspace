@@ -1,5 +1,4 @@
-
-# Responsive Styling with SJSS
+# Responsive Styling with Breakpoints
 
 Super JavaScript Stylesheets ([SJSS](https://www.npmjs.com/package/super-jss)) offers a powerful and intuitive approach to implementing responsive designs in Angular applications. Through a system of breakpoints, developers can create styles that adapt seamlessly to various screen sizes.
 
@@ -32,7 +31,7 @@ Here's how to apply responsive styling in an Angular component using SJSS:
           xs: '5px',    // Padding for extra small screens
           md: '10px',   // Padding for medium screens
           lg: '15px'    // Padding for large screens
-          xl: '20px'   // Padding for extra large screens
+          xl: '20px',   // Padding for extra large screens
           xxl: '25px'  // Padding for extra extra large screens        
         },
         bg: {
@@ -51,30 +50,33 @@ Here's how to apply responsive styling in an Angular component using SJSS:
 For interactive examples and more, visit [SJSS on StackBlitz](https://stackblitz.com/edit/super-js?file=src%2Fmain.ts).
 
 ### Updating Breakpoints
-To customize breakpoints, use the `SjThemeService` in SJSS, which is particularly powerful and user-friendly due to its use of Angular signals. This approach minimizes boilerplate and simplifies state management. Once set, these breakpoints are automatically recognized across the application through the sjDirective, ensuring a seamless and consistent responsive experience.
-
+To customize breakpoints, use the `SjThemeService` in SJSS, which is particularly powerful and user-friendly due to its use of Angular signals. This approach minimizes boilerplate and simplifies state management.
 
 ```typescript
-  @Component({
-    standalone: true,
-    selector: 'app-responsive-demo',
-    template: `
-      <div (click)="updateBreakpoints()" [sj]="{p: { xs: '5px', md: '10px' }}">
-        Responsive SJSS Component!
-      </div>
-    `
-  })
-  export class ResponsiveDemoComponent {
-    //not recommended to change xs: unless your specifications does not care about mini devices, covered by xs
-    constructor(private sjTheme: SjThemeService) {}
-    updateBreakpoints(): void {
-      this.sjTheme.setBreakpoints({
-        sm: 660, // optional: a new breakpoint assiged to sm
-        md: 980, // optional a new breakpoint assiged to md
+import { Component } from "@angular/core";
+import { SjDirective, SjThemeService } from "super-jss";
+
+@Component({
+  standalone: true,
+  selector: 'app-responsive-demo',
+  template: `
+    <button (click)="updateBreakpoints()" [sj]="{ p: 1, bg: 'primary.main', color: 'primary.contrast', borderRadius: '4px', cursor: 'pointer' }">
+      Update Breakpoints
+    </button>
+  `
+})
+export class ResponsiveDemoComponent {
+  constructor(private sjTheme: SjThemeService) {}
+  updateBreakpoints(): void {
+    this.sjTheme.setTheme({
+      breakpoints: {
+        sm: 660, // optional: a new breakpoint assigned to sm
+        md: 980, // optional: a new breakpoint assigned to md
         // add lg, xl, or xxl if needed.
-      });
-    }
+      }
+    });
   }
+}
 ```
 This example demonstrates how to update breakpoints in SJSS. For more examples, visit [SJSS on StackBlitz](https://stackblitz.com/edit/super-js?file=src%2Fmain.ts).
 
@@ -85,5 +87,3 @@ For additional information and examples on responsive styling with SJSS, explore
 
 ---
 [⬅️ Previous: Styling Shortcuts](styling-shortcuts.md) | [Next: Colors ➡️](colors.md)
----
-

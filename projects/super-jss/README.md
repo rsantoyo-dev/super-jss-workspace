@@ -1,194 +1,177 @@
-# Super JSS Library
+# Super JavaScript Stylesheets (SJSS)
 
-Super JSS is a dynamic CSS library designed for Angular applications, making styling with JavaScript objects a breeze. It's all about giving developers the power to create responsive designs effortlessly. With Super JSS, you're not just writing styles; you're crafting a responsive experience with the simplicity of JavaScript. It's fast, it's light, and it's built to supercharge your Angular apps with a flair of elegance and ease.
+Super JavaScript Stylesheets (SJSS) is a dynamic, responsive, and incredibly lightweight styling library meticulously crafted for **Angular 20** applications. Leveraging Angular's powerful signals, SJSS transforms how you approach styling by generating only the CSS you use, on the fly, ensuring your applications are fast, lean, and effortlessly maintainable. It's all about empowering developers to create stunning UIs with unparalleled ease and efficiency.
 
 ## 🌟 Features
 
-- **Dynamic Styling**: Craft styles using JavaScript objects.
-- **shorthand styles**: Simplify your styles and values with shorthand properties.
-- **Responsive Design**: Adapt styles for various device breakpoints.
-- **Theming**: Switch between different themes seamlessly.
-- **Typography**: Enhanced support for HTML tags from H1 to H6, P, and span.
+*   📱 **Effortless Responsiveness:** Design truly adaptive layouts that look flawless on any screen size.
+*   ✨ **Dynamic Control:** Update styles in real-time based on application state or user interactions.
+*   🎨 **Simplified Theming:** Implement comprehensive theming capabilities with ease.
+*   ⚡ **Angular-Native Performance:** Blazing-fast performance with minimal overhead, thanks to Angular 20 signals.
+*   🧩 **On-the-Fly CSS Generation:** Generates only the CSS you use, keeping your app lean and fast.
+*   🪶 **Incredibly Lightweight:** Minimal footprint, under 8KB minified (less than 3KB gzipped).
+*   ✍️ **Familiar & Intuitive:** Uses a syntax natural to CSS and JavaScript developers.
+*   🚀 **Standalone & Flexible:** Integrates seamlessly with any Angular component as a standalone directive.
+*   🅰️ **Enhanced Typography:** Gain precise control over text elements.
+*   🔗 **Composing Styles with Arrays:** Combine reusable style objects for modular and dynamic styling.
+*   Pseudo-selectors: Apply styles for states like `:hover`, `:active`, `:focus` directly.
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- An existing Angular project.
+- An existing Angular project (Angular 15+ recommended, Angular 20 for full signal benefits).
 - Node.js and npm.
 
 ### Installation
 
 ```bash
-npm i super-jss
+npm install super-jss
 ```
 
-### Integration
+### Basic Integration
 
-Import the `SjDirective` in your standalone component and apply the [sj] directive to the element you want to style. The directive accepts a single object or an array of objects. The object keys are the CSS properties, and the values are the responsive CSS values. The directive will automatically apply the styles to the element.
-
-### Basic usage
-It uses all keys from [CSS Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference) and [CSS Values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Values_and_Units_Reference) from MDN.
-This elements used as a js object empower the programmer to add dynamic values easily
+Import the `SjDirective` in your standalone component and apply the `[sj]` directive to the element you want to style. SJSS automatically generates and injects the necessary CSS.
 
 ```typescript
-import {SjDirective} from "super-jss";
+import { Component } from '@angular/core';
+import { SjDirective } from 'super-jss';
+
 @Component({
   standalone: true,
-  selector: 'app-demo',
+  selector: 'app-my-component',
   template: `
-     <div [sj]="{backgroundColor: '#aa5645', padding: '10px'}">
-        Welcome to Super JSS!
-      </div>    
+    <div [sj]="{ p: 2, bg: 'primary.main', color: 'primary.contrast' }">
+      Hello from SJSS!
+    </div>
+  `,
+})
+export class MyComponent {}
+```
+
+### Responsive Styling
+
+SJSS makes responsive design intuitive. Define different style values for various breakpoints (e.g., `xs`, `sm`, `md`, `lg`, `xl`, `xxl`) directly within your style properties.
+
+```typescript
+import { Component } from '@angular/core';
+import { SjDirective } from 'super-jss';
+
+@Component({
+  standalone: true,
+  selector: 'app-responsive-div',
+  template: `
+    <div [sj]="{
+      p: { xs: 1, md: 2, lg: 3 }, /* Padding changes based on screen size */
+      bg: { xs: 'red', md: 'blue', lg: 'green' }, /* Background color changes */
+      fontSize: { xs: 1, md: 1.5, lg: 2 }
+    }">
+      This div adapts to screen size!
+    </div>
   `
 })
-export class DemoComponent {}
-```
-### Responsive handling
-The responsive values are defined within a css property using the following format: {xs: 'value', sm: 'value', md: 'value', lg: 'value', xl: 'value'}.
-
-```typescript
-import {SjDirective} from "super-jss";
-@Component({
-  standalone: true,
-  selector: 'app-demo',
-  template: `
-    <div [sj]="{backgroundColor: '#aa5645', padding: {xs: '4px', sm: '6px', md: '8px', lg: '12px', xl:'18px', xxl: '24px'}">
-        Welcome to Super JSS!
-      </div>  
-  `
-})
-export class DemoComponent {}
-```
-### Shorthand properties
-properties for css key elements or values are intuitive and very handy for fast development. when using values, they are converted by 10px. This unit may be changed if desired
-```typescript
-import {SjDirective} from "super-jss";
-@Component({
-  standalone: true,
-  selector: 'app-demo',
-  template: `
-    <div [sj]="{d: 'flex', fxDir: {xs: 'row', md: 'column'}} fxJustify: 'center'}">
-      <div [sj]="{bg: '#aa5645', px:{xs: 2, md: 4}, py: {xs: 1, md: 3}}">
-        Welcome to Super JSS!
-      </div>
-    </div>    
-  `
-})
-export class DemoComponent {}
+export class ResponsiveDivComponent {}
 ```
 
-### Using palette
+### Styling Shorthands
 
-The palette is a set of colors that can be used in the application. each color is defined by 4 shades. Example: primary.main, primary.light, primary.dark, primary.contrast.
-
-The options in the palette are primary, secondary, tertiary, success, info, warning, error, dark, neutral, light
+SJSS simplifies styling with a range of shorthand properties. The `px`, `py`, `mx`, `my`, `bx`, and `by` shorthands are processed directly by the `SjDirective` for convenience.
 
 ```typescript
-import {SjDirective} from "super-jss";
+import { Component } from '@angular/core';
+import { SjDirective } from 'super-jss';
+
 @Component({
   standalone: true,
-  selector: 'app-demo',
+  selector: 'app-shorthand-demo',
   template: `
-    <div [sj]="{ bg: 'primary', p: 2}">
-      <div [sj]="{bg: 'secondary', px:{xs: 2, md: 4}, py: {xs: 1, md: 3}}">
-        <h1 [sj]="{c: 'secondary.light'}">Welcome to Super JSS!</h1>
-      </div>
-    </div>    
-  `
-})
-export class DemoComponent {}
-```
-
-### typography
-The typography is defined by the following keys: h1, h2, h3, h4, h5, h6, p, span. Each key applies the corresponding style to the element. The styles are defined in the theme.
-
-```typescript
-import {SjDirective} from "super-jss";
-@Component({
-  standalone: true,
-  selector: 'app-demo',
-  template: `
-    <h1 [sj]>Welcome to Super JSS!</h1>
-  `
-})
-export class DemoComponent {}
-```
-
-### Using SjStyle as array
-This may give a lot of power to the programmer to create dynamic styles. The array of styles is merged in order, so the last style will override the previous ones.
-```typescript
-import {SjDirective} from "super-jss";
-@Component({
-  standalone: true,
-  selector: 'app-demo',
-  template: `
-    <div [sj]="[sjDemoClass, sjDemoBorder]">
+    <div [sj]="{
+      d: 'flex', fxDir: {xs: 'row', md: 'column'}, fxJustify: 'center',
+      bg: 'primary.main',
+      px: 4, py: 2, /* Horizontal/Vertical Padding */
+      mx: 2, my: 2, /* Horizontal/Vertical Margin */
+      bx: '1px solid', by: '1px solid' /* Horizontal/Vertical Borders */
+    }">
       Welcome to Super JSS!
     </div>
   `
 })
-export class DemoComponent {
-  sjDemoClass = {
-    d: 'flex',
-    fxDir: 'column',
-    fxAItems: 'center',
-    fxJustify: 'center',
-    p: {xs: '4px', md: '8px'},
-    bg: '#aa5645'
-  };
+export class ShorthandDemoComponent {}
+```
 
-  sjDemoBorder = {
-    border: {xs: '1px solid black', md: '2px solid black'}
-  };
+### Theming with Palette
+
+The palette is a set of colors that can be used in the application, defined by semantic names like `primary`, `secondary`, `success`, etc. Each color set typically includes `main`, `light`, `dark`, and `contrast` shades.
+
+```typescript
+import { Component } from '@angular/core';
+import { SjDirective } from 'super-jss';
+
+@Component({
+  standalone: true,
+  selector: 'app-palette-demo',
+  template: `
+    <div [sj]="{ bg: 'primary.main', p: 2}">
+      <div [sj]="{bg: 'secondary.light', px: 2, py: 1}">
+        <h1 [sj]="{c: 'secondary.contrast'}">Themed Content!</h1>
+      </div>
+    </div>
+  `
+})
+export class PaletteDemoComponent {}
+```
+
+### Composing Styles with Arrays
+
+Combine reusable `SjStyle` objects (your "JavaScript classes") by providing an array to the `[sj]` directive. This promotes modularity, reusability, and dynamic styling composition.
+
+```typescript
+import { Component } from '@angular/core';
+import { SjDirective, SjStyle } from 'super-jss';
+
+const myPadding: SjStyle = { p: 2 };
+const myShadow: SjStyle = { boxShadow: '0 2px 4px rgba(0,0,0,0.1)' };
+
+@Component({
+  standalone: true,
+  selector: 'app-composed-styles-demo',
+  template: `
+    <div [sj]="[myPadding, myShadow, { bg: 'lightblue' }]">
+      Composed Styles!
+    </div>
+  `,
+})
+export class ComposedStylesDemoComponent {
+  protected readonly myPadding = myPadding;
+  protected readonly myShadow = myShadow;
 }
 ```
 
-### Update a theme item, such as palette, typography or breakpoints.
+### Dynamic Theme Updates
+
+Update any part of your theme (palette, typography, breakpoints, spacing) dynamically at runtime using the `SjThemeService.setTheme()` method.
 
 ```typescript
-import {SjDirective} from "super-jss";
+import { Component } from '@angular/core';
+import { SjDirective, SjThemeService, defaultTheme, desertTheme } from 'super-jss';
+
 @Component({
   standalone: true,
-  selector: 'app-demo',
+  selector: 'app-theme-updater',
   template: `
-    <div (click)="updateTheme()" [sj]="{bg: 'primary', p: 2}">
-      <div  [sj]="{bg: 'secondary', px:{xs: 2, md: 4}, py: {xs: 1, md: 3}}">
-        <h1 [sj]="{c: 'secondary.light'}">Welcome to Super JSS!</h1>
-      </div>
-    </div>    
+    <button (click)="toggleTheme()" [sj]="{ bg: 'primary.main', color: 'primary.contrast', p: 1, borderRadius: '4px', cursor: 'pointer' }">
+      Toggle Theme
+    </button>
   `
 })
-export class HeaderComponent {
+export class ThemeUpdaterComponent {
+  isDesertTheme = false;
+  constructor(private th: SjThemeService) {}
 
-  constructor(private th:SjThemeService) {
-  }
-
-  updateTheme() {
-      this.th.setPalette({
-        primary: {
-          main: '#aa5645',
-          light: '#aaa6a5',
-          dark: '#aa0605',
-          contrast: '#ffffff',
-        },
-        secondary: {
-          main: this.th.colors().yellow[500],
-          light: this.th.colors().yellow[200],
-          dark: this.th.colors().yellow[700],
-          contrast: this.th.colors().purple[700],
-        }
-      });
-      
-      this.th.setBreakpoints({
-        sm: 630,
-        md: 900,
-      });
-      
-      this.th.setTypography({
-        default: { fontFamily: 'Courier New'},
-        H1: { fontSize: '2rem', fontWeight: 'bold'},
-      });
+  toggleTheme() {
+    this.isDesertTheme = !this.isDesertTheme;
+    const themeToApply = this.isDesertTheme ? desertTheme : defaultTheme;
+    this.th.setTheme(themeToApply);
   }
 }
 ```
@@ -197,29 +180,18 @@ export class HeaderComponent {
 
 Dive deep into Super JSS's capabilities:
 
-(below is the original documentation, it will be updated soon)
 - [Official Documentation](https://rsantoyo-dev.github.io/super-jss/)
 
 ## 🎨 Demos
 
-- Demo App: this Project can be seen in [StackBlitz](https://stackblitz.com/edit/super-js?file=src%2Fmain.ts),
-## 📖 Articles
-
-- [How Super JSS Works](https://medium.com/@viejorichard/super-jss-a-library-for-responsive-css-styles-85691b210450)
-
+- Demo App: See SJSS in action on [StackBlitz](https://stackblitz.com/edit/super-js?file=src%2Fmain.ts).
 
 ## 💖 Support
 
 If you find Super JSS useful, consider supporting its development:
 
-
-- ☕ ☕ ☕ [Buy me a coffee](https://www.buymeacoffee.com/rsantoyo)
-
-- [Support Super JSS](https://www.paypal.com/paypalme/superjss)
-- [Support Developer](https://www.paypal.com/paypalme/rsantoyodev)
+- ☕ ☕ ☕ [Buy me a coffee](https://buymeacoffee.com/rsantoyo)
 
 ## 📬 Contact
 
 For inquiries, feedback, or issues, reach out at [ricardo.santoyo@hotmail.com](mailto:ricardo.santoyo@hotmail.com).
-
----
