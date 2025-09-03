@@ -3,10 +3,15 @@ import { HeaderComponent } from './header/header.component';
 import { TypographyComponent } from './components/typography/typography.component';
 
 import { SjDirective } from 'super-jss';
-import { PaletteComponent } from "./components/palette/palette.component";
+import { PaletteComponent } from './components/palette/palette.component';
 @Component({
   selector: 'app-root',
-  imports: [SjDirective, HeaderComponent, TypographyComponent, PaletteComponent],
+  imports: [
+    SjDirective,
+    HeaderComponent,
+    TypographyComponent,
+    PaletteComponent,
+  ],
   template: `
     <div
       [sj]="{
@@ -18,14 +23,10 @@ import { PaletteComponent } from "./components/palette/palette.component";
     >
       <app-header></app-header>
 
-      <div [sj]="{p:1}">
+      <div [sj]="{ p: {xs:1, md:2}, d:'flex', fxDir:'column', gap:2 }">
         <app-typography></app-typography>
-
-      
         <app-palette></app-palette>
       </div>
-
-
     </div>
   `,
 })
