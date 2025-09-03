@@ -2,21 +2,15 @@ import {Component, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {SjDirective} from 'super-jss';
-import {sjBorder, sjBorderShadow} from "../../sjStyling/sjStyles";
+import {sjBorder, sjBorderShadow, sjCard} from "../../sjStyling/sjStyles";
 
 @Component({
     selector: 'app-palette',
-    imports: [CommonModule, SjDirective],
+    imports: [CommonModule, SjDirective], 
     template: `
     <h3 [sj]="{c: 'primary'}">Palette</h3>
     <div *ngFor="let color of demoColors()"
-      [sj]="[{
-        d: 'flex',
-        fxDir: 'column',
-        my: 1,
-        p: 1,
-        bg: 'light.light',
-       }, sjBorderShadow]"
+      [sj]="[sjCard(), sjBorderShadow]"
     >
       <p [sj]="{c:color[0], fontWeight:'bold'}">{{ color[0] }}</p>
       <div [sj]="{display:'flex', flexDirection:{xs:'column', md:'row'}}">
@@ -58,6 +52,7 @@ export class PaletteComponent {
 
   protected readonly sjBorderShadow = sjBorderShadow;
   protected readonly sjBorder = sjBorder;
+  protected readonly sjCard = sjCard;
 }
 
 
