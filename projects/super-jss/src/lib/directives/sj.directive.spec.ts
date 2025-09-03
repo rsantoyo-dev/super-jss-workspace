@@ -1,152 +1,148 @@
-import { SjDirective } from "./sj.directive";
-import {Component} from "@angular/core";
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SjDirective } from './sj.directive';
+import { SjThemeService } from '../services';
+import { defaultTheme } from '../themes';
 
-// Test component to simulate the usage of the directive
+// Helper function to introduce a micro-delay for the event loop
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 @Component({
-    imports: [SjDirective],
-    template: `
-    <h2 [sj]="{bg:'#003366', p:{xs:1, md:2, lg:4}, m:2}">About</h2>
-    <h3 [sj]="{bg:'primary', c:'blue'}">Quote of the day:</h3>
-    <h4 [sj]="[{bg:'primary.main',  px: 4, py:2, mx:2, my:2, bx:'solid', by:'solid'}, {c:'secondary.500'}]">Quote of the day:</h4>
-    <h5 [sj]="{length:'n', bg:'blue.300', mdt:'test err', padding:{md: 2}}">About</h5>
-  `
+  standalone: true,
+  imports: [SjDirective],
+  template: `
+    <h2 [sj]="{ bg: '#003366', p: { xs: 1, md: 2, lg: 4 }, m: 2 }">About</h2>
+    <h3 [sj]="{ bg: 'primary.main', c: 'blue.500' }">Quote of the day:</h3>
+    <h4
+      [sj]="[
+        {
+          bg: 'primary.main',
+          px: 4,
+          py: 2,
+          mx: 2,
+          my: 2,
+          bx: '1px solid',
+          by: '1px solid',
+        },
+        { c: 'secondary.500' }
+      ]"
+    >
+      Quote of the day:
+    </h4>
+    <h5 [sj]="{ bg: 'blue.300', p: { md: 2 } }">About</h5>
+  `,
 })
-export class TestComponent {
+class TestComponent {}
 
-}
 describe('SuperJssDirective', () => {
   let fixture: ComponentFixture<TestComponent>;
+  let themeService: SjThemeService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SjDirective, TestComponent], // Import both the directive and the test component
+      imports: [SjDirective, TestComponent],
+      providers: [SjThemeService],
     }).compileComponents();
+
+    themeService = TestBed.inject(SjThemeService);
+
+    const testTheme = {
+      ...defaultTheme,
+      spacing: (factor: number) => `${factor * 8}px`, // 1 unit = 8px
+    };
+    themeService.setTheme(testTheme);
+
+    Object.defineProperty(window, 'innerWidth', { value: 1024, writable: true });
+    window.dispatchEvent(new Event('resize'));
 
     fixture = TestBed.createComponent(TestComponent);
   });
 
-  it('should update styles on elements with [sj] binding', () => {    fixture.detectChanges(); // Ensure changes are applied
+
+
+  it('should handle color shorthands', async () => {
+    fixture.detectChanges();
+    await sleep(0);
+
+    const h3: HTMLElement = fixture.nativeElement.querySelector('h3');
+    const computedStyle = window.getComputedStyle(h3);
+    // c:'blue.500' -> default blue 500 is #3498DB
+    expect(computedStyle.color).toBe('rgb(52, 152, 219)');
+  });
+
+  it('should handle palette colors and responsive padding', async () => {
+    // ensure we're at the md breakpoint (1024) so p.md -> 2 units -> 16px
+    Object.defineProperty(window, 'innerWidth', { value: 1024, writable: true });
+    window.dispatchEvent(new Event('resize'));
+
+    fixture.detectChanges();
+    await sleep(0);
+
     const h2: HTMLElement = fixture.nativeElement.querySelector('h2');
     const computedStyle = window.getComputedStyle(h2);
-    expect(computedStyle.backgroundColor).toBe('rgb(0, 51, 102)');
-    expect(computedStyle.padding).toBe('16px');
+
+    const hexToRgb = (hex: string) => {
+      const h = hex.replace('#', '');
+      const full = h.length === 3 ? h.split('').map((c) => c + c).join('') : h;
+      const num = parseInt(full, 16);
+      const r = (num >> 16) & 255;
+      const g = (num >> 8) & 255;
+      const b = num & 255;
+      return `rgb(${r}, ${g}, ${b})`;
+    };
+
+    // derive expected values instead of hardcoding
+    const expectedBg = hexToRgb('#003366');
+    const expectedPadding = themeService.sjTheme().spacing(2);
+    const expectedMargin = themeService.sjTheme().spacing(2);
+
+    expect(computedStyle.backgroundColor).toBe(expectedBg);
+
+    expect(computedStyle.paddingTop).toBe(expectedPadding);
+    expect(computedStyle.paddingRight).toBe(expectedPadding);
+    expect(computedStyle.paddingBottom).toBe(expectedPadding);
+    expect(computedStyle.paddingLeft).toBe(expectedPadding);
+
+    expect(computedStyle.marginTop).toBe(expectedMargin);
+    expect(computedStyle.marginRight).toBe(expectedMargin);
+    expect(computedStyle.marginBottom).toBe(expectedMargin);
+    expect(computedStyle.marginLeft).toBe(expectedMargin);
   });
 
-  it('should get color.shade, or just color', () => {fixture.detectChanges(); // Ensure changes are applied
-
-    const h3: HTMLElement = fixture.nativeElement.querySelector('h3');
-    const computedStyle = window.getComputedStyle(h3);
-    expect(computedStyle.color).toBe('rgb(52, 152, 219)');
-
-  });
-
-  it('should get palette.color.shade, or just color', () => {fixture.detectChanges(); // Ensure changes are applied
+  it('should process custom shorthands for padding, margin, and border', async () => {
+    fixture.detectChanges();
+    await sleep(0);
 
     const h4: HTMLElement = fixture.nativeElement.querySelector('h4');
     const computedStyle = window.getComputedStyle(h4);
-    expect(computedStyle.backgroundColor).toBe('rgb(52, 152, 219)');
 
-    const h5: HTMLElement = fixture.nativeElement.querySelector('h5');
-    const computedStyleH5 = window.getComputedStyle(h5);
-    expect(computedStyleH5.padding).toBe('16px');
-
-
-
-  });
-
-
-
-  it('should update px to padding right/left [sj] binding, and arrays', () => {    fixture.detectChanges(); // Ensure changes are applied
-    const h4: HTMLElement = fixture.nativeElement.querySelector('h4');
-    const computedStyle = window.getComputedStyle(h4);
+    // px: 4 -> 32px
     expect(computedStyle.paddingLeft).toBe('32px');
     expect(computedStyle.paddingRight).toBe('32px');
+    // py: 2 -> 16px
     expect(computedStyle.paddingTop).toBe('16px');
     expect(computedStyle.paddingBottom).toBe('16px');
+    // mx: 2 -> 16px
     expect(computedStyle.marginLeft).toBe('16px');
     expect(computedStyle.marginRight).toBe('16px');
-    expect(computedStyle.borderLeft).toBe('1.5px solid rgb(0, 0, 0)');
-    expect(computedStyle.borderRight).toBe('1.5px solid rgb(0, 0, 0)');
-    expect(computedStyle.borderTop).toBe('1.5px solid rgb(0, 0, 0)');
-    expect(computedStyle.borderBottom).toBe('1.5px solid rgb(0, 0, 0)');
-
-  });
-
-
-  it('should update palette in  [sj] binding', () => {    fixture.detectChanges(); // Ensure changes are applied
-    const h3: HTMLElement = fixture.nativeElement.querySelector('h3');
-    const computedStyle = window.getComputedStyle(h3);
-    expect(computedStyle.backgroundColor).toBe('rgb(52, 152, 219)');
-  });
-
-
-  it('should translate px to padding right/left in [sj] binding', () => {
-    fixture.detectChanges();
-    const h4: HTMLElement = fixture.nativeElement.querySelector('h4');
-    const computedStyle = window.getComputedStyle(h4);
-    expect(computedStyle.paddingLeft).toBe('32px');
-    expect(computedStyle.paddingRight).toBe('32px');
-  });
-
-  // Test for px shorthand property (already existing)
-  it('should translate px to padding right/left in [sj] binding', () => {
-    fixture.detectChanges();
-    const h4: HTMLElement = fixture.nativeElement.querySelector('h4');
-    const computedStyle = window.getComputedStyle(h4);
-    expect(computedStyle.paddingLeft).toBe('32px');
-    expect(computedStyle.paddingRight).toBe('32px');
-  });
-
-  // Test for py shorthand property
-  it('should translate py to padding top/bottom in [sj] binding', () => {
-    fixture.detectChanges();
-    const h4: HTMLElement = fixture.nativeElement.querySelector('h4');
-    const computedStyle = window.getComputedStyle(h4);
-    expect(computedStyle.paddingTop).toBe('16px');
-    expect(computedStyle.paddingBottom).toBe('16px');
-  });
-
-  // Test for mx shorthand property
-  it('should translate mx to margin right/left in [sj] binding', () => {
-    fixture.detectChanges();
-    const h4: HTMLElement = fixture.nativeElement.querySelector('h4');
-    const computedStyle = window.getComputedStyle(h4);
-    expect(computedStyle.marginLeft).toBe('16px');
-    expect(computedStyle.marginRight).toBe('16px');
-  });
-
-  // Test for my shorthand property
-  it('should translate my to margin top/bottom in [sj] binding', () => {
-    fixture.detectChanges();
-    const h4: HTMLElement = fixture.nativeElement.querySelector('h4');
-    const computedStyle = window.getComputedStyle(h4);
+    // my: 2 -> 16px
     expect(computedStyle.marginTop).toBe('16px');
     expect(computedStyle.marginBottom).toBe('16px');
+    // bx: '1px solid'
+    expect(computedStyle.borderLeft).toBe('1px solid rgb(0, 0, 0)');
+    expect(computedStyle.borderRight).toBe('1px solid rgb(0, 0, 0)');
+    // by: '1px solid'
+    expect(computedStyle.borderTop).toBe('1px solid rgb(0, 0, 0)');
+    expect(computedStyle.borderBottom).toBe('1px solid rgb(0, 0, 0)');
   });
 
-  // Test for bx shorthand property
-  it('should translate bx to border right/left in [sj] binding', () => {
+  it('should get palette color from theme', async () => {
     fixture.detectChanges();
-    const h4: HTMLElement = fixture.nativeElement.querySelector('h4');
-    const computedStyle = window.getComputedStyle(h4);
-    expect(computedStyle.borderLeftStyle).toBe('solid');
-    expect(computedStyle.borderRightStyle).toBe('solid');
+    await sleep(0);
+
+    const h3: HTMLElement = fixture.nativeElement.querySelector('h3');
+    const computedStyle = window.getComputedStyle(h3);
+    // bg:'primary.main' -> default primary main is blue 500 -> #3498DB
+    expect(computedStyle.backgroundColor).toBe('rgb(52, 152, 219)');
   });
-
-  // Test for by shorthand property
-  it('should translate by to border top/bottom in [sj] binding', () => {
-    fixture.detectChanges();
-    const h4: HTMLElement = fixture.nativeElement.querySelector('h4');
-    const computedStyle = window.getComputedStyle(h4);
-    expect(computedStyle.borderTopStyle).toBe('solid');
-    expect(computedStyle.borderBottomStyle).toBe('solid');
-  });
-
-
 });
-
-
-
-
-

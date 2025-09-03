@@ -53,6 +53,41 @@ export class SjDirective implements OnChanges {
     });
   }
 
+  private processShorthands(styles: SjStyle): SjStyle {
+    const newStyles: SjStyle = { ...styles };
+    if (styles.px) {
+        newStyles.pl = styles.px;
+        newStyles.pr = styles.px;
+        delete newStyles.px;
+    }
+    if (styles.py) {
+        newStyles.pt = styles.py;
+        newStyles.pb = styles.py;
+        delete newStyles.py;
+    }
+    if (styles.mx) {
+        newStyles.ml = styles.mx;
+        newStyles.mr = styles.mx;
+        delete newStyles.mx;
+    }
+    if (styles.my) {
+        newStyles.mt = styles.my;
+        newStyles.mb = styles.my;
+        delete newStyles.my;
+    }
+    if (styles.bx) {
+        newStyles.bl = styles.bx;
+        newStyles.br = styles.bx;
+        delete newStyles.bx;
+    }
+    if (styles.by) {
+        newStyles.bt = styles.by;
+        newStyles.bb = styles.by;
+        delete newStyles.by;
+    }
+    return newStyles;
+}
+
   /**
    * Renders the styles on the host element.
    * This method applies both typography and responsive styles.
@@ -67,7 +102,9 @@ export class SjDirective implements OnChanges {
 
     const sjStyles = this.sj ? (Array.isArray(this.sj) ? Object.assign({}, ...this.sj) : this.sj) : {};
 
-    const mergedStyles = { ...defaultTypographyStyles, ...typographyStyles, ...sjStyles };
+    const processedStyles = this.processShorthands(sjStyles);
+
+    const mergedStyles = { ...defaultTypographyStyles, ...typographyStyles, ...processedStyles };
 
     if (Object.keys(mergedStyles).length > 0) {
       const classes = this.cssGenerator.getOrGenerateClasses(mergedStyles, theme);

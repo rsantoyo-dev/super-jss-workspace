@@ -1,10 +1,8 @@
-import { TestBed } from '@angular/core/testing';
-
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { SjThemeService } from './sj-theme.service';
-import {SjPalette, SjTypography} from "super-jss";
-import {SjBreakPoints} from "../models/interfaces";
+import { SjBreakPoints, SjPalette, SjTypography } from '../models/interfaces';
 
-describe('SjThemeServiceService', () => {
+describe('SjThemeService', () => {
   let service: SjThemeService;
 
   beforeEach(() => {
@@ -12,46 +10,64 @@ describe('SjThemeServiceService', () => {
     service = TestBed.inject(SjThemeService);
   });
 
+  afterEach(() => {
+    service.ngOnDestroy();
+  });
+
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should set a Palette', () => {
-    const palette: Partial<SjPalette> = {primary: {main: '#003366', light: '#006699', dark: '#001133', contrast: '#ffaaaa'}};
-    service.setPalette(palette);
+  it('should set a Palette via setTheme', () => {
+    const palette: Partial<SjPalette> = {
+      primary: {
+        main: '#003366',
+        light: '#006699',
+        dark: '#001133',
+        contrast: '#ffaaaa',
+      },
+    };
+    service.setTheme({ palette: palette as SjPalette });
     expect(service.sjTheme().palette.primary.main).toBe('#003366');
   });
 
-  it('should set a Breakpoint', () => {
-    const bp: Partial<SjBreakPoints> = {md: 920};
-    service.setBreakpoints(bp);
+  it('should set Breakpoints via setTheme', () => {
+    const breakpoints: Partial<SjBreakPoints> = { md: 920 };
+    service.setTheme({ breakpoints: breakpoints as SjBreakPoints });
     expect(service.sjTheme().breakpoints.md).toBe(920);
   });
 
-it('should set a Typography', () => {
-    const typo: Partial<SjTypography> = {default: {fontFamily: 'Arial'}};
-    service.setTypography(typo);
+  it('should set Typography via setTheme', () => {
+    const typography: Partial<SjTypography> = { default: { fontFamily: 'Arial' } };
+    service.setTheme({ typography: typography as SjTypography });
     expect(service.sjTheme().typography.default.fontFamily).toBe('Arial');
   });
 
-  it('should update render on window resize', () => {
-    const spy = spyOn(service, 'updateRender');
+  it('should update currentBreakpoint on window resize', fakeAsync(() => {
+    // Stop the listener that was created in the constructor
+    service.ngOnDestroy();
+
+    // Define breakpoints for the test
+    const testBreakpoints = { xs: 0, sm: 600, md: 900, lg: 1200, xl: 1920, xxl: 2560 };
+    service.setTheme({ breakpoints: testBreakpoints });
+
+    // Set a starting width and initialize the listener
+    Object.defineProperty(window, 'innerWidth', { value: 1000, writable: true });
+    service.initResizeListener();
+    // The initial value is set synchronously
+    expect(service.currentBreakpoint()).withContext('should be md initially').toBe('md');
+
+    // Change width and dispatch resize event
+    Object.defineProperty(window, 'innerWidth', { value: 700, writable: true });
     window.dispatchEvent(new Event('resize'));
-    expect(spy).toHaveBeenCalled();
+    // Advance the clock to cover the debounceTime
+    tick(100);
+    expect(service.currentBreakpoint()).withContext('should update to sm').toBe('sm');
 
-  });
-  it('should update render on window load', () => {
-    const spy = spyOn(service, 'updateRender');
-    window.dispatchEvent(new Event('load'));
-    expect(spy).toHaveBeenCalled();
-  });
-
-  it('should set current breakpoint', () => {
-    const bp: Partial<SjBreakPoints> = {md: 920};
-    service.setBreakpoints(bp);
-    window.dispatchEvent(new Event('load'));
-    expect(service.currentBreakpoint()).toBe('md');
-  });
-
-
+    // Change width again
+    Object.defineProperty(window, 'innerWidth', { value: 500, writable: true });
+    window.dispatchEvent(new Event('resize'));
+    tick(100);
+    expect(service.currentBreakpoint()).withContext('should update to xs').toBe('xs');
+  }));
 });

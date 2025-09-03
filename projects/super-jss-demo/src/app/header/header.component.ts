@@ -103,7 +103,9 @@ function isObject(item: any): boolean {
           <small
             [sj]="{
               m: 0,
-              opacity: 0.8
+              opacity: 0.8,
+              textAlign: 'center',
+              mb: 0.5
             }"
           >
             Library
@@ -122,7 +124,12 @@ function isObject(item: any): boolean {
                 theme.name === currentThemeName() ? circleActiveStyle : {}
               ]"
               [title]="theme.name"
-            ></div>
+            >
+              <ng-template [ngIf]="theme.isDark">
+                <span [sj]="{ fontSize: '14px', lineHeight: 1 }">🌙</span>
+              </ng-template>
+              <ng-template #noIcon></ng-template>
+            </div>
           </div>
         </div>
 
@@ -131,7 +138,9 @@ function isObject(item: any): boolean {
           <small
             [sj]="{
               m: 0,
-              opacity: 0.8
+              opacity: 0.8,
+              textAlign: 'center',
+              mb: 0.5
             }"
           >
             Custom
@@ -143,14 +152,17 @@ function isObject(item: any): boolean {
               [sj]="[
                 circleBaseStyle,
                 {
-                  bg: theme.isDark
-                    ? theme.theme.palette.secondary.dark
-                    : theme.theme.palette.secondary.main,
+                  bg: theme.theme.palette.secondary,
                 },
                 theme.name === currentThemeName() ? circleActiveStyle : {}
               ]"
               [title]="theme.name"
-            ></div>
+            >
+              <ng-template [ngIf]="theme.isDark">
+                <span [sj]="{ fontSize: '14px', lineHeight: 1 }">🌙</span>
+              </ng-template>
+              <ng-template #noIcon></ng-template>
+            </div>
           </div>
         </div>
 
@@ -240,16 +252,20 @@ export class HeaderComponent {
     brad: '50%',
     transition: 'all 0.2s ease-in-out',
     boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-    border: '2px solid rgba(255,255,255,0.5)',
+    border: '1px solid transparent',
+    d: 'flex',
+    fxAItems: 'center',
+    fxJustify: 'center',
     '&:hover': {
-      transform: 'scale(1.1)',
+      borderColor: 'light.main',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
     },
   };
 
   circleActiveStyle: SjStyle = {
-    transform: 'scale(1.2)',
-    borderColor: 'rgba(255,255,255,0.9)',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+    transform: 'scale(1.1)',
+    borderColor: 'light.main',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
   };
 
   breakpoints = computed(() => this.th.breakpoints());

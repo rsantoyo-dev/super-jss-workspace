@@ -24,7 +24,6 @@ import {
   distinctUntilChanged,
   fromEvent,
   map,
-  startWith,
   Subscription,
 } from 'rxjs';
 import { SjCssGeneratorService } from './sj-css-generator.service';
@@ -61,11 +60,6 @@ export class SjThemeService implements OnDestroy {
   themeVersion = signal(0);
   private resizeSubscription?: Subscription;
 
-  /**
-   * Constructor to set up event listeners for window resize and load events.
-   * This is necessary to update the theme according to the window size.
-   */
-
   constructor(
     @Optional() @Inject(SJ_THEME) private theme: SjTheme,
     @Inject(DOCUMENT) private document: Document,
@@ -74,23 +68,27 @@ export class SjThemeService implements OnDestroy {
     if (this.theme) {
       this.setTheme(this.theme);
     }
+    this.initResizeListener();
+  }
+
+  public initResizeListener(): void {
+    this.resizeSubscription?.unsubscribe();
     const window = this.document.defaultView;
     if (window) {
+      this.currentBreakpoint.set(
+        getCurrentBreakpoint(this.sjTheme().breakpoints, window.innerWidth)
+      );
       this.resizeSubscription = fromEvent(window, 'resize')
         .pipe(
-          startWith(getCurrentBreakpoint(this.sjTheme().breakpoints, window.innerWidth)),
           debounceTime(100),
-          map(() => getCurrentBreakpoint(this.sjTheme().breakpoints, window.innerWidth)),
+          map(() =>
+            getCurrentBreakpoint(this.sjTheme().breakpoints, window.innerWidth)
+          ),
           distinctUntilChanged()
         )
         .subscribe((bp) => this.currentBreakpoint.set(bp));
     }
   }
-
-  /**
-   * Sets a new theme for the application.
-   * @param theme The theme to set.
-   */
 
   public setTheme(theme: Partial<SjTheme>) {
     const currentTheme = this.sjTheme();
@@ -101,17 +99,12 @@ export class SjThemeService implements OnDestroy {
     this.palette.set(newTheme.palette);
     this.spacing.set(newTheme.spacing);
 
-    // Clear the cache in SjCssGeneratorService
     const cssGenerator = this.injector.get(SjCssGeneratorService);
     cssGenerator.clearCache();
 
     this.themeVersion.set(this.themeVersion() + 1);
   }
 
-  /**
-   * Lifecycle hook that is called when the service is destroyed.
-   * Removes event listeners for resize and load to prevent memory leaks.
-   */
   ngOnDestroy() {
     this.resizeSubscription?.unsubscribe();
   }

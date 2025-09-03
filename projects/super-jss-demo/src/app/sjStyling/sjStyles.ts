@@ -3,7 +3,7 @@ import { SjStyle } from "projects/super-jss/src/lib/models/interfaces";
 export const sjBorder: SjStyle = {
     borderStyle: 'solid',
     borderWidth: 0.1,
-    borderColor: 'primary.light',
+    borderColor: 'light.main',
     borderRadius: 0.5,
 };
 
@@ -15,4 +15,3 @@ export const sjBorderShadow: SjStyle = {
     ...sjBorder,
     ...sjShadow,
 };
-
