@@ -9,8 +9,9 @@ import {sjBorder, sjBorderShadow, sjCard} from "../../sjStyling/sjStyles";
     imports: [CommonModule, SjDirective], 
     template: `
     <h3 [sj]="{c: 'primary'}">Palette</h3>
-    <div *ngFor="let color of demoColors()"
-      [sj]="[sjCard(), sjBorderShadow]"
+    <div [sj]="sjCard()">
+      <div *ngFor="let color of demoColors()"
+      [sj]="[sjBorder, {my:1, p:1}]"
     >
       <p [sj]="{c:color[0], fontWeight:'bold'}">{{ color[0] }}</p>
       <div [sj]="{display:'flex', flexDirection:{xs:'column', md:'row'}}">
@@ -25,12 +26,14 @@ import {sjBorder, sjBorderShadow, sjCard} from "../../sjStyling/sjStyles";
             backgroundColor: colorVariant
           }, sjBorder]"
         >
-          <span [sj]="{c:'neutral.dark'}">{{ colorVariant }}</span>
+          <span [sj]="{c: colorVariant === color[3] ? color[0] : color[3]}">{{ colorVariant }}</span>
 
         </div>
       </div>
 
     </div>
+    </div>
+    
   `
 })
 export class PaletteComponent {

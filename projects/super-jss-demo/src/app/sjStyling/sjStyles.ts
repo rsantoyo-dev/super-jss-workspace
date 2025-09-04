@@ -26,6 +26,8 @@ export const sjCard = (overrides: Partial<SjStyle> = {}): SjStyle => {
     ...sjShadow,
     ...sjTransition,
     p: 1,
+    d:'flex',
+    fxDir: "column",
     borderRadius: 0.5,
     bg: 'light.light',
     ...overrides,

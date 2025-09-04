@@ -8,8 +8,8 @@ import { sjBorderShadow, sjCard } from '../../sjStyling/sjStyles';
   imports: [CommonModule, SjDirective],
   template: `
     <div [sj]="{ d: 'flex', fxDir: 'column', w: '100%' }">
-      <h3 [sj]="{}">Typography:</h3>
-      <div [sj]="[sjCard({ fxDir: 'column' })]">
+      <h3 [sj]="{ c: 'primary'}">Typography:</h3>
+      <div [sj]="[sjCard(), { fxDir: 'column' }]" >
         <h1 [sj]="{ c: 'primary' }">H1: {{ sampleText }}</h1>
         <h2 [sj]="{ c: 'secondary' }">H2: {{ sampleText }}</h2>
         <h3 [sj]="{ c: 'tertiary' }">H3: {{ sampleText }}</h3>
@@ -35,5 +35,5 @@ import { sjBorderShadow, sjCard } from '../../sjStyling/sjStyles';
 export class TypographyComponent {
   protected readonly sjBorderShadow = sjBorderShadow;
   protected readonly sjCard = sjCard;
-  protected readonly sampleText = 'The quick brown fox jumps over the lazy dog. '; // New variable
+  protected readonly sampleText = 'The quick brown fox jumps over the lazy dog. ';
 }
