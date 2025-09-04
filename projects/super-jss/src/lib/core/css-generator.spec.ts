@@ -57,5 +57,29 @@ describe('CssGenerator', () => {
     });
     expect(foundInitial).toBeTrue();
   });
-});
 
+  it('resolves single-segment keys: palette -> .main and colors -> 500', () => {
+    const gen = new CssGenerator(defaultTheme);
+    const css = gen.generateAtomicCss({ bg: 'primary', c: 'blue' });
+
+    const bgRule = css.get('sj-bg-primary');
+    const cRule = css.get('sj-c-blue');
+    expect(bgRule).toContain(defaultTheme.palette.primary.main);
+    expect(cRule).toContain(defaultTheme.colors.blue[500]);
+  });
+
+  it('resolves palette shade like primary.contrast', () => {
+    const gen = new CssGenerator(defaultTheme);
+    const css = gen.generateAtomicCss({ c: 'primary.contrast' });
+    const rule = css.get('sj-c-primary_contrast')!;
+    expect(rule).toContain(defaultTheme.palette.primary.contrast);
+  });
+
+  it('uses initial when responsive value is undefined', () => {
+    const gen = new CssGenerator(defaultTheme);
+    const css = gen.generateAtomicCss({ m: { lg: undefined } });
+    const rule = css.get('sj-m-lg-undefined')!;
+    expect(rule).toContain('margin');
+    expect(rule).toContain('initial');
+  });
+});

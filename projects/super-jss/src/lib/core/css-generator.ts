@@ -76,7 +76,7 @@ export class CssGenerator {
           // Handle responsive styles: honor theme breakpoint order (xs -> xxl)
           const orderedBps = Object.keys(this.theme.breakpoints) as (keyof SjBreakPoints)[];
           for (const bp of orderedBps) {
-            if ((value as any)[bp] === undefined) continue;
+            if (!Object.prototype.hasOwnProperty.call(value as any, bp)) continue;
             const className = `${variantPrefix}sj-${this.kebabCase(key)}-${bp}-${this.sanitizeValue((value as any)[bp])}`;
             const bpValue = (value as any)[bp] as string | number | undefined;
             let responsiveValue: string;
