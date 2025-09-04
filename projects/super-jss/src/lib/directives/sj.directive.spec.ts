@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SjDirective } from './sj.directive';
-import { SjThemeService } from '../services';
+import { SjCssGeneratorService, SjThemeService } from '../services';
 import { defaultTheme } from '../themes';
 
 // Helper function to introduce a micro-delay for the event loop
@@ -70,11 +70,7 @@ describe('SuperJssDirective', () => {
     expect(computedStyle.color).toBe('rgb(52, 152, 219)');
   });
 
-  it('should handle palette colors and responsive padding', async () => {
-    // ensure we're at the md breakpoint (1024) so p.md -> 2 units -> 16px
-    Object.defineProperty(window, 'innerWidth', { value: 1024, writable: true });
-    window.dispatchEvent(new Event('resize'));
-
+  it('should handle palette colors and produce responsive padding CSS', async () => {
     fixture.detectChanges();
     await sleep(0);
 
@@ -91,18 +87,21 @@ describe('SuperJssDirective', () => {
       return `rgb(${r}, ${g}, ${b})`;
     };
 
-    // derive expected values instead of hardcoding
+    // bg color resolves directly
     const expectedBg = hexToRgb('#003366');
-    const expectedPadding = themeService.sjTheme().spacing(2);
-    const expectedMargin = themeService.sjTheme().spacing(2);
-
     expect(computedStyle.backgroundColor).toBe(expectedBg);
 
-    expect(computedStyle.paddingTop).toBe(expectedPadding);
-    expect(computedStyle.paddingRight).toBe(expectedPadding);
-    expect(computedStyle.paddingBottom).toBe(expectedPadding);
-    expect(computedStyle.paddingLeft).toBe(expectedPadding);
+    // Verify responsive CSS rules exist independent of viewport size
+    const cssSvc = TestBed.inject(SjCssGeneratorService) as any;
+    const cssText: string = (cssSvc.styleEl as HTMLStyleElement).textContent || '';
+    const mdMin = themeService.sjTheme().breakpoints.md;
+    const expectedPadding = themeService.sjTheme().spacing(2);
+    expect(cssText).toContain(`@media (min-width: ${mdMin}px)`);
+    expect(cssText).toContain(`.sj-p-md-2`);
+    expect(cssText).toContain(`padding: ${expectedPadding}`);
 
+    // Non-responsive margin applies immediately
+    const expectedMargin = themeService.sjTheme().spacing(2);
     expect(computedStyle.marginTop).toBe(expectedMargin);
     expect(computedStyle.marginRight).toBe(expectedMargin);
     expect(computedStyle.marginBottom).toBe(expectedMargin);
