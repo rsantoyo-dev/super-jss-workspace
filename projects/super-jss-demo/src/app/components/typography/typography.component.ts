@@ -8,26 +8,26 @@ import { sjBorderShadow, sjCard } from '../../sjStyling/sjStyles';
   imports: [CommonModule, SjDirective],
   template: `
     <div [sj]="{ d: 'flex', fxDir: 'column', w: '100%' }">
-      <h3 [sj]="{ c: 'primary'}">Typography:</h3>
+      <h3 [sj]="{}">Typography:</h3>
       <div [sj]="[sjCard({ fxDir: 'column' })]">
-        <h1 [sj]="{}">
-          H1:
-          <a href="https://www.npmjs.com/package/super-jss">Super JSS</a> leaps
-        </h1>
-        <h2 [sj]="{ c: 'tertiary' }">H2: Over lazy CSS colleagues</h2>
-        <h3 [sj]>H3: No media query, thanks to TypeScript!</h3>
-        <h4 [sj]>H4: Just xs || md || lg || xl, Yarn's got our back!</h4>
-        <h5 [sj]>H5: Bold and bolder, Angular style!</h5>
-        <h6 [sj]>H6: Fonts rocks in this project!</h6>
-        <p [sj]>P: Theming too, making our text look great!</p>
-        <span [sj]>SPAN: Flexing flex, for a flexible layout!</span>
-        <strong [sj]>STRONG: SJSS wins with its responsive design!</strong>
+        <h1 [sj]="{ c: 'primary' }">H1: {{ sampleText }}</h1>
+        <h2 [sj]="{ c: 'secondary' }">H2: {{ sampleText }}</h2>
+        <h3 [sj]="{ c: 'tertiary' }">H3: {{ sampleText }}</h3>
+        <h4 [sj]>H4: {{ sampleText }}</h4>
+        <h5 [sj]>H5: {{ sampleText }}</h5>
+        <h6 [sj]>H6: {{ sampleText }}</h6>
+        <p [sj]>P: {{ sampleText }}{{ sampleText }}{{ sampleText }}</p>
+        <span [sj]>SPAN: {{ sampleText }}{{ sampleText }}{{ sampleText }}</span>
+        <strong [sj]>STRONG: {{ sampleText }}{{ sampleText }}{{ sampleText }}</strong>
         <body [sj]>
-          BODY: SJSS is the best!
+          BODY: {{ sampleText }}{{ sampleText }}{{ sampleText }}
         </body>
         <caption [sj]>
-          CAPTION: SJSS is the best!
+          CAPTION: {{ sampleText }}
         </caption>
+        <small [sj]>
+          SMALL: {{ sampleText }}
+        </small>
       </div>
     </div>
   `,
@@ -35,4 +35,5 @@ import { sjBorderShadow, sjCard } from '../../sjStyling/sjStyles';
 export class TypographyComponent {
   protected readonly sjBorderShadow = sjBorderShadow;
   protected readonly sjCard = sjCard;
+  protected readonly sampleText = 'The quick brown fox jumps over the lazy dog. '; // New variable
 }
