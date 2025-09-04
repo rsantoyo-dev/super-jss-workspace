@@ -65,7 +65,8 @@ export type SjTypography = {
   P: SjStyle,
   BODY: SjStyle,
   STRONG: SjStyle,
-  CAPTION: SjStyle
+  CAPTION: SjStyle,
+  SMALL: SjStyle
 }
 
 // Main theme configuration including breakpoints, spacing, typography, colors, and palette.
@@ -162,7 +163,17 @@ export type SjShorthandCustomStyle = {
 
 }
 export type SjStyle = {
-  [Property in keyof CSSStyleDeclaration | keyof SjShorthandStyle | keyof SjShorthandCustomStyle] ? : ResponsiveStyle | string | number;
+  [Property in keyof SjShorthandStyle | keyof SjShorthandCustomStyle]?:
+    | ResponsiveStyle
+    | string
+    | number;
+} & {
+  [key: string]:
+    | ResponsiveStyle
+    | string
+    | number
+    | SjStyle
+    | undefined;
 };
 
 

@@ -1,24 +1,24 @@
 theme: material
 site_name: Super JSS
 site_url: https://rsantoyo-dev.github.io/super-jss-workspace/
-base_url: /super-jss-workspace/docs/
+
 extra:
   analytics:
     provider: google
     property: G-G3R4EFCCJF
 plugins:
   - search
-  - ultralytics:
-      verbose: True
-      enabled: True
-      default_image: ""
-      add_desc: True
-      add_image: True
-      add_keywords: True
-      add_share_buttons: True
-      add_dates: True
-      add_authors: True
-      extra_css:
+#  - ultralytics:
+#      verbose: True
+#      enabled: True
+#      default_image: ""
+#      add_desc: True
+#      add_image: True
+#      add_keywords: True
+#      add_share_buttons: True
+#      add_dates: True
+#      add_authors: True
+#      extra_css:
 extra_css:
   - stylesheets/extra.css
 

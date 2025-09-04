@@ -1,4 +1,4 @@
-# Color Palette with SJSS
+# Color Palette and Theming
 Super JavaScript Stylesheets (SJSS) provides a flexible and powerful system for managing color palettes in Angular applications. Utilizing the SJSS color palette, you can define and apply a consistent color scheme throughout your app.
 
 ## Table of Contents
@@ -16,7 +16,7 @@ import { SjDirective } from "super-jss";
     standalone: true,
     selector: 'app-colorful-component',
     template: `
-      <div [sj]="{ m: '2rem', p: '1rem', bg: 'blue' }">
+      <div [sj]="{ m: '2rem', p: '1rem', bg: 'blue.500' }">
        <div [sj]="{ bg: 'orange.300', color: 'orange.contrast' }">
         This is a colorful component!
        </div>        
@@ -26,14 +26,13 @@ import { SjDirective } from "super-jss";
   export class ColorfulComponent {}
 
 ```
-
 in this example, we're using the color palette to apply a background color to a div. We're also using the color palette to apply a background color and text color to a nested div.
 
 ## Personalize the Color Palette
 
-The color palette can be accessed and modified through the SjThemeService. This service provides a powerful and user-friendly way to customize the color palette in your Angular application. Once set, these colors are automatically recognized across the application through the sjDirective, ensuring a seamless and consistent experience.
+The color palette can be accessed and modified through the `SjThemeService`. This service provides a powerful and user-friendly way to customize the color palette in your Angular application. Once set, these colors are automatically recognized across the application through the `SjDirective`, ensuring a seamless and consistent experience.
 
-any palette item is defined as
+Any palette item is defined as:
 ```typescript
   {
     50: string,
@@ -49,42 +48,41 @@ any palette item is defined as
     contrast: string
   } 
 ```
-to update a color, please use the `updatePalette` method from the `SjThemeService` as follows:
+to update a color, please use the `setTheme` method from the `SjThemeService` as follows:
 ```typescript
 import { Component } from "@angular/core";
-import { SjDirective } from "super-jss";
+import { SjDirective, SjThemeService } from "super-jss";
 
 @Component({
   standalone: true,
-  selector: 'app-colorful-component',
+  selector: 'app-palette-update-demo',
   template: `
-    <div (click)="updateColor()" [sj]="{ m: '2rem', p: '1rem', bg: 'blue' }">
-     <div [sj]="{ bg: 'orange.300', color: 'orange.contrast' }">
-      This is a colorful component!
-     </div>        
-    </div>
+    <button (click)="updateColors()" [sj]="{ p: 1, bg: 'primary.main', color: 'primary.contrast', borderRadius: '4px', cursor: 'pointer' }">
+      Update Pink Color
+    </button>
   `
 })
 
-export class PaletteDemoComponent {
-  //not recommended to change xs: unless your specifications does not care about mini devices, covered by xs
+export class PaletteUpdateDemoComponent {
   constructor(private sjTheme: SjThemeService) {}
-  updateColor(): void {
-    this.sjTheme.setColors(
-      pink: {
-        50: '#dc3545',
-        100: '#d8bbd0',
-        200: '#d48fb1',
-        300: '#fd06292',
-        400: '#fc407a',
-        500: '#f91e63',
-        600: '#a81b60',
-        700: '#82185b',
-        800: '#8d1457',
-        900: '#680e4f',
-        contrast: '#d59242'
+  updateColors(): void {
+    this.sjTheme.setTheme({
+      colors: {
+        pink: {
+          50: '#dc3545',
+          100: '#d8bbd0',
+          200: '#d48fb1',
+          300: '#fd06292',
+          400: '#fc407a',
+          500: '#f91e63',
+          600: '#a81b60',
+          700: '#82185b',
+          800: '#8d1457',
+          900: '#680e4f',
+          contrast: '#d59242'
+        }
       }
-    )
+    });
   }
 }
 
@@ -111,5 +109,3 @@ export class PaletteDemoComponent {
 ---
 
 [⬅️ Previous: Styling Shortcuts](styling-shortcuts.md) | [Next: Spacing ➡️](spacing.md)
-
----

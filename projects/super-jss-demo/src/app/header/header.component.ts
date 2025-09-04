@@ -1,90 +1,280 @@
-import {Component, effect, signal} from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {SjDirective, SjThemeService} from 'super-jss';
+import {
+  SjDirective,
+  SjStyle,
+  SjTheme,
+  SjThemeService,
+  defaultDarkTheme,
+  defaultTheme,
+  desertDarkTheme,
+  desertTheme,
+  oceanDarkTheme,
+  oceanTheme,
+} from 'super-jss';
+import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
+
+function deepMerge(target: any, source: any): any {
+  const output = { ...target };
+
+  if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach((key) => {
+      if (isObject(source[key])) {
+        if (!(key in target)) {
+          Object.assign(output, { [key]: source[key] });
+        } else {
+          output[key] = deepMerge(target[key], source[key]);
+        }
+      } else {
+        Object.assign(output, { [key]: source[key] });
+      }
+    });
+  }
+
+  return output;
+}
+
+function isObject(item: any): boolean {
+  return item && typeof item === 'object' && !Array.isArray(item);
+}
 
 @Component({
-  selector: 'app-header',
   standalone: true,
+  selector: 'app-header',
   imports: [CommonModule, SjDirective],
   template: `
-    <div [sj]="
-      {d: 'flex',       fxDir: 'column',
+    <div
+      [sj]="{
+        d: 'flex',
+        fxDir: { xs: 'column', lg: 'row' },
+        fxJustify: 'space-between',
         fxAItems: 'center',
-        fxJustify: 'center',
-        p: { xs: 1, md: 3 },
-        bg: { xs: 'primary', md: 'primary.light'}
-      }">
-      <h3 [sj]="{ color: 'primary.contrast' }">SUPER-JSS-DEMO</h3>
-      <span
-        (click)="updateTheme()"
-        [sj]="{ color: 'primary.dark', cursor: 'pointer' }"
+        p: { xs: 1, md: '1rem 1.5rem' },
+        bg: 'primary.main',
+        color: 'primary.contrast',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+        transition: 'all 0.3s ease-in-out'
+      }"
+    >
+      <!-- Left Column: Title -->
+      <div
+        [sj]="{
+          d: 'flex',
+          fxDir: 'column',
+          fxAItems: { xs: 'center', lg: 'flex-start' }
+        }"
       >
-        click here to update theme
-      </span>
+        <h1
+          [sj]="{
+            m: 0,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            fontSize: { xs: 1.8, md: 2.2 },
+            fontWeight: 400
+          }"
+        >
+          SUPER-JSS
+        </h1>
+        <p
+          [sj]="{
+            m: 0,
+            p: 0,
+            fontStyle: 'italic',
+            fontSize: { xs: 0.9, md: 1 },
+            opacity: 0.8
+          }"
+        >
+          The ultimate solution for dynamic styling
+        </p>
+      </div>
+
+      <!-- Right Column: Themes -->
+      <div
+        [sj]="{
+          d: 'flex',
+          fxDir: 'row',
+          fxAItems: 'center',
+          gap: 2,
+          mt: { xs: '1.5rem', lg: 0 }
+        }"
+      >
+        <!-- Library Themes Group -->
+        <div [sj]="{ d: 'flex', fxDir: 'column', gap: 0.2 }">
+          <small
+            [sj]="{
+              m: 0,
+              opacity: 0.8,
+              textAlign: 'center',
+              mb: 0.5
+            }"
+          >
+            Library
+          </small>
+          <div [sj]="{ d: 'flex', fxDir: 'row', gap: 0.5 }">
+            <div
+              *ngFor="let theme of libraryThemes"
+              (click)="setTheme(theme.theme, theme.name)"
+              [sj]="[
+                circleBaseStyle,
+                {
+                  bg: theme.isDark
+                    ? theme.theme.palette.secondary.dark
+                    : theme.theme.palette.secondary.main,
+                },
+                theme.name === currentThemeName() ? circleActiveStyle : {}
+              ]"
+              [title]="theme.name"
+            >
+              <ng-template [ngIf]="theme.isDark">
+                <span [sj]="{ fontSize: '14px', lineHeight: 1 }">🌙</span>
+              </ng-template>
+              <ng-template #noIcon></ng-template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom Themes Group -->
+        <div [sj]="{ d: 'flex', fxDir: 'column', gap: 0.2 }">
+          <small
+            [sj]="{
+              m: 0,
+              opacity: 0.8,
+              textAlign: 'center',
+              mb: 0.5
+            }"
+          >
+            Custom
+          </small>
+          <div [sj]="{ d: 'flex', fxDir: 'row', gap: 0.75 }">
+            <div
+              *ngFor="let theme of customThemes"
+              (click)="setTheme(theme.theme, theme.name)"
+              [sj]="[
+                circleBaseStyle,
+                {
+                  bg: theme.theme.palette.secondary,
+                },
+                theme.name === currentThemeName() ? circleActiveStyle : {}
+              ]"
+              [title]="theme.name"
+            >
+              <ng-template [ngIf]="theme.isDark">
+                <span [sj]="{ fontSize: '14px', lineHeight: 1 }">🌙</span>
+              </ng-template>
+              <ng-template #noIcon></ng-template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Selected Theme Name -->
+        <div
+          [sj]="{
+            color: 'primary.contrast',
+            fontSize: 1,
+            fontWeight: 500,
+            pl: 1,
+            ml: 0.5,
+            borderLeft: '1px solid',
+            borderColor: 'rgba(255,255,255,0.3)'
+          }"
+        >
+          {{ currentThemeName() }}
+        </div>
+      </div>
     </div>
-    <div [sj]="
-      {
+
+    <div
+      [sj]="{
         bg: 'secondary.light',
-        padding: 0.5,
-        display: 'flex',
-        justifyContent: 'center'
-      }
-    ">
-      <span [sj]="{ color: 'secondary.dark', fontSize: 1 }">
-         sjBreakpoints: {{ JSON.stringify(breakpoints)}}
+        p: 0.75,
+        d: 'flex',
+        fxDir: { xs: 'column', sm: 'row' },
+        fxJustify: 'space-around',
+        fxAItems: 'center',
+        gap: 0.75,
+        transition: 'all 0.3s ease-in-out',
+        boxShadow: '0 -1px 4px rgba(0,0,0,0.08)',
+        color: 'secondary.dark',
+        fontSize: { xs: 0.75, md: 0.85 }
+      }"
+    >
+      <span [sj]="{ textAlign: 'center' }">
+        <strong>Breakpoints:</strong>
+        {{ JSON.stringify(this.th.breakpoints()) }}
+      </span>
+      <span [sj]="{ fontWeight: 'bold', fontSize: 1 }">
+        <strong>Current Theme:</strong> {{ currentThemeName() }}
+      </span>
+      <span [sj]="{ textAlign: 'center' }">
+        <strong>Breakpoint:</strong> {{ th.currentBreakpoint() }}
       </span>
     </div>
   `,
 })
 export class HeaderComponent {
+  themes = [
+    { name: 'Default Light', theme: defaultTheme, type: 'Library', isDark: false },
+    {
+      name: 'Default Dark',
+      theme: deepMerge(defaultTheme, defaultDarkTheme),
+      type: 'Library',
+      isDark: true,
+    },
+    { name: 'Desert Light', theme: desertTheme, type: 'Library', isDark: false },
+    {
+      name: 'Desert Dark',
+      theme: deepMerge(desertTheme, desertDarkTheme),
+      type: 'Library',
+      isDark: true,
+    },
+    { name: 'Ocean Light', theme: oceanTheme, type: 'Library', isDark: false },
+    {
+      name: 'Ocean Dark',
+      theme: deepMerge(oceanTheme, oceanDarkTheme),
+      type: 'Library',
+      isDark: true,
+    },
+    {
+      name: 'Golden Emerald',
+      theme: goldenEmeraldTheme,
+      type: 'Custom',
+      isDark: false,
+    },
+  ];
+  libraryThemes = this.themes.filter((t) => t.type === 'Library');
+  customThemes = this.themes.filter((t) => t.type === 'Custom');
+  currentThemeName = signal('Default Light');
 
-  defaultThemeConfig = this.th.sjTheme();
+  circleBaseStyle: SjStyle = {
+    cursor: 'pointer',
+    w: '24px',
+    h: '24px',
+    brad: '50%',
+    transition: 'all 0.2s ease-in-out',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+    border: '1px solid transparent',
+    d: 'flex',
+    fxAItems: 'center',
+    fxJustify: 'center',
+    '&:hover': {
+      borderColor: 'light.main',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+    },
+  };
 
-  toggleTheme = signal(false);
+  circleActiveStyle: SjStyle = {
+    transform: 'scale(1.1)',
+    borderColor: 'light.main',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+  };
 
-  breakpoints =  this.th.breakpoints();
+  breakpoints = computed(() => this.th.breakpoints());
 
-  constructor(private th:SjThemeService) {
-    effect(() => {
-      this.breakpoints = this.th.breakpoints();
-    })
+  constructor(public th: SjThemeService) {}
+
+  setTheme(theme: Partial<SjTheme>, name: string): void {
+    this.th.setTheme(theme);
+    this.currentThemeName.set(name);
   }
-
-  updateTheme() {
-    if(!this.toggleTheme()) {
-      this.th.setPalette({
-        primary: {
-          main: this.th.colors().purple[500],
-          light: this.th.colors().purple[200],
-          dark: this.th.colors().purple[700],
-          contrast: this.th.colors().orange[300],
-        },
-        secondary: {
-          main: this.th.colors().yellow[500],
-          light: this.th.colors().yellow[200],
-          dark: this.th.colors().yellow[700],
-          contrast: this.th.colors().purple[700],
-        }
-      });
-      this.th.setBreakpoints({
-        sm: 630,
-        md: 900,
-      });
-      this.th.setTypography({
-        default: { fontFamily: 'Courier New'},
-      });
-
-      this.th.setSpacing((factor: number) => `${10 * factor}px`);
-    }
-    else{
-      this.th.setPalette(this.defaultThemeConfig.palette);
-      this.th.setBreakpoints(this.defaultThemeConfig.breakpoints);
-      this.th.setTypography(this.defaultThemeConfig.typography);
-}
-
-    this.toggleTheme.set(!this.toggleTheme());
-
-  }
-
   protected readonly JSON = JSON;
 }

@@ -2,22 +2,17 @@ import {Component, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {SjDirective} from 'super-jss';
-import {sjBorder, sjBorderShadow} from "../../sjStyling/sjStyles";
+import {sjBorder, sjBorderShadow, sjCard, sjOutlinedCard} from "../../sjStyling/sjStyles";
 
 @Component({
-  selector: 'app-palette',
-  standalone: true,
-  imports: [CommonModule, SjDirective],
-  template: `
+    selector: 'app-palette',
+    standalone: true,
+    imports: [CommonModule, SjDirective], 
+    template: `
     <h3 [sj]="{c: 'primary'}">Palette</h3>
-    <div *ngFor="let color of demoColors()"
-      [sj]="[{
-        d: 'flex',
-        fxDir: 'column',
-        my: 1,
-        p: 1,
-        bg: 'light.light',
-       }, sjBorderShadow]"
+    <div [sj]="sjCard()">
+      <div *ngFor="let color of demoColors()"
+      [sj]="sjOutlinedCard({my:1})"
     >
       <p [sj]="{c:color[0], fontWeight:'bold'}">{{ color[0] }}</p>
       <div [sj]="{display:'flex', flexDirection:{xs:'column', md:'row'}}">
@@ -32,12 +27,14 @@ import {sjBorder, sjBorderShadow} from "../../sjStyling/sjStyles";
             backgroundColor: colorVariant
           }, sjBorder]"
         >
-          <span [sj]="{c:'neutral.dark'}">{{ colorVariant }}</span>
+          <span [sj]="{c: colorVariant === color[3] ? color[0] : color[3]}">{{ colorVariant }}</span>
 
         </div>
       </div>
 
     </div>
+    </div>
+    
   `
 })
 export class PaletteComponent {
@@ -59,6 +56,8 @@ export class PaletteComponent {
 
   protected readonly sjBorderShadow = sjBorderShadow;
   protected readonly sjBorder = sjBorder;
+  protected readonly sjCard = sjCard;
+  protected readonly sjOutlinedCard = sjOutlinedCard;
 }
 
 

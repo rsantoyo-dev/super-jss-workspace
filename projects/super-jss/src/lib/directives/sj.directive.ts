@@ -5,10 +5,12 @@ import {
   SimpleChanges,
   ViewContainerRef,
   effect,
+  Renderer2,
+  ElementRef,
 } from "@angular/core";
-import { applyResponsiveStyle, applyTypography } from "../core/core-methods";
 import { SjStyle } from "../models/interfaces";
-import { SjThemeService } from "../services";
+import { SjThemeService, SjCssGeneratorService } from "../services";
+import { deepMerge } from '../utils/deep-merge';
 
 /**
  * Directive for applying dynamic styles, implementing SJSS (Super JavaScript Stylesheets) principles.
@@ -16,7 +18,7 @@ import { SjThemeService } from "../services";
  */
 @Directive({
   standalone: true, // Marks this directive as standalone, not requiring an NgModule.
-  selector: '[sj]' // The selector to be used for applying this directive in templates.
+  selector: '[sj], h1, h2, h3, h4, h5, h6, p, span, strong, body, caption' // The selector to be used for applying this directive in templates.
 })
 export class SjDirective implements OnChanges {
   /**
@@ -25,49 +27,103 @@ export class SjDirective implements OnChanges {
    */
   @Input() sj: SjStyle | SjStyle[] | undefined;
 
+  private lastClasses: string[] = [];
+
   /**
    * Constructs the SjDirective.
    *
    * @param vcr The ViewContainerRef provides access to the host element.
+   * @param el The ElementRef of the host element.
    * @param sjt The SjThemeService for accessing theme-related functionalities.
+   * @param cssGenerator The SjCssGeneratorService for generating CSS classes.
+   * @param renderer The Renderer2 for manipulating the DOM.
    */
-  constructor(public vcr: ViewContainerRef, private sjt: SjThemeService) {
-    // Initialize effect to re-render styles when the current breakpoint changes.
+  constructor(
+    public vcr: ViewContainerRef,
+    private el: ElementRef,
+    private sjt: SjThemeService,
+    private cssGenerator: SjCssGeneratorService,
+    private renderer: Renderer2
+  ) {
+    // Initialize effect to re-render styles when the current breakpoint or theme changes.
     effect(() => {
-      if (this.sjt.currentBreakpoint()) {
-        this.renderStyles();
-      }
+      this.sjt.currentBreakpoint(); // depend on currentBreakpoint
+      this.sjt.themeVersion(); // depend on themeVersion
+      this.sjt.typography(); // depend on typography
+      this.renderStyles();
     });
   }
+
+  private processShorthands(styles: SjStyle): SjStyle {
+    const newStyles: SjStyle = { ...styles };
+
+    // Handle pseudo-selectors and nested objects
+    for (const key in newStyles) {
+        if (key.startsWith('&') && typeof newStyles[key] === 'object' && newStyles[key] !== null) {
+            newStyles[key] = this.processShorthands(newStyles[key] as SjStyle);
+        }
+    }
+
+    if (newStyles.px) {
+        newStyles.pl = newStyles.px;
+        newStyles.pr = newStyles.px;
+        delete newStyles.px;
+    }
+    if (newStyles.py) {
+        newStyles.pt = newStyles.py;
+        newStyles.pb = newStyles.py;
+        delete newStyles.py;
+    }
+    if (newStyles.mx) {
+        newStyles.ml = newStyles.mx;
+        newStyles.mr = newStyles.mx;
+        delete newStyles.mx;
+    }
+    if (newStyles.my) {
+        newStyles.mt = newStyles.my;
+        newStyles.mb = newStyles.my;
+        delete newStyles.my;
+    }
+    if (newStyles.bx) {
+        newStyles.bl = newStyles.bx;
+        newStyles.br = newStyles.bx;
+        delete newStyles.bx;
+    }
+    if (newStyles.by) {
+        newStyles.bt = newStyles.by;
+        newStyles.bb = newStyles.by;
+        delete newStyles.by;
+    }
+    return newStyles;
+}
 
   /**
    * Renders the styles on the host element.
    * This method applies both typography and responsive styles.
    */
   private renderStyles(): void {
-    // Apply typography styles based on the current theme and window width.
-    applyTypography(this.vcr.element.nativeElement, this.sjt.sjTheme(), window.innerWidth);
+    this.lastClasses.forEach((c: string) => this.renderer.removeClass(this.vcr.element.nativeElement, c));
 
-    // Check if 'sj' input is defined.
-    if (this.sj) {
-      // Apply responsive styles. If 'sj' is an array, loop through each style object.
-      if (Array.isArray(this.sj)) {
-        this.sj.forEach(style =>
-          applyResponsiveStyle(
-            this.vcr.element.nativeElement,
-            style as SjStyle,
-            window.innerWidth,
-            this.sjt.sjTheme()
-          )
-        );
-      } else {
-        applyResponsiveStyle(
-          this.vcr.element.nativeElement,
-          this.sj as SjStyle,
-          window.innerWidth,
-          this.sjt.sjTheme()
-        );
-      }
+    const theme = this.sjt.sjTheme();
+    const tagName = this.el.nativeElement.tagName.toUpperCase();
+    const typographyStyles = theme.typography[tagName as keyof typeof theme.typography] || {};
+    const defaultTypographyStyles = theme.typography.default || {};
+
+    const sjStyles = this.sj
+      ? (Array.isArray(this.sj) ? this.sj.reduce((acc, style) => deepMerge(acc, style), {}) : this.sj)
+      : {};
+
+    const processedStyles = this.processShorthands(sjStyles);
+
+    const mergedStyles = deepMerge(
+        deepMerge(defaultTypographyStyles, typographyStyles),
+        processedStyles
+    );
+
+    if (Object.keys(mergedStyles).length > 0) {
+      const classes = this.cssGenerator.getOrGenerateClasses(mergedStyles, theme);
+      classes.forEach((c: string) => this.renderer.addClass(this.vcr.element.nativeElement, c));
+      this.lastClasses = classes;
     }
   }
 
