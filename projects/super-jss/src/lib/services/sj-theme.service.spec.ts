@@ -1,6 +1,7 @@
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { SjThemeService } from './sj-theme.service';
 import { SjBreakPoints, SjPalette, SjTypography } from '../models/interfaces';
+import { SjCssGeneratorService } from './sj-css-generator.service';
 
 describe('SjThemeService', () => {
   let service: SjThemeService;
@@ -41,6 +42,23 @@ describe('SjThemeService', () => {
     const typography: Partial<SjTypography> = { default: { fontFamily: 'Arial' } };
     service.setTheme({ typography: typography as SjTypography });
     expect(service.sjTheme().typography.default.fontFamily).toBe('Arial');
+  });
+
+  it('should clear CSS cache and bump themeVersion when theme changes', () => {
+    // Provide a spy for SjCssGeneratorService so SjThemeService.injector.get uses it
+    const spy = jasmine.createSpyObj<SjCssGeneratorService>('SjCssGeneratorService', ['clearCache']);
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      providers: [
+        SjThemeService,
+        { provide: SjCssGeneratorService, useValue: spy },
+      ],
+    });
+    const svc = TestBed.inject(SjThemeService);
+    const prevVersion = svc.themeVersion();
+    svc.setTheme({ breakpoints: { xs: 0, sm: 640, md: 900, lg: 1200, xl: 1920, xxl: 2560 } as any });
+    expect(spy.clearCache).toHaveBeenCalled();
+    expect(svc.themeVersion()).toBe(prevVersion + 1);
   });
 
   it('should update currentBreakpoint on window resize', fakeAsync(() => {

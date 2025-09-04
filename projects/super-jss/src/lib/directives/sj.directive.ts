@@ -10,6 +10,7 @@ import {
 } from "@angular/core";
 import { SjStyle } from "../models/interfaces";
 import { SjThemeService, SjCssGeneratorService } from "../services";
+import { deepMerge } from '../utils/deep-merge';
 
 /**
  * Directive for applying dynamic styles, implementing SJSS (Super JavaScript Stylesheets) principles.
@@ -55,34 +56,42 @@ export class SjDirective implements OnChanges {
 
   private processShorthands(styles: SjStyle): SjStyle {
     const newStyles: SjStyle = { ...styles };
-    if (styles.px) {
-        newStyles.pl = styles.px;
-        newStyles.pr = styles.px;
+
+    // Handle pseudo-selectors and nested objects
+    for (const key in newStyles) {
+        if (key.startsWith('&') && typeof newStyles[key] === 'object' && newStyles[key] !== null) {
+            newStyles[key] = this.processShorthands(newStyles[key] as SjStyle);
+        }
+    }
+
+    if (newStyles.px) {
+        newStyles.pl = newStyles.px;
+        newStyles.pr = newStyles.px;
         delete newStyles.px;
     }
-    if (styles.py) {
-        newStyles.pt = styles.py;
-        newStyles.pb = styles.py;
+    if (newStyles.py) {
+        newStyles.pt = newStyles.py;
+        newStyles.pb = newStyles.py;
         delete newStyles.py;
     }
-    if (styles.mx) {
-        newStyles.ml = styles.mx;
-        newStyles.mr = styles.mx;
+    if (newStyles.mx) {
+        newStyles.ml = newStyles.mx;
+        newStyles.mr = newStyles.mx;
         delete newStyles.mx;
     }
-    if (styles.my) {
-        newStyles.mt = styles.my;
-        newStyles.mb = styles.my;
+    if (newStyles.my) {
+        newStyles.mt = newStyles.my;
+        newStyles.mb = newStyles.my;
         delete newStyles.my;
     }
-    if (styles.bx) {
-        newStyles.bl = styles.bx;
-        newStyles.br = styles.bx;
+    if (newStyles.bx) {
+        newStyles.bl = newStyles.bx;
+        newStyles.br = newStyles.bx;
         delete newStyles.bx;
     }
-    if (styles.by) {
-        newStyles.bt = styles.by;
-        newStyles.bb = styles.by;
+    if (newStyles.by) {
+        newStyles.bt = newStyles.by;
+        newStyles.bb = newStyles.by;
         delete newStyles.by;
     }
     return newStyles;
@@ -100,18 +109,22 @@ export class SjDirective implements OnChanges {
     const typographyStyles = theme.typography[tagName as keyof typeof theme.typography] || {};
     const defaultTypographyStyles = theme.typography.default || {};
 
-    const sjStyles = this.sj ? (Array.isArray(this.sj) ? Object.assign({}, ...this.sj) : this.sj) : {};
+    const sjStyles = this.sj
+      ? (Array.isArray(this.sj) ? this.sj.reduce((acc, style) => deepMerge(acc, style), {}) : this.sj)
+      : {};
 
     const processedStyles = this.processShorthands(sjStyles);
 
-    const mergedStyles = { ...defaultTypographyStyles, ...typographyStyles, ...processedStyles };
+    const mergedStyles = deepMerge(
+        deepMerge(defaultTypographyStyles, typographyStyles),
+        processedStyles
+    );
 
     if (Object.keys(mergedStyles).length > 0) {
       const classes = this.cssGenerator.getOrGenerateClasses(mergedStyles, theme);
       classes.forEach((c: string) => this.renderer.addClass(this.vcr.element.nativeElement, c));
       this.lastClasses = classes;
     }
-    
   }
 
   /**

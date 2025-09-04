@@ -33,3 +33,16 @@ export const sjCard = (overrides: Partial<SjStyle> = {}): SjStyle => {
     ...overrides,
   };
 };
+
+export const sjOutlinedCard = (overrides: Partial<SjStyle> = {}): SjStyle => {
+  return {
+    ...sjBorder,
+    ...sjShadow,
+    ...sjTransition,
+    p: 1,
+    d:'flex',
+    fxDir: "column",
+    borderRadius: 0.5,
+    ...overrides,
+  };
+};

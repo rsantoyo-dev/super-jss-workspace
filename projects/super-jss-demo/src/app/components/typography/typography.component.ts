@@ -5,6 +5,7 @@ import { sjBorderShadow, sjCard } from '../../sjStyling/sjStyles';
 
 @Component({
   selector: 'app-typography',
+  standalone: true,
   imports: [CommonModule, SjDirective],
   template: `
     <div [sj]="{ d: 'flex', fxDir: 'column', w: '100%' }">
