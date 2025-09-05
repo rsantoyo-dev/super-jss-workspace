@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective } from 'super-jss';
-import { sjBorderShadow, sjCard } from '../../sjStyling/sjStyles';
+import { SjDirective, sjBorderShadow, sjCard } from 'super-jss';
 
 @Component({
   selector: 'app-typography',

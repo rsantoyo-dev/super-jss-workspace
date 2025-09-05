@@ -1,8 +1,7 @@
 import {Component, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {SjDirective} from 'super-jss';
-import {sjBorder, sjBorderShadow, sjCard, sjOutlinedCard} from "../../sjStyling/sjStyles";
+import {SjDirective, sjBorder, sjBorderShadow, sjCard, sjOutlinedCard} from 'super-jss';
 
 @Component({
     selector: 'app-palette',
