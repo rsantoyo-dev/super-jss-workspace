@@ -1,11 +1,18 @@
 theme: material
 site_name: Super JSS
-site_url: https://rsantoyo-dev.github.io/super-jss-workspace/
+site_url: https://sjss.dev/
+site_description: Super JSS is a dynamic, responsive, and lightweight styling library for Angular applications, offering effortless responsiveness, simplified theming, and on-the-fly CSS generation.
 
 extra:
   analytics:
     provider: google
     property: G-G3R4EFCCJF
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/rsantoyo-dev/super-jss-workspace
+    - icon: fontawesome/brands/npm
+      link: https://www.npmjs.com/package/super-jss
+
 plugins:
   - search
 #  - ultralytics:
@@ -34,6 +41,5 @@ nav:
   - Typography: typography.md
   - Theming: theming.md
   - Examples: examples.md
-
 
 

@@ -1,6 +1,10 @@
 # Super JavaScript Stylesheets (SJSS)
 
-Super JavaScript Stylesheets (SJSS) is a dynamic, responsive, and incredibly lightweight styling library meticulously crafted for **Angular 20** applications. Leveraging Angular's powerful signals, SJSS transforms how you approach styling by generating only the CSS you use, on the fly, ensuring your applications are fast, lean, and effortlessly maintainable. It's all about empowering developers to create stunning UIs with unparalleled ease and efficiency.
+[![npm version](https://img.shields.io/npm/v/super-jss.svg)](https://www.npmjs.com/package/super-jss)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/super-jss?label=size)](https://bundlephobia.com/package/super-jss)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](../../LICENSE)
+
+Super JavaScript Stylesheets (SJSS) is a dynamic, responsive, and incredibly lightweight styling library meticulously crafted for **Angular 20** applications. Leveraging Angular's powerful Signals, SJSS transforms how you approach styling by generating only the CSS you use — on the fly — ensuring your applications are fast, lean, and effortlessly maintainable.
 
 ## 🌟 Features
 
@@ -186,7 +190,7 @@ export class ThemeUpdaterComponent {
 
 Dive deep into Super JSS's capabilities:
 
-- [Official Documentation](https://sjss.dev/)
+- Official site & docs: https://sjss.dev/
 
 ## 🎨 Demos
 

@@ -1,47 +1,68 @@
-# SuperJssWorkspace
+# Super JSS — Atomic CSS‑in‑JS for Angular 20 (Signals)
 
-This workspace contains the SuperJss library, a powerful tool for applying styles dynamically in Angular applications. The library provides a directive that makes it easy to bind styles to elements based on various conditions and breakpoints.
+[![npm version](https://img.shields.io/npm/v/super-jss.svg)](https://www.npmjs.com/package/super-jss)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/super-jss?label=size)](https://bundlephobia.com/package/super-jss)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-## Getting Started
+Super JavaScript Stylesheets (SJSS) is a lightweight, runtime styling library for Angular 20 that generates atomic CSS on the fly using Angular Signals. It delivers responsive breakpoints, theming (palette, typography, spacing), and pseudo‑selectors — without shipping a giant utility bundle.
 
-To run the entire project:
+- Angular‑native: built on Signals for instant reactive styling
+- Atomic CSS generation: only the CSS you actually use
+- Theming + responsive: semantic palette, scales, and `xs…xxl` breakpoints
+- Pseudo‑selectors: `&:hover`, `&:focus`, etc.
 
-```bash
-ng serve
-```
+Documentation: https://sjss.dev
+Demo: https://stackblitz.com/edit/super-js?file=src%2Fmain.ts
+NPM: https://www.npmjs.com/package/super-jss
 
-This will start a development server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Working with the SuperJss Library
-
-To work with the SuperJss library, navigate to the library's directory:
-
-```bash
-cd projects/super-jss
-```
-
-### Building the Library
-
-To build the SuperJss library:
+## Install
 
 ```bash
-ng build super-jss
+npm install super-jss
 ```
 
-If you want to observe changes and rebuild the library automatically, use the `--watch` flag:
+## Quick Start
+
+```ts
+import { Component } from '@angular/core';
+import { SjDirective } from 'super-jss';
+
+@Component({
+  standalone: true,
+  selector: 'app-hero',
+  imports: [SjDirective],
+  template: `
+    <div [sj]="{ d:'flex', fxJustify:'center', p:{xs:1, md:2}, bg:'primary.main', '&:hover':{ bg:'primary.dark' } }">
+      <h1 [sj]="{ c:'primary.contrast', fontWeight:'600' }">Hello SJSS</h1>
+    </div>
+  `,
+})
+export class HeroComponent {}
+```
+
+## Workspace
+
+This repo contains both the library and a demo app.
+
+- Library: `projects/super-jss`
+- Demo: `projects/super-jss-demo`
+
+Build the library:
 
 ```bash
-ng build super-jss --watch
+npm run sj-build
 ```
 
-## Additional Commands
+Run the demo:
 
-- **Generate Components & More**: Use `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+npm start
+```
 
-- **Running Unit Tests**: Execute `ng test` to run the unit tests via Karma.
+## Contributing
 
-- **Running End-to-End Tests**: Execute `ng e2e` to run the end-to-end tests. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Issues and PRs welcome. Please open discussions for feature requests.
 
-## Further Help
+## License
 
-For more help on the Angular CLI, use `ng help` or check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+MIT © Ricardo Santoyo

@@ -3,5 +3,9 @@
   "dest": "../../dist/super-jss",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "assets": [
+    "README.md",
+    "LICENSE.txt"
+  ]
 }
