@@ -12,7 +12,7 @@ This FAQ consolidates the most common questions about Super JavaScript Styleshee
   - See also: [Basic Usage](basic-usage.md)
 
 - Q: What Angular versions are supported?
-  - A: Angular 20 for best results (Signals). It can work on 15+, but Signals‑based reactivity is optimized for 20.
+  - A: Angular 20 for best results (Signals). Signals‑based reactivity is optimized for 20+.
 
 ## Tailwind / Material / Other Tools
 
