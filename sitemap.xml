@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/</loc>
+         <loc>https://sjss.dev/</loc>
          <lastmod>2025-09-05</lastmod>
     </url>
     <url>
-         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/basic-usage/</loc>
+         <loc>https://sjss.dev/basic-usage/</loc>
          <lastmod>2025-09-05</lastmod>
     </url>
     <url>
-         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/colors/</loc>
+         <loc>https://sjss.dev/colors/</loc>
          <lastmod>2025-09-05</lastmod>
     </url>
     <url>
-         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/examples/</loc>
+         <loc>https://sjss.dev/examples/</loc>
          <lastmod>2025-09-05</lastmod>
     </url>
     <url>
-         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/installation/</loc>
+         <loc>https://sjss.dev/installation/</loc>
          <lastmod>2025-09-05</lastmod>
     </url>
     <url>
-         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/palette/</loc>
+         <loc>https://sjss.dev/palette/</loc>
          <lastmod>2025-09-05</lastmod>
     </url>
     <url>
-         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/responsive-style/</loc>
+         <loc>https://sjss.dev/responsive-style/</loc>
          <lastmod>2025-09-05</lastmod>
     </url>
     <url>
-         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/spacing/</loc>
+         <loc>https://sjss.dev/spacing/</loc>
          <lastmod>2025-09-05</lastmod>
     </url>
     <url>
-         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/styling-shortcuts/</loc>
+         <loc>https://sjss.dev/styling-shortcuts/</loc>
          <lastmod>2025-09-05</lastmod>
     </url>
     <url>
-         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/theming/</loc>
+         <loc>https://sjss.dev/theming/</loc>
          <lastmod>2025-09-05</lastmod>
     </url>
     <url>
-         <loc>https://rsantoyo-dev.github.io/super-jss-workspace/typography/</loc>
+         <loc>https://sjss.dev/typography/</loc>
          <lastmod>2025-09-05</lastmod>
     </url>
 </urlset>
