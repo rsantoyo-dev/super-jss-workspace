@@ -121,6 +121,15 @@ export class ThemedButtonComponent {}
 
 By following these steps, you can effectively define, apply, and dynamically switch themes in your Super JSS application, ensuring a consistent and customizable user experience.
 
+## Interactive Theming Demo
+
+<iframe src="https://stackblitz.com/edit/sjss-theming-demo?embed=1&file=src/app/app.component.ts&hideExplorer=1&hideNavigation=1&theme=dark&view=preview"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="sjss-theming-demo"
+  allow="accelerometer; ambient-light-sensor; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts">
+</iframe>
+
 ---
 
 [⬅️ Previous: Typography](typography.md) | [Next: Examples ➡️](examples.md)

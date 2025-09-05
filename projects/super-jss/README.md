@@ -147,6 +147,12 @@ export class ComposedStylesDemoComponent {
 }
 ```
 
+### Flex-box Responsive Demo
+
+Explore how Super JSS simplifies responsive flex-box layouts with this interactive StackBlitz example. See how `[sj]` attributes are used to create flexible and adaptive UI components that respond to different screen sizes.
+
+- [StackBlitz: Flex-box Responsive Demo](https://stackblitz.com/edit/angular-ivy-ieshja?file=README.md,src%2Fapp%2Fapp.component.ts)
+
 ### Dynamic Theme Updates
 
 Update any part of your theme (palette, typography, breakpoints, spacing) dynamically at runtime using the `SjThemeService.setTheme()` method.
@@ -180,7 +186,7 @@ export class ThemeUpdaterComponent {
 
 Dive deep into Super JSS's capabilities:
 
-- [Official Documentation](https://rsantoyo-dev.github.io/super-jss/)
+- [Official Documentation](https://sjss.dev/)
 
 ## 🎨 Demos
 
