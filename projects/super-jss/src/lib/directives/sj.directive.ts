@@ -16,6 +16,9 @@ import { deepMerge } from '../utils/deep-merge';
  * Directive for applying dynamic styles, implementing SJSS (Super JavaScript Stylesheets) principles.
  * This directive handles responsive and typography styles dynamically.
  */
+type SjStyleProducer = () => SjStyle;
+type SjInput = SjStyle | SjStyle[] | SjStyleProducer | Array<SjStyle | SjStyleProducer>;
+
 @Directive({
   standalone: true, // Marks this directive as standalone, not requiring an NgModule.
   selector: '[sj], h1, h2, h3, h4, h5, h6, p, span, strong, body, caption' // The selector to be used for applying this directive in templates.
@@ -25,7 +28,7 @@ export class SjDirective implements OnChanges {
    * The style object or array of style objects to be applied.
    * It can be a single style object or an array of style objects for responsive design.
    */
-  @Input() sj: SjStyle | SjStyle[] | undefined;
+  @Input() sj: SjInput | undefined;
 
   private lastClasses: string[] = [];
 
@@ -109,9 +112,17 @@ export class SjDirective implements OnChanges {
     const typographyStyles = theme.typography[tagName as keyof typeof theme.typography] || {};
     const defaultTypographyStyles = theme.typography.default || {};
 
-    const sjStyles = this.sj
-      ? (Array.isArray(this.sj) ? this.sj.reduce((acc, style) => deepMerge(acc, style), {}) : this.sj)
-      : {};
+    const callIfFn = (v: SjStyle | SjStyleProducer): SjStyle =>
+      typeof v === 'function' ? (v as SjStyleProducer)() : (v as SjStyle);
+
+    const sjStyles = (this.sj
+      ? Array.isArray(this.sj)
+        ? (this.sj as Array<SjStyle | SjStyleProducer>).reduce(
+            (acc, style) => deepMerge(acc, callIfFn(style)),
+            {}
+          )
+        : callIfFn(this.sj as any)
+      : {}) as SjStyle;
 
     const processedStyles = this.processShorthands(sjStyles);
 

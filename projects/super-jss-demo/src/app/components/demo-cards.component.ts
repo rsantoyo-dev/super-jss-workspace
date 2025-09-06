@@ -17,8 +17,8 @@ import {
       <div [sj]="sjCard()">
         <h3 [sj]="{ c: 'primary' }">sjCard()</h3>
       </div>
-      <div [sj]="sjCard.outlined()">
-        <h3 [sj]="{ c: 'primary' }">sjCard.outlined()</h3>
+      <div [sj]="sjCard.outlined">
+        <h3 [sj]="{ c: 'primary' }">sjCard.outlined</h3>
       </div>
       <div [sj]="sjCard.flat()">
         <h3 [sj]="{ c: 'primary' }">sjCard.flat()</h3>
