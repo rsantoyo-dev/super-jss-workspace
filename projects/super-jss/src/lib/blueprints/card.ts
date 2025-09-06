@@ -1,6 +1,7 @@
-import { ResponsiveStyle, SjStyle } from '../models/interfaces';
+import { SjStyle } from '../models/interfaces';
 
-// Base tokens
+// Simple, user-friendly building blocks for cards
+
 export const sjBorder: SjStyle = {
   borderStyle: 'solid',
   borderWidth: 0.1,
@@ -8,124 +9,80 @@ export const sjBorder: SjStyle = {
   borderRadius: 0.5,
 };
 
-export const sjShadow = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-  boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
-  ...overrides,
-});
+export const sjShadow: SjStyle = {
+  boxShadow: '2px 3px 3px #0001',
+};
 
-export const sjBorderShadow = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+export const sjBorderShadow: SjStyle = {
   ...sjBorder,
-  ...sjShadow(),
-  ...overrides,
-});
-
-// Backwards-friendly style constants
-export const sjShadowStyle: SjStyle = sjShadow();
-export const sjBorderShadowStyle: SjStyle = sjBorderShadow();
+  ...sjShadow,
+};
 
 export const sjTransition: SjStyle = {
   transition: 'all 0.3s ease-in-out',
 };
 
-// Elevation presets
-const ELEVATION_SHADOWS: Record<number, string> = {
-  0: 'none',
-  1: '0 1px 3px rgba(0,0,0,0.12)',
-  2: '0 2px 6px rgba(0,0,0,0.14)',
-  3: '0 4px 12px rgba(0,0,0,0.16)',
-  4: '0 8px 24px rgba(0,0,0,0.18)',
-  5: '0 12px 32px rgba(0,0,0,0.2)',
-};
+// Internal base style for cards (shared between variants)
+const sjCardBase = (): SjStyle => ({
+  ...sjBorder,
+  ...sjShadow,
+  ...sjTransition,
+  p: {xs: 1, md: 2},
+  d: 'flex',
+  fxDir: 'column',
+  borderRadius: 0.5,
+});
 
-export type SjCardConfig = {
-  padding?: ResponsiveStyle | string | number;
-  direction?: ResponsiveStyle | string; // flexDirection
-  background?: ResponsiveStyle | string | number; // bg token
-  radius?: ResponsiveStyle | string | number; // border radius
-  outlined?: boolean; // if true, keep border; background optional
-  elevation?: 0 | 1 | 2 | 3 | 4 | 5; // preset shadows
-  interactive?: boolean; // adds hover lift effect
-  gap?: ResponsiveStyle | string | number;
-  alignItems?: ResponsiveStyle | string; // align items
-  justifyContent?: ResponsiveStyle | string; // justify content
-  width?: ResponsiveStyle | string | number;
-  height?: ResponsiveStyle | string | number;
-  overrides?: Partial<SjStyle>; // final overrides
-};
+export const sjCard = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+  ...sjCardBase(),
+  bg: 'light.light',
+  ...overrides,
+});
 
-export const sjCardConfig = (
-  cfg: SjCardConfig = {},
-  overrides: Partial<SjStyle> = {}
-): SjStyle => {
-  const {
-    padding = 1,
-    direction = 'column',
-    background = 'light.light',
-    radius,
-    outlined = false,
-    elevation = 2,
-    interactive = false,
-    gap,
-    alignItems,
-    justifyContent,
-    width,
-    height,
-  } = cfg;
+// Consistent, autocomplete-friendly variants
+export const sjCardOutlined = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+  ...sjCardBase(),
+  ...overrides,
+});
 
-  const base: SjStyle = {
-    d: 'flex',
-    fxDir: direction,
-    p: padding,
-    bg: outlined ? undefined : (background as any),
-    ...sjBorder,
-    ...sjTransition,
-    brad: radius as any,
-    gap,
-    fxAItems: alignItems,
-    fxJustify: justifyContent,
-    w: width as any,
-    h: height as any,
-  };
+export const sjCardFlat = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+  ...sjCardBase(),
+  boxShadow: 'none',
+  ...overrides,
+});
 
-  const shadow: SjStyle = {
-    boxShadow: ELEVATION_SHADOWS[elevation] || ELEVATION_SHADOWS[2],
-  };
+export const sjCardGhost = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+  ...sjCardBase(),
+  bg: undefined,
+  borderWidth: 0,
+  boxShadow: 'none',
+  ...overrides,
+});
 
-  const hover: SjStyle = interactive
-    ? {
-        '&:hover': {
-          transform: 'translateY(-2px)',
-          boxShadow: ELEVATION_SHADOWS[Math.min((elevation || 2) + 1, 5)],
-        },
-        cursor: 'pointer',
-      }
-    : {};
+export const sjCardElevated = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+  ...sjCardBase(),
+  boxShadow: '0 4px 12px rgba(0,0,0,0.16)',
+  ...overrides,
+});
 
-  const style: SjStyle = {
-    ...base,
-    ...shadow,
-    ...hover,
-    ...(cfg.overrides || {}),
-    ...overrides,
-  };
+export const sjCardInteractive = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+  ...sjCardBase(),
+  cursor: 'pointer',
+  '&:hover': {
+    transform: 'translateY(-2px)',
+    boxShadow: '0 6px 18px rgba(0,0,0,0.18)',
+  },
+  ...overrides,
+});
 
-  // If outlined, ensure transparent-ish background and visible border
-  if (outlined) {
-    style.bg = style.bg ?? undefined;
-    style.bc = style.bc ?? 'light';
-    style.bw = style.bw ?? '1px';
-  }
+export const sjCardPrimary = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+  ...sjCardBase(),
+  bg: 'primary.main',
+  c: 'primary.contrast',
+  ...overrides,
+});
 
-  return style;
-};
 
-// Backward compatibility alias (internal use)
-const sjConfigCard = (config: Partial<SjStyle> = {}): SjStyle => {
-  return sjCardConfig({ overrides: config });
-};
 
-export const sjCard = (overrides: Partial<SjStyle> = {}): SjStyle =>
-  sjCardConfig({ overrides });
-
-export const sjOutlinedCard = (overrides: Partial<SjStyle> = {}): SjStyle =>
-  sjCardConfig({ outlined: true, overrides });
+// Backward compatible alias
+export const sjOutlinedCard = sjCardOutlined;
