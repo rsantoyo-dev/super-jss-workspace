@@ -15,7 +15,7 @@ const lightPalette: SjPalette = {
     main: DEFAULT_COLORS.orange[500],
     light: DEFAULT_COLORS.orange[300],
     dark: DEFAULT_COLORS.orange[700],
-    contrast: DEFAULT_COLORS.blue[300],
+    contrast: DEFAULT_COLORS.gray[900],
   },
   tertiary: {
     main: DEFAULT_COLORS.red[500],
@@ -78,7 +78,7 @@ const darkPalette: SjPalette = {
     main: DEFAULT_COLORS.orange[300],
     light: DEFAULT_COLORS.orange[100],
     dark: DEFAULT_COLORS.orange[500],
-    contrast: DEFAULT_COLORS.blue[300],
+    contrast: DEFAULT_COLORS.gray[900],
   },
   tertiary: {
     main: DEFAULT_COLORS.red[300],

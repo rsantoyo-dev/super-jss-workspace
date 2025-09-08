@@ -23,11 +23,10 @@ export const sjTransition: SjStyle = {
 };
 
 const codeSnippetStyle: SjStyle = {
-  bg: 'neutral.light',
+  bg: 'light.dark',
   p: 1,
   borderRadius: 1,
-  overflowX: 'auto',
-  fontFamily: 'monospace'
+  overflowX: 'auto'
 };
 
 // Internal base style for cards (shared between variants)
@@ -47,7 +46,9 @@ export type SjCardApi = ((overrides?: Partial<SjStyle>) => SjStyle) & {
   elevated: (overrides?: Partial<SjStyle>) => SjStyle;
   interactive: (overrides?: Partial<SjStyle>) => SjStyle;
   primary: (overrides?: Partial<SjStyle>) => SjStyle;
-  codeSnippet: SjStyle;
+  secondary: (overrides?: Partial<SjStyle>) => SjStyle;
+  info: (overrides?: Partial<SjStyle>) => SjStyle;
+  codeSnippet: (overrides?: Partial<SjStyle>) => SjStyle;
 };
 
 const sjCardApi: SjCardApi = (overrides: Partial<SjStyle> = {}): SjStyle => ({
@@ -76,7 +77,7 @@ sjCardApi.elevated = (overrides: Partial<SjStyle> = {}): SjStyle => ({
 });
 
 sjCardApi.interactive = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-  ...sjCardBase(),
+  ...sjCardApi(), // Based on the default sjCard
   cursor: 'pointer',
   '&:hover': {
     transform: 'translateY(-2px)',
@@ -92,7 +93,26 @@ sjCardApi.primary = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...overrides,
 });
 
-sjCardApi.codeSnippet = codeSnippetStyle;
+sjCardApi.secondary = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+  ...sjCardBase(),
+  bg: 'secondary.main',
+  c: 'secondary.contrast',
+  borderColor: 'transparent',
+  ...overrides,
+});
+
+sjCardApi.codeSnippet = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+  ...codeSnippetStyle,
+  ...overrides,
+});
+
+sjCardApi.info = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+  ...sjCardBase(),
+  display: 'block',
+  bg: 'light.dark',
+  mb: 2,
+  ...overrides,
+});
 
 export const sjCard = sjCardApi as SjCardApi;
 
@@ -102,6 +122,8 @@ export const sjCardFlat = sjCard.flat;
 export const sjCardElevated = sjCard.elevated;
 export const sjCardInteractive = sjCard.interactive;
 export const sjCardPrimary = sjCard.primary;
+export const sjCardSecondary = sjCard.secondary;
+export const sjCardCodeSnippet = sjCard.codeSnippet;
 
 // Legacy alias maintained
 export const sjOutlinedCard = sjCard.outlined;

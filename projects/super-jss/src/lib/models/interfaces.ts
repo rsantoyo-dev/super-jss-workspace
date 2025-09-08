@@ -66,7 +66,8 @@ export type SjTypography = {
   BODY: SjStyle,
   STRONG: SjStyle,
   CAPTION: SjStyle,
-  SMALL: SjStyle
+  SMALL: SjStyle,
+  PRE: SjStyle
 }
 
 // Main theme configuration including breakpoints, spacing, typography, colors, and palette.

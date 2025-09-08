@@ -1,32 +1,42 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  SjDirective,
-  SjStyle,
-  sjCard,
-} from 'super-jss';
+import { SjDirective, SjStyle, sjCard } from 'super-jss';
 
 @Component({
   selector: 'app-demo-cards',
   standalone: true,
   imports: [CommonModule, SjDirective],
   template: `
-   <h3 [sj]="{c: 'primary'}">Cards</h3>
-    <div [sj]="{
-      display: 'grid',
-      gap: 2,
-      gridTemplateColumns: {
-        xs: 'repeat(1, 1fr)',
-        md: 'repeat(2, 1fr)',
-        lg: 'repeat(3, 1fr)',
-        xl: 'repeat(4, 1fr)'
-      }
-    }">
-      <div *ngFor="let card of cardData" [sj]="card.cardType">
-        <h3 [sj]="{ c: card.titleColor }">{{ card.title }}</h3>
-        <p [sj]="{ m: 0 }">{{ card.message }}</p>
-        <div *ngIf="card.implementationExample">
-          <pre [sj]="sjCard.codeSnippet"><code>{{ card.implementationExample }}</code></pre>
+    <h3 [sj]="{ c: 'primary' }">Cards</h3>
+    <div [sj]="sjCard.outlined">
+      <div [sj]="sjCard.flat({display:'block', bg:'light.dark', mb:2})">
+        This demo showcases the different variants of the
+        <code>sjCard</code> blueprint. Each card demonstrates a specific style
+        (e.g., <code>outlined</code>, <code>flat</code>, <code>primary</code>).
+        The last items show how easy it is to override any property to create a
+        custom variation.
+      </div>
+      
+      <div
+        [sj]="{
+          display: 'grid',
+          gap: 2,
+          gridTemplateColumns: {
+            xs: 'repeat(1, 1fr)',
+            md: 'repeat(2, 1fr)',
+            lg: 'repeat(3, 1fr)',
+            xl: 'repeat(4, 1fr)'
+          }
+        }"
+      >
+        <div *ngFor="let card of cardData" [sj]="card.cardType">
+          <h3 [sj]="{ c: card.titleColor }">{{ card.title }}</h3>
+          <p [sj]="{ m: 0 }">{{ card.message }}</p>
+          <div *ngIf="card.implementationExample">
+            <pre
+              [sj]="{ m: 0, p: 1, bg: 'light.light', borderRadius: 0.5 }"
+            ><code>{{ card.implementationExample }}</code></pre>
+          </div>
         </div>
       </div>
     </div>
@@ -40,38 +50,65 @@ export class DemoCardsComponent {
       title: 'sjCard()',
       cardType: sjCard(),
       message: 'Default card with light background.',
-      titleColor: 'primary'
+      titleColor: 'primary',
+      implementationExample: `[sj]="sjCard()"`,
     },
     {
-      title: 'sjCard.outlined',
-      cardType: sjCard.outlined,
+      title: 'sjCard.outlined()',
+      cardType: sjCard.outlined(),
       message: 'Outlined, transparent background, no shadow.',
       titleColor: 'primary',
-      implementationExample: `[sj]="sjCard.outlined"`
+      implementationExample: `[sj]="sjCard.outlined()"`,
     },
     {
       title: 'sjCard.flat()',
-      cardType: sjCard.flat,
+      cardType: sjCard.flat(),
       message: 'No shadow.',
-      titleColor: 'primary'
+      titleColor: 'primary',
+      implementationExample: `[sj]="sjCard.flat()"`,
     },
     {
-      title: 'sjCard.elevated',
-      cardType: sjCard.elevated,
+      title: 'sjCard.elevated()',
+      cardType: sjCard.elevated(),
       message: 'Stronger shadow.',
-      titleColor: 'primary'
+      titleColor: 'primary',
+      implementationExample: `[sj]="sjCard.elevated()"`,
     },
     {
       title: 'sjCard.primary()',
-      cardType: sjCard.primary,
+      cardType: sjCard.primary(),
       message: 'Primary background and contrast text.',
-      titleColor: 'primary.contrast' // Special case
+      titleColor: 'primary.contrast',
+      implementationExample: `[sj]="sjCard.primary()"`,
+    },
+    
+    {
+      title: 'sjCard.interactive()',
+      cardType: sjCard.interactive(),
+      message: 'Card with hover effects.',
+      titleColor: 'primary',
+      implementationExample: `[sj]="sjCard.interactive()"`,
     },
     {
-      title: 'sjCard.interactive',
-      cardType: sjCard.interactive,
-      message: 'Card with hover effects.',
-      titleColor: 'primary'
+      title: `sjCard({ bg: 'secondary.main' })`,
+      cardType: sjCard({ bg: 'secondary.main', borderColor: 'transparent' }),
+      message: 'Default card with overridden background.',
+      titleColor: 'secondary.contrast',
+      implementationExample: `[sj]="sjCard({ bg: 'secondary.main' })"`,
+    },
+    {
+      title: `sjCard.primary({ borderRadius: 4 })`,
+      cardType: sjCard.primary({ borderRadius: 4 }),
+      message: 'Primary card with overridden border radius.',
+      titleColor: 'primary.contrast',
+      implementationExample: `[sj]="sjCard.primary({ borderRadius: 4 })"`,
+    },
+    {
+      title: `sjCard.elevated({ p: 3 })`,
+      cardType: sjCard.elevated({ p: 3 }),
+      message: 'Secondary card with overridden padding.',
+      titleColor: 'secondary.contrast',
+      implementationExample: `[sj]="sjCard.elevated({ p: 3 })"`,
     }
   ];
 }
