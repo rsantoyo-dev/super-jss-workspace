@@ -277,9 +277,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-example" class="md-nav__link">
+  <a href="#the-core-concept" class="md-nav__link">
     <span class="md-ellipsis">
-      Quick Example:
+      ✨ The Core Concept
     </span>
   </a>
   
@@ -640,9 +640,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-example" class="md-nav__link">
+  <a href="#the-core-concept" class="md-nav__link">
     <span class="md-ellipsis">
-      Quick Example:
+      ✨ The Core Concept
     </span>
   </a>
   
@@ -740,25 +740,23 @@
 <li>🅰️ <strong>Enhanced Typography:</strong> Gain precise control over your text elements with powerful and intuitive typography styling options.</li>
 </ul>
 <p>Unlike traditional utility-first frameworks like Tailwind CSS or component libraries like Material UI, SJSS doesn't ship with a giant prebuilt utility set or a large component library. Instead, it generates only the CSS you explicitly use, on the fly, keeping your application's bundle size minimal and ensuring optimal performance. This approach means no unused styles bloating your memory, just lean, efficient CSS tailored precisely to your needs.</p>
-<h3 id="quick-example">Quick Example:</h3>
+<h3 id="the-core-concept">✨ The Core Concept</h3>
+<blockquote>
+<p>The principle is very simple: I take any CSS property, convert it to camelCase, and accept an object of breakpoints → all transformed into a CSS class for an ultra-lightweight experience. ✨ With added capabilities like a powerful theme system, where the entire look &amp; feel is controlled in a single object — very fast and fluid thanks to Signals, for better integration with Angular.</p>
+</blockquote>
+<p>In <code>super-jss</code>, you can take any CSS property, write it in <code>camelCase</code>, and assign it a value. For responsive design, you can use an object with breakpoint keys. This is all transformed into highly efficient CSS classes on the fly.</p>
+<p>Here is a practical example of how you can apply themed, responsive, and dynamic styles to an element:</p>
 <pre><code class="language-html">&lt;div [sj]=&quot;{
-  d: 'flex',
-  fxJustify: 'center',
-  p: { xs: 1, md: 2 }, /* Responsive padding */
-  bg: 'primary.main',
-  borderRadius: '8px',
-  transition: 'all 0.3s ease-in-out',
-  '&amp;:hover': { /* Hover effect */
-    bg: 'primary.dark',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.2)'
-  }
+  backgroundColor: this.anyVariable ? 'primary.dark' : 'secondary.main',
+  padding: { xs: 2, md: 4 }
+  // You can also use shortcuts for convenience:
+  // bg: this.anyVariable ? 'primary.dark' : 'secondary.main',
+  // p: { xs: 2, md: 4 }
 }&quot;&gt;
-  &lt;span [sj]=&quot;{ color: 'primary.contrast', fontSize: { xs: 1, md: 1.5 } }&quot;&gt;
-    Hello SJSS!
-  &lt;/span&gt;
+  Themed, Responsive, and Dynamic Content
 &lt;/div&gt;
 </code></pre>
-<p>In this example, the container is responsive, themed, and interactive on hover — all without writing a single CSS class.</p>
+<p>This small example demonstrates dynamic theming based on a variable, and responsive padding, all with a clean and concise syntax.</p>
 <h2 id="get-started-in-seconds">Get Started in Seconds!</h2>
 <p>Experience the future of Angular styling. Dive into our comprehensive documentation:</p>
 <ul>
