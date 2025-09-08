@@ -7,7 +7,7 @@ import { SjDirective, SjStyle, sjCard } from 'super-jss';
   standalone: true,
   imports: [CommonModule, SjDirective],
   template: `
-    <h3 [sj]="{ c: 'primary' }">Cards</h3>
+    <h2 [sj]="{ c: 'primary' }">Cards</h2>
     <div [sj]="sjCard.outlined">
       <div [sj]="sjCard.flat({display:'block', bg:'light.dark', mb:2})">
         This demo showcases the different variants of the
@@ -24,7 +24,7 @@ import { SjDirective, SjStyle, sjCard } from 'super-jss';
           gridTemplateColumns: {
             xs: 'repeat(1, 1fr)',
             md: 'repeat(2, 1fr)',
-            lg: 'repeat(3, 1fr)',
+            lg: 'repeat(2, 1fr)',
             xl: 'repeat(4, 1fr)'
           }
         }"

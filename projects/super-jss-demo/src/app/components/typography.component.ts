@@ -8,8 +8,8 @@ import { SjDirective, sjBorderShadow, sjCard } from 'super-jss';
   imports: [CommonModule, SjDirective],
   template: `
     <div [sj]="{ d: 'flex', fxDir: 'column', w: '100%' }">
-      <h3 [sj]="{ c: 'primary'}">Typography:</h3>
-      <div [sj]="[sjCard(), { fxDir: 'column' }]" >
+      <h2 [sj]="{ c: 'primary'}">Typography:</h2>
+      <div [sj]="[sjCard.outlined, { fxDir: 'column' }]" >
         <h1 [sj]="{ c: 'primary' }">H1: {{ sampleText }}</h1>
         <h2 [sj]="{ c: 'secondary' }">H2: {{ sampleText }}</h2>
         <h3 [sj]="{ c: 'tertiary' }">H3: {{ sampleText }}</h3>

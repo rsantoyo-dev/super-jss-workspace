@@ -46,6 +46,7 @@ function isObject(item: any): boolean {
     <div
       [sj]="{
         d: 'flex',
+        maxW: '100%',
         fxDir: { xs: 'column', lg: 'row' },
         fxJustify: 'space-between',
         fxAItems: 'center',
