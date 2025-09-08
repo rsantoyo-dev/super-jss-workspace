@@ -43,6 +43,7 @@ function isObject(item: any): boolean {
   selector: 'app-header',
   imports: [CommonModule, SjDirective],
   template: `
+    
     <div
       [sj]="{
         d: 'flex',
@@ -210,6 +211,7 @@ function isObject(item: any): boolean {
         <strong>Breakpoint:</strong> {{ th.currentBreakpoint() }}
       </span>
     </div>
+    </header>
   `,
 })
 export class HeaderComponent {
