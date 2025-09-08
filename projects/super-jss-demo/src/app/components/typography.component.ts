@@ -9,8 +9,7 @@ import { SjDirective, sjBorderShadow, sjCard } from 'super-jss';
   template: `
     <div [sj]="{ d: 'flex', fxDir: 'column', w: '100%' }">
       <div [sj]="{ d: 'flex', fxJustify: 'space-between', fxAItems: 'center' }">
-        <h2 [sj]="{ c: 'primary', m: 0 }">Typography</h2>
-        <a href="https://sjss.dev/typography/" target="_blank" rel="noopener" [sj]="{ c: 'primary.contrast', bg: 'primary.main', p: 0.5, px: 1, brad: 0.5, '&:hover': { bg: 'primary.dark' } }">Docs</a>
+        <h2 [sj]="{ c: 'primary', mb: 1 }">Typography</h2>
       </div>
 
       <div [sj]="[sjCard.outlined, { fxDir: 'column' }]">
@@ -20,7 +19,16 @@ import { SjDirective, sjBorderShadow, sjCard } from 'super-jss';
           <strong>span</strong> are defined in your active theme and
           automatically applied. You can easily override these default styles
           using the <strong>[sj]</strong> directive for fine-grained control.
-          <pre [sj]="{ m: 0, mt: 1, p: 1, bg: 'light.light', brad: 0.5 }"><code>{{ this.sampleImplement }}</code></pre>
+          <pre
+            [sj]="{ m: 0, mt: 1, p: 1, bg: 'light.light', brad: 0.5 }"
+          ><code>{{ this.sampleImplement }}</code></pre>
+          <a
+          href="https://sjss.dev/typography/"
+          target="_blank"
+          rel="noopener"
+          [sj]="sjCard.interactive({width:5, bg: 'primary.main', p: 0.5, px: 1, my:1})"
+          >Docs
+        </a> 
         </div>
         <h1 [sj]="{ c: 'primary' }">H1: {{ sampleText }}</h1>
         <h2 [sj]="{ c: 'secondary' }">H2: {{ sampleText }}</h2>

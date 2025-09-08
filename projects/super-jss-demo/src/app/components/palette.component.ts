@@ -15,9 +15,7 @@ import {
   imports: [CommonModule, SjDirective],
   template: `
     <div [sj]="{ d: 'grid' }">
-      <h2 [sj]="{ c: 'primary', m: 0 }">Palette</h2>
-      <a href="https://sjss.dev/palette/" target="_blank" rel="noopener" 
-      [sj]="">Docs</a>
+      <h2 [sj]="{ c: 'primary', mb: 1 }">Palette</h2>
     </div>
 
     <div [sj]="sjCard.outlined">
@@ -29,7 +27,16 @@ import {
           automatically when you switch themes, ensuring a cohesive and dynamic
           visual experience.
         </p>
-        <pre [sj]="{ m: 0, p: 1, bg: 'light.light', brad: 0.5 }"><code>{{ this.sampleImplement }}</code></pre>
+        <pre
+          [sj]="{ m: 0, p: 1, bg: 'light.light', brad: 0.5 }"
+        ><code>{{ this.sampleImplement }}</code></pre>
+        <a
+          href="https://sjss.dev/palette/"
+          target="_blank"
+          rel="noopener"
+          [sj]="sjCard.interactive({width:5, bg: 'primary.main', p: 0.5, px: 1, my:1})"
+          >Docs
+        </a>
       </div>
       <div *ngFor="let color of demoColors()">
         <p [sj]="{ c: color[0], fontWeight: 'bold' }">{{ color[0] }}</p>

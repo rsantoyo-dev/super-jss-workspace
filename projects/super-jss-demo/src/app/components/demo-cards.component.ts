@@ -8,8 +8,7 @@ import { SjDirective, SjStyle, sjCard } from 'super-jss';
   imports: [CommonModule, SjDirective],
   template: `
     <div [sj]="{ d: 'flex', fxJustify: 'space-between', fxAItems: 'center' }">
-      <h2 [sj]="{ c: 'primary', m: 0 }">Cards</h2>
-      <a href="https://sjss.dev/examples/" target="_blank" rel="noopener" [sj]="{ c: 'primary.contrast', bg: 'primary.main', p: 0.5, px: 1, brad: 0.5, '&:hover': { bg: 'primary.dark' } }">Docs</a>
+      <h2 [sj]="{ c: 'primary', mb: 1 }">Cards</h2>
     </div>
     <div [sj]="sjCard.outlined">
       <div [sj]="sjCard.flat({display:'block', bg:'light.dark', mb:2})">
@@ -18,6 +17,7 @@ import { SjDirective, SjStyle, sjCard } from 'super-jss';
         (e.g., <code>outlined</code>, <code>flat</code>, <code>primary</code>).
         The last items show how easy it is to override any property to create a
         custom variation.
+        
       </div>
       
       <div
