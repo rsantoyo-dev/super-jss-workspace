@@ -41,7 +41,7 @@ import { TypographyComponent } from './components/typography.component';
         </div>
       </nav>
 
-      <div [sj]="sjCard.flat">
+      <div [sj]="{display:'flex', flexDirection:'column', gap:2}">
         <app-typography id="typography" [sj]="{ scrollMarginTop: '64px', transition: 'opacity .2s ease' }"></app-typography>
         <app-demo-cards id="cards" [sj]="{ scrollMarginTop: '64px', transition: 'opacity .2s ease' }"></app-demo-cards>
         <app-palette id="palette" [sj]="{ scrollMarginTop: '64px', transition: 'opacity .2s ease' }"></app-palette>

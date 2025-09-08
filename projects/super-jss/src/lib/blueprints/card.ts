@@ -26,7 +26,7 @@ const codeSnippetStyle: SjStyle = {
   bg: 'light.dark',
   p: 1,
   borderRadius: 1,
-  overflowX: 'auto'
+  overflowX: 'hidden'
 };
 
 // Internal base style for cards (shared between variants)

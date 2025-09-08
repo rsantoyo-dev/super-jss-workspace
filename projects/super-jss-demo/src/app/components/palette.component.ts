@@ -14,9 +14,23 @@ import {
   standalone: true,
   imports: [CommonModule, SjDirective],
   template: `
-    <h2 [sj]="{ c: 'primary' }">Palette</h2>
+    <div [sj]="{ d: 'grid' }">
+      <h2 [sj]="{ c: 'primary', m: 0 }">Palette</h2>
+      <a href="https://sjss.dev/palette/" target="_blank" rel="noopener" 
+      [sj]="">Docs</a>
+    </div>
 
     <div [sj]="sjCard.outlined">
+      <div [sj]="sjCard.flat({ display: 'block', bg: 'light.dark', mb: 2 })">
+        <p [sj]="">
+          The SJSS theme palette defines a set of semantic colors. Each color
+          typically includes main, light, dark, and contrast variants. These
+          colors are used consistently throughout your application and update
+          automatically when you switch themes, ensuring a cohesive and dynamic
+          visual experience.
+        </p>
+        <pre [sj]="{ m: 0, p: 1, bg: 'light.light', brad: 0.5 }"><code>{{ this.sampleImplement }}</code></pre>
+      </div>
       <div *ngFor="let color of demoColors()">
         <p [sj]="{ c: color[0], fontWeight: 'bold' }">{{ color[0] }}</p>
         <div
@@ -64,5 +78,6 @@ export class PaletteComponent {
   protected readonly sjBorderShadow = sjBorderShadow;
   protected readonly sjBorder = sjBorder;
   protected readonly sjCard = sjCard;
-  protected readonly sjOutlinedCard = sjOutlinedCard;
+  sampleImplement: string =
+    '<h3 [sj]="">Implement directive for text handler</h3>';
 }

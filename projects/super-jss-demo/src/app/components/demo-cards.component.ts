@@ -7,7 +7,10 @@ import { SjDirective, SjStyle, sjCard } from 'super-jss';
   standalone: true,
   imports: [CommonModule, SjDirective],
   template: `
-    <h2 [sj]="{ c: 'primary' }">Cards</h2>
+    <div [sj]="{ d: 'flex', fxJustify: 'space-between', fxAItems: 'center' }">
+      <h2 [sj]="{ c: 'primary', m: 0 }">Cards</h2>
+      <a href="https://sjss.dev/examples/" target="_blank" rel="noopener" [sj]="{ c: 'primary.contrast', bg: 'primary.main', p: 0.5, px: 1, brad: 0.5, '&:hover': { bg: 'primary.dark' } }">Docs</a>
+    </div>
     <div [sj]="sjCard.outlined">
       <div [sj]="sjCard.flat({display:'block', bg:'light.dark', mb:2})">
         This demo showcases the different variants of the
@@ -33,9 +36,10 @@ import { SjDirective, SjStyle, sjCard } from 'super-jss';
           <h3 [sj]="{ c: card.titleColor }">{{ card.title }}</h3>
           <p [sj]="{ m: 0 }">{{ card.message }}</p>
           <div *ngIf="card.implementationExample">
-            <pre
-              [sj]="{ m: 0, p: 1, bg: 'light.light', borderRadius: 0.5 }"
-            ><code>{{ card.implementationExample }}</code></pre>
+
+          <pre [sj]="{ m: 0, p: 1, bg: 'light.light', brad: 0.5 }"><code>{{ card.implementationExample }}</code></pre>
+            
+           
           </div>
         </div>
       </div>

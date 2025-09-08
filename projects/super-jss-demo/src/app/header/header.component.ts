@@ -211,7 +211,7 @@ function isObject(item: any): boolean {
         <strong>Breakpoint:</strong> {{ th.currentBreakpoint() }}
       </span>
     </div>
-    </header>
+
   `,
 })
 export class HeaderComponent {
