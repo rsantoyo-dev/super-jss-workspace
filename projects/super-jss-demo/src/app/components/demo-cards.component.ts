@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import {
   SjDirective,
   SjStyle,
-  sjBorderShadow,
   sjCard,
 } from 'super-jss';
 
@@ -12,36 +11,67 @@ import {
   standalone: true,
   imports: [CommonModule, SjDirective],
   template: `
-    <div [sj]="{ d: 'flex', fxDir: 'column', w: '100%', gap:2 }">
-      hello cards
-      <div [sj]="sjCard()">
-        <h3 [sj]="{ c: 'primary' }">sjCard()</h3>
-      </div>
-      <div [sj]="sjCard.outlined">
-        <h3 [sj]="{ c: 'primary' }">sjCard.outlined</h3>
-      </div>
-      <div [sj]="sjCard.flat()">
-        <h3 [sj]="{ c: 'primary' }">sjCard.flat()</h3>
-      </div>
-      <div [sj]="sjCard.ghost()">
-        <h3 [sj]="{ c: 'primary' }">sjCard.ghost()</h3>
-      </div>
-      <div [sj]="sjCard.elevated()">
-        <h3 [sj]="{ c: 'primary' }">sjCard.elevated()</h3>
-      </div>
-      <div [sj]="sjCard.primary()">
-        <h3 [sj]="{ c: 'primary.contrast' }">sjCard.primary()</h3>
+   <h3 [sj]="{c: 'primary'}">Cards</h3>
+    <div [sj]="{
+      display: 'grid',
+      gap: 2,
+      gridTemplateColumns: {
+        xs: 'repeat(1, 1fr)',
+        md: 'repeat(2, 1fr)',
+        lg: 'repeat(3, 1fr)',
+        xl: 'repeat(4, 1fr)'
+      }
+    }">
+      <div *ngFor="let card of cardData" [sj]="card.cardType">
+        <h3 [sj]="{ c: card.titleColor }">{{ card.title }}</h3>
+        <p [sj]="{ m: 0 }">{{ card.message }}</p>
+        <div *ngIf="card.implementationExample">
+          <pre [sj]="sjCard.codeSnippet"><code>{{ card.implementationExample }}</code></pre>
+        </div>
       </div>
     </div>
-
   `,
 })
 export class DemoCardsComponent {
-  protected readonly sjBorderShadow = sjBorderShadow;
   protected readonly sjCard = sjCard;
 
-  protected readonly sampleText =
-    'The quick brown fox jumps over the lazy dog. ';
-
-  cl:SjStyle = sjCard.ghost();
+  cardData = [
+    {
+      title: 'sjCard()',
+      cardType: sjCard(),
+      message: 'Default card with light background.',
+      titleColor: 'primary'
+    },
+    {
+      title: 'sjCard.outlined',
+      cardType: sjCard.outlined,
+      message: 'Outlined, transparent background, no shadow.',
+      titleColor: 'primary',
+      implementationExample: `[sj]="sjCard.outlined"`
+    },
+    {
+      title: 'sjCard.flat()',
+      cardType: sjCard.flat,
+      message: 'No shadow.',
+      titleColor: 'primary'
+    },
+    {
+      title: 'sjCard.elevated',
+      cardType: sjCard.elevated,
+      message: 'Stronger shadow.',
+      titleColor: 'primary'
+    },
+    {
+      title: 'sjCard.primary()',
+      cardType: sjCard.primary,
+      message: 'Primary background and contrast text.',
+      titleColor: 'primary.contrast' // Special case
+    },
+    {
+      title: 'sjCard.interactive',
+      cardType: sjCard.interactive,
+      message: 'Card with hover effects.',
+      titleColor: 'primary'
+    }
+  ];
 }

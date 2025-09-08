@@ -9,21 +9,19 @@ import {SjDirective, sjBorder, sjBorderShadow, sjCard, sjOutlinedCard} from 'sup
     imports: [CommonModule, SjDirective], 
     template: `
     <h3 [sj]="{c: 'primary'}">Palette</h3>
-    <div [sj]="sjCard()">
+    <div [sj]="sjCard({ d: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr', xl: '1fr 1fr 1fr' }, gap: 1 })">
       <div *ngFor="let color of demoColors()"
-      [sj]="sjOutlinedCard({my:1})"
+      [sj]="sjCard.outlined({ p: 1 })"
     >
-      <p [sj]="{c:color[0], fontWeight:'bold'}">{{ color[0] }}</p>
-      <div [sj]="{display:'flex', flexDirection:{xs:'column', md:'row'}}">
+      <p [sj]="{ c: color[0], fontWeight: 'bold', textTransform: 'capitalize', mb: 0.5 }">{{ color[0] }}</p>
+      <div [sj]="{ d: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(4, minmax(0, 1fr))' }, gap: 0.5 }">
         <div *ngFor="let colorVariant of color" [sj]="[
           {
-            display: 'flex',
-            flexGrow: '1',
-            flexDirection: 'column',
-            alignItems: 'center',
-            padding: 0.5,
-            margin: 0.5,
-            backgroundColor: colorVariant
+            d: 'grid',
+            placeItems: 'center',
+            minHeight: '56px',
+            p: 0.5,
+            bg: colorVariant
           }, sjBorder]"
         >
           <span [sj]="{c: colorVariant === color[3] ? color[0] : color[3]}">{{ colorVariant }}</span>
@@ -58,5 +56,4 @@ export class PaletteComponent {
   protected readonly sjCard = sjCard;
   protected readonly sjOutlinedCard = sjOutlinedCard;
 }
-
 

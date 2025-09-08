@@ -20,6 +20,56 @@ Super JavaScript Stylesheets (SJSS) is a dynamic, responsive, and incredibly lig
 *   🔗 **Composing Styles with Arrays:** Combine reusable style objects for modular and dynamic styling.
 *   Pseudo-selectors: Apply styles for states like `:hover`, `:active`, `:focus` directly.
 
+### ✨ The Core Concept
+
+> The principle is very simple: I take any CSS property, convert it to camelCase, and accept an object of breakpoints → all transformed into a CSS class for an ultra-lightweight experience. ✨ With added capabilities like a powerful theme system, where the entire look & feel is controlled in a single object — very fast and fluid thanks to Signals, for better integration with Angular.
+
+In `super-jss`, you can take any CSS property, write it in `camelCase`, and assign it a value. For responsive design, you can use an object with breakpoint keys. This is all transformed into highly efficient CSS classes on the fly.
+
+Here is a practical example of how you can apply themed, responsive styles to an element:
+
+```html
+<div [sj]="{
+  backgroundColor: this.anyVariable ? 'primary.main' : 'transparent',
+  padding: { xs: 2, md: 4 }
+  // You can also use shortcuts for convenience:
+  // bg: this.anyVariable ? 'primary.main' : 'transparent',
+  // p: { xs: 2, md: 4 }
+}">
+  Themed + Responsive Content
+</div>
+```
+
+### A Quick Example: The "Hello Super JSS" Header
+
+Let's see how easy it is to create a good-looking, responsive header.
+
+```typescript
+import { Component } from '@angular/core';
+import { SjDirective } from 'super-jss';
+
+@Component({
+  selector: 'app-welcome-header',
+  standalone: true,
+  imports: [SjDirective],
+  template: `
+    <h1 [sj]="{
+      color: 'primary.main',
+      textAlign: 'center',
+      padding: { xs: 2, md: 4 },
+      backgroundColor: 'light.main',
+      borderRadius: 2,
+      boxShadow: 'shadows.default'
+    }">
+      Hello Super JSS!
+    </h1>
+  `
+})
+export class WelcomeHeaderComponent {
+}
+```
+This small example demonstrates theming (`primary.main`, `light.main`), responsive padding, and other styles, all with a clean and concise syntax.
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -33,9 +83,9 @@ Super JavaScript Stylesheets (SJSS) is a dynamic, responsive, and incredibly lig
 npm install super-jss
 ```
 
-### Basic Integration
+### Basic Usage
 
-Import the `SjDirective` in your standalone component and apply the `[sj]` directive to the element you want to style. SJSS automatically generates and injects the necessary CSS.
+Import the `SjDirective` in your standalone component and apply the `[sj]` directive to the element you want to style.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -53,127 +103,57 @@ import { SjDirective } from 'super-jss';
 export class MyComponent {}
 ```
 
+## Key Features
+
 ### Responsive Styling
 
-SJSS makes responsive design intuitive. Define different style values for various breakpoints (e.g., `xs`, `sm`, `md`, `lg`, `xl`, `xxl`) directly within your style properties.
+SJSS makes responsive design intuitive. Define different style values for various breakpoints directly within your style properties.
 
-```typescript
-import { Component } from '@angular/core';
-import { SjDirective } from 'super-jss';
-
-@Component({
-  standalone: true,
-  selector: 'app-responsive-div',
-  template: `
-    <div [sj]="{
-      p: { xs: 1, md: 2, lg: 3 }, /* Padding changes based on screen size */
-      bg: { xs: 'red', md: 'blue', lg: 'green' }, /* Background color changes */
-      fontSize: { xs: 1, md: 1.5, lg: 2 }
-    }">
-      This div adapts to screen size!
-    </div>
-  `
-})
-export class ResponsiveDivComponent {}
-```
-
-### Styling Shorthands
-
-SJSS simplifies styling with a range of shorthand properties. The `px`, `py`, `mx`, `my`, `bx`, and `by` shorthands are processed directly by the `SjDirective` for convenience.
-
-```typescript
-import { Component } from '@angular/core';
-import { SjDirective } from 'super-jss';
-
-@Component({
-  standalone: true,
-  selector: 'app-shorthand-demo',
-  template: `
-    <div [sj]="{
-      d: 'flex', fxDir: {xs: 'row', md: 'column'}, fxJustify: 'center',
-      bg: 'primary.main',
-      px: 4, py: 2, /* Horizontal/Vertical Padding */
-      mx: 2, my: 2, /* Horizontal/Vertical Margin */
-      bx: '1px solid', by: '1px solid' /* Horizontal/Vertical Borders */
-    }">
-      Welcome to Super JSS!
-    </div>
-  `
-})
-export class ShorthandDemoComponent {}
+```html
+<div [sj]="{
+  padding: { xs: 1, md: 2, lg: 3 },
+  backgroundColor: { xs: 'red', md: 'blue', lg: 'green' },
+  fontSize: { xs: '1rem', md: '1.5rem', lg: '2rem' }
+}">
+  This div adapts to screen size!
+</div>
 ```
 
 ### Theming with Palette
 
-The palette is a set of colors that can be used in the application, defined by semantic names like `primary`, `secondary`, `success`, etc. Each color set typically includes `main`, `light`, `dark`, and `contrast` shades.
+Use semantic color names from your theme's palette.
 
-```typescript
-import { Component } from '@angular/core';
-import { SjDirective } from 'super-jss';
-
-@Component({
-  standalone: true,
-  selector: 'app-palette-demo',
-  template: `
-    <div [sj]="{ bg: 'primary.main', p: 2}">
-      <div [sj]="{bg: 'secondary.light', px: 2, py: 1}">
-        <h1 [sj]="{c: 'secondary.contrast'}">Themed Content!</h1>
-      </div>
-    </div>
-  `
-})
-export class PaletteDemoComponent {}
+```html
+<div [sj]="{ backgroundColor: 'primary.main', padding: 2 }">
+  <h1 [sj]="{ color: 'primary.contrast' }">Themed Content!</h1>
+</div>
 ```
 
 ### Composing Styles with Arrays
 
-Combine reusable `SjStyle` objects (your "JavaScript classes") by providing an array to the `[sj]` directive. This promotes modularity, reusability, and dynamic styling composition.
+Combine reusable `SjStyle` objects for modular and dynamic styling.
 
 ```typescript
-import { Component } from '@angular/core';
-import { SjDirective, SjStyle } from 'super-jss';
-
-const myPadding: SjStyle = { p: 2 };
+// In your component.ts
+const myPadding: SjStyle = { padding: 2 };
 const myShadow: SjStyle = { boxShadow: '0 2px 4px rgba(0,0,0,0.1)' };
-
-@Component({
-  standalone: true,
-  selector: 'app-composed-styles-demo',
-  template: `
-    <div [sj]="[myPadding, myShadow, { bg: 'lightblue' }]">
-      Composed Styles!
-    </div>
-  `,
-})
-export class ComposedStylesDemoComponent {
-  protected readonly myPadding = myPadding;
-  protected readonly myShadow = myShadow;
-}
 ```
-
-### Flex-box Responsive Demo
-
-Explore how Super JSS simplifies responsive flex-box layouts with this interactive StackBlitz example. See how `[sj]` attributes are used to create flexible and adaptive UI components that respond to different screen sizes.
-
-- [StackBlitz: Flex-box Responsive Demo](https://stackblitz.com/edit/angular-ivy-ieshja?file=README.md,src%2Fapp%2Fapp.component.ts)
+```html
+<!-- In your template -->
+<div [sj]="[myPadding, myShadow, { backgroundColor: 'lightblue' }]">
+  Composed Styles!
+</div>
+```
 
 ### Dynamic Theme Updates
 
-Update any part of your theme (palette, typography, breakpoints, spacing) dynamically at runtime using the `SjThemeService.setTheme()` method.
+Update the theme at runtime using the `SjThemeService`.
 
 ```typescript
-import { Component } from '@angular/core';
-import { SjDirective, SjThemeService, defaultTheme, desertTheme } from 'super-jss';
+// In your component.ts
+import { SjThemeService, defaultTheme, desertTheme } from 'super-jss';
 
-@Component({
-  standalone: true,
-  selector: 'app-theme-updater',
-  template: `
-    <button (click)="toggleTheme()" [sj]="{ bg: 'primary.main', color: 'primary.contrast', p: 1, borderRadius: '4px', cursor: 'pointer' }">
-      Toggle Theme
-    </button>
-  `
-})
+// ...
 export class ThemeUpdaterComponent {
   isDesertTheme = false;
   constructor(private th: SjThemeService) {}
@@ -185,6 +165,37 @@ export class ThemeUpdaterComponent {
   }
 }
 ```
+```html
+<!-- In your template -->
+<button (click)="toggleTheme()" [sj]="{ backgroundColor: 'primary.main', color: 'primary.contrast', padding: 1, borderRadius: '4px', cursor: 'pointer' }">
+  Toggle Theme
+</button>
+```
+
+### Styling Shorthands
+
+For convenience, SJSS provides a range of shorthand properties.
+
+```html
+<div [sj]="{
+  d: 'flex', 
+  fxDir: {xs: 'row', md: 'column'}, 
+  fxJustify: 'center',
+  bg: 'primary.main',
+  px: 4, // padding-left & padding-right
+  py: 2, // padding-top & padding-bottom
+  mx: 2, // margin-left & margin-right
+  my: 2  // margin-top & margin-bottom
+}">
+  Welcome to Super JSS!
+</div>
+```
+
+### Flex-box Responsive Demo
+
+Explore how Super JSS simplifies responsive flex-box layouts with this interactive StackBlitz example. See how `[sj]` attributes are used to create flexible and adaptive UI components that respond to different screen sizes.
+
+- [StackBlitz: Flex-box Responsive Demo](https://stackblitz.com/edit/angular-ivy-ieshja?file=README.md,src%2Fapp%2Fapp.component.ts)
 
 ## 📖 Documentation
 

@@ -22,14 +22,21 @@ export const sjTransition: SjStyle = {
   transition: 'all 0.3s ease-in-out',
 };
 
+const codeSnippetStyle: SjStyle = {
+  bg: 'neutral.light',
+  p: 1,
+  borderRadius: 1,
+  overflowX: 'auto',
+  fontFamily: 'monospace'
+};
+
 // Internal base style for cards (shared between variants)
 const sjCardBase = (): SjStyle => ({
   ...sjBorder,
   ...sjShadow,
   ...sjTransition,
-  p: {xs: 1, md: 2},
-  d: 'flex',
-  fxDir: 'column',
+  p: { xs: 1, md: 2 },
+  d: 'grid',
   borderRadius: 0.5,
 });
 
@@ -37,45 +44,38 @@ const sjCardBase = (): SjStyle => ({
 export type SjCardApi = ((overrides?: Partial<SjStyle>) => SjStyle) & {
   outlined: (overrides?: Partial<SjStyle>) => SjStyle;
   flat: (overrides?: Partial<SjStyle>) => SjStyle;
-  ghost: (overrides?: Partial<SjStyle>) => SjStyle;
   elevated: (overrides?: Partial<SjStyle>) => SjStyle;
   interactive: (overrides?: Partial<SjStyle>) => SjStyle;
   primary: (overrides?: Partial<SjStyle>) => SjStyle;
-  surface: (overrides?: Partial<SjStyle>) => SjStyle;
+  codeSnippet: SjStyle;
 };
 
-const sjCardImpl = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+const sjCardApi: SjCardApi = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
   bg: 'light.light',
   ...overrides,
 });
 
-sjCardImpl.outlined = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+sjCardApi.outlined = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
+  boxShadow: 'none',
+  borderColor: 'light.dark',
   ...overrides,
 });
 
-sjCardImpl.flat = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+sjCardApi.flat = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
   boxShadow: 'none',
   ...overrides,
 });
 
-sjCardImpl.ghost = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-  ...sjCardBase(),
-  bg: undefined,
-  borderWidth: 0,
-  boxShadow: 'none',
-  ...overrides,
-});
-
-sjCardImpl.elevated = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+sjCardApi.elevated = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
   boxShadow: '0 4px 12px rgba(0,0,0,0.16)',
   ...overrides,
 });
 
-sjCardImpl.interactive = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+sjCardApi.interactive = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
   cursor: 'pointer',
   '&:hover': {
@@ -85,29 +85,23 @@ sjCardImpl.interactive = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...overrides,
 });
 
-sjCardImpl.primary = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+sjCardApi.primary = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
   bg: 'primary.main',
   c: 'primary.contrast',
   ...overrides,
 });
 
-sjCardImpl.surface = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-  ...sjCardBase(),
-  bg: 'light.main',
-  ...overrides,
-});
+sjCardApi.codeSnippet = codeSnippetStyle;
 
-export const sjCard = sjCardImpl as SjCardApi;
+export const sjCard = sjCardApi as SjCardApi;
 
 // Also export named variants for convenience/backward-compat
 export const sjCardOutlined = sjCard.outlined;
 export const sjCardFlat = sjCard.flat;
-export const sjCardGhost = sjCard.ghost;
 export const sjCardElevated = sjCard.elevated;
 export const sjCardInteractive = sjCard.interactive;
 export const sjCardPrimary = sjCard.primary;
-export const sjCardSurface = sjCard.surface;
 
 // Legacy alias maintained
 export const sjOutlinedCard = sjCard.outlined;

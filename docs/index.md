@@ -20,28 +20,26 @@ Tired of wrestling with complex CSS or boilerplate? SJSS simplifies styling in A
 
 Unlike traditional utility-first frameworks like Tailwind CSS or component libraries like Material UI, SJSS doesn't ship with a giant prebuilt utility set or a large component library. Instead, it generates only the CSS you explicitly use, on the fly, keeping your application's bundle size minimal and ensuring optimal performance. This approach means no unused styles bloating your memory, just lean, efficient CSS tailored precisely to your needs.
 
-### Quick Example:
+### ✨ The Core Concept
+
+> The principle is very simple: I take any CSS property, convert it to camelCase, and accept an object of breakpoints → all transformed into a CSS class for an ultra-lightweight experience. ✨ With added capabilities like a powerful theme system, where the entire look & feel is controlled in a single object — very fast and fluid thanks to Signals, for better integration with Angular.
+
+In `super-jss`, you can take any CSS property, write it in `camelCase`, and assign it a value. For responsive design, you can use an object with breakpoint keys. This is all transformed into highly efficient CSS classes on the fly.
+
+Here is a practical example of how you can apply themed, responsive, and dynamic styles to an element:
 
 ```html
 <div [sj]="{
-  d: 'flex',
-  fxJustify: 'center',
-  p: { xs: 1, md: 2 }, /* Responsive padding */
-  bg: 'primary.main',
-  borderRadius: '8px',
-  transition: 'all 0.3s ease-in-out',
-  '&:hover': { /* Hover effect */
-    bg: 'primary.dark',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.2)'
-  }
+  backgroundColor: this.anyVariable ? 'primary.dark' : 'secondary.main',
+  padding: { xs: 2, md: 4 }
+  // You can also use shortcuts for convenience:
+  // bg: this.anyVariable ? 'primary.dark' : 'secondary.main',
+  // p: { xs: 2, md: 4 }
 }">
-  <span [sj]="{ color: 'primary.contrast', fontSize: { xs: 1, md: 1.5 } }">
-    Hello SJSS!
-  </span>
+  Themed, Responsive, and Dynamic Content
 </div>
 ```
-
-In this example, the container is responsive, themed, and interactive on hover — all without writing a single CSS class.
+This small example demonstrates dynamic theming based on a variable, and responsive padding, all with a clean and concise syntax.
 
 ## Get Started in Seconds!
 

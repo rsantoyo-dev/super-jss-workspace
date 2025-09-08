@@ -16,15 +16,14 @@ import { PaletteComponent } from './components/palette.component';
   template: `
     <div
       [sj]="{
-        display: 'flex',
-        flexDirection: 'column',
+        display: 'grid',
         bg: 'light.main',
         minHeight: '100vh'
       }"
     >
       <app-header></app-header>
 
-      <div [sj]="{ p: {xs:1, md:2}, d:'flex', fxDir:'column', gap:2 }">
+      <div [sj]="{ p: {xs:1, md:2}, d:'grid', gap: 2 }">
         <app-demo-cards></app-demo-cards>
         <app-typography></app-typography>
         <app-palette></app-palette>
