@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
-import { TypographyComponent } from './components/typography/typography.component';
+import { TypographyComponent } from './components/typography.component';
 import { DemoCardsComponent } from './components/demo-cards.component';
 import { SjDirective } from 'super-jss';
-import { PaletteComponent } from './components/palette/palette.component';
+import { PaletteComponent } from './components/palette.component';
 @Component({
   selector: 'app-root',
   imports: [
