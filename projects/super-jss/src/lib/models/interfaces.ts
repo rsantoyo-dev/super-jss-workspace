@@ -1,3 +1,5 @@
+import * as CSS from 'csstype';
+
 // Defines options for theme colors with main, light, dark, and contrast variants.
 export type SjThemeColorOption = {
   main: string,
@@ -99,6 +101,11 @@ export type ResponsiveStyle = {
   xxl?: string | number
 }
 
+// Utility type to make all properties of a type accept ResponsiveStyle
+type WithResponsive<T> = {
+  [P in keyof T]: T[P] | ResponsiveStyle;
+};
+
 // Shorthand styles for common CSS properties with responsive support.
 export type SjShorthandStyle = {
   //padding margin
@@ -163,12 +170,7 @@ export type SjShorthandCustomStyle = {
   by?: ResponsiveStyle | string | number; // shorthand for borderTop and borderBottom
 
 }
-export type SjStyle = {
-  [Property in keyof SjShorthandStyle | keyof SjShorthandCustomStyle]?:
-    | ResponsiveStyle
-    | string
-    | number;
-} & {
+export type SjStyle = WithResponsive<CSS.Properties<string | number>> & SjShorthandStyle & SjShorthandCustomStyle & {
   [key: string]:
     | ResponsiveStyle
     | string
