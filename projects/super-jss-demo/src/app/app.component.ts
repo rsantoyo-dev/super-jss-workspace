@@ -1,4 +1,4 @@
-import { Component, effect, ViewChild, ElementRef } from '@angular/core';
+import { Component, effect, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { DemoCardsComponent } from './components/demo-cards.component';
 import { SjDirective, sjCard, SjStyle, SjTheme, SjThemeService } from 'super-jss';
@@ -30,7 +30,6 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
       </nav>
 
       <div [sj]="contentContainer">
-        <h3 [sj]="{bg:'red', fontSize:6}">This is a test H3</h3>
         <div [sj]="appBase">
           <json-editor #editor [options]="editorOptions" [data]="themeData"></json-editor>
           <button [sj]="sjCard.interactive" (click)="applyTheme()">Apply</button>
@@ -43,7 +42,7 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
     </div>
   `,
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit, OnDestroy {
   @ViewChild('editor', { static: false }) editor!: JsonEditorComponent;
   editorOptions: JsonEditorOptions;
   themeData: any;
@@ -96,20 +95,7 @@ export class AppComponent {
     ...this.sjPresets.transitions.allEase,
   };
 
-  applyButton: SjStyle = {
-    bg: 'primary.main',
-    color: 'primary.contrast',
-    p: { xs: 1, sm: 1.5 },
-    brad: 4,
-    border: 'none',
-    cursor: 'pointer',
-    fontSize: 16,
-    mt: 1,
-    w: '100%',
-    '&:hover': {
-      bg: 'primary.dark',
-    },
-  };
+  private observer: MutationObserver | undefined;
 
   constructor(private themeService: SjThemeService, private elementRef: ElementRef) {
     this.editorOptions = new JsonEditorOptions();
@@ -117,11 +103,46 @@ export class AppComponent {
     this.editorOptions.mode = 'code';
     this.themeData = this.themeService.sjTheme();
     effect(() => {
-      const theme = this.themeService.sjTheme();
-      this.themeData = theme;
-      this.elementRef.nativeElement.style.setProperty('--json-editor-menu-bg', theme.palette.primary.main);
-      this.elementRef.nativeElement.style.setProperty('--json-editor-menu-color', theme.palette.primary.contrast);
-      this.elementRef.nativeElement.style.setProperty('--json-editor-menu-border', theme.palette.primary.dark);
+      this.themeData = this.themeService.sjTheme();
+    });
+  }
+
+  ngAfterViewInit(): void {
+    const host: HTMLElement = this.elementRef.nativeElement;
+
+    this.observer = new MutationObserver(() => {
+      this.applyJsonEditorMenuStyles();
+    });
+
+    this.observer.observe(host, { childList: true, subtree: true });
+
+    // Initial application
+    this.applyJsonEditorMenuStyles();
+  }
+
+  ngOnDestroy(): void {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+  }
+
+  private applyJsonEditorMenuStyles() {
+    const host: HTMLElement = this.elementRef.nativeElement;
+    const menu = host.querySelector('json-editor .jsoneditor-menu') as HTMLElement | null;
+    if (!menu) return;
+
+    const theme = this.themeService.sjTheme();
+    
+    menu.style.setProperty('background-color', theme.palette.primary.main);
+    menu.style.setProperty('color', theme.palette.primary.contrast);
+    menu.style.setProperty('border-bottom', `1px solid ${theme.palette.primary.dark}`);
+
+    const buttons = menu.querySelectorAll('button');
+    buttons.forEach((button: HTMLElement) => {
+      button.style.setProperty('background-color', theme.palette.primary.main);
+      button.style.setProperty('color', theme.palette.primary.contrast);
+      button.style.setProperty('border', `1px solid ${theme.palette.primary.dark}`);
+      button.style.setProperty('opacity', '0.8');
     });
   }
 
