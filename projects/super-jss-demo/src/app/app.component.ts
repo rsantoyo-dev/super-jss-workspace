@@ -30,6 +30,7 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
       </nav>
 
       <div [sj]="contentContainer">
+        <h3 [sj]="{bg:'red', textSize:6}">This is a test H3</h3>
         <div [sj]="appBase">
           <json-editor #editor [options]="editorOptions" [data]="themeData"></json-editor>
           <button [sj]="sjCard.interactive" (click)="applyTheme()">Apply</button>

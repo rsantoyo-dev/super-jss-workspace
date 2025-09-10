@@ -21,17 +21,21 @@ export class SjCssGeneratorService {
     this.renderer.appendChild(this.document.head, this.styleEl);
   }
 
-  public getOrGenerateClasses(styles: SjStyle, theme: SjTheme): string[] {
+  public getOrGenerateClasses(styles: SjStyle, theme: SjTheme, version = 0): string[] {
     const cssGenerator = new CssGenerator(theme);
     const cssMap = cssGenerator.generateAtomicCss(styles);
-    const classes = Array.from(cssMap.keys());
+    const prefix = version > 0 ? `v${version}-` : '';
+    const classes: string[] = [];
     let newCss = '';
 
     for (const [className, cssRule] of cssMap) {
-      if (!this.generatedClasses.has(className)) {
-        this.generatedClasses.add(className);
-        newCss += cssRule + '\n';
+      const prefixedClass = `${prefix}${className}`;
+      const prefixedRule = cssRule.split(`.${className}`).join(`.${prefixedClass}`);
+      if (!this.generatedClasses.has(prefixedClass)) {
+        this.generatedClasses.add(prefixedClass);
+        newCss += prefixedRule + '\n';
       }
+      classes.push(prefixedClass);
     }
 
     if (newCss) {

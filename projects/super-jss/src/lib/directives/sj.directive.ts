@@ -11,6 +11,7 @@ import {
 import { SjStyle } from "../models/interfaces";
 import { SjThemeService, SjCssGeneratorService } from "../services";
 import { deepMerge } from '../utils/deep-merge';
+import { applyTypography } from '../core/core-methods';
 
 /**
  * Directive for applying dynamic styles, implementing SJSS (Super JavaScript Stylesheets) principles.
@@ -126,13 +127,21 @@ export class SjDirective implements OnChanges {
 
     const processedStyles = this.processShorthands(sjStyles);
 
+    // Apply inline typography (default + tag-specific) to ensure immediate update on theme changes
+    try {
+      const doc: Document = this.vcr.element.nativeElement.ownerDocument as Document;
+      const win = doc.defaultView;
+      const width = win ? win.innerWidth : 0;
+      applyTypography(this.vcr.element.nativeElement, theme, width);
+    } catch {}
+
     const mergedStyles = deepMerge(
         deepMerge(defaultTypographyStyles, typographyStyles),
         processedStyles
     );
 
     if (Object.keys(mergedStyles).length > 0) {
-      const classes = this.cssGenerator.getOrGenerateClasses(mergedStyles, theme);
+      const classes = this.cssGenerator.getOrGenerateClasses(mergedStyles, theme, this.sjt.themeVersion());
       classes.forEach((c: string) => this.renderer.addClass(this.vcr.element.nativeElement, c));
       this.lastClasses = classes;
     }
