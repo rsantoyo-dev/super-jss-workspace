@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, effect, ViewChild } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { DemoCardsComponent } from './components/demo-cards.component';
-import { SjDirective, sjCard, SjStyle } from 'super-jss';
+import { SjDirective, sjCard, SjStyle, SjTheme, SjThemeService } from 'super-jss';
 import { PaletteComponent } from './components/palette.component';
 import { TypographyComponent } from './components/typography.component';
+import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
+
 @Component({
   selector: 'app-root',
   imports: [
@@ -12,6 +14,7 @@ import { TypographyComponent } from './components/typography.component';
     TypographyComponent,
     PaletteComponent,
     DemoCardsComponent,
+    JsonEditorComponent,
   ],
   template: `
     <div [sj]="mainContainer">
@@ -27,14 +30,23 @@ import { TypographyComponent } from './components/typography.component';
       </nav>
 
       <div [sj]="contentContainer">
+        <div [sj]="appBase">
+          <json-editor #editor [options]="editorOptions" [data]="themeData"></json-editor>
+          <button [sj]="sjCard.interactive" (click)="applyTheme()">Apply</button>
+        </div>
         <app-typography id="typography" [sj]="appBase"></app-typography>
         <app-demo-cards id="cards" [sj]="appBase"></app-demo-cards>
         <app-palette id="palette" [sj]="appBase"></app-palette>
+        
       </div>
     </div>
   `,
 })
 export class AppComponent {
+  @ViewChild('editor', { static: false }) editor!: JsonEditorComponent;
+  editorOptions: JsonEditorOptions;
+  themeData: any;
+
   protected readonly sjCard = sjCard;
 
   // Global Presets (to be moved to library later)
@@ -82,4 +94,34 @@ export class AppComponent {
     scrollMarginTop: '64px',
     ...this.sjPresets.transitions.allEase,
   };
+
+  applyButton: SjStyle = {
+    bg: 'primary.main',
+    color: 'primary.contrast',
+    p: { xs: 1, sm: 1.5 },
+    brad: 4,
+    border: 'none',
+    cursor: 'pointer',
+    fontSize: 16,
+    mt: 1,
+    w: '100%',
+    '&:hover': {
+      bg: 'primary.dark',
+    },
+  };
+
+  constructor(private themeService: SjThemeService) {
+    this.editorOptions = new JsonEditorOptions();
+    this.editorOptions.modes = ['code', 'tree', 'view', 'text'];
+    this.editorOptions.mode = 'code';
+    this.themeData = this.themeService.sjTheme();
+    effect(() => {
+      this.themeData = this.themeService.sjTheme();
+    });
+  }
+
+  applyTheme() {
+    const newTheme = this.editor.get() as Partial<SjTheme>;
+    this.themeService.setTheme(newTheme);
+  }
 }

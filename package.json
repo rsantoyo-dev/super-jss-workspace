@@ -28,6 +28,8 @@
     "@angular/platform-browser-dynamic": "20.0.0",
     "@angular/platform-server": "20.0.0",
     "@angular/router": "20.0.0",
+    "ang-jsoneditor": "^4.0.2",
+    "jsoneditor": "^10.4.1",
     "microlight": "^0.0.7",
     "rainbow-code": "^2.1.7",
     "rxjs": "^7.8.2",
