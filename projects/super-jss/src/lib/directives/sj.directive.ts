@@ -11,7 +11,7 @@ import {
 import { SjStyle } from "../models/interfaces";
 import { SjThemeService, SjCssGeneratorService } from "../services";
 import { deepMerge } from '../utils/deep-merge';
-import { applyTypography } from '../core/core-methods';
+import { applyTypography, applyResponsiveStyle } from '../core/core-methods';
 
 /**
  * Directive for applying dynamic styles, implementing SJSS (Super JavaScript Stylesheets) principles.
@@ -98,6 +98,11 @@ export class SjDirective implements OnChanges {
         newStyles.bb = newStyles.by;
         delete newStyles.by;
     }
+    // Optional text shorthand: textSize -> fontSize
+    if ((newStyles as any).textSize !== undefined) {
+      (newStyles as any).fontSize = (newStyles as any).textSize;
+      delete (newStyles as any).textSize;
+    }
     return newStyles;
 }
 
@@ -133,6 +138,20 @@ export class SjDirective implements OnChanges {
       const win = doc.defaultView;
       const width = win ? win.innerWidth : 0;
       applyTypography(this.vcr.element.nativeElement, theme, width);
+      // Then apply any text-related overrides from [sj] inline so they win over theme typography
+      const textKeys = new Set([
+        'fontSize', 'fontWeight', 'lineHeight', 'fontFamily', 'letterSpacing',
+        'textTransform', 'fontStyle', 'textDecoration', 'textAlign', 'color', 'c'
+      ]);
+      const textOverrides: SjStyle = {} as SjStyle;
+      for (const k in processedStyles) {
+        if (!Object.prototype.hasOwnProperty.call(processedStyles, k)) continue;
+        if (k.startsWith('&')) continue;
+        if (textKeys.has(k)) (textOverrides as any)[k] = (processedStyles as any)[k];
+      }
+      if (Object.keys(textOverrides).length) {
+        applyResponsiveStyle(this.vcr.element.nativeElement, textOverrides, width, theme);
+      }
     } catch {}
 
     const mergedStyles = deepMerge(
