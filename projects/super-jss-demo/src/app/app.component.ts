@@ -1,4 +1,4 @@
-import { Component, effect, ViewChild } from '@angular/core';
+import { Component, effect, ViewChild, ElementRef } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { DemoCardsComponent } from './components/demo-cards.component';
 import { SjDirective, sjCard, SjStyle, SjTheme, SjThemeService } from 'super-jss';
@@ -110,13 +110,17 @@ export class AppComponent {
     },
   };
 
-  constructor(private themeService: SjThemeService) {
+  constructor(private themeService: SjThemeService, private elementRef: ElementRef) {
     this.editorOptions = new JsonEditorOptions();
     this.editorOptions.modes = ['code', 'tree', 'view', 'text'];
     this.editorOptions.mode = 'code';
     this.themeData = this.themeService.sjTheme();
     effect(() => {
-      this.themeData = this.themeService.sjTheme();
+      const theme = this.themeService.sjTheme();
+      this.themeData = theme;
+      this.elementRef.nativeElement.style.setProperty('--json-editor-menu-bg', theme.palette.primary.main);
+      this.elementRef.nativeElement.style.setProperty('--json-editor-menu-color', theme.palette.primary.contrast);
+      this.elementRef.nativeElement.style.setProperty('--json-editor-menu-border', theme.palette.primary.dark);
     });
   }
 
