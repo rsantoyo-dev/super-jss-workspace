@@ -12,7 +12,7 @@ export const DEFAULT_COLORS: SjColors = {
     700: '#1976D2',
     800: '#1565C0',
     900: '#0D47A1',
-    contrast: '#c26d29',
+    contrast: '#FFFFFF',
   },
   indigo: {
     50: '#E8EAF6',
@@ -25,7 +25,7 @@ export const DEFAULT_COLORS: SjColors = {
     700: '#303F9F',
     800: '#283593',
     900: '#1A237E',
-    contrast: '#f59242',
+    contrast: '#FFFFFF',
   },
   purple: {
     50: '#F3E5F5',
@@ -38,7 +38,7 @@ export const DEFAULT_COLORS: SjColors = {
     700: '#7B1FA2',
     800: '#6A1B9A',
     900: '#4A148C',
-    contrast: '#f59242',
+    contrast: '#FFFFFF',
   },
   pink: {
     50: '#FCE4EC',
@@ -51,7 +51,7 @@ export const DEFAULT_COLORS: SjColors = {
     700: '#C2185B',
     800: '#AD1457',
     900: '#880E4F',
-    contrast: '#f59242',
+    contrast: '#FFFFFF',
   },
   red: {
     50: '#FFEBEE',
@@ -64,7 +64,7 @@ export const DEFAULT_COLORS: SjColors = {
     700: '#D32F2F',
     800: '#C62828',
     900: '#771010',
-    contrast: '#f59242',
+    contrast: '#FFFFFF',
   },
   orange: {
     50: '#FFF3E0',
@@ -77,7 +77,7 @@ export const DEFAULT_COLORS: SjColors = {
     700: '#F57C00',
     800: '#EF6C00',
     900: '#bb4600',
-    contrast: '#f59242',
+    contrast: '#000000',
   },
   yellow: {
     50: '#FFFDE7',
@@ -90,7 +90,7 @@ export const DEFAULT_COLORS: SjColors = {
     700: '#FBC02D',
     800: '#F9A825',
     900: '#F57F17',
-    contrast: '#f59242',
+    contrast: '#000000',
   },
   green: {
     50: '#E8F5E9',
@@ -103,7 +103,7 @@ export const DEFAULT_COLORS: SjColors = {
     700: '#388E3C',
     800: '#2E7D32',
     900: '#1B5E20',
-    contrast: '#f59242',
+    contrast: '#FFFFFF',
   },
   teal: {
     50: '#E0F2F1',
@@ -116,7 +116,7 @@ export const DEFAULT_COLORS: SjColors = {
     700: '#00796B',
     800: '#00695C',
     900: '#004D40',
-    contrast: '#f59242',
+    contrast: '#FFFFFF',
   },
   cyan: {
     50: '#E0F7FA',
@@ -129,7 +129,7 @@ export const DEFAULT_COLORS: SjColors = {
     700: '#0097A7',
     800: '#00838F',
     900: '#006064',
-    contrast: '#f59242',
+    contrast: '#000000',
   },
   gray: {
     50: '#FAFAFA',
@@ -142,7 +142,7 @@ export const DEFAULT_COLORS: SjColors = {
     700: '#616161',
     800: '#424242',
     900: '#212121',
-    contrast: '#f59242',
+    contrast: '#000000',
   },
   black: '#000000',
   white: '#FFFFFF',
