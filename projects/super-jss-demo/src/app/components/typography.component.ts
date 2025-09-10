@@ -30,7 +30,7 @@ import { SjDirective, sjBorderShadow, sjCard } from 'super-jss';
           >Docs
         </a> 
         </div>
-        <h1 [sj]="{ c: 'primary' }">H1: {{ sampleText }}</h1>
+        <h1 [sj]="{ c: 'primary' }">H1: {{ sampleText }}</h1> 
         <h2 [sj]="{ c: 'secondary' }">H2: {{ sampleText }}</h2>
         <h3 [sj]="{ c: 'tertiary' }">H3: {{ sampleText }}</h3>
         <h4 [sj]>H4: {{ sampleText }}</h4>

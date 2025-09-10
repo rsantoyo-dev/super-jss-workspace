@@ -21,8 +21,9 @@ type SjStyleProducer = () => SjStyle;
 type SjInput = SjStyle | SjStyle[] | SjStyleProducer | Array<SjStyle | SjStyleProducer>;
 
 @Directive({
-  standalone: true, // Marks this directive as standalone, not requiring an NgModule.
-  selector: '[sj], h1, h2, h3, h4, h5, h6, p, span, strong, body, caption' // The selector to be used for applying this directive in templates.
+  standalone: true,
+  // Opt-in only: apply styles/typography when [sj] is present
+  selector: '[sj]'
 })
 export class SjDirective implements OnChanges {
   /**

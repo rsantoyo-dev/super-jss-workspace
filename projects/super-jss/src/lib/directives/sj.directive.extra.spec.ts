@@ -7,9 +7,9 @@ import { defaultTheme } from '../themes';
 @Component({
   standalone: true,
   imports: [SjDirective],
-  template: `<h1>Title</h1>`,
+  template: `<h1 [sj]="{}">Title</h1>`,
 })
-class H1OnlyComponent {}
+class H1WithSjComponent {}
 
 @Component({
   standalone: true,
@@ -21,13 +21,13 @@ class DivWithSjComponent {}
 describe('SjDirective extra scenarios', () => {
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-  it('applies default typography on tag selector without [sj]', async () => {
+  it('applies default + H1 typography only when [sj] is present', async () => {
     TestBed.configureTestingModule({
-      imports: [H1OnlyComponent],
+      imports: [H1WithSjComponent],
       providers: [SjThemeService],
     }).compileComponents();
 
-    const fixture: ComponentFixture<H1OnlyComponent> = TestBed.createComponent(H1OnlyComponent);
+    const fixture: ComponentFixture<H1WithSjComponent> = TestBed.createComponent(H1WithSjComponent);
     fixture.detectChanges();
     await sleep(0);
 

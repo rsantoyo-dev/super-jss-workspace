@@ -20,7 +20,8 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
     <div [sj]="mainContainer">
       <app-header></app-header>
 
-      <!-- Sticky in-page menu -->
+      <!-- Sticky in-page menu title (no [sj] so it stays native) -->
+ 
       <nav [sj]="navBar">
         <div [sj]="navInner">
           <a href="#typography" [sj]="navAnchor">Typography</a>
