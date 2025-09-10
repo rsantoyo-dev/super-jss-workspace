@@ -14,15 +14,11 @@ import { TypographyComponent } from './components/typography.component';
     DemoCardsComponent,
   ],
   template: `
-    <div
-      [sj]="mainContainer"
-    >
+    <div [sj]="mainContainer">
       <app-header></app-header>
 
       <!-- Sticky in-page menu -->
-      <nav
-        [sj]="navBar"
-      >
+      <nav [sj]="navBar">
         <div [sj]="navInner">
           <a href="#typography" [sj]="navAnchor">Typography</a>
           <a href="#cards" [sj]="navAnchor">Cards</a>
@@ -44,64 +40,46 @@ export class AppComponent {
   // Global Presets (to be moved to library later)
   sjPresets = {
     transitions: {
-      allEase: { transition: 'all .2s ease' } as SjStyle,
-      bgShadowEase: { transition: 'background-color .2s ease, box-shadow .2s ease' } as SjStyle,
-      bgEase: { transition: 'background-color .2s ease' } as SjStyle,
-      opacityEase: { transition: 'opacity .2s ease' } as SjStyle,
-      transformEase: { transition: 'transform .2s ease' } as SjStyle,
-    },
-    states: {
-      hoverBgLight: { '&:hover': { bg: 'light.light' } } as SjStyle,
-      focusOutlinePrimary: { '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main' } } as SjStyle,
+      allEase: { transition: 'all .2s ease' },
     },
   };
 
   mainContainer: SjStyle = {
-    display: 'flex',
-    flexDirection: 'column',
+    display: { xs: 'flex', md: 'grid' },
     bg: 'light.main',
     minHeight: '100vh',
   };
 
   navBar: SjStyle = {
-    position: 'sticky', top: 0, zIndex: '900',
+    position: 'sticky',
+    top: 0,
+    zIndex: '900',
     bg: 'light.main',
-    borderBottom: '1px solid', borderColor: 'light.dark',
-    ...this.sjPresets.transitions.bgShadowEase,
+    borderBottom: '1px solid',
+    borderColor: 'light.dark',
+    ...this.sjPresets.transitions.allEase,
   };
 
   navInner: SjStyle = {
     display: 'flex',
     fxJustify: 'center',
     gap: 1,
-    px: { xs: 1, md: 2 },
-    py: 0.5,
+    p: 0.5,
   };
 
   navAnchor: SjStyle = {
-    p: 0.5,
-    px: 1,
-    brad: 0.5,
-    c: 'dark.dark',
-    ...this.sjPresets.transitions.bgEase,
-    ...this.sjPresets.states.hoverBgLight,
-    ...this.sjPresets.states.focusOutlinePrimary,
+    ...sjCard.interactive(),
+    py: 0.5,
   };
 
   contentContainer: SjStyle = {
-    display:'grid',
-    p:{xs:1, sm:2, md:4},
+    display: 'grid',
+    p: { xs: 1, sm: 2, md: 4 },
     gap: 4,
   };
 
   appBase: SjStyle = {
     scrollMarginTop: '64px',
-    ...this.sjPresets.transitions.opacityEase,
-  };
-
-  // Example of responsive flex direction
-  responsiveFlexExample: SjStyle = {
-    display: 'flex',
-    flexDirection: { xs: 'row', md: 'column' }
+    ...this.sjPresets.transitions.allEase,
   };
 }
