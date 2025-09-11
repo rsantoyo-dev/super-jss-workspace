@@ -21,7 +21,7 @@
               "projects/super-jss-demo/src/favicon.ico",
               "projects/super-jss-demo/src/assets"
             ],
-            "styles": ["node_modules/jsoneditor/dist/jsoneditor.min.css", "projects/super-jss-demo/src/styles.scss"],
+            "styles": ["projects/super-jss-demo/src/styles.scss"],
             "scripts": [],
             "browser": "projects/super-jss-demo/src/main.ts"
           },

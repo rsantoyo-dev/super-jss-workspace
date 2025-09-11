@@ -4,7 +4,6 @@ import { DemoCardsComponent } from './components/demo-cards.component';
 import { SjDirective, sjCard, SjStyle, SjTheme, SjThemeService } from 'super-jss';
 import { PaletteComponent } from './components/palette.component';
 import { TypographyComponent } from './components/typography.component';
-import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +13,6 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
     TypographyComponent,
     PaletteComponent,
     DemoCardsComponent,
-    JsonEditorComponent,
   ],
   template: `
     <div [sj]="mainContainer">
@@ -33,9 +31,7 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 
       <div [sj]="contentContainer">
         <div [sj]="appBase">
-          <json-editor #editor [options]="editorOptions" [data]="themeData"></json-editor>
 
-          <button [sj]="sjCard.interactive" (click)="applyTheme()">Apply</button>
         </div>
         <app-typography id="typography" [sj]="appBase"></app-typography>
         <app-demo-cards id="cards" [sj]="appBase"></app-demo-cards>
@@ -46,8 +42,7 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
   `,
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('editor', { static: false }) editor!: JsonEditorComponent;
-  editorOptions: JsonEditorOptions;
+
   themeData: SjTheme;
 
   protected readonly sjCard = sjCard;
@@ -101,9 +96,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   private observer: MutationObserver | undefined;
 
   constructor(private themeService: SjThemeService, private elementRef: ElementRef) {
-    this.editorOptions = new JsonEditorOptions();
-    this.editorOptions.modes = ['code', 'tree', 'view', 'text'];
-    this.editorOptions.mode = 'code';
+   
     this.themeData = this.themeService.sjTheme();
     effect(() => {
       this.themeData = this.themeService.sjTheme();
@@ -221,8 +214,5 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  applyTheme() {
-    const newTheme = this.editor.get() as Partial<SjTheme>;
-    this.themeService.setTheme(newTheme);
-  }
+
 }
