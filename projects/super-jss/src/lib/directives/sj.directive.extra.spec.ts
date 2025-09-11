@@ -41,7 +41,7 @@ describe('SjDirective extra scenarios', () => {
     expect(cssText).toContain('line-height: 2.3rem');
   });
 
-  it('uses default typography when element tag has no specific entry', async () => {
+  it('does not apply default typography on non-text elements', async () => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       imports: [DivWithSjComponent],
@@ -54,8 +54,6 @@ describe('SjDirective extra scenarios', () => {
 
     const div: HTMLElement = fixture.nativeElement.querySelector('div');
     const style = getComputedStyle(div);
-    // default color is palette.dark.dark (black)
-    expect(style.color).toBe('rgb(0, 0, 0)');
     // padding 1 -> spacing(1)
     const toPx = (rem: string) => `${parseFloat(rem) * 16}px`;
     expect(style.paddingTop).toBe(toPx(defaultTheme.spacing(1)));

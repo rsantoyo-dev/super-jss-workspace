@@ -139,10 +139,14 @@ export class SjDirective implements OnChanges {
 
     const processedStyles = this.processShorthands(sjStyles);
 
-    const mergedStyles = deepMerge(
-        deepMerge(defaultTypographyStyles, typographyStyles),
-        processedStyles
-    );
+    // Only apply theme typography (default + tag) if the element has a specific entry.
+    // Non-text elements (e.g., DIV) do not receive default typography classes.
+    const hasTagTypography = !!(theme.typography as any)[tagName];
+    const baseTypography = hasTagTypography
+      ? (deepMerge(defaultTypographyStyles, typographyStyles) as SjStyle)
+      : ({} as SjStyle);
+
+    const mergedStyles = deepMerge(baseTypography, processedStyles);
 
     if (Object.keys(mergedStyles).length > 0) {
       const classes = this.cssGenerator.getOrGenerateClasses(mergedStyles, theme, this.sjt.themeVersion());
