@@ -55,7 +55,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   };
 
   mainContainer: SjStyle = {
-    display: { xs: 'flex', md: 'grid' },
+    display: 'grid',
     bg: 'light.main',
     minHeight: '100vh',
   };

@@ -14,8 +14,8 @@ import { deepMerge } from '../utils/deep-merge';
 import { applyTypography, applyResponsiveStyle } from '../core/core-methods';
 
 /**
- * Directive for applying dynamic styles, implementing SJSS (Super JavaScript Stylesheets) principles.
- * This directive handles responsive and typography styles dynamically.
+ * [sj] directive applies SJSS styles: responsive classes + inline typography.
+ * Re-renders on theme, breakpoint and window resize changes.
  */
 type SjStyleProducer = () => SjStyle;
 type SjInput = SjStyle | SjStyle[] | SjStyleProducer | Array<SjStyle | SjStyleProducer>;
@@ -53,12 +53,18 @@ export class SjDirective implements OnChanges {
     // Initialize effect to re-render styles when the current breakpoint or theme changes.
     effect(() => {
       this.sjt.currentBreakpoint(); // depend on currentBreakpoint
+      this.sjt.windowWidth(); // depend on raw window width to re-render on any resize
       this.sjt.themeVersion(); // depend on themeVersion
       this.sjt.typography(); // depend on typography
       this.renderStyles();
     });
   }
 
+  /**
+   * Expands SJSS shorthands (px/py/mx/my/bx/by/textSize) and nests pseudos recursively.
+   * @param styles Incoming style object.
+   * @returns Normalized style object.
+   */
   private processShorthands(styles: SjStyle): SjStyle {
     const newStyles: SjStyle = { ...styles };
 
@@ -108,8 +114,8 @@ export class SjDirective implements OnChanges {
 }
 
   /**
-   * Renders the styles on the host element.
-   * This method applies both typography and responsive styles.
+   * Generates/attaches classes and applies inline typography + text overrides.
+   * Executed reactively by signals and on input changes.
    */
   private renderStyles(): void {
     this.lastClasses.forEach((c: string) => this.renderer.removeClass(this.vcr.element.nativeElement, c));
@@ -133,11 +139,20 @@ export class SjDirective implements OnChanges {
 
     const processedStyles = this.processShorthands(sjStyles);
 
-    // Apply inline typography (default + tag-specific) to ensure immediate update on theme changes
+    const mergedStyles = deepMerge(
+        deepMerge(defaultTypographyStyles, typographyStyles),
+        processedStyles
+    );
+
+    if (Object.keys(mergedStyles).length > 0) {
+      const classes = this.cssGenerator.getOrGenerateClasses(mergedStyles, theme, this.sjt.themeVersion());
+      classes.forEach((c: string) => this.renderer.addClass(this.vcr.element.nativeElement, c));
+      this.lastClasses = classes;
+    }
+
+    // Apply inline typography last so it always wins over classes
     try {
-      const doc: Document = this.vcr.element.nativeElement.ownerDocument as Document;
-      const win = doc.defaultView;
-      const width = win ? win.innerWidth : 0;
+      const width = this.sjt.windowWidth();
       applyTypography(this.vcr.element.nativeElement, theme, width);
       // Then apply any text-related overrides from [sj] inline so they win over theme typography
       const textKeys = new Set([
@@ -154,22 +169,11 @@ export class SjDirective implements OnChanges {
         applyResponsiveStyle(this.vcr.element.nativeElement, textOverrides, width, theme);
       }
     } catch {}
-
-    const mergedStyles = deepMerge(
-        deepMerge(defaultTypographyStyles, typographyStyles),
-        processedStyles
-    );
-
-    if (Object.keys(mergedStyles).length > 0) {
-      const classes = this.cssGenerator.getOrGenerateClasses(mergedStyles, theme, this.sjt.themeVersion());
-      classes.forEach((c: string) => this.renderer.addClass(this.vcr.element.nativeElement, c));
-      this.lastClasses = classes;
-    }
   }
 
   /**
-   * Lifecycle hook that is called when any data-bound property of a directive changes.
-   * @param changes Object of changes.
+   * Triggers a re-render when [sj] input changes.
+   * @param changes Angular input change set.
    */
   ngOnChanges(changes: SimpleChanges): void {
     // Re-render styles when any @Input properties change.

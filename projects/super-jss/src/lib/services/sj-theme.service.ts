@@ -57,6 +57,8 @@ export class SjThemeService implements OnDestroy {
 
   // Signal to track the current breakpoint
   currentBreakpoint = signal('xs');
+  // Track window width to trigger re-renders on any resize, even within same breakpoint
+  windowWidth = signal(0);
   themeVersion = signal(0);
   private resizeSubscription?: Subscription;
 
@@ -71,25 +73,37 @@ export class SjThemeService implements OnDestroy {
     this.initResizeListener();
   }
 
+  /**
+   * Subscribes to window resize and updates width/breakpoint signals (debounced).
+   * Ensures consumers re-render on any resize, not only breakpoint changes.
+   */
   public initResizeListener(): void {
     this.resizeSubscription?.unsubscribe();
     const window = this.document.defaultView;
     if (window) {
+      const width = window.innerWidth;
+      this.windowWidth.set(width);
       this.currentBreakpoint.set(
-        getCurrentBreakpoint(this.sjTheme().breakpoints, window.innerWidth)
+        getCurrentBreakpoint(this.sjTheme().breakpoints, width)
       );
+
       this.resizeSubscription = fromEvent(window, 'resize')
-        .pipe(
-          debounceTime(100),
-          map(() =>
-            getCurrentBreakpoint(this.sjTheme().breakpoints, window.innerWidth)
-          ),
-          distinctUntilChanged()
-        )
-        .subscribe((bp) => this.currentBreakpoint.set(bp));
+        .pipe(debounceTime(15))
+        .subscribe(() => {
+          const w = window.innerWidth;
+          this.windowWidth.set(w);
+          const bp = getCurrentBreakpoint(this.sjTheme().breakpoints, w);
+          if (bp !== this.currentBreakpoint()) {
+            this.currentBreakpoint.set(bp);
+          }
+        });
     }
   }
 
+  /**
+   * Deep-merges provided theme into the current one, resets CSS cache and bumps version.
+   * @param theme Partial theme overrides.
+   */
   public setTheme(theme: Partial<SjTheme>) {
     const currentTheme = this.sjTheme();
     const newTheme = deepMerge(currentTheme, theme);
@@ -105,6 +119,7 @@ export class SjThemeService implements OnDestroy {
     this.themeVersion.set(this.themeVersion() + 1);
   }
 
+  /** Cleans up window resize subscription when the service is destroyed. */
   ngOnDestroy() {
     this.resizeSubscription?.unsubscribe();
   }

@@ -1,3 +1,10 @@
+/**
+ * Deeply merges plain objects without mutating inputs.
+ * Arrays and primitives in source override target values.
+ * @param target Base object.
+ * @param source Overrides object.
+ * @returns New merged object.
+ */
 export function deepMerge(target: any, source: any): any {
   const output = { ...target };
 
@@ -18,6 +25,7 @@ export function deepMerge(target: any, source: any): any {
   return output;
 }
 
+/** Type guard for plain object values (non-array). */
 function isObject(item: any): boolean {
   return (item && typeof item === 'object' && !Array.isArray(item));
 }

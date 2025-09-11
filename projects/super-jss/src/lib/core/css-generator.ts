@@ -5,7 +5,10 @@ import {
   ResponsiveStyle,
 } from '../models/interfaces';
 import { shorthandMappings } from '../models/mappings';
-
+/**
+ * Internal: resolve theme color tokens (e.g., palette or colors) to CSS values.
+ * Falls back to the raw value when not resolvable.
+ */
 const resolveThemeColor = (value: string, theme: SjTheme): string => {
   const themeKeyParts = value.split('.');
   if (
@@ -42,15 +45,31 @@ const resolveThemeColor = (value: string, theme: SjTheme): string => {
   return value;
 };
 
+/**
+ * Generates deterministic atomic CSS classes from a SjStyle object.
+ * Produces min-width media queries for responsive entries and supports '&' pseudos.
+ */
 export class CssGenerator {
   constructor(private theme: SjTheme) {}
 
+  /**
+   * Generates a map of className -> CSS rule from the provided styles.
+   * @param styles Root style object.
+   * @returns Map of atomic class rules keyed by class name.
+   */
   public generateAtomicCss(styles: SjStyle): Map<string, string> {
     const cssMap = new Map<string, string>();
     this._generate(styles, cssMap);
     return cssMap;
   }
 
+  /**
+   * Recursive generator that walks the style tree and builds class rules.
+   * @param styles Current style node.
+   * @param cssMap Accumulator map of className -> rule.
+   * @param pseudoClass Pseudo selector (e.g., ':hover'), including leading colon.
+   * @param variantPrefix Prefix added to class names for pseudo variants.
+   */
   private _generate(
     styles: SjStyle,
     cssMap: Map<string, string>,
@@ -108,6 +127,12 @@ export class CssGenerator {
     }
   }
 
+  /**
+   * Normalizes a style value using theme spacing and color resolution.
+   * @param key Original style key.
+   * @param value Raw style value.
+   * @returns CSS-ready string value.
+   */
   private resolveStyleValue(
     key: string,
     value: string | number | undefined
@@ -121,10 +146,12 @@ export class CssGenerator {
     return resolveThemeColor(value, this.theme);
   }
 
+  /** Converts camelCase property names to kebab-case. */
   private kebabCase(str: string): string {
     return str.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
   }
 
+  /** Makes a value safe for use in class names. */
   private sanitizeValue(value: any): string {
     return String(value)
       .replace(/\./g, '_')

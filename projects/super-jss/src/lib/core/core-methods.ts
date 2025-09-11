@@ -2,12 +2,11 @@ import { SjBreakPoints, SjStyle, SjTheme, ResponsiveStyle } from "../models/inte
 import { shorthandMappings } from '../models/mappings';
 
 /**
- * Determines the current breakpoint based on the screen width and defined breakpoints.
- * @param {SjBreakPoints} breakpoints - The defined breakpoints in the theme.
- * @param {number} screenWidth - The current width of the screen.
- * @returns {string} - The current breakpoint key.
+ * Computes the active breakpoint key for a given width.
+ * @param breakpoints Theme breakpoints map.
+ * @param screenWidth Current viewport width in pixels.
+ * @returns Breakpoint key (e.g., 'xs', 'md').
  */
-
 export const getCurrentBreakpoint = (breakpoints:SjBreakPoints,screenWidth: number): string => {
     let bp = 'xs'
     for (const key of Object.keys(breakpoints)) {
@@ -17,7 +16,13 @@ export const getCurrentBreakpoint = (breakpoints:SjBreakPoints,screenWidth: numb
     return bp;
 }
 
-// Resolve theme color/palette tokens like 'primary.main' or 'blue.500'
+/**
+ * Resolves a theme token (e.g., 'primary.main', 'blue.500') to a CSS color.
+ * Falls back to the raw value when the token cannot be resolved.
+ * @param value Token or raw color.
+ * @param theme Active theme.
+ * @returns CSS color string.
+ */
 export const resolveThemeColor = (value: string, theme: SjTheme): string => {
   const parts = value.split('.');
   if ((parts.length === 1 && value in theme.palette) || value in theme.colors) {
@@ -42,7 +47,14 @@ export const resolveThemeColor = (value: string, theme: SjTheme): string => {
   return value;
 };
 
-// Apply a style object directly to an element, honoring responsive values
+/**
+ * Applies a style object directly to an element honoring responsive values.
+ * For responsive objects, uses the nearest defined breakpoint value at or below current.
+ * @param el Target element.
+ * @param styles Style object (may include responsive values).
+ * @param screenWidth Current viewport width in pixels.
+ * @param theme Active theme used for spacing, colors and breakpoints.
+ */
 export const applyResponsiveStyle = (
   el: HTMLElement,
   styles: SjStyle,
@@ -61,8 +73,28 @@ export const applyResponsiveStyle = (
     if (value === undefined) {
       finalValue = undefined;
     } else if (typeof value === 'object' && value !== null) {
+      // Responsive object: use the nearest defined breakpoint value <= current
       const byBp = value as ResponsiveStyle;
-      const raw = (byBp[currentBp] ?? byBp['xs']) as any;
+      const orderedBps = Object.keys(theme.breakpoints) as (keyof SjBreakPoints)[];
+      const idx = orderedBps.indexOf(currentBp);
+      let raw: any = undefined;
+      for (let i = idx; i >= 0; i--) {
+        const bpKey = orderedBps[i];
+        if ((byBp as any)[bpKey] !== undefined) {
+          raw = (byBp as any)[bpKey];
+          break;
+        }
+      }
+      // If nothing found below, fall back to the first defined (commonly xs)
+      if (raw === undefined) {
+        for (let i = 0; i < orderedBps.length; i++) {
+          const bpKey = orderedBps[i];
+          if ((byBp as any)[bpKey] !== undefined) {
+            raw = (byBp as any)[bpKey];
+            break;
+          }
+        }
+      }
       if (raw === undefined) continue;
       if (typeof raw === 'number') finalValue = theme.spacing(raw);
       else if (typeof raw === 'string') finalValue = resolveThemeColor(raw, theme);
@@ -81,7 +113,13 @@ export const applyResponsiveStyle = (
   }
 };
 
-// Apply default + tag-specific typography as inline styles to an element
+/**
+ * Applies default + tag-specific typography inline to the element.
+ * Merges theme.typography.default and theme.typography[tag] and resolves responsiveness.
+ * @param el Target element.
+ * @param theme Active theme.
+ * @param screenWidth Current viewport width in pixels.
+ */
 export const applyTypography = (el: HTMLElement, theme: SjTheme, screenWidth: number) => {
   const nodeName = el.nodeName.toUpperCase();
   const hasType = (theme.typography as any)[nodeName];

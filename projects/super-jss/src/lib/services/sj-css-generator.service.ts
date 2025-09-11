@@ -21,6 +21,14 @@ export class SjCssGeneratorService {
     this.renderer.appendChild(this.document.head, this.styleEl);
   }
 
+  /**
+   * Returns prefixed class names for styles, appending new CSS to a single <style> tag.
+   * Deduplicates previously generated rules using an in-memory cache.
+   * @param styles Style object to convert.
+   * @param theme Active theme for spacing/colors/breakpoints.
+   * @param version Optional cache/version prefix to bust old CSS.
+   * @returns Array of generated class names (prefixed).
+   */
   public getOrGenerateClasses(styles: SjStyle, theme: SjTheme, version = 0): string[] {
     const cssGenerator = new CssGenerator(theme);
     const cssMap = cssGenerator.generateAtomicCss(styles);
@@ -46,6 +54,10 @@ export class SjCssGeneratorService {
     return classes;
   }
 
+  /**
+   * Clears in-memory cache and resets the <style> host element.
+   * Call when theme structure changes to avoid stale CSS.
+   */
   public clearCache() {
     this.generatedClasses.clear();
     this.renderer.removeChild(this.document.head, this.styleEl);
