@@ -43,7 +43,6 @@ function isObject(item: any): boolean {
   selector: 'app-header',
   imports: [CommonModule, SjDirective],
   template: `
-    
     <div
       [sj]="{
         d: 'flex',
@@ -66,28 +65,8 @@ function isObject(item: any): boolean {
           fxAItems: { xs: 'center', lg: 'flex-start' }
         }"
       >
-        <h1
-          [sj]="{
-            m: 0,
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-            fontSize: { xs: 1.8, md: 2.2 },
-            fontWeight: 400
-          }"
-        >
-          SUPER-JSS
-        </h1>
-        <p
-          [sj]="{
-            m: 0,
-            p: 0,
-            fontStyle: 'italic',
-            fontSize: { xs: 0.9, md: 1 },
-            opacity: 0.8
-          }"
-        >
-          The ultimate solution for dynamic styling
-        </p>
+        <h1 [sj]="">SUPER-JSS</h1>
+        <p [sj]="">The ultimate solution for dynamic styling</p>
       </div>
 
       <!-- Right Column: Themes -->
@@ -211,19 +190,28 @@ function isObject(item: any): boolean {
         <strong>Breakpoint:</strong> {{ th.currentBreakpoint() }}
       </span>
     </div>
-
   `,
 })
 export class HeaderComponent {
   themes = [
-    { name: 'Default Light', theme: defaultTheme, type: 'Library', isDark: false },
+    {
+      name: 'Default Light',
+      theme: defaultTheme,
+      type: 'Library',
+      isDark: false,
+    },
     {
       name: 'Default Dark',
       theme: deepMerge(defaultTheme, defaultDarkTheme),
       type: 'Library',
       isDark: true,
     },
-    { name: 'Desert Light', theme: desertTheme, type: 'Library', isDark: false },
+    {
+      name: 'Desert Light',
+      theme: desertTheme,
+      type: 'Library',
+      isDark: false,
+    },
     {
       name: 'Desert Dark',
       theme: deepMerge(desertTheme, desertDarkTheme),
