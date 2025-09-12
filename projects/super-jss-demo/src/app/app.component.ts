@@ -4,6 +4,7 @@ import { DemoCardsComponent } from './components/demo-cards.component';
 import { SjDirective, sjCard, SjStyle, SjTheme, SjThemeService } from 'super-jss';
 import { PaletteComponent } from './components/palette.component';
 import { TypographyComponent } from './components/typography.component';
+import { JsonStudioComponent } from "./sj-json-studio/json-studio.component";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ import { TypographyComponent } from './components/typography.component';
     TypographyComponent,
     PaletteComponent,
     DemoCardsComponent,
-  ],
+    JsonStudioComponent
+],
   template: `
     <div [sj]="mainContainer">
       <app-header></app-header>
@@ -30,9 +32,20 @@ import { TypographyComponent } from './components/typography.component';
       </nav>
 
       <div [sj]="contentContainer">
-        <div [sj]="appBase">
+        <app-json-studio
+          id="home"
+          [sj]="appBase"
+          [value]="themeData"
+          (valueChange)="onStudioChange($event)">
+        </app-json-studio>
 
-        </div>
+        @if (pendingThemePatch) {
+          <div [sj]="applyBar">
+            <button [sj]="applyBtn" (click)="applyEditedTheme()">Apply Theme</button>
+            <button [sj]="discardBtn" (click)="discardEditedTheme()">Discard</button>
+          </div>
+        }
+        
         <app-typography id="typography" [sj]="appBase"></app-typography>
         <app-demo-cards id="cards" [sj]="appBase"></app-demo-cards>
         <app-palette id="palette" [sj]="appBase"></app-palette>
@@ -44,6 +57,7 @@ import { TypographyComponent } from './components/typography.component';
 export class AppComponent implements AfterViewInit, OnDestroy {
 
   themeData: SjTheme;
+  pendingThemePatch: Partial<SjTheme> | null = null;
 
   protected readonly sjCard = sjCard;
 
@@ -102,6 +116,39 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       this.themeData = this.themeService.sjTheme();
     });
   }
+  // Receive edits, but do not apply until user confirms
+  onStudioChange(patch: Partial<SjTheme>) {
+    this.pendingThemePatch = patch;
+  }
+
+  applyEditedTheme() {
+    if (this.pendingThemePatch) {
+      this.themeService.setTheme(this.pendingThemePatch);
+      this.pendingThemePatch = null;
+    }
+  }
+
+  discardEditedTheme() {
+    this.pendingThemePatch = null;
+  }
+
+  // Inline styles for the apply bar and buttons
+  applyBar: SjStyle = {
+    d: 'flex',
+    gap: 1,
+    mt: 1,
+    p: 1,
+    bg: 'light.light',
+    b: '1px solid',
+    bc: 'light.dark',
+    brad: 0.5,
+  };
+  applyBtn: SjStyle = {
+    ...sjCard.primary({ px: 1, py: 0.5 }),
+  };
+  discardBtn: SjStyle = {
+    ...sjCard.outlined({ px: 1, py: 0.5 }),
+  };
 
   ngAfterViewInit(): void {
     const host: HTMLElement = this.elementRef.nativeElement;
