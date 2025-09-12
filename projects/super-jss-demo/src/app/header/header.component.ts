@@ -66,28 +66,10 @@ function isObject(item: any): boolean {
           fxAItems: { xs: 'center', lg: 'flex-start' }
         }"
       >
-        <h1
-          [sj]="{
-            m: 0,
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-            fontSize: { xs: 1.8, md: 2.2 },
-            fontWeight: 400
-          }"
-        >
-          SUPER-JSS
-        </h1>
-        <p
-          [sj]="{
-            m: 0,
-            p: 0,
-            fontStyle: 'italic',
-            fontSize: { xs: 0.9, md: 1 },
-            opacity: 0.8
-          }"
-        >
+        <h1 [sj]>SUPER-JSS</h1>
+        <small [sj]>
           The ultimate solution for dynamic styling
-        </p>
+        </small>
       </div>
 
       <!-- Right Column: Themes -->
