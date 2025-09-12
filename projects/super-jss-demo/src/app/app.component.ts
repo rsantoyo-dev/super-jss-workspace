@@ -1,10 +1,12 @@
 import { Component, effect, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
-import { DemoCardsComponent } from './components/demo-cards.component';
+
 import { SjDirective, sjCard, SjStyle, SjTheme, SjThemeService } from 'super-jss';
+
+import { JsonStudioComponent } from "./sj-json-studio/json-studio.component";
+import { DemoCardsComponent } from './components/demo-cards.component';
 import { PaletteComponent } from './components/palette.component';
 import { TypographyComponent } from './components/typography.component';
-import { JsonStudioComponent } from "./sj-json-studio/json-studio.component";
 
 @Component({
   selector: 'app-root',
@@ -45,10 +47,12 @@ import { JsonStudioComponent } from "./sj-json-studio/json-studio.component";
             <button [sj]="discardBtn" (click)="discardEditedTheme()">Discard</button>
           </div>
         }
-        
-        <app-typography id="typography" [sj]="appBase"></app-typography>
+
+                <app-typography id="typography" [sj]="appBase"></app-typography>
         <app-demo-cards id="cards" [sj]="appBase"></app-demo-cards>
         <app-palette id="palette" [sj]="appBase"></app-palette>
+        
+
         
       </div>
     </div>

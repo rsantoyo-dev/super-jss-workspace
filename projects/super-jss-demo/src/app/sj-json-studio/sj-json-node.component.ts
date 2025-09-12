@@ -16,135 +16,94 @@ export interface JsonNode {
   standalone: true,
   imports: [FormsModule, JsonNodeComponent, SjDirective],
   template: `
-    <div class="node">
-      <span (click)="toggle()" class="key">{{ node.key }}:</span>
+    <div [sj]="styles.node">
+      <div [sj]="styles.row">
+        @if ((node.type === 'object' || node.type === 'array') && (node.children?.length ?? 0) > 0) {
+          <button [sj]="togglingBtnSj" (click)="toggle()">
+            <small [sj]="{ c: 'primary.light' }">{{ node.expanded ? '/' : '>' }}</small>
+          </button>
+        } @else {
+          <span [sj]="styles.toggleSpacer"></span>
+        }
+        <span (click)="toggle()" [sj]="styles.key">{{ node.key }}:</span>
 
-      @switch (node.type) { @case ('object') { @if (node.expanded) {
-      <div class="children">
-        @for (child of (node.children ?? []); track $index) {
-        <app-json-node
-          [node]="child"
-          (update)="onUpdate($event)"
-          (remove)="onRemove($event)"
-        >
-        </app-json-node>
+        @switch (node.type) {
+          @case ('string') {
+            @if (isHexColor(node.value)) {
+              <span [sj]="styles.colorRow">
+                <input [sj]="colorInputSj" type="color" [(ngModel)]="node.value" (ngModelChange)="onValueChange()" />
+                <input [sj]="inputSj" type="text" [(ngModel)]="node.value" (ngModelChange)="onValueChange()" />
+              </span>
+            } @else {
+              <input [sj]="inputSj" type="text" [(ngModel)]="node.value" (ngModelChange)="onValueChange()" />
+            }
+          }
+          @case ('number') {
+            <input [sj]="inputSj" type="number" [(ngModel)]="node.value" (ngModelChange)="onValueChange()" />
+          }
+          @case ('boolean') {
+            <input [sj]="inputSj" type="checkbox" [(ngModel)]="node.value" (ngModelChange)="onValueChange()" />
+          }
+          @case ('null') {
+            <span [sj]="{ c: 'neutral' }">null</span>
+          }
         }
-        <button
-          [sj]="
-            sjCard.interactive({
-              padding: '2px 6px',
-              bg: 'transparent',
-              c: 'primary'
-            })
-          "
-          (click)="addNode()"
-        >
-          +
-        </button>
       </div>
-      } } @case ('array') { @if (node.expanded) {
-      <div class="children">
-        @for (child of (node.children ?? []); track $index) {
-        <app-json-node
-          [node]="child"
-          (update)="onUpdate($event)"
-          (remove)="onRemove($event)"
-        >
-        </app-json-node>
-        }
-        <button (click)="addNode()">+</button>
-      </div>
-      } } @case ('string') { @if (isHexColor(node.value)) {
-      <span class="color-row">
-        <span class="color-swatch" [style.background]="node.value"></span>
-        <input
-          [sj]="inputSj"
-          type="color"
-          [(ngModel)]="node.value"
-          (ngModelChange)="onValueChange()"
-        />
-        <input
-          [sj]="inputSj"
-          type="text"
-          [(ngModel)]="node.value"
-          (ngModelChange)="onValueChange()"
-        />
-      </span>
-      } @else {
-      <input
-        [sj]="inputSj"
-        type="text"
-        [(ngModel)]="node.value"
-        (ngModelChange)="onValueChange()"
-      />
-      } } @case ('number') {
-      <input
-        [sj]="inputSj"
-        type="number"
-        [(ngModel)]="node.value"
-        (ngModelChange)="onValueChange()"
-      />
-      } @case ('boolean') {
-      <input
-        [sj]="inputSj"
-        type="checkbox"
-        [(ngModel)]="node.value"
-        (ngModelChange)="onValueChange()"
-      />
-      } @default {
-      {{ node.value }}
-      } } @if (!isRoot) {
-      <button
-        [sj]="
-          sjCard.interactive({
-            padding: '2px 6px',
-            bg: 'transparent',
-            c: 'secondary',
-            d: 'inline'
-          })
-        "
-        (click)="removeNode()"
-      >
-        -
-      </button>
+
+      @if ((node.type === 'object' || node.type === 'array') && node.expanded) {
+        <div [sj]="styles.children">
+          @for (child of (node.children ?? []); track $index) {
+            <app-json-node [node]="child" (update)="onUpdate($event)" (remove)="onRemove($event)"></app-json-node>
+          }
+          <button [sj]="sjCard.interactive({ padding: '2px 6px', bg: 'transparent', c: 'primary' })" (click)="addNode()">+</button>
+        </div>
       }
     </div>
   `,
-  styles: [
-    `
-      .node {
-        margin-left: 20px;
-      }
-      .key {
-        cursor: pointer;
-      }
-      .children {
-        padding-left: 20px;
-        border-left: 1px solid #ccc;
-      }
-      .color-row {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-      }
-      .color-swatch {
-        width: 14px;
-        height: 14px;
-        border: 1px solid #ccc;
-        border-radius: 2px;
-        display: inline-block;
-      }
-    `,
-  ],
+  styles: [],
 })
 export class JsonNodeComponent {
   public sjCard = sjCard;
   inputSj: SjStyle = {
-    mx: 0.5,
-    my: 0.2,
+    m: 0,
+    bg: 'bg.primary',
+    border: 'none',
+    w: 'auto',
+    minW: '60px',
+    h: '24px',
+  };
+  colorInputSj: SjStyle = sjCard.flat({
+    padding: '0',
     bg: 'transparent',
     border: 'none',
+    w: 2,
+    h: 2,
+    cursor: 'pointer',
+  });
+  readonly styles = {
+    node: { ml: 0.5 } as SjStyle,
+    row: { d: 'flex', fxAItems: 'center', gap: 0.5 } as SjStyle,
+    key: { cursor: 'pointer' } as SjStyle,
+    children: { pl: '20px', bl: '1px solid', bc: 'light.dark' } as SjStyle,
+    colorRow: { d: 'inline-flex', fxAItems: 'center', gap: 0.5 } as SjStyle,
+    colorSwatch: {
+      w: '14px',
+      h: '14px',
+      b: '1px solid',
+      bc: 'light.dark',
+      brad: '2px',
+      d: 'inline-block',
+    } as SjStyle,
+    toggleSpacer: { d: 'inline-block', w: 2, h: 2 } as SjStyle,
   };
+  togglingBtnSj: SjStyle = sjCard.outlined({
+    padding: '2px 6px',
+    bg: 'light',
+    c: 'secondary',
+    d: 'inline',
+    bc: 'light',
+    borderWidth: '1px',
+  });
 
   @Input({ required: true }) node!: JsonNode;
   @Input() isRoot = false;
