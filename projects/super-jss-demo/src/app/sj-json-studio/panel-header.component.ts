@@ -51,15 +51,7 @@ export class PanelHeaderComponent {
   @Output() viewModeChange = new EventEmitter<'tree' | 'raw'>();
   @Input() mode: 'collapsed' | 'normal' | 'full' = 'normal';
 
-  // container: SjStyle = {
-  //   d: 'flex',
-  //   fxJustify: 'space-between',
-  //   fxAItems: 'center',
-  //   h: '30px',
-  //   p: 0.5,
-  //   bg: 'primary.main',
-  //   c: 'primary.contrast',
-  // };
+
 
   container: SjStyle = sjCard({
     d: 'flex',

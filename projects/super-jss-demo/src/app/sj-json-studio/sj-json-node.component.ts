@@ -18,45 +18,69 @@ export interface JsonNode {
   template: `
     <div [sj]="styles.node">
       <div [sj]="styles.row">
-        @if ((node.type === 'object' || node.type === 'array') && (node.children?.length ?? 0) > 0) {
-          <button [sj]="togglingBtnSj" (click)="toggle()">
-            <small [sj]="{ c: 'primary.light' }">{{ node.expanded ? '/' : '>' }}</small>
-          </button>
+        @if ((node.type === 'object' || node.type === 'array') &&
+        (node.children?.length ?? 0) > 0) {
+        <button [sj]="togglingBtnSj" (click)="toggle()">
+          <small [sj]="{ c: 'primary.light' }">{{
+            node.expanded ? '/' : '>'
+          }}</small>
+        </button>
         } @else {
-          <span [sj]="styles.toggleSpacer"></span>
+        <span [sj]="styles.toggleSpacer"></span>
         }
         <span (click)="toggle()" [sj]="styles.key">{{ node.key }}:</span>
 
-        @switch (node.type) {
-          @case ('string') {
-            @if (isHexColor(node.value)) {
-              <span [sj]="styles.colorRow">
-                <input [sj]="colorInputSj" type="color" [(ngModel)]="node.value" (ngModelChange)="onValueChange()" />
-                <input [sj]="inputSj" type="text" [(ngModel)]="node.value" (ngModelChange)="onValueChange()" />
-              </span>
-            } @else {
-              <input [sj]="inputSj" type="text" [(ngModel)]="node.value" (ngModelChange)="onValueChange()" />
-            }
-          }
-          @case ('number') {
-            <input [sj]="inputSj" type="number" [(ngModel)]="node.value" (ngModelChange)="onValueChange()" />
-          }
-          @case ('boolean') {
-            <input [sj]="inputSj" type="checkbox" [(ngModel)]="node.value" (ngModelChange)="onValueChange()" />
-          }
-          @case ('null') {
-            <span [sj]="{ c: 'neutral' }">null</span>
-          }
-        }
+        @switch (node.type) { @case ('string') { @if (isHexColor(node.value)) {
+        <span [sj]="styles.colorRow">
+          <input
+            [sj]="colorInputSj"
+            type="color"
+            [(ngModel)]="node.value"
+            (ngModelChange)="onValueChange()"
+          />
+          <input
+            [sj]="inputSj"
+            type="text"
+            [(ngModel)]="node.value"
+            (ngModelChange)="onValueChange()"
+          />
+        </span>
+        } @else {
+        <input
+          [sj]="inputSj"
+          type="text"
+          [(ngModel)]="node.value"
+          (ngModelChange)="onValueChange()"
+        />
+        } } @case ('number') {
+        <input
+          [sj]="inputSj"
+          type="number"
+          [(ngModel)]="node.value"
+          (ngModelChange)="onValueChange()"
+        />
+        } @case ('boolean') {
+        <input
+          [sj]="inputSj"
+          type="checkbox"
+          [(ngModel)]="node.value"
+          (ngModelChange)="onValueChange()"
+        />
+        } @case ('null') {
+        <span [sj]="{ c: 'neutral' }">null</span>
+        } }
       </div>
 
       @if ((node.type === 'object' || node.type === 'array') && node.expanded) {
-        <div [sj]="styles.children">
-          @for (child of (node.children ?? []); track $index) {
-            <app-json-node [node]="child" (update)="onUpdate($event)" (remove)="onRemove($event)"></app-json-node>
-          }
-          <button [sj]="sjCard.interactive({ padding: '2px 6px', bg: 'transparent', c: 'primary' })" (click)="addNode()">+</button>
-        </div>
+      <div [sj]="styles.children">
+        @for (child of (node.children ?? []); track $index) {
+        <app-json-node
+          [node]="child"
+          (update)="onUpdate($event)"
+          (remove)="onRemove($event)"
+        ></app-json-node>
+        }
+      </div>
       }
     </div>
   `,
