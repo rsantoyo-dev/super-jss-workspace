@@ -106,6 +106,8 @@ sjCardApi.interactive = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjBorderShadow,
   cursor: 'pointer',
   bg: 'light.light',
+  textDecoration: 'none',
+  userSelect: 'none',
   transform: 'translateY(0)',
   '&:hover': {
     transform: 'translateY(-2px)',

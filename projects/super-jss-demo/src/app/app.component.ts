@@ -4,6 +4,7 @@ import { HeaderComponent } from './header/header.component';
 import { SjDirective, sjCard, SjStyle, SjTheme, SjThemeService } from 'super-jss';
 
 import { JsonStudioComponent } from "./sj-json-studio/json-studio.component";
+import { DemoButtonsComponent } from './components/demo-buttons.component';
 import { DemoCardsComponent } from './components/demo-cards.component';
 import { PaletteComponent } from './components/palette.component';
 import { TypographyComponent } from './components/typography.component';
@@ -15,6 +16,7 @@ import { TypographyComponent } from './components/typography.component';
     HeaderComponent,
     TypographyComponent,
     PaletteComponent,
+    DemoButtonsComponent,
     DemoCardsComponent,
     JsonStudioComponent
 ],
@@ -27,6 +29,7 @@ import { TypographyComponent } from './components/typography.component';
       <nav [sj]="navBar">
         <div [sj]="navInner">
           <a href="#typography" [sj]="navAnchor">Typography</a>
+          <a href="#buttons" [sj]="navAnchor">Buttons</a>
           <a href="#cards" [sj]="navAnchor">Cards</a>
           <a href="#palette" [sj]="navAnchor">Palette</a>
           <a href="#home" [sj]="navAnchor">Home</a>
@@ -34,6 +37,7 @@ import { TypographyComponent } from './components/typography.component';
       </nav>
 
       <div [sj]="contentContainer">
+        <app-demo-buttons id="buttons" [sj]="appBase"></app-demo-buttons>
         <app-demo-cards id="cards" [sj]="appBase"></app-demo-cards>
         <app-palette id="palette" [sj]="appBase"></app-palette>
         <app-json-studio
