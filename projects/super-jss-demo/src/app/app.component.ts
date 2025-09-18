@@ -34,6 +34,8 @@ import { TypographyComponent } from './components/typography.component';
       </nav>
 
       <div [sj]="contentContainer">
+        <app-demo-cards id="cards" [sj]="appBase"></app-demo-cards>
+        <app-palette id="palette" [sj]="appBase"></app-palette>
         <app-json-studio
           id="home"
           [sj]="appBase"
@@ -49,8 +51,8 @@ import { TypographyComponent } from './components/typography.component';
         }
 
                 <app-typography id="typography" [sj]="appBase"></app-typography>
-        <app-demo-cards id="cards" [sj]="appBase"></app-demo-cards>
-        <app-palette id="palette" [sj]="appBase"></app-palette>
+        
+        
         
 
         

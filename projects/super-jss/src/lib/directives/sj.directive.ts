@@ -12,6 +12,7 @@ import { SjStyle } from "../models/interfaces";
 import { SjThemeService, SjCssGeneratorService } from "../services";
 import { deepMerge } from '../utils/deep-merge';
 import { applyTypography, applyResponsiveStyle } from '../core/core-methods';
+import { shorthandMappings } from '../models/mappings';
 
 /**
  * [sj] directive applies SJSS styles: responsive classes + inline typography.
@@ -109,6 +110,18 @@ export class SjDirective implements OnChanges {
     if ((newStyles as any).textSize !== undefined) {
       (newStyles as any).fontSize = (newStyles as any).textSize;
       delete (newStyles as any).textSize;
+    }
+
+    for (const [shorthandKey, longhandKey] of Object.entries(shorthandMappings)) {
+      if (!Object.prototype.hasOwnProperty.call(newStyles, shorthandKey)) {
+        continue;
+      }
+
+      if (!Object.prototype.hasOwnProperty.call(newStyles, longhandKey)) {
+        (newStyles as any)[longhandKey] = (newStyles as any)[shorthandKey];
+      }
+
+      delete (newStyles as any)[shorthandKey];
     }
     return newStyles;
 }

@@ -12,7 +12,10 @@ export const sjBorder: SjStyle = {
 
 /** Light shadow used by card variants. */
 export const sjShadow: SjStyle = {
-  boxShadow: '2px 3px 3px #0001',
+  boxShadow: '3px 2px 5px rgba(55, 55, 55, 0.09)',
+};
+export const sjShadowElevated: SjStyle = {
+  ...sjShadow,
 };
 
 /** Convenience mixin combining border and shadow. */
@@ -31,17 +34,22 @@ const codeSnippetStyle: SjStyle = {
   bg: 'light.dark',
   p: 1,
   borderRadius: 1,
-  overflowX: 'hidden'
+  d: 'inline-flex',          // play nicely alongside other flex children
+  alignItems: 'center',
+  maxW: '100%',              // keep it from overflowing its parent
+  overflowX: 'auto',         // allow scrolling for long lines
+  whiteSpace: 'pre',         // preserve formatting
+  fontFamily: 'monospace',   // reflect code semantics
 };
 
 // Internal base style for cards (shared between variants)
 /** Internal shared card foundation used by all variants. */
 const sjCardBase = (): SjStyle => ({
-  ...sjBorder,
-  ...sjShadow,
   ...sjTransition,
-  p: { xs: 1, md: 2 },
-  d: 'grid',
+  d: 'flex',
+  fxDir: 'column',
+  p: { xs: 0.5, md: 1, lg:2 }, 
+  gap: { xs: 0.5, md: 1, lg:2 }, 
   borderRadius: 0.5,
 });
 
@@ -72,32 +80,36 @@ const sjCardApi: SjCardApi = (overrides: Partial<SjStyle> = {}): SjStyle => ({
 /** Low-elevation outlined card variant. */
 sjCardApi.outlined = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
-  boxShadow: 'none',
-  borderColor: 'light.dark',
+  ...sjBorder,
+    bg: 'transparent',
+    borderColor: 'light.dark',
   ...overrides,
 });
 
 /** Flat card variant without shadow. */
 sjCardApi.flat = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
-  boxShadow: 'none',
   ...overrides,
 });
 
 /** Elevated card with stronger shadow. */
 sjCardApi.elevated = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
-  boxShadow: '0 4px 12px rgba(0,0,0,0.16)',
+  bg: 'light.light',
+  ...sjShadow,
   ...overrides,
 });
 
 /** Interactive card variant with hover affordance. */
 sjCardApi.interactive = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardApi(), // Based on the default sjCard
+  ...sjBorderShadow,
   cursor: 'pointer',
+  bg: 'light.light',
+  transform: 'translateY(0)',
   '&:hover': {
     transform: 'translateY(-2px)',
-    boxShadow: '0 6px 18px rgba(0,0,0,0.18)',
+    ...sjShadowElevated,
   },
   ...overrides,
 });
@@ -128,7 +140,7 @@ sjCardApi.codeSnippet = (overrides: Partial<SjStyle> = {}): SjStyle => ({
 /** Informational card with subtle background. */
 sjCardApi.info = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
-  display: 'block',
+  d: 'block',
   bg: 'light.dark',
   mb: 2,
   ...overrides,
