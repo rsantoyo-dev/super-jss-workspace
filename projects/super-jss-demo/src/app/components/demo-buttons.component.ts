@@ -23,9 +23,9 @@ interface DemoButton {
     <div [sj]="sjCard.outlined">
       <div [sj]="sjCard({ bg: 'light.dark' })">
         <span [sj]="{ d: 'block' }">
-          Buttons inherit expressive presets for light, text, contained, and
-          brand-forward looks. Toggle snippets to view the applied styles and
-          copy usage straight into your templates.
+          Buttons inherit expressive presets for light, outlined, contained,
+          and intent-driven looks such as danger. Toggle snippets to view the
+          applied styles and copy usage straight into your templates.
         </span>
         <button
           type="button"
@@ -97,7 +97,7 @@ export class DemoButtonsComponent {
         label: 'Primary Action',
         message: 'Default contained button with primary coloring.',
         titleColor: 'primary',
-        usageExample: `[sj]="sjButton()"`,
+        usageExample: `<div [sj]="sjButton()"></div>`,
         build: () => sjButton(),
       },
       {
@@ -105,23 +105,15 @@ export class DemoButtonsComponent {
         label: 'Light Button',
         message: 'Subtle surface-friendly background with strong text contrast.',
         titleColor: 'primary',
-        usageExample: `[sj]="sjButton.light()"`,
+        usageExample: `<div [sj]="sjButton.light()"></div>`,
         build: () => sjButton.light(),
-      },
-      {
-        title: 'sjButton.text()',
-        label: 'Text Link',
-        message: 'Minimal footprint with text-decoration hover cue.',
-        titleColor: 'primary',
-        usageExample: `[sj]="sjButton.text()"`,
-        build: () => sjButton.text(),
       },
       {
         title: 'sjButton.contained()',
         label: 'Neutral Contained',
         message: 'Neutral tone with shadow for elevated emphasis.',
         titleColor: 'primary',
-        usageExample: `[sj]="sjButton.contained()"`,
+        usageExample: `<div [sj]="sjButton.contained()"></div>`,
         build: () => sjButton.contained(),
       },
       {
@@ -129,7 +121,7 @@ export class DemoButtonsComponent {
         label: 'Outlined',
         message: 'Transparent body with a crisp border.',
         titleColor: 'primary',
-        usageExample: `[sj]="sjButton.outlined()"`,
+        usageExample: `<div [sj]="sjButton.outlined()"></div>`,
         build: () => sjButton.outlined(),
       },
       {
@@ -137,7 +129,7 @@ export class DemoButtonsComponent {
         label: 'Primary Contained',
         message: 'Primary brand color with elevated shadow.',
         titleColor: 'primary',
-        usageExample: `[sj]="sjButton.containedPrimary()"`,
+        usageExample: `<div [sj]="sjButton.containedPrimary()"></div>`,
         build: () => sjButton.containedPrimary(),
       },
       {
@@ -145,15 +137,23 @@ export class DemoButtonsComponent {
         label: 'Secondary Contained',
         message: 'Secondary palette coloring for complementary actions.',
         titleColor: 'secondary.dark',
-        usageExample: `[sj]="sjButton.containedSecondary()"`,
+        usageExample: `<div [sj]="sjButton.containedSecondary()"></div>`,
         build: () => sjButton.containedSecondary(),
+      },
+      {
+        title: 'sjButton.danger()',
+        label: 'Danger Action',
+        message: 'Error palette styling for destructive or critical tasks.',
+        titleColor: 'error.dark',
+        usageExample: `<div [sj]="sjButton.danger()"></div>`,
+        build: () => sjButton.danger(),
       },
       {
         title: 'sjButton.containedLight()',
         label: 'Surface Light',
         message: 'Light background with soft accent tone.',
         titleColor: 'primary',
-        usageExample: `[sj]="sjButton.containedLight()"`,
+        usageExample: `<div [sj]="sjButton.containedLight()"></div>`,
         build: () => sjButton.containedLight(),
       },
       {
@@ -161,7 +161,7 @@ export class DemoButtonsComponent {
         label: 'Dark Hero',
         message: 'High-contrast dark background for hero actions.',
         titleColor: 'primary',
-        usageExample: `[sj]="sjButton.containedDark()"`,
+        usageExample: `<div [sj]="sjButton.containedDark()"></div>`,
         build: () => sjButton.containedDark(),
       },
       {
@@ -169,7 +169,7 @@ export class DemoButtonsComponent {
         label: 'Custom Contained',
         message: 'Overrides demonstrate padding and pill radius tweaks.',
         titleColor: 'primary',
-        usageExample: `[sj]="sjButton.contained({ px: 2, borderRadius: 2 })"`,
+        usageExample: `<div [sj]="sjButton.contained({ px: 2, borderRadius: 2 })"></div>`,
         build: () => sjButton.contained({ px: 2, borderRadius: 2 }),
       },
     ];

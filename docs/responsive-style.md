@@ -9,11 +9,7 @@ Super JavaScript Stylesheets ([SJSS](https://www.npmjs.com/package/super-jss)) o
 4. [Further Learning Resources](#further-learning-resources)
 
 ### Breakpoint Upscaling in SJSS
-SJSS employs an 'upscaling' approach for breakpoints:
-
-- **Breakpoint Application**: [Learn more about breakpoint application](#breakpoint-application)
-- **Continuity Across Breakpoints**: [Understand breakpoint continuity](#continuity-across-breakpoints)
-- **Initial Definition**: [Explore initial style definitions](#initial-definition)
+SJSS employs an 'upscaling' approach for breakpoints. Styles defined for a smaller breakpoint apply to larger breakpoints unless overridden.
 
 ### Responsive Styling Example
 Here's how to apply responsive styling in an Angular component using SJSS:

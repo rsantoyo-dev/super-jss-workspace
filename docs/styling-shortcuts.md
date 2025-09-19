@@ -10,7 +10,6 @@ Super JavaScript Stylesheets ([SJSS](https://www.npmjs.com/package/super-jss)) s
   - [Borders](#borders)
   - [Colors](#colors)
   - [Flexbox](#flexbox)
-3. [Interactive Examples](#interactive-examples)
 
 ### Example Usage in a Component
 Consider styling a `div` within an Angular component using SJSS shorthand properties:
@@ -46,7 +45,9 @@ Now, let's delve into the details of these shorthand properties.
 
 - **note**: they are just shorthands, you can use the full css property in camelCase if you prefer. The `px`, `py`, `mx`, `my`, `bx`, and `by` shorthands are processed directly by the `SjDirective` for convenience.
 
-## Padding and Margin
+## Shorthand Properties
+
+### Padding and Margin
 
 | Shorthand | CSS Property   | Description         |
 |-----------|----------------|---------------------|
@@ -65,7 +66,7 @@ Now, let's delve into the details of these shorthand properties.
 | `mx`      | `marginLeft`, `marginRight` | Horizontal margin |
 | `my`      | `marginTop`, `marginBottom` | Vertical margin   |
 
-## Sizes
+### Sizes
 
 | Shorthand | CSS Property   | Description   |
 |-----------|----------------|---------------|
@@ -76,7 +77,7 @@ Now, let's delve into the details of these shorthand properties.
 | `maxW`    | `maxWidth`     | Maximum width |
 | `maxH`    | `maxHeight`    | Maximum height|
 
-## Borders
+### Borders
 
 | Shorthand | CSS Property   | Description      |
 |-----------|----------------|------------------|
@@ -92,14 +93,14 @@ Now, let's delve into the details of these shorthand properties.
 | `bx`      | `borderLeft`, `borderRight` | Horizontal borders |
 | `by`      | `borderTop`, `borderBottom` | Vertical borders   |
 
-## Colors
+### Colors
 
 | Shorthand | CSS Property      | Description     |
 |-----------|-------------------|-----------------|
 | `bg`      | `backgroundColor` | Background color|
 | `c`       | `color`           | Text color      |
 
-## Flexbox
+### Flexbox
 
 | Shorthand  | CSS Property   | Description            |
 |------------|----------------|------------------------|
