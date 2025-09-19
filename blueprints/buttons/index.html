@@ -10,25 +10,25 @@
       
       
       
-        <link rel="canonical" href="https://sjss.dev/spacing/">
+        <link rel="canonical" href="https://sjss.dev/blueprints/buttons/">
       
       
-        <link rel="prev" href="../colors/">
+        <link rel="prev" href="../cards/">
       
       
-        <link rel="next" href="../palette/">
+        <link rel="next" href="../../responsive-style/">
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
     
     
       
-        <title>Spacing - Super JSS</title>
+        <title>Buttons - Super JSS</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
       
       
 
@@ -47,9 +47,9 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#spacing-system" class="md-skip">
+        <a href="#button-blueprints" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +94,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Super JSS" class="md-header__button md-logo" aria-label="Super JSS" data-md-component="logo">
+    <a href="../.." title="Super JSS" class="md-header__button md-logo" aria-label="Super JSS" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Spacing
+              Buttons
             
           </span>
         </div>
@@ -192,7 +192,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Super JSS" class="md-nav__button md-logo" aria-label="Super JSS" data-md-component="logo">
+    <a href="../.." title="Super JSS" class="md-nav__button md-logo" aria-label="Super JSS" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -210,7 +210,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -232,7 +232,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/" class="md-nav__link">
+      <a href="../../installation/" class="md-nav__link">
         
   
   
@@ -254,7 +254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../basic-usage/" class="md-nav__link">
+      <a href="../../basic-usage/" class="md-nav__link">
         
   
   
@@ -276,7 +276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../styling-shortcuts/" class="md-nav__link">
+      <a href="../../styling-shortcuts/" class="md-nav__link">
         
   
   
@@ -295,18 +295,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -322,7 +324,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Blueprints
@@ -336,7 +338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../blueprints/cards/" class="md-nav__link">
+      <a href="../cards/" class="md-nav__link">
         
   
   
@@ -356,80 +358,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../blueprints/buttons/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Buttons
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../responsive-style/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Responsive Styling
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../colors/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Colors
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -447,7 +375,7 @@
   
   
   <span class="md-ellipsis">
-    Spacing
+    Buttons
     
   </span>
   
@@ -460,7 +388,7 @@
   
   
   <span class="md-ellipsis">
-    Spacing
+    Buttons
     
   </span>
   
@@ -483,54 +411,114 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-spacing" class="md-nav__link">
+  <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction to Spacing
+      Table of Contents
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#default-spacing-configuration" class="md-nav__link">
+  <a href="#basic-usage" class="md-nav__link">
     <span class="md-ellipsis">
-      Default Spacing Configuration
+      Basic Usage
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-spacing" class="md-nav__link">
+  <a href="#button-variants" class="md-nav__link">
     <span class="md-ellipsis">
-      Using Spacing
+      Button Variants
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Button Variants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-button-contained-primary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default Button (Contained Primary)
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#customizing-spacing" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#light-button" class="md-nav__link">
     <span class="md-ellipsis">
-      Customizing Spacing
+      Light Button
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#updating-spacing" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#contained-button" class="md-nav__link">
     <span class="md-ellipsis">
-      Updating Spacing
+      Contained Button
     </span>
   </a>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#outlined-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      Outlined Button
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contained-light-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contained Light Button
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contained-dark-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contained Dark Button
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contained-secondary-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contained Secondary Button
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#danger-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      Danger Button
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
+  <a href="#customizing-buttons" class="md-nav__link">
     <span class="md-ellipsis">
-      Best Practices
+      Customizing Buttons
     </span>
   </a>
   
@@ -543,6 +531,14 @@
     </li>
   
 
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
     
       
       
@@ -551,7 +547,73 @@
   
   
     <li class="md-nav__item">
-      <a href="../palette/" class="md-nav__link">
+      <a href="../../responsive-style/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Responsive Styling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../colors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Colors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spacing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Spacing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../palette/" class="md-nav__link">
         
   
   
@@ -573,7 +635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../typography/" class="md-nav__link">
+      <a href="../../typography/" class="md-nav__link">
         
   
   
@@ -595,7 +657,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../theming/" class="md-nav__link">
+      <a href="../../theming/" class="md-nav__link">
         
   
   
@@ -617,7 +679,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/" class="md-nav__link">
+      <a href="../../examples/" class="md-nav__link">
         
   
   
@@ -639,7 +701,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../faqs/" class="md-nav__link">
+      <a href="../../faqs/" class="md-nav__link">
         
   
   
@@ -681,54 +743,114 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-spacing" class="md-nav__link">
+  <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction to Spacing
+      Table of Contents
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#default-spacing-configuration" class="md-nav__link">
+  <a href="#basic-usage" class="md-nav__link">
     <span class="md-ellipsis">
-      Default Spacing Configuration
+      Basic Usage
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-spacing" class="md-nav__link">
+  <a href="#button-variants" class="md-nav__link">
     <span class="md-ellipsis">
-      Using Spacing
+      Button Variants
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Button Variants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-button-contained-primary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default Button (Contained Primary)
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#customizing-spacing" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#light-button" class="md-nav__link">
     <span class="md-ellipsis">
-      Customizing Spacing
+      Light Button
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#updating-spacing" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#contained-button" class="md-nav__link">
     <span class="md-ellipsis">
-      Updating Spacing
+      Contained Button
     </span>
   </a>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#outlined-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      Outlined Button
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contained-light-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contained Light Button
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contained-dark-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contained Dark Button
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contained-secondary-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contained Secondary Button
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#danger-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      Danger Button
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
+  <a href="#customizing-buttons" class="md-nav__link">
     <span class="md-ellipsis">
-      Best Practices
+      Customizing Buttons
     </span>
   </a>
   
@@ -750,56 +872,126 @@
 
 
 
-<h1 id="spacing-system">Spacing System</h1>
-<h2 id="introduction-to-spacing">Introduction to Spacing</h2>
-<p>In SJSS, spacing is a versatile feature that allows for consistent and scalable space management throughout your application. Spacing can be applied to various properties like padding, margin, gap, and others, using a simple numeric factor system.</p>
-<h2 id="default-spacing-configuration">Default Spacing Configuration</h2>
-<p>The default spacing in SJSS is defined as a function that converts a numeric factor into rem units. This approach ensures uniformity and ease of adjustments across different UI components.</p>
-<h2 id="using-spacing">Using Spacing</h2>
-<p>To apply spacing in SJSS, you can use shorthand properties with numeric factors. For example, <code>{ p: 1 }</code> translates to padding of 1 rem.</p>
-<pre><code class="language-typescript">import { Component } from &quot;@angular/core&quot;;
-import { SjDirective } from &quot;super-jss&quot;;
+<h1 id="button-blueprints">Button Blueprints</h1>
+<p>Button blueprints in Super JSS offer a collection of pre-styled, composable button styles. The <code>sjButton</code> blueprint is a function that provides several variants for common button use cases, from simple text buttons to contained buttons with shadows.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#basic-usage">Basic Usage</a></li>
+<li><a href="#button-variants">Button Variants</a><ul>
+<li><a href="#default-button-contained-primary">Default Button (Contained Primary)</a></li>
+<li><a href="#light-button">Light Button</a></li>
+<li><a href="#contained-button">Contained Button</a></li>
+<li><a href="#outlined-button">Outlined Button</a></li>
+<li><a href="#contained-light-button">Contained Light Button</a></li>
+<li><a href="#contained-dark-button">Contained Dark Button</a></li>
+<li><a href="#contained-secondary-button">Contained Secondary Button</a></li>
+<li><a href="#danger-button">Danger Button</a></li>
+</ul>
+</li>
+<li><a href="#customizing-buttons">Customizing Buttons</a></li>
+</ol>
+<h2 id="basic-usage">Basic Usage</h2>
+<p>The <code>sjButton</code> blueprint is a function that returns an <code>SjStyle</code> object. You can apply it directly to a <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code> element using the <code>[sj]</code> directive.</p>
+<pre><code class="language-typescript">import { Component } from '@angular/core';
+import { SjDirective, sjButton } from 'super-jss';
 
 @Component({
   standalone: true,
-  selector: 'app-spacing-demo',
-  template: `&lt;div [sj]=&quot;{ p: 1, m: 2 }&quot;&gt;Content with padding and margin&lt;/div&gt;`
-})
-export class SpacingDemoComponent {}
-</code></pre>
-<p>In this example, <code>p: 1</code> applies 1 rem of padding, and <code>m: 2</code> applies 2 rem of margin to the element.</p>
-<h2 id="customizing-spacing">Customizing Spacing</h2>
-<p>You can customize the spacing scale to fit the design needs of your application.</p>
-<h2 id="updating-spacing">Updating Spacing</h2>
-<p>The spacing can be updated using the <code>setTheme</code> method of <code>SjThemeService</code>. This method allows you to redefine how the numeric factors are translated into actual spacing values.</p>
-<pre><code class="language-typescript">import { Component } from &quot;@angular/core&quot;;
-import { SjDirective, SjThemeService } from &quot;super-jss&quot;;
-
-@Component({
-  standalone: true,
-  selector: 'app-spacing-update-demo',
+  selector: 'app-my-button',
+  imports: [SjDirective],
   template: `
-    &lt;button (click)=&quot;updateSpacing()&quot; [sj]=&quot;{ p: 1, bg: 'primary.main', color: 'primary.contrast', borderRadius: '4px', cursor: 'pointer' }&quot;&gt;
-      Update Spacing
+    &lt;button [sj]=&quot;sjButton()&quot;&gt;
+      Click Me
     &lt;/button&gt;
   `
 })
-export class SpacingUpdateDemoComponent {
-  constructor(private sjTheme: SjThemeService) {}
-  updateSpacing(): void {
-    this.sjTheme.setTheme({
-      spacing: (factor: number) =&gt; `${10 * factor}px` // Example: 1 unit now equals 10px
-    });
-  }
+export class MyButtonComponent {
+  protected readonly sjButton = sjButton;
 }
 </code></pre>
-<h2 id="best-practices">Best Practices</h2>
+<h2 id="button-variants">Button Variants</h2>
+<p>The <code>sjButton</code> API provides several variants accessible via dot notation.</p>
+<h3 id="default-button-contained-primary">Default Button (Contained Primary)</h3>
+<p>The default button is a contained button with the theme's primary color. It includes a shadow and hover effects.</p>
 <ul>
-<li>Use consistent spacing units across your application to maintain a harmonious layout.</li>
-<li>Choose spacing values that align with your design system or UI guidelines.</li>
-<li>Consider using multiples of a base unit (like 0.25 rem, 0.5 rem, etc.) for a harmonious and scalable spacing system.</li>
+<li><strong>Usage:</strong> <code>sjButton()</code> or <code>sjButton.containedPrimary()</code></li>
 </ul>
-<p>By utilizing SJSS's spacing system, developers can ensure consistent and easy-to-manage spacing throughout their Angular applications, with the flexibility to adjust it as per their design requirements.</p>
+<pre><code class="language-html">&lt;button [sj]=&quot;sjButton()&quot;&gt;Primary Button&lt;/button&gt;
+</code></pre>
+<h3 id="light-button">Light Button</h3>
+<p>A light button with a subtle background and primary text color.</p>
+<ul>
+<li><strong>Usage:</strong> <code>sjButton.light()</code></li>
+</ul>
+<pre><code class="language-html">&lt;button [sj]=&quot;sjButton.light()&quot;&gt;Light Button&lt;/button&gt;
+</code></pre>
+<h3 id="contained-button">Contained Button</h3>
+<p>A contained button with a neutral background color.</p>
+<ul>
+<li><strong>Usage:</strong> <code>sjButton.contained()</code></li>
+</ul>
+<pre><code class="language-html">&lt;button [sj]=&quot;sjButton.contained()&quot;&gt;Contained Button&lt;/button&gt;
+</code></pre>
+<h3 id="outlined-button">Outlined Button</h3>
+<p>An outlined button with a transparent background and a border.</p>
+<ul>
+<li><strong>Usage:</strong> <code>sjButton.outlined()</code></li>
+</ul>
+<pre><code class="language-html">&lt;button [sj]=&quot;sjButton.outlined()&quot;&gt;Outlined Button&lt;/button&gt;
+</code></pre>
+<h3 id="contained-light-button">Contained Light Button</h3>
+<p>A contained button with a light background color.</p>
+<ul>
+<li><strong>Usage:</strong> <code>sjButton.containedLight()</code></li>
+</ul>
+<pre><code class="language-html">&lt;button [sj]=&quot;sjButton.containedLight()&quot;&gt;Light Contained&lt;/button&gt;
+</code></pre>
+<h3 id="contained-dark-button">Contained Dark Button</h3>
+<p>A contained button with a dark background color, suitable for dark themes.</p>
+<ul>
+<li><strong>Usage:</strong> <code>sjButton.containedDark()</code></li>
+</ul>
+<pre><code class="language-html">&lt;button [sj]=&quot;sjButton.containedDark()&quot;&gt;Dark Contained&lt;/button&gt;
+</code></pre>
+<h3 id="contained-secondary-button">Contained Secondary Button</h3>
+<p>A contained button using the theme's secondary color.</p>
+<ul>
+<li><strong>Usage:</strong> <code>sjButton.containedSecondary()</code></li>
+</ul>
+<pre><code class="language-html">&lt;button [sj]=&quot;sjButton.containedSecondary()&quot;&gt;Secondary Button&lt;/button&gt;
+</code></pre>
+<h3 id="danger-button">Danger Button</h3>
+<p>A button for actions that have destructive consequences, using the theme's error color.</p>
+<ul>
+<li><strong>Usage:</strong> <code>sjButton.danger()</code></li>
+</ul>
+<pre><code class="language-html">&lt;button [sj]=&quot;sjButton.danger()&quot;&gt;Danger Button&lt;/button&gt;
+</code></pre>
+<h2 id="customizing-buttons">Customizing Buttons</h2>
+<p>All <code>sjButton</code> variants are functions that accept an <code>overrides</code> object, allowing you to customize any style property.</p>
+<pre><code class="language-typescript">import { Component } from '@angular/core';
+import { SjDirective, sjButton } from 'super-jss';
+
+@Component({
+  standalone: true,
+  selector: 'app-custom-button',
+  imports: [SjDirective],
+  template: `
+    // Override padding and border-radius
+    &lt;button [sj]=&quot;sjButton({ p: 2, borderRadius: 1 })&quot;&gt;
+      Custom Padding &amp; Radius
+    &lt;/button&gt;
+
+    // Make an outlined button use the secondary color
+    &lt;button [sj]=&quot;sjButton.outlined({ borderColor: 'secondary.main', c: 'secondary.main' })&quot;&gt;
+      Custom Outlined
+    &lt;/button&gt;
+  `
+})
+export class CustomButtonComponent {
+  protected readonly sjButton = sjButton;
+}
+</code></pre>
 
 
 
@@ -877,10 +1069,10 @@ export class SpacingUpdateDemoComponent {
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
       
     
   </body>
