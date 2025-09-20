@@ -52,9 +52,17 @@ interface ThemeMeta {
   selector: 'app-theme-selector',
   imports: [CommonModule, SjDirective],
   template: `
-    <div [sj]="style.themeArea">
-      <div [sj]="style.themeColumn">
-        <small [sj]="style.themeLabel">Library</small>
+    <div
+      [sj]="{
+        d: 'flex',
+        fxDir: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 0.75
+      }"
+    >
+      <div [sj]="{ d: 'flex', fxDir: 'column' }">
+        <p [sj]="style.sectionLabel">Defaults</p>
         <div [sj]="style.themeList">
           <button
             *ngFor="let theme of libraryThemes"
@@ -72,57 +80,56 @@ interface ThemeMeta {
           </button>
         </div>
       </div>
-
-      <div [sj]="style.themeColumn">
-        <small [sj]="style.themeLabel">Custom</small>
+      <div [sj]="{ d: 'flex', fxDir: 'column' }">
+        <p [sj]="style.sectionLabel">Custom</p>
         <div [sj]="style.themeList">
-          <button
-            *ngFor="let theme of customThemes"
-            type="button"
-            [title]="theme.name"
-            [attr.aria-pressed]="currentThemeName() === theme.name"
-            (click)="setTheme(theme.theme)"
-            [sj]="themeSwatchStyle(theme)"
-          >
-            @if (theme.isDark) {
-            <span [sj]="style.themeSwatchIcon">🌙</span>
-            } @else {
-            <span [sj]="style.themeSwatchIcon">💡</span>
-            }
-          </button>
+          <ng-container *ngIf="customThemes.length; else noCustom">
+            <button
+              *ngFor="let theme of customThemes"
+              type="button"
+              [title]="theme.name"
+              [attr.aria-pressed]="currentThemeName() === theme.name"
+              (click)="setTheme(theme.theme)"
+              [sj]="themeSwatchStyle(theme)"
+            >
+              @if (theme.isDark) {
+              <span [sj]="style.themeSwatchIcon">🌙</span>
+              } @else {
+              <span [sj]="style.themeSwatchIcon">💡</span>
+              }
+            </button>
+          </ng-container>
+          <ng-template #noCustom>
+            <span [sj]="style.emptyState">No custom themes yet.</span>
+          </ng-template>
         </div>
       </div>
+    </div>
 
-      <div [sj]="style.themeName">
+    <div
+      [sj]="{
+        d: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        mt: 1
+      }"
+    >
+      <strong [sj]="{ c: 'primary' }">
         {{ currentThemeName() }}
-      </div>
+      </strong>
     </div>
   `,
 })
 export class ThemeSelectorComponent {
+  sjCard = sjCard;
   readonly style: Record<string, SjStyle> = {
-    themeArea: sjCard.flat({
-      fxDir: 'row',
-      fxWrap: 'wrap',
-      fxJustify: 'center',
-      fxAItems: 'center',
-    }),
-    themeColumn: sjCard({
-      d: 'flex',
-      fxDir: 'column',
-      gap: 0.5,
-      bg: 'transparent',
-      borderColor: 'transparent',
-      boxShadow: 'none',
-      p: 0,
-    }),
-    themeLabel: {
+    sectionLabel: {
       m: 0,
-      opacity: 0.8,
-      textAlign: 'center',
-      fontSize: '0.75rem',
+      fontWeight: 600,
+      fontSize: '0.8rem',
+      letterSpacing: '0.08em',
       textTransform: 'uppercase',
-      letterSpacing: '0.12em',
+      c: 'primary',
     } as SjStyle,
     themeList: {
       d: 'flex',
@@ -143,6 +150,7 @@ export class ThemeSelectorComponent {
       boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
     } as SjStyle,
     themeSwatchIcon: { fontSize: '0.75rem', lineHeight: 1 } as SjStyle,
+    emptyState: { fontSize: '0.75rem', opacity: 0.7 } as SjStyle,
     themeName: {
       c: 'primary.contrast',
       fontSize: 1,
@@ -204,16 +212,7 @@ export class ThemeSelectorComponent {
       : palettePrimary.main ?? 'primary.main';
     const contrast = palettePrimary.contrast ?? 'primary.contrast';
 
-    return [
-      this.style.themeSwatch,
-      {
-        bg: background,
-        c: contrast,
-      },
-      this.currentThemeName() === theme.name
-        ? this.style.themeSwatchActive
-        : {},
-    ];
+    return [sjButton({ bg: background, c: contrast, width: 3, height: 1.5 })];
   }
 
   constructor(public th: SjThemeService) {}

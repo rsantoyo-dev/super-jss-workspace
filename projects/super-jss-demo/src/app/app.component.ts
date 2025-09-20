@@ -6,7 +6,7 @@ import {
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './components/header.component';
 
 import {
   SjDirective,
@@ -21,7 +21,7 @@ import { DemoButtonsComponent } from './components/demo-buttons.component';
 import { DemoCardsComponent } from './components/demo-cards.component';
 import { PaletteComponent } from './components/palette.component';
 import { TypographyComponent } from './components/typography.component';
-import { ThemeSelectorComponent } from './header/theme-selector.component';
+import { ThemeSelectorComponent } from './components/theme-selector.component';
 
 @Component({
   selector: 'app-root',
@@ -38,7 +38,7 @@ import { ThemeSelectorComponent } from './header/theme-selector.component';
   template: `
     <div [sj]="mainContainer">
       <app-header></app-header>
-      <app-theme-selector></app-theme-selector>
+      <app-theme-selector [sj]="sjCard.outlined"></app-theme-selector>
 
       <!-- Sticky in-page menu title (no [sj] so it stays native) -->
 
