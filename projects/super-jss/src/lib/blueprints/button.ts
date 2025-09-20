@@ -136,7 +136,7 @@ export type SjButtonApi = ((overrides?: Partial<SjStyle>) => SjStyle) & {
 const sjButtonApi: SjButtonApi = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...createContainedButton('primary.main', 'primary.contrast', {
     hoverBg: 'primary.dark',
-    shadow: '0 8px 20px rgba(18, 51, 107, 0.24)',
+    shadow: '2px 4px 10px rgba(18, 51, 107, 0.14)',
   }),
   ...overrides,
 });
