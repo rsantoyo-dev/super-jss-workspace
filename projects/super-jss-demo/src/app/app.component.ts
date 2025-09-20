@@ -1,13 +1,27 @@
-import { Component, effect, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  effect,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 
-import { SjDirective, sjCard, SjStyle, SjTheme, SjThemeService } from 'super-jss';
+import {
+  SjDirective,
+  sjCard,
+  SjStyle,
+  SjTheme,
+  SjThemeService,
+} from 'super-jss';
 
-import { JsonStudioComponent } from "./sj-json-studio/json-studio.component";
+import { JsonStudioComponent } from './sj-json-studio/json-studio.component';
 import { DemoButtonsComponent } from './components/demo-buttons.component';
 import { DemoCardsComponent } from './components/demo-cards.component';
 import { PaletteComponent } from './components/palette.component';
 import { TypographyComponent } from './components/typography.component';
+import { ThemeSelectorComponent } from './header/theme-selector.component';
 
 @Component({
   selector: 'app-root',
@@ -18,14 +32,16 @@ import { TypographyComponent } from './components/typography.component';
     PaletteComponent,
     DemoButtonsComponent,
     DemoCardsComponent,
-    JsonStudioComponent
-],
+    JsonStudioComponent,
+    ThemeSelectorComponent,
+  ],
   template: `
     <div [sj]="mainContainer">
       <app-header></app-header>
+      <app-theme-selector></app-theme-selector>
 
       <!-- Sticky in-page menu title (no [sj] so it stays native) -->
-       
+
       <nav [sj]="navBar">
         <div [sj]="navInner">
           <a href="#typography" [sj]="navAnchor">Typography</a>
@@ -37,35 +53,34 @@ import { TypographyComponent } from './components/typography.component';
       </nav>
 
       <div [sj]="contentContainer">
-        <app-demo-buttons id="buttons" [sj]="appBase"></app-demo-buttons>
-        <app-demo-cards id="cards" [sj]="appBase"></app-demo-cards>
-        <app-palette id="palette" [sj]="appBase"></app-palette>
         <app-json-studio
           id="home"
           [sj]="appBase"
           [value]="themeData"
-          (valueChange)="onStudioChange($event)">
+          (valueChange)="onStudioChange($event)"
+        >
         </app-json-studio>
-
         @if (pendingThemePatch) {
-          <div [sj]="applyBar">
-            <button [sj]="applyBtn" (click)="applyEditedTheme()">Apply Theme</button>
-            <button [sj]="discardBtn" (click)="discardEditedTheme()">Discard</button>
-          </div>
+        <div [sj]="applyBar">
+          <button [sj]="applyBtn" (click)="applyEditedTheme()">
+            Apply Theme
+          </button>
+          <button [sj]="discardBtn" (click)="discardEditedTheme()">
+            Discard
+          </button>
+        </div>
         }
+        <app-demo-buttons id="buttons" [sj]="appBase"></app-demo-buttons>
+        <app-demo-cards id="cards" [sj]="appBase"></app-demo-cards>
+        <app-palette id="palette" [sj]="appBase"></app-palette>
+        
 
-                <app-typography id="typography" [sj]="appBase"></app-typography>
-        
-        
-        
-
-        
+        <app-typography id="typography" [sj]="appBase"></app-typography>
       </div>
     </div>
   `,
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
-
   themeData: SjTheme;
   pendingThemePatch: Partial<SjTheme> | null = null;
 
@@ -119,8 +134,10 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
   private observer: MutationObserver | undefined;
 
-  constructor(private themeService: SjThemeService, private elementRef: ElementRef) {
-   
+  constructor(
+    private themeService: SjThemeService,
+    private elementRef: ElementRef
+  ) {
     this.themeData = this.themeService.sjTheme();
     effect(() => {
       this.themeData = this.themeService.sjTheme();
@@ -184,31 +201,49 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     const theme = this.themeService.sjTheme();
 
     // Toolbar
-    const menu = host.querySelector('json-editor .jsoneditor-menu') as HTMLElement | null;
+    const menu = host.querySelector(
+      'json-editor .jsoneditor-menu'
+    ) as HTMLElement | null;
     if (menu) {
       menu.style.setProperty('background-color', theme.palette.primary.main);
       menu.style.setProperty('color', theme.palette.primary.contrast);
-      menu.style.setProperty('border-bottom', `1px solid ${theme.palette.primary.dark}`);
+      menu.style.setProperty(
+        'border-bottom',
+        `1px solid ${theme.palette.primary.dark}`
+      );
 
       const buttons = menu.querySelectorAll('button');
       buttons.forEach((button: HTMLElement) => {
-        button.style.setProperty('background-color', theme.palette.primary.main);
+        button.style.setProperty(
+          'background-color',
+          theme.palette.primary.main
+        );
         button.style.setProperty('color', theme.palette.primary.contrast);
-        button.style.setProperty('border', `1px solid ${theme.palette.primary.dark}`);
+        button.style.setProperty(
+          'border',
+          `1px solid ${theme.palette.primary.dark}`
+        );
         button.style.setProperty('opacity', '0.9');
       });
     }
 
     // Status bar
-    const status = host.querySelector('json-editor .jsoneditor-statusbar') as HTMLElement | null;
+    const status = host.querySelector(
+      'json-editor .jsoneditor-statusbar'
+    ) as HTMLElement | null;
     if (status) {
       status.style.setProperty('background-color', theme.palette.light.light);
       status.style.setProperty('color', theme.palette.light.light);
-      status.style.setProperty('border-top', `1px solid ${theme.palette.light.dark}`);
+      status.style.setProperty(
+        'border-top',
+        `1px solid ${theme.palette.light.dark}`
+      );
     }
 
     // Editor area (Ace)
-    const ace = host.querySelector('json-editor .ace_editor') as HTMLElement | null;
+    const ace = host.querySelector(
+      'json-editor .ace_editor'
+    ) as HTMLElement | null;
     if (ace) {
       // Background + text
       ace.style.setProperty('background-color', theme.palette.light.main);
@@ -217,14 +252,20 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       // Scroller area background (editor body)
       const scroller = ace.querySelector('.ace_scroller') as HTMLElement | null;
       if (scroller) {
-        scroller.style.setProperty('background-color', theme.palette.light.light);
+        scroller.style.setProperty(
+          'background-color',
+          theme.palette.light.light
+        );
       }
 
       const gutter = ace.querySelector('.ace_gutter') as HTMLElement | null;
       if (gutter) {
         gutter.style.setProperty('background-color', theme.palette.light.light);
         gutter.style.setProperty('color', theme.palette.light.light);
-        gutter.style.setProperty('border-right', `1px solid ${theme.palette.light.dark}`);
+        gutter.style.setProperty(
+          'border-right',
+          `1px solid ${theme.palette.light.dark}`
+        );
       }
 
       const content = ace.querySelector('.ace_content') as HTMLElement | null;
@@ -250,8 +291,14 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       // Caret/cursor color
       const cursors = ace.querySelectorAll('.ace_cursor');
       cursors.forEach((c: Element) => {
-        (c as HTMLElement).style.setProperty('color', theme.palette.primary.dark);
-        (c as HTMLElement).style.setProperty('border-left-color', theme.palette.primary.dark);
+        (c as HTMLElement).style.setProperty(
+          'color',
+          theme.palette.primary.dark
+        );
+        (c as HTMLElement).style.setProperty(
+          'border-left-color',
+          theme.palette.primary.dark
+        );
       });
     }
   }
@@ -260,7 +307,13 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     // Normalize: #RGB or #RRGGBB to R,G,B
     try {
       const h = hex.replace('#', '');
-      const full = h.length === 3 ? h.split('').map((c) => c + c).join('') : h;
+      const full =
+        h.length === 3
+          ? h
+              .split('')
+              .map((c) => c + c)
+              .join('')
+          : h;
       const num = parseInt(full, 16);
       const r = (num >> 16) & 255;
       const g = (num >> 8) & 255;
@@ -270,6 +323,4 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       return `rgba(0, 0, 0, ${alpha})`;
     }
   }
-
-
 }

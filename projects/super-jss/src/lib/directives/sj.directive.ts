@@ -56,7 +56,6 @@ export class SjDirective implements OnChanges {
       this.sjt.currentBreakpoint(); // depend on currentBreakpoint
       this.sjt.windowWidth(); // depend on raw window width to re-render on any resize
       this.sjt.themeVersion(); // depend on themeVersion
-      this.sjt.typography(); // depend on typography
       this.renderStyles();
     });
   }

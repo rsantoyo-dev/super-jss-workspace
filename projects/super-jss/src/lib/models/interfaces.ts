@@ -74,6 +74,7 @@ export type SjTypography = {
 
 // Main theme configuration including breakpoints, spacing, typography, colors, and palette.
 export type SjTheme = {
+  name: string,
   breakpoints: SjBreakPoints,
   spacing: (factor: number) => string,
   typography: SjTypography,

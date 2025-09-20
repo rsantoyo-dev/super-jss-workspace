@@ -48,8 +48,8 @@ const sjCardBase = (): SjStyle => ({
   ...sjTransition,
   d: 'flex',
   fxDir: 'column',
-  p: { xs: 0.5, md: 1, lg:2 }, 
-  gap: { xs: 0.5, md: 1, lg:2 }, 
+  p: { xs: 0.5, sm: 0.75, md: 1, lg: 1.5, xl: 2}, 
+  gap: {  xs: 0.5, sm: 0.75, md: 1, lg: 1.5, xl: 2},
   borderRadius: 0.5,
 });
 

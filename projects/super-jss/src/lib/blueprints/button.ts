@@ -30,7 +30,7 @@ const sjButtonBase = (): SjStyle => ({
   fxAItems: 'center',
   fxJustify: 'center',
   gap: 0.5,
-  p: { xs: 0.5, md: 1 },
+  p: { xs: 0.25, sm: 0.5, md: 0.75, lg: 1, xl: 1.25}, 
   borderRadius: 0.5,
   borderStyle: 'solid',
   borderWidth: 0.1,

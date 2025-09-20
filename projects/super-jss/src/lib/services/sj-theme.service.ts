@@ -34,26 +34,9 @@ import { defaultTheme } from '../themes';
 })
 export class SjThemeService implements OnDestroy {
   // Signals to manage reactive state for breakpoints and theme configurations
-  breakpoints: WritableSignal<SjBreakPoints> = signal(defaultTheme.breakpoints);
-  typography: WritableSignal<SjTypography> = signal(defaultTheme.typography);
-  colors: WritableSignal<SjColors> = signal(defaultTheme.colors);
+  theme: WritableSignal<SjTheme> = signal(defaultTheme);
 
-  // Palette signal for managing theme's color palette
-  private palette: WritableSignal<SjPalette> = signal(defaultTheme.palette);
-
-  spacing: WritableSignal<(factor: number) => string> = signal(
-    defaultTheme.spacing
-  );
-
-  sjTheme = computed(() => {
-    return {
-      breakpoints: this.breakpoints(),
-      spacing: this.spacing(),
-      typography: this.typography(),
-      colors: this.colors(),
-      palette: this.palette(),
-    };
-  });
+  sjTheme = computed(() => this.theme());
 
   // Signal to track the current breakpoint
   currentBreakpoint = signal('xs');
@@ -63,12 +46,12 @@ export class SjThemeService implements OnDestroy {
   private resizeSubscription?: Subscription;
 
   constructor(
-    @Optional() @Inject(SJ_THEME) private theme: SjTheme,
+    @Optional() @Inject(SJ_THEME) private initialTheme: SjTheme,
     @Inject(DOCUMENT) private document: Document,
     private injector: Injector
   ) {
-    if (this.theme) {
-      this.setTheme(this.theme);
+    if (this.initialTheme) {
+      this.setTheme(this.initialTheme);
     }
     this.initResizeListener();
   }
@@ -107,11 +90,7 @@ export class SjThemeService implements OnDestroy {
   public setTheme(theme: Partial<SjTheme>) {
     const currentTheme = this.sjTheme();
     const newTheme = deepMerge(currentTheme, theme);
-    this.breakpoints.set(newTheme.breakpoints);
-    this.typography.set(newTheme.typography);
-    this.colors.set(newTheme.colors);
-    this.palette.set(newTheme.palette);
-    this.spacing.set(newTheme.spacing);
+    this.theme.set(newTheme);
 
     const cssGenerator = this.injector.get(SjCssGeneratorService);
     cssGenerator.clearCache();

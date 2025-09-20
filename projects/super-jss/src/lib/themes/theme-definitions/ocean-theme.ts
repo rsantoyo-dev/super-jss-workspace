@@ -131,6 +131,7 @@ const darkPalette: SjPalette = {
 };
 
 export const oceanTheme: SjTheme = {
+  name: 'Ocean Light',
   breakpoints: DEFAULT_BREAKPOINTS,
   spacing: DEFAULT_SPACING,
   typography: DEFAULT_TYPOGRAPHY,
@@ -139,5 +140,6 @@ export const oceanTheme: SjTheme = {
 };
 
 export const oceanDarkTheme: Partial<SjTheme> = {
+  name: 'Ocean Dark',
   palette: darkPalette,
 };
