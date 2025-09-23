@@ -37,16 +37,15 @@ import { SidenavComponent } from './components/sidenav.component';
     HeaderComponent,
     ThemeSelectorComponent,
     SidenavComponent,
-    BreakpointIndicatorComponent
+    BreakpointIndicatorComponent,
   ],
   template: `
     <div [sj]="sjBox.column()">
-      <app-header></app-header>    
+      <app-header></app-header>
 
-      <div [sj]="sjBox">
-        <app-sidenav [sj]="sidenav"></app-sidenav>
-
-        <div [sj]="sjCard.flat">
+      <div [sj]="sjBox.grid({ gridTemplateColumns: { xs: '1fr', md: '25% 75%' }})">
+        <app-sidenav [sj]="sjBox()"></app-sidenav>
+        <div [sj]="sjCard.flat()">
           <app-theme-selector [sj]="sjCard.outlined"></app-theme-selector>
           <app-breakpoint-indicator></app-breakpoint-indicator>
           <router-outlet></router-outlet>
@@ -60,13 +59,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   pendingThemePatch: Partial<SjTheme> | null = null;
 
   sjCard = sjCard;
-  sjBox= sjBox;
-
-  sidenav: SjStyle = {
-    position: 'sticky',
-    top: 0,
-    h: '100vh',
-  };
+  sjBox = sjBox;
 
   private observer: MutationObserver | undefined;
 

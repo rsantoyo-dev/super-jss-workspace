@@ -6,6 +6,7 @@ type BoxPartial = Partial<SjStyle> | undefined;
 export type SjBoxApi = BoxBuilder & {
   row: BoxBuilder;
   column: BoxBuilder;
+  grid: BoxBuilder;
   centered: BoxBuilder;
   middle: BoxBuilder;
   between: BoxBuilder;
@@ -34,6 +35,7 @@ const composeBox = (...partials: BoxPartial[]): BoxBuilder =>
 export const sjBox = Object.assign(composeBox(), {
   row: composeBox({ fxDir: 'row' }),
   column: composeBox({ fxDir: 'column' }),
+  grid: composeBox({ d: 'grid', gridTemplateColumns: '25% 75%' }),
   centered: composeBox({ fxJustify: 'center', fxAItems: 'center' }),
   middle: composeBox({ fxDir: 'column', fxJustify: 'center', fxAItems: 'center' }),
   between: composeBox({ fxJustify: 'space-between' }),
@@ -47,6 +49,7 @@ export const sjBox = Object.assign(composeBox(), {
 
 export const sjBoxRow = sjBox.row;
 export const sjBoxColumn = sjBox.column;
+export const sjBoxGrid = sjBox.grid;
 export const sjBoxCentered = sjBox.centered;
 export const sjBoxMiddle = sjBox.middle;
 export const sjBoxBetween = sjBox.between;

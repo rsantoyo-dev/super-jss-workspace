@@ -55,6 +55,7 @@ Available helpers:
 
 - `sjBox.row()` – horizontal flow (default)
 - `sjBox.column()` – vertical stacking
+- `sjBox.grid()` – 2-column grid (25% / 75%) for sidebar layouts
 - `sjBox.centered()` – centers items both axes
 - `sjBox.middle()` – column direction + centered
 - `sjBox.between()` / `.around()` / `.evenly()` – spacing utilities

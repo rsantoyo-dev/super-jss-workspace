@@ -8,7 +8,7 @@ import { SjDirective, sjCard, SjStyle, sjButton } from 'super-jss';
   selector: 'app-sidenav',
   imports: [CommonModule, RouterModule, SjDirective],
   template: `
-    <div [sj]="sjCard({ width: 10, heiight:'100%'})">
+    <div [sj]="sjCard({ width:'100%', height:'100%', bg:'light'})">
       <a routerLink="/typography" [sj]="style.navAnchor">Typography</a>
       <a routerLink="/buttons" [sj]="style.navAnchor">Buttons</a>
       <a routerLink="/cards" [sj]="style.navAnchor">Cards</a>
