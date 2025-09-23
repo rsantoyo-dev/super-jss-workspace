@@ -21,61 +21,37 @@ import { DemoButtonsComponent } from './components/demo-buttons.component';
 import { DemoCardsComponent } from './components/demo-cards.component';
 import { PaletteComponent } from './components/palette.component';
 import { TypographyComponent } from './components/typography.component';
+import { BreakpointIndicatorComponent } from './components/breakpoint-indicator.component';
 import { ThemeSelectorComponent } from './components/theme-selector.component';
+
+import { RouterModule } from '@angular/router';
+
+import { SidenavComponent } from './components/sidenav.component';
 
 @Component({
   selector: 'app-root',
   imports: [
+    RouterModule,
     SjDirective,
     HeaderComponent,
-    TypographyComponent,
-    PaletteComponent,
-    DemoButtonsComponent,
-    DemoCardsComponent,
-    JsonStudioComponent,
     ThemeSelectorComponent,
+    SidenavComponent,
+    BreakpointIndicatorComponent
   ],
   template: `
-    <div [sj]="mainContainer">
+    <div [sj]="{d:'flex', fxDir:'column'}">
       <app-header></app-header>
-      <app-theme-selector [sj]="sjCard.outlined"></app-theme-selector>
 
-      <!-- Sticky in-page menu title (no [sj] so it stays native) -->
+      
 
-      <nav [sj]="navBar">
-        <div [sj]="navInner">
-          <a href="#typography" [sj]="navAnchor">Typography</a>
-          <a href="#buttons" [sj]="navAnchor">Buttons</a>
-          <a href="#cards" [sj]="navAnchor">Cards</a>
-          <a href="#palette" [sj]="navAnchor">Palette</a>
-          <a href="#home" [sj]="navAnchor">Home</a>
+      <div [sj]="{ d:'flex', fxDir:'row'}">
+        <app-sidenav [sj]="sidenav"></app-sidenav>
+
+        <div [sj]="sjCard.flat">
+          <app-theme-selector [sj]="sjCard.outlined"></app-theme-selector>
+          <app-breakpoint-indicator></app-breakpoint-indicator>
+          <router-outlet></router-outlet>
         </div>
-      </nav>
-
-      <div [sj]="contentContainer">
-        <app-json-studio
-          id="home"
-          [sj]="appBase"
-          [value]="themeData"
-          (valueChange)="onStudioChange($event)"
-        >
-        </app-json-studio>
-        @if (pendingThemePatch) {
-        <div [sj]="applyBar">
-          <button [sj]="applyBtn" (click)="applyEditedTheme()">
-            Apply Theme
-          </button>
-          <button [sj]="discardBtn" (click)="discardEditedTheme()">
-            Discard
-          </button>
-        </div>
-        }
-        <app-demo-buttons id="buttons" [sj]="appBase"></app-demo-buttons>
-        <app-demo-cards id="cards" [sj]="appBase"></app-demo-cards>
-        <app-palette id="palette" [sj]="appBase"></app-palette>
-        
-
-        <app-typography id="typography" [sj]="appBase"></app-typography>
       </div>
     </div>
   `,
@@ -94,9 +70,20 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   };
 
   mainContainer: SjStyle = {
-    display: 'grid',
+    display: 'flex',
+    flexDirection: 'column',
     bg: 'light.main',
     minHeight: '100vh',
+  };
+
+  sidenav: SjStyle = {
+    position: 'sticky',
+    top: 0,
+    h: '100vh',
+  };
+
+  layoutsContainer: SjStyle = {
+    d: 'flex',
   };
 
   navBar: SjStyle = {
