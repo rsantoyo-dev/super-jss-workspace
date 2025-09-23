@@ -14,6 +14,7 @@ import {
   SjStyle,
   SjTheme,
   SjThemeService,
+  sjBox,
 } from 'super-jss';
 
 import { JsonStudioComponent } from './sj-json-studio/json-studio.component';
@@ -39,12 +40,10 @@ import { SidenavComponent } from './components/sidenav.component';
     BreakpointIndicatorComponent
   ],
   template: `
-    <div [sj]="{d:'flex', fxDir:'column'}">
-      <app-header></app-header>
+    <div [sj]="sjBox.column()">
+      <app-header></app-header>    
 
-      
-
-      <div [sj]="{ d:'flex', fxDir:'row'}">
+      <div [sj]="sjBox">
         <app-sidenav [sj]="sidenav"></app-sidenav>
 
         <div [sj]="sjCard.flat">
@@ -60,63 +59,13 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   themeData: SjTheme;
   pendingThemePatch: Partial<SjTheme> | null = null;
 
-  protected readonly sjCard = sjCard;
-
-  // Global Presets (to be moved to library later)
-  sjPresets = {
-    transitions: {
-      allEase: { transition: 'all .2s ease' },
-    },
-  };
-
-  mainContainer: SjStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    bg: 'light.main',
-    minHeight: '100vh',
-  };
+  sjCard = sjCard;
+  sjBox= sjBox;
 
   sidenav: SjStyle = {
     position: 'sticky',
     top: 0,
     h: '100vh',
-  };
-
-  layoutsContainer: SjStyle = {
-    d: 'flex',
-  };
-
-  navBar: SjStyle = {
-    position: 'sticky',
-    top: 0,
-    zIndex: '900',
-    bg: 'light.main',
-    borderBottom: '1px solid',
-    borderColor: 'light.dark',
-    ...this.sjPresets.transitions.allEase,
-  };
-
-  navInner: SjStyle = {
-    display: 'flex',
-    fxJustify: 'center',
-    gap: 1,
-    p: 0.5,
-  };
-
-  navAnchor: SjStyle = {
-    ...sjCard.interactive(),
-    py: 0.5,
-  };
-
-  contentContainer: SjStyle = {
-    display: 'grid',
-    p: { xs: 1, sm: 2, md: 4 },
-    gap: 4,
-  };
-
-  appBase: SjStyle = {
-    scrollMarginTop: '64px',
-    ...this.sjPresets.transitions.allEase,
   };
 
   private observer: MutationObserver | undefined;
@@ -145,24 +94,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   discardEditedTheme() {
     this.pendingThemePatch = null;
   }
-
-  // Inline styles for the apply bar and buttons
-  applyBar: SjStyle = {
-    d: 'flex',
-    gap: 1,
-    mt: 1,
-    p: 1,
-    bg: 'light.light',
-    b: '1px solid',
-    bc: 'light.dark',
-    brad: 0.5,
-  };
-  applyBtn: SjStyle = {
-    ...sjCard.primary({ px: 1, py: 0.5 }),
-  };
-  discardBtn: SjStyle = {
-    ...sjCard.outlined({ px: 1, py: 0.5 }),
-  };
 
   ngAfterViewInit(): void {
     const host: HTMLElement = this.elementRef.nativeElement;

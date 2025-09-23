@@ -37,6 +37,7 @@ nav:
   - Blueprints:
     - Cards: blueprints/cards.md
     - Buttons: blueprints/buttons.md
+    - Box: blueprints/box.md
   - Responsive Styling: responsive-style.md
   - Colors: colors.md
   - Spacing: spacing.md

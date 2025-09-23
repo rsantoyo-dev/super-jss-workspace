@@ -20,11 +20,11 @@ import { SjDirective, sjCard, SjStyle, sjButton } from 'super-jss';
 })
 export class SidenavComponent {
   sjCard = sjCard
+  sjButton = sjButton
   readonly style: Record<string, SjStyle> = {
     
     navAnchor: {
-      ...sjButton({w:'auto'}),
-     
+      ...sjButton(),     
     },
   };
 }
