@@ -7,7 +7,7 @@ import {
   effect,
   Renderer2,
   ElementRef,
-} from "@angular/core";
+} from '@angular/core';
 import { SjStyle } from "../models/interfaces";
 import { SjThemeService, SjCssGeneratorService } from "../services";
 import { deepMerge } from '../utils/deep-merge';
@@ -19,7 +19,11 @@ import { shorthandMappings } from '../models/mappings';
  * Re-renders on theme, breakpoint and window resize changes.
  */
 type SjStyleProducer = () => SjStyle;
-type SjInput = SjStyle | SjStyle[] | SjStyleProducer | Array<SjStyle | SjStyleProducer>;
+export type SjInput =
+  | SjStyle
+  | SjStyle[]
+  | SjStyleProducer
+  | Array<SjStyle | SjStyleProducer>;
 
 @Directive({
   standalone: true,
@@ -46,7 +50,7 @@ export class SjDirective implements OnChanges {
    */
   constructor(
     public vcr: ViewContainerRef,
-    private el: ElementRef,
+    protected el: ElementRef<HTMLElement>,
     private sjt: SjThemeService,
     private cssGenerator: SjCssGeneratorService,
     private renderer: Renderer2
@@ -65,7 +69,7 @@ export class SjDirective implements OnChanges {
    * @param styles Incoming style object.
    * @returns Normalized style object.
    */
-  private processShorthands(styles: SjStyle): SjStyle {
+  protected processShorthands(styles: SjStyle): SjStyle {
     const newStyles: SjStyle = { ...styles };
 
     // Handle pseudo-selectors and nested objects
@@ -129,11 +133,12 @@ export class SjDirective implements OnChanges {
    * Generates/attaches classes and applies inline typography + text overrides.
    * Executed reactively by signals and on input changes.
    */
-  private renderStyles(): void {
-    this.lastClasses.forEach((c: string) => this.renderer.removeClass(this.vcr.element.nativeElement, c));
+  protected renderStyles(): void {
+    const element = this.el.nativeElement;
+    this.lastClasses.forEach((c: string) => this.renderer.removeClass(element, c));
 
     const theme = this.sjt.sjTheme();
-    const tagName = this.el.nativeElement.tagName.toUpperCase();
+    const tagName = element.tagName.toUpperCase();
     const typographyStyles = theme.typography[tagName as keyof typeof theme.typography] || {};
     const defaultTypographyStyles = theme.typography.default || {};
 
@@ -162,14 +167,14 @@ export class SjDirective implements OnChanges {
 
     if (Object.keys(mergedStyles).length > 0) {
       const classes = this.cssGenerator.getOrGenerateClasses(mergedStyles, theme, this.sjt.themeVersion());
-      classes.forEach((c: string) => this.renderer.addClass(this.vcr.element.nativeElement, c));
+      classes.forEach((c: string) => this.renderer.addClass(element, c));
       this.lastClasses = classes;
     }
 
     // Apply inline typography last so it always wins over classes
     try {
       const width = this.sjt.windowWidth();
-      applyTypography(this.vcr.element.nativeElement, theme, width);
+      applyTypography(element, theme, width);
       // Then apply any text-related overrides from [sj] inline so they win over theme typography
       const textKeys = new Set([
         'fontSize', 'fontWeight', 'lineHeight', 'fontFamily', 'letterSpacing',
@@ -182,7 +187,7 @@ export class SjDirective implements OnChanges {
         if (textKeys.has(k)) (textOverrides as any)[k] = (processedStyles as any)[k];
       }
       if (Object.keys(textOverrides).length) {
-        applyResponsiveStyle(this.vcr.element.nativeElement, textOverrides, width, theme);
+        applyResponsiveStyle(element, textOverrides, width, theme);
       }
     } catch {}
   }

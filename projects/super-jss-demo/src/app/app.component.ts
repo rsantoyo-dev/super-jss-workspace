@@ -46,12 +46,9 @@ import { SidenavComponent } from './components/sidenav.component';
           })
         "
       >
-        <div [sj]="sjCard.outlined">
-          <app-sidenav></app-sidenav>
-        </div>
+        <app-sidenav></app-sidenav>
 
         <div [sj]="sjCard.flat()">
-        
           <app-theme-selector [sj]="sjCard.outlined"></app-theme-selector>
           <app-breakpoint-indicator></app-breakpoint-indicator>
           <router-outlet></router-outlet>
