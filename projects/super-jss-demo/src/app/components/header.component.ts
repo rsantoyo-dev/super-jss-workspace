@@ -10,7 +10,7 @@ import { ThemeSelectorComponent } from './theme-selector.component';
   template: `
     <sj-host
       [sj]="
-       sjCard.primary(sjBox.between({fxDir: {xs:'column', md:'row'}, borderRadius: 0}))
+       sjCard.primary(sjBox.between({fxDir: {xs:'column', sm:'row'}, borderRadius: 0}))
       "
     >
       <div [sj]="sjBox.column({ gap: 0 })">

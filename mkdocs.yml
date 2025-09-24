@@ -38,6 +38,9 @@ nav:
     - Cards: blueprints/cards.md
     - Buttons: blueprints/buttons.md
     - Box: blueprints/box.md
+  - Components:
+    - Overview: components/_index.md
+    - sj-host: components/sj-host.md
   - Responsive Styling: responsive-style.md
   - Colors: colors.md
   - Spacing: spacing.md
@@ -46,4 +49,3 @@ nav:
   - Theming: theming.md
   - Examples: examples.md
   - FAQs: faqs.md
-
