@@ -1,8 +1,7 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   SjDirective,
-  SjStyle,
   SjTheme,
   SjThemeService,
   defaultDarkTheme,
@@ -57,8 +56,9 @@ interface ThemeMeta {
   imports: [CommonModule, SjHostComponent, SjDirective, SjIconComponent],
   template: `
     <sj-host [sj]="sjCard.flat({ p: 0, fxDir: 'row' })">
-      <div [sj]="sjCard.flat({ gap: 0 , bg: 'primary.dark' })">
-        <small [sj]="{c:'primary.contrast'}">sjss-themes</small>
+      <div [sj]="sjCard.flat({ gap: 0.1, bg: 'primary.dark' })">
+        <small [sj]="{ c: 'primary.contrast' }">{{ previewLabel() }}</small>
+
         <div [sj]="sjCard.flat({ p: 0, fxDir: 'row' })">
           @for (theme of libraryThemes; track theme.name){
           <!-- <div>{{ theme.name }}</div> -->
@@ -66,7 +66,9 @@ interface ThemeMeta {
           @if (theme.isDark) {
           <button
             [sj]="sjButton({ bg: theme.theme.palette?.primary?.dark })"
-            (click)="setTheme(theme.theme)"
+            (mouseenter)="onHover(theme.name)"
+            (mouseleave)="onHoverEnd()"
+            (click)="onSelect(theme)"
           >
             <sj-icon
               [name]="icon.moon"
@@ -81,7 +83,9 @@ interface ThemeMeta {
           } @else {
           <button
             [sj]="sjButton({ bg: theme.theme.palette?.primary?.light })"
-            (click)="setTheme(theme.theme)"
+            (mouseenter)="onHover(theme.name)"
+            (mouseleave)="onHoverEnd()"
+            (click)="onSelect(theme)"
           >
             <sj-icon
               [name]="icon.sun"
@@ -92,18 +96,13 @@ interface ThemeMeta {
             ></sj-icon>
           </button>
           } }
-        </div>
-      </div>
-      <div [sj]="sjCard.flat({ gap: 0 , bg: 'primary.dark' })">
-        <small [sj]="{c:'primary.contrast'}">custom</small>
-        <div [sj]="sjCard.flat({ p: 0, fxDir: 'row' })">
-          @for (theme of customThemes; track theme.name){
-          <!-- <div>{{ theme.name }}</div> -->
-
-          @if (theme.isDark) {
+          <div [sj]="sjCard({ bg: 'primary', p: 0.1 })"></div>
+          @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
           <button
             [sj]="sjButton({ bg: theme.theme.palette?.primary?.dark })"
-            (click)="setTheme(theme.theme)"
+            (mouseenter)="onHover(theme.name)"
+            (mouseleave)="onHoverEnd()"
+            (click)="onSelect(theme)"
           >
             <sj-icon
               [name]="icon.moon"
@@ -118,7 +117,9 @@ interface ThemeMeta {
           } @else {
           <button
             [sj]="sjButton({ bg: theme.theme.palette?.primary?.light })"
-            (click)="setTheme(theme.theme)"
+            (mouseenter)="onHover(theme.name)"
+            (mouseleave)="onHoverEnd()"
+            (click)="onSelect(theme)"
           >
             <sj-icon
               [name]="icon.sun"
@@ -131,6 +132,7 @@ interface ThemeMeta {
           } }
         </div>
       </div>
+     
     </sj-host>
   `,
 })
@@ -182,20 +184,29 @@ export class ThemeSelectorComponent {
   libraryThemes = this.themes.filter((t) => t.type === 'Library');
   customThemes = this.themes.filter((t) => t.type === 'Custom');
   currentThemeName = computed(() => this.th.sjTheme().name);
+  private hoveredTheme = signal<string | null>(null);
+  previewLabel = computed(() => {
+    const hovered = this.hoveredTheme();
+    const current = this.currentThemeName();
+    const target = hovered ?? current;
+    const source = this.themes.find((t) => t.name === target);
+    const prefix = source?.type === 'Custom' ? 'customized theme' : 'sjss-theme';
 
-  themeSwatchStyle(theme: ThemeMeta): SjStyle[] {
-    const palettePrimary: any = (theme.theme as any)?.palette?.primary || {};
-    const background = theme.isDark
-      ? palettePrimary.dark ?? palettePrimary.main ?? 'primary.dark'
-      : palettePrimary.main ?? 'primary.main';
-    const contrast = palettePrimary.contrast ?? 'primary.contrast';
-
-    return [sjButton({ bg: background, c: contrast, width: 3, height: 1.5 })];
-  }
+     return `${prefix}: ${target}`;
+  });
 
   constructor(public th: SjThemeService) {}
 
-  setTheme(theme: Partial<SjTheme>): void {
-    this.th.setTheme(theme);
+  onHover(name: string): void {
+    this.hoveredTheme.set(name);
+  }
+
+  onHoverEnd(): void {
+    this.hoveredTheme.set(null);
+  }
+
+  onSelect(theme: ThemeMeta): void {
+    this.th.setTheme(theme.theme);
+    this.hoveredTheme.set(null);
   }
 }
