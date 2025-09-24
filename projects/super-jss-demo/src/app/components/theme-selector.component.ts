@@ -13,6 +13,10 @@ import {
   oceanTheme,
   sjButton,
   sjCard,
+  SjHostComponent,
+  sjBox,
+  SjIconComponent,
+  icon,
 } from 'super-jss';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
 
@@ -50,117 +54,91 @@ interface ThemeMeta {
 @Component({
   standalone: true,
   selector: 'app-theme-selector',
-  imports: [CommonModule, SjDirective],
+  imports: [CommonModule, SjHostComponent, SjDirective, SjIconComponent],
   template: `
-    <div
-      [sj]="{
-        d: 'flex',
-        fxDir: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 0.75
-      }"
-    >
-      <div [sj]="{ d: 'flex', fxDir: 'column' }">
-        <p [sj]="style.sectionLabel">Defaults</p>
-        <div [sj]="style.themeList">
-          <button
-            *ngFor="let theme of libraryThemes"
-            type="button"
-            [title]="theme.name"
-            [attr.aria-pressed]="currentThemeName() === theme.name"
-            (click)="setTheme(theme.theme)"
-            [sj]="themeSwatchStyle(theme)"
-          >
-            @if (theme.isDark) {
-            <span [sj]="style.themeSwatchIcon">🌙</span>
-            } @else {
-            <span [sj]="style.themeSwatchIcon">💡</span>
-            }
-          </button>
-        </div>
-      </div>
-      <div [sj]="{ d: 'flex', fxDir: 'column' }">
-        <p [sj]="style.sectionLabel">Custom</p>
-        <div [sj]="style.themeList">
-          <ng-container *ngIf="customThemes.length; else noCustom">
-            <button
-              *ngFor="let theme of customThemes"
-              type="button"
-              [title]="theme.name"
-              [attr.aria-pressed]="currentThemeName() === theme.name"
-              (click)="setTheme(theme.theme)"
-              [sj]="themeSwatchStyle(theme)"
-            >
-              @if (theme.isDark) {
-              <span [sj]="style.themeSwatchIcon">🌙</span>
-              } @else {
-              <span [sj]="style.themeSwatchIcon">💡</span>
-              }
-            </button>
-          </ng-container>
-          <ng-template #noCustom>
-            <span [sj]="style.emptyState">No custom themes yet.</span>
-          </ng-template>
-        </div>
-      </div>
-    </div>
+    <sj-host [sj]="sjCard.flat({ p: 0, fxDir: 'row' })">
+      <div [sj]="sjCard.flat({ gap: 0 , bg: 'primary.dark' })">
+        <small [sj]="{c:'primary.contrast'}">sjss-themes</small>
+        <div [sj]="sjCard.flat({ p: 0, fxDir: 'row' })">
+          @for (theme of libraryThemes; track theme.name){
+          <!-- <div>{{ theme.name }}</div> -->
 
-    <div
-      [sj]="{
-        d: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        mt: 1
-      }"
-    >
-      <strong [sj]="{ c: 'primary' }">
-        {{ currentThemeName() }}
-      </strong>
-    </div>
+          @if (theme.isDark) {
+          <button
+            [sj]="sjButton({ bg: theme.theme.palette?.primary?.dark })"
+            (click)="setTheme(theme.theme)"
+          >
+            <sj-icon
+              [name]="icon.moon"
+              [fill]="'light'"
+              size="1.5rem"
+              [ariaHidden]="false"
+              role="img"
+              [label]="theme.name"
+            ></sj-icon>
+          </button>
+
+          } @else {
+          <button
+            [sj]="sjButton({ bg: theme.theme.palette?.primary?.light })"
+            (click)="setTheme(theme.theme)"
+          >
+            <sj-icon
+              [name]="icon.sun"
+              size="1.5rem"
+              [ariaHidden]="false"
+              role="img"
+              [label]="theme.name"
+            ></sj-icon>
+          </button>
+          } }
+        </div>
+      </div>
+      <div [sj]="sjCard.flat({ gap: 0 , bg: 'primary.dark' })">
+        <small [sj]="{c:'primary.contrast'}">custom</small>
+        <div [sj]="sjCard.flat({ p: 0, fxDir: 'row' })">
+          @for (theme of customThemes; track theme.name){
+          <!-- <div>{{ theme.name }}</div> -->
+
+          @if (theme.isDark) {
+          <button
+            [sj]="sjButton({ bg: theme.theme.palette?.primary?.dark })"
+            (click)="setTheme(theme.theme)"
+          >
+            <sj-icon
+              [name]="icon.moon"
+              [fill]="'light'"
+              size="1.5rem"
+              [ariaHidden]="false"
+              role="img"
+              [label]="theme.name"
+            ></sj-icon>
+          </button>
+
+          } @else {
+          <button
+            [sj]="sjButton({ bg: theme.theme.palette?.primary?.light })"
+            (click)="setTheme(theme.theme)"
+          >
+            <sj-icon
+              [name]="icon.sun"
+              size="1.5rem"
+              [ariaHidden]="false"
+              role="img"
+              [label]="theme.name"
+            ></sj-icon>
+          </button>
+          } }
+        </div>
+      </div>
+    </sj-host>
   `,
 })
 export class ThemeSelectorComponent {
   sjCard = sjCard;
-  readonly style: Record<string, SjStyle> = {
-    sectionLabel: {
-      m: 0,
-      fontWeight: 600,
-      fontSize: '0.8rem',
-      letterSpacing: '0.08em',
-      textTransform: 'uppercase',
-      c: 'primary',
-    } as SjStyle,
-    themeList: {
-      d: 'flex',
-      fxDir: 'row',
-      gap: 0.5,
-      flexWrap: 'wrap',
-      fxJustify: 'center',
-    } as SjStyle,
-    themeSwatch: sjButton.outlined({
-      w: 3,
-      h: 1,
-      fxAItems: 'center',
-      fxJustify: 'center',
-    }),
-    themeSwatchActive: {
-      transform: 'scale(1.08)',
-      borderColor: 'light.main',
-      boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
-    } as SjStyle,
-    themeSwatchIcon: { fontSize: '0.75rem', lineHeight: 1 } as SjStyle,
-    emptyState: { fontSize: '0.75rem', opacity: 0.7 } as SjStyle,
-    themeName: {
-      c: 'primary.contrast',
-      fontSize: 1,
-      fontWeight: 500,
-      pl: 1,
-      ml: 0.5,
-      borderLeft: '1px solid',
-      borderColor: 'rgba(255,255,255,0.3)',
-    } as SjStyle,
-  };
+  sjBox = sjBox;
+  sjButton = sjButton;
+  protected readonly icon = icon;
 
   themes: ThemeMeta[] = [
     {

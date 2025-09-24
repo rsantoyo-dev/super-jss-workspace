@@ -10,7 +10,6 @@ import { HeaderComponent } from './components/header.component';
 import {
   SjDirective,
   sjCard,
-  SjStyle,
   SjTheme,
   SjThemeService,
   sjBox,
@@ -18,7 +17,6 @@ import {
 } from 'super-jss';
 
 import { BreakpointIndicatorComponent } from './components/breakpoint-indicator.component';
-import { ThemeSelectorComponent } from './components/theme-selector.component';
 
 import { RouterModule } from '@angular/router';
 
@@ -30,7 +28,6 @@ import { SidenavComponent } from './components/sidenav.component';
     RouterModule,
     SjDirective,
     HeaderComponent,
-    ThemeSelectorComponent,
     SidenavComponent,
     BreakpointIndicatorComponent,
     SjHostComponent,
@@ -49,7 +46,6 @@ import { SidenavComponent } from './components/sidenav.component';
         <app-sidenav></app-sidenav>
 
         <div [sj]="sjCard.flat()">
-          <app-theme-selector [sj]="sjCard.outlined"></app-theme-selector>
           <app-breakpoint-indicator></app-breakpoint-indicator>
           <router-outlet></router-outlet>
         </div>
