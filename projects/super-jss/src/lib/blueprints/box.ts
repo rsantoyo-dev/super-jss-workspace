@@ -19,8 +19,7 @@ export type SjBoxApi = BoxBuilder & {
 };
 
 const sjBoxBase = (): SjStyle => ({
-  d: 'flex',
-  fxDir: 'row',
+  d: 'flex'
 });
 
 const composeBox = (...partials: BoxPartial[]): BoxBuilder =>

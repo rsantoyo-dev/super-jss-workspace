@@ -1,7 +1,6 @@
 import {
   Component,
   effect,
-  ViewChild,
   ElementRef,
   AfterViewInit,
   OnDestroy,
@@ -15,13 +14,9 @@ import {
   SjTheme,
   SjThemeService,
   sjBox,
+  SjHostComponent,
 } from 'super-jss';
 
-import { JsonStudioComponent } from './sj-json-studio/json-studio.component';
-import { DemoButtonsComponent } from './components/demo-buttons.component';
-import { DemoCardsComponent } from './components/demo-cards.component';
-import { PaletteComponent } from './components/palette.component';
-import { TypographyComponent } from './components/typography.component';
 import { BreakpointIndicatorComponent } from './components/breakpoint-indicator.component';
 import { ThemeSelectorComponent } from './components/theme-selector.component';
 
@@ -38,20 +33,31 @@ import { SidenavComponent } from './components/sidenav.component';
     ThemeSelectorComponent,
     SidenavComponent,
     BreakpointIndicatorComponent,
+    SjHostComponent,
   ],
   template: `
-    <div [sj]="sjBox.column()">
+    <sj-host [sj]="sjBox.column">
       <app-header></app-header>
 
-      <div [sj]="sjBox.grid({ gridTemplateColumns: { xs: '1fr', md: '25% 75%' }})">
-        <app-sidenav [sj]="sjBox()"></app-sidenav>
+      <div
+        [sj]="
+          sjBox.grid({
+            gridTemplateColumns: { xs: '1fr', sm: '25% 75%' }
+          })
+        "
+      >
+        <div [sj]="sjCard.outlined">
+          <app-sidenav></app-sidenav>
+        </div>
+
         <div [sj]="sjCard.flat()">
+        
           <app-theme-selector [sj]="sjCard.outlined"></app-theme-selector>
           <app-breakpoint-indicator></app-breakpoint-indicator>
           <router-outlet></router-outlet>
         </div>
       </div>
-    </div>
+    </sj-host>
   `,
 })
 export class AppComponent implements AfterViewInit, OnDestroy {

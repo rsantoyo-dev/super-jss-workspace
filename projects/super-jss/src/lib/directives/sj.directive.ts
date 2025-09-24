@@ -24,7 +24,7 @@ type SjInput = SjStyle | SjStyle[] | SjStyleProducer | Array<SjStyle | SjStylePr
 @Directive({
   standalone: true,
   // Opt-in only: apply styles/typography when [sj] is present
-  selector: '[sj]'
+  selector: '[sj]:not(sj-host)'
 })
 export class SjDirective implements OnChanges {
   /**

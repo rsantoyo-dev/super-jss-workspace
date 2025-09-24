@@ -1,38 +1,31 @@
-import { Component, computed } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   SjDirective,
   SjStyle,
   SjThemeService,
-  sjButton,
+  sjBox,
   sjCard,
 } from 'super-jss';
+import { SjHostComponent } from 'super-jss';
 
 @Component({
   standalone: true,
   selector: 'app-header',
-  imports: [CommonModule, SjDirective],
+  imports: [CommonModule, SjDirective, SjHostComponent],
   template: `
-    <div [sj]="style.header">
-      <div [sj]="style.brand">
-        <h1 [sj]="{c:'primary.contrast'}">SUPER-JSS</h1>
-        <span [sj]="{c:'primary.contrast'}">The ultimate solution for dynamic styling</span>
+    <sj-host [sj]="sjCard.primary({ borderRadius: 0, gap:0 })">
+      <div [sj]="sjBox.column">
+        <h4 [sj]="{ c: 'primary.contrast' }">SUPER-JSS</h4>
+        <small [sj]="{ c: 'primary.contrast' }"
+          >The ultimate solution for dynamic styling
+        </small>
       </div>
-
-      
-    </div>
+    </sj-host>
   `,
 })
 export class HeaderComponent {
-  readonly style: Record<string, SjStyle> = {
-    header: sjCard.primary({
-      borderRadius:0,
-      fxDir: { xs: 'column', lg: 'row' },
-      fxJustify: 'space-between',
-      fxAItems: 'center',
-    }),
-    brand: { d: 'flex', fxDir: 'column', fxAItems: { xs: 'center', lg: 'flex-start' } } as SjStyle,
-  };
-
+  sjCard = sjCard;
+  sjBox = sjBox;
   constructor(public th: SjThemeService) {}
 }
