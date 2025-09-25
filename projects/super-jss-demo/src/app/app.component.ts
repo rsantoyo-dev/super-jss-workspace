@@ -7,14 +7,7 @@ import {
 } from '@angular/core';
 import { HeaderComponent } from './components/header.component';
 
-import {
-  SjDirective,
-  sjCard,
-  SjTheme,
-  SjThemeService,
-  sjBox,
-  SjHostComponent,
-} from 'super-jss';
+import { SjDirective, sjCard, SjTheme, SjThemeService, sjBox, SjHostComponent, SjBoxComponent } from 'super-jss';
 
 import { BreakpointIndicatorComponent } from './components/breakpoint-indicator.component';
 
@@ -31,9 +24,14 @@ import { SidenavComponent } from './components/sidenav.component';
     SidenavComponent,
     BreakpointIndicatorComponent,
     SjHostComponent,
-  ],
+    SjBoxComponent
+],
   template: `
     <sj-host [sj]="sjBox.column">
+      <sj-box>
+        test
+        </sj-box>
+
       <app-header></app-header>
 
       <div

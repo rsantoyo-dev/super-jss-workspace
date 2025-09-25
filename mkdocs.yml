@@ -41,6 +41,7 @@ nav:
   - Components:
     - Overview: components/_index.md
     - sj-host: components/sj-host.md
+    - sj-box: components/sj-box.md
   - Responsive Styling: responsive-style.md
   - Colors: colors.md
   - Spacing: spacing.md
