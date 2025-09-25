@@ -1,95 +1,55 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-} from '@angular/core';
-import { SjStyle } from '../models/interfaces';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { sjBox } from '../blueprints/box';
-import { deepMerge } from '../utils/deep-merge';
 import { SjHostComponent } from './sj-host.component';
+import { SjStyle } from '../models/interfaces';
 
 @Component({
-  selector: 'sj-box',
+  selector: "sj-box",
   standalone: true,
-  imports: [SjHostComponent],
-  template: `
-    <sj-host [sj]="computedStyle">
-      <ng-content></ng-content>
-    </sj-host>
-  `,
+  template: `<sj-host [sj]="boxProducer"><ng-content></ng-content></sj-host>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [SjHostComponent],
 })
-export class SjBoxComponent {
-  computedStyle: SjStyle = sjBox();
+export class SjBoxComponent implements OnChanges {
+  // Display mode: flex row, flex column, or grid
+  @Input() display: SjStyle['d'];
 
-  private overrides: Partial<SjStyle> = {};
-  private extra: SjStyle | SjStyle[] | null = null;
+  // Flexbox controls
+  @Input() align?: SjStyle['fxAItems'];       // align-items
+  @Input() justify?: SjStyle['fxJustify'];     // justify-content
+  @Input() wrap?: SjStyle['fxWrap'];           // flex-wrap
+  @Input() gap?: SjStyle['gap'];               // gap between children
 
-  constructor(private readonly cdr: ChangeDetectorRef) {}
+  // Colors
+  @Input() bg?: SjStyle['bg'];                 // background color
+  @Input() color?: SjStyle['c'];               // text color
 
-  @Input()
-  set direction(value: SjStyle['fxDir'] | SjStyle['flexDirection'] | undefined) {
-    this.setOverride('fxDir', value);
+  // The function passed to SjDirective (producer pattern)
+  boxProducer: () => SjStyle = sjBox;
+
+  ngOnChanges(_: SimpleChanges): void {
+    this.boxProducer = this.buildProducer();
   }
 
-  @Input()
-  set justify(value: SjStyle['fxJustify'] | SjStyle['justifyContent'] | undefined) {
-    this.setOverride('fxJustify', value);
-  }
+  private buildProducer(): () => SjStyle {
+    const parts: Array<Partial<SjStyle>> = [];
 
-  @Input()
-  set align(value: SjStyle['fxAItems'] | SjStyle['alignItems'] | undefined) {
-    this.setOverride('fxAItems', value);
-  }
+    // Display selection
+    if (this.display === 'row') parts.push(sjBox.row());
+    else if (this.display === 'column') parts.push(sjBox.column());
+    else if (this.display === 'grid') parts.push(sjBox.grid());
 
-  @Input()
-  set wrap(value: SjStyle['fxWrap'] | SjStyle['flexWrap'] | undefined) {
-    this.setOverride('fxWrap', value);
-  }
+    // Flex controls
+    if (this.align !== undefined) parts.push({ fxAItems: this.align } as Partial<SjStyle>);
+    if (this.justify !== undefined) parts.push({ fxJustify: this.justify } as Partial<SjStyle>);
+    if (this.wrap !== undefined) parts.push({ fxWrap: this.wrap } as Partial<SjStyle>);
+    if (this.gap !== undefined) parts.push({ gap: this.gap } as Partial<SjStyle>);
 
-  @Input()
-  set gap(value: SjStyle['gap'] | undefined) {
-    this.setOverride('gap', value);
-  }
+    // Colors
+    if (this.bg !== undefined) parts.push({ bg: this.bg } as Partial<SjStyle>);
+    if (this.color !== undefined) parts.push({ c: this.color } as Partial<SjStyle>);
 
-  @Input()
-  set inline(value: boolean | undefined) {
-    if (value === undefined || value === null) {
-      delete this.overrides.d;
-    } else {
-      this.overrides.d = value ? 'inline-flex' : 'flex';
-    }
-    this.updateStyles();
-  }
-
-  @Input()
-  set styles(value: SjStyle | SjStyle[] | null | undefined) {
-    this.extra = value ?? null;
-    this.updateStyles();
-  }
-
-  private setOverride(key: keyof SjStyle, value: SjStyle[keyof SjStyle] | undefined): void {
-    if (value === undefined || value === null) {
-      delete this.overrides[key];
-    } else {
-      this.overrides[key] = value as SjStyle[keyof SjStyle];
-    }
-    this.updateStyles();
-  }
-
-  private updateStyles(): void {
-    let merged = sjBox(this.overrides);
-
-    if (this.extra) {
-      if (Array.isArray(this.extra)) {
-        merged = this.extra.reduce((acc, style) => deepMerge(acc, style), merged);
-      } else {
-        merged = deepMerge(merged, this.extra);
-      }
-    }
-
-    this.computedStyle = { ...merged };
-    this.cdr.markForCheck();
+    // Compose selected variants on top of base box; returns a BoxBuilder (producer)
+    return sjBox.with(...parts);
   }
 }

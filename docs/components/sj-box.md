@@ -8,7 +8,7 @@ can still pass responsive values and blueprint overrides when needed.
 ## Quick start
 
 ```html
-<sj-box direction="column" gap="1">
+<sj-box display="column" gap="1">
   <h2>Profile</h2>
   <p>Contact info and preferences</p>
 </sj-box>
@@ -21,26 +21,22 @@ Pass any content into the slot and it will be laid out accordingly.
 
 | Input       | Type                             | Description                               |
 | ----------- | -------------------------------- | ----------------------------------------- |
-| `direction` | `SjStyle['flexDirection']`       | Flex direction (`row`, `column`, responsive map, etc.). |
+| `display`   | `'row'`\|`'column'`\|`'grid'`    | Layout mode: flex row, flex column, or grid. |
 | `justify`   | `SjStyle['justifyContent']`      | Horizontal alignment (`center`, `space-between`, …). |
 | `align`     | `SjStyle['alignItems']`          | Vertical alignment of children.           |
 | `wrap`      | `SjStyle['flexWrap']`            | Enables wrapping (`wrap`, `nowrap`, responsive). |
 | `gap`       | `SjStyle['gap']`                 | Gap between children (numeric or responsive). |
-| `inline`    | `boolean`                        | When true the box renders as `inline-flex` (defaults to `flex`). |
-| `styles`    | `SjStyle \| SjStyle[]`          | Additional overrides merged on top of the blueprint. |
+| `bg`        | `SjStyle['bg']`                  | Background color. |
+| `color`     | `SjStyle['c']`                   | Text color. |
 
 All inputs accept responsive objects just like any other Super JSS style.
 
 ## Overrides and composition
 
-If you need additional styles, pass them through the `style` input:
+If you need additional styles, pass them through `[sj]` like any other element:
 
 ```html
-<sj-box
-  direction="column"
-  gap="0.75"
-  [styles]="{ padding: { xs: '1rem', md: '2rem' }, backgroundColor: 'primary.light' }"
->
+<sj-box display="column" gap="0.75" [sj]="{ p: { xs: '1rem', md: '2rem' } }">
   ...
 </sj-box>
 ```

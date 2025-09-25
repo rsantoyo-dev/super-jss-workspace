@@ -10,32 +10,46 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/super-jss-demo",
             "index": "projects/super-jss-demo/src/index.html",
-            "polyfills": ["projects/super-jss-demo/src/polyfills.ts"],
+            "main": "projects/super-jss-demo/src/main.ts",
+            "polyfills": [
+              "projects/super-jss-demo/src/polyfills.ts"
+            ],
             "tsConfig": "projects/super-jss-demo/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/super-jss-demo/src/favicon.ico",
               "projects/super-jss-demo/src/assets"
             ],
-            "styles": ["projects/super-jss-demo/src/styles.scss"],
-            "scripts": [],
-            "browser": "projects/super-jss-demo/src/main.ts"
+            "styles": [
+              "projects/super-jss-demo/src/styles.scss"
+            ],
+            "scripts": []
           },
           "configurations": {
             "development": {
+              "buildOptimizer": false,
               "optimization": false,
+              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
             },
             "production": {
               "budgets": [
-                { "type": "initial", "maximumWarning": "500kb", "maximumError": "1mb" },
-                { "type": "anyComponentStyle", "maximumWarning": "2kb", "maximumError": "4kb" }
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
               ],
               "fileReplacements": [
                 {
@@ -49,17 +63,22 @@
           "defaultConfiguration": "development"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
-          "options": { "buildTarget": "super-jss-demo:build" },
+          "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "development": { "buildTarget": "super-jss-demo:build:development" },
-            "production":  { "buildTarget": "super-jss-demo:build:production" }
+            "development": {
+              "buildTarget": "super-jss-demo:build:development"
+            },
+            "production": {
+              "buildTarget": "super-jss-demo:build:production"
+            }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": { "buildTarget": "super-jss-demo:build" }
+          "options": {
+            "buildTarget": "super-jss-demo:build"
+          }
         }
       }
     },

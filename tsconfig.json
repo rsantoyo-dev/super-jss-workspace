@@ -17,9 +17,7 @@
     "module": "es2020",
     "paths": {
       "super-jss": [
-        "projects/super-jss/src/public-api",
-        "dist/super-jss/super-jss",
-        "dist/super-jss"
+        "projects/super-jss/src/public-api"
       ]
     },
     "lib": [
