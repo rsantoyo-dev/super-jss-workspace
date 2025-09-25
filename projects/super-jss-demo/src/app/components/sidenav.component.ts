@@ -15,7 +15,7 @@ import {
   selector: 'app-sidenav',
   imports: [CommonModule, RouterModule, SjDirective, SjHostComponent],
   template: `
-    <sj-host [sj]="sjCard()">     
+    <sj-host [sj]="[sjCard()]">     
       <a routerLink="/typography" [sj]="sjButton.light()">Typography</a>
       <a routerLink="/typography" [sj]="sjButton.light()">Typography</a>
       <a routerLink="/buttons" [sj]="sjButton.light()">Buttons</a>

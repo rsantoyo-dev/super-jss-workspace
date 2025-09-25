@@ -1,4 +1,4 @@
-import { Component, effect } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 import { HeaderComponent } from './components/header.component';
 
 import {
@@ -32,13 +32,14 @@ import { SidenavComponent } from './components/sidenav.component';
       <app-header></app-header>
 
       <sj-box
-        [sj]="
-          sj.blueprints.sjBox.grid({
-            gridTemplateColumns: { xs: '1fr', sm: '25% 75%' }
-          })
-        "
+        [sj]="[
+          sj.display('grid'),
+          sj.gridTemplateColumns({ xs: '1fr', sm: '30% 70%', md: '15% 85%' })
+        ]"
       >
+        @if (themeService.currentBreakpoint() !== 'xs'){
         <app-sidenav></app-sidenav>
+        }
 
         <div [sj]="sj.blueprints.sjCard.flat()">
           <app-breakpoint-indicator></app-breakpoint-indicator>
@@ -53,8 +54,9 @@ export class AppComponent {
   pendingThemePatch: Partial<SjTheme> | null = null;
 
   sj = sj;
+  currentBP = signal('xs');
 
-  constructor(private themeService: SjThemeService) {
+  constructor(public themeService: SjThemeService) {
     this.themeData = this.themeService.sjTheme();
     effect(() => {
       this.themeData = this.themeService.sjTheme();
