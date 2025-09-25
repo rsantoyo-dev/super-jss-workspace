@@ -1,17 +1,13 @@
-import {
-  Component,
-  effect,
-} from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { HeaderComponent } from './components/header.component';
 
 import {
   SjDirective,
-  sjCard,
   SjTheme,
   SjThemeService,
-  sjBox,
   SjHostComponent,
   SjBoxComponent,
+  sj,
 } from 'super-jss';
 
 import { BreakpointIndicatorComponent } from './components/breakpoint-indicator.component';
@@ -32,30 +28,23 @@ import { SidenavComponent } from './components/sidenav.component';
     SjBoxComponent,
   ],
   template: `
-    <sj-host [sj]="sjBox.column">
-      <sj-box [bg]="{xs:'red', md:'purple'}" [sj]="{p:3}">
-        <sj-box> aaa </sj-box>
-        <sj-box> bbb </sj-box>
-      </sj-box>
-
-
-
+    <sj-host [sj]="sj.fxDir('column')">
       <app-header></app-header>
 
-      <div
+      <sj-box
         [sj]="
-          sjBox.grid({
+          sj.blueprints.sjBox.grid({
             gridTemplateColumns: { xs: '1fr', sm: '25% 75%' }
           })
         "
       >
         <app-sidenav></app-sidenav>
 
-        <div [sj]="sjCard.flat()">
+        <div [sj]="sj.blueprints.sjCard.flat()">
           <app-breakpoint-indicator></app-breakpoint-indicator>
           <router-outlet></router-outlet>
         </div>
-      </div>
+      </sj-box>
     </sj-host>
   `,
 })
@@ -63,12 +52,9 @@ export class AppComponent {
   themeData: SjTheme;
   pendingThemePatch: Partial<SjTheme> | null = null;
 
-  sjCard = sjCard;
-  sjBox = sjBox;
+  sj = sj;
 
-  constructor(
-    private themeService: SjThemeService
-  ) {
+  constructor(private themeService: SjThemeService) {
     this.themeData = this.themeService.sjTheme();
     effect(() => {
       this.themeData = this.themeService.sjTheme();

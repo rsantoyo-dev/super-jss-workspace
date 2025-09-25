@@ -81,7 +81,7 @@ export class PanelHeaderComponent {
   iconBtn: SjStyle = sjButton.containedSecondary({
     bg:'light',
     d: 'inline-flex',
-    fxCenter: true as any,
+   
    
   });
 
