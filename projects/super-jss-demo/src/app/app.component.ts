@@ -17,31 +17,31 @@ import { SidenavComponent } from './components/sidenav.component';
     HeaderComponent,
     SidenavComponent,
     BreakpointIndicatorComponent,
-    SjHostComponent,
     SjBoxComponent,
     SjCardComponent
 ],
   template: `
-    <sj-host [sj]="sj.fxDir('column')">
+    <sj-box [sj]="[sj.flex.direction(sj.tokens.flex.direction.column), sj.sh.bg(sj.tokens.palette.light.main)]">
+      
       <app-header></app-header>
-      <sj-card [variant]="sj.variants.sjCard.secondary">dsd</sj-card>
 
       <sj-box
         [sj]="[
-          sj.display('grid'),
-          sj.gridTemplateColumns({ xs: '1fr', sm: '30% 70%', md: '15% 85%' })
+          
+          sj.css.display(sj.tokens.flex.display.grid),
+          sj.css.gridTemplateColumns({ xs: '1fr', sm: '30% 70%', md: '15% 85%' })
         ]"
       >
-        @if (themeService.currentBreakpoint() !== 'xs'){
-        <app-sidenav></app-sidenav>
+        @if (themeService.currentBreakpoint() !== sj.tokens.breakpoints.xs){
+          <app-sidenav></app-sidenav>
         }
 
-        <div [sj]="sj.blueprints.sjCard.flat()">
+        <sj-card [variant]="sj.variants.sjCard.flat">
           <app-breakpoint-indicator></app-breakpoint-indicator>
           <router-outlet></router-outlet>
-        </div>
+        </sj-card>
       </sj-box>
-    </sj-host>
+    </sj-box>
   `,
 })
 export class AppComponent {

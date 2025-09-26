@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective, SjThemeService, sjBox, sjCard, SjHostComponent } from 'super-jss';
+import { SjDirective, SjThemeService, SjHostComponent, sj } from 'super-jss';
 import { ThemeSelectorComponent } from './theme-selector.component';
 
 @Component({
@@ -9,25 +9,24 @@ import { ThemeSelectorComponent } from './theme-selector.component';
   imports: [CommonModule, SjDirective, SjHostComponent, ThemeSelectorComponent],
   template: `
     <sj-host
-      [sj]="
-       sjCard.primary(sjBox.between({fxDir: {xs:'column', sm:'row'}, borderRadius: 0}))
+      [sj]="[sj.blueprints.sjCard.primary, sj.flex.direction({xs:'column', sm:'row'}), sj.css.borderRadius(0), sj.css.justifyContent('space-between'), sj.css.alignItems('center')]
       "
     >
-      <div [sj]="sjBox.column({ gap: 0 })">
-        <h4 [sj]="{ c: 'primary.contrast', m: 0 }"><strong>SUPER-JSS</strong></h4>
-        <small [sj]="{ c: 'primary.contrast' }"
+      <div [sj]="[sj.presets.sjBox.column(), sj.css.gap(0)]">
+        <h4 [sj]="[sj.css.color(sj.palette.primary.contrast), sj.css.padding(0)]"><strong>SUPER-JSS</strong></h4>
+        <small [sj]="[sj.css.color(sj.palette.primary.contrast)]"
           >The ultimate solution for dynamic styling
         </small>
       </div>
 
-      <div [sj]="sjBox.row({ fxAItems: 'center' })">
+      <div [sj]="sj.presets.sjBox.row({ fxAItems: 'center' })">
         <app-theme-selector></app-theme-selector>
       </div>
     </sj-host>
   `,
 })
 export class HeaderComponent {
-  sjCard = sjCard;
-  sjBox = sjBox;
-  constructor(public th: SjThemeService) {}
+  sj = sj;
+
+
 }
