@@ -5,14 +5,14 @@ import { SjDirective, SjTheme, SjThemeService, SjHostComponent, SjBoxComponent, 
 
 import { BreakpointIndicatorComponent } from './components/breakpoint-indicator.component';
 
-import { RouterModule } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 import { SidenavComponent } from './components/sidenav.component';
 
 @Component({
   selector: 'app-root',
   imports: [
-    RouterModule,
+    RouterOutlet,
     SjDirective,
     HeaderComponent,
     SidenavComponent,
