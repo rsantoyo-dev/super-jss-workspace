@@ -1,6 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective, SjTheme, SjThemeService, defaultDarkTheme, defaultTheme, desertDarkTheme, desertTheme, oceanDarkTheme, oceanTheme, sjButton, sjCard, SjHostComponent, sjBox, SjIconComponent, icon, SjCardComponent, sj } from 'super-jss';
+import { SjDirective, SjTheme, SjThemeService, defaultDarkTheme, defaultTheme, desertDarkTheme, desertTheme, oceanDarkTheme, oceanTheme, sjButton, sjCard, SjHostComponent, sjBox, SjIconComponent, icon, SjCardComponent } from 'super-jss';
+import { WithSj } from '../shared/with-sj';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
 
 function deepMerge(target: any, source: any): any {
@@ -40,8 +41,8 @@ interface ThemeMeta {
   imports: [CommonModule, SjHostComponent, SjDirective, SjIconComponent, SjCardComponent],
   template: `
     <sj-host [sj]="sj.blueprints.sjCard.flat({ p: 0, fxDir: 'row' })">
-      <sj-card [sj]="sj.blueprints.sjCard.flat({ gap: 0.1, bg: 'primary.dark' })">
-        <small [sj]="{ c: 'primary.contrast' }">{{ previewLabel() }}</small>
+      <sj-card [sj]="[sj.css.gap(0.2), sj.sh.bg(sj.palette.primary.dark)]">
+        <small [sj]="[sj.sh.c(sj.palette.primary.contrast)]">{{ previewLabel() }}</small>
 
       
         <sj-card [variant]="'flat'" [sj]="[sj.flex.direction('row'), sj.css.gap(0.1)]">
@@ -120,9 +121,7 @@ interface ThemeMeta {
     </sj-host>
   `,
 })
-export class ThemeSelectorComponent {
-
-  sj = sj
+export class ThemeSelectorComponent extends WithSj {
   protected readonly icon = icon;
 
   themes: ThemeMeta[] = [
@@ -166,7 +165,7 @@ export class ThemeSelectorComponent {
   ];
   libraryThemes = this.themes.filter((t) => t.type === 'Library');
   customThemes = this.themes.filter((t) => t.type === 'Custom');
-  currentThemeName = computed(() => this.th.sjTheme().name);
+  currentThemeName = computed(() => this.theme.sjTheme().name);
   private hoveredTheme = signal<string | null>(null);
   previewLabel = computed(() => {
     const hovered = this.hoveredTheme();
@@ -178,7 +177,9 @@ export class ThemeSelectorComponent {
      return `${prefix}: ${target}`;
   });
 
-  constructor(public th: SjThemeService) {}
+  constructor() {
+    super()
+  }
 
   onHover(name: string): void {
     this.hoveredTheme.set(name);
@@ -189,7 +190,7 @@ export class ThemeSelectorComponent {
   }
 
   onSelect(theme: ThemeMeta): void {
-    this.th.setTheme(theme.theme);
+    this.theme.setTheme(theme.theme);
     this.hoveredTheme.set(null);
   }
 }

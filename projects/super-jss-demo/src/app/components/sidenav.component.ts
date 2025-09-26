@@ -15,14 +15,14 @@ import {
   selector: 'app-sidenav',
   imports: [CommonModule, RouterModule, SjDirective, SjHostComponent],
   template: `
-    <sj-host [sj]="[sjCard()]">     
-      <a routerLink="/typography" [sj]="sjButton.light()">Typography</a>
+    <sj-host [sj]="[sjCard()]">
+      <a routerLink="/home" [sj]="sjButton.light()">Home</a>     
       <a routerLink="/typography" [sj]="sjButton.light()">Typography</a>
       <a routerLink="/buttons" [sj]="sjButton.light()">Buttons</a>
       <a routerLink="/cards" [sj]="sjButton.light()">Cards</a>
       <a routerLink="/palette" [sj]="sjButton.light()">Palette</a>
       <a routerLink="/theming" [sj]="sjButton.light()">Theming</a>
-      <a routerLink="/home" [sj]="sjButton.light()">Home</a>
+      
     </sj-host>
   `,
 })

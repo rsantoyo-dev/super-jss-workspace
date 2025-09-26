@@ -1,7 +1,8 @@
 import { Component, effect, signal } from '@angular/core';
 import { HeaderComponent } from './components/header.component';
 
-import { SjDirective, SjTheme, SjThemeService, SjHostComponent, SjBoxComponent, sj, SjCardComponent } from 'super-jss';
+import { SjDirective, SjTheme, SjHostComponent, SjBoxComponent, SjCardComponent } from 'super-jss';
+import { WithSj } from './shared/with-sj';
 
 import { BreakpointIndicatorComponent } from './components/breakpoint-indicator.component';
 
@@ -32,11 +33,11 @@ import { SidenavComponent } from './components/sidenav.component';
           sj.css.gridTemplateColumns({ xs: '1fr', sm: '30% 70%', md: '15% 85%' })
         ]"
       >
-        @if (themeService.currentBreakpoint() !== sj.tokens.breakpoints.xs){
-          <app-sidenav></app-sidenav>
-        }
+    @if (theme.currentBreakpoint() !== sj.tokens.breakpoints.xs){
+      <app-sidenav></app-sidenav>
+    }
 
-        <sj-card [variant]="sj.variants.sjCard.flat">
+        <sj-card [variant]="sj.variants.sjCard.flat" [sj]="[]">
           <app-breakpoint-indicator></app-breakpoint-indicator>
           <router-outlet></router-outlet>
         </sj-card>
@@ -44,17 +45,17 @@ import { SidenavComponent } from './components/sidenav.component';
     </sj-box>
   `,
 })
-export class AppComponent {
+export class AppComponent extends WithSj {
   themeData: SjTheme;
   pendingThemePatch: Partial<SjTheme> | null = null;
 
-  sj = sj;
   currentBP = signal('xs');
 
-  constructor(public themeService: SjThemeService) {
-    this.themeData = this.themeService.sjTheme();
+  constructor() {
+    super();
+    this.themeData = this.theme.sjTheme();
     effect(() => {
-      this.themeData = this.themeService.sjTheme();
+      this.themeData = this.theme.sjTheme();
     });
   }
   // Receive edits, but do not apply until user confirms
@@ -64,7 +65,7 @@ export class AppComponent {
 
   applyEditedTheme() {
     if (this.pendingThemePatch) {
-      this.themeService.setTheme(this.pendingThemePatch);
+      this.theme.setTheme(this.pendingThemePatch);
       this.pendingThemePatch = null;
     }
   }

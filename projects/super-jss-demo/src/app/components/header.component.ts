@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective, SjThemeService, SjHostComponent, sj } from 'super-jss';
+import { SjDirective, SjThemeService, SjHostComponent } from 'super-jss';
+import { WithSj } from '../shared/with-sj';
 import { ThemeSelectorComponent } from './theme-selector.component';
 
 @Component({
@@ -34,6 +35,4 @@ import { ThemeSelectorComponent } from './theme-selector.component';
     </sj-host>
   `,
 })
-export class HeaderComponent {
-  sj = sj;
-}
+export class HeaderComponent extends WithSj {}

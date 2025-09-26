@@ -1,0 +1,13 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "angular.view-engine": false,
+  // Show suggestions while typing inside strings (inline Angular templates)
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "editor.suggestOnTriggerCharacters": true,
+  "typescript.suggest.completeFunctionCalls": true
+}
