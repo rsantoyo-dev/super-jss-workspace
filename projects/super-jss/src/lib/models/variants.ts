@@ -14,3 +14,16 @@ export const SjCardVariants = {
 
 export type SjCardVariant = typeof SjCardVariants[keyof typeof SjCardVariants];
 
+export const SjButtonVariants = {
+  default: 'default',
+  light: 'light',
+  contained: 'contained',
+  outlined: 'outlined',
+  containedPrimary: 'containedPrimary',
+  containedLight: 'containedLight',
+  containedDark: 'containedDark',
+  containedSecondary: 'containedSecondary',
+  danger: 'danger',
+} as const;
+
+export type SjButtonVariant = typeof SjButtonVariants[keyof typeof SjButtonVariants];

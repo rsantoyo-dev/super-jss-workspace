@@ -39,8 +39,8 @@ interface ThemeMeta {
   selector: 'app-theme-selector',
   imports: [CommonModule, SjHostComponent, SjDirective, SjIconComponent, SjCardComponent],
   template: `
-    <sj-host [sj]="sj.presets.sjCard.flat({ p: 0, fxDir: 'row' })">
-      <sj-card [sj]="sj.presets.sjCard.flat({ gap: 0.1, bg: 'primary.dark' })">
+    <sj-host [sj]="sj.blueprints.sjCard.flat({ p: 0, fxDir: 'row' })">
+      <sj-card [sj]="sj.blueprints.sjCard.flat({ gap: 0.1, bg: 'primary.dark' })">
         <small [sj]="{ c: 'primary.contrast' }">{{ previewLabel() }}</small>
 
       
@@ -49,7 +49,7 @@ interface ThemeMeta {
 
           @if (theme.isDark) {
           <button
-            [sj]="sj.presets.sjButton({ bg: theme.theme.palette?.primary?.dark })"
+            [sj]="sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.dark })"
             (mouseenter)="onHover(theme.name)"
             (mouseleave)="onHoverEnd()"
             (click)="onSelect(theme)"
@@ -66,7 +66,7 @@ interface ThemeMeta {
 
           } @else {
           <button
-            [sj]="sj.presets.sjButton({ bg: theme.theme.palette?.primary?.light })"
+            [sj]="sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.light })"
             (mouseenter)="onHover(theme.name)"
             (mouseleave)="onHoverEnd()"
             (click)="onSelect(theme)"
@@ -80,10 +80,10 @@ interface ThemeMeta {
             ></sj-icon>
           </button>
           } }
-          <div [sj]="sj.presets.sjCard({ bg: 'primary', p: 0.1 })"></div>
+          <div [sj]="sj.blueprints.sjCard({ bg: 'primary', p: 0.1 })"></div>
           @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
           <button
-            [sj]="sj.presets.sjButton({ bg: theme.theme.palette?.primary?.dark })"
+            [sj]="sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.dark })"
             (mouseenter)="onHover(theme.name)"
             (mouseleave)="onHoverEnd()"
             (click)="onSelect(theme)"
@@ -100,7 +100,7 @@ interface ThemeMeta {
 
           } @else {
           <button
-            [sj]="sj.presets.sjButton({ bg: theme.theme.palette?.primary?.light })"
+            [sj]="sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.light })"
             (mouseenter)="onHover(theme.name)"
             (mouseleave)="onHoverEnd()"
             (click)="onSelect(theme)"

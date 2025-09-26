@@ -33,6 +33,7 @@ nav:
   - Home: index.md
   - Installation: installation.md
   - Basic Usage: basic-usage.md
+  - SJ API: sj-api.md
   - Styling Shortcuts: styling-shortcuts.md
   - Blueprints:
     - Cards: blueprints/cards.md

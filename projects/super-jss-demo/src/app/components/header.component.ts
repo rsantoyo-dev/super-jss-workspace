@@ -9,17 +9,26 @@ import { ThemeSelectorComponent } from './theme-selector.component';
   imports: [CommonModule, SjDirective, SjHostComponent, ThemeSelectorComponent],
   template: `
     <sj-host
-      [sj]="[sj.blueprints.sjCard.primary, sj.flex.direction({xs:'column', sm:'row'}), sj.css.borderRadius(0), sj.css.justifyContent('space-between'), sj.css.alignItems('center')]
-      "
+      [sj]="[
+        sj.blueprints.sjCard.primary,
+        sj.flex.direction({ xs: 'column', sm: 'row' }),
+        sj.css.borderRadius(0),
+        sj.css.justifyContent('space-between'),
+        sj.css.alignItems('center')
+      ]"
     >
-      <div [sj]="[sj.presets.sjBox.column(), sj.css.gap(0)]">
-        <h4 [sj]="[sj.css.color(sj.palette.primary.contrast), sj.css.padding(0)]"><strong>SUPER-JSS</strong></h4>
+      <div [sj]="[sj.blueprints.sjBox.column(), sj.css.gap(0)]">
+        <h4
+          [sj]="[sj.css.color(sj.palette.primary.contrast), sj.css.padding(0)]"
+        >
+          <strong>SUPER-JSS</strong>
+        </h4>
         <small [sj]="[sj.css.color(sj.palette.primary.contrast)]"
           >The ultimate solution for dynamic styling
         </small>
       </div>
 
-      <div [sj]="sj.presets.sjBox.row({ fxAItems: 'center' })">
+      <div [sj]="sj.blueprints.sjBox.row({ fxAItems: 'center' })">
         <app-theme-selector></app-theme-selector>
       </div>
     </sj-host>
@@ -27,6 +36,4 @@ import { ThemeSelectorComponent } from './theme-selector.component';
 })
 export class HeaderComponent {
   sj = sj;
-
-
 }
