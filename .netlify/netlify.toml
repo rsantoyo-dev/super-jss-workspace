@@ -12,8 +12,8 @@ package = "@netlify/angular-runtime"
 [plugins.inputs]
 
 [build]
-publish = "/Users/ricardosantoyo/Documents/projects/sjss/super-jss-workspace/dist/super-jss-demo/browser"
-publishOrigin = "config"
+publish = "/Users/ricardosantoyo/Documents/projects/sjss/super-jss-workspace/dist/super-jss-demo"
+publishOrigin = "inline"
 commandOrigin = "config"
 command = "ng build super-jss-demo"
 
