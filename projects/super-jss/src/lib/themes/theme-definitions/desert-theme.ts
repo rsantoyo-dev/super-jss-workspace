@@ -131,6 +131,7 @@ const darkPalette: SjPalette = {
 };
 
 export const desertTheme: SjTheme = {
+  name: 'Desert Light',
   breakpoints: DEFAULT_BREAKPOINTS,
   spacing: DEFAULT_SPACING,
   typography: DEFAULT_TYPOGRAPHY,
@@ -139,5 +140,6 @@ export const desertTheme: SjTheme = {
 };
 
 export const desertDarkTheme: Partial<SjTheme> = {
+  name: 'Desert Dark',
   palette: darkPalette,
 };

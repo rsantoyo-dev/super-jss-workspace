@@ -1,0 +1,29 @@
+// Centralized variant registries to enable IDE autocomplete in templates
+
+export const SjCardVariants = {
+  default: 'default',
+  outlined: 'outlined',
+  flat: 'flat',
+  elevated: 'elevated',
+  interactive: 'interactive',
+  primary: 'primary',
+  secondary: 'secondary',
+  info: 'info',
+  codeSnippet: 'codeSnippet',
+} as const;
+
+export type SjCardVariant = typeof SjCardVariants[keyof typeof SjCardVariants];
+
+export const SjButtonVariants = {
+  default: 'default',
+  light: 'light',
+  contained: 'contained',
+  outlined: 'outlined',
+  containedPrimary: 'containedPrimary',
+  containedLight: 'containedLight',
+  containedDark: 'containedDark',
+  containedSecondary: 'containedSecondary',
+  danger: 'danger',
+} as const;
+
+export type SjButtonVariant = typeof SjButtonVariants[keyof typeof SjButtonVariants];

@@ -3,7 +3,7 @@ Super JavaScript Stylesheets (SJSS) provides a flexible and powerful system for 
 
 ## Table of Contents
 1. [Using the Color Palette](#using-the-color-palette)
-2. [Personalizing the Color Palette](#personalizing-the-color-palette)
+2. [Personalizing the Color Palette](#personalize-the-color-palette)
 3. [Color Palette Default Reference](#color-palette-default-reference)
 
 ## Using the Color Palette

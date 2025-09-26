@@ -97,6 +97,7 @@ const breakpoints: SjBreakPoints = {
 const spacing = (factor: number): string => `${factor * 0.5}rem`;
 
 export const goldenEmeraldTheme: Partial<SjTheme> = {
+      name: 'Golden Emerald',
       palette,
       breakpoints,
       typography,

@@ -33,7 +33,16 @@ nav:
   - Home: index.md
   - Installation: installation.md
   - Basic Usage: basic-usage.md
+  - SJ API: sj-api.md
   - Styling Shortcuts: styling-shortcuts.md
+  - Blueprints:
+    - Cards: blueprints/cards.md
+    - Buttons: blueprints/buttons.md
+    - Box: blueprints/box.md
+  - Components:
+    - Overview: components/_index.md
+    - sj-host: components/sj-host.md
+    - sj-box: components/sj-box.md
   - Responsive Styling: responsive-style.md
   - Colors: colors.md
   - Spacing: spacing.md
@@ -42,4 +51,3 @@ nav:
   - Theming: theming.md
   - Examples: examples.md
   - FAQs: faqs.md
-

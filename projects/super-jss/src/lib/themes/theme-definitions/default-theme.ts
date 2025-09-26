@@ -131,6 +131,7 @@ const darkPalette: SjPalette = {
 };
 
 export const defaultTheme: SjTheme = {
+  name: 'Default Light',
   breakpoints: DEFAULT_BREAKPOINTS,
   spacing: DEFAULT_SPACING,
   typography: DEFAULT_TYPOGRAPHY,
@@ -139,5 +140,6 @@ export const defaultTheme: SjTheme = {
 };
 
 export const defaultDarkTheme: Partial<SjTheme> = {
+  name: 'Default Dark',
   palette: darkPalette,
 };
