@@ -1,22 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  SjDirective,
-  SjTheme,
-  SjThemeService,
-  defaultDarkTheme,
-  defaultTheme,
-  desertDarkTheme,
-  desertTheme,
-  oceanDarkTheme,
-  oceanTheme,
-  sjButton,
-  sjCard,
-  SjHostComponent,
-  sjBox,
-  SjIconComponent,
-  icon,
-} from 'super-jss';
+import { SjDirective, SjTheme, SjThemeService, defaultDarkTheme, defaultTheme, desertDarkTheme, desertTheme, oceanDarkTheme, oceanTheme, sjButton, sjCard, SjHostComponent, sjBox, SjIconComponent, icon, SjCardComponent, sj } from 'super-jss';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
 
 function deepMerge(target: any, source: any): any {
@@ -53,19 +37,19 @@ interface ThemeMeta {
 @Component({
   standalone: true,
   selector: 'app-theme-selector',
-  imports: [CommonModule, SjHostComponent, SjDirective, SjIconComponent],
+  imports: [CommonModule, SjHostComponent, SjDirective, SjIconComponent, SjCardComponent],
   template: `
-    <sj-host [sj]="sjCard.flat({ p: 0, fxDir: 'row' })">
-      <div [sj]="sjCard.flat({ gap: 0.1, bg: 'primary.dark' })">
+    <sj-host [sj]="sj.quick.sjCard.flat({ p: 0, fxDir: 'row' })">
+      <sj-card [sj]="sj.quick.sjCard.flat({ gap: 0.1, bg: 'primary.dark' })">
         <small [sj]="{ c: 'primary.contrast' }">{{ previewLabel() }}</small>
 
-        <div [sj]="sjCard.flat({ p: 0, fxDir: 'row' })">
+      
+        <sj-card [variant]="'flat'" [sj]="[sj.fxDir('row'), sj.gap(0.1)]">
           @for (theme of libraryThemes; track theme.name){
-          <!-- <div>{{ theme.name }}</div> -->
 
           @if (theme.isDark) {
           <button
-            [sj]="sjButton({ bg: theme.theme.palette?.primary?.dark })"
+            [sj]="sj.quick.sjButton({ bg: theme.theme.palette?.primary?.dark })"
             (mouseenter)="onHover(theme.name)"
             (mouseleave)="onHoverEnd()"
             (click)="onSelect(theme)"
@@ -82,7 +66,7 @@ interface ThemeMeta {
 
           } @else {
           <button
-            [sj]="sjButton({ bg: theme.theme.palette?.primary?.light })"
+            [sj]="sj.quick.sjButton({ bg: theme.theme.palette?.primary?.light })"
             (mouseenter)="onHover(theme.name)"
             (mouseleave)="onHoverEnd()"
             (click)="onSelect(theme)"
@@ -96,10 +80,10 @@ interface ThemeMeta {
             ></sj-icon>
           </button>
           } }
-          <div [sj]="sjCard({ bg: 'primary', p: 0.1 })"></div>
+          <div [sj]="sj.quick.sjCard({ bg: 'primary', p: 0.1 })"></div>
           @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
           <button
-            [sj]="sjButton({ bg: theme.theme.palette?.primary?.dark })"
+            [sj]="sj.quick.sjButton({ bg: theme.theme.palette?.primary?.dark })"
             (mouseenter)="onHover(theme.name)"
             (mouseleave)="onHoverEnd()"
             (click)="onSelect(theme)"
@@ -116,7 +100,7 @@ interface ThemeMeta {
 
           } @else {
           <button
-            [sj]="sjButton({ bg: theme.theme.palette?.primary?.light })"
+            [sj]="sj.quick.sjButton({ bg: theme.theme.palette?.primary?.light })"
             (mouseenter)="onHover(theme.name)"
             (mouseleave)="onHoverEnd()"
             (click)="onSelect(theme)"
@@ -130,16 +114,15 @@ interface ThemeMeta {
             ></sj-icon>
           </button>
           } }
-        </div>
-      </div>
+        </sj-card>
+      </sj-card>
      
     </sj-host>
   `,
 })
 export class ThemeSelectorComponent {
-  sjCard = sjCard;
-  sjBox = sjBox;
-  sjButton = sjButton;
+
+  sj = sj
   protected readonly icon = icon;
 
   themes: ThemeMeta[] = [

@@ -1,14 +1,7 @@
 import { Component, effect, signal } from '@angular/core';
 import { HeaderComponent } from './components/header.component';
 
-import {
-  SjDirective,
-  SjTheme,
-  SjThemeService,
-  SjHostComponent,
-  SjBoxComponent,
-  sj,
-} from 'super-jss';
+import { SjDirective, SjTheme, SjThemeService, SjHostComponent, SjBoxComponent, sj, SjCardComponent } from 'super-jss';
 
 import { BreakpointIndicatorComponent } from './components/breakpoint-indicator.component';
 
@@ -26,10 +19,12 @@ import { SidenavComponent } from './components/sidenav.component';
     BreakpointIndicatorComponent,
     SjHostComponent,
     SjBoxComponent,
-  ],
+    SjCardComponent
+],
   template: `
     <sj-host [sj]="sj.fxDir('column')">
       <app-header></app-header>
+      <sj-card [variant]="sj.variants.sjCard.secondary">dsd</sj-card>
 
       <sj-box
         [sj]="[

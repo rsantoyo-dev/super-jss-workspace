@@ -3,6 +3,7 @@ import { ResponsiveStyle, SjShorthandCustomStyle, SjShorthandStyle, SjStyle } fr
 import { sjBox, SjBoxApi } from '../blueprints/box';
 import { sjCard, SjCardApi } from '../blueprints/card';
 import { sjButton, SjButtonApi } from '../blueprints/button';
+import { SjCardVariants } from '../models/variants';
 
 // Responsive value helper: allow raw or responsive object
 type Responsive<T> = T | ResponsiveStyle;
@@ -31,6 +32,10 @@ export type SjApi = CssFunctions & ShorthandFunctions & {
   blueprints: SjBlueprints;
   quick: SjBlueprints;
   help: SjBlueprints;
+  // Literal option registries for IDE autocomplete
+  variants: {
+    sjCard: typeof SjCardVariants;
+  };
 };
 
 export type SjBlueprints = {
@@ -89,6 +94,9 @@ export const sj: SjApi = Object.assign(base, helpers, {
   blueprints: blueprintNamespace,
   quick: blueprintNamespace,
   help: blueprintNamespace,
+  variants: {
+    sjCard: SjCardVariants,
+  },
 }) as SjApi;
 
 export default sj;
