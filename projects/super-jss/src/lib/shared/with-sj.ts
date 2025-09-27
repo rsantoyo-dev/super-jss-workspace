@@ -8,6 +8,8 @@ import { SjDirective } from '../directives/sj.directive';
 import { SjHostComponent } from '../components/sj-host.component';
 import { SjCardComponent } from '../components/sj-card.component';
 import { SjBoxComponent } from '../components/sj-box.component';
+import { SjButtonComponent } from '../components/sj-button.component';
+import { SjIconComponent } from '../components/sj-icon.component';
 
 export abstract class WithSj {
   public sj: SjApi = sj;
@@ -30,5 +32,7 @@ export const SJ_BASE_COMPONENTS_IMPORTS = [
   SjDirective,
   SjHostComponent,
   SjCardComponent,
-  SjBoxComponent
+  SjBoxComponent,
+  SjButtonComponent,
+  SjIconComponent
 ] as const;

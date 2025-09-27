@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SjDirective, SjStyle, sjCard } from 'super-jss';
+import { SjDirective, SjBoxComponent, WithSj, SjButtonComponent } from 'super-jss';
 
 export interface JsonNode {
   key: string;
@@ -14,32 +13,30 @@ export interface JsonNode {
 @Component({
   selector: 'app-json-node',
   standalone: true,
-  imports: [FormsModule, JsonNodeComponent, SjDirective],
+  imports: [FormsModule, JsonNodeComponent, SjDirective, SjBoxComponent, SjButtonComponent],
   template: `
-    <div [sj]="styles.node">
-      <div [sj]="styles.row">
+    <sj-box [sj]="[ sj.css.flexDirection(sj.tokens.flex.direction.column), sj.sh.ml(0.5) ]">
+      <sj-box [sj]="[ sj.flex.row(), sj.css.alignItems('center'), sj.css.gap(0.5) ]">
         @if ((node.type === 'object' || node.type === 'array') &&
         (node.children?.length ?? 0) > 0) {
-        <button [sj]="togglingBtnSj" (click)="toggle()">
-          <small [sj]="{ c: 'primary.light' }">{{
-            node.expanded ? '/' : '>'
-          }}</small>
-        </button>
+        <sj-button [variant]="sj.variants.sjButton.outlined" [sj]="{ px: 0.25, py: 0.1 }" (click)="toggle()">
+          <small [sj]="{ c: sj.tokens.palette.primary.light }">{{ node.expanded ? '/' : '>' }}</small>
+        </sj-button>
         } @else {
-        <span [sj]="styles.toggleSpacer"></span>
+        <span [sj]="{ d: 'inline-block', w: 2, h: 2 }"></span>
         }
-        <span (click)="toggle()" [sj]="styles.key">{{ node.key }}:</span>
+        <span (click)="toggle()" [sj]="sj.css.cursor('pointer')">{{ node.key }}:</span>
 
         @switch (node.type) { @case ('string') { @if (isHexColor(node.value)) {
-        <span [sj]="styles.colorRow">
+        <span [sj]="[ sj.css.display('inline-flex'), sj.css.alignItems('center'), sj.css.gap(0.5) ]">
           <input
-            [sj]="colorInputSj"
+            [sj]="{ p: 0, bg: sj.tokens.colors.transparent, bs: sj.tokens.border.style.none, bw: 0, w: 2, h: 2, cursor: 'pointer' }"
             type="color"
             [(ngModel)]="node.value"
             (ngModelChange)="onValueChange()"
           />
           <input
-            [sj]="inputSj"
+            [sj]="{ m: 0, bg: sj.tokens.palette.light.light, bs: sj.tokens.border.style.none, bw: 0, w: sj.tokens.sizing.width.auto, minW: 4, h: 1.5 }"
             type="text"
             [(ngModel)]="node.value"
             (ngModelChange)="onValueChange()"
@@ -47,32 +44,38 @@ export interface JsonNode {
         </span>
         } @else {
         <input
-          [sj]="inputSj"
+          [sj]="{ m: 0, bg: sj.tokens.palette.light.light, bs: sj.tokens.border.style.none, bw: 0, w: sj.tokens.sizing.width.auto, minW: 4, h: 1.5 }"
           type="text"
           [(ngModel)]="node.value"
           (ngModelChange)="onValueChange()"
         />
         } } @case ('number') {
         <input
-          [sj]="inputSj"
+          [sj]="{ m: 0, bg: sj.tokens.palette.light.light, bs: sj.tokens.border.style.none, bw: 0, w: sj.tokens.sizing.width.auto, minW: 4, h: 1.5 }"
           type="number"
           [(ngModel)]="node.value"
           (ngModelChange)="onValueChange()"
         />
         } @case ('boolean') {
         <input
-          [sj]="inputSj"
+          [sj]="{ m: 0, bg: sj.tokens.palette.light.light, bs: sj.tokens.border.style.none, bw: 0, w: sj.tokens.sizing.width.auto, minW: 4, h: 1.5 }"
           type="checkbox"
           [(ngModel)]="node.value"
           (ngModelChange)="onValueChange()"
         />
         } @case ('null') {
-        <span [sj]="{ c: 'neutral' }">null</span>
+        <span [sj]="{ c: sj.tokens.palette.neutral.main }">null</span>
         } }
-      </div>
+      </sj-box>
 
       @if ((node.type === 'object' || node.type === 'array') && node.expanded) {
-      <div [sj]="styles.children">
+      <sj-box [sj]="[
+        sj.css.flexDirection(sj.tokens.flex.direction.column),
+        sj.sh.pl(1.25),
+        sj.css.borderLeftStyle('solid'),
+        sj.css.borderLeftWidth(0.1),
+        sj.css.borderLeftColor(sj.tokens.palette.light.dark)
+      ]">
         @for (child of (node.children ?? []); track $index) {
         <app-json-node
           [node]="child"
@@ -80,54 +83,14 @@ export interface JsonNode {
           (remove)="onRemove($event)"
         ></app-json-node>
         }
-      </div>
+      </sj-box>
       }
-    </div>
+    </sj-box>
   `,
   styles: [],
 })
-export class JsonNodeComponent {
-  public sjCard = sjCard;
-  inputSj: SjStyle = {
-    m: 0,
-    bg: 'bg.primary',
-    border: 'none',
-    w: 'auto',
-    minW: '60px',
-    h: '24px',
-  };
-  colorInputSj: SjStyle = sjCard.flat({
-    padding: '0',
-    bg: 'transparent',
-    border: 'none',
-    w: 2,
-    h: 2,
-    cursor: 'pointer',
-  });
-  readonly styles = {
-    node: { ml: 0.5 } as SjStyle,
-    row: { d: 'flex', fxAItems: 'center', gap: 0.5 } as SjStyle,
-    key: { cursor: 'pointer' } as SjStyle,
-    children: { pl: '20px', bl: '1px solid', bc: 'light.dark' } as SjStyle,
-    colorRow: { d: 'inline-flex', fxAItems: 'center', gap: 0.5 } as SjStyle,
-    colorSwatch: {
-      w: '14px',
-      h: '14px',
-      b: '1px solid',
-      bc: 'light.dark',
-      brad: '2px',
-      d: 'inline-block',
-    } as SjStyle,
-    toggleSpacer: { d: 'inline-block', w: 2, h: 2 } as SjStyle,
-  };
-  togglingBtnSj: SjStyle = sjCard.outlined({
-    padding: '2px 6px',
-    bg: 'light',
-    c: 'secondary',
-    d: 'inline',
-    bc: 'light',
-    borderWidth: '1px',
-  });
+export class JsonNodeComponent extends WithSj {
+  // All styling is inline via [sj]
 
   @Input({ required: true }) node!: JsonNode;
   @Input() isRoot = false;

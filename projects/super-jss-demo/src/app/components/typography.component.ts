@@ -26,9 +26,9 @@ import { SectionContainerComponent } from './section-container.component';
             [sj]="[sj.blueprints.sjButton.containedPrimary(), sj.css.width(sj.tokens.sizing.width.fitContent)]"
           >Docs</a>
 
-        <h1 [sj]="{ c: 'primary' }">H1: {{ sampleText }}</h1>
-        <h2 [sj]="{ c: 'secondary' }">H2: {{ sampleText }}</h2>
-        <h3 [sj]="{ c: 'tertiary' }">H3: {{ sampleText }}</h3>
+        <h1 [sj]="{ c: sj.tokens.palette.primary.main }">H1: {{ sampleText }}</h1>
+        <h2 [sj]="{ c: sj.tokens.palette.secondary.main }">H2: {{ sampleText }}</h2>
+        <h3 [sj]="{ c: sj.tokens.palette.tertiary.main }">H3: {{ sampleText }}</h3>
         <h4 [sj]>H4: {{ sampleText }}</h4>
         <h5 [sj]>H5: {{ sampleText }}</h5>
         <h6 [sj]>H6: {{ sampleText }}</h6>

@@ -1,74 +1,46 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import {
-  SjDirective,
-  sjBorder,
-  sjBorderShadow,
-  sjCard,
-  sjOutlinedCard,
-} from 'super-jss';
+import { SjDirective, WithSj, SjCardComponent, sj } from 'super-jss';
+import { SectionContainerComponent } from './section-container.component';
 
 @Component({
   selector: 'app-palette',
   standalone: true,
-  imports: [CommonModule, SjDirective],
+  imports: [CommonModule, SjDirective, SjCardComponent, SectionContainerComponent],
   template: `
-    <div [sj]="{ d: 'grid' }">
-      <h2 [sj]="{ c: 'primary', mb: 1 }">Palette</h2>
-    </div>
-
-    <div [sj]="sjCard.outlined">
-      <div [sj]="sjCard.flat({ display: 'block', bg: 'light.dark', mb: 2 })">
-        <p [sj]="">
+    <app-section title="Palette">
+      <sj-card [sj]="[ sj.blueprints.sjCard.flat(), sj.sh.d('block') ]">
+        <p [sj]="[]">
           The SJSS theme palette defines a set of semantic colors. Each color
           typically includes main, light, dark, and contrast variants. These
           colors are used consistently throughout your application and update
           automatically when you switch themes, ensuring a cohesive and dynamic
           visual experience.
         </p>
-        <pre
-          [sj]="{ m: 0, p: 1, bg: 'light.light', brad: 0.5 }"
-        ><code>{{ this.sampleImplement }}</code></pre>
+        <pre [sj]="{ m: 0, p: 1, bg: 'light.light', brad: 0.5 }"><code>{{ this.sampleImplement }}</code></pre>
         <a
           href="https://sjss.dev/palette/"
           target="_blank"
           rel="noopener"
-          [sj]="sjCard.interactive({width:5, bg: 'primary.main', p: 0.5, px: 1, my:1})"
-          >Docs
-        </a>
-      </div>
+          [sj]="sj.button.containedPrimary({ w: 5, p: 0.5, px: 1, my: 1 })"
+        >Docs</a>
+      </sj-card>
+
       <div *ngFor="let color of demoColors()">
         <p [sj]="{ c: color[0], fontWeight: 'bold' }">{{ color[0] }}</p>
-        <div
-          [sj]="{
-            display: 'flex',
-            flexDirection: { xs: 'column', md: 'row' },
-            gap: 2
-          }"
-        >
-          <div
+        <div [sj]="[ sj.flex.direction({ xs: 'column', md: 'row' }), sj.css.gap(2) ]">
+          <sj-card
             *ngFor="let colorVariant of color"
-            [sj]="
-              sjCard({
-                bg: colorVariant,
-                flexGrow: '1',
-                justifyContent: 'center',
-                py: 1
-              })
-            "
+            [sj]="{ bg: colorVariant, fxGrow: 1, fxJustify: 'center', py: 1 }"
           >
-            <span
-              [sj]="{ c: colorVariant === color[3] ? color[0] : color[3] }"
-              >{{ colorVariant }}</span
-            >
-          </div>
+            <span [sj]="{ c: colorVariant === color[3] ? color[0] : color[3] }">{{ colorVariant }}</span>
+          </sj-card>
         </div>
       </div>
-    </div>
+    </app-section>
   `,
 })
-export class PaletteComponent {
+export class PaletteComponent extends WithSj {
   demoColors = signal([
     ['primary', 'primary.light', 'primary.dark', 'primary.contrast'],
     ['secondary', 'secondary.light', 'secondary.dark', 'secondary.contrast'],
@@ -82,9 +54,6 @@ export class PaletteComponent {
     ['light', 'light.light', 'light.dark', 'light.contrast'],
   ]);
 
-  protected readonly sjBorderShadow = sjBorderShadow;
-  protected readonly sjBorder = sjBorder;
-  protected readonly sjCard = sjCard;
   sampleImplement: string =
     '<h3 [sj]="">Implement directive for text handler</h3>';
 }

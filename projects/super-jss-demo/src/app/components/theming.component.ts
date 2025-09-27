@@ -1,14 +1,15 @@
-import { SjCardComponent, SjDirective, SjHostComponent, SjTheme, WithSj } from "super-jss";
+import { SjCardComponent, SjDirective, SjTheme, WithSj } from "super-jss";
 import { JsonStudioComponent } from "../sj-json-studio/json-studio.component";
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
+import { SectionContainerComponent } from './section-container.component';
 
 @Component({
   standalone: true,
   selector: 'app-theming',
-  imports: [CommonModule, SjDirective, SjCardComponent, SjHostComponent, JsonStudioComponent],
+  imports: [CommonModule, SjDirective, SjCardComponent, JsonStudioComponent, SectionContainerComponent],
   template: `
-    <sj-host [sj]="sj.css.padding({ xs: 0.5, md: 1 })">
+    <app-section title="Theming">
       <sj-card [variant]="sj.variants.sjCard.flat" [sj]="[]">
         <div [sj]="[ sj.flex.direction('row'), sj.flex.justify('space-between'), sj.css.alignItems('center') ]">
           <h2 [sj]="[ sj.css.margin(0) ]">Theming</h2>
@@ -20,7 +21,7 @@ import { Component } from "@angular/core";
 
         <app-json-studio [value]="themeData" (valueChange)="onStudioChange($event)"></app-json-studio>
       </sj-card>
-    </sj-host>
+    </app-section>
   `,
 })
 export class ThemingComponent extends WithSj {

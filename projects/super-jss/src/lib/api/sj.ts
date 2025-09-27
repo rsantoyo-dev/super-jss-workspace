@@ -103,6 +103,7 @@ export type SjApi = {
   sh: SjShApi;
   flex: SjFlexApi;
   grid: SjGridApi;
+  button: SjButtonApi;
   stack: (options?: StackOptions) => SjStyle;
   // Helpers (kept at root, not under css)
   compose: (...styles: Array<Partial<SjStyle> | undefined | null | false>) => SjStyle;
@@ -127,6 +128,7 @@ export type SjApi = {
     flex: typeof SjFlexTokens;
     display: typeof SjDisplayTokens;
     colors: typeof SjColorTokens;
+    border: typeof SjBorderTokens;
     sizing: typeof SjSizingTokens;
   };
 };
@@ -209,6 +211,16 @@ const SjDisplayTokens = {
   none: 'none',
 } as const;
 
+// Border tokens
+const SjBorderTokens = {
+  style: {
+    none: 'none',
+    solid: 'solid',
+    dashed: 'dashed',
+    dotted: 'dotted',
+  },
+} as const;
+
 // Sizing keywords for width/height
 const SjSizingTokens = {
   width: {
@@ -284,6 +296,7 @@ const SjColorTokens = {
   },
   black: 'black',
   white: 'white',
+  transparent: 'transparent',
 } as const;
 
 // Flex tokens for common literal values (typed, IDE-friendly)
@@ -405,6 +418,7 @@ export const sj: SjApi = {
   sh,
   flex: undefined as unknown as SjFlexApi, // assigned below
   grid: undefined as unknown as SjGridApi, // assigned below
+  button: sjButton,
   stack: undefined as unknown as (options?: StackOptions) => SjStyle, // assigned below
   compose: helpers.compose,
   hover: helpers.hover,
@@ -426,6 +440,7 @@ export const sj: SjApi = {
     flex: SjFlexTokens,
     display: SjDisplayTokens,
     colors: SjColorTokens,
+    border: SjBorderTokens,
     sizing: SjSizingTokens,
   },
 } as SjApi;

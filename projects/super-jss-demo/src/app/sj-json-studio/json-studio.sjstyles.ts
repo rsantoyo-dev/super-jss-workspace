@@ -1,4 +1,4 @@
-import { sjCard, SjStyle } from 'super-jss';
+import { sjCard, SjStyle, sj } from 'super-jss';
 
 // Outer container (card-like) for the studio
 export const editorShell: SjStyle = sjCard();
@@ -17,9 +17,11 @@ export const headerBar: SjStyle = {
 
 
 export const studioContainer: SjStyle = sjCard({
-  p:0, 
-  border:'none',
-w: '100%',})
+  p: 0,
+  bs: sj.tokens.border.style.none,
+  bw: 0,
+  w: '100%',
+})
 
 
 // export const editorPanel: SjStyle = {
@@ -32,7 +34,8 @@ w: '100%',})
 
 export const editorPanel: SjStyle = sjCard({
   p: 0,
-  border: 'none',
+  bs: sj.tokens.border.style.none,
+  bw: 0,
   d: 'flex',
   fxDir: 'column',
 });
@@ -59,7 +62,6 @@ export const errorStyle: SjStyle = {
   bc: 'error.light',
   brad: 0.5,
   bg: 'error.main',
-  // ensure readable text
   '& p': { c: 'error.contrast' },
 };
 

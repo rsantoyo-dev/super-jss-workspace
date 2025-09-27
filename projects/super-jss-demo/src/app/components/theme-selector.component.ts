@@ -17,6 +17,7 @@ import {
   SjIconComponent,
   icon,
   SjCardComponent,
+  SJ_BASE_COMPONENTS_IMPORTS,
 } from 'super-jss';
 import { WithSj } from 'super-jss';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
@@ -57,10 +58,7 @@ interface ThemeMeta {
   selector: 'app-theme-selector',
   imports: [
     CommonModule,
-    SjHostComponent,
-    SjDirective,
-    SjIconComponent,
-    SjCardComponent,
+    SJ_BASE_COMPONENTS_IMPORTS
   ],
   template: `
     <sj-host [sj]="[sj.blueprints.sjCard, sj.sh.bg(sj.palette.primary.dark), sj.sh.gap(0.25)]">
@@ -73,7 +71,7 @@ interface ThemeMeta {
           [sj]="[sj.css.flexDirection('row'), sj.sh.p(0)]"
         >
           @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {
-          <button
+          <sj-button
             [sj]="
               sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.dark })
             "
@@ -89,10 +87,10 @@ interface ThemeMeta {
               role="img"
               [label]="theme.name"
             ></sj-icon>
-          </button>
+          </sj-button>
 
           } @else {
-          <button
+          <sj-button
             [sj]="
               sj.blueprints.sjButton({
                 bg: theme.theme.palette?.primary?.light
@@ -109,11 +107,11 @@ interface ThemeMeta {
               role="img"
               [label]="theme.name"
             ></sj-icon>
-          </button>
+          </sj-button>
           } }
-          <div [sj]="sj.blueprints.sjCard({ bg: 'primary', p: 0.1 })"></div>
+          <div [sj]="sj.blueprints.sjCard({ bg: sj.tokens.palette.primary.main, p: 0.1 })"></div>
           @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
-          <button
+          <sj-button
             [sj]="
               sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.dark })
             "
@@ -129,10 +127,10 @@ interface ThemeMeta {
               role="img"
               [label]="theme.name"
             ></sj-icon>
-          </button>
+          </sj-button>
 
           } @else {
-          <button
+          <sj-button
             [sj]="
               sj.blueprints.sjButton({
                 bg: theme.theme.palette?.primary?.light
@@ -149,7 +147,7 @@ interface ThemeMeta {
               role="img"
               [label]="theme.name"
             ></sj-icon>
-          </button>
+          </sj-button>
           } }
         </sj-card>
       

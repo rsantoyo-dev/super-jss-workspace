@@ -22,7 +22,7 @@ import {
   panelHeader,
   headerBtn,
 } from './json-studio.sjstyles';
-import { SjDirective } from 'projects/super-jss/src/public-api';
+import { SjDirective } from 'super-jss';
 import { PanelHeaderComponent } from './panel-header.component';
 import { sjCard, SjStyle } from 'super-jss';
 

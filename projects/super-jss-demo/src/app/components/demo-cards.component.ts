@@ -39,7 +39,7 @@ interface DemoCard {
           type="button"
           (click)="toggleSnippets()"
           [attr.aria-pressed]="showSnippets"
-          [sj]="sj.blueprints.sjButton.containedLight({ bg: 'light.dark', p: 0.5 })"
+          [sj]="sj.blueprints.sjButton.containedLight({ bg: sj.tokens.palette.light.dark, p: 0.5 })"
         >
           {{ showSnippets ? 'Hide usage & styles' : 'Show usage & styles' }}
         </button>

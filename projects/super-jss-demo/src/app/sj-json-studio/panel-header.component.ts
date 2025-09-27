@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { sjButton, sjCard, SjDirective, SjStyle } from 'super-jss';
+import { sjButton, sjCard, SjDirective, SjStyle, sj } from 'super-jss';
 
 @Component({
   selector: 'app-panel-header',
@@ -16,7 +16,7 @@ import { sjButton, sjCard, SjDirective, SjStyle } from 'super-jss';
       "
     >
       <div [sj]="left"> 
-        <small [sj]="{c:'primary.contrast'}">{{ title }}</small>
+        <small [sj]="{ c: sj.tokens.palette.primary.contrast }">{{ title }}</small>
          @if (viewMode) {
           <div [sj]="toggleGroup">
             <button [sj]="toggleBtn(viewMode === 'tree')" (click)="onToggle('tree')" title="Tree view" aria-label="Tree view">
@@ -55,6 +55,7 @@ import { sjButton, sjCard, SjDirective, SjStyle } from 'super-jss';
 export class PanelHeaderComponent {
   sjCard = sjCard;
   sjButton = sjButton;
+  sj = sj;
   @Input() title = '';
   @Output() collapse = new EventEmitter<void>();
   @Output() normal = new EventEmitter<void>();
@@ -72,14 +73,15 @@ export class PanelHeaderComponent {
     bg: 'primary.main',
     c: 'primary.contrast',
     m: 0,
-    border: 'none',
+    bs: sj.tokens.border.style.none,
+    bw: 0,
   });
 
   left: SjStyle = { d: 'flex', gap: 0.5, fxAItems: 'center' };
   right: SjStyle = { d: 'flex', gap: 0.25, fxAItems: 'center' };
 
   iconBtn: SjStyle = sjButton.containedSecondary({
-    bg:'light',
+    bg: 'light',
     d: 'inline-flex',
    
    
