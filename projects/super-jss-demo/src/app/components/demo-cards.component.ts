@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective, SjStyle, sjCard } from 'super-jss';
+import {
+  SjDirective,
+  SjStyle,
+  sjCard,
+  SjCardComponent,
+  WithSj,
+} from 'super-jss';
+import { SectionContainerComponent } from './section-container.component';
 
 interface DemoCard {
   title: string;
@@ -14,14 +21,16 @@ interface DemoCard {
 @Component({
   selector: 'app-demo-cards',
   standalone: true,
-  imports: [CommonModule, SjDirective],
+  imports: [
+    CommonModule,
+    SjDirective,
+    SectionContainerComponent,
+    SjCardComponent,
+  ],
   template: `
-    <div [sj]="{ d: 'flex', fxJustify: 'space-between', fxAItems: 'center' }">
-      <h2 [sj]="{ c: 'primary', mb: 1 }">Cards</h2>
-    </div>
-    <div [sj]="sjCard.outlined">
-      <div [sj]="sjCard({ bg: 'light.dark' })">
-        <span [sj]="{ d: 'block' }">
+    <app-section title="Cards">
+      <sj-card [variant]="sj.variants.sjCard.info">
+        <span [sj]="[]">
           Each card ships with a predefined style that keeps layouts pleasant
           out of the box. Flip the toggle to inspect the generated styles or
           override them to create your own twists.
@@ -30,25 +39,22 @@ interface DemoCard {
           type="button"
           (click)="toggleSnippets()"
           [attr.aria-pressed]="showSnippets"
-          [sj]="sjCard.interactive({bg:'light.dark', p:0.5})"
+          [sj]="sj.blueprints.sjButton.containedLight({ bg: 'light.dark', p: 0.5 })"
         >
           {{ showSnippets ? 'Hide usage & styles' : 'Show usage & styles' }}
         </button>
-      </div>
+      </sj-card>
+      <sj-card [sj]="sj.css.backgroundColor(sj.palette.light.dark)"></sj-card>
 
-      <div
-        [sj]="sjCard({
-          display: 'grid',
-          gridTemplateColumns: {
-            xs: 'repeat(1, 1fr)',
-            md: 'repeat(2, 1fr)',
-            lg: 'repeat(2, 1fr)',
-            xl: 'repeat(4, 1fr)'
-          }
-        })"
+      <sj-card
+        [sj]="[
+          sj.grid.container(),
+          sj.grid.columns('repeat(auto-fit, minmax(380px, 1fr))'),
+          sj.css.gap({ xs: 0.5, md: 1 })
+        ]"
       >
-        <div *ngFor="let card of cardData" [sj]="card.cardType">
-          <h3 [sj]="{ c: card.titleColor }">{{ card.title }}</h3>
+        <sj-card *ngFor="let card of cardData" [sj]="card.cardType">
+          <h6 [sj]="{ c: card.titleColor }">{{ card.title }}</h6>
           <p [sj]="{ m: 0 }">{{ card.message }}</p>
           @if (showSnippets) {
           <section [sj]="{ mt: 1 }">
@@ -66,12 +72,12 @@ interface DemoCard {
             ><code>{{ card.computedStyle }}</code></pre>
           </section>
           }
-        </div>
-      </div>
-    </div>
+        </sj-card>
+      </sj-card>
+    </app-section>
   `,
 })
-export class DemoCardsComponent {
+export class DemoCardsComponent extends WithSj {
   protected readonly sjCard = sjCard;
 
   protected showSnippets = false;

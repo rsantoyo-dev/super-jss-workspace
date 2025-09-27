@@ -142,9 +142,7 @@ sjCardApi.codeSnippet = (overrides: Partial<SjStyle> = {}): SjStyle => ({
 /** Informational card with subtle background. */
 sjCardApi.info = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
-  d: 'block',
-  bg: 'light.dark',
-  mb: 2,
+  bg: 'info',
   ...overrides,
 });
 
