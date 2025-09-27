@@ -19,6 +19,6 @@ export const DEFAULT_TYPOGRAPHY: SjTypography = {
   STRONG: { fontSize: 1, fontWeight: 'bold', lineHeight: { xs: 1.2, md: 1.4 }, marginBlockEnd: 0.2, marginBlockStart: 0.2 },
   BODY: { fontSize: 1, fontWeight: 'normal', lineHeight: { xs: 1.6, md: 1.8 }, marginBlockEnd: 0.5, marginBlockStart: 0.2 },
   CAPTION: { fontSize: 0.8, fontWeight: 'normal', lineHeight: { xs: 1.2, md: 1.4 }, marginBlockEnd: 0.2, marginBlockStart: 0.2 },
-  SMALL: { fontSize: 0.75, fontWeight: 'normal', lineHeight: { xs: 1.2, md: 1.4 }, marginBlockEnd: 0.15, marginBlockStart: 0.15 },
+  SMALL: { fontSize: 0.75, fontWeight: 'normal', lineHeight: { xs: 0.5, md: 0.75 }, marginBlockEnd: 0.15, marginBlockStart: 0.15 },
   PRE: { fontSize: 0.9, fontFamily: 'monospace', lineHeight: { xs: 1.2, md: 1.4 }, marginBlockEnd: 0.2, marginBlockStart: 0.2 },
 };

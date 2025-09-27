@@ -1,7 +1,6 @@
 import { Component, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective, SjHostComponent } from 'super-jss';
-import { WithSj } from '../shared/with-sj';
+import { SjDirective, SjHostComponent, WithSj } from 'super-jss';
 
 @Component({
   standalone: true,
@@ -10,10 +9,10 @@ import { WithSj } from '../shared/with-sj';
   template: `
     <sj-host
       [sj]="[
-        sj.blueprints.sjCard, sj.css.gap(0), sj.sh.w('100%')
+        sj.blueprints.sjCard(), sj.sh.gap(0), sj.sh.bg(sj.palette.info.main)
       ]"
     >
-      <small [sj]="">
+      <small [sj]="sj.sh.c(sj.palette.info.contrast)">
         <strong>Breakpoints:</strong>
         {{ JSON.stringify(this.breakpoints()) }}
       </small>

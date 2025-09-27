@@ -1,8 +1,7 @@
 import { Component, effect, signal } from '@angular/core';
 import { HeaderComponent } from './components/header.component';
 
-import { SjDirective, SjTheme, SjHostComponent, SjBoxComponent, SjCardComponent } from 'super-jss';
-import { WithSj } from './shared/with-sj';
+import { SjDirective, SjTheme, SjHostComponent, SjBoxComponent, SjCardComponent, WithSj } from 'super-jss';
 
 import { BreakpointIndicatorComponent } from './components/breakpoint-indicator.component';
 

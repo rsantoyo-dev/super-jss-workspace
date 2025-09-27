@@ -12,3 +12,4 @@ export * from './lib/blueprints';
 export * from './lib/components';
 export * from './lib/icons';
 export * from './lib/api/sj';
+export * from './lib/shared/with-sj';

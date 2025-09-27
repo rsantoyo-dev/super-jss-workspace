@@ -72,10 +72,22 @@ const SjPaletteTokens = {
 // Responsive value helper: allow raw or responsive object
 type Responsive<T> = T | ResponsiveStyle;
 
-// Map every CSS property to a function producing an SjStyle
-type CssFunctions = {
+// Map every CSS property to a function producing an SjStyle (base)
+type CssFunctionsBase = {
   [K in keyof CSS.Properties<string | number>]-?: (value: Responsive<CSS.Properties<string | number>[K]>) => SjStyle;
 };
+
+// Override a few popular props to preserve keyword autocomplete (e.g., 'auto')
+type CssOverrides = {
+  width: (value: Responsive<CSS.Property.Width<string | number>>) => SjStyle;
+  height: (value: Responsive<CSS.Property.Height<string | number>>) => SjStyle;
+  maxWidth: (value: Responsive<CSS.Property.MaxWidth<string | number>>) => SjStyle;
+  minWidth: (value: Responsive<CSS.Property.MinWidth<string | number>>) => SjStyle;
+  maxHeight: (value: Responsive<CSS.Property.MaxHeight<string | number>>) => SjStyle;
+  minHeight: (value: Responsive<CSS.Property.MinHeight<string | number>>) => SjStyle;
+};
+
+type CssFunctions = Omit<CssFunctionsBase, keyof CssOverrides> & CssOverrides;
 
 // Map shorthand keys to functions as well
 type ShorthandFunctions = {
@@ -115,6 +127,7 @@ export type SjApi = {
     flex: typeof SjFlexTokens;
     display: typeof SjDisplayTokens;
     colors: typeof SjColorTokens;
+    sizing: typeof SjSizingTokens;
   };
 };
 
@@ -194,6 +207,22 @@ const SjDisplayTokens = {
   inlineBlock: 'inline-block',
   contents: 'contents',
   none: 'none',
+} as const;
+
+// Sizing keywords for width/height
+const SjSizingTokens = {
+  width: {
+    auto: 'auto',
+    fitContent: 'fit-content',
+    maxContent: 'max-content',
+    minContent: 'min-content',
+  },
+  height: {
+    auto: 'auto',
+    fitContent: 'fit-content',
+    maxContent: 'max-content',
+    minContent: 'min-content',
+  },
 } as const;
 
 // Core color scales (shades) tokens matching SjColors
@@ -397,6 +426,7 @@ export const sj: SjApi = {
     flex: SjFlexTokens,
     display: SjDisplayTokens,
     colors: SjColorTokens,
+    sizing: SjSizingTokens,
   },
 } as SjApi;
 

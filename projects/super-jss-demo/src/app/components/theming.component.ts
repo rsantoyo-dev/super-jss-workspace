@@ -1,5 +1,4 @@
-import { SjCardComponent, SjDirective, SjHostComponent, SjTheme } from "super-jss";
-import { WithSj } from "../shared/with-sj";
+import { SjCardComponent, SjDirective, SjHostComponent, SjTheme, WithSj } from "super-jss";
 import { JsonStudioComponent } from "../sj-json-studio/json-studio.component";
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";

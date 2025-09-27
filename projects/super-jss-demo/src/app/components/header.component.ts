@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective, SjThemeService, SjHostComponent } from 'super-jss';
-import { WithSj } from '../shared/with-sj';
+import { SjDirective, SjThemeService, SjHostComponent, WithSj } from 'super-jss';
 import { ThemeSelectorComponent } from './theme-selector.component';
 
 @Component({

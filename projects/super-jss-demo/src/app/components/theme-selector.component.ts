@@ -1,7 +1,24 @@
 import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective, SjTheme, SjThemeService, defaultDarkTheme, defaultTheme, desertDarkTheme, desertTheme, oceanDarkTheme, oceanTheme, sjButton, sjCard, SjHostComponent, sjBox, SjIconComponent, icon, SjCardComponent } from 'super-jss';
-import { WithSj } from '../shared/with-sj';
+import {
+  SjDirective,
+  SjTheme,
+  SjThemeService,
+  defaultDarkTheme,
+  defaultTheme,
+  desertDarkTheme,
+  desertTheme,
+  oceanDarkTheme,
+  oceanTheme,
+  sjButton,
+  sjCard,
+  SjHostComponent,
+  sjBox,
+  SjIconComponent,
+  icon,
+  SjCardComponent,
+} from 'super-jss';
+import { WithSj } from 'super-jss';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
 
 function deepMerge(target: any, source: any): any {
@@ -38,19 +55,28 @@ interface ThemeMeta {
 @Component({
   standalone: true,
   selector: 'app-theme-selector',
-  imports: [CommonModule, SjHostComponent, SjDirective, SjIconComponent, SjCardComponent],
+  imports: [
+    CommonModule,
+    SjHostComponent,
+    SjDirective,
+    SjIconComponent,
+    SjCardComponent,
+  ],
   template: `
-    <sj-host [sj]="sj.blueprints.sjCard.flat({ p: 0, fxDir: 'row' })">
-      <sj-card [sj]="[sj.css.gap(0.2), sj.sh.bg(sj.palette.primary.dark)]">
-        <small [sj]="[sj.sh.c(sj.palette.primary.contrast)]">{{ previewLabel() }}</small>
+    <sj-host [sj]="[sj.blueprints.sjCard, sj.sh.bg(sj.palette.primary.dark), sj.sh.gap(0.25)]">
+        <small [sj]="[sj.sh.c(sj.palette.primary.contrast)]">{{
+          previewLabel()
+        }}</small>
 
-      
-        <sj-card [variant]="'flat'" [sj]="[sj.flex.direction('row'), sj.css.gap(0.1)]">
-          @for (theme of libraryThemes; track theme.name){
-
-          @if (theme.isDark) {
+        <sj-card
+          [variant]="'flat'"
+          [sj]="[sj.css.flexDirection('row'), sj.sh.p(0)]"
+        >
+          @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {
           <button
-            [sj]="sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.dark })"
+            [sj]="
+              sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.dark })
+            "
             (mouseenter)="onHover(theme.name)"
             (mouseleave)="onHoverEnd()"
             (click)="onSelect(theme)"
@@ -67,7 +93,11 @@ interface ThemeMeta {
 
           } @else {
           <button
-            [sj]="sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.light })"
+            [sj]="
+              sj.blueprints.sjButton({
+                bg: theme.theme.palette?.primary?.light
+              })
+            "
             (mouseenter)="onHover(theme.name)"
             (mouseleave)="onHoverEnd()"
             (click)="onSelect(theme)"
@@ -84,7 +114,9 @@ interface ThemeMeta {
           <div [sj]="sj.blueprints.sjCard({ bg: 'primary', p: 0.1 })"></div>
           @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
           <button
-            [sj]="sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.dark })"
+            [sj]="
+              sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.dark })
+            "
             (mouseenter)="onHover(theme.name)"
             (mouseleave)="onHoverEnd()"
             (click)="onSelect(theme)"
@@ -101,7 +133,11 @@ interface ThemeMeta {
 
           } @else {
           <button
-            [sj]="sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.light })"
+            [sj]="
+              sj.blueprints.sjButton({
+                bg: theme.theme.palette?.primary?.light
+              })
+            "
             (mouseenter)="onHover(theme.name)"
             (mouseleave)="onHoverEnd()"
             (click)="onSelect(theme)"
@@ -116,8 +152,7 @@ interface ThemeMeta {
           </button>
           } }
         </sj-card>
-      </sj-card>
-     
+      
     </sj-host>
   `,
 })
@@ -172,13 +207,14 @@ export class ThemeSelectorComponent extends WithSj {
     const current = this.currentThemeName();
     const target = hovered ?? current;
     const source = this.themes.find((t) => t.name === target);
-    const prefix = source?.type === 'Custom' ? 'customized theme' : 'sjss-theme';
+    const prefix =
+      source?.type === 'Custom' ? 'customized theme' : 'sjss-theme';
 
-     return `${prefix}: ${target}`;
+    return `${prefix}: ${target}`;
   });
 
   constructor() {
-    super()
+    super();
   }
 
   onHover(name: string): void {
