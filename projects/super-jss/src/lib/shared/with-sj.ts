@@ -20,13 +20,12 @@ export abstract class WithSj {
   public breakpoint = computed(() => this.theme.currentBreakpoint());
   public isMobile = computed(() => this.theme.currentBreakpoint() === 'xs');
   public isTablet = computed(() => this.theme.currentBreakpoint() === 'sm');
-  public isDesktop = computed(() => ['md', 'lg', 'xl', 'xxl'].includes(this.theme.currentBreakpoint()));
+  public isDesktop = computed(() =>
+    ['md', 'lg', 'xl', 'xxl'].includes(this.theme.currentBreakpoint())
+  );
 }
 
-export const SJ_COMMON_IMPORTS = [
-  SjDirective,
-  SjHostComponent,
-] as const;
+export const SJ_COMMON_IMPORTS = [SjDirective, SjHostComponent];
 
 export const SJ_BASE_COMPONENTS_IMPORTS = [
   SjDirective,
@@ -34,5 +33,5 @@ export const SJ_BASE_COMPONENTS_IMPORTS = [
   SjCardComponent,
   SjBoxComponent,
   SjButtonComponent,
-  SjIconComponent
-] as const;
+  SjIconComponent,
+];

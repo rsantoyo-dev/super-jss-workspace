@@ -1,7 +1,7 @@
 import { Component, effect, signal } from '@angular/core';
 import { HeaderComponent } from './components/header.component';
 
-import { SjDirective, SjTheme, SjHostComponent, SjBoxComponent, SjCardComponent, WithSj, SjButtonComponent } from 'super-jss';
+import { SjDirective, SjTheme, SjHostComponent, SjBoxComponent, SjCardComponent, WithSj, SjButtonComponent, sj } from 'super-jss';
 
 import { BreakpointIndicatorComponent } from './components/breakpoint-indicator.component';
 
@@ -28,7 +28,6 @@ import { SidenavComponent } from './components/sidenav.component';
 
       <sj-box
         [sj]="[
-          sj.
           sj.css.display(sj.tokens.flex.display.grid),
           sj.css.gridTemplateColumns({ xs: '1fr', sm: '30% 70%', md: '15% 85%' })
         ]"
@@ -78,6 +77,13 @@ import { SidenavComponent } from './components/sidenav.component';
   `,
 })
 export class AppComponent extends WithSj {
+  // Improve template completions: expose typed aliases
+  override sj: typeof sj = sj;
+  readonly tokens: typeof sj.tokens = sj.tokens;
+  readonly css = sj.css;
+  readonly sh = sj.sh;
+  readonly flex = sj.flex;
+
   themeData: SjTheme;
   pendingThemePatch: Partial<SjTheme> | null = null;
 
