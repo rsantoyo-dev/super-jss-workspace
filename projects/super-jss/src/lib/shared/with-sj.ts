@@ -34,4 +34,4 @@ export const SJ_BASE_COMPONENTS_IMPORTS = [
   SjBoxComponent,
   SjButtonComponent,
   SjIconComponent,
-];
+] as const;

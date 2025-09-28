@@ -10,13 +10,7 @@ import {
   desertTheme,
   oceanDarkTheme,
   oceanTheme,
-  sjButton,
-  sjCard,
-  SjHostComponent,
-  sjBox,
-  SjIconComponent,
   icon,
-  SjCardComponent,
   SJ_BASE_COMPONENTS_IMPORTS,
 } from 'super-jss';
 import { WithSj } from 'super-jss';
@@ -56,101 +50,107 @@ interface ThemeMeta {
 @Component({
   standalone: true,
   selector: 'app-theme-selector',
-  imports: [
-    CommonModule,
-    SJ_BASE_COMPONENTS_IMPORTS
-  ],
+  imports: [CommonModule, SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-host [sj]="[sj.blueprints.sjCard, sj.sh.bg(sj.palette.primary.dark), sj.sh.gap(0.25)]">
-        <small [sj]="[sj.sh.c(sj.palette.primary.contrast)]">{{
-          previewLabel()
-        }}</small>
+    <sj-host
+      [sj]="[
+        sj.blueprints.sjCard,
+        sj.sh.bg(sj.palette.primary.dark),
+        sj.sh.gap(0.25)
+      ]"
+    >
+      <small [sj]="[sj.sh.c(sj.palette.primary.contrast)]">{{
+        previewLabel()
+      }}</small>
 
-        <sj-card
-          [variant]="'flat'"
-          [sj]="[sj.css.flexDirection('row'), sj.sh.p(0)]"
+      <sj-card
+        [variant]="'flat'"
+        [sj]="[sj.css.flexDirection('row'), sj.sh.p(0)]"
+      >
+        @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {
+        <sj-button
+          [sj]="
+            sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.dark })
+          "
+          (mouseenter)="onHover(theme.name)"
+          (mouseleave)="onHoverEnd()"
+          (click)="onSelect(theme)"
         >
-          @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {
-          <sj-button
-            [sj]="
-              sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.dark })
-            "
-            (mouseenter)="onHover(theme.name)"
-            (mouseleave)="onHoverEnd()"
-            (click)="onSelect(theme)"
-          >
-            <sj-icon
-              [name]="icon.moon"
-              [fill]="'light'"
-              size="1.5rem"
-              [ariaHidden]="false"
-              role="img"
-              [label]="theme.name"
-            ></sj-icon>
-          </sj-button>
+          <sj-icon
+            [name]="icon.moon"
+            [fill]="'light'"
+            size="1.5rem"
+            [ariaHidden]="false"
+            role="img"
+            [label]="theme.name"
+          ></sj-icon>
+        </sj-button>
 
-          } @else {
-          <sj-button
-            [sj]="
-              sj.blueprints.sjButton({
-                bg: theme.theme.palette?.primary?.light
-              })
-            "
-            (mouseenter)="onHover(theme.name)"
-            (mouseleave)="onHoverEnd()"
-            (click)="onSelect(theme)"
-          >
-            <sj-icon
-              [name]="icon.sun"
-              size="1.5rem"
-              [ariaHidden]="false"
-              role="img"
-              [label]="theme.name"
-            ></sj-icon>
-          </sj-button>
-          } }
-          <div [sj]="sj.blueprints.sjCard({ bg: sj.tokens.palette.primary.main, p: 0.1 })"></div>
-          @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
-          <sj-button
-            [sj]="
-              sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.dark })
-            "
-            (mouseenter)="onHover(theme.name)"
-            (mouseleave)="onHoverEnd()"
-            (click)="onSelect(theme)"
-          >
-            <sj-icon
-              [name]="icon.moon"
-              [fill]="'light'"
-              size="1.5rem"
-              [ariaHidden]="false"
-              role="img"
-              [label]="theme.name"
-            ></sj-icon>
-          </sj-button>
+        } @else {
+        <sj-button
+          [sj]="
+            sj.blueprints.sjButton({
+              bg: theme.theme.palette?.primary?.light
+            })
+          "
+          (mouseenter)="onHover(theme.name)"
+          (mouseleave)="onHoverEnd()"
+          (click)="onSelect(theme)"
+        >
+          <sj-icon
+            [name]="icon.sun"
+            size="1.5rem"
+            [ariaHidden]="false"
+            role="img"
+            [label]="theme.name"
+          ></sj-icon>
+        </sj-button>
+        } }
+        <div
+          [sj]="
+            sj.blueprints.sjCard({ bg: sj.tokens.palette.primary.main, p: 0.1 })
+          "
+        ></div>
+        @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
+        <sj-button
+          [sj]="
+            sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.dark })
+          "
+          (mouseenter)="onHover(theme.name)"
+          (mouseleave)="onHoverEnd()"
+          (click)="onSelect(theme)"
+        >
+          <sj-icon
+            [name]="icon.moon"
+            [fill]="'light'"
+            size="1.5rem"
+            [ariaHidden]="false"
+            role="img"
+            [label]="theme.name"
+          ></sj-icon>
+        </sj-button>
 
-          } @else {
-          <sj-button
-            [sj]="
-              sj.blueprints.sjButton({
-                bg: theme.theme.palette?.primary?.light
-              })
-            "
-            (mouseenter)="onHover(theme.name)"
-            (mouseleave)="onHoverEnd()"
-            (click)="onSelect(theme)"
-          >
-            <sj-icon
-              [name]="icon.sun"
-              size="1.5rem"
-              [ariaHidden]="false"
-              role="img"
-              [label]="theme.name"
-            ></sj-icon>
-          </sj-button>
-          } }
-        </sj-card>
-      
+        } @else {
+        <sj-button
+          [sj]="
+            sj.blueprints.sjButton({
+              bg: theme.theme.palette?.primary?.light
+            })
+          "
+          (mouseenter)="onHover(theme.name)"
+          (mouseleave)="onHoverEnd()"
+          (click)="onSelect(theme)"
+        >
+          <sj-icon
+            [name]="icon.sun"
+            size="1.5rem"
+            [ariaHidden]="false"
+            role="img"
+            [label]="theme.name"
+          ></sj-icon>
+        </sj-button>
+        } }
+      </sj-card>
     </sj-host>
   `,
 })
