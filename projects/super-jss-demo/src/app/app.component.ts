@@ -23,12 +23,12 @@ import { SidenavComponent } from './components/sidenav.component';
 ],
   template: `
     <sj-box [sj]="[sj.flex.direction(sj.tokens.flex.direction.column), sj.sh.bg(sj.tokens.palette.light.main)]">
-      
+
       <app-header (menuClick)="openSidenav()"></app-header>
 
       <sj-box
         [sj]="[
-          
+          sj.
           sj.css.display(sj.tokens.flex.display.grid),
           sj.css.gridTemplateColumns({ xs: '1fr', sm: '30% 70%', md: '15% 85%' })
         ]"

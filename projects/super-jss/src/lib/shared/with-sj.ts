@@ -2,7 +2,7 @@ import { inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Internal library imports (no barrel to avoid cycles)
-import sj, { SjApi } from '../api/sj';
+import { sj, SjApi } from '../api/sj';
 import { SjThemeService } from '../services/sj-theme.service';
 import { SjDirective } from '../directives/sj.directive';
 import { SjHostComponent } from '../components/sj-host.component';
