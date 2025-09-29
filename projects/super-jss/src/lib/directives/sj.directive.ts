@@ -38,6 +38,8 @@ export class SjDirective implements OnChanges {
   @Input() sj: SjInput | undefined;
 
   private lastClasses: string[] = [];
+  // Cache mapping serialized processed styles + themeVersion -> generated class list
+  private styleCache = new Map<string, string[]>();
 
   /**
    * Constructs the SjDirective.
@@ -60,8 +62,11 @@ export class SjDirective implements OnChanges {
       this.sjt.currentBreakpoint(); // depend on currentBreakpoint (responsive changes)
       // Removed windowWidth dependency to avoid re-rendering on every pixel resize.
       // Media queries handle responsive class application between breakpoints.
-      this.sjt.themeVersion(); // depend on themeVersion (theme structure changes)
+      const tv = this.sjt.themeVersion(); // depend on themeVersion (theme structure changes)
+      // Clear local style cache when themeVersion changes to avoid stale classes
+      this.styleCache.clear();
       this.renderStyles();
+      return tv;
     });
   }
 
@@ -164,17 +169,22 @@ export class SjDirective implements OnChanges {
 
     const processedStyles = this.processShorthands(sjStyles);
 
-    // Do not auto-apply theme typography based on native element tag names anymore.
-    // Rely on the `sj-typography` component for typography variants. Only use
-    // styles explicitly provided via the [sj] input.
-    const mergedStyles = processedStyles;
+    // Use a cache key that includes themeVersion so classes are regenerated
+    // when theme/token values change.
+    const cacheKey =
+      JSON.stringify(processedStyles || {}) + `::v${this.sjt.themeVersion()}`;
 
-    if (Object.keys(mergedStyles).length > 0) {
-      const classes = this.cssGenerator.getOrGenerateClasses(
-        mergedStyles,
+    let classes = this.styleCache.get(cacheKey);
+    if (!classes && Object.keys(processedStyles).length > 0) {
+      classes = this.cssGenerator.getOrGenerateClasses(
+        processedStyles,
         theme,
         this.sjt.themeVersion()
       );
+      this.styleCache.set(cacheKey, classes);
+    }
+
+    if (classes && classes.length > 0) {
       classes.forEach((c: string) => this.renderer.addClass(element, c));
       this.lastClasses = classes;
     }

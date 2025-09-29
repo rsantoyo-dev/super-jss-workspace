@@ -8,6 +8,8 @@ import { CssGenerator } from '../core/css-generator';
 })
 export class SjCssGeneratorService {
   private generatedClasses = new Set<string>();
+  // Cache mapping serialized styles + version -> generated class list
+  private classCache = new Map<string, string[]>();
   private renderer: Renderer2;
   private styleEl: HTMLStyleElement;
 
@@ -29,16 +31,26 @@ export class SjCssGeneratorService {
    * @param version Optional cache/version prefix to bust old CSS.
    * @returns Array of generated class names (prefixed).
    */
-  public getOrGenerateClasses(styles: SjStyle, theme: SjTheme, version = 0): string[] {
+  public getOrGenerateClasses(
+    styles: SjStyle,
+    theme: SjTheme,
+    version = 0
+  ): string[] {
+    const prefix = version > 0 ? `v${version}-` : '';
+    const cacheKey = prefix + JSON.stringify(styles || {});
+    const cached = this.classCache.get(cacheKey);
+    if (cached) return cached;
+
     const cssGenerator = new CssGenerator(theme);
     const cssMap = cssGenerator.generateAtomicCss(styles);
-    const prefix = version > 0 ? `v${version}-` : '';
     const classes: string[] = [];
     let newCss = '';
 
     for (const [className, cssRule] of cssMap) {
       const prefixedClass = `${prefix}${className}`;
-      const prefixedRule = cssRule.split(`.${className}`).join(`.${prefixedClass}`);
+      const prefixedRule = cssRule
+        .split(`.${className}`)
+        .join(`.${prefixedClass}`);
       if (!this.generatedClasses.has(prefixedClass)) {
         this.generatedClasses.add(prefixedClass);
         newCss += prefixedRule + '\n';
@@ -51,6 +63,9 @@ export class SjCssGeneratorService {
       this.renderer.appendChild(this.styleEl, cssText);
     }
 
+    // Store computed classes in cache so repeated identical style objects
+    // return immediately without re-generating CSS.
+    this.classCache.set(cacheKey, classes);
     return classes;
   }
 
@@ -60,6 +75,7 @@ export class SjCssGeneratorService {
    */
   public clearCache() {
     this.generatedClasses.clear();
+    this.classCache.clear();
     this.renderer.removeChild(this.document.head, this.styleEl);
     this.styleEl = this.renderer.createElement('style');
     this.renderer.setAttribute(this.styleEl, 'data-sjss', '');
