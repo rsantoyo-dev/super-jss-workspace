@@ -27,3 +27,22 @@ export const SjButtonVariants = {
 } as const;
 
 export type SjButtonVariant = typeof SjButtonVariants[keyof typeof SjButtonVariants];
+
+export const SjTypographyVariants = {
+  default: 'default',
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6',
+  p: 'p',
+  span: 'span',
+  strong: 'strong',
+  body: 'body',
+  caption: 'caption',
+  small: 'small',
+  pre: 'pre',
+} as const;
+
+export type SjTypographyVariant = typeof SjTypographyVariants[keyof typeof SjTypographyVariants];

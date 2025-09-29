@@ -6,6 +6,7 @@ import {
   sjCard,
   SjCardComponent,
   WithSj,
+  SJ_BASE_COMPONENTS_IMPORTS,
 } from 'super-jss';
 import { SectionContainerComponent } from './section-container.component';
 
@@ -23,23 +24,27 @@ interface DemoCard {
   standalone: true,
   imports: [
     CommonModule,
-    SjDirective,
     SectionContainerComponent,
-    SjCardComponent,
+    SJ_BASE_COMPONENTS_IMPORTS,
   ],
   template: `
     <app-section title="Cards">
       <sj-card [variant]="sj.variants.sjCard.info">
-        <span [sj]="[]">
+        <sj-typography variant="span">
           Each card ships with a predefined style that keeps layouts pleasant
           out of the box. Flip the toggle to inspect the generated styles or
           override them to create your own twists.
-        </span>
+        </sj-typography>
         <button
           type="button"
           (click)="toggleSnippets()"
           [attr.aria-pressed]="showSnippets"
-          [sj]="sj.blueprints.sjButton.containedLight({ bg: sj.tokens.palette.light.dark, p: 0.5 })"
+          [sj]="
+            sj.blueprints.sjButton.containedLight({
+              bg: sj.tokens.palette.light.dark,
+              p: 0.5
+            })
+          "
         >
           {{ showSnippets ? 'Hide usage & styles' : 'Show usage & styles' }}
         </button>
@@ -54,22 +59,34 @@ interface DemoCard {
         ]"
       >
         <sj-card *ngFor="let card of cardData" [sj]="card.cardType">
-          <h6 [sj]="{ c: card.titleColor }">{{ card.title }}</h6>
-          <p [sj]="{ m: 0 }">{{ card.message }}</p>
+          <sj-typography variant="h6" [sj]="{ c: card.titleColor }">{{
+            card.title
+          }}</sj-typography>
+          <sj-typography variant="p" [sj]="{ m: 0 }">{{
+            card.message
+          }}</sj-typography>
           @if (showSnippets) {
           <section [sj]="{ mt: 1 }">
-            <p [sj]="{ mt: 0, mb: 0, fontSize: '0.75rem', fontWeight: 600 }">
-              Usage
-            </p>
-            <pre
+            <sj-typography
+              variant="p"
+              [sj]="{ mt: 0, mb: 0, fontSize: '0.75rem', fontWeight: 600 }"
+              >Usage</sj-typography
+            >
+            <sj-typography
+              variant="pre"
               [sj]="sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"
-            ><code>{{ card.usageExample }}</code></pre>
-            <p [sj]="{ mt: 1, mb: 0, fontSize: '0.75rem', fontWeight: 600 }">
-              Computed style
-            </p>
-            <pre
+              ><code>{{ card.usageExample }}</code></sj-typography
+            >
+            <sj-typography
+              variant="p"
+              [sj]="{ mt: 1, mb: 0, fontSize: '0.75rem', fontWeight: 600 }"
+              >Computed style</sj-typography
+            >
+            <sj-typography
+              variant="pre"
               [sj]="sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"
-            ><code>{{ card.computedStyle }}</code></pre>
+              ><code>{{ card.computedStyle }}</code></sj-typography
+            >
           </section>
           }
         </sj-card>
