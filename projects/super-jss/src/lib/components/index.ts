@@ -3,3 +3,4 @@ export * from './sj-icon.component';
 export * from './sj-box.component';
 export * from './sj-card.component';
 export * from './sj-button.component';
+export * from './sj-typography.component';

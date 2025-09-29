@@ -1,20 +1,20 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective, sj, WithSj } from 'super-jss';
+import { SjDirective, sj, WithSj, SjTypographyComponent } from 'super-jss';
 
 @Component({
   selector: 'app-perf-benchmark',
   standalone: true,
-  imports: [CommonModule, SjDirective],
+  imports: [CommonModule, SjDirective, SjTypographyComponent],
   template: `
     <div [sj]="[sj.flex.column(), sj.css.gap(1)]">
-      <h3 [sj]="[sj.css.margin(0), sj.css.padding(0)]">
+      <sj-typography variant="h3" [sj]="[sj.css.margin(0), sj.css.padding(0)]">
         SJSS 1,000 elements demo
-      </h3>
-      <small [sj]="[sj.css.opacity(0.8)]">
+      </sj-typography>
+      <sj-typography variant="small" [sj]="[sj.css.opacity(0.8)]">
         Renders 1,000 boxes styled via [sj]. Styles use tokens to avoid
         excessive unique rules.
-      </small>
+      </sj-typography>
 
       <div
         [sj]="[
@@ -38,41 +38,48 @@ import { SjDirective, sj, WithSj } from 'super-jss';
             sj.hover({ boxShadow: '0 3px 8px rgba(0,0,0,0.18)' })
           ]"
         >
-          <strong [sj]="[sj.css.color(sj.tokens.palette.primary.dark)]"
-            >Item {{ item }}</strong
+          <sj-typography
+            variant="strong"
+            [sj]="[sj.css.color(sj.tokens.palette.primary.dark)]"
+            >Item {{ item }}</sj-typography
           >
-          <span
+          <sj-typography
+            variant="span"
             [sj]="[
               sj.css.color(sj.tokens.palette.neutral.dark),
               sj.css.fontSize(0.9)
             ]"
-            >Styled by SJSS</span
+            >Styled by SJSS</sj-typography
           >
           <div [sj]="[sj.flex.row({ fxAItems: 'center', gap: 0.25 })]">
-            <span
+            <sj-typography
+              variant="span"
               [sj]="[
                 sj.css.width(0.5),
                 sj.css.height(0.5),
                 sj.css.borderRadius(999),
                 sj.css.backgroundColor(sj.tokens.colors.blue[500])
               ]"
-            ></span>
-            <span
+            ></sj-typography>
+            <sj-typography
+              variant="span"
               [sj]="[
                 sj.css.width(0.5),
                 sj.css.height(0.5),
                 sj.css.borderRadius(999),
                 sj.css.backgroundColor(sj.tokens.colors.orange[500])
               ]"
-            ></span>
-            <span
+            ></sj-typography>
+
+            <sj-typography
+              variant="span"
               [sj]="[
                 sj.css.width(0.5),
                 sj.css.height(0.5),
                 sj.css.borderRadius(999),
                 sj.css.backgroundColor(sj.tokens.colors.green[500])
               ]"
-            ></span>
+            ></sj-typography>
           </div>
         </div>
         }
