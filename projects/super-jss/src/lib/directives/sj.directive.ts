@@ -71,14 +71,16 @@ export class SjDirective implements OnChanges {
   }
 
   /**
-   * Expands SJSS shorthands (px/py/mx/my/bx/by/textSize) and nests pseudos recursively.
-   * @param styles Incoming style object.
-   * @returns Normalized style object.
+   * Normalizes incoming styles. Core no longer expands shorthand keys; callers
+   * should provide canonical longhand properties (e.g., backgroundColor, padding)
+   * or use the API shorthand helpers (sj.sh.*) which return canonical styles.
+   * This method will still recurse into pseudo selectors to keep nested objects
+   * intact but will not mutate shorthand keys.
    */
   protected processShorthands(styles: SjStyle): SjStyle {
     const newStyles: SjStyle = { ...styles };
 
-    // Handle pseudo-selectors and nested objects
+    // Recurse pseudos to normalize nested objects but do not expand shorthands
     for (const key in newStyles) {
       if (
         key.startsWith('&') &&
@@ -89,55 +91,6 @@ export class SjDirective implements OnChanges {
       }
     }
 
-    if (newStyles.px) {
-      newStyles.pl = newStyles.px;
-      newStyles.pr = newStyles.px;
-      delete newStyles.px;
-    }
-    if (newStyles.py) {
-      newStyles.pt = newStyles.py;
-      newStyles.pb = newStyles.py;
-      delete newStyles.py;
-    }
-    if (newStyles.mx) {
-      newStyles.ml = newStyles.mx;
-      newStyles.mr = newStyles.mx;
-      delete newStyles.mx;
-    }
-    if (newStyles.my) {
-      newStyles.mt = newStyles.my;
-      newStyles.mb = newStyles.my;
-      delete newStyles.my;
-    }
-    if (newStyles.bx) {
-      newStyles.bl = newStyles.bx;
-      newStyles.br = newStyles.bx;
-      delete newStyles.bx;
-    }
-    if (newStyles.by) {
-      newStyles.bt = newStyles.by;
-      newStyles.bb = newStyles.by;
-      delete newStyles.by;
-    }
-    // Optional text shorthand: textSize -> fontSize
-    if ((newStyles as any).textSize !== undefined) {
-      (newStyles as any).fontSize = (newStyles as any).textSize;
-      delete (newStyles as any).textSize;
-    }
-
-    for (const [shorthandKey, longhandKey] of Object.entries(
-      shorthandMappings
-    )) {
-      if (!Object.prototype.hasOwnProperty.call(newStyles, shorthandKey)) {
-        continue;
-      }
-
-      if (!Object.prototype.hasOwnProperty.call(newStyles, longhandKey)) {
-        (newStyles as any)[longhandKey] = (newStyles as any)[shorthandKey];
-      }
-
-      delete (newStyles as any)[shorthandKey];
-    }
     return newStyles;
   }
 

@@ -11,25 +11,41 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
   standalone: true,
   imports: [SjDirective],
   template: `
-    <h2 [sj]="{ bg: '#003366', p: { xs: 1, md: 2, lg: 4 }, m: 2 }">About</h2>
-    <h3 [sj]="{ bg: 'primary.main', c: 'blue.500' }">Quote of the day:</h3>
+    <h2
+      [sj]="{
+        backgroundColor: '#003366',
+        padding: { xs: 1, md: 2, lg: 4 },
+        margin: 2
+      }"
+    >
+      About
+    </h2>
+    <h3 [sj]="{ backgroundColor: 'primary.main', color: 'blue.500' }">
+      Quote of the day:
+    </h3>
     <h4
       [sj]="[
         {
-          bg: 'primary.main',
-          px: 4,
-          py: 2,
-          mx: 2,
-          my: 2,
-          bx: '1px solid',
-          by: '1px solid',
+          backgroundColor: 'primary.main',
+          paddingLeft: 4,
+          paddingRight: 4,
+          paddingTop: 2,
+          paddingBottom: 2,
+          marginLeft: 2,
+          marginRight: 2,
+          marginTop: 2,
+          marginBottom: 2,
+          borderLeft: '1px solid',
+          borderRight: '1px solid',
+          borderTop: '1px solid',
+          borderBottom: '1px solid',
         },
-        { c: 'secondary.500' }
+        { color: 'secondary.500' }
       ]"
     >
       Quote of the day:
     </h4>
-    <h5 [sj]="{ bg: 'blue.300', p: { md: 2 } }">About</h5>
+    <h5 [sj]="{ backgroundColor: 'blue.300', padding: { md: 2 } }">About</h5>
   `,
 })
 class TestComponent {}
@@ -52,13 +68,14 @@ describe('SuperJssDirective', () => {
     };
     themeService.setTheme(testTheme);
 
-    Object.defineProperty(window, 'innerWidth', { value: 1024, writable: true });
+    Object.defineProperty(window, 'innerWidth', {
+      value: 1024,
+      writable: true,
+    });
     window.dispatchEvent(new Event('resize'));
 
     fixture = TestBed.createComponent(TestComponent);
   });
-
-
 
   it('should handle color shorthands', async () => {
     fixture.detectChanges();
@@ -79,7 +96,13 @@ describe('SuperJssDirective', () => {
 
     const hexToRgb = (hex: string) => {
       const h = hex.replace('#', '');
-      const full = h.length === 3 ? h.split('').map((c) => c + c).join('') : h;
+      const full =
+        h.length === 3
+          ? h
+              .split('')
+              .map((c) => c + c)
+              .join('')
+          : h;
       const num = parseInt(full, 16);
       const r = (num >> 16) & 255;
       const g = (num >> 8) & 255;
@@ -93,11 +116,12 @@ describe('SuperJssDirective', () => {
 
     // Verify responsive CSS rules exist independent of viewport size
     const cssSvc = TestBed.inject(SjCssGeneratorService) as any;
-    const cssText: string = (cssSvc.styleEl as HTMLStyleElement).textContent || '';
+    const cssText: string =
+      (cssSvc.styleEl as HTMLStyleElement).textContent || '';
     const mdMin = themeService.sjTheme().breakpoints.md;
     const expectedPadding = themeService.sjTheme().spacing(2);
     expect(cssText).toContain(`@media (min-width: ${mdMin}px)`);
-    expect(cssText).toContain(`.sj-p-md-2`);
+    expect(cssText).toContain(`sj-padding-md-2`);
     expect(cssText).toContain(`padding: ${expectedPadding}`);
 
     // Non-responsive margin applies immediately

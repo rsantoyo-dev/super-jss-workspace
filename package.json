@@ -1,6 +1,6 @@
 {
   "name": "super-jss",
-  "version": "0.0.1-beta.16",
+  "version": "0.0.1-beta.17",
   "scripts": {
     "ng": "ng",
     "start": "sh -c \"test -f projects/super-jss/package.json && ng build super-jss || echo Skipping lib build; ng serve\"",

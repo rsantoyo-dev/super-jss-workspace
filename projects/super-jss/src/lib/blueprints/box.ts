@@ -19,10 +19,11 @@ export type SjBoxApi = BoxBuilder & {
 };
 
 const sjBoxBase = (): SjStyle => ({
-  d: 'flex'
+  display: 'flex',
 });
 
-const composeBox = (...partials: BoxPartial[]): BoxBuilder =>
+const composeBox =
+  (...partials: BoxPartial[]): BoxBuilder =>
   (overrides: Partial<SjStyle> = {}): SjStyle => ({
     ...sjBoxBase(),
     ...partials
@@ -34,15 +35,20 @@ const composeBox = (...partials: BoxPartial[]): BoxBuilder =>
 export const sjBox = Object.assign(composeBox(), {
   row: composeBox({ fxDir: 'row' }),
   column: composeBox({ fxDir: 'column' }),
-  grid: composeBox({ d: 'grid', gridTemplateColumns: '25% 75%' }),
+  grid: composeBox({ display: 'grid', gridTemplateColumns: '25% 75%' }),
   centered: composeBox({ fxJustify: 'center', fxAItems: 'center' }),
-  middle: composeBox({ fxDir: 'column', fxJustify: 'center', fxAItems: 'center' }),
+  middle: composeBox({
+    fxDir: 'column',
+    fxJustify: 'center',
+    fxAItems: 'center',
+  }),
   between: composeBox({ fxJustify: 'space-between' }),
   around: composeBox({ fxJustify: 'space-around' }),
   evenly: composeBox({ fxJustify: 'space-evenly' }),
   wrap: composeBox({ fxWrap: 'wrap' }),
   nowrap: composeBox({ fxWrap: 'nowrap' }),
-  grow: composeBox({ fxGrow: 1, fxShrink: 1, minW: 0 }),
+  grow: composeBox({ fxGrow: 1, fxShrink: 1, minWidth: 0 }),
+
   with: (...partials: BoxPartial[]) => composeBox(...partials),
 }) as SjBoxApi;
 

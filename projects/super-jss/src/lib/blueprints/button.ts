@@ -21,11 +21,11 @@ const baseDisabledStyles: SjStyle = {
 };
 
 const sjButtonBase = (): SjStyle => ({
-  d: 'inline-flex',
+  display: 'inline-flex',
   fxAItems: 'center',
   fxJustify: 'center',
   gap: 0.5,
-  p: { xs: 0.25, md: 0.5, xl: 0.75 },
+  padding: { xs: 0.25, md: 0.5, xl: 0.75 },
   borderRadius: 0.5,
   borderStyle: 'solid',
   borderWidth: 0.1,
@@ -33,7 +33,7 @@ const sjButtonBase = (): SjStyle => ({
   textDecoration: 'none',
   cursor: 'pointer',
   userSelect: 'none',
-  minW: 'fit-content',
+  minWidth: 'fit-content',
   transform: 'translateY(0)',
   '&:hover': { ...baseHoverStyles },
   '&:active': { ...baseActiveStyles },
@@ -74,8 +74,8 @@ const createContainedButton = (
   const { hoverBg, borderColor = 'transparent', shadow } = options;
   const style: SjStyle = {
     ...sjButtonBase(),
-    bg: background,
-    c: color,
+    backgroundColor: background,
+    color: color,
     borderColor,
   };
 
@@ -83,11 +83,11 @@ const createContainedButton = (
     style.boxShadow = shadow;
   }
 
-  applyHover(style, hoverBg ? { bg: hoverBg } : undefined);
+  applyHover(style, hoverBg ? { backgroundColor: hoverBg } : undefined);
   applyFocus(style, {
     outlineColor: borderColor === 'transparent' ? background : borderColor,
   });
-  applyDisabled(style, { bg: background, borderColor });
+  applyDisabled(style, { backgroundColor: background, borderColor });
 
   return style;
 };
@@ -95,16 +95,16 @@ const createContainedButton = (
 const createLightButton = (): SjStyle => {
   const style: SjStyle = {
     ...sjButtonBase(),
-    bg: 'light.light',
-    c: 'primary.dark',
+    backgroundColor: 'light.light',
+    color: 'primary.dark',
   };
 
-  applyHover(style, { bg: 'light.main' });
+  applyHover(style, { backgroundColor: 'light.main' });
   applyFocus(style, { outlineColor: 'primary.main' });
   applyDisabled(style, {
-    bg: 'light.light',
+    backgroundColor: 'light.light',
     borderColor: 'light.dark',
-    c: 'neutral.dark',
+    color: 'neutral.dark',
   });
 
   return style;

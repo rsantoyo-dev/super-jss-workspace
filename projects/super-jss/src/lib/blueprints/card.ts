@@ -26,12 +26,12 @@ export const sjBorderShadow: SjStyle = {
 
 /** Preset styling for inline code snippet containers. */
 const codeSnippetStyle: SjStyle = {
-  bg: 'light.dark',
-  p: 1,
+  backgroundColor: 'light.dark',
+  padding: 1,
   borderRadius: 1,
-  d: 'inline-flex', // play nicely alongside other flex children
+  display: 'inline-flex', // play nicely alongside other flex children
   alignItems: 'center',
-  maxW: '100%', // keep it from overflowing its parent
+  maxWidth: '100%', // keep it from overflowing its parent
   overflowX: 'auto', // allow scrolling for long lines
   whiteSpace: 'pre', // preserve formatting
   fontFamily: 'monospace', // reflect code semantics
@@ -40,9 +40,9 @@ const codeSnippetStyle: SjStyle = {
 // Internal base style for cards (shared between variants)
 /** Internal shared card foundation used by all variants. */
 const sjCardBase = (): SjStyle => ({
-  d: 'flex',
+  display: 'flex',
   fxDir: 'column',
-  p: { xs: 0.25, sm: 0.5, md: 0.75, lg: 1, xl: 1.25 },
+  padding: { xs: 0.25, sm: 0.5, md: 0.75, lg: 1, xl: 1.25 },
   gap: { xs: 0.25, sm: 0.5, md: 0.75, lg: 1, xl: 1.25 },
   borderRadius: 0.5,
 });
@@ -67,7 +67,7 @@ export type SjCardApi = ((overrides?: Partial<SjStyle>) => SjStyle) & {
  */
 const sjCardApi: SjCardApi = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
-  bg: 'light.light',
+  backgroundColor: 'light.light',
   ...overrides,
 });
 
@@ -75,7 +75,7 @@ const sjCardApi: SjCardApi = (overrides: Partial<SjStyle> = {}): SjStyle => ({
 sjCardApi.outlined = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
   ...sjBorder,
-  bg: 'transparent',
+  backgroundColor: 'transparent',
   borderColor: 'light.dark',
   ...overrides,
 });
@@ -89,7 +89,7 @@ sjCardApi.flat = (overrides: Partial<SjStyle> = {}): SjStyle => ({
 /** Elevated card with stronger shadow. */
 sjCardApi.elevated = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
-  bg: 'light.light',
+  backgroundColor: 'light.light',
   ...sjShadow,
   ...overrides,
 });
@@ -99,7 +99,7 @@ sjCardApi.interactive = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardApi(), // Based on the default sjCard
   ...sjBorderShadow,
   cursor: 'pointer',
-  bg: 'light.light',
+  backgroundColor: 'light.light',
   textDecoration: 'none',
   userSelect: 'none',
   transform: 'translateY(0)',
@@ -113,16 +113,16 @@ sjCardApi.interactive = (overrides: Partial<SjStyle> = {}): SjStyle => ({
 /** Primary-colored card with matching contrast text. */
 sjCardApi.primary = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
-  bg: 'primary.main',
-  c: 'primary.contrast',
+  backgroundColor: 'primary.main',
+  color: 'primary.contrast',
   ...overrides,
 });
 
 /** Secondary-colored card with matching contrast text. */
 sjCardApi.secondary = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
-  bg: 'secondary.main',
-  c: 'secondary.contrast',
+  backgroundColor: 'secondary.main',
+  color: 'secondary.contrast',
   borderColor: 'transparent',
   ...overrides,
 });
