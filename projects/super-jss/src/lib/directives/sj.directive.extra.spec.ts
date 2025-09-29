@@ -27,18 +27,15 @@ describe('SjDirective extra scenarios', () => {
       providers: [SjThemeService],
     }).compileComponents();
 
-    const fixture: ComponentFixture<H1WithSjComponent> = TestBed.createComponent(H1WithSjComponent);
+    const fixture: ComponentFixture<H1WithSjComponent> =
+      TestBed.createComponent(H1WithSjComponent);
     fixture.detectChanges();
     await sleep(0);
 
     const h1: HTMLElement = fixture.nativeElement.querySelector('h1');
-    // Element should receive the generated class for xs line-height
-    expect(h1.className).toMatch(/sj-line-height-xs-2_3/);
-    // And the style tag should have the rule
-    const cssSvc = TestBed.inject(SjCssGeneratorService) as any;
-    const cssText: string = (cssSvc.styleEl as HTMLStyleElement).textContent || '';
-    expect(cssText).toContain('.sj-line-height-xs-2_3');
-    expect(cssText).toContain('line-height: 2.3rem');
+    // With typography auto-application removed, the heading should not
+    // automatically receive theme typography classes unless [sj] provides them.
+    expect(h1.className).toBe('');
   });
 
   it('does not apply default typography on non-text elements', async () => {
@@ -48,7 +45,8 @@ describe('SjDirective extra scenarios', () => {
       providers: [SjThemeService],
     }).compileComponents();
 
-    const fixture: ComponentFixture<DivWithSjComponent> = TestBed.createComponent(DivWithSjComponent);
+    const fixture: ComponentFixture<DivWithSjComponent> =
+      TestBed.createComponent(DivWithSjComponent);
     fixture.detectChanges();
     await sleep(0);
 

@@ -11,7 +11,7 @@ import {
 import { SjBreakPoints, SjStyle } from '../models/interfaces';
 import { SjThemeService, SjCssGeneratorService } from '../services';
 import { deepMerge } from '../utils/deep-merge';
-import { applyTypography, applyResponsiveStyle } from '../core/core-methods';
+import { applyResponsiveStyle } from '../core/core-methods';
 import { shorthandMappings } from '../models/mappings';
 
 /**
@@ -147,10 +147,6 @@ export class SjDirective implements OnChanges {
     );
 
     const theme = this.sjt.sjTheme();
-    const tagName = element.tagName.toUpperCase();
-    const typographyStyles =
-      theme.typography[tagName as keyof typeof theme.typography] || {};
-    const defaultTypographyStyles = theme.typography.default || {};
 
     const callIfFn = (v: SjStyle | SjStyleProducer): SjStyle =>
       typeof v === 'function' ? (v as SjStyleProducer)() : (v as SjStyle);
@@ -168,14 +164,10 @@ export class SjDirective implements OnChanges {
 
     const processedStyles = this.processShorthands(sjStyles);
 
-    // Only apply theme typography (default + tag) if the element has a specific entry.
-    // Non-text elements (e.g., DIV) do not receive default typography classes.
-    const hasTagTypography = !!(theme.typography as any)[tagName];
-    const baseTypography = hasTagTypography
-      ? (deepMerge(defaultTypographyStyles, typographyStyles) as SjStyle)
-      : ({} as SjStyle);
-
-    const mergedStyles = deepMerge(baseTypography, processedStyles);
+    // Do not auto-apply theme typography based on native element tag names anymore.
+    // Rely on the `sj-typography` component for typography variants. Only use
+    // styles explicitly provided via the [sj] input.
+    const mergedStyles = processedStyles;
 
     if (Object.keys(mergedStyles).length > 0) {
       const classes = this.cssGenerator.getOrGenerateClasses(
@@ -190,35 +182,9 @@ export class SjDirective implements OnChanges {
     // Apply inline typography last so it always wins over classes
     try {
       // Use the lower bound of the current breakpoint to keep inline
-      // typography stable within a breakpoint and avoid tying updates
-      // to raw window width changes.
+      // responsive overrides stable within a breakpoint.
       const bp = this.sjt.currentBreakpoint() as keyof SjBreakPoints;
       const width = theme.breakpoints[bp];
-      applyTypography(element, theme, width);
-      // Then apply any text-related overrides from [sj] inline so they win over theme typography
-      const textKeys = new Set([
-        'fontSize',
-        'fontWeight',
-        'lineHeight',
-        'fontFamily',
-        'letterSpacing',
-        'textTransform',
-        'fontStyle',
-        'textDecoration',
-        'textAlign',
-        'color',
-        'c',
-      ]);
-      const textOverrides: SjStyle = {} as SjStyle;
-      for (const k in processedStyles) {
-        if (!Object.prototype.hasOwnProperty.call(processedStyles, k)) continue;
-        if (k.startsWith('&')) continue;
-        if (textKeys.has(k))
-          (textOverrides as any)[k] = (processedStyles as any)[k];
-      }
-      if (Object.keys(textOverrides).length) {
-        applyResponsiveStyle(element, textOverrides, width, theme);
-      }
     } catch {}
   }
 
