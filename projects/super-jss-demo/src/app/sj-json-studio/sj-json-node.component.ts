@@ -13,7 +13,7 @@ export interface JsonNode {
 @Component({
   selector: 'app-json-node',
   standalone: true,
-  imports: [FormsModule, JsonNodeComponent, SjDirective, SjBoxComponent, SjButtonComponent],
+  imports: [FormsModule, SjDirective, SjBoxComponent, SjButtonComponent],
   template: `
     <sj-box [sj]="[ sj.css.flexDirection(sj.tokens.flex.direction.column), sj.sh.ml(0.5) ]">
       <sj-box [sj]="[ sj.flex.row(), sj.css.alignItems('center'), sj.css.gap(0.5) ]">

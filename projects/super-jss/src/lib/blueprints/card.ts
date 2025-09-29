@@ -24,32 +24,26 @@ export const sjBorderShadow: SjStyle = {
   ...sjShadow,
 };
 
-/** Smooth transition preset for interactive states. */
-export const sjTransition: SjStyle = {
-  transition: 'all 0.3s ease-in-out',
-};
-
 /** Preset styling for inline code snippet containers. */
 const codeSnippetStyle: SjStyle = {
   bg: 'light.dark',
   p: 1,
   borderRadius: 1,
-  d: 'inline-flex',          // play nicely alongside other flex children
+  d: 'inline-flex', // play nicely alongside other flex children
   alignItems: 'center',
-  maxW: '100%',              // keep it from overflowing its parent
-  overflowX: 'auto',         // allow scrolling for long lines
-  whiteSpace: 'pre',         // preserve formatting
-  fontFamily: 'monospace',   // reflect code semantics
+  maxW: '100%', // keep it from overflowing its parent
+  overflowX: 'auto', // allow scrolling for long lines
+  whiteSpace: 'pre', // preserve formatting
+  fontFamily: 'monospace', // reflect code semantics
 };
 
 // Internal base style for cards (shared between variants)
 /** Internal shared card foundation used by all variants. */
 const sjCardBase = (): SjStyle => ({
-  ...sjTransition,
   d: 'flex',
   fxDir: 'column',
-  p: { xs: 0.25, sm: 0.5, md: 0.75, lg: 1, xl: 1.25}, 
-  gap: { xs: 0.25, sm: 0.5, md: 0.75, lg: 1, xl: 1.25}, 
+  p: { xs: 0.25, sm: 0.5, md: 0.75, lg: 1, xl: 1.25 },
+  gap: { xs: 0.25, sm: 0.5, md: 0.75, lg: 1, xl: 1.25 },
   borderRadius: 0.5,
 });
 
@@ -81,8 +75,8 @@ const sjCardApi: SjCardApi = (overrides: Partial<SjStyle> = {}): SjStyle => ({
 sjCardApi.outlined = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...sjCardBase(),
   ...sjBorder,
-    bg: 'transparent',
-    borderColor: 'light.dark',
+  bg: 'transparent',
+  borderColor: 'light.dark',
   ...overrides,
 });
 

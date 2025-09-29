@@ -1,8 +1,4 @@
 import { SjStyle } from '../models/interfaces';
-import { sjTransition } from './card';
-
-/** Smooth transition preset shared across button variants. */
-const sjButtonTransition: SjStyle = { ...sjTransition };
 
 const baseHoverStyles: SjStyle = {
   transform: 'translateY(-1px)',
@@ -25,12 +21,11 @@ const baseDisabledStyles: SjStyle = {
 };
 
 const sjButtonBase = (): SjStyle => ({
-  ...sjButtonTransition,
   d: 'inline-flex',
   fxAItems: 'center',
   fxJustify: 'center',
   gap: 0.5,
-  p: { xs: 0.25, md: 0.5, xl: 0.75}, 
+  p: { xs: 0.25, md: 0.5, xl: 0.75 },
   borderRadius: 0.5,
   borderStyle: 'solid',
   borderWidth: 0.1,
@@ -89,7 +84,9 @@ const createContainedButton = (
   }
 
   applyHover(style, hoverBg ? { bg: hoverBg } : undefined);
-  applyFocus(style, { outlineColor: borderColor === 'transparent' ? background : borderColor });
+  applyFocus(style, {
+    outlineColor: borderColor === 'transparent' ? background : borderColor,
+  });
   applyDisabled(style, { bg: background, borderColor });
 
   return style;
@@ -100,12 +97,15 @@ const createLightButton = (): SjStyle => {
     ...sjButtonBase(),
     bg: 'light.light',
     c: 'primary.dark',
-    
   };
 
   applyHover(style, { bg: 'light.main' });
   applyFocus(style, { outlineColor: 'primary.main' });
-  applyDisabled(style, { bg: 'light.light', borderColor: 'light.dark', c: 'neutral.dark' });
+  applyDisabled(style, {
+    bg: 'light.light',
+    borderColor: 'light.dark',
+    c: 'neutral.dark',
+  });
 
   return style;
 };
@@ -133,7 +133,9 @@ export type SjButtonApi = ((overrides?: Partial<SjStyle>) => SjStyle) & {
   danger: (overrides?: Partial<SjStyle>) => SjStyle;
 };
 
-const sjButtonApi: SjButtonApi = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+const sjButtonApi: SjButtonApi = (
+  overrides: Partial<SjStyle> = {}
+): SjStyle => ({
   ...createContainedButton('primary.main', 'primary.contrast', {
     hoverBg: 'primary.dark',
     shadow: '2px 4px 10px rgba(18, 51, 107, 0.14)',
@@ -185,7 +187,9 @@ sjButtonApi.containedDark = (overrides: Partial<SjStyle> = {}): SjStyle => ({
   ...overrides,
 });
 
-sjButtonApi.containedSecondary = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+sjButtonApi.containedSecondary = (
+  overrides: Partial<SjStyle> = {}
+): SjStyle => ({
   ...createContainedButton('secondary.main', 'secondary.contrast', {
     hoverBg: 'secondary.dark',
     shadow: '0 6px 16px rgba(59, 130, 246, 0.24)',

@@ -8,8 +8,8 @@ import {
   Renderer2,
   ElementRef,
 } from '@angular/core';
-import { SjStyle } from "../models/interfaces";
-import { SjThemeService, SjCssGeneratorService } from "../services";
+import { SjBreakPoints, SjStyle } from '../models/interfaces';
+import { SjThemeService, SjCssGeneratorService } from '../services';
 import { deepMerge } from '../utils/deep-merge';
 import { applyTypography, applyResponsiveStyle } from '../core/core-methods';
 import { shorthandMappings } from '../models/mappings';
@@ -28,7 +28,7 @@ export type SjInput =
 @Directive({
   standalone: true,
   // Opt-in only: apply styles/typography when [sj] is present
-  selector: '[sj]:not(sj-host)'
+  selector: '[sj]:not(sj-host)',
 })
 export class SjDirective implements OnChanges {
   /**
@@ -57,9 +57,10 @@ export class SjDirective implements OnChanges {
   ) {
     // Initialize effect to re-render styles when the current breakpoint or theme changes.
     effect(() => {
-      this.sjt.currentBreakpoint(); // depend on currentBreakpoint
-      this.sjt.windowWidth(); // depend on raw window width to re-render on any resize
-      this.sjt.themeVersion(); // depend on themeVersion
+      this.sjt.currentBreakpoint(); // depend on currentBreakpoint (responsive changes)
+      // Removed windowWidth dependency to avoid re-rendering on every pixel resize.
+      // Media queries handle responsive class application between breakpoints.
+      this.sjt.themeVersion(); // depend on themeVersion (theme structure changes)
       this.renderStyles();
     });
   }
@@ -74,40 +75,44 @@ export class SjDirective implements OnChanges {
 
     // Handle pseudo-selectors and nested objects
     for (const key in newStyles) {
-        if (key.startsWith('&') && typeof newStyles[key] === 'object' && newStyles[key] !== null) {
-            newStyles[key] = this.processShorthands(newStyles[key] as SjStyle);
-        }
+      if (
+        key.startsWith('&') &&
+        typeof newStyles[key] === 'object' &&
+        newStyles[key] !== null
+      ) {
+        newStyles[key] = this.processShorthands(newStyles[key] as SjStyle);
+      }
     }
 
     if (newStyles.px) {
-        newStyles.pl = newStyles.px;
-        newStyles.pr = newStyles.px;
-        delete newStyles.px;
+      newStyles.pl = newStyles.px;
+      newStyles.pr = newStyles.px;
+      delete newStyles.px;
     }
     if (newStyles.py) {
-        newStyles.pt = newStyles.py;
-        newStyles.pb = newStyles.py;
-        delete newStyles.py;
+      newStyles.pt = newStyles.py;
+      newStyles.pb = newStyles.py;
+      delete newStyles.py;
     }
     if (newStyles.mx) {
-        newStyles.ml = newStyles.mx;
-        newStyles.mr = newStyles.mx;
-        delete newStyles.mx;
+      newStyles.ml = newStyles.mx;
+      newStyles.mr = newStyles.mx;
+      delete newStyles.mx;
     }
     if (newStyles.my) {
-        newStyles.mt = newStyles.my;
-        newStyles.mb = newStyles.my;
-        delete newStyles.my;
+      newStyles.mt = newStyles.my;
+      newStyles.mb = newStyles.my;
+      delete newStyles.my;
     }
     if (newStyles.bx) {
-        newStyles.bl = newStyles.bx;
-        newStyles.br = newStyles.bx;
-        delete newStyles.bx;
+      newStyles.bl = newStyles.bx;
+      newStyles.br = newStyles.bx;
+      delete newStyles.bx;
     }
     if (newStyles.by) {
-        newStyles.bt = newStyles.by;
-        newStyles.bb = newStyles.by;
-        delete newStyles.by;
+      newStyles.bt = newStyles.by;
+      newStyles.bb = newStyles.by;
+      delete newStyles.by;
     }
     // Optional text shorthand: textSize -> fontSize
     if ((newStyles as any).textSize !== undefined) {
@@ -115,7 +120,9 @@ export class SjDirective implements OnChanges {
       delete (newStyles as any).textSize;
     }
 
-    for (const [shorthandKey, longhandKey] of Object.entries(shorthandMappings)) {
+    for (const [shorthandKey, longhandKey] of Object.entries(
+      shorthandMappings
+    )) {
       if (!Object.prototype.hasOwnProperty.call(newStyles, shorthandKey)) {
         continue;
       }
@@ -127,7 +134,7 @@ export class SjDirective implements OnChanges {
       delete (newStyles as any)[shorthandKey];
     }
     return newStyles;
-}
+  }
 
   /**
    * Generates/attaches classes and applies inline typography + text overrides.
@@ -135,24 +142,29 @@ export class SjDirective implements OnChanges {
    */
   protected renderStyles(): void {
     const element = this.el.nativeElement;
-    this.lastClasses.forEach((c: string) => this.renderer.removeClass(element, c));
+    this.lastClasses.forEach((c: string) =>
+      this.renderer.removeClass(element, c)
+    );
 
     const theme = this.sjt.sjTheme();
     const tagName = element.tagName.toUpperCase();
-    const typographyStyles = theme.typography[tagName as keyof typeof theme.typography] || {};
+    const typographyStyles =
+      theme.typography[tagName as keyof typeof theme.typography] || {};
     const defaultTypographyStyles = theme.typography.default || {};
 
     const callIfFn = (v: SjStyle | SjStyleProducer): SjStyle =>
       typeof v === 'function' ? (v as SjStyleProducer)() : (v as SjStyle);
 
-    const sjStyles = (this.sj
-      ? Array.isArray(this.sj)
-        ? (this.sj as Array<SjStyle | SjStyleProducer>).reduce(
-            (acc, style) => deepMerge(acc, callIfFn(style)),
-            {}
-          )
-        : callIfFn(this.sj as any)
-      : {}) as SjStyle;
+    const sjStyles = (
+      this.sj
+        ? Array.isArray(this.sj)
+          ? (this.sj as Array<SjStyle | SjStyleProducer>).reduce(
+              (acc, style) => deepMerge(acc, callIfFn(style)),
+              {}
+            )
+          : callIfFn(this.sj as any)
+        : {}
+    ) as SjStyle;
 
     const processedStyles = this.processShorthands(sjStyles);
 
@@ -166,25 +178,43 @@ export class SjDirective implements OnChanges {
     const mergedStyles = deepMerge(baseTypography, processedStyles);
 
     if (Object.keys(mergedStyles).length > 0) {
-      const classes = this.cssGenerator.getOrGenerateClasses(mergedStyles, theme, this.sjt.themeVersion());
+      const classes = this.cssGenerator.getOrGenerateClasses(
+        mergedStyles,
+        theme,
+        this.sjt.themeVersion()
+      );
       classes.forEach((c: string) => this.renderer.addClass(element, c));
       this.lastClasses = classes;
     }
 
     // Apply inline typography last so it always wins over classes
     try {
-      const width = this.sjt.windowWidth();
+      // Use the lower bound of the current breakpoint to keep inline
+      // typography stable within a breakpoint and avoid tying updates
+      // to raw window width changes.
+      const bp = this.sjt.currentBreakpoint() as keyof SjBreakPoints;
+      const width = theme.breakpoints[bp];
       applyTypography(element, theme, width);
       // Then apply any text-related overrides from [sj] inline so they win over theme typography
       const textKeys = new Set([
-        'fontSize', 'fontWeight', 'lineHeight', 'fontFamily', 'letterSpacing',
-        'textTransform', 'fontStyle', 'textDecoration', 'textAlign', 'color', 'c'
+        'fontSize',
+        'fontWeight',
+        'lineHeight',
+        'fontFamily',
+        'letterSpacing',
+        'textTransform',
+        'fontStyle',
+        'textDecoration',
+        'textAlign',
+        'color',
+        'c',
       ]);
       const textOverrides: SjStyle = {} as SjStyle;
       for (const k in processedStyles) {
         if (!Object.prototype.hasOwnProperty.call(processedStyles, k)) continue;
         if (k.startsWith('&')) continue;
-        if (textKeys.has(k)) (textOverrides as any)[k] = (processedStyles as any)[k];
+        if (textKeys.has(k))
+          (textOverrides as any)[k] = (processedStyles as any)[k];
       }
       if (Object.keys(textOverrides).length) {
         applyResponsiveStyle(element, textOverrides, width, theme);
