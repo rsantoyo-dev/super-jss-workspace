@@ -12,6 +12,7 @@ import {
   oceanTheme,
   icon,
   SJ_BASE_COMPONENTS_IMPORTS,
+  SjBoxComponent,
 } from 'super-jss';
 import { WithSj } from 'super-jss';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
@@ -106,11 +107,11 @@ interface ThemeMeta {
           ></sj-icon>
         </sj-button>
         } }
-        <div
+        <sj-box
           [sj]="
             sj.blueprints.sjCard({ bg: sj.tokens.palette.primary.main, p: 0.1 })
           "
-        ></div>
+        ></sj-box>
         @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
         <sj-button
           [sj]="

@@ -10,6 +10,7 @@ import { SjCardComponent } from '../components/sj-card.component';
 import { SjBoxComponent } from '../components/sj-box.component';
 import { SjButtonComponent } from '../components/sj-button.component';
 import { SjIconComponent } from '../components/sj-icon.component';
+import { SjTypographyComponent } from '../components/sj-typography.component';
 
 export abstract class WithSj {
   public sj: SjApi = sj;
@@ -33,5 +34,6 @@ export const SJ_BASE_COMPONENTS_IMPORTS = [
   SjCardComponent,
   SjBoxComponent,
   SjButtonComponent,
+  SjTypographyComponent,
   SjIconComponent,
 ] as const;

@@ -1,6 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SjDirective, SjBoxComponent, WithSj, SjButtonComponent } from 'super-jss';
+import {
+  SjDirective,
+  SjBoxComponent,
+  WithSj,
+  SjButtonComponent,
+  SjTypographyComponent,
+} from 'super-jss';
 
 export interface JsonNode {
   key: string;
@@ -13,69 +19,151 @@ export interface JsonNode {
 @Component({
   selector: 'app-json-node',
   standalone: true,
-  imports: [FormsModule, SjDirective, SjBoxComponent, SjButtonComponent],
+  imports: [
+    FormsModule,
+    SjDirective,
+    SjBoxComponent,
+    SjButtonComponent,
+    SjTypographyComponent,
+  ],
   template: `
-    <sj-box [sj]="[ sj.css.flexDirection(sj.tokens.flex.direction.column), sj.sh.ml(0.5) ]">
-      <sj-box [sj]="[ sj.flex.row(), sj.css.alignItems('center'), sj.css.gap(0.5) ]">
+    <sj-box
+      [sj]="[
+        sj.css.flexDirection(sj.tokens.flex.direction.column),
+        sj.sh.ml(0.5)
+      ]"
+    >
+      <sj-box
+        [sj]="[sj.flex.row(), sj.css.alignItems('center'), sj.css.gap(0.5)]"
+      >
         @if ((node.type === 'object' || node.type === 'array') &&
         (node.children?.length ?? 0) > 0) {
-        <sj-button [variant]="sj.variants.sjButton.outlined" [sj]="{ px: 0.25, py: 0.1 }" (click)="toggle()">
-          <small [sj]="{ c: sj.tokens.palette.primary.light }">{{ node.expanded ? '/' : '>' }}</small>
+        <sj-button
+          [variant]="sj.variants.sjButton.outlined"
+          [sj]="{ px: 0.25, py: 0.1 }"
+          (click)="toggle()"
+        >
+          <sj-typography
+            variant="small"
+            [sj]="{ c: sj.tokens.palette.primary.light }"
+            >{{ node.expanded ? '/' : '>' }}</sj-typography
+          >
         </sj-button>
         } @else {
-        <span [sj]="{ d: 'inline-block', w: 2, h: 2 }"></span>
+        <sj-typography
+          variant="span"
+          [sj]="{ d: 'inline-block', w: 2, h: 2 }"
+        ></sj-typography>
         }
-        <span (click)="toggle()" [sj]="sj.css.cursor('pointer')">{{ node.key }}:</span>
+        <sj-typography
+          variant="span"
+          (click)="toggle()"
+          [sj]="sj.css.cursor('pointer')"
+          >{{ node.key }}:</sj-typography
+        >
 
         @switch (node.type) { @case ('string') { @if (isHexColor(node.value)) {
-        <span [sj]="[ sj.css.display('inline-flex'), sj.css.alignItems('center'), sj.css.gap(0.5) ]">
+        <sj-typography
+          variant="span"
+          [sj]="[
+            sj.css.display('inline-flex'),
+            sj.css.alignItems('center'),
+            sj.css.gap(0.5)
+          ]"
+        >
           <input
-            [sj]="{ p: 0, bg: sj.tokens.colors.transparent, bs: sj.tokens.border.style.none, bw: 0, w: 2, h: 2, cursor: 'pointer' }"
+            [sj]="{
+              p: 0,
+              bg: sj.tokens.colors.transparent,
+              bs: sj.tokens.border.style.none,
+              bw: 0,
+              w: 2,
+              h: 2,
+              cursor: 'pointer'
+            }"
             type="color"
             [(ngModel)]="node.value"
             (ngModelChange)="onValueChange()"
           />
           <input
-            [sj]="{ m: 0, bg: sj.tokens.palette.light.light, bs: sj.tokens.border.style.none, bw: 0, w: sj.tokens.sizing.width.auto, minW: 4, h: 1.5 }"
+            [sj]="{
+              m: 0,
+              bg: sj.tokens.palette.light.light,
+              bs: sj.tokens.border.style.none,
+              bw: 0,
+              w: sj.tokens.sizing.width.auto,
+              minW: 4,
+              h: 1.5
+            }"
             type="text"
             [(ngModel)]="node.value"
             (ngModelChange)="onValueChange()"
           />
-        </span>
+        </sj-typography>
         } @else {
         <input
-          [sj]="{ m: 0, bg: sj.tokens.palette.light.light, bs: sj.tokens.border.style.none, bw: 0, w: sj.tokens.sizing.width.auto, minW: 4, h: 1.5 }"
+          [sj]="{
+            m: 0,
+            bg: sj.tokens.palette.light.light,
+            bs: sj.tokens.border.style.none,
+            bw: 0,
+            w: sj.tokens.sizing.width.auto,
+            minW: 4,
+            h: 1.5
+          }"
           type="text"
           [(ngModel)]="node.value"
           (ngModelChange)="onValueChange()"
         />
         } } @case ('number') {
         <input
-          [sj]="{ m: 0, bg: sj.tokens.palette.light.light, bs: sj.tokens.border.style.none, bw: 0, w: sj.tokens.sizing.width.auto, minW: 4, h: 1.5 }"
+          [sj]="{
+            m: 0,
+            bg: sj.tokens.palette.light.light,
+            bs: sj.tokens.border.style.none,
+            bw: 0,
+            w: sj.tokens.sizing.width.auto,
+            minW: 4,
+            h: 1.5
+          }"
           type="number"
           [(ngModel)]="node.value"
           (ngModelChange)="onValueChange()"
         />
         } @case ('boolean') {
         <input
-          [sj]="{ m: 0, bg: sj.tokens.palette.light.light, bs: sj.tokens.border.style.none, bw: 0, w: sj.tokens.sizing.width.auto, minW: 4, h: 1.5 }"
+          [sj]="{
+            m: 0,
+            bg: sj.tokens.palette.light.light,
+            bs: sj.tokens.border.style.none,
+            bw: 0,
+            w: sj.tokens.sizing.width.auto,
+            minW: 4,
+            h: 1.5
+          }"
           type="checkbox"
           [(ngModel)]="node.value"
           (ngModelChange)="onValueChange()"
         />
         } @case ('null') {
-        <span [sj]="{ c: sj.tokens.palette.neutral.main }">null</span>
+        <sj-typography
+          variant="span"
+          [sj]="{ c: sj.tokens.palette.neutral.main }"
+          >null</sj-typography
+        >
         } }
       </sj-box>
 
       @if ((node.type === 'object' || node.type === 'array') && node.expanded) {
-      <sj-box [sj]="[
-        sj.css.flexDirection(sj.tokens.flex.direction.column),
-        sj.sh.pl(1.25),
-        sj.css.borderLeftStyle('solid'),
-        sj.css.borderLeftWidth(0.1),
-        sj.css.borderLeftColor(sj.tokens.palette.light.dark)
-      ]">
+      <sj-box
+        [sj]="[
+          sj.css.flexDirection(sj.tokens.flex.direction.column),
+          sj.sh.pl(1.25),
+          sj.css.borderLeftStyle('solid'),
+          sj.css.borderLeftWidth(0.1),
+          sj.css.borderLeftColor(sj.tokens.palette.light.dark)
+        ]"
+      >
         @for (child of (node.children ?? []); track $index) {
         <app-json-node
           [node]="child"

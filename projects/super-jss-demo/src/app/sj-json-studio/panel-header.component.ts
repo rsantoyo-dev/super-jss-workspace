@@ -1,12 +1,20 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { sjButton, sjCard, SjDirective, SjStyle, sj } from 'super-jss';
+import {
+  sjButton,
+  sjCard,
+  SjDirective,
+  SjStyle,
+  sj,
+  SjBoxComponent,
+  SjTypographyComponent,
+} from 'super-jss';
 
 @Component({
   selector: 'app-panel-header',
   standalone: true,
-  imports: [SjDirective],
+  imports: [SjDirective, SjBoxComponent, SjTypographyComponent],
   template: `
-    <div
+    <sj-box
       [sj]="
         sjCard.primary({
           fxJustify: 'space-between',
@@ -15,41 +23,90 @@ import { sjButton, sjCard, SjDirective, SjStyle, sj } from 'super-jss';
         })
       "
     >
-      <div [sj]="left"> 
-        <small [sj]="{ c: sj.tokens.palette.primary.contrast }">{{ title }}</small>
-         @if (viewMode) {
-          <div [sj]="toggleGroup">
-            <button [sj]="toggleBtn(viewMode === 'tree')" (click)="onToggle('tree')" title="Tree view" aria-label="Tree view">
-              <small [sj]>Tree</small>
-            </button>
-            <button [sj]="toggleBtn(viewMode === 'raw')" (click)="onToggle('raw')" title="Raw view" aria-label="Raw view">
-              <small [sj]>Raw</small>
-            </button>
-          </div>
+      <sj-box [sj]="left">
+        <sj-typography
+          variant="small"
+          [sj]="{ c: sj.tokens.palette.primary.contrast }"
+          >{{ title }}</sj-typography
+        >
+        @if (viewMode) {
+        <sj-box [sj]="toggleGroup">
+          <button
+            [sj]="toggleBtn(viewMode === 'tree')"
+            (click)="onToggle('tree')"
+            title="Tree view"
+            aria-label="Tree view"
+          >
+            <sj-typography variant="small" [sj]>Tree</sj-typography>
+          </button>
+          <button
+            [sj]="toggleBtn(viewMode === 'raw')"
+            (click)="onToggle('raw')"
+            title="Raw view"
+            aria-label="Raw view"
+          >
+            <sj-typography variant="small" [sj]>Raw</sj-typography>
+          </button>
+        </sj-box>
         }
-      
-      </div>
-      <div [sj]="right">
-        <button [sj]="sjButton" (click)="collapse.emit()" title="Collapse" [disabled]="mode === 'collapsed'">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      </sj-box>
+
+      <sj-box [sj]="right">
+        <button
+          [sj]="sjButton"
+          (click)="collapse.emit()"
+          title="Collapse"
+          [disabled]="mode === 'collapsed'"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <rect x="4" y="18" width="16" height="2" rx="1" />
           </svg>
         </button>
-        <button [sj]="sjButton" (click)="normal.emit()" title="Expand (300px)" [disabled]="mode === 'normal'">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <button
+          [sj]="sjButton"
+          (click)="normal.emit()"
+          title="Expand (300px)"
+          [disabled]="mode === 'normal'"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <rect x="5" y="6" width="14" height="12" rx="2" />
           </svg>
         </button>
         @if (viewMode !== 'raw') {
-          <button [sj]="sjButton" (click)="full.emit()" title="Full (auto height)" aria-label="Full" [disabled]="mode === 'full'">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 4H4v4h2V6h2V4zm8 0v2h2v2h2V4h-4zM4 16v4h4v-2H6v-2H4zm16 0h-2v2h-2v2h4v-4z" />
-            </svg>
-          </button>
+        <button
+          [sj]="sjButton"
+          (click)="full.emit()"
+          title="Full (auto height)"
+          aria-label="Full"
+          [disabled]="mode === 'full'"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8 4H4v4h2V6h2V4zm8 0v2h2v2h2V4h-4zM4 16v4h4v-2H6v-2H4zm16 0h-2v2h-2v2h4v-4z"
+            />
+          </svg>
+        </button>
         }
-       
-    </div>
-    
+      </sj-box>
+    </sj-box>
   `,
 })
 export class PanelHeaderComponent {
@@ -83,14 +140,12 @@ export class PanelHeaderComponent {
   iconBtn: SjStyle = sjButton.containedSecondary({
     bg: 'light',
     d: 'inline-flex',
-   
-   
   });
 
   toggleGroup: SjStyle = { d: 'flex', gap: 0.25, ml: 0.5 } as any;
 
   toggleBtn(active: boolean): SjStyle {
-    return sjButton({    
+    return sjButton({
       bg: active ? 'secondary.main' : 'primary.light',
       c: active ? 'secondary.contrast' : 'primary.contrast',
     });

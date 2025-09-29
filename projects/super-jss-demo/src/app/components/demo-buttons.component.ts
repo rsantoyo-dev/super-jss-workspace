@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective, SjStyle, WithSj, SjCardComponent, SjButtonComponent, sj } from 'super-jss';
+import {
+  SjDirective,
+  SjStyle,
+  WithSj,
+  SjCardComponent,
+  SjButtonComponent,
+  sj,
+  SJ_BASE_COMPONENTS_IMPORTS,
+} from 'super-jss';
 import { SectionContainerComponent } from './section-container.component';
 
 interface DemoButton {
@@ -16,15 +24,19 @@ interface DemoButton {
 @Component({
   selector: 'app-demo-buttons',
   standalone: true,
-  imports: [CommonModule, SjDirective, SectionContainerComponent, SjCardComponent, SjButtonComponent],
+  imports: [
+    CommonModule,
+    SectionContainerComponent,
+    SJ_BASE_COMPONENTS_IMPORTS,
+  ],
   template: `
     <app-section title="Buttons">
       <sj-card [variant]="sj.variants.sjCard.info">
-        <span [sj]="[]">
-          Buttons inherit expressive presets for light, outlined, contained,
-          and intent-driven looks such as danger. Toggle snippets to view the
+        <sj-typography variant="span">
+          Buttons inherit expressive presets for light, outlined, contained, and
+          intent-driven looks such as danger. Toggle snippets to view the
           applied styles and copy usage straight into your templates.
-        </span>
+        </sj-typography>
         <sj-button
           type="button"
           (click)="toggleSnippets()"
@@ -36,18 +48,60 @@ interface DemoButton {
         </sj-button>
       </sj-card>
 
-      <sj-card [sj]="[ sj.grid.container(), sj.grid.columns('repeat(auto-fit, minmax(360px, 1fr))') ]">
-        <sj-card *ngFor="let button of buttonData" [sj]="sj.blueprints.sjCard.outlined()">
-          <h6 [sj]="{ c: button.titleColor, m: 0, p: 0 }">{{ button.title }}</h6>
-          <span [sj]="[]">{{ button.message }}</span>
-          <sj-button type="button" [sj]="button.buttonStyle">{{ button.label }}</sj-button>
+      <sj-card
+        [sj]="[
+          sj.grid.container(),
+          sj.grid.columns('repeat(auto-fit, minmax(360px, 1fr))')
+        ]"
+      >
+        <sj-card
+          *ngFor="let button of buttonData"
+          [sj]="sj.blueprints.sjCard.outlined()"
+        >
+          <sj-typography
+            variant="h6"
+            [sj]="{ c: button.titleColor, m: 0, p: 0 }"
+            >{{ button.title }}</sj-typography
+          >
+          <sj-typography variant="span" [sj]="[]">{{
+            button.message
+          }}</sj-typography>
+          <sj-button type="button" [sj]="button.buttonStyle">{{
+            button.label
+          }}</sj-button>
           @if (showSnippets) {
-            <section [sj]="{ mt: 1, w: '320px' }">
-              <p [sj]="{ mt: 0, mb: 0, fontSize: '0.75rem', fontWeight: 600 }">Usage</p>
-              <pre [sj]="sj.blueprints.sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"><code>{{ button.usageExample }}</code></pre>
-              <p [sj]="{ mt: 1, mb: 0, fontSize: '0.75rem', fontWeight: 600 }">Computed style</p>
-              <pre [sj]="sj.blueprints.sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"><code>{{ button.computedStyle }}</code></pre>
-            </section>
+          <section [sj]="{ mt: 1, w: '320px' }">
+            <sj-typography
+              variant="p"
+              [sj]="{ mt: 0, mb: 0, fontSize: '0.75rem', fontWeight: 600 }"
+              >Usage</sj-typography
+            >
+            <sj-typography
+              variant="pre"
+              [sj]="
+                sj.blueprints.sjCard.codeSnippet({
+                  fontSize: '0.7rem',
+                  mt: 0.25
+                })
+              "
+              ><code>{{ button.usageExample }}</code></sj-typography
+            >
+            <sj-typography
+              variant="p"
+              [sj]="{ mt: 1, mb: 0, fontSize: '0.75rem', fontWeight: 600 }"
+              >Computed style</sj-typography
+            >
+            <sj-typography
+              variant="pre"
+              [sj]="
+                sj.blueprints.sjCard.codeSnippet({
+                  fontSize: '0.7rem',
+                  mt: 0.25
+                })
+              "
+              ><code>{{ button.computedStyle }}</code></sj-typography
+            >
+          </section>
           }
         </sj-card>
       </sj-card>
@@ -55,7 +109,6 @@ interface DemoButton {
   `,
 })
 export class DemoButtonsComponent extends WithSj {
-
   protected showSnippets = false;
 
   protected readonly buttonData: DemoButton[] = this.buildButtonData();
@@ -77,7 +130,8 @@ export class DemoButtonsComponent extends WithSj {
       {
         title: 'sjButton.light()',
         label: 'Light Button',
-        message: 'Subtle surface-friendly background with strong text contrast.',
+        message:
+          'Subtle surface-friendly background with strong text contrast.',
         titleColor: 'primary',
         usageExample: `<sj-button [sj]="sj.button.light()">Light</sj-button>`,
         build: () => sj.button.light(),

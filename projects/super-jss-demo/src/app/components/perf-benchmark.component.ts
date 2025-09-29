@@ -1,13 +1,19 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective, sj, WithSj, SjTypographyComponent } from 'super-jss';
+import {
+  SjDirective,
+  sj,
+  WithSj,
+  SjTypographyComponent,
+  SjBoxComponent,
+} from 'super-jss';
 
 @Component({
   selector: 'app-perf-benchmark',
   standalone: true,
   imports: [CommonModule, SjDirective, SjTypographyComponent],
   template: `
-    <div [sj]="[sj.flex.column(), sj.css.gap(1)]">
+    <sj-box [sj]="[sj.flex.column(), sj.css.gap(1)]">
       <sj-typography variant="h3" [sj]="[sj.css.margin(0), sj.css.padding(0)]">
         SJSS 1,000 elements demo
       </sj-typography>
@@ -16,7 +22,7 @@ import { SjDirective, sj, WithSj, SjTypographyComponent } from 'super-jss';
         excessive unique rules.
       </sj-typography>
 
-      <div
+      <sj-box
         [sj]="[
           sj.grid.container(),
           sj.grid.columns({
@@ -28,7 +34,7 @@ import { SjDirective, sj, WithSj, SjTypographyComponent } from 'super-jss';
         ]"
       >
         @for (item of items(); track item) {
-        <div
+        <sj-box
           [sj]="[
             sj.flex.column({ gap: 0.25 }),
             sj.css.borderRadius(0.5),
@@ -51,7 +57,7 @@ import { SjDirective, sj, WithSj, SjTypographyComponent } from 'super-jss';
             ]"
             >Styled by SJSS</sj-typography
           >
-          <div [sj]="[sj.flex.row({ fxAItems: 'center', gap: 0.25 })]">
+          <sj-box [sj]="[sj.flex.row({ fxAItems: 'center', gap: 0.25 })]">
             <sj-typography
               variant="span"
               [sj]="[
@@ -80,11 +86,11 @@ import { SjDirective, sj, WithSj, SjTypographyComponent } from 'super-jss';
                 sj.css.backgroundColor(sj.tokens.colors.green[500])
               ]"
             ></sj-typography>
-          </div>
-        </div>
+          </sj-box>
+        </sj-box>
         }
-      </div>
-    </div>
+      </sj-box>
+    </sj-box>
   `,
 })
 export class PerfBenchmarkComponent extends WithSj {
