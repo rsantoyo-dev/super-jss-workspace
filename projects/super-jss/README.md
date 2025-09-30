@@ -1,218 +1,309 @@
-# Super JavaScript Stylesheets (SJSS)
+# Super JSS — Atomic CSS‑in‑JS for Angular 20
 
 [![npm version](https://img.shields.io/npm/v/super-jss.svg)](https://www.npmjs.com/package/super-jss)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/super-jss?label=size)](https://bundlephobia.com/package/super-jss)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](../../LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Super JavaScript Stylesheets (SJSS) is a dynamic, responsive, and incredibly lightweight styling library meticulously crafted for **Angular 20** applications. Leveraging Angular's powerful Signals, SJSS transforms how you approach styling by generating only the CSS you use — on the fly — ensuring your applications are fast, lean, and effortlessly maintainable.
+**Super JavaScript Stylesheets (SJSS)** is a lightweight, runtime styling library for Angular 20 that generates atomic CSS on the fly using Angular Signals. It delivers responsive breakpoints, theming (palette, typography, spacing), and pseudo‑selectors — without shipping a giant utility bundle.
 
-## 🌟 Features
+- ⚡ **Angular‑native**: Built on Signals for instant reactive styling
+- 🎯 **Atomic CSS generation**: Only the CSS you actually use
+- 📱 **Theming + responsive**: Semantic palette, scales, and `xs…xxl` breakpoints
+- 🎨 **Pseudo‑selectors**: `&:hover`, `&:focus`, etc.
+- 🧩 **Shorthands & helpers**: `sj.sh.bg('primary')`, `sj.flex.center()`, `sj.grid.cols(3)`
+- 🏗️ **Components**: `<sj-box>`, `<sj-card>`, `<sj-button>`, `<sj-typography>`
+- 🚀 **Performance**: Bundled classes, memoized styles, zero runtime overhead
 
-*   📱 **Effortless Responsiveness:** Design truly adaptive layouts that look flawless on any screen size.
-*   ✨ **Dynamic Control:** Update styles in real-time based on application state or user interactions.
-*   🎨 **Simplified Theming:** Implement comprehensive theming capabilities with ease.
-*   ⚡ **Angular-Native Performance:** Blazing-fast performance with minimal overhead, thanks to Angular 20 signals.
-*   🧩 **On-the-Fly CSS Generation:** Generates only the CSS you use, keeping your app lean and fast.
-*   🪶 **Incredibly Lightweight:** Minimal footprint, under 8KB minified (less than 3KB gzipped).
-*   ✍️ **Familiar & Intuitive:** Uses a syntax natural to CSS and JavaScript developers.
-*   🚀 **Standalone & Flexible:** Integrates seamlessly with any Angular component as a standalone directive.
-*   🅰️ **Enhanced Typography:** Gain precise control over text elements.
-*   🔗 **Composing Styles with Arrays:** Combine reusable style objects for modular and dynamic styling.
-*   Pseudo-selectors: Apply styles for states like `:hover`, `:active`, `:focus` directly.
+Documentation: [https://sjss.dev](https://sjss.dev)  
+Demo & lib workspace: [https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace](https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace?file=projects/super-jss-demo/src/app/app.component.ts)  
+NPM: [https://www.npmjs.com/package/super-jss](https://www.npmjs.com/package/super-jss)
 
-### ✨ The Core Concept
+## Why SJSS?
 
-> The principle is very simple: I take any CSS property, convert it to camelCase, and accept an object of breakpoints → all transformed into a CSS class for an ultra-lightweight experience. ✨ With added capabilities like a powerful theme system, where the entire look & feel is controlled in a single object — very fast and fluid thanks to Signals, for better integration with Angular.
+Traditional CSS-in-JS libraries ship massive bundles with every possible utility class. SJSS generates **only the atomic CSS you use**, keeping your bundle tiny while providing full theming and responsiveness.
 
-In `super-jss`, you can take any CSS property, write it in `camelCase`, and assign it a value. For responsive design, you can use an object with breakpoint keys. This is all transformed into highly efficient CSS classes on the fly.
-
-Here is a practical example of how you can apply themed, responsive styles to an element:
-
-```html
-<div [sj]="{
-  backgroundColor: this.anyVariable ? 'primary.main' : 'transparent',
-  padding: { xs: 2, md: 4 }
-  // You can also use shortcuts for convenience:
-  // bg: this.anyVariable ? 'primary.main' : 'transparent',
-  // p: { xs: 2, md: 4 }
-}">
-  Themed + Responsive Content
-</div>
-```
-
-### A Quick Example: The "Hello Super JSS" Header
-
-Let's see how easy it is to create a good-looking, responsive header.
-
-```typescript
-import { Component } from '@angular/core';
-import { SjDirective } from 'super-jss';
-
-@Component({
-  selector: 'app-welcome-header',
-  standalone: true,
-  imports: [SjDirective],
-  template: `
-    <h1 [sj]="{
-      color: 'primary.main',
-      textAlign: 'center',
-      padding: { xs: 2, md: 4 },
-      backgroundColor: 'light.main',
-      borderRadius: 2,
-      boxShadow: 'shadows.default'
-    }">
-      Hello Super JSS!
-    </h1>
-  `
-})
-export class WelcomeHeaderComponent {
-}
-```
-This small example demonstrates theming (`primary.main`, `light.main`), responsive padding, and other styles, all with a clean and concise syntax.
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- An existing Angular project (Angular 15+ recommended, Angular 20 for full signal benefits).
-- Node.js and npm.
-
-### Installation
+## Install
 
 ```bash
 npm install super-jss
 ```
 
-### Basic Usage
+## Quick Start
 
-Import the `SjDirective` in your standalone component and apply the `[sj]` directive to the element you want to style.
+SJSS uses camelCase CSS properties with responsive breakpoint objects. Apply styles via the `[sj]` directive:
 
-```typescript
+**Component (TypeScript):**
+
+```ts
 import { Component } from '@angular/core';
 import { SjDirective } from 'super-jss';
 
 @Component({
   standalone: true,
-  selector: 'app-my-component',
+  selector: 'app-hero',
+  imports: [SjDirective],
   template: `
-    <div [sj]="{ p: 2, bg: 'primary.main', color: 'primary.contrast' }">
-      Hello from SJSS!
+    <div [sj]="{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      padding: { xs: 1, md: 2 }, 
+      backgroundColor: 'primary.main',
+      '&:hover': { backgroundColor: 'primary.dark' }
+    }">
+      <h1 [sj]="{ color: 'primary.contrast', fontWeight: '600' }">Hello SJSS</h1>
     </div>
   `,
 })
-export class MyComponent {}
+export class HeroComponent {}
 ```
 
-## Key Features
+**Key concepts:**
 
-### Responsive Styling
+- **camelCase properties**: `backgroundColor`, `justifyContent`, `borderRadius`
+- **Responsive objects**: `{ xs: 1, md: 2, lg: 3 }` for breakpoint-specific values
+- **Theme tokens**: `'primary.main'`, `'neutral.dark'` for consistent colors
+- **Pseudo-selectors**: `'&:hover'`, `'&:focus'` for interactions
 
-SJSS makes responsive design intuitive. Define different style values for various breakpoints directly within your style properties.
+## The Best Example: Dynamic Theming
 
-```html
-<div [sj]="{
-  padding: { xs: 1, md: 2, lg: 3 },
-  backgroundColor: { xs: 'red', md: 'blue', lg: 'green' },
-  fontSize: { xs: '1rem', md: '1.5rem', lg: '2rem' }
-}">
-  This div adapts to screen size!
-</div>
-```
+Here's a clean theming example showcasing SJSS components with different color schemes and responsive design.
 
-### Theming with Palette
+**Component (TypeScript):**
 
-Use semantic color names from your theme's palette.
+```ts
+import { Component } from '@angular/core';
+import { SJ_BASE_COMPONENTS_IMPORTS, sj, WithSj } from 'super-jss';
 
-```html
-<div [sj]="{ backgroundColor: 'primary.main', padding: 2 }">
-  <h1 [sj]="{ color: 'primary.contrast' }">Themed Content!</h1>
-</div>
-```
+@Component({
+  selector: 'app-theme-demo',
+  standalone: true,
+  imports: [SJ_BASE_COMPONENTS_IMPORTS],
+  template: `
+    <sj-box [sj]="containerStyle">
+      <sj-typography variant="h2">SJSS Theming</sj-typography>
+      
+      <sj-box [sj]="gridStyle">
+        <sj-card variant="elevated" [sj]="primaryCardStyle">
+          <sj-typography variant="h5">Primary Theme</sj-typography>
+          <sj-typography variant="body">Clean and professional design</sj-typography>
+          <sj-button variant="contained" [sj]="primaryButtonStyle">Primary Action</sj-button>
+        </sj-card>
+        
+        <sj-card variant="outlined" [sj]="secondaryCardStyle">
+          <sj-typography variant="h5">Secondary Theme</sj-typography>
+          <sj-typography variant="body">Subtle and elegant styling</sj-typography>
+          <sj-button variant="outlined" [sj]="secondaryButtonStyle">Secondary Action</sj-button>
+        </sj-card>
+        
+        <sj-card [sj]="accentCardStyle">
+          <sj-typography variant="h5">Accent Theme</sj-typography>
+          <sj-typography variant="body">Bold and eye-catching</sj-typography>
+          <sj-button variant="text" [sj]="accentButtonStyle">Accent Action</sj-button>
+        </sj-card>
+      </sj-box>
+    </sj-box>
+  `,
+})
+export class ThemeDemoComponent extends WithSj {
+  readonly containerStyle = [
+    sj.flex.column({ gap: 2 }),
+    sj.css.padding(2),
+    sj.css.backgroundColor(sj.tokens.palette.light.main),
+  ];
 
-### Composing Styles with Arrays
+  readonly gridStyle = [
+    sj.grid.container(),
+    sj.grid.columns({ xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }),
+    sj.css.gap(1.5),
+  ];
 
-Combine reusable `SjStyle` objects for modular and dynamic styling.
+  readonly primaryCardStyle = [
+    sj.flex.column({ gap: 1 }),
+    sj.css.padding(1.5),
+    sj.css.backgroundColor(sj.tokens.palette.primary.main),
+    sj.css.color(sj.tokens.palette.primary.contrast),
+    sj.css.borderRadius(0.75),
+    sj.css.boxShadow('0 2px 8px rgba(0,0,0,0.1)'),
+  ];
 
-```typescript
-// In your component.ts
-const myPadding: SjStyle = { padding: 2 };
-const myShadow: SjStyle = { boxShadow: '0 2px 4px rgba(0,0,0,0.1)' };
-```
-```html
-<!-- In your template -->
-<div [sj]="[myPadding, myShadow, { backgroundColor: 'lightblue' }]">
-  Composed Styles!
-</div>
-```
+  readonly secondaryCardStyle = [
+    sj.flex.column({ gap: 1 }),
+    sj.css.padding(1.5),
+    sj.css.border(`2px solid ${sj.tokens.palette.secondary.main}`),
+    sj.css.borderRadius(0.75),
+    sj.css.backgroundColor('transparent'),
+  ];
 
-### Dynamic Theme Updates
+  readonly accentCardStyle = [
+    sj.flex.column({ gap: 1 }),
+    sj.css.padding(1.5),
+    sj.css.backgroundColor(sj.tokens.colors.blue[500]),
+    sj.css.color('white'),
+    sj.css.borderRadius(0.75),
+    sj.css.boxShadow('0 4px 12px rgba(59, 130, 246, 0.3)'),
+  ];
 
-Update the theme at runtime using the `SjThemeService`.
+  readonly primaryButtonStyle = [
+    sj.css.backgroundColor('white'),
+    sj.css.color(sj.tokens.palette.primary.main),
+    sj.css.marginTop('auto'),
+  ];
 
-```typescript
-// In your component.ts
-import { SjThemeService, defaultTheme, desertTheme } from 'super-jss';
+  readonly secondaryButtonStyle = [
+    sj.css.borderColor(sj.tokens.palette.secondary.main),
+    sj.css.color(sj.tokens.palette.secondary.main),
+    sj.css.marginTop('auto'),
+  ];
 
-// ...
-export class ThemeUpdaterComponent {
-  isDesertTheme = false;
-  constructor(private th: SjThemeService) {}
-
-  toggleTheme() {
-    this.isDesertTheme = !this.isDesertTheme;
-    const themeToApply = this.isDesertTheme ? desertTheme : defaultTheme;
-    this.th.setTheme(themeToApply);
-  }
+  readonly accentButtonStyle = [
+    sj.css.color('white'),
+    sj.css.marginTop('auto'),
+  ];
 }
 ```
-```html
-<!-- In your template -->
-<button (click)="toggleTheme()" [sj]="{ backgroundColor: 'primary.main', color: 'primary.contrast', padding: 1, borderRadius: '4px', cursor: 'pointer' }">
-  Toggle Theme
-</button>
+
+**What makes this example tremendous:**
+
+- **Clean theming**: Three distinct visual themes using SJSS tokens
+- **Component variants**: `sj-card` with `elevated` and `outlined` variants
+- **Responsive grid**: Automatically adapts from 1 to 3 columns
+- **Theme tokens**: Uses semantic colors like `primary.main`, `secondary.main`
+- **Consistent spacing**: Leverages SJSS spacing scale
+- **No complex logic**: Pure styling demonstration
+
+## Core Features
+
+### 🎨 Theming & Tokens
+
+SJSS includes a complete design system with colors, spacing, typography, and breakpoints.
+
+```ts
+// Colors: semantic palette + full color scales
+sj.css.backgroundColor(sj.tokens.palette.primary.main)
+sj.css.color(sj.tokens.colors.blue[500])
+
+// Spacing: consistent scales
+sj.css.padding(sj.tokens.spacing(2)) // 16px
+
+// Typography: variants
+<sj-typography variant="h1">Title</sj-typography>
+
+// Breakpoints: responsive objects
+[sj]="{ p: { xs: 1, md: 2, lg: 3 } }"
 ```
 
-### Styling Shorthands
+### 🚀 Shorthands
 
-For convenience, SJSS provides a range of shorthand properties.
+Common properties have short aliases:
 
-```html
-<div [sj]="{
-  d: 'flex', 
-  fxDir: {xs: 'row', md: 'column'}, 
-  fxJustify: 'center',
-  bg: 'primary.main',
-  px: 4, // padding-left & padding-right
-  py: 2, // padding-top & padding-bottom
-  mx: 2, // margin-left & margin-right
-  my: 2  // margin-top & margin-bottom
-}">
-  Welcome to Super JSS!
-</div>
+```ts
+sj.sh.bg('primary.main')    // backgroundColor
+sj.sh.p(2)                  // padding
+sj.sh.m({ xs: 1, md: 2 })   // margin (responsive)
+sj.sh.c('neutral.dark')     // color
+sj.sh.w('100%')             // width
+sj.sh.h(200)                // height
+sj.sh.brad(0.5)             // borderRadius
+sj.sh.gap(1)                // gap
 ```
 
-### Flex-box Responsive Demo
+### 📐 Layout Helpers
 
-Explore how Super JSS simplifies responsive flex-box layouts with this interactive StackBlitz example. See how `[sj]` attributes are used to create flexible and adaptive UI components that respond to different screen sizes.
+Powerful flexbox and grid utilities:
 
-- [StackBlitz: Flex-box Responsive Demo](https://stackblitz.com/edit/angular-ivy-ieshja?file=README.md,src%2Fapp%2Fapp.component.ts)
+```ts
+// Flexbox
+sj.flex.center()           // d:flex, justify:center, align:center
+sj.flex.column({ gap: 1 }) // d:flex, fxDir:column, gap:1
+sj.flex.between()          // d:flex, fxJustify:space-between
 
-## 📖 Documentation
+// Grid
+sj.grid.container()        // d:grid
+sj.grid.cols(3)            // gridTemplateColumns: repeat(3, 1fr)
+sj.grid.columns('1fr 2fr') // custom columns
+sj.grid.gap(1)             // gap:1
 
-Dive deep into Super JSS's capabilities:
+// Stack (opinionated flex)
+sj.stack({ direction: 'row', gap: 0.5, align: 'center' })
+```
 
-- Official site & docs: https://sjss.dev/
+### 🎯 Pseudo-Selectors
 
-## 🎨 Demos
+Style interactions with pseudo-selectors:
 
-- Demo App: See SJSS in action on [StackBlitz](https://stackblitz.com/edit/super-js?file=src%2Fmain.ts).
+```ts
+[sj]="{ 
+  bg: 'light.main',
+  '&:hover': { bg: 'primary.main' },
+  '&:focus': { outline: '2px solid blue' },
+  '&:active': { transform: 'scale(0.98)' }
+}"
+```
 
-## 💖 Support
+Or use helpers:
 
+```ts
+sj.hover({ bg: 'primary.dark' })
+sj.focus({ outline: '2px solid blue' })
+sj.active({ transform: 'scale(0.95)' })
+```
+
+### 🧩 Components
+
+Pre-built components with variants:
+
+```html
+<sj-box [sj]="sj.flex.center()">...</sj-box>
+<sj-card variant="elevated" [sj]="customStyles">...</sj-card>
+<sj-button variant="contained">Click me</sj-button>
+<sj-typography variant="h2">Heading</sj-typography>
+```
+
+### ⚡ Performance
+
+- **Atomic CSS**: Generates only used styles
+- **Bundled classes**: Single class per style object
+- **Memoized rendering**: Avoids redundant computations
+- **Signals integration**: Reactive updates without overhead
+
+## API Overview
+
+```ts
+import { sj } from 'super-jss';
+
+// CSS properties (any CSS property)
+sj.css.backgroundColor('red')
+sj.css.padding(16)
+sj.css.borderRadius('50%')
+
+// Shorthands
+sj.sh.bg('primary')
+sj.sh.p(2)
+
+// Layout
+sj.flex.row()
+sj.grid.cols(3)
+
+// Helpers
+sj.compose(style1, style2)
+sj.hover({ bg: 'dark' })
+
+// Tokens
+sj.tokens.palette.primary.main
+sj.tokens.breakpoints.md
+sj.tokens.spacing(2)
+
+// Components
+import { SjBoxComponent, SjCardComponent } from 'super-jss';
+```
+
+💖 Support
 If you find Super JSS useful, consider supporting its development:
 
-- ☕ ☕ ☕ [Buy me a coffee](https://buymeacoffee.com/rsantoyo)
+☕ ☕ ☕ Buy me a coffee
+📬 Contact
+For inquiries, feedback, or issues, reach out at <ricardo.santoyo@hotmail.com>.
 
-## 📬 Contact
-
-For inquiries, feedback, or issues, reach out at [ricardo.santoyo@hotmail.com](mailto:ricardo.santoyo@hotmail.com).
+Readme
+Keywords
+angularangular 20angular signalscss-in-jsatomic cssutility-firstdesign systemresponsivebreakpointsthemingruntime themingpalettetypographytailwind alternativestyle directiveangular styling

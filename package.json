@@ -1,6 +1,6 @@
 {
   "name": "super-jss",
-  "version": "0.0.1-beta.17",
+  "version": "0.0.1-beta.22",
   "scripts": {
     "ng": "ng",
     "start": "ng build super-jss && ng serve",

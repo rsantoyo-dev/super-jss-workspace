@@ -1,6 +1,6 @@
 {
   "name": "super-jss",
-  "version": "0.0.1-beta.16",
+  "version": "0.0.1-beta.21",
   "description": "Super JavaScript Stylesheets for Angular 20 — atomic CSS-in-JS using Signals with responsive breakpoints and theming.",
   "repository": {
     "type": "git",
@@ -45,5 +45,4 @@
   "contributors": [
     "Ricardo Santoyo <ricardo.santoyo@hotmail.com>"
   ]
-
 }

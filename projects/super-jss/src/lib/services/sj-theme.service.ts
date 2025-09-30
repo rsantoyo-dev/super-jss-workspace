@@ -7,7 +7,9 @@ import {
   Optional,
   Inject,
   Injector,
+  PLATFORM_ID,
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import {
   SjBreakPoints,
   SjColors,
@@ -48,19 +50,28 @@ export class SjThemeService implements OnDestroy {
   constructor(
     @Optional() @Inject(SJ_THEME) private initialTheme: SjTheme,
     @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: Object,
     private injector: Injector
   ) {
     if (this.initialTheme) {
       this.setTheme(this.initialTheme);
     }
-    this.initResizeListener();
+    // Only initialize resize listener in browser environment
+    if (isPlatformBrowser(this.platformId)) {
+      this.initResizeListener();
+    }
   }
 
   /**
    * Subscribes to window resize and updates width/breakpoint signals (debounced).
    * Ensures consumers re-render on any resize, not only breakpoint changes.
+   * Only runs in browser environment.
    */
   public initResizeListener(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     this.resizeSubscription?.unsubscribe();
     const window = this.document.defaultView;
     if (window) {

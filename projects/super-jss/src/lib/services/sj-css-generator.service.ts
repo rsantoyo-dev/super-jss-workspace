@@ -1,5 +1,12 @@
-import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  Renderer2,
+  RendererFactory2,
+  PLATFORM_ID,
+} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { SjStyle, SjTheme } from '../models/interfaces';
 import { CssGenerator } from '../core/css-generator';
 import { generateBundleId } from '../core/class-name';
@@ -12,16 +19,23 @@ export class SjCssGeneratorService {
   // Cache mapping serialized styles + version -> generated class list
   private classCache = new Map<string, string[]>();
   private renderer: Renderer2;
-  private styleEl: HTMLStyleElement;
+  private styleEl?: HTMLStyleElement;
+  private isBrowser: boolean;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: Object,
     private rendererFactory: RendererFactory2
   ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
     this.renderer = this.rendererFactory.createRenderer(null, null);
-    this.styleEl = this.renderer.createElement('style');
-    this.renderer.setAttribute(this.styleEl, 'data-sjss', '');
-    this.renderer.appendChild(this.document.head, this.styleEl);
+
+    // Only create and append style element in browser environment
+    if (this.isBrowser) {
+      this.styleEl = this.renderer.createElement('style');
+      this.renderer.setAttribute(this.styleEl, 'data-sjss', '');
+      this.renderer.appendChild(this.document.head, this.styleEl);
+    }
   }
 
   /**
@@ -110,7 +124,7 @@ export class SjCssGeneratorService {
       if (inMedia) newCss += `}\n`;
     }
 
-    if (newCss) {
+    if (newCss && this.styleEl) {
       const cssText = this.renderer.createText(newCss);
       this.renderer.appendChild(this.styleEl, cssText);
     }
@@ -215,7 +229,7 @@ export class SjCssGeneratorService {
         if (inMedia) newCss += `}\n`;
       }
 
-      if (newCss) {
+      if (newCss && this.styleEl) {
         const cssText = this.renderer.createText(newCss);
         this.renderer.appendChild(this.styleEl, cssText);
       }
@@ -234,10 +248,14 @@ export class SjCssGeneratorService {
   public clearCache() {
     this.generatedClasses.clear();
     this.classCache.clear();
-    this.renderer.removeChild(this.document.head, this.styleEl);
-    this.styleEl = this.renderer.createElement('style');
-    this.renderer.setAttribute(this.styleEl, 'data-sjss', '');
-    this.renderer.appendChild(this.document.head, this.styleEl);
+
+    // Only manipulate DOM in browser environment
+    if (this.isBrowser && this.styleEl) {
+      this.renderer.removeChild(this.document.head, this.styleEl);
+      this.styleEl = this.renderer.createElement('style');
+      this.renderer.setAttribute(this.styleEl, 'data-sjss', '');
+      this.renderer.appendChild(this.document.head, this.styleEl);
+    }
   }
 
   // bundle id generation moved to core/class-name.ts
