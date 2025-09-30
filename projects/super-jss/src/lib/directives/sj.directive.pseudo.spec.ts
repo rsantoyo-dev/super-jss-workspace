@@ -8,7 +8,9 @@ import { SjCssGeneratorService } from '../services';
   standalone: true,
   imports: [SjDirective],
   template: `
-    <button id="btn" [sj]="{ '&:hover': { c: 'secondary.dark' } }">Hover Me</button>
+    <button id="btn" [sj]="{ '&:hover': { c: 'secondary.dark' } }">
+      Hover Me
+    </button>
   `,
 })
 class PseudoTestComponent {}
@@ -37,7 +39,12 @@ describe('SjDirective pseudo selector support', () => {
     const cssText = styleEl!.textContent || '';
     expect(cssText).toContain(':hover');
     // The generated class name should include the "hover-" variant prefix
-  const expected = generateAtomicClassName('hover-', 'color', undefined, 'secondary.dark');
-  expect(cssText).toMatch(new RegExp(`\\.${expected}:hover`));
+    const expected = generateAtomicClassName(
+      'hover-',
+      'color',
+      undefined,
+      'secondary.dark'
+    );
+    expect(cssText).toMatch(new RegExp(`\\.${expected}:hover`));
   });
 });

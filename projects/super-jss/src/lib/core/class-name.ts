@@ -24,7 +24,9 @@ function kebabToCompact(s: string): string {
 
 function sanitizeForClass(value: any): string {
   if (value === undefined) return 'u';
-  return String(value).replace(/\./g, '_').replace(/[^a-zA-Z0-9_-]/g, '-');
+  return String(value)
+    .replace(/\./g, '_')
+    .replace(/[^a-zA-Z0-9_-]/g, '-');
 }
 
 // Simple deterministic 32-bit-ish hash, rendered in base36 and trimmed.

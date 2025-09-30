@@ -82,7 +82,8 @@ export class CssGenerator {
 
       if (key.startsWith('&')) {
         const newPseudoClass = key.substring(1);
-        const newVariantPrefix = newPseudoClass.replace(/[^a-zA-Z0-9-]/g, '') + '-';
+        const newVariantPrefix =
+          newPseudoClass.replace(/[^a-zA-Z0-9-]/g, '') + '-';
         this._generate(
           value as SjStyle,
           cssMap,
@@ -94,9 +95,12 @@ export class CssGenerator {
 
         if (typeof value === 'object' && value !== null) {
           // Handle responsive styles: honor theme breakpoint order (xs -> xxl)
-          const orderedBps = Object.keys(this.theme.breakpoints) as (keyof SjBreakPoints)[];
+          const orderedBps = Object.keys(
+            this.theme.breakpoints
+          ) as (keyof SjBreakPoints)[];
           for (const bp of orderedBps) {
-            if (!Object.prototype.hasOwnProperty.call(value as any, bp)) continue;
+            if (!Object.prototype.hasOwnProperty.call(value as any, bp))
+              continue;
             const className = generateAtomicClassName(
               variantPrefix,
               key,
@@ -115,7 +119,11 @@ export class CssGenerator {
               // If bpValue is an object (SjStyle or ResponsiveStyle), skip or handle accordingly
               responsiveValue = 'initial';
             }
-            const mediaQuery = `@media (min-width: ${this.theme.breakpoints[bp]}px) {\n  .${className}${pseudoClass} { ${this.kebabCase(cssProperty as string)}: ${responsiveValue}; }\n}`;
+            const mediaQuery = `@media (min-width: ${
+              this.theme.breakpoints[bp]
+            }px) {\n  .${className}${pseudoClass} { ${this.kebabCase(
+              cssProperty as string
+            )}: ${responsiveValue}; }\n}`;
             cssMap.set(className, mediaQuery);
           }
         } else {

@@ -121,10 +121,10 @@ describe('SuperJssDirective', () => {
       (cssSvc.styleEl as HTMLStyleElement).textContent || '';
     const mdMin = themeService.sjTheme().breakpoints.md;
     const expectedPadding = themeService.sjTheme().spacing(2);
-  expect(cssText).toContain(`@media (min-width: ${mdMin}px)`);
-  const expectedClass = generateAtomicClassName('', 'padding', 'md', 2);
-  expect(cssText).toContain(expectedClass);
-  expect(cssText).toContain(`padding: ${expectedPadding}`);
+    expect(cssText).toContain(`@media (min-width: ${mdMin}px)`);
+    const expectedClass = generateAtomicClassName('', 'padding', 'md', 2);
+    expect(cssText).toContain(expectedClass);
+    expect(cssText).toContain(`padding: ${expectedPadding}`);
 
     // Non-responsive margin applies immediately
     const expectedMargin = themeService.sjTheme().spacing(2);

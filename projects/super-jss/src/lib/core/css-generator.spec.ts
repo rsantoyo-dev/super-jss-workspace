@@ -14,10 +14,16 @@ describe('CssGenerator', () => {
     let foundColor = false;
     let foundBg = false;
     css.forEach((rule) => {
-      if (rule.includes('color') && rule.includes(defaultTheme.palette.primary.main)) {
+      if (
+        rule.includes('color') &&
+        rule.includes(defaultTheme.palette.primary.main)
+      ) {
         foundColor = true;
       }
-      if (rule.includes('background-color') && rule.includes(defaultTheme.colors.blue[500])) {
+      if (
+        rule.includes('background-color') &&
+        rule.includes(defaultTheme.colors.blue[500])
+      ) {
         foundBg = true;
       }
     });
@@ -29,14 +35,18 @@ describe('CssGenerator', () => {
     const gen = new CssGenerator(defaultTheme);
     const css = gen.generateAtomicCss({ padding: { md: 2 } });
 
-  // find any generated rule that contains the md media query and padding value
-  let found = false;
-  css.forEach((rule) => {
-    if (rule.includes(`@media (min-width: ${defaultTheme.breakpoints.md}px)`) && rule.includes('padding') && rule.includes(defaultTheme.spacing(2))) {
-      found = true;
-    }
-  });
-  expect(found).toBeTrue();
+    // find any generated rule that contains the md media query and padding value
+    let found = false;
+    css.forEach((rule) => {
+      if (
+        rule.includes(`@media (min-width: ${defaultTheme.breakpoints.md}px)`) &&
+        rule.includes('padding') &&
+        rule.includes(defaultTheme.spacing(2))
+      ) {
+        found = true;
+      }
+    });
+    expect(found).toBeTrue();
   });
 
   it('supports pseudo selectors via & and prefixes class names accordingly', () => {
@@ -45,14 +55,17 @@ describe('CssGenerator', () => {
       '&:hover': { color: 'secondary.dark' },
     });
 
-  // ensure a :hover rule exists that uses the resolved secondary.dark color
-  let foundHover = false;
-  css.forEach((rule) => {
-    if (rule.includes(':hover') && rule.includes(defaultTheme.palette.secondary.dark)) {
-      foundHover = true;
-    }
-  });
-  expect(foundHover).toBeTrue();
+    // ensure a :hover rule exists that uses the resolved secondary.dark color
+    let foundHover = false;
+    css.forEach((rule) => {
+      if (
+        rule.includes(':hover') &&
+        rule.includes(defaultTheme.palette.secondary.dark)
+      ) {
+        foundHover = true;
+      }
+    });
+    expect(foundHover).toBeTrue();
   });
 
   it('falls back to initial when responsive value is non-primitive', () => {
@@ -95,7 +108,8 @@ describe('CssGenerator', () => {
     // ensure resolved contrast color appears in rules
     let foundContrast = false;
     css3.forEach((rule) => {
-      if (rule.includes(defaultTheme.palette.primary.contrast)) foundContrast = true;
+      if (rule.includes(defaultTheme.palette.primary.contrast))
+        foundContrast = true;
     });
     expect(foundContrast).toBeTrue();
   });
@@ -105,7 +119,8 @@ describe('CssGenerator', () => {
     const css4 = gen4.generateAtomicCss({ margin: { lg: undefined } });
     let foundInitialRule = false;
     css4.forEach((rule) => {
-      if (rule.includes('margin') && rule.includes('initial')) foundInitialRule = true;
+      if (rule.includes('margin') && rule.includes('initial'))
+        foundInitialRule = true;
     });
     expect(foundInitialRule).toBeTrue();
   });
