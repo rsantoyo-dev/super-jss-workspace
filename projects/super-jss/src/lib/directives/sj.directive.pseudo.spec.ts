@@ -38,13 +38,18 @@ describe('SjDirective pseudo selector support', () => {
 
     const cssText = styleEl!.textContent || '';
     expect(cssText).toContain(':hover');
-    // The generated class name should include the "hover-" variant prefix
-    const expected = generateAtomicClassName(
+    // The generated rule may either use an atomic hover- prefixed class, or
+    // when bundling/merging is enabled, use a canonical bundle id (sjb-...). Accept
+    // either case so tests are robust to bundling.
+    const atomicPattern = generateAtomicClassName(
       'hover-',
       'color',
       undefined,
       'secondary.dark'
     );
-    expect(cssText).toMatch(new RegExp(`\\.${expected}:hover`));
+    const bundlePattern = 'sjb-[a-z0-9]+';
+    expect(cssText).toMatch(
+      new RegExp(`\\.(?:${atomicPattern}|${bundlePattern}):hover`)
+    );
   });
 });

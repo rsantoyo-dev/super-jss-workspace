@@ -40,6 +40,11 @@ export class SjDirective implements OnChanges {
   private lastClasses: string[] = [];
   // Cache mapping serialized processed styles + themeVersion -> generated class list
   private styleCache = new Map<string, string[]>();
+  // Memoize the last raw sj input reference and its resolved merged styles
+  private _lastSjInputRef: any = undefined;
+  private _lastResolvedStyles: SjStyle | undefined = undefined;
+  // Cache resolved merged styles keyed by the original sj input reference
+  private mergeCache: WeakMap<object | Function, SjStyle> = new WeakMap();
 
   /**
    * Constructs the SjDirective.
@@ -65,9 +70,27 @@ export class SjDirective implements OnChanges {
       const tv = this.sjt.themeVersion(); // depend on themeVersion (theme structure changes)
       // Clear local style cache when themeVersion changes to avoid stale classes
       this.styleCache.clear();
+      // Clear merged-style cache too since theme token resolution may change
+      try {
+        this.mergeCache = new WeakMap();
+      } catch {}
       this.renderStyles();
       return tv;
     });
+  }
+
+  /**
+   * Triggers a re-render when [sj] input changes.
+   * @param changes Angular input change set.
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    // Re-render styles when any @Input properties change.
+    // Clear the last resolved input ref if the sj input reference changed
+    if (changes['sj']) {
+      this._lastSjInputRef = undefined;
+      this._lastResolvedStyles = undefined;
+    }
+    this.renderStyles();
   }
 
   /**
@@ -100,25 +123,59 @@ export class SjDirective implements OnChanges {
    */
   protected renderStyles(): void {
     const element = this.el.nativeElement;
+    // remove classes added by the previous render
     this.lastClasses.forEach((c: string) =>
       this.renderer.removeClass(element, c)
     );
 
     const theme = this.sjt.sjTheme();
 
-    const callIfFn = (v: SjStyle | SjStyleProducer): SjStyle =>
-      typeof v === 'function' ? (v as SjStyleProducer)() : (v as SjStyle);
+    // Use a cheap reference-based memo to avoid repeated deepMerge work when
+    // the input hasn't changed (most callers pass precomputed style refs).
+    const callIfFn = (v: any) =>
+      typeof v === 'function' ? (v as SjStyleProducer)() : v;
 
-    const sjStyles = (
-      this.sj
-        ? Array.isArray(this.sj)
-          ? (this.sj as Array<SjStyle | SjStyleProducer>).reduce(
-              (acc, style) => deepMerge(acc, callIfFn(style)),
-              {}
-            )
-          : callIfFn(this.sj as any)
-        : {}
-    ) as SjStyle;
+    const resolveAndMergeOnce = (input: any): SjStyle => {
+      // Fast path: exact same input reference
+      if (input === this._lastSjInputRef && this._lastResolvedStyles) {
+        return this._lastResolvedStyles;
+      }
+
+      // If input is an object/function, try WeakMap cache
+      const canWeakKey =
+        input && (typeof input === 'object' || typeof input === 'function');
+      if (canWeakKey) {
+        const existing = this.mergeCache.get(input as object | Function);
+        if (existing) {
+          this._lastSjInputRef = input;
+          this._lastResolvedStyles = existing;
+          return existing;
+        }
+      }
+
+      let acc: SjStyle = {};
+      const push = (v: any) => {
+        if (v === undefined || v === null) return;
+        if (Array.isArray(v)) return v.forEach(push);
+        if (typeof v === 'function') return push(callIfFn(v));
+        if (typeof v === 'object') {
+          acc = deepMerge(acc, v as SjStyle);
+          return;
+        }
+      };
+      push(input);
+
+      this._lastSjInputRef = input;
+      this._lastResolvedStyles = acc;
+      if (canWeakKey) {
+        try {
+          this.mergeCache.set(input as object | Function, acc);
+        } catch {}
+      }
+      return acc;
+    };
+
+    const sjStyles = resolveAndMergeOnce(this.sj) as SjStyle;
 
     const processedStyles = this.processShorthands(sjStyles);
 
@@ -148,8 +205,10 @@ export class SjDirective implements OnChanges {
     }
 
     if (classes && classes.length > 0) {
-      classes.forEach((c: string) => this.renderer.addClass(element, c));
-      this.lastClasses = classes;
+      // Apply only one canonical SJ class for best runtime performance.
+      const canonical = classes[0];
+      this.renderer.addClass(element, canonical);
+      this.lastClasses = [canonical];
     }
 
     // Apply inline typography last so it always wins over classes
@@ -159,14 +218,5 @@ export class SjDirective implements OnChanges {
       const bp = this.sjt.currentBreakpoint() as keyof SjBreakPoints;
       const width = theme.breakpoints[bp];
     } catch {}
-  }
-
-  /**
-   * Triggers a re-render when [sj] input changes.
-   * @param changes Angular input change set.
-   */
-  ngOnChanges(changes: SimpleChanges): void {
-    // Re-render styles when any @Input properties change.
-    this.renderStyles();
   }
 }

@@ -45,18 +45,69 @@ export class SjCssGeneratorService {
     const cssGenerator = new CssGenerator(theme);
     const cssMap = cssGenerator.generateAtomicCss(styles);
     const classes: string[] = [];
-    let newCss = '';
+    // Merge declarations per selector/media instead of appending one-rule blocks
+    // to make the stylesheet contain combined rule blocks (faster to parse
+    // and easier to inspect in DevTools).
+    const mediaMap = new Map<string, Map<string, Set<string>>>();
 
     for (const [className, cssRule] of cssMap) {
       const prefixedClass = `${prefix}${className}`;
+      classes.push(prefixedClass);
+
+      // Skip classes we've already emitted
+      if (this.generatedClasses.has(prefixedClass)) continue;
+
       const prefixedRule = cssRule
         .split(`.${className}`)
         .join(`.${prefixedClass}`);
-      if (!this.generatedClasses.has(prefixedClass)) {
-        this.generatedClasses.add(prefixedClass);
-        newCss += prefixedRule + '\n';
+
+      // detect @media wrapper
+      const mediaMatch = prefixedRule.match(/^@media\s*([^\{]+)\{([\s\S]*)\}$/);
+      let mediaKey = '';
+      let inner = prefixedRule;
+      if (mediaMatch) {
+        mediaKey = `@media ${mediaMatch[1].trim()}`;
+        inner = mediaMatch[2].trim();
       }
-      classes.push(prefixedClass);
+
+      if (!mediaMap.has(mediaKey)) mediaMap.set(mediaKey, new Map());
+      const selectorMap = mediaMap.get(mediaKey)!;
+
+      const ruleRegex = /([^\{]+)\{([^\}]*)\}/g;
+      let m: RegExpExecArray | null;
+      while ((m = ruleRegex.exec(inner)) !== null) {
+        const selector = m[1].trim();
+        const declsRaw = m[2].trim();
+        if (!selector) continue;
+
+        if (!selectorMap.has(selector)) selectorMap.set(selector, new Set());
+        const declSet = selectorMap.get(selector)!;
+
+        declsRaw.split(';').forEach((d) => {
+          const ds = d.trim();
+          if (ds) declSet.add(ds);
+        });
+      }
+
+      // mark as generated so subsequent calls skip it
+      this.generatedClasses.add(prefixedClass);
+    }
+
+    // Reconstruct merged CSS text
+    let newCss = '';
+    for (const [mediaKey, selectorMap] of mediaMap.entries()) {
+      const inMedia = mediaKey !== '';
+      if (inMedia) newCss += `${mediaKey} {\n`;
+
+      for (const [selector, declSet] of selectorMap.entries()) {
+        const decls = Array.from(declSet).join('; ');
+        const declStr = decls.endsWith(';')
+          ? decls
+          : decls + (decls ? ';' : '');
+        newCss += `  ${selector} { ${declStr} }\n`;
+      }
+
+      if (inMedia) newCss += `}\n`;
     }
 
     if (newCss) {
@@ -95,13 +146,73 @@ export class SjCssGeneratorService {
 
     // Avoid appending identical bundle rules multiple times
     if (!this.generatedClasses.has(bundleId)) {
-      let newCss = '';
+      // Merge declarations for the same selector (and media query) so the
+      // final stylesheet contains a single rule block per selector. This
+      // reduces scattered single-property blocks like:
+      // .sjb-1 { color: ... }
+      // .sjb-1 { margin-top: ... }
+      // into a single combined block:
+      // .sjb-1 { color: ...; margin-top: ... }
+      const mediaMap = new Map<string, Map<string, Set<string>>>();
+
       for (const [className, cssRule] of cssMap) {
         // replace occurrences of the atomic class with the bundle class
         const prefixedRule = cssRule
           .split(`.${className}`)
           .join(`.${bundleId}`);
-        newCss += prefixedRule + '\n';
+
+        // Detect @media wrapper produced by the generator. If present,
+        // extract the media header and inner rules; otherwise treat as
+        // top-level rules with an empty media key.
+        const mediaMatch = prefixedRule.match(
+          /^@media\s*([^\{]+)\{([\s\S]*)\}$/
+        );
+        let mediaKey = '';
+        let inner = prefixedRule;
+        if (mediaMatch) {
+          mediaKey = `@media ${mediaMatch[1].trim()}`;
+          inner = mediaMatch[2].trim();
+        }
+
+        if (!mediaMap.has(mediaKey)) mediaMap.set(mediaKey, new Map());
+        const selectorMap = mediaMap.get(mediaKey)!;
+
+        // Extract selector blocks from the inner content. Generator outputs
+        // rules like `.selector{ prop: val; }` (possibly with pseudo like :hover).
+        const ruleRegex = /([^\{]+)\{([^\}]*)\}/g;
+        let m: RegExpExecArray | null;
+        while ((m = ruleRegex.exec(inner)) !== null) {
+          const selector = m[1].trim();
+          const declsRaw = m[2].trim();
+          if (!selector) continue;
+
+          if (!selectorMap.has(selector)) selectorMap.set(selector, new Set());
+          const declSet = selectorMap.get(selector)!;
+
+          // Split declarations and add unique entries
+          declsRaw.split(';').forEach((d) => {
+            const ds = d.trim();
+            if (ds) declSet.add(ds);
+          });
+        }
+      }
+
+      // Reconstruct merged CSS text
+      let newCss = '';
+      for (const [mediaKey, selectorMap] of mediaMap.entries()) {
+        const inMedia = mediaKey !== '';
+        if (inMedia) newCss += `${mediaKey} {\n`;
+
+        for (const [selector, declSet] of selectorMap.entries()) {
+          const decls = Array.from(declSet).join('; ');
+          // Ensure declarations end with a semicolon
+          const declStr = decls.endsWith(';')
+            ? decls
+            : decls + (decls ? ';' : '');
+          newCss += `  ${selector} { ${declStr} }\n`;
+        }
+
+        if (inMedia) newCss += `}\n`;
       }
 
       if (newCss) {

@@ -96,14 +96,14 @@ import {
         Renders {{ itemsCount() }} boxes styled via [sj]. Styles use tokens to
         avoid excessive unique rules.
       </sj-typography>
-      <div style="display:flex; gap:8px; margin-top:12px;">
+      <sj-card [sj]="[sj.css.flexDirection('row')]">
         <button (click)="setMode('sj')" [disabled]="mode() === 'sj'">
           SJSS mode
         </button>
         <button (click)="setMode('css')" [disabled]="mode() === 'css'">
           CSS mode
         </button>
-      </div>
+      </sj-card>
 
       <div
         style="margin-top:12px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;"
