@@ -2,6 +2,7 @@ import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SjStyle, SjTheme } from '../models/interfaces';
 import { CssGenerator } from '../core/css-generator';
+import { generateBundleId } from '../core/class-name';
 
 @Injectable({
   providedIn: 'root',
@@ -70,6 +71,52 @@ export class SjCssGeneratorService {
   }
 
   /**
+   * Generate a single bundled class for the entire style object.
+   * This reduces the number of classes applied per element (1 class vs many atomic classes)
+   * by replacing all generated atomic selectors with a single prefix class.
+   */
+  public getOrGenerateClassBundle(
+    styles: SjStyle,
+    theme: SjTheme,
+    version = 0
+  ): string[] {
+    const prefix = version > 0 ? `v${version}-` : '';
+    const cacheKey = prefix + 'bundle::' + JSON.stringify(styles || {});
+    const cached = this.classCache.get(cacheKey);
+    if (cached) return cached;
+
+    const cssGenerator = new CssGenerator(theme);
+    const cssMap = cssGenerator.generateAtomicCss(styles);
+
+    // Make a compact, deterministic id for this bundle from the JSON
+    const bundleId = `${prefix}${generateBundleId(
+      JSON.stringify(styles || {})
+    )}`;
+
+    // Avoid appending identical bundle rules multiple times
+    if (!this.generatedClasses.has(bundleId)) {
+      let newCss = '';
+      for (const [className, cssRule] of cssMap) {
+        // replace occurrences of the atomic class with the bundle class
+        const prefixedRule = cssRule
+          .split(`.${className}`)
+          .join(`.${bundleId}`);
+        newCss += prefixedRule + '\n';
+      }
+
+      if (newCss) {
+        const cssText = this.renderer.createText(newCss);
+        this.renderer.appendChild(this.styleEl, cssText);
+      }
+      this.generatedClasses.add(bundleId);
+    }
+
+    const classes = [bundleId];
+    this.classCache.set(cacheKey, classes);
+    return classes;
+  }
+
+  /**
    * Clears in-memory cache and resets the <style> host element.
    * Call when theme structure changes to avoid stale CSS.
    */
@@ -81,4 +128,6 @@ export class SjCssGeneratorService {
     this.renderer.setAttribute(this.styleEl, 'data-sjss', '');
     this.renderer.appendChild(this.document.head, this.styleEl);
   }
+
+  // bundle id generation moved to core/class-name.ts
 }

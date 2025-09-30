@@ -127,14 +127,24 @@ export class SjDirective implements OnChanges {
     const cacheKey =
       JSON.stringify(processedStyles || {}) + `::v${this.sjt.themeVersion()}`;
 
-    let classes = this.styleCache.get(cacheKey);
+    let classes: string[] | undefined = this.styleCache.get(cacheKey);
     if (!classes && Object.keys(processedStyles).length > 0) {
-      classes = this.cssGenerator.getOrGenerateClasses(
-        processedStyles,
-        theme,
-        this.sjt.themeVersion()
-      );
-      this.styleCache.set(cacheKey, classes);
+      // Prefer bundled single-class generation when available for faster application
+      // fallback to atomic class generation.
+      if ((this.cssGenerator as any).getOrGenerateClassBundle) {
+        classes = (this.cssGenerator as any).getOrGenerateClassBundle(
+          processedStyles,
+          theme,
+          this.sjt.themeVersion()
+        );
+      } else {
+        classes = this.cssGenerator.getOrGenerateClasses(
+          processedStyles,
+          theme,
+          this.sjt.themeVersion()
+        );
+      }
+      if (classes) this.styleCache.set(cacheKey, classes);
     }
 
     if (classes && classes.length > 0) {

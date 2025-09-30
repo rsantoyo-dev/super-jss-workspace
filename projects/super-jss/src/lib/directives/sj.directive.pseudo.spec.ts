@@ -12,6 +12,7 @@ import { SjCssGeneratorService } from '../services';
   `,
 })
 class PseudoTestComponent {}
+import { generateAtomicClassName } from '../core/class-name';
 
 describe('SjDirective pseudo selector support', () => {
   let fixture: ComponentFixture<PseudoTestComponent>;
@@ -36,6 +37,7 @@ describe('SjDirective pseudo selector support', () => {
     const cssText = styleEl!.textContent || '';
     expect(cssText).toContain(':hover');
     // The generated class name should include the "hover-" variant prefix
-    expect(cssText).toMatch(/\.hover-sj-c-secondary_dark:hover/);
+  const expected = generateAtomicClassName('hover-', 'color', undefined, 'secondary.dark');
+  expect(cssText).toMatch(new RegExp(`\\.${expected}:hover`));
   });
 });

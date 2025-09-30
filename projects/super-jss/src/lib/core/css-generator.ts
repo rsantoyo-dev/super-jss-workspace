@@ -5,6 +5,7 @@ import {
   ResponsiveStyle,
 } from '../models/interfaces';
 import { shorthandMappings } from '../models/mappings';
+import { generateAtomicClassName } from './class-name';
 /**
  * Internal: resolve theme color tokens (e.g., palette or colors) to CSS values.
  * Falls back to the raw value when not resolvable.
@@ -96,7 +97,12 @@ export class CssGenerator {
           const orderedBps = Object.keys(this.theme.breakpoints) as (keyof SjBreakPoints)[];
           for (const bp of orderedBps) {
             if (!Object.prototype.hasOwnProperty.call(value as any, bp)) continue;
-            const className = `${variantPrefix}sj-${this.kebabCase(key)}-${bp}-${this.sanitizeValue((value as any)[bp])}`;
+            const className = generateAtomicClassName(
+              variantPrefix,
+              key,
+              bp,
+              (value as any)[bp]
+            );
             const bpValue = (value as any)[bp] as string | number | undefined;
             let responsiveValue: string;
             if (
@@ -114,9 +120,12 @@ export class CssGenerator {
           }
         } else {
           // Handle non-responsive styles
-          const className = `${variantPrefix}sj-${this.kebabCase(
-            key
-          )}-${this.sanitizeValue(value)}`;
+          const className = generateAtomicClassName(
+            variantPrefix,
+            key,
+            undefined,
+            value
+          );
           const resolvedValue = this.resolveStyleValue(key, value);
           const cssRule = `.${className}${pseudoClass} { ${this.kebabCase(
             cssProperty as string
