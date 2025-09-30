@@ -3,7 +3,7 @@
   "version": "0.0.1-beta.17",
   "scripts": {
     "ng": "ng",
-    "start": "sh -c \"test -f projects/super-jss/package.json && ng build super-jss || echo Skipping lib build; ng serve\"",
+    "start": "ng build super-jss && ng serve",
     "start:watch": "ng serve && ng build super-jss --watch",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
