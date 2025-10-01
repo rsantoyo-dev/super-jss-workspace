@@ -12,7 +12,11 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 - 🎨 Pseudo‑selectors: `&:hover`, `&:focus`, etc.
 - 🧩 Ready‑made building blocks: `<sj-box>`, `<sj-card>`, `<sj-button>`
 
-Docs: <https://sjss.dev>
+## Important links
+- Documentation: [https://sjss.dev](https://sjss.dev)  
+- Demo & lib workspace stackblitz: [https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace](https://- stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace?file=projects/super-jss-demo/src/app/app.component.ts)  
+- Deployed demo:[https://sjssdemo.netlify.app/](https://sjssdemo.netlify.app/)
+- NPM: [https://www.npmjs.com/package/super-jss](https://www.npmjs.com/package/super-jss)
 
 ## Install
 
@@ -194,6 +198,16 @@ A: Absolutely. Use literals where convenient (`'fit-content'`, `'1fr 2fr'`, `600
 
 Q: How do I center with flex quickly?
 A: `sj.display(sj.display.options.flex)`, `sj.justifyContent(sj.justifyContent.options.center)`, and `sj.alignItems(sj.alignItems.options.center)`. That’s it.
+
+## 💖 Support
+
+If you find Super JSS useful, consider supporting its development:
+
+- ☕ ☕ ☕ [Buy me a coffee](https://buymeacoffee.com/rsantoyo)
+
+## 📬 Contact
+
+For inquiries, feedback, or issues, reach out at [ricardo.santoyo@hotmail.com](mailto:ricardo.santoyo@hotmail.com).
 
 ## License
 
