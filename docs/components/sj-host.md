@@ -16,7 +16,7 @@ leaving extra DOM once rendered.
 ## Usage
 
 ```html
-<sj-host [sj]="sj.blueprints.sjBox.column({ gap: 1 })">
+<sj-host [sj]="sj.sjBox.column({ gap: 1 })">
   <h2>Settings</h2>
   <app-settings-panel></app-settings-panel>
 </sj-host>

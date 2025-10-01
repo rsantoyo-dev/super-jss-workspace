@@ -13,10 +13,12 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 - 🧩 Ready‑made building blocks: `<sj-box>`, `<sj-card>`, `<sj-button>`
 
 ## Important links
-- Documentation: [https://sjss.dev](https://sjss.dev)  
-- Demo & lib workspace stackblitz: [https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace](https://- stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace?file=projects/super-jss-demo/src/app/app.component.ts)  
-- Deployed demo:[https://sjssdemo.netlify.app/](https://sjssdemo.netlify.app/)
-- NPM: [https://www.npmjs.com/package/super-jss](https://www.npmjs.com/package/super-jss)
+
+- Documentation: <https://sjss.dev>
+- Demo & lib workspace (StackBlitz): <https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace?file=projects/super-jss-demo/src/app/app.component.ts>
+- GitHub repository: <https://github.com/rsantoyo-dev/super-jss-workspace>
+- Deployed demo: <https://sjssdemo.netlify.app/>
+- NPM: <https://www.npmjs.com/package/super-jss>
 
 ## Install
 

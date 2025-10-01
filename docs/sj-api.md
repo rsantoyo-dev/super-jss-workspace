@@ -1,105 +1,76 @@
 # `sj` API
 
-`sj` is the single, typed entrypoint for Super JSS in templates and code. It
-organizes style functions, layout helpers, tokens, and blueprints in clear
-namespaces so IDE autocomplete is predictable and onboarding is smooth.
+`sj` is the single, typed entrypoint for Super JSS. It exposes:
+
+- All CSS properties as functions directly at the root: `sj.display('flex')`, `sj.gridTemplateColumns('1fr 2fr')`.
+- Curated shorthands at the root: `sj.p(1)`, `sj.bg('primary.main')`, `sj.fxJustify('space-between')`.
+- Discoverable `.options` on popular props to reduce guesswork.
+- Minimal tokens at root: `sj.palette` and `sj.breakpoints`.
+- Blueprints at root with variants: `sj.sjBox`, `sj.sjCard`, `sj.sjButton`.
+
+This lean surface is SSR‑safe and designed for fast authoring with great IDE autocomplete.
 
 ## Quick examples
 
 ```html
-<!-- Neutral CSS names -->
+<!-- CSS properties at root -->
 <div [sj]="[
-  sj.css.display('grid'),
-  sj.css.gridTemplateColumns({ xs: '1fr', sm: '25% 75%' })
+  sj.display('grid'),
+  sj.gridTemplateColumns({ xs: '1fr', sm: '25% 75%' })
 ]"></div>
 
-<!-- Popular shorthands -->
+<!-- Popular shorthands at root -->
 <div [sj]="[
-  sj.sh.p({ xs: 1, md: 2 }),
-  sj.sh.bg(sj.palette.primary.light)
+  sj.p({ xs: 1, md: 2 }),
+  sj.bg(sj.palette.primary.light)
 ]"></div>
 
-<!-- Ergonomic layout families -->
-<div [sj]="[
-  sj.flex.row(),
-  sj.flex.align('center'),
-  sj.flex.gap(1)
-]"></div>
+<!-- Pseudo helpers accept a style or an array of styles -->
+<button [sj]="[
+  sj.bg('primary.main'),
+  sj.hover([ sj.bg('primary.dark'), sj.c('primary.contrast') ])
+]"></button>
 
-<div [sj]="[
-  sj.grid.container(),
-  sj.grid.columns({ xs: '1fr', sm: '25% 75%' })
-]"></div>
-
-<div [sj]="sj.stack({ direction: { xs: 'column', md: 'row' }, gap: 1 })"></div>
-
-<!-- Blueprints and variants -->
-<div [sj]="sj.blueprints.sjCard.flat({ p: 1 })"></div>
-<sj-card [variant]="sj.variants.sjCard.elevated">Card</sj-card>
+<!-- Blueprints and variants at root -->
+<div [sj]="sj.sjCard.flat({ p: 1 })"></div>
+<sj-card [variant]="'elevated'">Card</sj-card>
 
 <!-- Tokens -->
 <div [sj]="[
-  sj.css.color(sj.palette.primary.contrast),
-  sj.css.backgroundColor(sj.tokens.colors.blue[500]),
-  sj.css.display(sj.tokens.display.grid)
+  sj.c(sj.palette.primary.contrast),
+  sj.bg(sj.palette.primary.dark),
+  sj.d(sj.d.options.grid)
 ]"></div>
 ```
 
-## Namespaces
+## Root surface
 
-- `sj.css` — All CSS properties as functions (from `csstype`).
-  - Examples: `sj.css.padding(...)`, `sj.css.backgroundColor(...)`,
-    `sj.css.flexDirection(...)`, `sj.css.gridTemplateColumns(...)`.
-  - Use when you want neutral, standard CSS names.
+- CSS property functions: any camelCase CSS prop is available at `sj.<prop>(value)`.
+  - Examples: `sj.padding(...)`, `sj.backgroundColor(...)`, `sj.flexDirection(...)`, `sj.gridTemplateColumns(...)`.
+  - Popular props include `.options` for discoverability:
+    - `sj.display.options = { flex, grid, block, inline, inlineBlock, contents, none }`
+    - `sj.position.options = { static, relative, absolute, fixed, sticky }`
+    - `sj.width.options` / `sj.height.options` include sizing keywords like `auto`, `fitContent`, `maxContent`, `minContent`.
+    - `sj.justifyContent.options` and `sj.alignItems.options` include friendly camelCase aliases like `spaceBetween`, `flexStart`.
 
-- `sj.sh` — Curated, popular shorthands.
-  - Spacing: `p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml, gap`
-  - Color: `bg, c`
-  - Size: `w, h, minW, minH, maxW, maxH`
-  - Borders: `brad`
-  - Layout: `d, fxDir, fxJustify, fxAItems` (use `sj.flex.*` for more clarity)
+- Shorthands (curated): `p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml, gap, bg, c, w, h, minW, minH, maxW, maxH, brad, d, fxDir, fxJustify, fxAItems`.
+  - Shorthands also expose `.options` where it makes sense: `sj.bg.options`, `sj.c.options`, `sj.d.options`, `sj.fxDir.options`, `sj.fxJustify.options`, `sj.fxAItems.options`.
 
-- `sj.flex` — Ergonomic flex helpers.
-  - Presets: `row(), column(), center(), middle(), between(), around(), evenly(), wrap(), nowrap(), grow(), shrink()`
-  - Knobs: `direction(value)`, `align(value)`, `justify(value)`, `gap(value)`
-  - Tokens: `sj.tokens.flex.direction.row`, `...justify.between`, `...align.center`, `...wrap.wrap`
+- Helpers:
+  - `sj.compose(...parts)` — Merge style parts left→right.
+  - `sj.hover(style | style[])`, `sj.focus(...)`, `sj.active(...)`, `sj.disabled(...)` — Pseudo helpers that accept a single style or an array of styles.
 
-- `sj.grid` — Grid helpers.
-  - Container: `container(overrides)`
-  - Templates: `columns(value)`, `rows(value)`, `areas(value)`, `cols(count)`
-  - Flow/placement: `autoFlow(value)`, `placeItems(value)`, `placeContent(value)`, `placeSelf(value)`, `gap(value)`
+- Tokens:
+  - `sj.palette.<name>.<shade>` — semantic palette with `main|light|dark|contrast`.
+  - `sj.breakpoints = { xs, sm, md, lg, xl, xxl }` — breakpoint names for responsive objects.
 
-- `sj.stack(options)` — Quick, readable stacks.
-  - Options: `direction` (`'row' | 'column'` or responsive), `gap`, `align`, `justify`
-  - Default: column with `gap: 0.5`
-
-- `sj.blueprints` — Design primitives (builders) with dot-variants.
-  - `sjBox`, `sjCard`, `sjButton`
-  - Use as producers (call or pass the function):
-    - `[sj]="sj.blueprints.sjCard.flat({ p: 1 })"`
-    - `[sj]="sj.blueprints.sjCard.primary"` (producer pattern)
-
-- `sj.variants` — Literal registries for IDE autocomplete.
-  - `sj.variants.sjCard.[default|outlined|flat|elevated|interactive|primary|secondary|info|codeSnippet]`
-  - `sj.variants.sjButton.[default|light|contained|outlined|containedPrimary|containedLight|containedDark|containedSecondary|danger]`
-
-- `sj.palette` and `sj.tokens` — Typed design tokens.
-  - `sj.palette.<name>.<shade>` — palette tokens with contrast.
-  - `sj.tokens.colors.<scale>[shade]` — color scales with 50..900 and `contrast`.
-  - `sj.tokens.display.[flex|grid|block|inline|inlineBlock|contents|none]`
-  - `sj.tokens.breakpoints.[xs|sm|md|lg|xl|xxl]`
-  - `sj.tokens.typography.[default|H1..H6|P|SPAN|SMALL|…]`
-  - `sj.tokens.spacing(factor)` — returns the spacing factor (theme maps factors to CSS lengths).
-  - `sj.tokens.flex.direction/justify/align/wrap` — typed flex literal values.
-
-## Helpers (root)
-
-- `sj.compose(...parts)` — Merge style parts left→right.
-- `sj.hover(style)` / `sj.focus(style)` / `sj.active(style)` / `sj.disabled(style)` — Pseudo helpers.
+- Blueprints (builders) at root:
+  - `sj.sjBox`, `sj.sjCard`, `sj.sjButton` are functions with dot‑variants, e.g. `sj.sjCard.elevated()`.
+  - Components `<sj-card>` and `<sj-button>` accept a `variant` string (e.g. `'outlined'`) or you can use the registry values from `sj.sjCard.variants` / `sj.sjButton.variants`.
 
 ## Responsive values
 
-Any property or helper that accepts a value can take a responsive object:
+Any property or shorthand that accepts a value can take a responsive object:
 
 ```ts
 { xs: value, sm: value, md: value, lg: value, xl: value, xxl: value }
@@ -108,24 +79,21 @@ Any property or helper that accepts a value can take a responsive object:
 Example:
 
 ```html
-<div [sj]="sj.css.flexDirection({ xs: 'column', sm: 'row' })"></div>
+<div [sj]="sj.flexDirection({ xs: 'column', sm: 'row' })"></div>
 ```
 
 ## Producer pattern
 
-Blueprints (and some helpers) can be passed as functions (producers). The
-`[sj]` directive will call them for you, so both forms work:
+Blueprints (and helpers) can be passed as functions (producers). The `[sj]` directive will call them for you, so both forms work:
 
 ```html
-<div [sj]="sj.blueprints.sjCard.primary"></div>
-<div [sj]="sj.blueprints.sjCard.primary()"></div>
+<div [sj]="sj.sjCard.primary"></div>
+<div [sj]="sj.sjCard.primary()"></div>
 ```
 
 ## Tips
 
-- Prefer `sj.css.*` for clarity with team members familiar with CSS.
-- Reach for `sj.flex`/`sj.grid`/`sj.stack` to improve readability on layout code.
-- Use `sj.tokens` and `sj.palette` to avoid guessing string literals and unlock
-  autocomplete in templates.
-- Arrays merge left→right, so keep overrides last.
+- Prefer `sj.<cssProp>` for maximum clarity; use shorthands for speed on common properties.
+- Use `.options` on props and shorthands to avoid guessing string literals.
+- Use `sj.palette` and responsive objects frequently; arrays merge left→right, so keep overrides last.
 

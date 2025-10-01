@@ -10,7 +10,7 @@
 - 🎯 **Atomic CSS generation**: Only the CSS you actually use
 - 📱 **Theming + responsive**: Semantic palette, scales, and `xs…xxl` breakpoints
 - 🎨 **Pseudo‑selectors**: `&:hover`, `&:focus`, etc.
-- 🧩 **Shorthands & helpers**: `sj.sh.bg('primary')`, `sj.flex.center()`, `sj.grid.cols(3)`
+- 🧩 **Shorthands & helpers**: `sj.bg('primary.main')`, `sj.fxJustify('space-between')`, `sj.hover(sj.bg('primary.dark'))`
 - 🏗️ **Components**: `<sj-box>`, `<sj-card>`, `<sj-button>`, `<sj-typography>`, `<sj-icon>`
 - 🎨 **Blueprints**: Pre-configured style objects for common UI patterns
 - 🚀 **Performance**: Bundled classes, memoized styles, zero runtime overhead
@@ -30,18 +30,15 @@ Traditional CSS-in-JS libraries ship massive bundles with every possible utility
 SJSS includes a complete design system with colors, spacing, typography, and breakpoints.
 
 ```ts
-// Colors: semantic palette + full color scales
-sj.css.backgroundColor(sj.tokens.palette.primary.main)
-sj.css.color(sj.tokens.colors.blue[500])
+// Colors: semantic palette
+sj.backgroundColor(sj.palette.primary.main)
+sj.color(sj.palette.neutral.dark)
 
-// Spacing: consistent scales
-sj.css.padding(sj.tokens.spacing(2)) // 16px
+// Spacing: numeric factors interpreted by the theme
+sj.padding({ xs: 1, md: 2 }) // responsive
 
-// Typography: variants
+// Typography component
 <sj-typography variant="h1">Title</sj-typography>
-
-// Breakpoints: responsive objects
-[sj]="{ p: { xs: 1, md: 2, lg: 3 } }"
 ```
 
 ### 🚀 **Powerful Shorthands**
@@ -49,14 +46,14 @@ sj.css.padding(sj.tokens.spacing(2)) // 16px
 Common properties have short aliases:
 
 ```ts
-sj.sh.bg('primary.main')    // backgroundColor
-sj.sh.p(2)                  // padding
-sj.sh.m({ xs: 1, md: 2 })   // margin (responsive)
-sj.sh.c('neutral.dark')     // color
-sj.sh.w('100%')             // width
-sj.sh.h(200)                // height
-sj.sh.brad(0.5)             // borderRadius
-sj.sh.gap(1)                // gap
+sj.bg('primary.main')    // backgroundColor
+sj.p(2)                  // padding
+sj.m({ xs: 1, md: 2 })   // margin (responsive)
+sj.c('neutral.dark')     // color
+sj.w('100%')             // width
+sj.h(200)                // height
+sj.brad(0.5)             // borderRadius
+sj.gap(1)                // gap
 ```
 
 ### 📐 **Layout Helpers**
@@ -64,19 +61,17 @@ sj.sh.gap(1)                // gap
 Powerful flexbox and grid utilities:
 
 ```ts
-// Flexbox
-sj.flex.center()           // d:flex, justify:center, align:center
-sj.flex.column({ gap: 1 }) // d:flex, fxDir:column, gap:1
-sj.flex.between()          // d:flex, fxJustify:space-between
+// Flexbox via root props and shorthands
+sj.d('flex')
+sj.fxDir('column')
+sj.fxJustify('space-between')
+sj.fxAItems('center')
+sj.gap(1)
 
 // Grid
-sj.grid.container()        // d:grid
-sj.grid.cols(3)            // gridTemplateColumns: repeat(3, 1fr)
-sj.grid.columns('1fr 2fr') // custom columns
-sj.grid.gap(1)             // gap:1
-
-// Stack (opinionated flex)
-sj.stack({ direction: 'row', gap: 0.5, align: 'center' })
+sj.d('grid')
+sj.gridTemplateColumns('repeat(3, 1fr)')
+sj.gap(1)
 ```
 
 ### 🎯 **Pseudo-Selectors**
@@ -98,6 +93,8 @@ Or use helpers:
 sj.hover({ bg: 'primary.dark' })
 sj.focus({ outline: '2px solid blue' })
 sj.active({ transform: 'scale(0.95)' })
+// Helpers accept arrays too
+sj.hover([ sj.bg('primary.dark'), sj.c('primary.contrast') ])
 ```
 
 ### 🧩 **Pre-built Components**
@@ -105,7 +102,7 @@ sj.active({ transform: 'scale(0.95)' })
 Ready-to-use components with variants:
 
 ```html
-<sj-box [sj]="sj.flex.center()">...</sj-box>
+<sj-box [sj]="[ sj.d('flex'), sj.fxJustify('center'), sj.fxAItems('center') ]">...</sj-box>
 <sj-card variant="elevated" [sj]="customStyles">...</sj-card>
 <sj-button variant="contained">Click me</sj-button>
 <sj-typography variant="h2">Heading</sj-typography>
@@ -114,14 +111,12 @@ Ready-to-use components with variants:
 
 ### 🎨 **Blueprints System**
 
-Pre-configured style objects for common UI patterns:
+Pre-configured style objects for common UI patterns are available at the root:
 
 ```ts
-import { boxBlueprints, buttonBlueprints } from 'super-jss';
-
 // Use pre-built styles
-[sj]="[boxBlueprints.card, customStyles]"
-[sj]="buttonBlueprints.primary"
+[sj]="[ sj.sjBox.centered(), customStyles ]"
+[sj]="sj.sjButton.outlined({ px: 1 })"
 ```
 
 ### ⚡ **Performance Features**

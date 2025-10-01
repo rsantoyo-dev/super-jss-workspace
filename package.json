@@ -1,6 +1,6 @@
 {
   "name": "super-jss",
-  "version": "0.0.1-beta.25",
+  "version": "0.0.1-beta.24",
   "scripts": {
     "ng": "ng",
     "start": "ng build super-jss && ng serve",
@@ -10,7 +10,7 @@
     "test": "ng test --watch=false --browsers=ChromeHeadless",
     "test:dev": "ng test --watch --browsers=Chrome",
     "coverage": "ng test --code-coverage",
-    "publish": "cd dist/super-jss && npm publish",
+    "publish": "ng build super-jss &&cd dist/super-jss && npm publish",
     "pack": "cd dist/super-jss && npm pack",
     "sj-build": "ng build super-jss",
     "sj-watch": "ng build super-jss --watch",

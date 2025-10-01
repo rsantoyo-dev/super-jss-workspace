@@ -9,11 +9,11 @@ sj-button renders a button styled via the button blueprint. It accepts a variant
 Usage
 
 ```html
-<sj-button [variant]="sj.variants.sjButton.outlined" [sj]="{ px: 1, py: 0.5 }">
+<sj-button variant="outlined" [sj]="{ px: 1, py: 0.5 }">
   Outlined
 </sj-button>
 
-<sj-button [sj]="sj.button.containedPrimary({ px: 1 })">
+<sj-button [sj]="sj.sjButton.containedPrimary({ px: 1 })">
   Primary
 </sj-button>
 ```

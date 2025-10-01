@@ -9,10 +9,10 @@ sj-card is a lightweight wrapper that applies a card blueprint to its parent via
 Usage
 
 ```html
-<sj-card [variant]="'flat'" [sj]="[ sj.css.gap(0.5) ]">
+<sj-card [variant]="'flat'" [sj]="[ sj.gap(0.5) ]">
   <h3 [sj]="{ m: 0 }">Title</h3>
   <p [sj]="{ m: 0 }">Body</p>
-  <a [sj]="sj.button.outlined({ px: 1 })">Action</a>
+  <a [sj]="sj.sjButton.outlined({ px: 1 })">Action</a>
   <!-- content -->
   <!-- footer -->
   <small [sj]="{ c: 'neutral' }">Meta</small>
