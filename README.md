@@ -4,19 +4,15 @@
 [![bundle size](https://img.shields.io/bundlephobia/minzip/super-jss?label=size)](https://bundlephobia.com/package/super-jss)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**Super JavaScript Stylesheets (SJSS)** is a lightweight, runtime styling library for Angular 20 that generates atomic CSS on the fly using Angular Signals. It delivers responsive breakpoints, theming (palette, typography, spacing), and pseudo‑selectors — without shipping a giant utility bundle.
+Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angular 20. It generates atomic CSS as you use it, supports responsive breakpoints and theming, and gives you a minimal, ergonomic API.
 
-- ⚡ **Angular‑native**: Built on Signals for instant reactive styling
-- 🎯 **Atomic CSS generation**: Only the CSS you actually use
-- 📱 **Theming + responsive**: Semantic palette, scales, and `xs…xxl` breakpoints
-- 🎨 **Pseudo‑selectors**: `&:hover`, `&:focus`, etc.
-- 🧩 **Shorthands & helpers**: `sj.sh.bg('primary')`, `sj.flex.center()`, `sj.grid.cols(3)`
-- 🏗️ **Components**: `<sj-box>`, `<sj-card>`, `<sj-button>`, `<sj-typography>`
-- 🚀 **Performance**: Bundled classes, memoized styles, zero runtime overhead
+- ⚡ Angular‑native: built on Signals
+- 🎯 Atomic CSS generation: only what you use
+- 📱 Responsive + theming: `xs…xxl` breakpoints and palette tokens
+- 🎨 Pseudo‑selectors: `&:hover`, `&:focus`, etc.
+- 🧩 Ready‑made building blocks: `<sj-box>`, `<sj-card>`, `<sj-button>`
 
-Documentation: [https://sjss.dev](https://sjss.dev)  
-Demo & lib workspace: [https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace](https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace?file=projects/super-jss-demo/src/app/app.component.ts)  
-NPM: [https://www.npmjs.com/package/super-jss](https://www.npmjs.com/package/super-jss)
+Docs: <https://sjss.dev>
 
 ## Why SJSS?
 
@@ -28,33 +24,74 @@ Traditional CSS-in-JS libraries ship massive bundles with every possible utility
 npm install super-jss
 ```
 
-## Quick Start
+## Quick start
 
-SJSS uses camelCase CSS properties with responsive breakpoint objects. Apply styles via the `[sj]` directive:
-
-**Component (TypeScript):**
+This minimal Hero shows inline `[sj]` styles, a one‑line theme update, and a reactive breakpoint log.
 
 ```ts
-import { Component } from '@angular/core';
-import { SjDirective } from 'super-jss';
+import { Component, effect, inject } from '@angular/core';
+import { SJ_BASE_COMPONENTS_IMPORTS, SjThemeService, sj } from 'super-jss';
 
 @Component({
   standalone: true,
   selector: 'app-hero',
-  imports: [SjDirective],
+  imports: [SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <div [sj]="{ 
-      display: 'flex', 
-      justifyContent: 'center', 
-      padding: { xs: 1, md: 2 }, 
-      backgroundColor: 'primary.main',
-      '&:hover': { backgroundColor: 'primary.dark' }
-    }">
-      <h1 [sj]="{ color: 'primary.contrast', fontWeight: '600' }">Hello SJSS</h1>
-    </div>
+    <sj-host
+      [sj]="[
+        sj.display(sj.display.options.flex),
+        sj.flexDirection({
+          xs: sj.flexDirection.options.column,
+          md: sj.flexDirection.options.row
+        }),
+        sj.justifyContent(sj.justifyContent.options.center),
+        sj.alignItems(sj.alignItems.options.center),
+        sj.gap({ xs: 0.5, md: 1 }),
+        sj.p(2),
+        sj.bg(sj.bg.options.light.light)
+      ]"
+    >
+      <sj-box
+        [sj]="[
+          sj.p(1),
+          sj.brad(0.5),
+          sj.bg(sj.bg.options.primary.main),
+          sj.c(sj.c.options.primary.contrast)
+        ]"
+      >
+        <h1 [sj]="[sj.m(0)]">Hello SJSS</h1>
+      </sj-box>
+
+      <sj-button
+        [sj]="[
+          sj.p(2),
+          sj.bg('primary.main'),
+          sj.c('white'),
+          sj.hover([ sj.backgroundColor(sj.bg.options.primary.dark) ])
+        ]"
+        (click)="updatePrimaryColor()"
+      >
+        Update Primary
+      </sj-button>
+    </sj-host>
   `,
 })
-export class HeroComponent {}
+export class HeroComponent {
+  readonly theme = inject(SjThemeService);
+  readonly sj = sj;
+
+  private _bpLogger = effect(() => {
+    console.log('current breakpoint:', this.theme.breakpoint());
+  });
+
+  updatePrimaryColor() {
+    this.theme.setTheme({
+      palette: {
+        primary: { ...this.theme.sjTheme().palette.primary, main: '#4e3149ff' },
+      } as any,
+    });
+  }
+}
 ```
 
 **Key concepts:**
@@ -71,95 +108,74 @@ Here's a clean theming example showcasing SJSS components with different color s
 **Component (TypeScript):**
 
 ```ts
-import { Component } from '@angular/core';
-import { SJ_BASE_COMPONENTS_IMPORTS, sj, WithSj } from 'super-jss';
+import { Component, effect, inject } from '@angular/core';
+import { SJ_BASE_COMPONENTS_IMPORTS, SjThemeService, sj } from 'super-jss';
 
 @Component({
-  selector: 'app-theme-demo',
   standalone: true,
+  selector: 'app-hero',
   imports: [SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-box [sj]="containerStyle">
-      <sj-typography variant="h2">SJSS Theming</sj-typography>
-      
-      <sj-box [sj]="gridStyle">
-        <sj-card variant="elevated" [sj]="primaryCardStyle">
-          <sj-typography variant="h5">Primary Theme</sj-typography>
-          <sj-typography variant="body">Clean and professional design</sj-typography>
-          <sj-button variant="contained" [sj]="primaryButtonStyle">Primary Action</sj-button>
-        </sj-card>
-        
-        <sj-card variant="outlined" [sj]="secondaryCardStyle">
-          <sj-typography variant="h5">Secondary Theme</sj-typography>
-          <sj-typography variant="body">Subtle and elegant styling</sj-typography>
-          <sj-button variant="outlined" [sj]="secondaryButtonStyle">Secondary Action</sj-button>
-        </sj-card>
-        
-        <sj-card [sj]="accentCardStyle">
-          <sj-typography variant="h5">Accent Theme</sj-typography>
-          <sj-typography variant="body">Bold and eye-catching</sj-typography>
-          <sj-button variant="text" [sj]="accentButtonStyle">Accent Action</sj-button>
-        </sj-card>
+    <sj-host
+      [sj]="[
+        sj.display(sj.display.options.flex),
+        sj.flexDirection({
+          xs: sj.flexDirection.options.column,
+          md: sj.flexDirection.options.row
+        }),
+        sj.justifyContent(sj.justifyContent.options.center),
+        sj.alignItems(sj.alignItems.options.center),
+        sj.gap({ xs: 0.5, md: 1 }),
+        sj.p(2),
+        sj.bg(sj.bg.options.light.light)
+      ]"
+    >
+      <sj-box
+        [sj]="[
+          sj.p(1),
+          sj.brad(0.5),
+          sj.bg(sj.bg.options.primary.main),
+          sj.c(sj.c.options.primary.contrast)
+        ]"
+      >
+        <h1 [sj]="[sj.m(0)]">Hello SJSS</h1>
       </sj-box>
-    </sj-box>
+
+      <sj-button
+        [sj]="[
+          sj.p(2),
+          sj.bg('primary.main'),
+          sj.c('white'),
+          sj.hover([sj.backgroundColor(sj.bg.options.primary.dark)])
+        ]"
+        (click)="updatePrimaryColor()"
+      >
+        Update Primary
+      </sj-button>
+    </sj-host>
   `,
 })
-export class ThemeDemoComponent extends WithSj {
-  readonly containerStyle = [
-    sj.flex.column({ gap: 2 }),
-    sj.css.padding(2),
-    sj.css.backgroundColor(sj.tokens.palette.light.main),
-  ];
+export class HeroComponent {
+  readonly theme = inject(SjThemeService);
+  // expose sj to template
+  readonly sj = sj;
 
-  readonly gridStyle = [
-    sj.grid.container(),
-    sj.grid.columns({ xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }),
-    sj.css.gap(1.5),
-  ];
+  // Log breakpoint changes reactively
+  private _bpLogger = effect(() => {
+    console.log('current breakpoint:', this.theme.breakpoint());
+  });
 
-  readonly primaryCardStyle = [
-    sj.flex.column({ gap: 1 }),
-    sj.css.padding(1.5),
-    sj.css.backgroundColor(sj.tokens.palette.primary.main),
-    sj.css.color(sj.tokens.palette.primary.contrast),
-    sj.css.borderRadius(0.75),
-    sj.css.boxShadow('0 2px 8px rgba(0,0,0,0.1)'),
-  ];
-
-  readonly secondaryCardStyle = [
-    sj.flex.column({ gap: 1 }),
-    sj.css.padding(1.5),
-    sj.css.border(`2px solid ${sj.tokens.palette.secondary.main}`),
-    sj.css.borderRadius(0.75),
-    sj.css.backgroundColor('transparent'),
-  ];
-
-  readonly accentCardStyle = [
-    sj.flex.column({ gap: 1 }),
-    sj.css.padding(1.5),
-    sj.css.backgroundColor(sj.tokens.colors.blue[500]),
-    sj.css.color('white'),
-    sj.css.borderRadius(0.75),
-    sj.css.boxShadow('0 4px 12px rgba(59, 130, 246, 0.3)'),
-  ];
-
-  readonly primaryButtonStyle = [
-    sj.css.backgroundColor('white'),
-    sj.css.color(sj.tokens.palette.primary.main),
-    sj.css.marginTop('auto'),
-  ];
-
-  readonly secondaryButtonStyle = [
-    sj.css.borderColor(sj.tokens.palette.secondary.main),
-    sj.css.color(sj.tokens.palette.secondary.main),
-    sj.css.marginTop('auto'),
-  ];
-
-  readonly accentButtonStyle = [
-    sj.css.color('white'),
-    sj.css.marginTop('auto'),
-  ];
+  // One‑liner theme update for primary color
+  updatePrimaryColor() {
+    // update only primary.main while keeping other shades; cast partial palette for brevity
+    this.theme.setTheme({
+      palette: {
+        primary: { ...this.theme.sjTheme().palette.primary, main: '#4e3149ff' },
+      } as any,
+    });
+  }
 }
+
 ```
 
 **What makes this example tremendous:**
@@ -175,77 +191,46 @@ export class ThemeDemoComponent extends WithSj {
 
 ### 🎨 Theming & Tokens
 
-SJSS includes a complete design system with colors, spacing, typography, and breakpoints.
+Use semantic palette tokens and responsive objects anywhere:
 
 ```ts
-// Colors: semantic palette + full color scales
-sj.css.backgroundColor(sj.tokens.palette.primary.main)
-sj.css.color(sj.tokens.colors.blue[500])
-
-// Spacing: consistent scales
-sj.css.padding(sj.tokens.spacing(2)) // 16px
-
-// Typography: variants
-<sj-typography variant="h1">Title</sj-typography>
-
-// Breakpoints: responsive objects
-[sj]="{ p: { xs: 1, md: 2, lg: 3 } }"
+sj.backgroundColor('primary.main');
+sj.color('primary.contrast');
+sj.padding({ xs: 1, md: 2 });
 ```
 
 ### 🚀 Shorthands
 
-Common properties have short aliases:
+Popular, ergonomic aliases:
 
 ```ts
-sj.sh.bg('primary.main')    // backgroundColor
-sj.sh.p(2)                  // padding
-sj.sh.m({ xs: 1, md: 2 })   // margin (responsive)
-sj.sh.c('neutral.dark')     // color
-sj.sh.w('100%')             // width
-sj.sh.h(200)                // height
-sj.sh.brad(0.5)             // borderRadius
-sj.sh.gap(1)                // gap
+sj.bg('primary.main');
+sj.p(2);
+sj.m({ xs: 1, md: 2 });
+sj.c('neutral.dark');
+sj.w('100%');
+sj.h(200);
+sj.brad(0.5);
+sj.gap(1);
 ```
 
-### 📐 Layout Helpers
+### 📐 Layout
 
-Powerful flexbox and grid utilities:
+Use the root CSS properties and `.options`:
 
 ```ts
-// Flexbox
-sj.flex.center()           // d:flex, justify:center, align:center
-sj.flex.column({ gap: 1 }) // d:flex, fxDir:column, gap:1
-sj.flex.between()          // d:flex, fxJustify:space-between
-
-// Grid
-sj.grid.container()        // d:grid
-sj.grid.cols(3)            // gridTemplateColumns: repeat(3, 1fr)
-sj.grid.columns('1fr 2fr') // custom columns
-sj.grid.gap(1)             // gap:1
-
-// Stack (opinionated flex)
-sj.stack({ direction: 'row', gap: 0.5, align: 'center' })
+sj.display(sj.display.options.flex);
+sj.flexDirection(sj.flexDirection.options.column);
+sj.justifyContent(sj.justifyContent.options.center);
+sj.alignItems(sj.alignItems.options.center);
 ```
 
-### 🎯 Pseudo-Selectors
-
-Style interactions with pseudo-selectors:
+### 🎯 Pseudo-selectors
 
 ```ts
-[sj]="{ 
-  bg: 'light.main',
-  '&:hover': { bg: 'primary.main' },
-  '&:focus': { outline: '2px solid blue' },
-  '&:active': { transform: 'scale(0.98)' }
-}"
-```
-
-Or use helpers:
-
-```ts
-sj.hover({ bg: 'primary.dark' })
-sj.focus({ outline: '2px solid blue' })
-sj.active({ transform: 'scale(0.95)' })
+sj.hover([ sj.backgroundColor(sj.bg.options.primary.dark) ]);
+sj.focus({ outline: '2px solid blue' });
+sj.active({ transform: 'scale(0.95)' });
 ```
 
 ### 🧩 Components
@@ -271,30 +256,25 @@ Pre-built components with variants:
 ```ts
 import { sj } from 'super-jss';
 
-// CSS properties (any CSS property)
-sj.css.backgroundColor('red')
-sj.css.padding(16)
-sj.css.borderRadius('50%')
+// CSS properties
+sj.backgroundColor('red');
+sj.padding(16);
+sj.borderRadius('50%');
 
 // Shorthands
-sj.sh.bg('primary')
-sj.sh.p(2)
-
-// Layout
-sj.flex.row()
-sj.grid.cols(3)
+sj.bg('primary');
+sj.p(2);
 
 // Helpers
-sj.compose(style1, style2)
-sj.hover({ bg: 'dark' })
+sj.compose(style1, style2);
+sj.hover({ bg: 'dark' });
 
 // Tokens
-sj.tokens.palette.primary.main
-sj.tokens.breakpoints.md
-sj.tokens.spacing(2)
+sj.palette.primary.main;
+sj.breakpoints.md;
 
 // Components
-import { SjBoxComponent, SjCardComponent } from 'super-jss';
+import { SJ_BASE_COMPONENTS_IMPORTS } from 'super-jss';
 ```
 
 💖 Support

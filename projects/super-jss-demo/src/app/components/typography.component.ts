@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  WithSj,
   SjDirective,
   SjTypographyComponent,
   SjBoxComponent,
+  sj,
+  SjRootApi,
 } from 'super-jss';
 import { SectionContainerComponent } from './section-container.component';
 
@@ -21,9 +22,12 @@ import { SectionContainerComponent } from './section-container.component';
   template: `
     <app-section title="Typography">
       <sj-box
-        [sj]="[sj.css.display('flex'), sj.flex.direction({ xs: 'column' })]"
+        [sj]="[
+          sj.display(sj.display.options.flex),
+          sj.fxDir({ xs: sj.fxDir.options.column })
+        ]"
       >
-        <sj-box [sj]="[sj.blueprints.sjCard.flat(), sj.sh.d('block')]">
+        <sj-box [sj]="[sj.sjCard.flat(), sj.d('block')]">
           <sj-typography variant="p"
             >SJSS typography is seamlessly integrated with your theme. Styles
             for HTML elements like h1, p, and span are defined in your active
@@ -41,23 +45,16 @@ import { SectionContainerComponent } from './section-container.component';
           href="https://sjss.dev/typography/"
           target="_blank"
           rel="noopener"
-          [sj]="[
-            sj.blueprints.sjButton.containedPrimary(),
-            sj.css.width(sj.tokens.sizing.width.fitContent)
-          ]"
+          [sj]="[sj.sjButton.containedPrimary(), sj.width('fit-content')]"
           >Docs</a
         >
-        <sj-typography variant="h1" [sj]="{ c: sj.tokens.palette.primary.main }"
+        <sj-typography variant="h1" [sj]="{ c: sj.palette.primary.main }"
           >H1: {{ sampleText }}</sj-typography
         >
-        <sj-typography
-          variant="h2"
-          [sj]="{ c: sj.tokens.palette.secondary.main }"
+        <sj-typography variant="h2" [sj]="{ c: sj.palette.secondary.main }"
           >H2: {{ sampleText }}</sj-typography
         >
-        <sj-typography
-          variant="h3"
-          [sj]="{ c: sj.tokens.palette.tertiary.main }"
+        <sj-typography variant="h3" [sj]="{ c: sj.palette.tertiary.main }"
           >H3: {{ sampleText }}</sj-typography
         >
         <sj-typography variant="h4" [sj]>H4: {{ sampleText }}</sj-typography>
@@ -86,7 +83,8 @@ import { SectionContainerComponent } from './section-container.component';
     </app-section>
   `,
 })
-export class TypographyComponent extends WithSj {
+export class TypographyComponent {
+  readonly sj: SjRootApi = sj;
   protected readonly sampleText =
     'The quick brown fox jumps over the lazy dog. ';
   sampleImplement: string =

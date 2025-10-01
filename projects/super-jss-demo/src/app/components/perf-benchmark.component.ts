@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import {
   SjDirective,
   sj,
-  WithSj,
   SjTypographyComponent,
   SjBoxComponent,
+  SjRootApi,
 } from 'super-jss';
 
 @Component({
@@ -89,14 +89,14 @@ import {
     </style>
 
     <sj-box [sj]="rootStyle">
-      <sj-typography variant="h3" [sj]="[sj.css.margin(0), sj.css.padding(0)]">
+      <sj-typography variant="h3" [sj]="[sj.margin(0), sj.padding(0)]">
         SJSS {{ itemsCount() }} elements demo
       </sj-typography>
-      <sj-typography variant="small" [sj]="[sj.css.opacity(0.8)]">
+      <sj-typography variant="small" [sj]="[sj.opacity(0.8)]">
         Renders {{ itemsCount() }} boxes styled via [sj]. Styles use tokens to
         avoid excessive unique rules.
       </sj-typography>
-      <sj-card [sj]="[sj.css.flexDirection('row')]">
+      <sj-card [sj]="[sj.flexDirection('row')]">
         <button (click)="setMode('sj')" [disabled]="mode() === 'sj'">
           SJSS mode
         </button>
@@ -183,54 +183,66 @@ import {
     </sj-box>
   `,
 })
-export class PerfBenchmarkComponent extends WithSj {
-  override sj: typeof sj = sj;
+export class PerfBenchmarkComponent {
+  readonly sj: SjRootApi = sj;
   // Precomputed SJSS styles to avoid creating new objects inside the loop
-  readonly rootStyle = [sj.flex.column(), sj.css.gap(1)];
+  readonly rootStyle = [
+    sj.d(sj.d.options.flex),
+    sj.fxDir(sj.fxDir.options.column),
+    sj.gap(1),
+  ];
 
   readonly containerStyle = [
-    sj.grid.container(),
-    sj.grid.columns({ xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }),
-    sj.css.gap(0.5),
+    sj.d(sj.d.options.grid),
+    sj.gridTemplateColumns({
+      xs: '1fr',
+      md: 'repeat(2, 1fr)',
+      lg: 'repeat(4, 1fr)',
+    }),
+    sj.gap(0.5),
   ];
 
   readonly cardStyle = [
-    sj.flex.column({ gap: 0.25 }),
-    sj.css.borderRadius(0.5),
-    sj.css.padding(0.5),
-    sj.css.backgroundColor(sj.tokens.palette.light.light),
-    sj.css.boxShadow('0 1px 3px rgba(0,0,0,0.08)'),
-    sj.hover({ boxShadow: '0 3px 8px rgba(0,0,0,0.18)' }),
+    sj.d(sj.d.options.flex),
+    sj.fxDir(sj.fxDir.options.column),
+    sj.gap(0.25),
+    sj.borderRadius(0.5),
+    sj.padding(0.5),
+    sj.backgroundColor(sj.palette.light.light),
+    sj.boxShadow('0 1px 3px rgba(0,0,0,0.08)'),
+    // sj.hover({ boxShadow: '0 3px 8px rgba(0,0,0,0.18)' }),
   ];
 
-  readonly strongStyle = [sj.css.color(sj.tokens.palette.primary.dark)];
+  readonly strongStyle = [sj.color(sj.palette.primary.dark)];
 
-  readonly spanStyle = [
-    sj.css.color(sj.tokens.palette.neutral.dark),
-    sj.css.fontSize(0.9),
+  readonly spanStyle = [sj.color(sj.palette.neutral.dark), sj.fontSize(0.9)];
+
+  readonly dotsRow = [
+    sj.d(sj.d.options.flex),
+    sj.fxDir(sj.fxDir.options.row),
+    sj.fxAItems(sj.fxAItems.options.center),
+    sj.gap(0.25),
   ];
-
-  readonly dotsRow = [sj.flex.row({ fxAItems: 'center', gap: 0.25 })];
 
   readonly dotBlue = [
-    sj.css.width(0.5),
-    sj.css.height(0.5),
-    sj.css.borderRadius(999),
-    sj.css.backgroundColor(sj.tokens.colors.blue[500]),
+    sj.width(0.5),
+    sj.height(0.5),
+    sj.borderRadius(999),
+    sj.backgroundColor('blue.500'),
   ];
 
   readonly dotOrange = [
-    sj.css.width(0.5),
-    sj.css.height(0.5),
-    sj.css.borderRadius(999),
-    sj.css.backgroundColor(sj.tokens.colors.orange[500]),
+    sj.width(0.5),
+    sj.height(0.5),
+    sj.borderRadius(999),
+    sj.backgroundColor('orange.500'),
   ];
 
   readonly dotGreen = [
-    sj.css.width(0.5),
-    sj.css.height(0.5),
-    sj.css.borderRadius(999),
-    sj.css.backgroundColor(sj.tokens.colors.green[500]),
+    sj.width(0.5),
+    sj.height(0.5),
+    sj.borderRadius(999),
+    sj.backgroundColor('green.500'),
   ];
   // Dynamic count presets: default to 1000
   readonly itemsCount = signal<number>(1000);

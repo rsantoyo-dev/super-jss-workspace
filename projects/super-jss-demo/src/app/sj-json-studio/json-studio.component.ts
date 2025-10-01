@@ -49,9 +49,6 @@ import { sjCard, SjStyle } from 'super-jss';
         (viewModeChange)="viewMode.set($event)"
       />
       <sj-box [sj]="treeContentStyle">
-        <sj-box [hidden]="!error()" [sj]="styles.error">
-          <sj-typography variant="p" [sj]>Error: {{ error() }}</sj-typography>
-        </sj-box>
         @if (viewMode() === 'raw') {
 
         <textarea

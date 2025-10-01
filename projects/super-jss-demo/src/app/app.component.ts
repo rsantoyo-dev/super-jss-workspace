@@ -1,4 +1,4 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { HeaderComponent } from './components/header.component';
 
 import {
@@ -7,10 +7,12 @@ import {
   SjHostComponent,
   SjBoxComponent,
   SjCardComponent,
-  WithSj,
   SjButtonComponent,
   SjTypographyComponent,
   sj,
+  SjStyle,
+  SjThemeService,
+  SjRootApi,
 } from 'super-jss';
 
 import { BreakpointIndicatorComponent } from './components/breakpoint-indicator.component';
@@ -34,68 +36,77 @@ import { SidenavComponent } from './components/sidenav.component';
   template: `
     <sj-box
       [sj]="[
-        sj.flex.direction(sj.tokens.flex.direction.column),
-        sj.sh.bg(sj.tokens.palette.light.main)
+        sj.fxDir(sj.fxDir.options.column),
+        sj.bg(sj.palette.light.main),
+        sj.minHeight('100vh')
       ]"
     >
       <app-header (menuClick)="openSidenav()"></app-header>
 
-      <sj-box
+      <sj-card
+        [variant]="sj.sjCard.variants.flat"
         [sj]="[
-          sj.css.display(sj.tokens.flex.display.grid),
-          sj.css.gridTemplateColumns({
+          sj.d(sj.d.options.grid),
+          sj.gridTemplateColumns({
             xs: '1fr',
             sm: '30% 70%',
             md: '15% 85%'
-          })
+          }),
+          sj.padding(0),
+          sj.gap(0)
         ]"
       >
-        @if (theme.currentBreakpoint() !== sj.tokens.breakpoints.xs){
+        @if (theme.currentBreakpoint() !== sj.breakpoints.xs){
         <app-sidenav></app-sidenav>
         }
 
-        <sj-card [variant]="sj.variants.sjCard.flat" [sj]="[]">
+        <sj-card
+          [variant]="sj.sjCard.variants.flat"
+          [sj]="[sj.minHeight('100vh')]"
+        >
           <app-breakpoint-indicator></app-breakpoint-indicator>
           <router-outlet></router-outlet>
         </sj-card>
 
         <sj-box
           [sj]="[
-            sj.flex.row({ fxAItems: 'center' }),
-            sj.css.justifyContent('space-between')
+            sj.d(sj.d.options.flex),
+            sj.fxDir(sj.fxDir.options.row),
+            sj.fxAItems(sj.fxAItems.options.center),
+            sj.justifyContent(sj.justifyContent.options.spaceBetween)
           ]"
         >
-          <sj-typography variant="strong" [sj]="[]">Menu</sj-typography>
-          <sj-button (click)="closeSidenav()">✕</sj-button>
         </sj-box>
 
-        @if (isMobile() && showSidenav()) {
+        @if (theme.isMobile() && showSidenav()) {
         <sj-button
           [sj]="[
-            sj.css.position('fixed'),
-            sj.css.inset(0),
-            sj.css.zIndex(1000)
+            sj.position(sj.position.options.fixed),
+            sj.inset(0),
+            sj.zIndex(1000)
           ]"
           (click)="closeSidenav()"
         ></sj-button>
         <!-- Drawer panel -->
         <sj-box
           [sj]="[
-            sj.css.position('fixed'),
-            sj.css.top(0),
-            sj.css.left(0),
-            sj.css.height('100%'),
-            sj.css.width({ xs: '80%', sm: '320px' }),
-            sj.css.backgroundColor(sj.palette.light.light),
-            sj.css.boxShadow('0 8px 24px rgba(0,0,0,0.2)'),
-            sj.css.zIndex(1001),
-            sj.css.padding(0.5)
+            sj.position(sj.position.options.fixed),
+            sj.top(0),
+            sj.left(0),
+            sj.height('100%'),
+            sj.width({ xs: '80%', sm: '320px' }),
+            sj.backgroundColor(sj.palette.light.light),
+            sj.boxShadow('0 8px 24px rgba(0,0,0,0.2)'),
+            sj.zIndex(1001),
+            sj.padding(0.5)
           ]"
         >
           <sj-box
             [sj]="[
-              sj.flex.row({ fxAItems: 'center' }),
-              sj.css.justifyContent('space-between')
+              sj.d(sj.d.options.flex),
+              sj.fxDir(sj.fxDir.options.row),
+              sj.fxAItems(sj.fxAItems.options.center),
+              sj.justifyContent(sj.justifyContent.options.spaceBetween)
             ]"
           >
             <sj-typography variant="strong" [sj]="[]">Menu</sj-typography>
@@ -104,18 +115,13 @@ import { SidenavComponent } from './components/sidenav.component';
           <app-sidenav></app-sidenav>
         </sj-box>
         }
-      </sj-box></sj-box
-    >
+      </sj-card>
+    </sj-box>
   `,
 })
-export class AppComponent extends WithSj {
-  // Improve template completions: expose typed aliases
-  override sj: typeof sj = sj;
-  readonly tokens: typeof sj.tokens = sj.tokens;
-  readonly css = sj.css;
-  readonly sh = sj.sh;
-  readonly flex = sj.flex;
-
+export class AppComponent {
+  sj: SjRootApi = sj;
+  theme = inject(SjThemeService);
   themeData: SjTheme;
   pendingThemePatch: Partial<SjTheme> | null = null;
 
@@ -123,7 +129,6 @@ export class AppComponent extends WithSj {
   showSidenav = signal(false);
 
   constructor() {
-    super();
     this.themeData = this.theme.sjTheme();
     effect(() => {
       this.themeData = this.theme.sjTheme();

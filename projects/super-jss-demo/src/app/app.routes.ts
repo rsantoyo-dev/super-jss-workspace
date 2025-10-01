@@ -5,14 +5,16 @@ import { DemoCardsComponent } from './components/demo-cards.component';
 import { PaletteComponent } from './components/palette.component';
 import { ThemingComponent } from './components/theming.component';
 import { PerfBenchmarkComponent } from './components/perf-benchmark.component';
+import { HeroComponent } from './components/hero.component';
 
 export const routes: Routes = [
-    { path: 'theming', component: ThemingComponent },
-    { path: 'typography', component: TypographyComponent },
-    { path: 'buttons', component: DemoButtonsComponent },
-    { path: 'cards', component: DemoCardsComponent },
-    { path: 'palette', component: PaletteComponent },
-    { path: 'perf', component: PerfBenchmarkComponent },
-    { path: 'home', component: DemoCardsComponent },
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'hero', component: HeroComponent },
+  { path: 'theming', component: ThemingComponent },
+  { path: 'typography', component: TypographyComponent },
+  { path: 'buttons', component: DemoButtonsComponent },
+  { path: 'cards', component: DemoCardsComponent },
+  { path: 'palette', component: PaletteComponent },
+  { path: 'perf', component: PerfBenchmarkComponent },
+  { path: 'home', component: DemoCardsComponent },
+  { path: '', redirectTo: 'hero', pathMatch: 'full' },
 ];

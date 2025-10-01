@@ -3,9 +3,10 @@ import { FormsModule } from '@angular/forms';
 import {
   SjDirective,
   SjBoxComponent,
-  WithSj,
   SjButtonComponent,
   SjTypographyComponent,
+  sj,
+  SjRootApi,
 } from 'super-jss';
 
 export interface JsonNode {
@@ -27,25 +28,25 @@ export interface JsonNode {
     SjTypographyComponent,
   ],
   template: `
-    <sj-box
-      [sj]="[
-        sj.css.flexDirection(sj.tokens.flex.direction.column),
-        sj.sh.ml(0.5)
-      ]"
-    >
+    <sj-box [sj]="[sj.fxDir(sj.fxDir.options.column), sj.ml(0.5)]">
       <sj-box
-        [sj]="[sj.flex.row(), sj.css.alignItems('center'), sj.css.gap(0.5)]"
+        [sj]="[
+          sj.d(sj.d.options.flex),
+          sj.fxDir(sj.fxDir.options.row),
+          sj.alignItems(sj.alignItems.options.center),
+          sj.gap(0.5)
+        ]"
       >
         @if ((node.type === 'object' || node.type === 'array') &&
         (node.children?.length ?? 0) > 0) {
         <sj-button
-          [variant]="sj.variants.sjButton.outlined"
+          [variant]="sj.sjButton.variants.outlined"
           [sj]="{ px: 0.25, py: 0.1 }"
           (click)="toggle()"
         >
           <sj-typography
             variant="small"
-            [sj]="{ c: sj.tokens.palette.primary.light }"
+            [sj]="{ c: sj.palette.primary.light }"
             >{{ node.expanded ? '/' : '>' }}</sj-typography
           >
         </sj-button>
@@ -58,7 +59,7 @@ export interface JsonNode {
         <sj-typography
           variant="span"
           (click)="toggle()"
-          [sj]="sj.css.cursor('pointer')"
+          [sj]="sj.cursor('pointer')"
           >{{ node.key }}:</sj-typography
         >
 
@@ -66,16 +67,16 @@ export interface JsonNode {
         <sj-typography
           variant="span"
           [sj]="[
-            sj.css.display('inline-flex'),
-            sj.css.alignItems('center'),
-            sj.css.gap(0.5)
+            sj.display('inline-flex'),
+            sj.alignItems(sj.alignItems.options.center),
+            sj.gap(0.5)
           ]"
         >
           <input
             [sj]="{
               p: 0,
-              bg: sj.tokens.colors.transparent,
-              bs: sj.tokens.border.style.none,
+              bg: 'transparent',
+              bs: 'none',
               bw: 0,
               w: 2,
               h: 2,
@@ -88,10 +89,10 @@ export interface JsonNode {
           <input
             [sj]="{
               m: 0,
-              bg: sj.tokens.palette.light.light,
-              bs: sj.tokens.border.style.none,
+              bg: sj.palette.light.light,
+              bs: 'none',
               bw: 0,
-              w: sj.tokens.sizing.width.auto,
+              w: 'auto',
               minW: 4,
               h: 1.5
             }"
@@ -104,10 +105,10 @@ export interface JsonNode {
         <input
           [sj]="{
             m: 0,
-            bg: sj.tokens.palette.light.light,
-            bs: sj.tokens.border.style.none,
+            bg: sj.palette.light.light,
+            bs: 'none',
             bw: 0,
-            w: sj.tokens.sizing.width.auto,
+            w: 'auto',
             minW: 4,
             h: 1.5
           }"
@@ -119,10 +120,10 @@ export interface JsonNode {
         <input
           [sj]="{
             m: 0,
-            bg: sj.tokens.palette.light.light,
-            bs: sj.tokens.border.style.none,
+            bg: sj.palette.light.light,
+            bs: 'none',
             bw: 0,
-            w: sj.tokens.sizing.width.auto,
+            w: 'auto',
             minW: 4,
             h: 1.5
           }"
@@ -134,10 +135,10 @@ export interface JsonNode {
         <input
           [sj]="{
             m: 0,
-            bg: sj.tokens.palette.light.light,
-            bs: sj.tokens.border.style.none,
+            bg: sj.palette.light.light,
+            bs: 'none',
             bw: 0,
-            w: sj.tokens.sizing.width.auto,
+            w: 'auto',
             minW: 4,
             h: 1.5
           }"
@@ -146,9 +147,7 @@ export interface JsonNode {
           (ngModelChange)="onValueChange()"
         />
         } @case ('null') {
-        <sj-typography
-          variant="span"
-          [sj]="{ c: sj.tokens.palette.neutral.main }"
+        <sj-typography variant="span" [sj]="{ c: sj.palette.neutral.main }"
           >null</sj-typography
         >
         } }
@@ -157,11 +156,11 @@ export interface JsonNode {
       @if ((node.type === 'object' || node.type === 'array') && node.expanded) {
       <sj-box
         [sj]="[
-          sj.css.flexDirection(sj.tokens.flex.direction.column),
-          sj.sh.pl(1.25),
-          sj.css.borderLeftStyle('solid'),
-          sj.css.borderLeftWidth(0.1),
-          sj.css.borderLeftColor(sj.tokens.palette.light.dark)
+          sj.fxDir(sj.fxDir.options.column),
+          sj.pl(1.25),
+          sj.borderLeftStyle('solid'),
+          sj.borderLeftWidth(0.1),
+          sj.borderLeftColor(sj.palette.light.dark)
         ]"
       >
         @for (child of (node.children ?? []); track $index) {
@@ -177,7 +176,8 @@ export interface JsonNode {
   `,
   styles: [],
 })
-export class JsonNodeComponent extends WithSj {
+export class JsonNodeComponent {
+  readonly sj: SjRootApi = sj;
   // All styling is inline via [sj]
 
   @Input({ required: true }) node!: JsonNode;

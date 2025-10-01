@@ -2,13 +2,15 @@ import {
   SjCardComponent,
   SjDirective,
   SjTheme,
-  WithSj,
   SjBoxComponent,
   SjTypographyComponent,
+  sj,
+  SjRootApi,
+  SjThemeService,
 } from 'super-jss';
 import { JsonStudioComponent } from '../sj-json-studio/json-studio.component';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SectionContainerComponent } from './section-container.component';
 
 @Component({
@@ -23,29 +25,29 @@ import { SectionContainerComponent } from './section-container.component';
   ],
   template: `
     <app-section title="Theming">
-      <sj-card [variant]="sj.variants.sjCard.flat" [sj]="[]">
+      <sj-card [variant]="sj.sjCard.variants.flat" [sj]="[]">
         <sj-box
           [sj]="[
-            sj.flex.direction('row'),
-            sj.flex.justify('space-between'),
-            sj.css.alignItems('center')
+            sj.fxDir(sj.fxDir.options.row),
+            sj.justifyContent(sj.justifyContent.options.spaceBetween),
+            sj.alignItems(sj.alignItems.options.center)
           ]"
         >
-          <sj-typography variant="h2" [sj]="[sj.css.margin(0)]"
+          <sj-typography variant="h2" [sj]="[sj.margin(0)]"
             >Theming</sj-typography
           >
-          <sj-box [sj]="[sj.flex.direction('row'), sj.css.gap(0.5)]">
+          <sj-box [sj]="[sj.fxDir(sj.fxDir.options.row), sj.gap(0.5)]">
             <button
               [disabled]="!pendingThemePatch"
               (click)="discardEditedTheme()"
-              [sj]="sj.blueprints.sjButton()"
+              [sj]="sj.sjButton()"
             >
               Discard
             </button>
             <button
               [disabled]="!pendingThemePatch"
               (click)="applyEditedTheme()"
-              [sj]="sj.blueprints.sjButton.containedPrimary()"
+              [sj]="sj.sjButton.containedPrimary()"
             >
               Apply
             </button>
@@ -60,12 +62,13 @@ import { SectionContainerComponent } from './section-container.component';
     </app-section>
   `,
 })
-export class ThemingComponent extends WithSj {
+export class ThemingComponent {
+  readonly sj: SjRootApi = sj;
+  readonly theme = inject(SjThemeService);
   themeData: SjTheme;
   pendingThemePatch: Partial<SjTheme> | null = null;
 
   constructor() {
-    super();
     this.themeData = this.theme.sjTheme();
   }
 

@@ -1,5 +1,10 @@
 import * as CSS from 'csstype';
-import { ResponsiveStyle, SjShorthandCustomStyle, SjShorthandStyle, SjStyle } from '../models/interfaces';
+import {
+  ResponsiveStyle,
+  SjShorthandCustomStyle,
+  SjShorthandStyle,
+  SjStyle,
+} from '../models/interfaces';
 import { sjBox, SjBoxApi } from '../blueprints/box';
 import { sjCard, SjCardApi } from '../blueprints/card';
 import { sjButton, SjButtonApi } from '../blueprints/button';
@@ -74,106 +79,139 @@ type Responsive<T> = T | ResponsiveStyle;
 
 // Map every CSS property to a function producing an SjStyle (base)
 type CssFunctionsBase = {
-  [K in keyof CSS.Properties<string | number>]-?: (value: Responsive<CSS.Properties<string | number>[K]>) => SjStyle;
+  [K in keyof CSS.Properties<string | number>]-?: (
+    value: Responsive<CSS.Properties<string | number>[K]>
+  ) => SjStyle;
 };
 
 // Override a few popular props to preserve keyword autocomplete (e.g., 'auto')
 type CssOverrides = {
   width: (value: Responsive<CSS.Property.Width<string | number>>) => SjStyle;
   height: (value: Responsive<CSS.Property.Height<string | number>>) => SjStyle;
-  maxWidth: (value: Responsive<CSS.Property.MaxWidth<string | number>>) => SjStyle;
-  minWidth: (value: Responsive<CSS.Property.MinWidth<string | number>>) => SjStyle;
-  maxHeight: (value: Responsive<CSS.Property.MaxHeight<string | number>>) => SjStyle;
-  minHeight: (value: Responsive<CSS.Property.MinHeight<string | number>>) => SjStyle;
+  maxWidth: (
+    value: Responsive<CSS.Property.MaxWidth<string | number>>
+  ) => SjStyle;
+  minWidth: (
+    value: Responsive<CSS.Property.MinWidth<string | number>>
+  ) => SjStyle;
+  maxHeight: (
+    value: Responsive<CSS.Property.MaxHeight<string | number>>
+  ) => SjStyle;
+  minHeight: (
+    value: Responsive<CSS.Property.MinHeight<string | number>>
+  ) => SjStyle;
 };
 
-type CssFunctions = Omit<CssFunctionsBase, keyof CssOverrides> & CssOverrides;
+type ReservedRootKeys =
+  | 'button'
+  | 'compose'
+  | 'hover'
+  | 'focus'
+  | 'active'
+  | 'disabled'
+  | 'palette'
+  | 'breakpoints'
+  | 'sjBox'
+  | 'sjCard'
+  | 'sjButton'
+  | 'options';
 
-// Map shorthand keys to functions as well
-type ShorthandFunctions = {
-  [K in keyof SjShorthandStyle]-?: (value: SjShorthandStyle[K]) => SjStyle;
-} & {
-  [K in keyof SjShorthandCustomStyle]-?: (value: SjShorthandCustomStyle[K]) => SjStyle;
-};
+type CssFunctions = Omit<
+  CssFunctionsBase,
+  keyof CssOverrides | ReservedRootKeys
+> &
+  CssOverrides;
 
 export type SjCssApi = CssFunctions;
 
+export type SjStyleApi = SjCssApi & SjShApi;
+
 export type SjApi = {
-  css: SjCssApi;
-  sh: SjShApi;
-  flex: SjFlexApi;
-  grid: SjGridApi;
-  button: SjButtonApi;
-  stack: (options?: StackOptions) => SjStyle;
-  // Helpers (kept at root, not under css)
-  compose: (...styles: Array<Partial<SjStyle> | undefined | null | false>) => SjStyle;
-  hover: (style: SjStyle) => SjStyle;
-  focus: (style: SjStyle) => SjStyle;
-  active: (style: SjStyle) => SjStyle;
-  disabled: (style: SjStyle) => SjStyle;
-  // Namespaced blueprints access
-  presets: SjBlueprints;
-  blueprints: SjBlueprints;
-  // Literal option registries for IDE autocomplete
-  variants: {
-    sjCard: typeof SjCardVariants;
-    sjButton: typeof SjButtonVariants;
-  };
-  palette: typeof SjPaletteTokens;
-  tokens: {
-    palette: typeof SjPaletteTokens;
-    breakpoints: typeof SjBreakpointTokens;
-    typography: typeof SjTypographyTokens;
-    spacing: (factor: number) => number | string;
-    flex: typeof SjFlexTokens;
-    display: typeof SjDisplayTokens;
-    colors: typeof SjColorTokens;
-    border: typeof SjBorderTokens;
-    sizing: typeof SjSizingTokens;
-  };
-};
-
-export type SjBlueprints = {
-  // Canonical names matching blueprint exports
+  // Blueprints exposed directly
   sjBox: SjBoxApi;
-  sjCard: SjCardApi;
-  sjButton: SjButtonApi;
+  sjCard: SjCardApi & { variants: typeof SjCardVariants };
+  sjButton: SjButtonApi & { variants: typeof SjButtonVariants };
 
+  // Convenience alias (kept)
+  button: SjButtonApi;
+
+  // Helpers
+  compose: (
+    ...styles: Array<Partial<SjStyle> | undefined | null | false>
+  ) => SjStyle;
+  hover: (
+    style: SjStyle | Array<Partial<SjStyle> | undefined | null | false>
+  ) => SjStyle;
+  focus: (
+    style: SjStyle | Array<Partial<SjStyle> | undefined | null | false>
+  ) => SjStyle;
+  active: (
+    style: SjStyle | Array<Partial<SjStyle> | undefined | null | false>
+  ) => SjStyle;
+  disabled: (
+    style: SjStyle | Array<Partial<SjStyle> | undefined | null | false>
+  ) => SjStyle;
+
+  // Minimal root registries
+  palette: typeof SjPaletteTokens;
+  breakpoints: typeof SjBreakpointTokens;
 };
 
-// Base css proxy: if a real property exists, return it; otherwise return a setter function
-const cssTarget: Record<string | symbol, any> = {};
-const cssBase = new Proxy(cssTarget, {
-  get: (target, propKey: PropertyKey, receiver) => {
-    if (typeof propKey === 'symbol' || Reflect.has(target, propKey)) {
-      return Reflect.get(target, propKey, receiver);
-    }
-    return (value: any): SjStyle => ({ [propKey as string]: value } as SjStyle);
-  },
-});
+// Unified root API type: expose css functions and shorthands at root for autocomplete
+export type SjRootApi = SjApi & SjCssApiWithOptions & SjShApiWithOptions;
 
-// Small helpers implemented explicitly and merged into the css proxy
+// Small helpers implemented explicitly
 const helpers = {
-  compose: (...styles: Array<Partial<SjStyle> | undefined | null | false>): SjStyle => {
+  compose: (
+    ...styles: Array<Partial<SjStyle> | undefined | null | false>
+  ): SjStyle => {
     const parts = styles.filter((s): s is Partial<SjStyle> => Boolean(s));
     return parts.reduce((acc, s) => Object.assign(acc, s), {} as SjStyle);
   },
 
-  hover: (style: SjStyle): SjStyle => ({ '&:hover': style }),
-  focus: (style: SjStyle): SjStyle => ({ '&:focus': style }),
-  active: (style: SjStyle): SjStyle => ({ '&:active': style }),
-  disabled: (style: SjStyle): SjStyle => ({ '&:disabled': style }),
+  hover: (
+    style: SjStyle | Array<Partial<SjStyle> | undefined | null | false>
+  ): SjStyle => {
+    const merged = Array.isArray(style)
+      ? style
+          .filter((s): s is Partial<SjStyle> => Boolean(s))
+          .reduce((acc, s) => Object.assign(acc, s), {} as SjStyle)
+      : style;
+    return { '&:hover': merged };
+  },
+  focus: (
+    style: SjStyle | Array<Partial<SjStyle> | undefined | null | false>
+  ): SjStyle => {
+    const merged = Array.isArray(style)
+      ? style
+          .filter((s): s is Partial<SjStyle> => Boolean(s))
+          .reduce((acc, s) => Object.assign(acc, s), {} as SjStyle)
+      : style;
+    return { '&:focus': merged };
+  },
+  active: (
+    style: SjStyle | Array<Partial<SjStyle> | undefined | null | false>
+  ): SjStyle => {
+    const merged = Array.isArray(style)
+      ? style
+          .filter((s): s is Partial<SjStyle> => Boolean(s))
+          .reduce((acc, s) => Object.assign(acc, s), {} as SjStyle)
+      : style;
+    return { '&:active': merged };
+  },
+  disabled: (
+    style: SjStyle | Array<Partial<SjStyle> | undefined | null | false>
+  ): SjStyle => {
+    const merged = Array.isArray(style)
+      ? style
+          .filter((s): s is Partial<SjStyle> => Boolean(s))
+          .reduce((acc, s) => Object.assign(acc, s), {} as SjStyle)
+      : style;
+    return { '&:disabled': merged };
+  },
 };
 
-/** Blueprint namespace used by sj.blueprints/quick/help */
-const blueprintNamespace: SjBlueprints = {
-  sjBox: sjBox,
-  sjCard: sjCard,
-  sjButton: sjButton,
-
-};
-
-const cssNamespace = cssBase as SjCssApi;
+// legacy blueprint namespace removed; blueprints are exposed directly at root
 const SjBreakpointTokens = {
   xs: 'xs',
   sm: 'sm',
@@ -181,23 +219,6 @@ const SjBreakpointTokens = {
   lg: 'lg',
   xl: 'xl',
   xxl: 'xxl',
-} as const;
-
-const SjTypographyTokens = {
-  default: 'default',
-  H1: 'H1',
-  H2: 'H2',
-  H3: 'H3',
-  H4: 'H4',
-  H5: 'H5',
-  H6: 'H6',
-  SPAN: 'SPAN',
-  P: 'P',
-  BODY: 'BODY',
-  STRONG: 'STRONG',
-  CAPTION: 'CAPTION',
-  SMALL: 'SMALL',
-  PRE: 'PRE',
 } as const;
 
 // Common display values
@@ -211,14 +232,13 @@ const SjDisplayTokens = {
   none: 'none',
 } as const;
 
-// Border tokens
-const SjBorderTokens = {
-  style: {
-    none: 'none',
-    solid: 'solid',
-    dashed: 'dashed',
-    dotted: 'dotted',
-  },
+// Position tokens
+const SjPositionTokens = {
+  static: 'static',
+  relative: 'relative',
+  absolute: 'absolute',
+  fixed: 'fixed',
+  sticky: 'sticky',
 } as const;
 
 // Sizing keywords for width/height
@@ -235,68 +255,6 @@ const SjSizingTokens = {
     maxContent: 'max-content',
     minContent: 'min-content',
   },
-} as const;
-
-// Core color scales (shades) tokens matching SjColors
-const SjColorTokens = {
-  blue: {
-    50: 'blue.50', 100: 'blue.100', 200: 'blue.200', 300: 'blue.300', 400: 'blue.400',
-    500: 'blue.500', 600: 'blue.600', 700: 'blue.700', 800: 'blue.800', 900: 'blue.900',
-    contrast: 'blue.contrast',
-  },
-  indigo: {
-    50: 'indigo.50', 100: 'indigo.100', 200: 'indigo.200', 300: 'indigo.300', 400: 'indigo.400',
-    500: 'indigo.500', 600: 'indigo.600', 700: 'indigo.700', 800: 'indigo.800', 900: 'indigo.900',
-    contrast: 'indigo.contrast',
-  },
-  purple: {
-    50: 'purple.50', 100: 'purple.100', 200: 'purple.200', 300: 'purple.300', 400: 'purple.400',
-    500: 'purple.500', 600: 'purple.600', 700: 'purple.700', 800: 'purple.800', 900: 'purple.900',
-    contrast: 'purple.contrast',
-  },
-  pink: {
-    50: 'pink.50', 100: 'pink.100', 200: 'pink.200', 300: 'pink.300', 400: 'pink.400',
-    500: 'pink.500', 600: 'pink.600', 700: 'pink.700', 800: 'pink.800', 900: 'pink.900',
-    contrast: 'pink.contrast',
-  },
-  red: {
-    50: 'red.50', 100: 'red.100', 200: 'red.200', 300: 'red.300', 400: 'red.400',
-    500: 'red.500', 600: 'red.600', 700: 'red.700', 800: 'red.800', 900: 'red.900',
-    contrast: 'red.contrast',
-  },
-  orange: {
-    50: 'orange.50', 100: 'orange.100', 200: 'orange.200', 300: 'orange.300', 400: 'orange.400',
-    500: 'orange.500', 600: 'orange.600', 700: 'orange.700', 800: 'orange.800', 900: 'orange.900',
-    contrast: 'orange.contrast',
-  },
-  yellow: {
-    50: 'yellow.50', 100: 'yellow.100', 200: 'yellow.200', 300: 'yellow.300', 400: 'yellow.400',
-    500: 'yellow.500', 600: 'yellow.600', 700: 'yellow.700', 800: 'yellow.800', 900: 'yellow.900',
-    contrast: 'yellow.contrast',
-  },
-  green: {
-    50: 'green.50', 100: 'green.100', 200: 'green.200', 300: 'green.300', 400: 'green.400',
-    500: 'green.500', 600: 'green.600', 700: 'green.700', 800: 'green.800', 900: 'green.900',
-    contrast: 'green.contrast',
-  },
-  teal: {
-    50: 'teal.50', 100: 'teal.100', 200: 'teal.200', 300: 'teal.300', 400: 'teal.400',
-    500: 'teal.500', 600: 'teal.600', 700: 'teal.700', 800: 'teal.800', 900: 'teal.900',
-    contrast: 'teal.contrast',
-  },
-  cyan: {
-    50: 'cyan.50', 100: 'cyan.100', 200: 'cyan.200', 300: 'cyan.300', 400: 'cyan.400',
-    500: 'cyan.500', 600: 'cyan.600', 700: 'cyan.700', 800: 'cyan.800', 900: 'cyan.900',
-    contrast: 'cyan.contrast',
-  },
-  gray: {
-    50: 'gray.50', 100: 'gray.100', 200: 'gray.200', 300: 'gray.300', 400: 'gray.400',
-    500: 'gray.500', 600: 'gray.600', 700: 'gray.700', 800: 'gray.800', 900: 'gray.900',
-    contrast: 'gray.contrast',
-  },
-  black: 'black',
-  white: 'white',
-  transparent: 'transparent',
 } as const;
 
 // Flex tokens for common literal values (typed, IDE-friendly)
@@ -413,131 +371,159 @@ const sh = {
   fxAItems: (v: any) => ({ fxAItems: v } as SjStyle),
 } as SjShApi;
 
-export const sj: SjApi = {
-  css: cssNamespace,
-  sh,
-  flex: undefined as unknown as SjFlexApi, // assigned below
-  grid: undefined as unknown as SjGridApi, // assigned below
+// CamelCase option aliases for common flex values (DX-friendly)
+const FlexJustifyOptions = {
+  flexStart: 'flex-start',
+  flexEnd: 'flex-end',
+  center: 'center',
+  spaceBetween: 'space-between',
+  spaceAround: 'space-around',
+  spaceEvenly: 'space-evenly',
+} as const;
+
+const FlexAlignOptions = {
+  flexStart: 'flex-start',
+  flexEnd: 'flex-end',
+  center: 'center',
+  stretch: 'stretch',
+  baseline: 'baseline',
+} as const;
+
+// Curated .options for popular props/shorthands
+type WithOptions<TFn, TOpts> = TFn & { options: TOpts };
+
+type SjCssApiWithOptions = Omit<
+  SjCssApi,
+  | 'color'
+  | 'backgroundColor'
+  | 'display'
+  | 'position'
+  | 'width'
+  | 'height'
+  | 'justifyContent'
+  | 'alignItems'
+  | 'flexDirection'
+  | 'flexWrap'
+> & {
+  color: WithOptions<SjCssApi['color'], typeof SjPaletteTokens>;
+  backgroundColor: WithOptions<
+    SjCssApi['backgroundColor'],
+    typeof SjPaletteTokens
+  >;
+  display: WithOptions<SjCssApi['display'], typeof SjDisplayTokens>;
+  position: WithOptions<SjCssApi['position'], typeof SjPositionTokens>;
+  width: WithOptions<SjCssApi['width'], (typeof SjSizingTokens)['width']>;
+  height: WithOptions<SjCssApi['height'], (typeof SjSizingTokens)['height']>;
+  justifyContent: WithOptions<
+    SjCssApi['justifyContent'],
+    typeof FlexJustifyOptions
+  >;
+  alignItems: WithOptions<SjCssApi['alignItems'], typeof FlexAlignOptions>;
+  flexDirection: WithOptions<
+    SjCssApi['flexDirection'],
+    (typeof SjFlexTokens)['direction']
+  >;
+  flexWrap: WithOptions<SjCssApi['flexWrap'], (typeof SjFlexTokens)['wrap']>;
+};
+
+type SjShApiWithOptions = Omit<
+  SjShApi,
+  'd' | 'fxDir' | 'fxJustify' | 'fxAItems' | 'bg' | 'c'
+> & {
+  d: WithOptions<SjShApi['d'], typeof SjDisplayTokens>;
+  fxDir: WithOptions<SjShApi['fxDir'], (typeof SjFlexTokens)['direction']>;
+  fxJustify: WithOptions<SjShApi['fxJustify'], typeof FlexJustifyOptions>;
+  fxAItems: WithOptions<SjShApi['fxAItems'], typeof FlexAlignOptions>;
+  bg: WithOptions<SjShApi['bg'], typeof SjPaletteTokens>;
+  c: WithOptions<SjShApi['c'], typeof SjPaletteTokens>;
+};
+
+// Build the base object first; we'll wrap it in a Proxy to expose root style methods
+const sjBase: SjApi = {
+  // Blueprints at root
+  sjBox: sjBox,
+  sjCard: Object.assign(sjCard, { variants: SjCardVariants }),
+  sjButton: Object.assign(sjButton, { variants: SjButtonVariants }),
+
+  // Convenience alias
   button: sjButton,
-  stack: undefined as unknown as (options?: StackOptions) => SjStyle, // assigned below
+
   compose: helpers.compose,
   hover: helpers.hover,
   focus: helpers.focus,
   active: helpers.active,
   disabled: helpers.disabled,
-  presets: blueprintNamespace,
-  blueprints: blueprintNamespace,
-  variants: {
-    sjCard: SjCardVariants,
-    sjButton: SjButtonVariants,
-  },
+
   palette: SjPaletteTokens,
-  tokens: {
-    palette: SjPaletteTokens,
-    breakpoints: SjBreakpointTokens,
-    typography: SjTypographyTokens,
-    spacing: (factor: number) => factor,
-    flex: SjFlexTokens,
-    display: SjDisplayTokens,
-    colors: SjColorTokens,
-    border: SjBorderTokens,
-    sizing: SjSizingTokens,
-  },
+  breakpoints: SjBreakpointTokens,
 } as SjApi;
 
-// -------- Layout families: sj.flex.*, sj.grid.*, sj.stack() --------
+// -------- Layout families: sj.flex.*, sj.grid.* --------
+// Removed sj.stack() from public API; use root sj.* css/shorthands instead
 
-export type SjFlexApi = {
-  // Presets
-  row: (overrides?: Partial<SjStyle>) => SjStyle;
-  column: (overrides?: Partial<SjStyle>) => SjStyle;
-  center: (overrides?: Partial<SjStyle>) => SjStyle; // center both axes
-  middle: (overrides?: Partial<SjStyle>) => SjStyle; // column + centered
-  between: (overrides?: Partial<SjStyle>) => SjStyle;
-  around: (overrides?: Partial<SjStyle>) => SjStyle;
-  evenly: (overrides?: Partial<SjStyle>) => SjStyle;
-  wrap: (overrides?: Partial<SjStyle>) => SjStyle;
-  nowrap: (overrides?: Partial<SjStyle>) => SjStyle;
-  grow: (overrides?: Partial<SjStyle>) => SjStyle;
-  shrink: (overrides?: Partial<SjStyle>) => SjStyle;
-  // Knobs
-  direction: (value: Responsive<SjStyle['fxDir']>) => SjStyle;
-  align: (value: Responsive<SjStyle['fxAItems']>) => SjStyle;
-  justify: (value: Responsive<SjStyle['fxJustify']>) => SjStyle;
-  gap: (value: Responsive<SjStyle['gap']>) => SjStyle;
+// Curated option maps for props/shorthands
+const optionsMapCss: Record<string, unknown> = {
+  color: SjPaletteTokens,
+  backgroundColor: SjPaletteTokens,
+  display: SjDisplayTokens,
+  position: SjPositionTokens,
+  width: SjSizingTokens.width,
+  height: SjSizingTokens.height,
+  justifyContent: FlexJustifyOptions,
+  alignItems: FlexAlignOptions,
+  flexDirection: SjFlexTokens.direction,
+  flexWrap: SjFlexTokens.wrap,
 };
 
-const flex: SjFlexApi = {
-  row: (overrides: Partial<SjStyle> = {}): SjStyle => ({ d: 'flex', fxDir: 'row', ...overrides }),
-  column: (overrides: Partial<SjStyle> = {}): SjStyle => ({ d: 'flex', fxDir: 'column', ...overrides }),
-  center: (overrides: Partial<SjStyle> = {}): SjStyle => ({ d: 'flex', fxJustify: 'center', fxAItems: 'center', ...overrides }),
-  middle: (overrides: Partial<SjStyle> = {}): SjStyle => ({ d: 'flex', fxDir: 'column', fxJustify: 'center', fxAItems: 'center', ...overrides }),
-  between: (overrides: Partial<SjStyle> = {}): SjStyle => ({ d: 'flex', fxJustify: 'space-between', ...overrides }),
-  around: (overrides: Partial<SjStyle> = {}): SjStyle => ({ d: 'flex', fxJustify: 'space-around', ...overrides }),
-  evenly: (overrides: Partial<SjStyle> = {}): SjStyle => ({ d: 'flex', fxJustify: 'space-evenly', ...overrides }),
-  wrap: (overrides: Partial<SjStyle> = {}): SjStyle => ({ d: 'flex', fxWrap: 'wrap', ...overrides }),
-  nowrap: (overrides: Partial<SjStyle> = {}): SjStyle => ({ d: 'flex', fxWrap: 'nowrap', ...overrides }),
-  grow: (overrides: Partial<SjStyle> = {}): SjStyle => ({ fxGrow: 1, fxShrink: 1, minW: 0, ...overrides }),
-  shrink: (overrides: Partial<SjStyle> = {}): SjStyle => ({ fxShrink: 1, ...overrides }),
-  direction: (value: any): SjStyle => ({ fxDir: value } as SjStyle),
-  align: (value: any): SjStyle => ({ fxAItems: value } as SjStyle),
-  justify: (value: any): SjStyle => ({ fxJustify: value } as SjStyle),
-  gap: (value: any): SjStyle => ({ gap: value } as SjStyle),
+const optionsMapSh: Record<string, unknown> = {
+  d: SjDisplayTokens,
+  fxDir: SjFlexTokens.direction,
+  fxJustify: FlexJustifyOptions,
+  fxAItems: FlexAlignOptions,
+  bg: SjPaletteTokens,
+  c: SjPaletteTokens,
 };
 
-export type SjGridApi = {
-  container: (overrides?: Partial<SjStyle>) => SjStyle;
-  columns: (value: Responsive<SjStyle['gridTemplateColumns']>) => SjStyle;
-  rows: (value: Responsive<SjStyle['gridTemplateRows']>) => SjStyle;
-  areas: (value: Responsive<SjStyle['gridTemplateAreas']>) => SjStyle;
-  autoFlow: (value: Responsive<SjStyle['gridAutoFlow']>) => SjStyle;
-  gap: (value: Responsive<SjStyle['gap']>) => SjStyle;
-  placeItems: (value: Responsive<SjStyle['placeItems']>) => SjStyle;
-  placeContent: (value: Responsive<SjStyle['placeContent']>) => SjStyle;
-  placeSelf: (value: Responsive<SjStyle['placeSelf']>) => SjStyle;
-  cols: (count: number | ResponsiveStyle) => SjStyle; // repeat(count, 1fr)
-};
+// Root-level Proxy: if property exists on base, return it; else try shorthand; else treat as CSS prop
+const sjProxy: SjRootApi = new Proxy(sjBase as any, {
+  get(target, propKey: PropertyKey, receiver) {
+    // existing fields/namespaces first (style, flex, grid, button, tokens, etc.)
+    if (typeof propKey === 'symbol' || Reflect.has(target, propKey)) {
+      return Reflect.get(target, propKey, receiver);
+    }
+    // if a shorthand exists, return it (typed via SjShApi)
+    if (propKey in sh) {
+      const bound = (sh as any)[propKey].bind(sh);
+      if (typeof propKey === 'string' && propKey in optionsMapSh) {
+        try {
+          Object.defineProperty(bound, 'options', {
+            value: (optionsMapSh as any)[propKey],
+            writable: false,
+            enumerable: true,
+          });
+        } catch {
+          (bound as any).options = (optionsMapSh as any)[propKey];
+        }
+      }
+      return bound;
+    }
+    // default: treat as CSS property function
+    const fn = (value: any): SjStyle =>
+      ({ [propKey as string]: value } as SjStyle);
+    if (typeof propKey === 'string' && propKey in optionsMapCss) {
+      try {
+        Object.defineProperty(fn, 'options', {
+          value: (optionsMapCss as any)[propKey],
+          writable: false,
+          enumerable: true,
+        });
+      } catch {
+        (fn as any).options = (optionsMapCss as any)[propKey];
+      }
+    }
+    return fn as any;
+  },
+}) as SjRootApi;
 
-const normalizeCols = (count: number | ResponsiveStyle): Responsive<SjStyle['gridTemplateColumns']> => {
-  if (typeof count === 'number') return `repeat(${count}, 1fr)`;
-  const obj: ResponsiveStyle = {};
-  for (const k in count) {
-    (obj as any)[k] = `repeat(${(count as any)[k]}, 1fr)`;
-  }
-  return obj as Responsive<SjStyle['gridTemplateColumns']>;
-};
-
-const grid: SjGridApi = {
-  container: (overrides: Partial<SjStyle> = {}): SjStyle => ({ d: 'grid', ...overrides }),
-  columns: (value: any): SjStyle => ({ gridTemplateColumns: value } as SjStyle),
-  rows: (value: any): SjStyle => ({ gridTemplateRows: value } as SjStyle),
-  areas: (value: any): SjStyle => ({ gridTemplateAreas: value } as SjStyle),
-  autoFlow: (value: any): SjStyle => ({ gridAutoFlow: value } as SjStyle),
-  gap: (value: any): SjStyle => ({ gap: value } as SjStyle),
-  placeItems: (value: any): SjStyle => ({ placeItems: value } as SjStyle),
-  placeContent: (value: any): SjStyle => ({ placeContent: value } as SjStyle),
-  placeSelf: (value: any): SjStyle => ({ placeSelf: value } as SjStyle),
-  cols: (count: number | ResponsiveStyle): SjStyle => ({ gridTemplateColumns: normalizeCols(count) } as SjStyle),
-};
-
-export type StackOptions = {
-  direction?: Responsive<'row' | 'column'>;
-  gap?: Responsive<SjStyle['gap']>;
-  align?: Responsive<SjStyle['fxAItems']>;
-  justify?: Responsive<SjStyle['fxJustify']>;
-};
-
-const stack = (options: StackOptions = {}): SjStyle => {
-  const { direction = 'column', gap = 0.5, align, justify } = options as any;
-  const style: SjStyle = { d: 'flex', fxDir: direction as any, gap: gap as any } as SjStyle;
-  if (align !== undefined) (style as any).fxAItems = align;
-  if (justify !== undefined) (style as any).fxJustify = justify;
-  return style;
-};
-
-// assign to sj
-(sj as any).flex = flex;
-(sj as any).grid = grid;
-(sj as any).stack = stack;
-
-export default sj;
+export const sj = sjProxy;
+export default sjProxy;

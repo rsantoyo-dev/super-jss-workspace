@@ -5,3 +5,21 @@
   position: relative;
   z-index: 100;
 }
+
+/* Simple color chips for docs */
+.sj-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: #fff;
+  font-size: 0.85em;
+}
+.sj-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,.15);
+}

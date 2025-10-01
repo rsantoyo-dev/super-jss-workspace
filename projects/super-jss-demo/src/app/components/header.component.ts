@@ -1,73 +1,80 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   SjDirective,
-  SjThemeService,
   SjHostComponent,
-  WithSj,
+  SjThemeService,
   SjButtonComponent,
   SJ_BASE_COMPONENTS_IMPORTS,
   SjBoxComponent,
+  sj,
+  SjRootApi,
 } from 'super-jss';
 import { ThemeSelectorComponent } from './theme-selector.component';
 
 @Component({
   standalone: true,
   selector: 'app-header',
-  imports: [CommonModule, ThemeSelectorComponent, SJ_BASE_COMPONENTS_IMPORTS],
+  imports: [
+    CommonModule,
+    ThemeSelectorComponent,
+    ...SJ_BASE_COMPONENTS_IMPORTS,
+  ],
   template: `
     <sj-host
       [sj]="[
-        sj.blueprints.sjCard.primary,
-        sj.flex.direction({ xs: 'column', sm: 'row' }),
-        sj.css.borderRadius(0),
-        sj.css.justifyContent({
-          xs: sj.tokens.flex.justify.center,
-          sm: sj.tokens.flex.justify.between
+        sj.sjCard.primary(),
+        sj.fxDir({ xs: sj.fxDir.options.column, sm: sj.fxDir.options.row }),
+        sj.borderRadius(0),
+        sj.justifyContent({
+          xs: sj.justifyContent.options.center,
+          sm: sj.justifyContent.options.spaceBetween
         }),
-        sj.css.alignItems('center'),
-        sj.css.position('relative')
+        sj.alignItems(sj.alignItems.options.center),
+        sj.position(sj.position.options.relative)
       ]"
     >
-      @if (isMobile()) {
+      @if (theme.isMobile()) {
       <sj-button
         [sj]="[
-          sj.sh.bg(sj.palette.light.light),
-          sj.css.position('absolute'),
-          sj.css.zIndex(2),
-          sj.css.top(0.5),
-          sj.css.left(0.5)
+          sj.bg(sj.palette.light.light),
+          sj.position(sj.position.options.absolute),
+          sj.zIndex(2),
+          sj.top(0.5),
+          sj.left(0.5)
         ]"
         (click)="menuClick.emit()"
       >
-        <span [sj]="[sj.sh.c('primary'), sj.css.lineHeight(0.8)]">☰</span>
+        <span [sj]="[sj.c('primary'), sj.lineHeight(0.8)]">☰</span>
       </sj-button>
       }
-      <sj-box [sj]="[sj.blueprints.sjBox.column()]">
+      <sj-box [sj]="[sj.sjBox.column()]">
         <sj-typography
           variant="h4"
-          [sj]="[sj.css.color(sj.tokens.palette.primary.contrast)]"
+          [sj]="[sj.color(sj.palette.primary.contrast)]"
         >
           SUPER JSS
         </sj-typography>
-        <small [sj]="[sj.css.color(sj.tokens.palette.primary.contrast)]"
+        <small [sj]="[sj.color(sj.palette.primary.contrast)]"
           >The ultimate solution for dynamic styling</small
         >
-        @if (isMobile()) {
-        <sj-box [sj]="[sj.css.marginTop(0.5)]">
+        @if (theme.isMobile()) {
+        <sj-box [sj]="[sj.marginTop(0.5)]">
           <app-theme-selector></app-theme-selector>
         </sj-box>
         }
       </sj-box>
 
-      <sj-box [sj]="sj.blueprints.sjBox.row({ fxAItems: 'center' })">
-        @if (!isMobile()) {
+      <sj-box [sj]="sj.sjBox.row({ fxAItems: 'center' })">
+        @if (!theme.isMobile()) {
         <app-theme-selector></app-theme-selector>
         }
       </sj-box>
     </sj-host>
   `,
 })
-export class HeaderComponent extends WithSj {
+export class HeaderComponent {
   @Output() menuClick = new EventEmitter<void>();
+  readonly sj: SjRootApi = sj;
+  readonly theme = inject(SjThemeService);
 }

@@ -26,7 +26,7 @@ import {
       <sj-box [sj]="left">
         <sj-typography
           variant="small"
-          [sj]="{ c: sj.tokens.palette.primary.contrast }"
+          [sj]="{ c: sj.palette.primary.contrast }"
           >{{ title }}</sj-typography
         >
         @if (viewMode) {
@@ -130,7 +130,7 @@ export class PanelHeaderComponent {
     bg: 'primary.main',
     c: 'primary.contrast',
     m: 0,
-    bs: sj.tokens.border.style.none,
+    bs: 'none',
     bw: 0,
   });
 

@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective, WithSj, SjCardComponent, sj } from 'super-jss';
+import { SjDirective, SjCardComponent, sj, SjRootApi } from 'super-jss';
 import { SjBoxComponent } from 'super-jss';
 import { SectionContainerComponent } from './section-container.component';
-import { SJ_BASE_COMPONENTS_IMPORTS } from 'projects/super-jss/src/public-api';
+import { SJ_BASE_COMPONENTS_IMPORTS } from 'super-jss';
 
 @Component({
   selector: 'app-palette',
@@ -16,7 +16,7 @@ import { SJ_BASE_COMPONENTS_IMPORTS } from 'projects/super-jss/src/public-api';
   ],
   template: `
     <app-section title="Palette">
-      <sj-card [sj]="[sj.blueprints.sjCard.flat(), sj.sh.d('block')]">
+      <sj-card [sj]="[sj.sjCard.flat(), sj.d('block')]">
         <sj-typography variant="p" [sj]="[]">
           The SJSS theme palette defines a set of semantic colors. Each color
           typically includes main, light, dark, and contrast variants. These
@@ -26,7 +26,7 @@ import { SJ_BASE_COMPONENTS_IMPORTS } from 'projects/super-jss/src/public-api';
         </sj-typography>
         <sj-typography
           variant="pre"
-          [sj]="{ m: 0, p: 1, bg: 'light.light', brad: 0.5 }"
+          [sj]="[sj.m(0), sj.p(1), sj.bg('light.light'), sj.brad(0.5)]"
           ><code>{{ this.sampleImplement }}</code></sj-typography
         >
         <a
@@ -39,21 +39,23 @@ import { SJ_BASE_COMPONENTS_IMPORTS } from 'projects/super-jss/src/public-api';
       </sj-card>
 
       <sj-card *ngFor="let color of demoColors()">
-        <sj-typography variant="p" [sj]="{ c: color[0], fontWeight: 'bold' }">{{
-          color[0]
-        }}</sj-typography>
-        <sj-card [sj]="[sj.flex.direction({ xs: 'column', md: 'row' })]">
+        <sj-typography
+          variant="p"
+          [sj]="[sj.c(color[0]), sj.fontWeight('bold')]"
+          >{{ color[0] }}</sj-typography
+        >
+        <sj-card [sj]="[sj.fxDir({ xs: 'column', md: 'row' })]">
           <sj-card
             *ngFor="let colorVariant of color"
-            [sj]="{ bg: colorVariant, flexGrow: '1' }"
+            [sj]="[sj.bg(colorVariant), sj.flexGrow(1)]"
           >
             <sj-typography
               [variant]="'span'"
               [sj]="[
-                sj.css.display('flex'),
-                sj.css.justifyContent('center'),
-                sj.css.alignItems('center'),
-                sj.css.width('100%')
+                sj.display(sj.display.options.flex),
+                sj.justifyContent(sj.justifyContent.options.center),
+                sj.alignItems(sj.alignItems.options.center),
+                sj.width('100%')
               ]"
               >{{ colorVariant }}</sj-typography
             >
@@ -63,7 +65,8 @@ import { SJ_BASE_COMPONENTS_IMPORTS } from 'projects/super-jss/src/public-api';
     </app-section>
   `,
 })
-export class PaletteComponent extends WithSj {
+export class PaletteComponent {
+  readonly sj: SjRootApi = sj;
   demoColors = signal([
     ['primary', 'primary.light', 'primary.dark', 'primary.contrast'],
     ['secondary', 'secondary.light', 'secondary.dark', 'secondary.contrast'],

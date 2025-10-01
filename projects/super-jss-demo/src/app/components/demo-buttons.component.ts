@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import {
   SjDirective,
   SjStyle,
-  WithSj,
   SjCardComponent,
   SjButtonComponent,
   sj,
   SJ_BASE_COMPONENTS_IMPORTS,
+  SjRootApi,
 } from 'super-jss';
 import { SectionContainerComponent } from './section-container.component';
 
@@ -31,7 +31,7 @@ interface DemoButton {
   ],
   template: `
     <app-section title="Buttons">
-      <sj-card [variant]="sj.variants.sjCard.info">
+      <sj-card [variant]="sj.sjCard.variants.info">
         <sj-typography variant="span">
           Buttons inherit expressive presets for light, outlined, contained, and
           intent-driven looks such as danger. Toggle snippets to view the
@@ -41,7 +41,7 @@ interface DemoButton {
           type="button"
           (click)="toggleSnippets()"
           [attr.aria-pressed]="showSnippets"
-          [variant]="sj.variants.sjButton.outlined"
+          [variant]="sj.sjButton.variants.outlined"
           [sj]="{ px: 1, py: 0.5 }"
         >
           {{ showSnippets ? 'Hide usage & styles' : 'Show usage & styles' }}
@@ -50,14 +50,11 @@ interface DemoButton {
 
       <sj-card
         [sj]="[
-          sj.grid.container(),
-          sj.grid.columns('repeat(auto-fit, minmax(360px, 1fr))')
+          sj.d(sj.d.options.grid),
+          sj.gridTemplateColumns('repeat(auto-fit, minmax(360px, 1fr))')
         ]"
       >
-        <sj-card
-          *ngFor="let button of buttonData"
-          [sj]="sj.blueprints.sjCard.outlined()"
-        >
+        <sj-card *ngFor="let button of buttonData" [sj]="sj.sjCard.outlined()">
           <sj-typography
             variant="h6"
             [sj]="{ c: button.titleColor, m: 0, p: 0 }"
@@ -73,13 +70,18 @@ interface DemoButton {
           <section [sj]="{ mt: 1, w: '320px' }">
             <sj-typography
               variant="p"
-              [sj]="{ mt: 0, mb: 0, fontSize: '0.75rem', fontWeight: 600 }"
+              [sj]="[
+                sj.mt(0),
+                sj.mb(0),
+                sj.fontSize('0.75rem'),
+                sj.fontWeight(600)
+              ]"
               >Usage</sj-typography
             >
             <sj-typography
               variant="pre"
               [sj]="
-                sj.blueprints.sjCard.codeSnippet({
+                sj.sjCard.codeSnippet({
                   fontSize: '0.7rem',
                   mt: 0.25
                 })
@@ -88,13 +90,18 @@ interface DemoButton {
             >
             <sj-typography
               variant="p"
-              [sj]="{ mt: 1, mb: 0, fontSize: '0.75rem', fontWeight: 600 }"
+              [sj]="[
+                sj.mt(1),
+                sj.mb(0),
+                sj.fontSize('0.75rem'),
+                sj.fontWeight(600)
+              ]"
               >Computed style</sj-typography
             >
             <sj-typography
               variant="pre"
               [sj]="
-                sj.blueprints.sjCard.codeSnippet({
+                sj.sjCard.codeSnippet({
                   fontSize: '0.7rem',
                   mt: 0.25
                 })
@@ -108,8 +115,11 @@ interface DemoButton {
     </app-section>
   `,
 })
-export class DemoButtonsComponent extends WithSj {
+export class DemoButtonsComponent {
+  readonly sj: SjRootApi = sj;
   protected showSnippets = false;
+
+  // Short alias for templates: use sj.* (e.g., [sj]="[sj.fontSize('1rem')]")
 
   protected readonly buttonData: DemoButton[] = this.buildButtonData();
 

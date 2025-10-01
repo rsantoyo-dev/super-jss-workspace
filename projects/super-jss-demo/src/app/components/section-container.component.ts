@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
-  WithSj,
   SjDirective,
   SjHostComponent,
   SjCardComponent,
   SjInput,
   SjTypographyComponent,
+  sj,
+  SjRootApi,
 } from 'super-jss';
 
 @Component({
@@ -15,20 +16,19 @@ import {
   // Apply SjDirective to the host so the section styles the component itself
   hostDirectives: [{ directive: SjDirective }],
   template: `
-    <sj-typography
-      variant="h1"
-      [sj]="[sj.css.margin(0), sj.css.fontSize('1.25rem')]"
-      >{{ title }}</sj-typography
-    >
+    <sj-typography variant="h1" [sj]="[sj.margin(0), sj.fontSize('1.25rem')]">{{
+      title
+    }}</sj-typography>
 
     <sj-card
-      [variant]="sj.variants.sjCard.outlined"
-      [sj]="[sj.css.margin(0), sj.css.gap(0.5)]"
+      [variant]="sj.sjCard.variants.outlined"
+      [sj]="[sj.margin(0), sj.gap(0.5)]"
     >
       <ng-content></ng-content>
     </sj-card>
   `,
 })
-export class SectionContainerComponent extends WithSj {
+export class SectionContainerComponent {
+  readonly sj: SjRootApi = sj;
   @Input() title = '';
 }

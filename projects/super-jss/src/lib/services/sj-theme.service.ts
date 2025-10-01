@@ -47,6 +47,15 @@ export class SjThemeService implements OnDestroy {
   themeVersion = signal(0);
   private resizeSubscription?: Subscription;
 
+  // Convenience computed helpers (exposed for components and WithSj)
+  themeName = computed(() => this.sjTheme().name);
+  breakpoint = computed(() => this.currentBreakpoint());
+  isMobile = computed(() => this.currentBreakpoint() === 'xs');
+  isTablet = computed(() => this.currentBreakpoint() === 'sm');
+  isDesktop = computed(() =>
+    ['md', 'lg', 'xl', 'xxl'].includes(this.currentBreakpoint())
+  );
+
   constructor(
     @Optional() @Inject(SJ_THEME) private initialTheme: SjTheme,
     @Inject(DOCUMENT) private document: Document,

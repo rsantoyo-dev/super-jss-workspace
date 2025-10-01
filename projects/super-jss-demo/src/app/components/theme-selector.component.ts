@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import {
   SjDirective,
   SjTheme,
-  SjThemeService,
   defaultDarkTheme,
   defaultTheme,
   desertDarkTheme,
@@ -11,10 +10,11 @@ import {
   oceanDarkTheme,
   oceanTheme,
   icon,
-  SJ_BASE_COMPONENTS_IMPORTS,
   SjBoxComponent,
+  SJ_BASE_COMPONENTS_IMPORTS,
 } from 'super-jss';
-import { WithSj } from 'super-jss';
+import { sj, SjRootApi, SjThemeService } from 'super-jss';
+import { inject } from '@angular/core';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
 
 function deepMerge(target: any, source: any): any {
@@ -51,28 +51,17 @@ interface ThemeMeta {
 @Component({
   standalone: true,
   selector: 'app-theme-selector',
-  imports: [CommonModule, SJ_BASE_COMPONENTS_IMPORTS],
+  imports: [CommonModule, ...SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-host
-      [sj]="[
-        sj.blueprints.sjCard,
-        sj.sh.bg(sj.palette.primary.dark),
-        sj.sh.gap(0.25)
-      ]"
-    >
-      <small [sj]="[sj.sh.c(sj.palette.primary.contrast)]">{{
+    <sj-host [sj]="[sj.sjCard(), sj.bg(sj.palette.primary.dark), sj.gap(0.25)]">
+      <small [sj]="[sj.c(sj.palette.primary.contrast)]">{{
         previewLabel()
       }}</small>
 
-      <sj-card
-        [variant]="'flat'"
-        [sj]="[sj.css.flexDirection('row'), sj.sh.p(0)]"
-      >
+      <sj-card [variant]="'flat'" [sj]="[sj.flexDirection('row'), sj.p(0)]">
         @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {
         <sj-button
-          [sj]="
-            sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.dark })
-          "
+          [sj]="sj.sjButton({ bg: theme.theme.palette?.primary?.dark })"
           (mouseenter)="onHover(theme.name)"
           (mouseleave)="onHoverEnd()"
           (click)="onSelect(theme)"
@@ -89,11 +78,7 @@ interface ThemeMeta {
 
         } @else {
         <sj-button
-          [sj]="
-            sj.blueprints.sjButton({
-              bg: theme.theme.palette?.primary?.light
-            })
-          "
+          [sj]="sj.sjButton({ bg: theme.theme.palette?.primary?.light })"
           (mouseenter)="onHover(theme.name)"
           (mouseleave)="onHoverEnd()"
           (click)="onSelect(theme)"
@@ -108,15 +93,11 @@ interface ThemeMeta {
         </sj-button>
         } }
         <sj-box
-          [sj]="
-            sj.blueprints.sjCard({ bg: sj.tokens.palette.primary.main, p: 0.1 })
-          "
+          [sj]="sj.sjCard({ bg: sj.palette.primary.main, p: 0.1 })"
         ></sj-box>
         @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
         <sj-button
-          [sj]="
-            sj.blueprints.sjButton({ bg: theme.theme.palette?.primary?.dark })
-          "
+          [sj]="sj.sjButton({ bg: theme.theme.palette?.primary?.dark })"
           (mouseenter)="onHover(theme.name)"
           (mouseleave)="onHoverEnd()"
           (click)="onSelect(theme)"
@@ -133,11 +114,7 @@ interface ThemeMeta {
 
         } @else {
         <sj-button
-          [sj]="
-            sj.blueprints.sjButton({
-              bg: theme.theme.palette?.primary?.light
-            })
-          "
+          [sj]="sj.sjButton({ bg: theme.theme.palette?.primary?.light })"
           (mouseenter)="onHover(theme.name)"
           (mouseleave)="onHoverEnd()"
           (click)="onSelect(theme)"
@@ -155,7 +132,9 @@ interface ThemeMeta {
     </sj-host>
   `,
 })
-export class ThemeSelectorComponent extends WithSj {
+export class ThemeSelectorComponent {
+  readonly sj: SjRootApi = sj;
+  readonly theme = inject(SjThemeService);
   protected readonly icon = icon;
 
   themes: ThemeMeta[] = [
@@ -212,9 +191,7 @@ export class ThemeSelectorComponent extends WithSj {
     return `${prefix}: ${target}`;
   });
 
-  constructor() {
-    super();
-  }
+  constructor() {}
 
   onHover(name: string): void {
     this.hoveredTheme.set(name);
