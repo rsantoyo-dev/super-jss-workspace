@@ -380,6 +380,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../blueprints/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../blueprints/cards/" class="md-nav__link">
         
   
@@ -778,7 +801,7 @@
         <li class="md-nav__item">
   <a href="#defining-a-theme" class="md-nav__link">
     <span class="md-ellipsis">
-      Defining a Theme
+      Defining a theme
     </span>
   </a>
   
@@ -787,17 +810,17 @@
         <li class="md-nav__item">
   <a href="#applying-a-theme" class="md-nav__link">
     <span class="md-ellipsis">
-      Applying a Theme
+      Applying a theme
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Applying a Theme">
+    <nav class="md-nav" aria-label="Applying a theme">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#1-initial-theme-provision-at-application-startup" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Initial Theme Provision (at application startup)
+      1. Initial theme provision (at application startup)
     </span>
   </a>
   
@@ -806,7 +829,7 @@
           <li class="md-nav__item">
   <a href="#2-dynamic-theme-updates-at-runtime" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Dynamic Theme Updates (at runtime)
+      2. Dynamic theme updates (at runtime)
     </span>
   </a>
   
@@ -820,7 +843,7 @@
         <li class="md-nav__item">
   <a href="#theme-aware-pseudo-selectors" class="md-nav__link">
     <span class="md-ellipsis">
-      Theme-aware Pseudo-selectors
+      Theme-aware pseudo-selectors
     </span>
   </a>
   
@@ -838,7 +861,7 @@
         <li class="md-nav__item">
   <a href="#interactive-theming-demo" class="md-nav__link">
     <span class="md-ellipsis">
-      Interactive Theming Demo
+      Interactive theming demo
     </span>
   </a>
   
@@ -925,7 +948,7 @@
         <li class="md-nav__item">
   <a href="#defining-a-theme" class="md-nav__link">
     <span class="md-ellipsis">
-      Defining a Theme
+      Defining a theme
     </span>
   </a>
   
@@ -934,17 +957,17 @@
         <li class="md-nav__item">
   <a href="#applying-a-theme" class="md-nav__link">
     <span class="md-ellipsis">
-      Applying a Theme
+      Applying a theme
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Applying a Theme">
+    <nav class="md-nav" aria-label="Applying a theme">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#1-initial-theme-provision-at-application-startup" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Initial Theme Provision (at application startup)
+      1. Initial theme provision (at application startup)
     </span>
   </a>
   
@@ -953,7 +976,7 @@
           <li class="md-nav__item">
   <a href="#2-dynamic-theme-updates-at-runtime" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Dynamic Theme Updates (at runtime)
+      2. Dynamic theme updates (at runtime)
     </span>
   </a>
   
@@ -967,7 +990,7 @@
         <li class="md-nav__item">
   <a href="#theme-aware-pseudo-selectors" class="md-nav__link">
     <span class="md-ellipsis">
-      Theme-aware Pseudo-selectors
+      Theme-aware pseudo-selectors
     </span>
   </a>
   
@@ -985,7 +1008,7 @@
         <li class="md-nav__item">
   <a href="#interactive-theming-demo" class="md-nav__link">
     <span class="md-ellipsis">
-      Interactive Theming Demo
+      Interactive theming demo
     </span>
   </a>
   
@@ -1007,115 +1030,100 @@
 
 
 
-<h1 id="comprehensive-theming-system">Comprehensive Theming System</h1>
+<h1 id="comprehensive-theming-system">Comprehensive theming system</h1>
 <p>Super JSS provides a robust theming system that allows you to define and switch themes dynamically in your Angular applications. Theming is essential for creating consistent styling across your application and for enabling features like dark mode.</p>
-<h2 id="defining-a-theme">Defining a Theme</h2>
-<p>YouYou can define a theme as a set of style properties that can be applied globally across your application. Themes in SJSS conform to the <code>SjTheme</code> interface.</p>
-<pre><code class="language-typescript">// src/app/my-custom-theme.ts
-import { SjTheme, defaultTheme, deepMerge } from 'super-jss';
-
-export const myCustomTheme: Partial&lt;SjTheme&gt; = deepMerge(defaultTheme, {
-  palette: {
-    primary: {
-      main: '#6200EE', // A custom primary color (Deep Purple)
-      light: '#9E47FF',
-      dark: '#0000AA',
-      contrast: '#FFFFFF',
-    },
-    secondary: {
-      main: '#03DAC6', // A custom secondary color (Teal)
-      light: '#66FFF9',
-      dark: '#00A896',
-      contrast: '#000000',
-    },
-  },
-  // You can override other theme properties like breakpoints, typography, spacing, etc.
-});
-</code></pre>
-<p><em>(Note: <code>deepMerge</code> is an internal utility of the <code>super-jss</code> library. For external use, you might need to implement your own deep merge function or manually construct the theme object.)</em></p>
-<h2 id="applying-a-theme">Applying a Theme</h2>
+<h2 id="defining-a-theme">Defining a theme</h2>
+<p>You can define a theme as a set of style properties that can be applied globally across your application. Themes in SJSS conform to the <code>SjTheme</code> interface.</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// src/app/my-custom-theme.ts</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SjTheme</span><span class="p">,</span><span class="w"> </span><span class="nx">defaultTheme</span><span class="p">,</span><span class="w"> </span><span class="nx">deepMerge</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;super-jss&#39;</span><span class="p">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">myCustomTheme</span><span class="o">:</span><span class="w"> </span><span class="kt">Partial</span><span class="o">&lt;</span><span class="nx">SjTheme</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">deepMerge</span><span class="p">(</span><span class="nx">defaultTheme</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nx">palette</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nx">primary</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">      </span><span class="nx">main</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#6200EE&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">// A custom primary color (Deep Purple)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">      </span><span class="nx">light</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#9E47FF&#39;</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">      </span><span class="nx">dark</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#0000AA&#39;</span><span class="p">,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">      </span><span class="nx">contrast</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#FFFFFF&#39;</span><span class="p">,</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="nx">secondary</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">      </span><span class="nx">main</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#03DAC6&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">// A custom secondary color (Teal)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">      </span><span class="nx">light</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#66FFF9&#39;</span><span class="p">,</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">      </span><span class="nx">dark</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#00A896&#39;</span><span class="p">,</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">      </span><span class="nx">contrast</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#000000&#39;</span><span class="p">,</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">  </span><span class="c1">// You can override other theme properties like breakpoints, typography, spacing, etc.</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="p">});</span>
+</code></pre></div>
+<em>(Note: <code>deepMerge</code> is an internal utility of the <code>super-jss</code> library. For external use, you might need to implement your own deep merge function or manually construct the theme object.)</em></p>
+<h2 id="applying-a-theme">Applying a theme</h2>
 <p>SJSS offers two primary ways to apply a theme:</p>
-<h3 id="1-initial-theme-provision-at-application-startup">1. Initial Theme Provision (at application startup)</h3>
+<h3 id="1-initial-theme-provision-at-application-startup">1. Initial theme provision (at application startup)</h3>
 <p>To set a theme for your entire application at startup, provide it using the <code>SJ_THEME</code> injection token. This is typically done in your <code>main.ts</code> file for standalone applications or in your root <code>AppModule</code> for NgModule-based applications.</p>
-<pre><code class="language-typescript">// src/main.ts (for standalone applications)
-import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app.component';
-import { SJ_THEME } from 'super-jss'; // Import the injection token
-import { myCustomTheme } from './app/my-custom-theme'; // Your custom theme
-
-bootstrapApplication(AppComponent, {
-  providers: [
-    { provide: SJ_THEME, useValue: myCustomTheme }
-  ]
-}).catch(err =&gt; console.error(err));
-</code></pre>
-<h3 id="2-dynamic-theme-updates-at-runtime">2. Dynamic Theme Updates (at runtime)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// src/main.ts (for standalone applications)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">bootstrapApplication</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AppComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./app/app.component&#39;</span><span class="p">;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SJ_THEME</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;super-jss&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// Import the injection token</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">myCustomTheme</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./app/my-custom-theme&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// Your custom theme</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nx">bootstrapApplication</span><span class="p">(</span><span class="nx">AppComponent</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="nx">providers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">provide</span><span class="o">:</span><span class="w"> </span><span class="kt">SJ_THEME</span><span class="p">,</span><span class="w"> </span><span class="nx">useValue</span><span class="o">:</span><span class="w"> </span><span class="kt">myCustomTheme</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">));</span>
+</code></pre></div>
+<h3 id="2-dynamic-theme-updates-at-runtime">2. Dynamic theme updates (at runtime)</h3>
 <p>To change the theme dynamically based on user interaction, application state, or other logic, use the <code>SjThemeService</code>.</p>
-<pre><code class="language-typescript">import { Component } from '@angular/core';
-import { SjDirective, SjThemeService, defaultTheme } from 'super-jss';
-import { myCustomTheme } from './my-custom-theme'; // Your custom theme
-
-@Component({
-  standalone: true,
-  selector: 'app-theme-switcher',
-  template: `
-    &lt;button (click)=&quot;toggleTheme()&quot; [sj]=&quot;{ p: 1, bg: 'primary.main', color: 'primary.contrast', borderRadius: '4px', cursor: 'pointer' }&quot;&gt;
-      Toggle Theme
-    &lt;/button&gt;
-  `,
-})
-export class ThemeSwitcherComponent {
-  isCustomThemeActive = false;
-
-  constructor(private sjThemeService: SjThemeService) {}
-
-  toggleTheme(): void {
-    this.isCustomThemeActive = !this.isCustomThemeActive;
-    const themeToApply = this.isCustomThemeActive ? myCustomTheme : defaultTheme;
-    this.sjThemeService.setTheme(themeToApply);
-  }
-}
-</code></pre>
-<h2 id="theme-aware-pseudo-selectors">Theme-aware Pseudo-selectors</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SjDirective</span><span class="p">,</span><span class="w"> </span><span class="nx">SjThemeService</span><span class="p">,</span><span class="w"> </span><span class="nx">defaultTheme</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;super-jss&#39;</span><span class="p">;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">myCustomTheme</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./my-custom-theme&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// Your custom theme</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kd">@Component</span><span class="p">({</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="nx">standalone</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="nx">selector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;app-theme-switcher&#39;</span><span class="p">,</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="nx">template</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="sb">    &lt;button (click)=&quot;toggleTheme()&quot; [sj]=&quot;{ p: 1, bg: &#39;primary.main&#39;, color: &#39;primary.contrast&#39;, borderRadius: &#39;4px&#39;, cursor: &#39;pointer&#39; }&quot;&gt;</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="sb">      Toggle Theme</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="sb">    &lt;/button&gt;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="sb">  `</span><span class="p">,</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">})</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ThemeSwitcherComponent</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">  </span><span class="nx">isCustomThemeActive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="k">private</span><span class="w"> </span><span class="nx">sjThemeService</span><span class="o">:</span><span class="w"> </span><span class="kt">SjThemeService</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">  </span><span class="nx">toggleTheme</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">isCustomThemeActive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isCustomThemeActive</span><span class="p">;</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">themeToApply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">isCustomThemeActive</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">myCustomTheme</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">defaultTheme</span><span class="p">;</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">sjThemeService</span><span class="p">.</span><span class="nx">setTheme</span><span class="p">(</span><span class="nx">themeToApply</span><span class="p">);</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="theme-aware-pseudo-selectors">Theme-aware pseudo-selectors</h2>
 <p>SJSS allows you to define styles for pseudo-selectors (like <code>:hover</code>, <code>:active</code>, <code>:focus</code>) directly within your <code>[sj]</code> attribute. These pseudo-selector styles can also leverage your defined theme colors and properties.</p>
-<pre><code class="language-typescript">import { Component } from '@angular/core';
-import { SjDirective } from 'super-jss';
-
-@Component({
-  standalone: true,
-  selector: 'app-themed-button',
-  template: `
-    &lt;button [sj]=&quot;{
-      p: 1,
-      bg: 'primary.main',
-      color: 'primary.contrast',
-      borderRadius: '4px',
-      cursor: 'pointer',
-      transition: 'all 0.3s ease-in-out',
-      '&amp;:hover': {
-        bg: 'primary.dark', // Uses theme's dark shade of primary
-        boxShadow: '0 4px 8px rgba(0,0,0,0.2)'
-      },
-      '&amp;:active': {
-        transform: 'scale(0.98)'
-      }
-    }&quot;&gt;
-      Themed Button
-    &lt;/button&gt;
-  `,
-})
-export class ThemedButtonComponent {}
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SjDirective</span><span class="p">,</span><span class="w"> </span><span class="nx">sj</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;super-jss&#39;</span><span class="p">;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kd">@Component</span><span class="p">({</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nx">standalone</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="nx">selector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;app-themed-button&#39;</span><span class="p">,</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="nx">template</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="sb">    &lt;button [sj]=&quot;[</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="sb">      { p: 1, bg: &#39;primary.main&#39;, c: &#39;primary.contrast&#39;, borderRadius: &#39;4px&#39;, cursor: &#39;pointer&#39;, transition: &#39;all 0.3s ease-in-out&#39; },</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="sb">      sj.hover({ bg: &#39;primary.dark&#39;, boxShadow: &#39;0 4px 8px rgba(0,0,0,0.2)&#39; }),</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="sb">      sj.active({ transform: &#39;scale(0.98)&#39; })</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="sb">    ]&quot;&gt;</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="sb">      Themed Button</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="sb">    &lt;/button&gt;</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="sb">  `</span><span class="p">,</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="p">})</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ThemedButtonComponent</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div>
 <h2 id="conclusion">Conclusion</h2>
 <p>By following these steps, you can effectively define, apply, and dynamically switch themes in your Super JSS application, ensuring a consistent and customizable user experience.</p>
-<h2 id="interactive-theming-demo">Interactive Theming Demo</h2>
-<iframe src="https://stackblitz.com/edit/sjss-theming-demo?embed=1&file=src/app/app.component.ts&hideExplorer=1&hideNavigation=1&theme=dark&view=preview"
-  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-  title="sjss-theming-demo"
-  allow="accelerometer; ambient-light-sensor; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts">
-</iframe>
-
+<h2 id="interactive-theming-demo">Interactive theming demo</h2>
+<p>Open this StackBlitz to try theme switching live:</p>
+<p><a href="https://stackblitz.com/edit/sjss-theming-demo?file=src/app/app.component.ts&amp;view=preview">sjss-theming-demo on StackBlitz</a></p>
 <hr />
 <p><a href="../typography/">⬅️ Previous: Typography</a> | <a href="../examples/">Next: Examples ➡️</a></p>
 

@@ -473,6 +473,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../blueprints/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../blueprints/cards/" class="md-nav__link">
         
   
@@ -996,8 +1019,8 @@
 <p>This update provides a clearer path for users to understand and prepare their environment for SJSS, including direct access to relevant resources.</p>
 <h2 id="installation-steps">Installation Steps</h2>
 <p>To install the Super JSS library, use the following npm command:</p>
-<pre><code class="language-bash">npm i super-jss
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>npm<span class="w"> </span>i<span class="w"> </span>super-jss
+</code></pre></div>
 <p>This command installs the latest version of Super JSS from <a href="https://www.npmjs.com/package/super-jss">npm</a>.</p>
 <h2 id="integration">Integration</h2>
 <h3 id="importing-the-directive">Importing the Directive</h3>
@@ -1006,27 +1029,27 @@
 <li><strong>Import the SJSS Directive</strong>:</li>
 </ol>
 <p>First, import the <code>SjDirective</code> from the Super JSS package.</p>
-<pre><code>```typescript
-import { SjDirective } from "super-jss";
+<div class="highlight"><pre><span></span><code>```typescript
+import { SjDirective } from &quot;super-jss&quot;;
 ```
-</code></pre>
+</code></pre></div>
 <ol>
 <li><strong>Applying the Directive</strong>:</li>
 </ol>
 <p>In your Angular component, apply the SJSS directive as shown below. This example sets the background color and padding for a div element.</p>
-<pre><code>```typescript
+<div class="highlight"><pre><span></span><code>```typescript
 @Component({
   standalone: true,
-  selector: 'app-demo',
+  selector: &#39;app-demo&#39;,
   template: `
-    &lt;div [sj]="{backgroundColor: '#aa5645', padding: '10px'}"&gt;
+    &lt;div [sj]=&quot;{backgroundColor: &#39;#aa5645&#39;, padding: &#39;10px&#39;}&quot;&gt;
       Welcome to Super JSS!
     &lt;/div&gt;    
   `
 })
 export class DemoComponent {}
 ```
-</code></pre>
+</code></pre></div>
 <p>For a live demonstration of Super JSS in action, visit our <a href="https://stackblitz.com/edit/super-js?file=src%2Fmain.ts">StackBlitz example</a>.</p>
 <hr />
 <p><a href="../">⬅️ Previous: Welcome to Super JSS</a> | <a href="../basic-usage/">Next: Basic Usage ➡️</a></p>

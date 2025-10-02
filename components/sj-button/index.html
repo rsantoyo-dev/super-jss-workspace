@@ -380,6 +380,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../../blueprints/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../blueprints/cards/" class="md-nav__link">
         
   
@@ -834,14 +857,36 @@
 <h1 id="sj-button">sj-button</h1>
 <p>sj-button renders a button styled via the button blueprint. It accepts a variant and [sj] overrides that merge after the variant.</p>
 <p>Usage</p>
-<pre><code class="language-html">&lt;sj-button [variant]=&quot;sj.variants.sjButton.outlined&quot; [sj]=&quot;{ px: 1, py: 0.5 }&quot;&gt;
-  Outlined
-&lt;/sj-button&gt;
-
-&lt;sj-button [sj]=&quot;sj.button.containedPrimary({ px: 1 })&quot;&gt;
-  Primary
-&lt;/sj-button&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">sj-button</span> <span class="na">variant</span><span class="o">=</span><span class="s">&quot;outlined&quot;</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;{</span> <span class="na">px:</span> <span class="na">1</span><span class="err">,</span> <span class="na">py:</span> <span class="na">0</span><span class="err">.</span><span class="na">5</span> <span class="err">}&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  Outlined
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">&lt;/</span><span class="nt">sj-button</span><span class="p">&gt;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">&lt;</span><span class="nt">sj-button</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;</span><span class="na">sj</span><span class="err">.</span><span class="na">sjButton</span><span class="err">.</span><span class="na">containedPrimary</span><span class="err">({</span> <span class="na">px:</span> <span class="na">1</span> <span class="err">})&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  Primary
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">&lt;/</span><span class="nt">sj-button</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>API</p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>variant</code></td>
+<td><code>SjButtonVariant\|string</code></td>
+<td>Button variant (e.g., 'outlined', 'danger', ...)</td>
+</tr>
+<tr>
+<td><code>sj</code></td>
+<td><code>SjStyle\|SjStyle[]</code></td>
+<td>Additional styles merged after the variant</td>
+</tr>
+</tbody>
+</table>
 <p>Variants</p>
 <ul>
 <li>default (contained primary)</li>

@@ -378,6 +378,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../blueprints/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../blueprints/cards/" class="md-nav__link">
         
   
@@ -1090,15 +1113,13 @@
 <li>Q: How do I write styles?</li>
 <li>A: Provide a style object (or an array of objects to compose) to <code>[sj]</code>. Numeric values go through the theme’s <code>spacing()</code>; strings pass through unchanged and can reference theme tokens.</li>
 </ul>
-<p>```html
-<br />
-<div [sj]="{
-    d: 'flex', fxJustify: 'center',
-    p: { xs: 1, md: 2 },          // responsive padding
-    bg: 'primary.main',           // themed color
-    '&:hover': { bg: 'primary.dark' }
-  }"></div></p>
-<p>```
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="na">d:</span> <span class="err">&#39;</span><span class="na">flex</span><span class="err">&#39;,</span> <span class="na">fxJustify:</span> <span class="err">&#39;</span><span class="na">center</span><span class="err">&#39;,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  <span class="na">p:</span> <span class="err">{</span> <span class="na">xs:</span> <span class="na">1</span><span class="err">,</span> <span class="na">md:</span> <span class="na">2</span> <span class="err">},</span>          <span class="err">//</span> <span class="na">responsive</span> <span class="na">padding</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  <span class="na">bg:</span> <span class="err">&#39;</span><span class="na">primary</span><span class="err">.</span><span class="na">main</span><span class="err">&#39;,</span>           <span class="err">//</span> <span class="na">themed</span> <span class="na">color</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  <span class="err">&#39;&amp;</span><span class="na">:hover</span><span class="err">&#39;</span><span class="na">:</span> <span class="err">{</span> <span class="na">bg:</span> <span class="err">&#39;</span><span class="na">primary</span><span class="err">.</span><span class="na">dark</span><span class="err">&#39;</span> <span class="err">}</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="err">}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
   - See also: <a href="../basic-usage/">Basic Usage</a>, <a href="../styling-shortcuts/">Styling Shortcuts</a>, <a href="../examples/">Examples</a></p>
 <ul>
 <li>Q: What are the class names like?</li>
@@ -1133,9 +1154,9 @@
 <li>Q: How do I set or update the theme?</li>
 <li>A: Inject <code>SjThemeService</code> and call <code>setTheme(partialTheme)</code>. It deep‑merges, clears CSS cache, and re‑applies.</li>
 </ul>
-<p><code>ts
-  constructor(private th: SjThemeService) {}
-  toggleDark() { this.isDark = !this.isDark; this.th.setTheme(this.isDark ? desertDarkTheme : defaultTheme); }</code>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">constructor</span><span class="p">(</span><span class="k">private</span><span class="w"> </span><span class="nx">th</span><span class="o">:</span><span class="w"> </span><span class="kt">SjThemeService</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nx">toggleDark</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">isDark</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isDark</span><span class="p">;</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">th</span><span class="p">.</span><span class="nx">setTheme</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isDark</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">desertDarkTheme</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">defaultTheme</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
   - See also: <a href="../theming/">Theming</a></p>
 <ul>
 <li>Q: Can I pre‑configure a theme?</li>
@@ -1240,21 +1261,21 @@
 <p>Q: Sticky header example?</p>
 </li>
 <li>A:
-  ```html
-<br />
-<div [sj]="{ position: 'sticky', top: 0, zIndex: '1000' }">
-    <app-header></app-header>
-  </div></li>
-</ul>
-<p>```
-  - See also: <a href="../examples/">Examples</a></p>
-<ul>
-<li>Q: Dynamic theme toggle?</li>
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;{</span> <span class="na">position:</span> <span class="err">&#39;</span><span class="na">sticky</span><span class="err">&#39;,</span> <span class="na">top:</span> <span class="na">0</span><span class="err">,</span> <span class="na">zIndex:</span> <span class="err">&#39;</span><span class="na">1000</span><span class="err">&#39;</span> <span class="err">}&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  <span class="p">&lt;</span><span class="nt">app-header</span><span class="p">&gt;&lt;/</span><span class="nt">app-header</span><span class="p">&gt;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div></li>
+<li>
+<p>See also: <a href="../examples/">Examples</a></p>
+</li>
+<li>
+<p>Q: Dynamic theme toggle?</p>
+</li>
 <li>A:
-  <code>ts
-  isDark = false;
-  constructor(private th: SjThemeService) {}
-  toggle() { this.isDark = !this.isDark; this.th.setTheme(this.isDark ? desertDarkTheme : defaultTheme); }</code></li>
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nx">isDark</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kr">constructor</span><span class="p">(</span><span class="k">private</span><span class="w"> </span><span class="nx">th</span><span class="o">:</span><span class="w"> </span><span class="kt">SjThemeService</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nx">toggle</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">isDark</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isDark</span><span class="p">;</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">th</span><span class="p">.</span><span class="nx">setTheme</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isDark</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">desertDarkTheme</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">defaultTheme</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></li>
 <li>See also: <a href="../theming/">Theming</a></li>
 </ul>
 <h2 id="testing-troubleshooting">Testing &amp; Troubleshooting</h2>

@@ -382,6 +382,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../cards/" class="md-nav__link">
         
   
@@ -489,7 +512,16 @@
         <li class="md-nav__item">
   <a href="#basic-usage" class="md-nav__link">
     <span class="md-ellipsis">
-      Basic Usage
+      Basic usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-with-sj-root-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using with sj root API
     </span>
   </a>
   
@@ -498,7 +530,7 @@
         <li class="md-nav__item">
   <a href="#layout-variants" class="md-nav__link">
     <span class="md-ellipsis">
-      Layout Variants
+      Layout variants
     </span>
   </a>
   
@@ -507,7 +539,7 @@
         <li class="md-nav__item">
   <a href="#composing-with-with" class="md-nav__link">
     <span class="md-ellipsis">
-      Composing With with
+      Composing with with
     </span>
   </a>
   
@@ -903,7 +935,16 @@
         <li class="md-nav__item">
   <a href="#basic-usage" class="md-nav__link">
     <span class="md-ellipsis">
-      Basic Usage
+      Basic usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-with-sj-root-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using with sj root API
     </span>
   </a>
   
@@ -912,7 +953,7 @@
         <li class="md-nav__item">
   <a href="#layout-variants" class="md-nav__link">
     <span class="md-ellipsis">
-      Layout Variants
+      Layout variants
     </span>
   </a>
   
@@ -921,7 +962,7 @@
         <li class="md-nav__item">
   <a href="#composing-with-with" class="md-nav__link">
     <span class="md-ellipsis">
-      Composing With with
+      Composing with with
     </span>
   </a>
   
@@ -944,49 +985,79 @@
 
 
 <h1 id="box-blueprint">Box Blueprint</h1>
-<p>Box blueprints in Super JSS offer a composable flexbox foundation built for fast layout experimentation. The <code>sjBox</code> API follows the same ergonomic pattern as the card blueprint: call the function for a default flex container, or use dot-variants for common layouts.</p>
+<p>Blueprints are ergonomic factory functions that return styles. The Box blueprint gives you flex/grid layouts with sensible defaults. If this concept is new, start at the <a href="../_index/">Blueprints overview</a>. You can use <code>sjBox</code> directly or via the root <code>sj</code> API for autocomplete and composition.</p>
 <h2 id="table-of-contents">Table of Contents</h2>
-<ol>
-<li><a href="#basic-usage">Basic Usage</a></li>
-<li><a href="#layout-variants">Layout Variants</a></li>
-<li><a href="#composing-with-with">Composing With <code>with</code></a></li>
-</ol>
-<h2 id="basic-usage">Basic Usage</h2>
-<p>The <code>sjBox</code> blueprint is a function that returns an <code>SjStyle</code> object. You can apply it directly to a <code>&lt;div&gt;</code> or any other element using the <code>[sj]</code> directive.</p>
-<pre><code class="language-typescript">import { Component } from '@angular/core';
-import { SjDirective, sjBox } from 'super-jss';
-
-@Component({
-  standalone: true,
-  selector: 'app-my-box',
-  imports: [SjDirective],
-  template: `
-    &lt;div [sj]=&quot;sjBox()&quot;&gt;
-      &lt;p&gt;This is a box.&lt;/p&gt;
-    &lt;/div&gt;
-  `
-})
-export class MyBoxComponent {
-  protected readonly sjBox = sjBox;
-}
-</code></pre>
-<h2 id="layout-variants">Layout Variants</h2>
+<ul>
+<li><a href="#box-blueprint">Box Blueprint</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#basic-usage">Basic usage</a></li>
+<li><a href="#using-with-sj-root-api">Using with sj root API</a></li>
+<li><a href="#layout-variants">Layout variants</a></li>
+<li><a href="#composing-with-with">Composing with <code>with</code></a></li>
+</ul>
+<h2 id="basic-usage">Basic usage</h2>
+<p>The <code>sjBox</code> blueprint returns an <code>SjStyle</code>. Apply it with the <code>[sj]</code> directive.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SjDirective</span><span class="p">,</span><span class="w"> </span><span class="nx">sjBox</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;super-jss&#39;</span><span class="p">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kd">@Component</span><span class="p">({</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nx">standalone</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nx">selector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;app-my-box&#39;</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nx">imports</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">SjDirective</span><span class="p">],</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="nx">template</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="sb">    &lt;div [sj]=&quot;sjBox()&quot;&gt;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="sb">      &lt;p&gt;This is a box.&lt;/p&gt;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="sb">    &lt;/div&gt;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="sb">  `</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="p">})</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">MyBoxComponent</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">sjBox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sjBox</span><span class="p">;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="using-with-sj-root-api">Using with sj root API</h2>
+<p>Expose <code>sj</code> for template autocomplete and compose with other helpers.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SjDirective</span><span class="p">,</span><span class="w"> </span><span class="nx">sj</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;super-jss&#39;</span><span class="p">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kd">@Component</span><span class="p">({</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nx">standalone</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nx">selector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;app-my-box-api&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="nx">imports</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">SjDirective</span><span class="p">],</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="nx">template</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="sb">    &lt;div [sj]=&quot;[</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="sb">      sj.sjBox.column({ gap: { xs: 0.5, md: 1 } }),</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="sb">      sj.p({ xs: 1, md: 2 }),</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="sb">      sj.bg(sj.bg.options.light.light)</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="sb">    ]&quot;&gt;</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="sb">      Column with gap and padding</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="sb">    &lt;/div&gt;</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="sb">    &lt;div [sj]=&quot;sj.sjBox.centered({ minH: &#39;50vh&#39; })&quot;&gt;</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="sb">      Perfectly centered</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="sb">    &lt;/div&gt;</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="sb">  `</span><span class="p">,</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="p">})</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">MyBoxApiComponent</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">  </span><span class="k">readonly</span><span class="w"> </span><span class="nx">sj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sj</span><span class="p">;</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="layout-variants">Layout variants</h2>
 <p>Each variant still accepts overrides, so responsive values remain fully supported.</p>
-<pre><code class="language-typescript">&lt;div [sj]=&quot;sjBox.column({ gap: { xs: 0.5, md: 1 } })&quot;&gt;
-  &lt;span&gt;Stacked item A&lt;/span&gt;
-  &lt;span&gt;Stacked item B&lt;/span&gt;
-&lt;/div&gt;
-
-&lt;div [sj]=&quot;sjBox.centered({ minH: '50vh' })&quot;&gt;
-  &lt;span&gt;Perfectly centered&lt;/span&gt;
-&lt;/div&gt;
-
-&lt;div [sj]=&quot;sjBox.wrap({ gap: 0.75 })&quot;&gt;
-  &lt;ng-container *ngFor=&quot;let chip of chips&quot;&gt;
-    &lt;span [sj]=&quot;sjBox.grow({ bg: 'light.main', px: 0.75, py: 0.25 })&quot;&gt;{{ chip }}&lt;/span&gt;
-  &lt;/ng-container&gt;
-&lt;/div&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="p">[</span><span class="nx">sj</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;sjBox.column({ gap: { xs: 0.5, md: 1 } })&quot;</span><span class="o">&gt;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="nx">Stacked</span><span class="w"> </span><span class="nx">item</span><span class="w"> </span><span class="nx">A</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="nx">Stacked</span><span class="w"> </span><span class="nx">item</span><span class="w"> </span><span class="nx">B</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="p">[</span><span class="nx">sj</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;sjBox.centered({ minH: &#39;50vh&#39; })&quot;</span><span class="o">&gt;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="nx">Perfectly</span><span class="w"> </span><span class="nx">centered</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="p">[</span><span class="nx">sj</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;sjBox.wrap({ gap: 0.75 })&quot;</span><span class="o">&gt;</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">  </span><span class="o">&lt;</span><span class="nx">ng</span><span class="o">-</span><span class="nx">container</span><span class="w"> </span><span class="o">*</span><span class="nx">ngFor</span><span class="o">=</span><span class="s2">&quot;let chip of chips&quot;</span><span class="o">&gt;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">span</span><span class="w"> </span><span class="p">[</span><span class="nx">sj</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;sjBox.grow({ bg: &#39;light.main&#39;, px: 0.75, py: 0.25 })&quot;</span><span class="o">&gt;</span><span class="p">{{</span><span class="w"> </span><span class="nx">chip</span><span class="w"> </span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">  </span><span class="o">&lt;</span><span class="err">/ng-container&gt;</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="o">&lt;</span><span class="err">/div&gt;</span>
+</code></pre></div>
 <p>Available helpers:</p>
 <ul>
 <li><code>sjBox.row()</code> – horizontal flow (default)</li>
@@ -998,21 +1069,24 @@ export class MyBoxComponent {
 <li><code>sjBox.wrap()</code> / <code>.nowrap()</code> – control wrapping behaviour</li>
 <li><code>sjBox.grow()</code> – fluid child that fills remaining space</li>
 </ul>
-<h2 id="composing-with-with">Composing With <code>with</code></h2>
+<h2 id="composing-with-with">Composing with <code>with</code></h2>
 <p>Need a reusable preset? Compose partial styles and reuse them across views.</p>
-<pre><code class="language-typescript">const heroLayout = sjBox.with(
-  { fxJustify: 'center', fxAItems: 'center' },
-  { minH: '70vh', px: { xs: 1, md: 2 } },
-  { bg: 'primary.main', c: 'primary.contrast' }
-);
-
-&lt;section [sj]=&quot;heroLayout({ gap: { xs: 1, lg: 2 } })&quot;&gt;&lt;/section&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">heroLayout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sjBox</span><span class="p">.</span><span class="kd">with</span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">fxJustify</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;center&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">fxAItems</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;center&#39;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">minH</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;70vh&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">px</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">xs</span><span class="o">:</span><span class="w"> </span><span class="kt">1</span><span class="p">,</span><span class="w"> </span><span class="nx">md</span><span class="o">:</span><span class="w"> </span><span class="kt">2</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">bg</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;primary.main&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;primary.contrast&#39;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">);</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="o">&lt;</span><span class="nx">section</span><span class="w"> </span><span class="p">[</span><span class="nx">sj</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;heroLayout({ gap: { xs: 1, lg: 2 } })&quot;</span><span class="o">&gt;&lt;</span><span class="err">/section&gt;</span>
+</code></pre></div>
 <p>You can still pass responsive overrides when you finally render:</p>
-<pre><code class="language-typescript">&lt;section [sj]=&quot;heroLayout({ fxDir: { xs: 'column', md: 'row' } })&quot;&gt;
-  ...
-&lt;/section&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="o">&lt;</span><span class="nx">section</span><span class="w"> </span><span class="p">[</span><span class="nx">sj</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;heroLayout({ fxDir: { xs: &#39;column&#39;, md: &#39;row&#39; } })&quot;</span><span class="o">&gt;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="p">...</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="o">&lt;</span><span class="err">/section&gt;</span>
+</code></pre></div>
+<p>Tip: You can also combine with <code>sj</code> helpers in arrays:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">&lt;</span><span class="nt">section</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;[</span> <span class="na">heroLayout</span><span class="err">(),</span> <span class="na">sj</span><span class="err">.</span><span class="na">gap</span><span class="err">(</span><span class="na">1</span><span class="err">),</span> <span class="na">sj</span><span class="err">.</span><span class="na">p</span><span class="err">({</span> <span class="na">md:</span> <span class="na">2</span> <span class="err">})</span> <span class="err">]&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+</code></pre></div>
 
 
 

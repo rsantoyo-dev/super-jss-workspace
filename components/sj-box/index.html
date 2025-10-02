@@ -380,6 +380,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../../blueprints/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../blueprints/cards/" class="md-nav__link">
         
   
@@ -601,18 +624,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#inputs" class="md-nav__link">
+  <a href="#api" class="md-nav__link">
     <span class="md-ellipsis">
-      Inputs
+      API
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#overrides-and-composition" class="md-nav__link">
+  <a href="#compose-with-sj-helpers" class="md-nav__link">
     <span class="md-ellipsis">
-      Overrides and composition
+      Compose with sj helpers
     </span>
   </a>
   
@@ -901,18 +924,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#inputs" class="md-nav__link">
+  <a href="#api" class="md-nav__link">
     <span class="md-ellipsis">
-      Inputs
+      API
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#overrides-and-composition" class="md-nav__link">
+  <a href="#compose-with-sj-helpers" class="md-nav__link">
     <span class="md-ellipsis">
-      Overrides and composition
+      Compose with sj helpers
     </span>
   </a>
   
@@ -944,19 +967,15 @@
 
 
 <h1 id="sj-box"><code>&lt;sj-box&gt;</code></h1>
-<p><code>&lt;sj-box&gt;</code> is the component equivalent of the <code>sjBox</code> blueprint. It renders a
-flex container out of the box and exposes a handful of convenience inputs for
-common flexbox knobs. Because it is powered by the same Super JSS pipeline you
-can still pass responsive values and blueprint overrides when needed.</p>
+<p><code>&lt;sj-box&gt;</code> is the component equivalent of the <code>sjBox</code> blueprint. It no longer exposes layout inputs like <code>display</code> or <code>gap</code>; all styling is applied via the <code>[sj]</code> directive using the root <code>sj</code> API or plain style objects. Because it's already a box, you don't need to call <code>sjBox</code>—use direct helpers like <code>sj.fxDir</code>, <code>sj.gap</code>, <code>sj.justifyContent</code>, and <code>sj.alignItems</code>.</p>
 <h2 id="quick-start">Quick start</h2>
-<pre><code class="language-html">&lt;sj-box display=&quot;column&quot; gap=&quot;1&quot;&gt;
-  &lt;h2&gt;Profile&lt;/h2&gt;
-  &lt;p&gt;Contact info and preferences&lt;/p&gt;
-&lt;/sj-box&gt;
-</code></pre>
-<p>By default <code>&lt;sj-box&gt;</code> renders a <code>display: flex</code> container with row direction.
-Pass any content into the slot and it will be laid out accordingly.</p>
-<h2 id="inputs">Inputs</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">sj-box</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;[</span> <span class="na">sj</span><span class="err">.</span><span class="na">fxDir</span><span class="err">(</span><span class="na">sj</span><span class="err">.</span><span class="na">fxDir</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">column</span><span class="err">),</span> <span class="na">sj</span><span class="err">.</span><span class="na">gap</span><span class="err">(</span><span class="na">1</span><span class="err">)</span> <span class="err">]&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Profile<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Contact info and preferences<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">&lt;/</span><span class="nt">sj-box</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Style it through <code>[sj]</code> using the <code>sj.*</code> helpers and compose freely with arrays.</p>
+<h2 id="api">API</h2>
 <table>
 <thead>
 <tr>
@@ -967,58 +986,33 @@ Pass any content into the slot and it will be laid out accordingly.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>display</code></td>
-<td><code>'row'</code>|<code>'column'</code>|<code>'grid'</code></td>
-<td>Layout mode: flex row, flex column, or grid.</td>
-</tr>
-<tr>
-<td><code>justify</code></td>
-<td><code>SjStyle['justifyContent']</code></td>
-<td>Horizontal alignment (<code>center</code>, <code>space-between</code>, …).</td>
-</tr>
-<tr>
-<td><code>align</code></td>
-<td><code>SjStyle['alignItems']</code></td>
-<td>Vertical alignment of children.</td>
-</tr>
-<tr>
-<td><code>wrap</code></td>
-<td><code>SjStyle['flexWrap']</code></td>
-<td>Enables wrapping (<code>wrap</code>, <code>nowrap</code>, responsive).</td>
-</tr>
-<tr>
-<td><code>gap</code></td>
-<td><code>SjStyle['gap']</code></td>
-<td>Gap between children (numeric or responsive).</td>
-</tr>
-<tr>
-<td><code>bg</code></td>
-<td><code>SjStyle['bg']</code></td>
-<td>Background color.</td>
-</tr>
-<tr>
-<td><code>color</code></td>
-<td><code>SjStyle['c']</code></td>
-<td>Text color.</td>
+<td><code>sj</code></td>
+<td><code>SjStyle \| SjStyle[]</code></td>
+<td>Styles applied to the host container.</td>
 </tr>
 </tbody>
 </table>
-<p>All inputs accept responsive objects just like any other Super JSS style.</p>
-<h2 id="overrides-and-composition">Overrides and composition</h2>
-<p>If you need additional styles, pass them through <code>[sj]</code> like any other element:</p>
-<pre><code class="language-html">&lt;sj-box display=&quot;column&quot; gap=&quot;0.75&quot; [sj]=&quot;{ p: { xs: '1rem', md: '2rem' } }&quot;&gt;
-  ...
-&lt;/sj-box&gt;
-</code></pre>
-<p>You can also feed arrays of styles and they will be merged from left to right.</p>
+<h2 id="compose-with-sj-helpers">Compose with sj helpers</h2>
+<p>Compose any layout you need using <code>sj.*</code> helpers. Later entries override earlier ones.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">&lt;</span><span class="nt">sj-box</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;[</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">fxDir</span><span class="err">(</span><span class="na">sj</span><span class="err">.</span><span class="na">fxDir</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">row</span><span class="err">),</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">gap</span><span class="err">({</span> <span class="na">xs:</span> <span class="na">0</span><span class="err">.</span><span class="na">5</span><span class="err">,</span> <span class="na">md:</span> <span class="na">1</span> <span class="err">}),</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">justifyContent</span><span class="err">(</span><span class="na">sj</span><span class="err">.</span><span class="na">justifyContent</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">center</span><span class="err">),</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">alignItems</span><span class="err">(</span><span class="na">sj</span><span class="err">.</span><span class="na">alignItems</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">center</span><span class="err">),</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">p</span><span class="err">({</span> <span class="na">xs:</span> <span class="na">1</span><span class="err">,</span> <span class="na">md:</span> <span class="na">2</span> <span class="err">}),</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">bg</span><span class="err">(</span><span class="na">sj</span><span class="err">.</span><span class="na">bg</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">light</span><span class="err">.</span><span class="na">light</span><span class="err">)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="err">]&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  <span class="p">&lt;</span><span class="nt">ng-container</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&quot;let item of items&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;{</span> <span class="na">p:</span> <span class="na">0</span><span class="err">.</span><span class="na">5</span><span class="err">,</span> <span class="na">brad:</span> <span class="na">0</span><span class="err">.</span><span class="na">5</span><span class="err">,</span> <span class="na">bg:</span> <span class="err">&#39;</span><span class="na">light</span><span class="err">.</span><span class="na">main</span><span class="err">&#39;</span> <span class="err">}&quot;</span><span class="p">&gt;</span>{{ item }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  <span class="p">&lt;/</span><span class="nt">ng-container</span><span class="p">&gt;</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">&lt;/</span><span class="nt">sj-box</span><span class="p">&gt;</span>
+</code></pre></div>
 <h2 id="notes">Notes</h2>
 <ul>
 <li><code>&lt;sj-box&gt;</code> is standalone; import it directly or via your shared components
   module.</li>
-<li>Under the hood it forwards styles to the <code>SjDirective</code>, so shorthand helpers
-  and responsive behaviour behave exactly like the blueprint.</li>
-<li>Need even more control? You can still drop down to the <code>sjBox</code> blueprint and
-  pass the result to <code>[sj]</code> directly.</li>
+<li>Styles are applied via <code>SjDirective</code>, so shorthand helpers and responsive values work the same as with any element.</li>
+<li>Need even more control? You can still drop down to the <code>sjBox</code> blueprint and pass the result to <code>[sj]</code> directly.</li>
 </ul>
 
 

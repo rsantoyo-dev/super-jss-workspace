@@ -357,18 +357,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#namespaces" class="md-nav__link">
+  <a href="#root-surface" class="md-nav__link">
     <span class="md-ellipsis">
-      Namespaces
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#helpers-root" class="md-nav__link">
-    <span class="md-ellipsis">
-      Helpers (root)
+      Root surface
     </span>
   </a>
   
@@ -468,6 +459,29 @@
             Blueprints
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../blueprints/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -917,18 +931,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#namespaces" class="md-nav__link">
+  <a href="#root-surface" class="md-nav__link">
     <span class="md-ellipsis">
-      Namespaces
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#helpers-root" class="md-nav__link">
-    <span class="md-ellipsis">
-      Helpers (root)
+      Root surface
     </span>
   </a>
   
@@ -978,142 +983,101 @@
 
 
 <h1 id="sj-api"><code>sj</code> API</h1>
-<p><code>sj</code> is the single, typed entrypoint for Super JSS in templates and code. It
-organizes style functions, layout helpers, tokens, and blueprints in clear
-namespaces so IDE autocomplete is predictable and onboarding is smooth.</p>
+<p><code>sj</code> is the single, typed entrypoint for Super JSS. It exposes:</p>
+<ul>
+<li>All CSS properties as functions directly at the root: <code>sj.display('flex')</code>, <code>sj.gridTemplateColumns('1fr 2fr')</code>.</li>
+<li>Curated shorthands at the root: <code>sj.p(1)</code>, <code>sj.bg('primary.main')</code>, <code>sj.fxJustify('space-between')</code>.</li>
+<li>Discoverable <code>.options</code> on popular props to reduce guesswork.</li>
+<li>Minimal tokens at root: <code>sj.palette</code> and <code>sj.breakpoints</code>.</li>
+<li>Blueprints at root with variants: <code>sj.sjBox</code>, <code>sj.sjCard</code>, <code>sj.sjButton</code>.</li>
+</ul>
+<p>This lean surface is SSR‑safe and designed for fast authoring with great IDE autocomplete.</p>
 <h2 id="quick-examples">Quick examples</h2>
-<pre><code class="language-html">&lt;!-- Neutral CSS names --&gt;
-&lt;div [sj]=&quot;[
-  sj.css.display('grid'),
-  sj.css.gridTemplateColumns({ xs: '1fr', sm: '25% 75%' })
-]&quot;&gt;&lt;/div&gt;
-
-&lt;!-- Popular shorthands --&gt;
-&lt;div [sj]=&quot;[
-  sj.sh.p({ xs: 1, md: 2 }),
-  sj.sh.bg(sj.palette.primary.light)
-]&quot;&gt;&lt;/div&gt;
-
-&lt;!-- Ergonomic layout families --&gt;
-&lt;div [sj]=&quot;[
-  sj.flex.row(),
-  sj.flex.align('center'),
-  sj.flex.gap(1)
-]&quot;&gt;&lt;/div&gt;
-
-&lt;div [sj]=&quot;[
-  sj.grid.container(),
-  sj.grid.columns({ xs: '1fr', sm: '25% 75%' })
-]&quot;&gt;&lt;/div&gt;
-
-&lt;div [sj]=&quot;sj.stack({ direction: { xs: 'column', md: 'row' }, gap: 1 })&quot;&gt;&lt;/div&gt;
-
-&lt;!-- Blueprints and variants --&gt;
-&lt;div [sj]=&quot;sj.blueprints.sjCard.flat({ p: 1 })&quot;&gt;&lt;/div&gt;
-&lt;sj-card [variant]=&quot;sj.variants.sjCard.elevated&quot;&gt;Card&lt;/sj-card&gt;
-
-&lt;!-- Tokens --&gt;
-&lt;div [sj]=&quot;[
-  sj.css.color(sj.palette.primary.contrast),
-  sj.css.backgroundColor(sj.tokens.colors.blue[500]),
-  sj.css.display(sj.tokens.display.grid)
-]&quot;&gt;&lt;/div&gt;
-</code></pre>
-<h2 id="namespaces">Namespaces</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cm">&lt;!-- CSS properties at root --&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;[</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">display</span><span class="err">(&#39;</span><span class="na">grid</span><span class="err">&#39;),</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">gridTemplateColumns</span><span class="err">({</span> <span class="na">xs:</span> <span class="err">&#39;</span><span class="na">1fr</span><span class="err">&#39;,</span> <span class="na">sm:</span> <span class="err">&#39;</span><span class="na">25</span><span class="err">%</span> <span class="na">75</span><span class="err">%&#39;</span> <span class="err">})</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="err">]&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="cm">&lt;!-- Popular shorthands at root --&gt;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;[</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">p</span><span class="err">({</span> <span class="na">xs:</span> <span class="na">1</span><span class="err">,</span> <span class="na">md:</span> <span class="na">2</span> <span class="err">}),</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">bg</span><span class="err">(</span><span class="na">sj</span><span class="err">.</span><span class="na">palette</span><span class="err">.</span><span class="na">primary</span><span class="err">.</span><span class="na">light</span><span class="err">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="err">]&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="cm">&lt;!-- Pseudo helpers accept a style or an array of styles --&gt;</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="p">&lt;</span><span class="nt">button</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;[</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">bg</span><span class="err">(&#39;</span><span class="na">primary</span><span class="err">.</span><span class="na">main</span><span class="err">&#39;),</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">hover</span><span class="err">([</span> <span class="na">sj</span><span class="err">.</span><span class="na">bg</span><span class="err">(&#39;</span><span class="na">primary</span><span class="err">.</span><span class="na">dark</span><span class="err">&#39;),</span> <span class="na">sj</span><span class="err">.</span><span class="na">c</span><span class="err">(&#39;</span><span class="na">primary</span><span class="err">.</span><span class="na">contrast</span><span class="err">&#39;)</span> <span class="err">])</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="err">]&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="cm">&lt;!-- Blueprints and variants at root --&gt;</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;</span><span class="na">sj</span><span class="err">.</span><span class="na">sjCard</span><span class="err">.</span><span class="na">flat</span><span class="err">({</span> <span class="na">p:</span> <span class="na">1</span> <span class="err">})&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="p">&lt;</span><span class="nt">sj-card</span> <span class="err">[</span><span class="na">variant</span><span class="err">]=&quot;&#39;</span><span class="na">elevated</span><span class="err">&#39;&quot;</span><span class="p">&gt;</span>Card<span class="p">&lt;/</span><span class="nt">sj-card</span><span class="p">&gt;</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="cm">&lt;!-- Tokens --&gt;</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;[</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">c</span><span class="err">(</span><span class="na">sj</span><span class="err">.</span><span class="na">palette</span><span class="err">.</span><span class="na">primary</span><span class="err">.</span><span class="na">contrast</span><span class="err">),</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">bg</span><span class="err">(</span><span class="na">sj</span><span class="err">.</span><span class="na">palette</span><span class="err">.</span><span class="na">primary</span><span class="err">.</span><span class="na">dark</span><span class="err">),</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">d</span><span class="err">(</span><span class="na">sj</span><span class="err">.</span><span class="na">d</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">grid</span><span class="err">)</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="err">]&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="root-surface">Root surface</h2>
 <ul>
-<li><code>sj.css</code> — All CSS properties as functions (from <code>csstype</code>).</li>
-<li>Examples: <code>sj.css.padding(...)</code>, <code>sj.css.backgroundColor(...)</code>,
-    <code>sj.css.flexDirection(...)</code>, <code>sj.css.gridTemplateColumns(...)</code>.</li>
+<li>CSS property functions: any camelCase CSS prop is available at <code>sj.&lt;prop&gt;(value)</code>.</li>
+<li>Examples: <code>sj.padding(...)</code>, <code>sj.backgroundColor(...)</code>, <code>sj.flexDirection(...)</code>, <code>sj.gridTemplateColumns(...)</code>.</li>
 <li>
-<p>Use when you want neutral, standard CSS names.</p>
-</li>
-<li>
-<p><code>sj.sh</code> — Curated, popular shorthands.</p>
-</li>
-<li>Spacing: <code>p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml, gap</code></li>
-<li>Color: <code>bg, c</code></li>
-<li>Size: <code>w, h, minW, minH, maxW, maxH</code></li>
-<li>Borders: <code>brad</code></li>
-<li>
-<p>Layout: <code>d, fxDir, fxJustify, fxAItems</code> (use <code>sj.flex.*</code> for more clarity)</p>
-</li>
-<li>
-<p><code>sj.flex</code> — Ergonomic flex helpers.</p>
-</li>
-<li>Presets: <code>row(), column(), center(), middle(), between(), around(), evenly(), wrap(), nowrap(), grow(), shrink()</code></li>
-<li>Knobs: <code>direction(value)</code>, <code>align(value)</code>, <code>justify(value)</code>, <code>gap(value)</code></li>
-<li>
-<p>Tokens: <code>sj.tokens.flex.direction.row</code>, <code>...justify.between</code>, <code>...align.center</code>, <code>...wrap.wrap</code></p>
-</li>
-<li>
-<p><code>sj.grid</code> — Grid helpers.</p>
-</li>
-<li>Container: <code>container(overrides)</code></li>
-<li>Templates: <code>columns(value)</code>, <code>rows(value)</code>, <code>areas(value)</code>, <code>cols(count)</code></li>
-<li>
-<p>Flow/placement: <code>autoFlow(value)</code>, <code>placeItems(value)</code>, <code>placeContent(value)</code>, <code>placeSelf(value)</code>, <code>gap(value)</code></p>
-</li>
-<li>
-<p><code>sj.stack(options)</code> — Quick, readable stacks.</p>
-</li>
-<li>Options: <code>direction</code> (<code>'row' | 'column'</code> or responsive), <code>gap</code>, <code>align</code>, <code>justify</code></li>
-<li>
-<p>Default: column with <code>gap: 0.5</code></p>
-</li>
-<li>
-<p><code>sj.blueprints</code> — Design primitives (builders) with dot-variants.</p>
-</li>
-<li><code>sjBox</code>, <code>sjCard</code>, <code>sjButton</code></li>
-<li>
-<p>Use as producers (call or pass the function):</p>
+<p>Popular props include <code>.options</code> for discoverability:</p>
 <ul>
-<li><code>[sj]="sj.blueprints.sjCard.flat({ p: 1 })"</code></li>
-<li><code>[sj]="sj.blueprints.sjCard.primary"</code> (producer pattern)</li>
+<li><code>sj.display.options = { flex, grid, block, inline, inlineBlock, contents, none }</code></li>
+<li><code>sj.position.options = { static, relative, absolute, fixed, sticky }</code></li>
+<li><code>sj.width.options</code> / <code>sj.height.options</code> include sizing keywords like <code>auto</code>, <code>fitContent</code>, <code>maxContent</code>, <code>minContent</code>.</li>
+<li><code>sj.justifyContent.options</code> and <code>sj.alignItems.options</code> include friendly camelCase aliases like <code>spaceBetween</code>, <code>flexStart</code>.</li>
 </ul>
 </li>
 <li>
-<p><code>sj.variants</code> — Literal registries for IDE autocomplete.</p>
-</li>
-<li><code>sj.variants.sjCard.[default|outlined|flat|elevated|interactive|primary|secondary|info|codeSnippet]</code></li>
-<li>
-<p><code>sj.variants.sjButton.[default|light|contained|outlined|containedPrimary|containedLight|containedDark|containedSecondary|danger]</code></p>
+<p>Shorthands (curated): <code>p, px, py, pt, pr, pb, pl, m, mx, my, mt, mr, mb, ml, gap, bg, c, w, h, minW, minH, maxW, maxH, brad, d, fxDir, fxJustify, fxAItems</code>.</p>
 </li>
 <li>
-<p><code>sj.palette</code> and <code>sj.tokens</code> — Typed design tokens.</p>
+<p>Shorthands also expose <code>.options</code> where it makes sense: <code>sj.bg.options</code>, <code>sj.c.options</code>, <code>sj.d.options</code>, <code>sj.fxDir.options</code>, <code>sj.fxJustify.options</code>, <code>sj.fxAItems.options</code>.</p>
 </li>
-<li><code>sj.palette.&lt;name&gt;.&lt;shade&gt;</code> — palette tokens with contrast.</li>
-<li><code>sj.tokens.colors.&lt;scale&gt;[shade]</code> — color scales with 50..900 and <code>contrast</code>.</li>
-<li><code>sj.tokens.display.[flex|grid|block|inline|inlineBlock|contents|none]</code></li>
-<li><code>sj.tokens.breakpoints.[xs|sm|md|lg|xl|xxl]</code></li>
-<li><code>sj.tokens.typography.[default|H1..H6|P|SPAN|SMALL|…]</code></li>
-<li><code>sj.tokens.spacing(factor)</code> — returns the spacing factor (theme maps factors to CSS lengths).</li>
-<li><code>sj.tokens.flex.direction/justify/align/wrap</code> — typed flex literal values.</li>
-</ul>
-<h2 id="helpers-root">Helpers (root)</h2>
-<ul>
+<li>
+<p>Helpers:</p>
+</li>
 <li><code>sj.compose(...parts)</code> — Merge style parts left→right.</li>
-<li><code>sj.hover(style)</code> / <code>sj.focus(style)</code> / <code>sj.active(style)</code> / <code>sj.disabled(style)</code> — Pseudo helpers.</li>
+<li>
+<p><code>sj.hover(style | style[])</code>, <code>sj.focus(...)</code>, <code>sj.active(...)</code>, <code>sj.disabled(...)</code> — Pseudo helpers that accept a single style or an array of styles.</p>
+</li>
+<li>
+<p>Tokens:</p>
+</li>
+<li><code>sj.palette.&lt;name&gt;.&lt;shade&gt;</code> — semantic palette with <code>main|light|dark|contrast</code>.</li>
+<li>
+<p><code>sj.breakpoints = { xs, sm, md, lg, xl, xxl }</code> — breakpoint names for responsive objects.</p>
+</li>
+<li>
+<p>Blueprints (builders) at root:</p>
+</li>
+<li><code>sj.sjBox</code>, <code>sj.sjCard</code>, <code>sj.sjButton</code> are functions with dot‑variants, e.g. <code>sj.sjCard.elevated()</code>.</li>
+<li>Components <code>&lt;sj-card&gt;</code> and <code>&lt;sj-button&gt;</code> accept a <code>variant</code> string (e.g. <code>'outlined'</code>) or you can use the registry values from <code>sj.sjCard.variants</code> / <code>sj.sjButton.variants</code>.</li>
 </ul>
 <h2 id="responsive-values">Responsive values</h2>
-<p>Any property or helper that accepts a value can take a responsive object:</p>
-<pre><code class="language-ts">{ xs: value, sm: value, md: value, lg: value, xl: value, xxl: value }
-</code></pre>
+<p>Any property or shorthand that accepts a value can take a responsive object:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span><span class="w"> </span><span class="nx">xs</span><span class="o">:</span><span class="w"> </span><span class="kt">value</span><span class="p">,</span><span class="w"> </span><span class="nx">sm</span><span class="o">:</span><span class="w"> </span><span class="kt">value</span><span class="p">,</span><span class="w"> </span><span class="nx">md</span><span class="o">:</span><span class="w"> </span><span class="kt">value</span><span class="p">,</span><span class="w"> </span><span class="nx">lg</span><span class="o">:</span><span class="w"> </span><span class="kt">value</span><span class="p">,</span><span class="w"> </span><span class="nx">xl</span><span class="o">:</span><span class="w"> </span><span class="kt">value</span><span class="p">,</span><span class="w"> </span><span class="nx">xxl</span><span class="o">:</span><span class="w"> </span><span class="kt">value</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
 <p>Example:</p>
-<pre><code class="language-html">&lt;div [sj]=&quot;sj.css.flexDirection({ xs: 'column', sm: 'row' })&quot;&gt;&lt;/div&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;</span><span class="na">sj</span><span class="err">.</span><span class="na">flexDirection</span><span class="err">({</span> <span class="na">xs:</span> <span class="err">&#39;</span><span class="na">column</span><span class="err">&#39;,</span> <span class="na">sm:</span> <span class="err">&#39;</span><span class="na">row</span><span class="err">&#39;</span> <span class="err">})&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
 <h2 id="producer-pattern">Producer pattern</h2>
-<p>Blueprints (and some helpers) can be passed as functions (producers). The
-<code>[sj]</code> directive will call them for you, so both forms work:</p>
-<pre><code class="language-html">&lt;div [sj]=&quot;sj.blueprints.sjCard.primary&quot;&gt;&lt;/div&gt;
-&lt;div [sj]=&quot;sj.blueprints.sjCard.primary()&quot;&gt;&lt;/div&gt;
-</code></pre>
+<p>Blueprints (and helpers) can be passed as functions (producers). The <code>[sj]</code> directive will call them for you, so both forms work:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;</span><span class="na">sj</span><span class="err">.</span><span class="na">sjCard</span><span class="err">.</span><span class="na">primary</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;</span><span class="na">sj</span><span class="err">.</span><span class="na">sjCard</span><span class="err">.</span><span class="na">primary</span><span class="err">()&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
 <h2 id="tips">Tips</h2>
 <ul>
-<li>Prefer <code>sj.css.*</code> for clarity with team members familiar with CSS.</li>
-<li>Reach for <code>sj.flex</code>/<code>sj.grid</code>/<code>sj.stack</code> to improve readability on layout code.</li>
-<li>Use <code>sj.tokens</code> and <code>sj.palette</code> to avoid guessing string literals and unlock
-  autocomplete in templates.</li>
-<li>Arrays merge left→right, so keep overrides last.</li>
+<li>Prefer <code>sj.&lt;cssProp&gt;</code> for maximum clarity; use shorthands for speed on common properties.</li>
+<li>Use <code>.options</code> on props and shorthands to avoid guessing string literals.</li>
+<li>Use <code>sj.palette</code> and responsive objects frequently; arrays merge left→right, so keep overrides last.</li>
 </ul>
 
 

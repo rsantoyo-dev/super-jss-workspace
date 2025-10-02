@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://sjss.dev/blueprints/cards/">
       
       
-        <link rel="prev" href="../../styling-shortcuts/">
+        <link rel="prev" href="../_index/">
       
       
         <link rel="next" href="../buttons/">
@@ -379,6 +379,29 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -443,7 +466,16 @@
         <li class="md-nav__item">
   <a href="#basic-usage" class="md-nav__link">
     <span class="md-ellipsis">
-      Basic Usage
+      Basic usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-with-sj-root-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using with sj root API
     </span>
   </a>
   
@@ -452,11 +484,11 @@
         <li class="md-nav__item">
   <a href="#card-variants" class="md-nav__link">
     <span class="md-ellipsis">
-      Card Variants
+      Card variants
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Card Variants">
+    <nav class="md-nav" aria-label="Card variants">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -548,7 +580,7 @@
         <li class="md-nav__item">
   <a href="#customizing-cards" class="md-nav__link">
     <span class="md-ellipsis">
-      Customizing Cards
+      Customizing cards
     </span>
   </a>
   
@@ -990,7 +1022,16 @@
         <li class="md-nav__item">
   <a href="#basic-usage" class="md-nav__link">
     <span class="md-ellipsis">
-      Basic Usage
+      Basic usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-with-sj-root-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using with sj root API
     </span>
   </a>
   
@@ -999,11 +1040,11 @@
         <li class="md-nav__item">
   <a href="#card-variants" class="md-nav__link">
     <span class="md-ellipsis">
-      Card Variants
+      Card variants
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Card Variants">
+    <nav class="md-nav" aria-label="Card variants">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1095,7 +1136,7 @@
         <li class="md-nav__item">
   <a href="#customizing-cards" class="md-nav__link">
     <span class="md-ellipsis">
-      Customizing Cards
+      Customizing cards
     </span>
   </a>
   
@@ -1118,11 +1159,12 @@
 
 
 <h1 id="card-blueprints">Card Blueprints</h1>
-<p>Card blueprints in Super JSS provide a set of pre-designed, composable card styles that you can use out-of-the-box to build consistent and attractive user interfaces. The <code>sjCard</code> blueprint is a powerful function that comes with several variants to cover most common use cases.</p>
+<p>Blueprints are style builders (not components) that return <code>SjStyle</code> objects. The Card blueprint gives you reusable card surfaces. If you’re new to the concept, see the <a href="../_index/">Blueprints overview</a>. Use <code>sjCard</code> directly or via <code>sj.sjCard</code> with autocomplete; variants are discoverable at <code>sj.sjCard.variants</code>.</p>
 <h2 id="table-of-contents">Table of Contents</h2>
 <ol>
-<li><a href="#basic-usage">Basic Usage</a></li>
-<li><a href="#card-variants">Card Variants</a><ul>
+<li><a href="#basic-usage">Basic usage</a></li>
+<li><a href="#using-with-sj-root-api">Using with sj root API</a></li>
+<li><a href="#card-variants">Card variants</a><ul>
 <li><a href="#default-card">Default Card</a></li>
 <li><a href="#outlined-card">Outlined Card</a></li>
 <li><a href="#flat-card">Flat Card</a></li>
@@ -1134,29 +1176,56 @@
 <li><a href="#code-snippet-card">Code Snippet Card</a></li>
 </ul>
 </li>
-<li><a href="#customizing-cards">Customizing Cards</a></li>
+<li><a href="#customizing-cards">Customizing cards</a></li>
 </ol>
-<h2 id="basic-usage">Basic Usage</h2>
+<h2 id="basic-usage">Basic usage</h2>
 <p>The <code>sjCard</code> blueprint is a function that returns an <code>SjStyle</code> object. You can apply it directly to any element using the <code>[sj]</code> directive.</p>
-<pre><code class="language-typescript">import { Component } from '@angular/core';
-import { SjDirective, sjCard } from 'super-jss';
-
-@Component({
-  standalone: true,
-  selector: 'app-my-card',
-  imports: [SjDirective],
-  template: `
-    &lt;div [sj]=&quot;sjCard()&quot;&gt;
-      &lt;h3&gt;Default Card&lt;/h3&gt;
-      &lt;p&gt;This is a simple card using the default style.&lt;/p&gt;
-    &lt;/div&gt;
-  `
-})
-export class MyCardComponent {
-  protected readonly sjCard = sjCard;
-}
-</code></pre>
-<h2 id="card-variants">Card Variants</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SjDirective</span><span class="p">,</span><span class="w"> </span><span class="nx">sjCard</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;super-jss&#39;</span><span class="p">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kd">@Component</span><span class="p">({</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nx">standalone</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nx">selector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;app-my-card&#39;</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nx">imports</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">SjDirective</span><span class="p">],</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="nx">template</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="sb">    &lt;div [sj]=&quot;sjCard()&quot;&gt;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="sb">      &lt;h3&gt;Default Card&lt;/h3&gt;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="sb">      &lt;p&gt;This is a simple card using the default style.&lt;/p&gt;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="sb">    &lt;/div&gt;</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="sb">  `</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="p">})</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">MyCardComponent</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">sjCard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sjCard</span><span class="p">;</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="using-with-sj-root-api">Using with sj root API</h2>
+<p>Expose <code>sj</code> and compose with helpers and responsive overrides.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SjDirective</span><span class="p">,</span><span class="w"> </span><span class="nx">sj</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;super-jss&#39;</span><span class="p">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kd">@Component</span><span class="p">({</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nx">standalone</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nx">selector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;app-card-api&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="nx">imports</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">SjDirective</span><span class="p">],</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="nx">template</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="sb">    &lt;div [sj]=&quot;[</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="sb">      sj.sjCard(),</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="sb">      sj.p({ xs: 1, md: 2 }),</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="sb">      sj.bg(sj.bg.options.light.light)</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="sb">    ]&quot;&gt;</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="sb">      Default via sj API</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="sb">    &lt;/div&gt;</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="sb">    &lt;div [sj]=&quot;sj.sjCard.elevated({ p: 2 })&quot;&gt;Elevated + overrides&lt;/div&gt;</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="sb">    &lt;div [sj]=&quot;sj.sjCard.primary({ gap: 1 })&quot;&gt;</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="sb">      &lt;h3 [sj]=&quot;sj.c(sj.c.options.primary.contrast)&quot;&gt;Primary Card&lt;/h3&gt;</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="sb">    &lt;/div&gt;</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="sb">  `</span><span class="p">,</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="p">})</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">CardApiComponent</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">sj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sj</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<h2 id="card-variants">Card variants</h2>
 <p>The <code>sjCard</code> API comes with several convenient variants accessible via dot notation.</p>
 <h3 id="default-card">Default Card</h3>
 <p>The default card comes with a light background, padding, and subtle transitions.</p>
@@ -1164,102 +1233,104 @@ export class MyCardComponent {
 <li><strong>Usage:</strong> <code>sjCard()</code></li>
 <li><strong>Description:</strong> Default card with light background.</li>
 </ul>
-<pre><code class="language-html">&lt;div [sj]=&quot;sjCard()&quot;&gt;...&lt;/div&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;</span><span class="na">sjCard</span><span class="err">()&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
 <h3 id="outlined-card">Outlined Card</h3>
 <p>An outlined card has a transparent background and a visible border.</p>
 <ul>
 <li><strong>Usage:</strong> <code>sjCard.outlined()</code></li>
 <li><strong>Description:</strong> Outlined, transparent background, no shadow.</li>
 </ul>
-<pre><code class="language-html">&lt;div [sj]=&quot;sjCard.outlined()&quot;&gt;...&lt;/div&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;</span><span class="na">sjCard</span><span class="err">.</span><span class="na">outlined</span><span class="err">()&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
 <h3 id="flat-card">Flat Card</h3>
 <p>A flat card has no box shadow, making it appear flush with the background.</p>
 <ul>
 <li><strong>Usage:</strong> <code>sjCard.flat()</code></li>
 <li><strong>Description:</strong> No shadow.</li>
 </ul>
-<pre><code class="language-html">&lt;div [sj]=&quot;sjCard.flat()&quot;&gt;...&lt;/div&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;</span><span class="na">sjCard</span><span class="err">.</span><span class="na">flat</span><span class="err">()&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
 <h3 id="elevated-card">Elevated Card</h3>
 <p>An elevated card has a more pronounced box shadow, making it appear to lift off the page.</p>
 <ul>
 <li><strong>Usage:</strong> <code>sjCard.elevated()</code></li>
 <li><strong>Description:</strong> Stronger shadow.</li>
 </ul>
-<pre><code class="language-html">&lt;div [sj]=&quot;sjCard.elevated()&quot;&gt;...&lt;/div&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;</span><span class="na">sjCard</span><span class="err">.</span><span class="na">elevated</span><span class="err">()&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
 <h3 id="interactive-card">Interactive Card</h3>
 <p>An interactive card includes hover effects, making it suitable for clickable elements.</p>
 <ul>
 <li><strong>Usage:</strong> <code>sjCard.interactive()</code></li>
 <li><strong>Description:</strong> Card with hover effects.</li>
 </ul>
-<pre><code class="language-html">&lt;div [sj]=&quot;sjCard.interactive()&quot;&gt;...&lt;/div&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;</span><span class="na">sjCard</span><span class="err">.</span><span class="na">interactive</span><span class="err">()&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
 <h3 id="primary-card">Primary Card</h3>
 <p>A card styled with the theme's primary color for the background and a contrasting text color.</p>
 <ul>
 <li><strong>Usage:</strong> <code>sjCard.primary()</code></li>
 <li><strong>Description:</strong> Primary background and contrast text.</li>
 </ul>
-<pre><code class="language-html">&lt;div [sj]=&quot;sjCard.primary()&quot;&gt;...&lt;/div&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;</span><span class="na">sjCard</span><span class="err">.</span><span class="na">primary</span><span class="err">()&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
 <h3 id="secondary-card">Secondary Card</h3>
 <p>A card styled with the theme's secondary color.</p>
 <ul>
 <li><strong>Usage:</strong> <code>sjCard.secondary()</code></li>
 <li><strong>Description:</strong> Secondary background and contrast text.</li>
 </ul>
-<pre><code class="language-html">&lt;div [sj]=&quot;sjCard.secondary()&quot;&gt;...&lt;/div&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;</span><span class="na">sjCard</span><span class="err">.</span><span class="na">secondary</span><span class="err">()&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
 <h3 id="info-card">Info Card</h3>
 <p>A card for displaying informational messages, often with a subtle background.</p>
 <ul>
 <li><strong>Usage:</strong> <code>sjCard.info()</code></li>
 <li><strong>Description:</strong> Informational card with subtle background.</li>
 </ul>
-<pre><code class="language-html">&lt;div [sj]=&quot;sjCard.info()&quot;&gt;...&lt;/div&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;</span><span class="na">sjCard</span><span class="err">.</span><span class="na">info</span><span class="err">()&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
 <h3 id="code-snippet-card">Code Snippet Card</h3>
 <p>A specialized card style for displaying preformatted code.</p>
 <ul>
 <li><strong>Usage:</strong> <code>sjCard.codeSnippet()</code></li>
 <li><strong>Description:</strong> Preset style for code snippets inside cards.</li>
 </ul>
-<pre><code class="language-html">&lt;pre [sj]=&quot;sjCard.codeSnippet()&quot;&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;
-</code></pre>
-<h2 id="customizing-cards">Customizing Cards</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">&lt;</span><span class="nt">pre</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;</span><span class="na">sjCard</span><span class="err">.</span><span class="na">codeSnippet</span><span class="err">()&quot;</span><span class="p">&gt;&lt;</span><span class="nt">code</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="customizing-cards">Customizing cards</h2>
 <p>All <code>sjCard</code> variants are functions that accept an <code>overrides</code> object. This allows you to easily customize any style property of the card.</p>
-<pre><code class="language-typescript">import { Component } from '@angular/core';
-import { SjDirective, sjCard } from 'super-jss';
-
-@Component({
-  standalone: true,
-  selector: 'app-custom-card',
-  imports: [SjDirective],
-  template: `
-    // Override background color of a default card
-    &lt;div [sj]=&quot;sjCard({ bg: 'secondary.main', c: 'secondary.contrast' })&quot;&gt;
-      Custom Background
-    &lt;/div&gt;
-
-    // Override border radius of a primary card
-    &lt;div [sj]=&quot;sjCard.primary({ borderRadius: 4 })&quot;&gt;
-      Custom Border Radius
-    &lt;/div&gt;
-
-    // Override padding of an elevated card
-    &lt;div [sj]=&quot;sjCard.elevated({ p: 3 })&quot;&gt;
-      Custom Padding
-    &lt;/div&gt;
-  `
-})
-export class CustomCardComponent {
-  protected readonly sjCard = sjCard;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SjDirective</span><span class="p">,</span><span class="w"> </span><span class="nx">sjCard</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;super-jss&#39;</span><span class="p">;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="kd">@Component</span><span class="p">({</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="nx">standalone</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">  </span><span class="nx">selector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;app-custom-card&#39;</span><span class="p">,</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">  </span><span class="nx">imports</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">SjDirective</span><span class="p">],</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">  </span><span class="nx">template</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="sb">    // Override background color of a default card</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="sb">    &lt;div [sj]=&quot;sjCard({ bg: &#39;secondary.main&#39;, c: &#39;secondary.contrast&#39; })&quot;&gt;</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="sb">      Custom Background</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="sb">    &lt;/div&gt;</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="sb">    // Override border radius of a primary card</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="sb">    &lt;div [sj]=&quot;sjCard.primary({ borderRadius: 4 })&quot;&gt;</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="sb">      Custom Border Radius</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="sb">    &lt;/div&gt;</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="sb">    // Override padding of an elevated card</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="sb">    &lt;div [sj]=&quot;sjCard.elevated({ p: 3 })&quot;&gt;</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="sb">      Custom Padding</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="sb">    &lt;/div&gt;</span>
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="sb">  `</span>
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="p">})</span>
+<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">CustomCardComponent</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">sjCard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sjCard</span><span class="p">;</span>
+<a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a><span class="p">}</span>
+<a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>
+<a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a><span class="nx">You</span><span class="w"> </span><span class="nx">can</span><span class="w"> </span><span class="nx">also</span><span class="w"> </span><span class="nx">use</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">variants</span><span class="w"> </span><span class="nx">registry</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="kt">string</span><span class="err">‑</span><span class="nx">based</span><span class="w"> </span><span class="nx">selections</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">other</span><span class="w"> </span><span class="nx">APIs</span><span class="o">:</span><span class="w"> </span><span class="sb">`sj.sjCard.variants.outlined`</span><span class="p">,</span><span class="w"> </span><span class="nx">etc</span><span class="p">.</span>
+</code></pre></div>
 
 
 

@@ -380,6 +380,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../blueprints/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../blueprints/cards/" class="md-nav__link">
         
   
@@ -749,6 +772,48 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#customizing-the-palette" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customizing the palette
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Customizing the palette">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure-and-default-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure and Default Sets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-the-palette" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating the palette
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-palette-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default palette configuration
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -889,6 +954,48 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#customizing-the-palette" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customizing the palette
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Customizing the palette">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure-and-default-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure and Default Sets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-the-palette" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating the palette
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-palette-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default palette configuration
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -909,79 +1016,77 @@
 <h2 id="introduction-to-palette-theming">Introduction to Palette Theming</h2>
 <p>SJSS uses a theming approach that allows you to define semantic color sets, like primary, secondary, and tertiary, using the provided color palette. This approach ensures consistency in the application's color scheme and enhances the ease of applying styles.</p>
 <h2 id="example-demonstrating-palette-with-shorthand-styles">Example: Demonstrating Palette with Shorthand Styles</h2>
-<p>It's palette's flexibility allows for easy styling of components with various color themes. Here's an enhanced example showing the use of the palette along with shorthand styles for padding, margin, and more:</p>
-<pre><code class="language-typescript">  import { Component } from &quot;@angular/core&quot;;
-  import { SjDirective } from &quot;super-jss&quot;;
-
-  @Component({
-    standalone: true,
-    selector: 'app-themed-component',
-    template: `
-      &lt;div [sj]=&quot;{ bg: 'primary.main', color: 'primary.contrast', p: 2, m: 1}&quot;&gt;
-        Primary Themed Content
-        &lt;div [sj]=&quot;{ bg: 'secondary.light', color: 'secondary.contrast', p: 1, m: 0.5 }&quot;&gt;
-          Secondary Light Theme
-        &lt;/div&gt;
-        &lt;div [sj]=&quot;{ bg: 'success.main', color: 'success.contrast', p: 1, m: 0.5 }&quot;&gt;
-          Success Theme
-        &lt;/div&gt;
-      &lt;/div&gt;
-    `
-  })
-  export class ThemedComponent {}
-
-</code></pre>
-<p>In this example:
-- The outer div is styled with the primary color theme, along with padding (p) and margin (m) for spacing.
-- The inner divs use the secondary and success color themes, each with their own padding and margin for clear visual separation.</p>
-<h1 id="customizing-the-palette">Customizing the Palette</h1>
+<p>The palette's flexibility allows for easy styling of components with semantic colors. Here's an example showing palette usage with spacing shorthands:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">  </span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@angular/core&quot;</span><span class="p">;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SjDirective</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;super-jss&quot;</span><span class="p">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="kd">@Component</span><span class="p">({</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nx">standalone</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nx">selector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;app-themed-component&#39;</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nx">template</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="sb">      &lt;div [sj]=&quot;{ bg: &#39;primary.main&#39;, c: &#39;primary.contrast&#39;, p: 2, m: 1}&quot;&gt;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="sb">        Primary Themed Content</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="sb">        &lt;div [sj]=&quot;{ bg: &#39;secondary.light&#39;, c: &#39;secondary.contrast&#39;, p: 1, m: 0.5 }&quot;&gt;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="sb">          Secondary Light Theme</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="sb">        &lt;/div&gt;</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="sb">        &lt;div [sj]=&quot;{ bg: &#39;success.main&#39;, c: &#39;success.contrast&#39;, p: 1, m: 0.5 }&quot;&gt;</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="sb">          Success Theme</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="sb">        &lt;/div&gt;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="sb">      &lt;/div&gt;</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="sb">    `</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">  </span><span class="p">})</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">  </span><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ThemedComponent</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div>
+In this example:</p>
+<ul>
+<li>The outer div is styled with the primary color theme, along with padding (p) and margin (m) for spacing.</li>
+<li>The inner divs use the secondary and success color themes, each with their own padding and margin for clear visual separation.</li>
+</ul>
+<h2 id="customizing-the-palette">Customizing the palette</h2>
 <h3 id="structure-and-default-sets">Structure and Default Sets</h3>
 <p>The default SJSS palette includes semantic color sets like primary, secondary, and success. Each set is structured with main, light, dark, and contrast shades for flexibility.</p>
-<h3 id="updating-the-palette">Updating the Palette</h3>
-<p>To customize the color sets according to your branding or design preferences:</p>
+<h3 id="updating-the-palette">Updating the palette</h3>
+<p>To customize the palette according to your branding or design preferences:</p>
 <ol>
-<li>
-<p><strong>Accessing the Palette</strong>: Utilize the SjThemeService to work with the current palette.</p>
-</li>
-<li>
-<p><strong>Modifying Colors</strong>: Use setColors in SjThemeService to update the color sets:</p>
-</li>
+<li>Use SjThemeService to apply a partial theme update at runtime.</li>
+<li>Modify semantic colors via setTheme({ palette: { ... } }):</li>
 </ol>
-<pre><code class="language-typescript">import { Component } from &quot;@angular/core&quot;;
-import { SjDirective, SjThemeService } from &quot;super-jss&quot;;
-
-@Component({
-  standalone: true,
-  selector: 'app-themed-component',
-  template: `
-    &lt;div (click)=&quot;updateColor()&quot; [sj]=&quot;{ bg: 'primary.main', color: 'primary.contrast', p: 2, m: 1}&quot;&gt;
-      Primary Themed Content
-    &lt;/div&gt;
-  `
-})
-export class ThemedComponent {
-  constructor(private sjTheme: SjThemeService) {}
-  updateColor(): void {
-    this.sjTheme.setColors({
-      primary: {
-        main: '#ffdb58',
-        light: '#ffecb3',
-        dark: '#ffca28',
-        contrast: '#000000'
-      },
-      // colors from the library may be used as well      
-      tertiary: {
-        main: this.sjTheme.colors.purple,
-        light: this.sjTheme.colors.purple[300],
-        dark: this.sjTheme.colors.purple[700],
-        contrast: this.sjTheme.colors.purple.contrast
-      }
-    });
-  }
-}
-</code></pre>
-<p>This example showcases how SJSS's theming and shorthand styles enable developers to create visually appealing and consistent designs with ease.</p>
-<h2 id="default-palette-configuration">Default Palette Configuration</h2>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@angular/core&quot;</span><span class="p">;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SjDirective</span><span class="p">,</span><span class="w"> </span><span class="nx">SjThemeService</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;super-jss&quot;</span><span class="p">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kd">@Component</span><span class="p">({</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nx">standalone</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nx">selector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;app-themed-component&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="nx">template</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="sb">    &lt;div (click)=&quot;updateColor()&quot; [sj]=&quot;{ bg: &#39;primary.main&#39;, c: &#39;primary.contrast&#39;, p: 2, m: 1}&quot;&gt;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="sb">      Primary Themed Content</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="sb">    &lt;/div&gt;</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="sb">  `</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">})</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ThemedComponent</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="k">private</span><span class="w"> </span><span class="nx">sjTheme</span><span class="o">:</span><span class="w"> </span><span class="kt">SjThemeService</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">  </span><span class="nx">updateColor</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">sjTheme</span><span class="p">.</span><span class="nx">setTheme</span><span class="p">({</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">      </span><span class="nx">palette</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">        </span><span class="nx">primary</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">          </span><span class="nx">main</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#ffdb58&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">          </span><span class="nx">light</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#ffecb3&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">          </span><span class="nx">dark</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#ffca28&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">          </span><span class="nx">contrast</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#000000&#39;</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">        </span><span class="p">},</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">        </span><span class="nx">tertiary</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">          </span><span class="nx">main</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#9C27B0&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">          </span><span class="nx">light</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#CE93D8&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">          </span><span class="nx">dark</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#6A1B9A&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">          </span><span class="nx">contrast</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#FFFFFF&#39;</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">    </span><span class="p">});</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="p">}</span>
+</code></pre></div>
+This example showcases how SJSS's theming and shorthand styles enable developers to create visually appealing and consistent designs with ease.</p>
+<h2 id="default-palette-configuration">Default palette configuration</h2>
 <p>The default palette configuration is as follows:</p>
 <table>
 <thead>
@@ -999,14 +1104,14 @@ export class ThemedComponent {
 <td>blue[500]</td>
 <td>blue[300]</td>
 <td>blue[700]</td>
-<td>yellow[500]</td>
+<td>white</td>
 </tr>
 <tr>
 <td>secondary</td>
 <td>orange[500]</td>
 <td>orange[300]</td>
 <td>orange[700]</td>
-<td>blue[300]</td>
+<td>black</td>
 </tr>
 <tr>
 <td>tertiary</td>
@@ -1020,42 +1125,42 @@ export class ThemedComponent {
 <td>green[500]</td>
 <td>green[300]</td>
 <td>green[700]</td>
-<td>gray[50]</td>
+<td>white</td>
 </tr>
 <tr>
 <td>info</td>
 <td>cyan[500]</td>
 <td>cyan[300]</td>
 <td>cyan[700]</td>
-<td>gray[50]</td>
+<td>black</td>
 </tr>
 <tr>
 <td>warning</td>
 <td>orange[500]</td>
 <td>orange[300]</td>
 <td>orange[700]</td>
-<td>gray[50]</td>
+<td>black</td>
 </tr>
 <tr>
 <td>error</td>
 <td>red[500]</td>
 <td>red[300]</td>
 <td>red[700]</td>
-<td>gray[50]</td>
+<td>white</td>
 </tr>
 <tr>
 <td>dark</td>
 <td>gray[800]</td>
 <td>gray[600]</td>
 <td>black</td>
-<td>gray[50]</td>
+<td>white</td>
 </tr>
 <tr>
 <td>neutral</td>
 <td>gray[500]</td>
 <td>gray[300]</td>
 <td>gray[700]</td>
-<td>gray[50]</td>
+<td>black</td>
 </tr>
 <tr>
 <td>light</td>

@@ -380,6 +380,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../../blueprints/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../blueprints/cards/" class="md-nav__link">
         
   
@@ -957,11 +980,11 @@ leaving extra DOM once rendered.</p>
   while keeping the <code>sj</code> directive behaviour.</li>
 </ul>
 <h2 id="usage">Usage</h2>
-<pre><code class="language-html">&lt;sj-host [sj]=&quot;sj.blueprints.sjBox.column({ gap: 1 })&quot;&gt;
-  &lt;h2&gt;Settings&lt;/h2&gt;
-  &lt;app-settings-panel&gt;&lt;/app-settings-panel&gt;
-&lt;/sj-host&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">sj-host</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;</span><span class="na">sj</span><span class="err">.</span><span class="na">sjBox</span><span class="err">.</span><span class="na">column</span><span class="err">({</span> <span class="na">gap:</span> <span class="na">1</span> <span class="err">})&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Settings<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  <span class="p">&lt;</span><span class="nt">app-settings-panel</span><span class="p">&gt;&lt;/</span><span class="nt">app-settings-panel</span><span class="p">&gt;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">&lt;/</span><span class="nt">sj-host</span><span class="p">&gt;</span>
+</code></pre></div>
 <ul>
 <li>Styles passed through <code>[sj]</code> are applied to the <em>parent</em> element once the
   component renders. The <code>&lt;sj-host&gt;</code> tag removes itself after projection.</li>
