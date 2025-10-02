@@ -20,6 +20,13 @@ Usage
 </sj-card>
 ```
 
+API
+
+| Input    | Type                   | Description                                    |
+|----------|------------------------|------------------------------------------------|
+| `variant`| `SjCardVariant\|string` | Card variant (e.g., 'flat', 'elevated', ...)   |
+| `sj`     | `SjStyle\|SjStyle[]`    | Additional styles merged after the variant     |
+
 Variants
 
 - default (sjCard())

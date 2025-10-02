@@ -1,122 +1,108 @@
-# Styling Shorthands and Advanced Properties
+# Styling shorthands
 
-Super JavaScript Stylesheets ([SJSS](https://www.npmjs.com/package/super-jss)) simplifies styling in Angular applications with a range of shorthand properties, covering everything from padding and margin to flexbox layouts.
+SJSS provides a small, curated set of shorthands that cover the most common layout and spacing needs. You can always use any full CSS property in camelCase as well.
 
-## Table of Contents
-1. [Example Usage in a Component](#example-usage-in-a-component)
-2. [Shorthand Properties](#shorthand-properties)
-  - [Padding and Margin](#padding-and-margin)
-  - [Sizes](#sizes)
-  - [Borders](#borders)
-  - [Colors](#colors)
-  - [Flexbox](#flexbox)
+Tip: Every shorthand accepts responsive values too, e.g. `p: { xs: 1, md: 2 }`.
 
-### Example Usage in a Component
-Consider styling a `div` within an Angular component using SJSS shorthand properties:
+## Example in a component
 
-```typescript
-  import { Component } from "@angular/core";
-  import { SjDirective } from "super-jss";
-  
-  @Component({
-    standalone: true,
-    selector: 'app-shorthand-demo',
-    template: `
-        <div [sj]="{
-          py: 1,
-          px: 2,
-          m: 2,
-          b: '1px solid black',
-          d: 'flex',
-          fxJustify: 'center',
-          fxAItems: 'center',
-          bg: '#aa5645'
-        }">
-          Welcome to Super JSS!
-        </div>
-      `
+```ts
+import { Component } from '@angular/core';
+import { SjDirective } from 'super-jss';
+
+@Component({
+  standalone: true,
+  selector: 'app-shorthand-demo',
+  imports: [SjDirective],
+  template: `
+    <div [sj]="{
+      py: 1,
+      px: 2,
+      m: 2,
+      border: '1px solid black',
+      d: 'flex',
+      fxJustify: 'center',
+      fxAItems: 'center',
+      gap: 1,
+      bg: '#aa5645'
+    }">
+      Welcome to Super JSS!
+    </div>
+  `,
 })
 export class ShorthandDemoComponent {}
 ```
 
-For interactive examples and more detailed usage, visit [SJSS on StackBlitz](https://stackblitz.com/edit/super-js?file=src%2Fmain.ts).
+Prefer typed values and autocomplete? Use the root `sj` helper functions with `.options`:
 
-Now, let's delve into the details of these shorthand properties.
+```html
+<div [sj]="[
+  sj.d(sj.d.options.flex),
+  sj.fxDir(sj.fxDir.options.row),
+  sj.fxJustify(sj.fxJustify.options.center),
+  sj.fxAItems(sj.fxAItems.options.center),
+  sj.p(2), sj.gap(1), sj.bg(sj.bg.options.primary.light)
+]"></div>
+```
 
-- **note**: they are just shorthands, you can use the full css property in camelCase if you prefer. The `px`, `py`, `mx`, `my`, `bx`, and `by` shorthands are processed directly by the `SjDirective` for convenience.
+## Shorthand reference
 
-## Shorthand Properties
+### Spacing
 
-### Padding and Margin
-
-| Shorthand | CSS Property   | Description         |
-|-----------|----------------|---------------------|
-| `p`       | `padding`      | Padding on all sides|
-| `pt`      | `paddingTop`   | Padding top         |
-| `pr`      | `paddingRight` | Padding right       |
-| `pb`      | `paddingBottom`| Padding bottom      |
-| `pl`      | `paddingLeft`  | Padding left        |
-| `m`       | `margin`       | Margin on all sides |
-| `mt`      | `marginTop`    | Margin top          |
-| `mr`      | `marginRight`  | Margin right        |
-| `mb`      | `marginBottom` | Margin bottom       |
-| `ml`      | `marginLeft`   | Margin left         |
-| `px`      | `paddingLeft`, `paddingRight` | Horizontal padding |
-| `py`      | `paddingTop`, `paddingBottom` | Vertical padding   |
-| `mx`      | `marginLeft`, `marginRight` | Horizontal margin |
-| `my`      | `marginTop`, `marginBottom` | Vertical margin   |
+| Shorthand | CSS Property                         | Description          |
+|-----------|--------------------------------------|----------------------|
+| `p`       | `padding`                            | Padding (all sides)  |
+| `pt`      | `paddingTop`                         | Padding top          |
+| `pr`      | `paddingRight`                       | Padding right        |
+| `pb`      | `paddingBottom`                      | Padding bottom       |
+| `pl`      | `paddingLeft`                        | Padding left         |
+| `px`      | `paddingLeft`, `paddingRight`        | Horizontal padding   |
+| `py`      | `paddingTop`, `paddingBottom`        | Vertical padding     |
+| `m`       | `margin`                             | Margin (all sides)   |
+| `mt`      | `marginTop`                          | Margin top           |
+| `mr`      | `marginRight`                        | Margin right         |
+| `mb`      | `marginBottom`                       | Margin bottom        |
+| `ml`      | `marginLeft`                         | Margin left          |
+| `mx`      | `marginLeft`, `marginRight`          | Horizontal margin    |
+| `my`      | `marginTop`, `marginBottom`          | Vertical margin      |
+| `gap`     | `gap`                                | Gap between items    |
 
 ### Sizes
 
-| Shorthand | CSS Property   | Description   |
-|-----------|----------------|---------------|
-| `w`       | `width`        | Width         |
-| `h`       | `height`       | Height        |
-| `minW`    | `minWidth`     | Minimum width |
-| `minH`    | `minHeight`    | Minimum height|
-| `maxW`    | `maxWidth`     | Maximum width |
-| `maxH`    | `maxHeight`    | Maximum height|
+| Shorthand | CSS Property   | Description       |
+|-----------|----------------|-------------------|
+| `w`       | `width`        | Width             |
+| `h`       | `height`       | Height            |
+| `minW`    | `minWidth`     | Minimum width     |
+| `minH`    | `minHeight`    | Minimum height    |
+| `maxW`    | `maxWidth`     | Maximum width     |
+| `maxH`    | `maxHeight`    | Maximum height    |
 
-### Borders
+### Borders / radius
 
-| Shorthand | CSS Property   | Description      |
-|-----------|----------------|------------------|
-| `b`       | `border`       | Border on all sides |
-| `bt`      | `borderTop`    | Border top       |
-| `br`      | `borderRight`  | Border right     |
-| `bb`      | `borderBottom` | Border bottom    |
-| `bl`      | `borderLeft`   | Border left      |
-| `bs`      | `borderStyle`  | Border style     |
-| `bw`      | `borderWidth`  | Border width     |
-| `bc`      | `borderColor`  | Border color     |
-| `brad`    | `borderRadius` | Border radius    |
-| `bx`      | `borderLeft`, `borderRight` | Horizontal borders |
-| `by`      | `borderTop`, `borderBottom` | Vertical borders   |
+| Shorthand | CSS Property    | Description     |
+|-----------|-----------------|-----------------|
+| `brad`    | `borderRadius`  | Border radius   |
+
+Note: Use full CSS properties for borders (e.g., `border`, `borderTop`, `borderColor`, ...).
 
 ### Colors
 
-| Shorthand | CSS Property      | Description     |
-|-----------|-------------------|-----------------|
-| `bg`      | `backgroundColor` | Background color|
-| `c`       | `color`           | Text color      |
+| Shorthand | CSS Property      | Description       |
+|-----------|-------------------|-------------------|
+| `bg`      | `backgroundColor` | Background color  |
+| `c`       | `color`           | Text color        |
 
-### Flexbox
+### Flexbox quick layout
 
-| Shorthand  | CSS Property   | Description            |
-|------------|----------------|------------------------|
-| `d`        | `display`      | Display property       |
-| `fxDir`    | `flexDirection`| Flex direction         |
-| `fxWrap`   | `flexWrap`     | Flex wrap              |
-| `fxFlow`   | `flexFlow`     | Flex flow              |
-| `fxJustify`| `justifyContent`| Justify content       |
-| `fxAItems` | `alignItems`   | Align items            |
-| `fxAContent`| `alignContent` | Align content         |
-| `fxOrder`  | `order`        | Flex item order        |
-| `fxGrow`   | `flexGrow`     | Flex grow              |
-| `fxShrink` | `flexShrink`   | Flex shrink            |
-| `fxBasis`  | `flexBasis`    | Flex basis             |
-| `fxASelf`  | `alignSelf`    | Align self             |
+| Shorthand   | CSS Property     | Description        |
+|-------------|------------------|--------------------|
+| `d`         | `display`        | Display            |
+| `fxDir`     | `flexDirection`  | Flex direction     |
+| `fxJustify` | `justifyContent` | Main‑axis align    |
+| `fxAItems`  | `alignItems`     | Cross‑axis align   |
 
+Discover typed options on these shorthands via `sj.*.options` (e.g., `sj.d.options.flex`, `sj.fxDir.options.row`, `sj.bg.options.primary.main`).
 
 ---
 

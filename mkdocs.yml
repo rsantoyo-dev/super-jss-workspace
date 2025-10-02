@@ -50,6 +50,7 @@ nav:
   - SJ API: sj-api.md
   - Styling Shortcuts: styling-shortcuts.md
   - Blueprints:
+    - Overview: blueprints/_index.md
     - Cards: blueprints/cards.md
     - Buttons: blueprints/buttons.md
     - Box: blueprints/box.md

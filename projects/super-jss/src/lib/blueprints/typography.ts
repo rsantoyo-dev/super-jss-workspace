@@ -1,109 +1,4 @@
-import { SjStyle } from '../models/interfaces';
-
-// Base styles for typography variants
-const h1Style: SjStyle = {
-  fontSize: { xs: 2.5, md: 4 },
-  fontWeight: '800',
-  lineHeight: { xs: 2.3, md: 3.7 },
-  marginBlockEnd: 0.8,
-  marginBlockStart: 0.8,
-};
-
-const h2Style: SjStyle = {
-  fontSize: { xs: 2, md: 3.2 },
-  fontWeight: '600',
-  lineHeight: { xs: 1.75, md: 3.2 },
-  marginBlockEnd: 0.8,
-  marginBlockStart: 0.8,
-};
-
-const h3Style: SjStyle = {
-  fontSize: { xs: 1.75, md: 2.7 },
-  fontWeight: '600',
-  lineHeight: { xs: 1.8, md: 2.8 },
-  marginBlockEnd: 0.8,
-  marginBlockStart: 0.8,
-};
-
-const h4Style: SjStyle = {
-    fontSize: { xs: 1.5, md: 2 },
-    fontWeight: '600',
-    lineHeight: { xs: 1.3, md: 2.2 },
-    marginBlockEnd: 0.8,
-    marginBlockStart: 0.8,
-};
-
-const h5Style: SjStyle = {
-    fontSize: { xs: 1.25, md: 1.75 },
-    fontWeight: '600',
-    lineHeight: { xs: 1.4, md: 2.2 },
-    marginBlockEnd: 0.4,
-    marginBlockStart: 0.4,
-};
-
-const h6Style: SjStyle = {
-    fontSize: { xs: 1, md: 1.25 },
-    fontWeight: '600',
-    lineHeight: { xs: 1.2, md: 2.2 },
-    marginBlockEnd: 0.4,
-    marginBlockStart: 0.4,
-};
-
-const pStyle: SjStyle = {
-    fontSize: 1,
-    fontWeight: 'normal',
-    lineHeight: { xs: 1.6, md: 1.8 },
-    marginBlockEnd: 0.8,
-    marginBlockStart: 0.4,
-};
-
-const spanStyle: SjStyle = {
-    fontSize: 0.9,
-    fontWeight: 'normal',
-    lineHeight: { xs: 1.2, md: 1.4 },
-    marginBlockEnd: 0.2,
-    marginBlockStart: 0.2,
-};
-
-const strongStyle: SjStyle = {
-    fontSize: 1,
-    fontWeight: 'bold',
-    lineHeight: { xs: 1.2, md: 1.4 },
-    marginBlockEnd: 0.2,
-    marginBlockStart: 0.2,
-};
-
-const bodyStyle: SjStyle = {
-    fontSize: 1,
-    fontWeight: 'normal',
-    lineHeight: { xs: 1.6, md: 1.8 },
-    marginBlockEnd: 0.5,
-    marginBlockStart: 0.2,
-};
-
-const captionStyle: SjStyle = {
-    fontSize: 0.8,
-    fontWeight: 'normal',
-    lineHeight: { xs: 1.2, md: 1.4 },
-    marginBlockEnd: 0.2,
-    marginBlockStart: 0.2,
-};
-
-const smallStyle: SjStyle = {
-    fontSize: 0.75,
-    fontWeight: 'normal',
-    lineHeight: { xs: 0.5, md: 0.75 },
-    marginBlockEnd: 0.15,
-    marginBlockStart: 0.15,
-};
-
-const preStyle: SjStyle = {
-    fontSize: 0.9,
-    fontFamily: 'monospace',
-    lineHeight: { xs: 1.2, md: 1.4 },
-    marginBlockEnd: 0.2,
-    marginBlockStart: 0.2,
-};
+import { SjStyle, SjTheme } from '../models/interfaces';
 
 /** Function API for composing typography styles with variant helpers. */
 export type SjTypographyApi = ((overrides?: Partial<SjStyle>) => SjStyle) & {
@@ -122,88 +17,130 @@ export type SjTypographyApi = ((overrides?: Partial<SjStyle>) => SjStyle) & {
   pre: (overrides?: Partial<SjStyle>) => SjStyle;
 };
 
-const sjTypographyApi: SjTypographyApi = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-  ...pStyle,
-  ...overrides,
-});
+export function createSjTypographyApi(theme: SjTheme) {
 
-sjTypographyApi.h1 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-  ...h1Style,
-  ...overrides,
-});
+  // Base styles for typography variants
+  const h1Style: SjStyle = {
+    ...theme.typography.H1,
+  };
 
-sjTypographyApi.h2 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-  ...h2Style,
-  ...overrides,
-});
+  const h2Style: SjStyle = {
+    ...theme.typography.H2,
+  };
 
-sjTypographyApi.h3 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-  ...h3Style,
-  ...overrides,
-});
+  const h3Style: SjStyle = {
+    ...theme.typography.H3,
+  };
 
-sjTypographyApi.h4 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...h4Style,
+  const h4Style: SjStyle = {
+    ...theme.typography.H4,
+  };
+
+  const h5Style: SjStyle = {
+    ...theme.typography.H5,
+  };
+
+  const h6Style: SjStyle = {
+    ...theme.typography.H6,
+  };
+
+  const pStyle: SjStyle = {
+    ...theme.typography.P,
+  };
+
+  const spanStyle: SjStyle = {
+    ...theme.typography.SPAN,
+  };
+
+  const strongStyle: SjStyle = {
+    ...theme.typography.STRONG,
+  };
+
+  const bodyStyle: SjStyle = {
+    ...theme.typography.BODY,
+  };
+
+  const captionStyle: SjStyle = {
+    ...theme.typography.CAPTION,
+  };
+
+  const smallStyle: SjStyle = {
+    ...theme.typography.SMALL,
+  };
+
+  const preStyle: SjStyle = {
+    ...theme.typography.PRE,
+  };
+
+  const sjTypographyApi: SjTypographyApi = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+    ...theme.typography.P,
     ...overrides,
-});
+  });
 
-sjTypographyApi.h5 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...h5Style,
+  sjTypographyApi.h1 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+    ...theme.typography.H1,
     ...overrides,
-});
+  });
 
-sjTypographyApi.h6 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...h6Style,
+  sjTypographyApi.h2 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+    ...theme.typography.H2,
     ...overrides,
-});
+  });
 
-sjTypographyApi.p = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...pStyle,
+  sjTypographyApi.h3 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+    ...theme.typography.H3,
     ...overrides,
-});
+  });
 
-sjTypographyApi.span = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...spanStyle,
+  sjTypographyApi.h4 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+    ...theme.typography.H4,
     ...overrides,
-});
+  });
 
-sjTypographyApi.strong = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...strongStyle,
+  sjTypographyApi.h5 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+    ...theme.typography.H5,
     ...overrides,
-});
+  });
 
-sjTypographyApi.body = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...bodyStyle,
+  sjTypographyApi.h6 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+    ...theme.typography.H6,
     ...overrides,
-});
+  });
 
-sjTypographyApi.caption = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...captionStyle,
+  sjTypographyApi.p = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+    ...theme.typography.P,
     ...overrides,
-});
+  });
 
-sjTypographyApi.small = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...smallStyle,
+  sjTypographyApi.span = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+    ...theme.typography.SPAN,
     ...overrides,
-});
+  });
 
-sjTypographyApi.pre = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...preStyle,
+  sjTypographyApi.strong = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+    ...theme.typography.STRONG,
     ...overrides,
-});
+  });
 
-export const sjTypography = sjTypographyApi as SjTypographyApi;
+  sjTypographyApi.body = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+    ...theme.typography.BODY,
+    ...overrides,
+  });
 
-export const sjH1 = sjTypography.h1;
-export const sjH2 = sjTypography.h2;
-export const sjH3 = sjTypography.h3;
-export const sjH4 = sjTypography.h4;
-export const sjH5 = sjTypography.h5;
-export const sjH6 = sjTypography.h6;
-export const sjP = sjTypography.p;
-export const sjSpan = sjTypography.span;
-export const sjStrong = sjTypography.strong;
-export const sjBody = sjTypography.body;
-export const sjCaption = sjTypography.caption;
-export const sjSmall = sjTypography.small;
-export const sjPre = sjTypography.pre;
+  sjTypographyApi.caption = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+    ...theme.typography.CAPTION,
+    ...overrides,
+  });
+
+  sjTypographyApi.small = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+    ...theme.typography.SMALL,
+    ...overrides,
+  });
+
+  sjTypographyApi.pre = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+    ...theme.typography.PRE,
+    ...overrides,
+  });
+
+  return sjTypographyApi as SjTypographyApi;
+}

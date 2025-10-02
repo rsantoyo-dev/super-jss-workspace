@@ -1,85 +1,73 @@
-# Responsive Styling with Breakpoints
+# Responsive styling
 
-Super JavaScript Stylesheets ([SJSS](https://www.npmjs.com/package/super-jss)) offers a powerful and intuitive approach to implementing responsive designs in Angular applications. Through a system of breakpoints, developers can create styles that adapt seamlessly to various screen sizes.
+Every property in SJSS accepts a responsive object: `{ xs, sm, md, lg, xl, xxl }`. Values cascade up—smaller breakpoints apply to larger ones unless overridden.
 
-## Table of Contents
-1. [Breakpoint Upscaling in SJSS](#breakpoint-upscaling-in-sjss)
-2. [Responsive Styling Example](#responsive-styling-example)
-3. [Updating Breakpoints](#updating-breakpoints)
-4. [Further Learning Resources](#further-learning-resources)
+## Examples
 
-### Breakpoint Upscaling in SJSS
-SJSS employs an 'upscaling' approach for breakpoints. Styles defined for a smaller breakpoint apply to larger breakpoints unless overridden.
+Inline object
 
-### Responsive Styling Example
-Here's how to apply responsive styling in an Angular component using SJSS:
-
-```typescript
-  import { Component } from "@angular/core";
-  import { SjDirective } from "super-jss";
-  
-  @Component({
-    standalone: true,
-    selector: 'app-responsive-demo',
-    template: `
-      <div [sj]="{
-        p: {
-          xs: '5px',    // Padding for extra small screens
-          md: '10px',   // Padding for medium screens
-          lg: '15px'    // Padding for large screens
-          xl: '20px',   // Padding for extra large screens
-          xxl: '25px'  // Padding for extra extra large screens        
-        },
-        bg: {
-          xs: '#6699ff', // Background color for extra small screens
-          md: '#99ff66', // Background color for medium screens
-          lg: '#ff6699'  // Background color for large screens
-        }
-      }">
-        Responsive SJSS Component!
-      </div>
-    `
-  })
-  export class ResponsiveDemoComponent {}
+```html
+<div [sj]="{
+  p: { xs: 1, md: 2 },
+  backgroundColor: { xs: 'light.light', md: 'primary.main' },
+  fontSize: { xs: 1, lg: 1.5 }
+}">Responsive</div>
 ```
 
-For interactive examples and more, visit [SJSS on StackBlitz](https://stackblitz.com/edit/super-js?file=src%2Fmain.ts).
+With sj helpers and arrays
 
-### Updating Breakpoints
-To customize breakpoints, use the `SjThemeService` in SJSS, which is particularly powerful and user-friendly due to its use of Angular signals. This approach minimizes boilerplate and simplifies state management.
+```html
+<div [sj]="[
+  sj.p({ xs: 1, md: 2 }),
+  sj.bg({ xs: 'light.light', md: 'primary.main' }),
+  sj.d(sj.d.options.flex),
+  sj.fxDir({ xs: sj.fxDir.options.column, md: sj.fxDir.options.row }),
+  sj.justifyContent(sj.justifyContent.options.center),
+  sj.alignItems(sj.alignItems.options.center)
+]"></div>
+```
 
-```typescript
-import { Component } from "@angular/core";
-import { SjDirective, SjThemeService } from "super-jss";
+On components (e.g., sj-box)
+
+```html
+<sj-box [sj]="[
+  sj.fxDir({ xs: sj.fxDir.options.column, md: sj.fxDir.options.row }),
+  sj.gap({ xs: 0.5, md: 1 })
+]"></sj-box>
+```
+
+## Breakpoints
+
+Default breakpoint tokens: `xs, sm, md, lg, xl, xxl`. You can customize numeric values in your theme.
+
+Updating breakpoints at runtime
+
+```ts
+import { Component } from '@angular/core';
+import { SjDirective, SjThemeService } from 'super-jss';
 
 @Component({
   standalone: true,
-  selector: 'app-responsive-demo',
-  template: `
-    <button (click)="updateBreakpoints()" [sj]="{ p: 1, bg: 'primary.main', color: 'primary.contrast', borderRadius: '4px', cursor: 'pointer' }">
-      Update Breakpoints
-    </button>
-  `
+  imports: [SjDirective],
+  template: `<button (click)="update()" [sj]="sj.button.outlined({ px: 1 })">Update breakpoints</button>`
 })
-export class ResponsiveDemoComponent {
+export class Demo {
   constructor(private sjTheme: SjThemeService) {}
-  updateBreakpoints(): void {
+  update() {
     this.sjTheme.setTheme({
-      breakpoints: {
-        sm: 660, // optional: a new breakpoint assigned to sm
-        md: 980, // optional: a new breakpoint assigned to md
-        // add lg, xl, or xxl if needed.
-      }
+      breakpoints: { sm: 660, md: 980 }
     });
   }
 }
 ```
-This example demonstrates how to update breakpoints in SJSS. For more examples, visit [SJSS on StackBlitz](https://stackblitz.com/edit/super-js?file=src%2Fmain.ts).
 
-### Further Learning Resources
-For additional information and examples on responsive styling with SJSS, explore the following resources:
-- [SJSS on npm](https://www.npmjs.com/package/super-jss): Detailed package information and installation guide.
-- [Interactive Examples on StackBlitz](https://stackblitz.com/edit/super-js?file=src%2Fmain.ts): Explore hands-on examples and see SJSS in action.
+Notes
+
+- Any property (shorthand or full CSS) can use a responsive object.
+- Arrays merge left → right; responsive values are merged like regular ones.
+- Prefer the root `sj` API for autocomplete and `.options`.
+
+See also: [Basic usage](basic-usage.md), [SJ API](sj-api.md), and [Styling shortcuts](styling-shortcuts.md).
 
 ---
 [⬅️ Previous: Styling Shortcuts](styling-shortcuts.md) | [Next: Colors ➡️](colors.md)

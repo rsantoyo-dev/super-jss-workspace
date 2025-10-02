@@ -18,6 +18,13 @@ Usage
 </sj-button>
 ```
 
+API
+
+| Input    | Type                      | Description                                    |
+|----------|---------------------------|------------------------------------------------|
+| `variant`| `SjButtonVariant\|string` | Button variant (e.g., 'outlined', 'danger', ...) |
+| `sj`     | `SjStyle\|SjStyle[]`      | Additional styles merged after the variant     |
+
 Variants
 
 - default (contained primary)

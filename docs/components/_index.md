@@ -1,11 +1,8 @@
 # Components
 
-Official components that ship with Super JSS. Each entry walks through usage,
-API, and common patterns.
+These are lightweight, standalone wrappers powered by the same `[sj]` directive you use everywhere. Styling is applied via `[sj]` only; some components expose a `variant` input. There are no layout inputs like `display` or `gap`—use the root `sj` API instead (e.g., `sj.sjBox.*`).
 
-- [`<sj-host>`](sj-host.md) - Base component wrapper
-- [`<sj-box>`](sj-box.md) - Flexible container component
-- [`<sj-card>`](sj-card.md) - Content containers with variants
-- [`<sj-button>`](sj-button.md) - Interactive button components
-- [`<sj-typography>`](sj-typography.md) - Text styling components
-- [`<sj-icon>`](sj-icon.md) - Icon components
+- [`<sj-host>`](sj-host.md) — Base wrapper that forwards `[sj]` to its parent
+- [`<sj-box>`](sj-box.md) — Flexible container; style via `[sj]` (no layout inputs)
+- [`<sj-card>`](sj-card.md) — Content container with variants + `[sj]` overrides
+- [`<sj-button>`](sj-button.md) — Button styles with variants + `[sj]` overrides

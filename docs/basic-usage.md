@@ -1,148 +1,167 @@
-# Basic Usage and Core Concepts
+# Basic usage: the core of SJSS
 
-Super JSS streamlines the application of dynamic styles in Angular 20 applications. This guide provides a detailed overview of importing and using the `SjDirective`, complemented by basic examples to illustrate its practical application, including its on-the-fly CSS generation and support for pseudo-selectors.
+SJSS centers around one idea: write styles as plain TypeScript objects (or arrays of them) and bind them to `[sj]`. You can use any camelCase CSS property and every property also accepts a responsive object.
 
-## Table of Contents
-1. [Importing `SjDirective`](#importing-sjdirective)
-2. [Applying `SjDirective`](#applying-sjdirective)
-3. [Composing Styles with Arrays](#composing-styles-with-arrays)
-4. [Pseudo-selectors](#pseudo-selectors)
-5. [Responsive Styling Example](#responsive-styling-example)
-6. [Further Resources](#further-resources)
+This page walks you from the simplest inline example to using the `sj` root API for autocomplete and discoverable options.
 
-### Importing `SjDirective`
+## 1) The minimal component (core pattern)
 
-#### Import the Directive
-To integrate Super JSS into your Angular component, start by importing `SjDirective`:
-
-```typescript
-import { SjDirective } from "super-jss";
-```
-
-### Applying `SjDirective`
-
-#### Apply the Directive
-`SjDirective` can be applied to any HTML element in your Angular template. It accepts either a single object or an array of objects for style definitions. SJSS automatically generates and injects CSS classes into the DOM only as needed, keeping your application lean and fast.
-
-```typescript
+```ts
 import { Component } from '@angular/core';
-import { SjDirective } from "super-jss";
+import { SjDirective } from 'super-jss';
 
 @Component({
   standalone: true,
   selector: 'app-demo',
+  imports: [SjDirective],
   template: `
     <div [sj]="{ p: 2, bg: 'primary.main', color: 'primary.contrast' }">
       Welcome to Super JSS!
     </div>
-  `
+  `,
 })
 export class DemoComponent {}
 ```
 
-### Composing Styles with Arrays
+What’s happening:
 
-One of the powerful features of SJSS is the ability to compose styles by providing an array of `SjStyle` objects to the `[sj]` directive. This allows you to create reusable "JavaScript classes" (which are essentially just `SjStyle` objects) and combine them dynamically.
+- CSS as TS object: properties are camelCase (`backgroundColor` → `backgroundColor`, or shorthand `bg`).
+- Theme tokens: values like `'primary.main'` are resolved via the active theme.
+- Atomic CSS at runtime: SJSS generates minimal CSS classes for you.
 
-This approach promotes modularity, reusability, and makes managing complex style sets much more intuitive. Styles from later objects in the array will override properties from earlier ones if there are conflicts.
 
-```typescript
+## 2) Any CSS prop supports responsive values
+
+Any property (or shorthand) can take a responsive object with breakpoint keys `{ xs, sm, md, lg, xl, xxl }`.
+
+```html
+<div [sj]="{
+  p: { xs: 1, md: 2 },
+  backgroundColor: { xs: 'light.main', md: 'primary.main' },
+  fontSize: { xs: 1, md: 1.25, lg: 1.5 }
+}"></div>
+```
+
+You can mix shorthands and full CSS names interchangeably.
+
+## 3) Arrays compose styles (left → right)
+
+`[sj]` also accepts an array. Later entries override earlier ones. This is a clean way to reuse and override.
+
+```ts
 import { Component } from '@angular/core';
 import { SjDirective, SjStyle } from 'super-jss';
 
-// Define reusable style objects (your "JS classes")
-const myPadding: SjStyle = { p: 2 };
-const myResponsiveMargin: SjStyle = { m: { xs: 2, md: 4 } };
-const myBorder: SjStyle = { border: '1px solid #ccc', borderRadius: '4px' };
-const myShadow: SjStyle = { boxShadow: '0 2px 4px rgba(0,0,0,0.1)' };
+const base: SjStyle = { p: 1, bg: 'light.light', borderRadius: '6px' };
+const interactive: SjStyle = {
+  cursor: 'pointer',
+  transition: 'all .2s ease',
+  '&:hover': { bg: 'primary.main', color: 'primary.contrast' },
+};
 
 @Component({
   standalone: true,
-  selector: 'app-composed-styles-demo',
+  selector: 'app-compose',
+  imports: [SjDirective],
   template: `
-    <div [sj]="[myPadding, myResponsiveMargin, myBorder, myShadow, { bg: 'lightblue' }]">
-      This div uses composed styles!
-    </div>
-    <div [sj]="[myPadding, myShadow, { color: 'red' }]">
-      Another div with different composition.
-    </div>
+    <div [sj]="[ base, interactive, { p: { md: 2 } } ]">Composed</div>
   `,
 })
-export class ComposedStylesDemoComponent {
-  // Make them available in the template
-  protected readonly myPadding = myPadding;
-  protected readonly myResponsiveMargin = myResponsiveMargin;
-  protected readonly myBorder = myBorder;
-  protected readonly myShadow = myShadow;
+export class ComposeComponent {
+  protected readonly base = base;
+  protected readonly interactive = interactive;
 }
 ```
 
-In this example, `myPadding`, `myResponsiveMargin`, `myBorder`, and `myShadow` are reusable `SjStyle` objects. They are combined in an array passed to `[sj]`, allowing for flexible and dynamic styling composition.
+## 4) sjRootApi: functions with autocomplete and `.options`
 
-### Pseudo-selectors
+While plain objects work everywhere, using the `sj` helper unlocks great DX: typed functions for every CSS prop and curated shorthands—each with discoverable `.options`.
 
-SJSS supports CSS pseudo-selectors using the `&:` syntax within your style objects. This allows you to define styles for states like hover, focus, or active directly within your `[sj]` attribute.
+Expose `sj` to your template for autocomplete:
 
-```typescript
+```ts
 import { Component } from '@angular/core';
-import { SjDirective } from "super-jss";
+import { SjDirective, sj } from 'super-jss';
 
 @Component({
   standalone: true,
-  selector: 'app-button-demo',
+  selector: 'app-sj-api',
+  imports: [SjDirective],
   template: `
-    <button [sj]="{
-      p: 1,
-      bg: 'secondary.main',
-      color: 'secondary.contrast',
-      borderRadius: '4px',
-      cursor: 'pointer',
-      transition: 'all 0.2s ease-in-out',
-      '&:hover': {
-        bg: 'secondary.dark',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
-      },
-      '&:active': {
-        transform: 'scale(0.98)'
-      }
-    }">
-      Click Me
-    </button>
-  `
+    <div [sj]="[
+      sj.display(sj.display.options.flex),
+      sj.flexDirection({ xs: sj.flexDirection.options.column, md: sj.flexDirection.options.row }),
+      sj.justifyContent(sj.justifyContent.options.center),
+      sj.alignItems(sj.alignItems.options.center),
+      sj.p(2),
+      sj.bg(sj.bg.options.primary.main)
+    ]">Using sjRootApi</div>
+  `,
 })
-export class ButtonDemoComponent {}
+export class SjApiComponent {
+  readonly sj = sj; // expose to template
+}
 ```
 
-### Responsive Styling Example
+Highlights:
 
-SJSS makes responsive design intuitive. You can define different style values for various breakpoints (e.g., `xs`, `sm`, `md`, `lg`, `xl`, `xxl`) directly within your style properties.
+- `sj.<cssProp>(value)` for any CSS prop, plus shorthands like `sj.p`, `sj.bg`, `sj.c`, `sj.gap`.
+- `.options` reveals common, typed values (e.g., `sj.display.options.flex`, `sj.position.options.absolute`).
+- Works in arrays; combine with plain objects freely.
 
-```typescript
-import { Component } from '@angular/core';
-import { SjDirective } from "super-jss";
+See the full API: [sj API](sj-api.md) and [Styling shortcuts](styling-shortcuts.md).
 
-@Component({
-  standalone: true,
-  selector: 'app-responsive-div',
-  template: `
-    <div [sj]="{
-      p: { xs: 1, md: 2, lg: 3 }, /* Padding changes based on screen size */
-      bg: { xs: 'red', md: 'blue', lg: 'green' }, /* Background color changes */
-      fontSize: { xs: 1, md: 1.5, lg: 2 }
-    }">
-      This div adapts to screen size!
-    </div>
-  `
-})
-export class ResponsiveDivComponent {}
+## 5) Pseudo‑selectors two ways
+
+You can write pseudo‑selectors inline with `&:` or use helpers that accept a style or an array of styles.
+
+```html
+<button [sj]="{
+  p: 1,
+  bg: 'secondary.main',
+  color: 'secondary.contrast',
+  '&:hover': { bg: 'secondary.dark' },
+  '&:active': { transform: 'scale(0.98)' }
+}">Click</button>
 ```
 
-### Further Resources
+Or with helpers:
 
-For more information and advanced examples of using Super JSS, explore the following resources:
-- [Super JSS on npm](https://www.npmjs.com/package/super-jss): Detailed package information and installation guide.
-- [Super JSS Demos on StackBlitz](https://stackblitz.com/edit/super-js?file=src%2Fmain.ts): Interactive examples to understand Super JSS features better.
+```html
+<button [sj]="[
+  sj.p(1),
+  sj.bg('secondary.main'),
+  sj.c('secondary.contrast'),
+  sj.hover([ sj.bg('secondary.dark') ]),
+  sj.active({ transform: 'scale(0.98)' })
+]"></button>
+```
 
----
+## 6) Reuse styles from TypeScript
 
-[⬅️ Previous: Installation](installation.md) | [Next: Styling Shortcuts ➡️](styling-shortcuts.md)
+Define `SjStyle` objects in code and compose them in the template. You can also compose in TS with `sj.compose(...)`.
+
+```ts
+import { SjStyle, sj } from 'super-jss';
+
+const cardBase: SjStyle = sj.compose(
+  sj.p(1),
+  sj.brad(0.5),
+  sj.bg('light.light')
+);
+
+const cardPrimary: SjStyle = sj.compose(
+  cardBase,
+  sj.bg('primary.main'),
+  sj.c('primary.contrast')
+);
+```
+
+## Where to go next
+
+- Discover all functions and `.options`: [sj API](sj-api.md)
+- Popular shorthands: [Styling shortcuts](styling-shortcuts.md)
+- Responsive techniques: [Responsive Style](responsive-style.md)
+- Themes and tokens: [Theming](theming.md)
+
+Tip: You can also use the prebuilt components and blueprints for faster starts. See the homepage Quick Start and [Components](components/_index.md).

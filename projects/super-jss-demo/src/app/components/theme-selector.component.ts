@@ -54,9 +54,9 @@ interface ThemeMeta {
   imports: [CommonModule, ...SJ_BASE_COMPONENTS_IMPORTS],
   template: `
     <sj-host [sj]="[sj.sjCard(), sj.bg(sj.palette.primary.dark), sj.gap(0.25)]">
-      <small [sj]="[sj.c(sj.palette.primary.contrast)]">{{
+      <sj-typography [variant]="'small'" [sj]="[sj.c(sj.palette.primary.contrast)]">{{
         previewLabel()
-      }}</small>
+      }}</sj-typography>
 
       <sj-card [variant]="'flat'" [sj]="[sj.flexDirection('row'), sj.p(0)]">
         @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {

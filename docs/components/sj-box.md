@@ -1,53 +1,46 @@
 # `<sj-box>`
 
-`<sj-box>` is the component equivalent of the `sjBox` blueprint. It renders a
-flex container out of the box and exposes a handful of convenience inputs for
-common flexbox knobs. Because it is powered by the same Super JSS pipeline you
-can still pass responsive values and blueprint overrides when needed.
+`<sj-box>` is the component equivalent of the `sjBox` blueprint. It no longer exposes layout inputs like `display` or `gap`; all styling is applied via the `[sj]` directive using the root `sj` API or plain style objects. Because it's already a box, you don't need to call `sjBox`—use direct helpers like `sj.fxDir`, `sj.gap`, `sj.justifyContent`, and `sj.alignItems`.
 
 ## Quick start
 
 ```html
-<sj-box display="column" gap="1">
+<sj-box [sj]="[ sj.fxDir(sj.fxDir.options.column), sj.gap(1) ]">
   <h2>Profile</h2>
   <p>Contact info and preferences</p>
 </sj-box>
 ```
 
-By default `<sj-box>` renders a `display: flex` container with row direction.
-Pass any content into the slot and it will be laid out accordingly.
+Style it through `[sj]` using the `sj.*` helpers and compose freely with arrays.
 
-## Inputs
+## API
 
-| Input       | Type                             | Description                               |
-| ----------- | -------------------------------- | ----------------------------------------- |
-| `display`   | `'row'`\|`'column'`\|`'grid'`    | Layout mode: flex row, flex column, or grid. |
-| `justify`   | `SjStyle['justifyContent']`      | Horizontal alignment (`center`, `space-between`, …). |
-| `align`     | `SjStyle['alignItems']`          | Vertical alignment of children.           |
-| `wrap`      | `SjStyle['flexWrap']`            | Enables wrapping (`wrap`, `nowrap`, responsive). |
-| `gap`       | `SjStyle['gap']`                 | Gap between children (numeric or responsive). |
-| `bg`        | `SjStyle['bg']`                  | Background color. |
-| `color`     | `SjStyle['c']`                   | Text color. |
+| Input | Type                     | Description                             |
+| ----- | ------------------------ | --------------------------------------- |
+| `sj`  | `SjStyle \| SjStyle[]` | Styles applied to the host container.   |
 
-All inputs accept responsive objects just like any other Super JSS style.
+## Compose with sj helpers
 
-## Overrides and composition
-
-If you need additional styles, pass them through `[sj]` like any other element:
+Compose any layout you need using `sj.*` helpers. Later entries override earlier ones.
 
 ```html
-<sj-box display="column" gap="0.75" [sj]="{ p: { xs: '1rem', md: '2rem' } }">
-  ...
+<sj-box [sj]="[
+  sj.fxDir(sj.fxDir.options.row),
+  sj.gap({ xs: 0.5, md: 1 }),
+  sj.justifyContent(sj.justifyContent.options.center),
+  sj.alignItems(sj.alignItems.options.center),
+  sj.p({ xs: 1, md: 2 }),
+  sj.bg(sj.bg.options.light.light)
+]">
+  <ng-container *ngFor="let item of items">
+    <div [sj]="{ p: 0.5, brad: 0.5, bg: 'light.main' }">{{ item }}</div>
+  </ng-container>
 </sj-box>
 ```
-
-You can also feed arrays of styles and they will be merged from left to right.
 
 ## Notes
 
 - `<sj-box>` is standalone; import it directly or via your shared components
   module.
-- Under the hood it forwards styles to the `SjDirective`, so shorthand helpers
-  and responsive behaviour behave exactly like the blueprint.
-- Need even more control? You can still drop down to the `sjBox` blueprint and
-  pass the result to `[sj]` directly.
+- Styles are applied via `SjDirective`, so shorthand helpers and responsive values work the same as with any element.
+- Need even more control? You can still drop down to the `sjBox` blueprint and pass the result to `[sj]` directly.

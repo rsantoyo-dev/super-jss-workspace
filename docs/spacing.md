@@ -22,6 +22,17 @@ export class SpacingDemoComponent {}
 ```
 In this example, `p: 1` applies 1 rem of padding, and `m: 2` applies 2 rem of margin to the element.
 
+You can also compose spacing responsively and with arrays:
+
+```html
+<div [sj]="[
+  { p: { xs: 1, md: 2 }, m: 1 },
+  { gap: { xs: 0.5, md: 1 } }
+]">
+  Responsive spacing with gap
+</div>
+```
+
 ## Customizing Spacing
 You can customize the spacing scale to fit the design needs of your application.
 
@@ -36,7 +47,7 @@ import { SjDirective, SjThemeService } from "super-jss";
   standalone: true,
   selector: 'app-spacing-update-demo',
   template: `
-    <button (click)="updateSpacing()" [sj]="{ p: 1, bg: 'primary.main', color: 'primary.contrast', borderRadius: '4px', cursor: 'pointer' }">
+    <button (click)="updateSpacing()" [sj]="{ p: 1, bg: 'primary.main', c: 'primary.contrast', borderRadius: '4px', cursor: 'pointer' }">
       Update Spacing
     </button>
   `
@@ -52,8 +63,9 @@ export class SpacingUpdateDemoComponent {
 ```
 
 ## Best Practices
-*   Use consistent spacing units across your application to maintain a harmonious layout.
-*   Choose spacing values that align with your design system or UI guidelines.
-*   Consider using multiples of a base unit (like 0.25 rem, 0.5 rem, etc.) for a harmonious and scalable spacing system.
+
+* Use consistent spacing units across your application to maintain a harmonious layout.
+* Choose spacing values that align with your design system or UI guidelines.
+* Consider using multiples of a base unit (like 0.25 rem, 0.5 rem, etc.) for a harmonious and scalable spacing system.
 
 By utilizing SJSS's spacing system, developers can ensure consistent and easy-to-manage spacing throughout their Angular applications, with the flexibility to adjust it as per their design requirements.

@@ -1,15 +1,18 @@
 # Box Blueprint
 
-Box blueprints in Super JSS offer a composable flexbox foundation built for fast layout experimentation. The `sjBox` API follows the same ergonomic pattern as the card blueprint: call the function for a default flex container, or use dot-variants for common layouts.
+Blueprints are ergonomic factory functions that return styles. The Box blueprint gives you flex/grid layouts with sensible defaults. If this concept is new, start at the [Blueprints overview](./_index.md). You can use `sjBox` directly or via the root `sj` API for autocomplete and composition.
 
 ## Table of Contents
-1. [Basic Usage](#basic-usage)
-2. [Layout Variants](#layout-variants)
-3. [Composing With `with`](#composing-with-with)
+- [Box Blueprint](#box-blueprint)
+  - [Table of Contents](#table-of-contents)
+  - [Basic usage](#basic-usage)
+  - [Using with sj root API](#using-with-sj-root-api)
+  - [Layout variants](#layout-variants)
+  - [Composing with `with`](#composing-with-with)
 
-## Basic Usage
+## Basic usage
 
-The `sjBox` blueprint is a function that returns an `SjStyle` object. You can apply it directly to a `<div>` or any other element using the `[sj]` directive.
+The `sjBox` blueprint returns an `SjStyle`. Apply it with the `[sj]` directive.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -30,7 +33,38 @@ export class MyBoxComponent {
 }
 ```
 
-## Layout Variants
+## Using with sj root API
+
+Expose `sj` for template autocomplete and compose with other helpers.
+
+```ts
+import { Component } from '@angular/core';
+import { SjDirective, sj } from 'super-jss';
+
+@Component({
+  standalone: true,
+  selector: 'app-my-box-api',
+  imports: [SjDirective],
+  template: `
+    <div [sj]="[
+      sj.sjBox.column({ gap: { xs: 0.5, md: 1 } }),
+      sj.p({ xs: 1, md: 2 }),
+      sj.bg(sj.bg.options.light.light)
+    ]">
+      Column with gap and padding
+    </div>
+
+    <div [sj]="sj.sjBox.centered({ minH: '50vh' })">
+      Perfectly centered
+    </div>
+  `,
+})
+export class MyBoxApiComponent {
+  readonly sj = sj;
+}
+```
+
+## Layout variants
 
 Each variant still accepts overrides, so responsive values remain fully supported.
 
@@ -62,7 +96,7 @@ Available helpers:
 - `sjBox.wrap()` / `.nowrap()` – control wrapping behaviour
 - `sjBox.grow()` – fluid child that fills remaining space
 
-## Composing With `with`
+## Composing with `with`
 
 Need a reusable preset? Compose partial styles and reuse them across views.
 
@@ -82,4 +116,10 @@ You can still pass responsive overrides when you finally render:
 <section [sj]="heroLayout({ fxDir: { xs: 'column', md: 'row' } })">
   ...
 </section>
+```
+
+Tip: You can also combine with `sj` helpers in arrays:
+
+```html
+<section [sj]="[ heroLayout(), sj.gap(1), sj.p({ md: 2 }) ]"></section>
 ```

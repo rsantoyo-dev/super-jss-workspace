@@ -1,12 +1,14 @@
 import { SjTypography } from '../../models/interfaces';
 
+const defaultStyle = {
+  fontFamily: 'system-ui, "Helvetica", "Arial", sans-serif',
+  fontSize: 1,
+  lineHeight: { xs: 1.3, md: 1.6 },
+  color: 'dark.dark', //
+};
+
 export const DEFAULT_TYPOGRAPHY: SjTypography = {
-  default: {
-    fontFamily: 'system-ui, "Helvetica", "Arial", sans-serif',
-    fontSize: 1,
-    lineHeight: { xs: 1.3, md: 1.6 },
-    color: 'dark.dark', //
-  },
+  default: defaultStyle,
   H1: {
     fontSize: { xs: 2.5, md: 4 },
     fontWeight: '800',
@@ -71,6 +73,7 @@ export const DEFAULT_TYPOGRAPHY: SjTypography = {
     marginBlockStart: 0.2,
   },
   BODY: {
+    ...defaultStyle,
     fontSize: 1,
     fontWeight: 'normal',
     lineHeight: { xs: 1.6, md: 1.8 },
@@ -93,7 +96,7 @@ export const DEFAULT_TYPOGRAPHY: SjTypography = {
   },
   PRE: {
     fontSize: 0.9,
-    fontFamily: 'monospace',
+    fontFamily: 'monospace', // Specific override
     lineHeight: { xs: 1.2, md: 1.4 },
     marginBlockEnd: 0.2,
     marginBlockStart: 0.2,

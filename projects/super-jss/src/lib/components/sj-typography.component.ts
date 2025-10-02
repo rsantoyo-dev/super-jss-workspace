@@ -1,26 +1,28 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { sjTypography, SjTypographyApi } from '../blueprints/typography';
-import { SjHostComponent } from './sj-host.component';
+import { ChangeDetectionStrategy, Component, Input, computed } from '@angular/core';
 import { SjStyle } from '../models/interfaces';
-import type { SjInput } from '../directives/sj.directive';
+import { createSjTypographyApi, SjTypographyApi } from '../blueprints/typography';
 import { SjTypographyVariant } from '../models/variants';
+import { SjThemeService } from '../services';
+import { SjHostComponent } from './sj-host.component';
+import type { SjInput } from '../directives/sj.directive';
 
 @Component({
   selector: 'sj-typography',
-  standalone: true,
   template: `<sj-host [sj]="hostSj"><ng-content></ng-content></sj-host>`,
+  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SjHostComponent],
 })
 export class SjTypographyComponent {
-  sjTypography = sjTypography;
-  // Visual variant of the typography blueprint
   @Input() variant: SjTypographyVariant = 'default';
-  // Optional user overrides to merge after the variant
   @Input() sj: SjInput | undefined;
 
+  private sjTypographyApi = computed(() => createSjTypographyApi(this.themeService.sjTheme()));
+
+  constructor(private themeService: SjThemeService) {}
+
   get selectedSj(): (overrides?: Partial<SjStyle>) => SjStyle {
-    return this.pickVariant(this.sjTypography);
+    return this.pickVariant(this.sjTypographyApi());
   }
 
   private pickVariant(api: SjTypographyApi): (overrides?: Partial<SjStyle>) => SjStyle {
@@ -51,5 +53,4 @@ export class SjTypographyComponent {
     if (user === undefined) return base;
     return Array.isArray(user) ? [base, ...user] : [base, user];
   }
-
 }
