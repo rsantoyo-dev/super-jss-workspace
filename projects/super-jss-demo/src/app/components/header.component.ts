@@ -76,5 +76,6 @@ import { ThemeSelectorComponent } from './theme-selector.component';
 export class HeaderComponent {
   @Output() menuClick = new EventEmitter<void>();
   readonly sj: SjRootApi = sj;
+
   readonly theme = inject(SjThemeService);
 }

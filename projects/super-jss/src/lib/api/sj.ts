@@ -154,7 +154,10 @@ export type SjApi = {
 };
 
 // Unified root API type: expose css functions and shorthands at root for autocomplete
-export type SjRootApi = SjApi & SjCssApiWithOptions & SjShApiWithOptions;
+// Use an interface (not just a type alias) so Angular's Template Language
+// Service can better surface member completions in templates. Extending the
+// constituent types preserves the full shape while improving IDE hints.
+export interface SjRootApi extends SjApi, SjCssApiWithOptions, SjShApiWithOptions {}
 
 // Small helpers implemented explicitly
 const helpers = {

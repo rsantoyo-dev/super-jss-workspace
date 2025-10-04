@@ -17,10 +17,16 @@
     "module": "es2020",
     "paths": {
       "super-jss": [
+        "projects/super-jss/src/public-api.ts",
         "dist/super-jss"
       ],
       "super-jss/themes": [
+        "projects/super-jss/themes/src/public-api.ts",
         "dist/super-jss/themes"
+      ],
+      "super-jss/icons": [
+        "projects/super-jss/icons/src/index.ts",
+        "dist/super-jss/icons"
       ]
     },
     "lib": [
