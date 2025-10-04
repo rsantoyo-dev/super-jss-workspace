@@ -22,6 +22,7 @@ import { SectionContainerComponent } from './section-container.component';
     SjCardComponent,
     JsonStudioComponent,
     SectionContainerComponent,
+    SjTypographyComponent,
   ],
   template: `
     <app-section title="Theming">
@@ -42,14 +43,14 @@ import { SectionContainerComponent } from './section-container.component';
               (click)="discardEditedTheme()"
               [sj]="sj.sjButton()"
             >
-              Discard
+              <sj-typography variant="span" [sj]="[]">Discard</sj-typography>
             </button>
             <button
               [disabled]="!pendingThemePatch"
               (click)="applyEditedTheme()"
               [sj]="sj.sjButton.containedPrimary()"
             >
-              Apply
+              <sj-typography variant="span" [sj]="[]">Apply</sj-typography>
             </button>
           </sj-box>
         </sj-box>

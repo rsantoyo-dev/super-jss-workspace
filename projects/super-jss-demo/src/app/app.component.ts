@@ -123,7 +123,7 @@ export class AppComponent {
   sj: SjRootApi = sj;
   theme = inject(SjThemeService);
   themeData: SjTheme;
-  pendingThemePatch: Partial<SjTheme> | null = null;
+  pendingThemePatch: SjTheme | null = null;
 
   currentBP = signal('xs');
   showSidenav = signal(false);
@@ -136,7 +136,7 @@ export class AppComponent {
   }
   // Receive edits, but do not apply until user confirms
   onStudioChange(patch: Partial<SjTheme>) {
-    this.pendingThemePatch = patch;
+    this.pendingThemePatch = { ...this.themeData, ...patch };
   }
 
   applyEditedTheme() {

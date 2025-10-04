@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng build super-jss && ng serve",
-    "start:watch": "ng serve && ng build super-jss --watch",
+    "start:watch": "sh -c 'ng build super-jss --watch & ng serve'",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch=false --browsers=ChromeHeadless",

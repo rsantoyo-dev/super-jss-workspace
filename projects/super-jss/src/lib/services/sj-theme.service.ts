@@ -256,15 +256,18 @@ export class SjThemeService implements OnDestroy {
     this.resizeSubscription?.unsubscribe();
   }
 
-  /** Apply current theme typography to document so elements inherit the font */
+  /** Apply current theme typography to document via CSS variable so classes can reference it */
   private applyDocumentTypography(theme: SjResolvedTheme) {
     try {
       if (!isPlatformBrowser(this.platformId)) return;
       const ff = (theme.typography as any)?.default?.fontFamily;
       if (ff) {
-        this.document.body.style.fontFamily = Array.isArray(ff)
-          ? (ff as any).join(', ')
-          : (ff as any);
+        const value = Array.isArray(ff) ? (ff as any).join(', ') : (ff as any);
+        // Expose as a CSS custom property; classes use var(--sj-ff, <fallback>)
+        this.document.documentElement.style.setProperty('--sj-ff', value);
+        this.document.body.style.setProperty('--sj-ff', value);
+        // Also set body font-family using the CSS var to ensure inheritance
+        this.document.body.style.fontFamily = `var(--sj-ff, ${value})`;
       }
     } catch {
       // noop

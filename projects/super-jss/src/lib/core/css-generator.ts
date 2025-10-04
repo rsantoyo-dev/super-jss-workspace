@@ -244,6 +244,12 @@ export class CssGenerator {
           v = `"${trimmed}"`;
         }
       }
+      // Preserve monospace/explicit overrides as raw values
+      if (/\bmonospace\b/i.test(v)) {
+        return v;
+      }
+      // Drive via CSS variable so theme font changes propagate instantly
+      return `var(--sj-ff, ${v})`;
     }
     return v;
   }

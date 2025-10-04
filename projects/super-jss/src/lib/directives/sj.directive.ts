@@ -216,12 +216,16 @@ export class SjDirective implements OnChanges {
       this.lastClasses = [canonical];
     }
 
-    // Apply inline typography last so it always wins over classes
+    // Ensure font-family updates instantly using CSS variable fallback.
     try {
-      // Use the lower bound of the current breakpoint to keep inline
-      // responsive overrides stable within a breakpoint.
-      const bp = this.sjt.currentBreakpoint() as keyof SjBreakPoints;
-      const width = theme.breakpoints[bp];
+      const ff = (processedStyles as any)?.fontFamily;
+      if (ff) {
+        const asStr = Array.isArray(ff) ? (ff as any).join(', ') : (ff as any);
+        const value = /\bmonospace\b/i.test(asStr)
+          ? asStr
+          : `var(--sj-ff, ${asStr})`;
+        this.renderer.setStyle(element, 'font-family', value);
+      }
     } catch {}
   }
 }

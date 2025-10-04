@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, computed, ChangeDetectorRef, effect } from '@angular/core';
 import { SjStyle } from '../models/interfaces';
 import { createSjTypographyApi, SjTypographyApi } from '../blueprints/typography';
 import { SjTypographyVariant } from '../models/variants';
@@ -12,6 +12,9 @@ import type { SjInput } from '../directives/sj.directive';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SjHostComponent],
+  host: {
+    '[style.font-family]': 'hostFontFamily',
+  },
 })
 export class SjTypographyComponent {
   @Input() variant: SjTypographyVariant = 'default';
@@ -19,7 +22,13 @@ export class SjTypographyComponent {
 
   private sjTypographyApi = computed(() => createSjTypographyApi(this.themeService.sjTheme()));
 
-  constructor(private themeService: SjThemeService) {}
+  constructor(private themeService: SjThemeService, private cdr: ChangeDetectorRef) {
+    // Ensure OnPush host bindings refresh when theme changes
+    effect(() => {
+      this.themeService.themeVersion();
+      this.cdr.markForCheck();
+    });
+  }
 
   get selectedSj(): (overrides?: Partial<SjStyle>) => SjStyle {
     return this.pickVariant(this.sjTypographyApi());
@@ -47,10 +56,28 @@ export class SjTypographyComponent {
 
   // Compose variant base with user-provided overrides so user wins
   get hostSj(): SjInput {
+    // Read themeVersion so Angular re-evaluates this binding on theme changes
+    // ensuring fresh styles even if the input reference is otherwise stable.
+    this.themeService.themeVersion();
     // Normalize selected variant to a zero-arg producer for SjInput
     const base = () => this.selectedSj();
     const user = this.sj;
     if (user === undefined) return base;
     return Array.isArray(user) ? [base, ...user] : [base, user];
+  }
+
+  // Inline font-family to guarantee typography updates regardless of class timing
+  get hostFontFamily(): string | null {
+    // Track theme changes reactively
+    this.themeService.themeVersion();
+    const style = this.selectedSj();
+    const themeFf = (this.themeService.sjTheme().typography as any)?.default?.fontFamily;
+    const ff = (style as any)?.fontFamily ?? themeFf;
+    if (!ff) return null;
+    const asStr = Array.isArray(ff) ? (ff as any).join(', ') : (ff as any);
+    // If variant explicitly requests monospace (e.g., PRE), respect it directly
+    if (/\bmonospace\b/i.test(asStr)) return asStr;
+    // Default to CSS variable with fallback to computed value
+    return `var(--sj-ff, ${asStr})`;
   }
 }
