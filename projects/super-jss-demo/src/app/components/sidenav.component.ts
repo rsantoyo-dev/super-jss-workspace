@@ -9,28 +9,43 @@ import {
   SjHostComponent,
   sjBox,
   SjTypographyComponent,
+  SjRootApi,
+  sj,
 } from 'super-jss';
 
 @Component({
   standalone: true,
   selector: 'app-sidenav',
-  imports: [CommonModule, RouterModule, SjDirective, SjHostComponent, SjTypographyComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    SjDirective,
+    SjHostComponent,
+    SjTypographyComponent,
+  ],
   template: `
-    <sj-host [sj]="[sjCard()]">
-      <a routerLink="/home" [sj]="sjButton.light()"><sj-typography [variant]="'body'">Home</sj-typography></a>     
-      <a routerLink="/typography" [sj]="sjButton.light()"><sj-typography [variant]="'body'">Typography</sj-typography></a>
-      <a routerLink="/buttons" [sj]="sjButton.light()"><sj-typography [variant]="'body'">Buttons</sj-typography></a>
-      <a routerLink="/cards" [sj]="sjButton.light()"><sj-typography [variant]="'body'">Cards</sj-typography></a>
-      <a routerLink="/palette" [sj]="sjButton.light()"><sj-typography [variant]="'body'">Palette</sj-typography></a>
-      <a routerLink="/theming" [sj]="sjButton.light()"><sj-typography [variant]="'body'">Theming</sj-typography></a>
-      
+    <sj-host [sj]="[sj.sjCard]">
+      <a routerLink="/home" [sj]="sj.sjButton.light()"
+        ><sj-typography [variant]="'span'">Home</sj-typography></a
+      >
+      <a routerLink="/typography" [sj]="sj.sjButton.light()"
+        ><sj-typography [variant]="'span'">Typography</sj-typography></a
+      >
+      <a routerLink="/buttons" [sj]="sj.sjButton.light()"
+        ><sj-typography [variant]="'span'">Buttons</sj-typography></a
+      >
+      <a routerLink="/cards" [sj]="sj.sjButton.light()"
+        ><sj-typography [variant]="'span'">Cards</sj-typography></a
+      >
+      <a routerLink="/palette" [sj]="sj.sjButton.light()"
+        ><sj-typography [variant]="'span'">Palette</sj-typography></a
+      >
+      <a routerLink="/theming" [sj]="sj.sjButton.light()"
+        ><sj-typography [variant]="'span'">Theming</sj-typography></a
+      >
     </sj-host>
   `,
 })
 export class SidenavComponent {
-  sjCard = sjCard;
-  sjButton = sjButton;
-  sjBox = sjBox;
-
-  
+  sj: SjRootApi = sj;
 }

@@ -1,7 +1,7 @@
 import {
   SjBreakPoints,
   SjStyle,
-  SjTheme,
+  SjResolvedTheme,
   ResponsiveStyle,
 } from '../models/interfaces';
 import { shorthandMappings } from '../models/mappings';
@@ -10,7 +10,7 @@ import { generateAtomicClassName } from './class-name';
  * Internal: resolve theme color tokens (e.g., palette or colors) to CSS values.
  * Falls back to the raw value when not resolvable.
  */
-const resolveThemeColor = (value: string, theme: SjTheme): string => {
+const resolveThemeColor = (value: string, theme: SjResolvedTheme): string => {
   const themeKeyParts = value.split('.');
   if (
     (themeKeyParts.length === 1 && value in theme.palette) ||
@@ -51,7 +51,7 @@ const resolveThemeColor = (value: string, theme: SjTheme): string => {
  * Produces min-width media queries for responsive entries and supports '&' pseudos.
  */
 export class CssGenerator {
-  constructor(private theme: SjTheme) {}
+  constructor(private theme: SjResolvedTheme) {}
 
   /**
    * Generates a map of className -> CSS rule from the provided styles.
@@ -91,6 +91,79 @@ export class CssGenerator {
           newVariantPrefix
         );
       } else {
+        // Handle directional shorthands (px/py/mx/my) before generic mapping
+        if (key === 'px' || key === 'py' || key === 'mx' || key === 'my') {
+          const parts =
+            key === 'px'
+              ? [
+                  { cssProp: 'paddingLeft', derivedKey: 'pl' },
+                  { cssProp: 'paddingRight', derivedKey: 'pr' },
+                ]
+              : key === 'py'
+              ? [
+                  { cssProp: 'paddingTop', derivedKey: 'pt' },
+                  { cssProp: 'paddingBottom', derivedKey: 'pb' },
+                ]
+              : key === 'mx'
+              ? [
+                  { cssProp: 'marginLeft', derivedKey: 'ml' },
+                  { cssProp: 'marginRight', derivedKey: 'mr' },
+                ]
+              : [
+                  { cssProp: 'marginTop', derivedKey: 'mt' },
+                  { cssProp: 'marginBottom', derivedKey: 'mb' },
+                ];
+
+          if (typeof value === 'object' && value !== null) {
+            // Responsive object: emit media rules per breakpoint per side
+            const orderedBps = Object.keys(
+              this.theme.breakpoints
+            ) as (keyof SjBreakPoints)[];
+            for (const bp of orderedBps) {
+              if (!Object.prototype.hasOwnProperty.call(value as any, bp)) {
+                continue;
+              }
+              const bpValue = (value as any)[bp] as string | number | undefined;
+              for (const part of parts) {
+                const className = generateAtomicClassName(
+                  variantPrefix,
+                  part.derivedKey,
+                  bp,
+                  bpValue
+                );
+                const resolved = this.resolveStyleValue(
+                  part.derivedKey,
+                  bpValue
+                );
+                const mediaQuery = `@media (min-width: ${
+                  this.theme.breakpoints[bp]
+                }px) {\n  .${className}${pseudoClass} { ${this.kebabCase(
+                  part.cssProp
+                )}: ${resolved}; }\n}`;
+                cssMap.set(className, mediaQuery);
+              }
+            }
+          } else {
+            // Single value: emit two atomic rules (left/right or top/bottom)
+            for (const part of parts) {
+              const className = generateAtomicClassName(
+                variantPrefix,
+                part.derivedKey,
+                undefined,
+                value
+              );
+              const resolved = this.resolveStyleValue(
+                part.derivedKey,
+                value as any
+              );
+              const cssRule = `.${className}${pseudoClass} { ${this.kebabCase(
+                part.cssProp
+              )}: ${resolved}; }`;
+              cssMap.set(className, cssRule);
+            }
+          }
+          continue; // skip standard handling for these shorthands
+        }
         const cssProperty = shorthandMappings[key] || key;
 
         if (typeof value === 'object' && value !== null) {
@@ -160,7 +233,19 @@ export class CssGenerator {
     if (typeof value === 'number') {
       return this.theme.spacing(value);
     }
-    return resolveThemeColor(value, this.theme);
+    let v = resolveThemeColor(value, this.theme);
+    if (key === 'fontFamily' && typeof v === 'string') {
+      // If it's a list, assume user provided correct quoting per family (don't wrap)
+      if (!v.includes(',')) {
+        const trimmed = v.trim();
+        const isQuoted = /^['"].*['"]$/.test(trimmed);
+        const hasSpace = /\s/.test(trimmed);
+        if (hasSpace && !isQuoted) {
+          v = `"${trimmed}"`;
+        }
+      }
+    }
+    return v;
   }
 
   /** Converts camelCase property names to kebab-case. */

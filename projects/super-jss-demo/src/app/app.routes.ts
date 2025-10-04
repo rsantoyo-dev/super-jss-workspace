@@ -9,12 +9,12 @@ import { HeroComponent } from './components/hero.component';
 
 export const routes: Routes = [
   { path: 'hero', component: HeroComponent },
+  { path: 'cards', component: DemoCardsComponent },
   { path: 'theming', component: ThemingComponent },
   { path: 'typography', component: TypographyComponent },
   { path: 'buttons', component: DemoButtonsComponent },
-  { path: 'cards', component: DemoCardsComponent },
   { path: 'palette', component: PaletteComponent },
   { path: 'perf', component: PerfBenchmarkComponent },
   { path: 'home', component: DemoCardsComponent },
-  { path: '', redirectTo: 'hero', pathMatch: 'full' },
+  { path: '', redirectTo: 'cards', pathMatch: 'full' },
 ];

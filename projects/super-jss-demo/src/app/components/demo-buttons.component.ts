@@ -31,87 +31,71 @@ interface DemoButton {
   ],
   template: `
     <app-section title="Buttons">
-      <sj-card [variant]="sj.sjCard.variants.info">
-        <sj-typography variant="span">
-          Buttons inherit expressive presets for light, outlined, contained, and
-          intent-driven looks such as danger. Toggle snippets to view the
-          applied styles and copy usage straight into your templates.
-        </sj-typography>
-        <sj-button
-          type="button"
-          (click)="toggleSnippets()"
-          [attr.aria-pressed]="showSnippets"
-          [variant]="sj.sjButton.variants.outlined"
-          [sj]="{ px: 1, py: 0.5 }"
-        >
-          {{ showSnippets ? 'Hide usage & styles' : 'Show usage & styles' }}
-        </sj-button>
-      </sj-card>
+      <!-- Header content lives inside SectionContainer's outlined card -->
+      <sj-typography variant="span">
+        Buttons inherit expressive presets for light, outlined, contained, and
+        intent-driven looks. Toggle to view applied styles and copy usage into
+        your templates.
+      </sj-typography>
+      <sj-button
+        type="button"
+        (click)="toggleSnippets()"
+        [attr.aria-pressed]="showSnippets"
+        [variant]="sj.sjButton.variants.outlined"
+        [sj]="{ px: 1, py: 0.5 }"
+      >
+        {{ showSnippets ? 'Hide usage & styles' : 'Show usage & styles' }}
+      </sj-button>
 
-      <sj-card
+      <!-- Responsive grid of examples -->
+      <div
         [sj]="[
           sj.d(sj.d.options.grid),
-          sj.gridTemplateColumns('repeat(auto-fit, minmax(360px, 1fr))')
+          sj.gridTemplateColumns('repeat(auto-fit, minmax(360px, 1fr))'),
+          sj.gap({ xs: 0.5, md: 1 }),
+          sj.mt(0)
         ]"
       >
         <sj-card *ngFor="let button of buttonData" [sj]="sj.sjCard.outlined()">
           <sj-typography
             variant="h6"
             [sj]="{ c: button.titleColor, m: 0, p: 0 }"
-            >{{ button.title }}</sj-typography
           >
-          <sj-typography variant="span" [sj]="[]">{{
-            button.message
-          }}</sj-typography>
-          <sj-button type="button" [sj]="button.buttonStyle">{{
-            button.label
-          }}</sj-button>
+            {{ button.title }}
+          </sj-typography>
+          <sj-typography variant="span">
+            {{ button.message }}
+          </sj-typography>
+          <sj-button type="button" [sj]="button.buttonStyle">
+            {{ button.label }}
+          </sj-button>
           @if (showSnippets) {
-          <section [sj]="{ mt: 1, w: '320px' }">
-            <sj-typography
-              variant="p"
-              [sj]="[
-                sj.mt(0),
-                sj.mb(0),
-                sj.fontSize('0.75rem'),
-                sj.fontWeight(600)
-              ]"
-              >Usage</sj-typography
-            >
+          <section
+            [sj]="[
+              sj.d('flex'),
+              sj.flexDirection('column'),
+              sj.gap(1),
+              sj.mt(1)
+            ]"
+          >
+            <sj-typography variant="small">Usage</sj-typography>
             <sj-typography
               variant="pre"
-              [sj]="
-                sj.sjCard.codeSnippet({
-                  fontSize: '0.7rem',
-                  mt: 0.25
-                })
-              "
-              ><code>{{ button.usageExample }}</code></sj-typography
+              [sj]="sj.sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"
             >
-            <sj-typography
-              variant="p"
-              [sj]="[
-                sj.mt(1),
-                sj.mb(0),
-                sj.fontSize('0.75rem'),
-                sj.fontWeight(600)
-              ]"
-              >Computed style</sj-typography
-            >
+              <code>{{ button.usageExample }}</code>
+            </sj-typography>
+            <sj-typography variant="small">Computed style</sj-typography>
             <sj-typography
               variant="pre"
-              [sj]="
-                sj.sjCard.codeSnippet({
-                  fontSize: '0.7rem',
-                  mt: 0.25
-                })
-              "
-              ><code>{{ button.computedStyle }}</code></sj-typography
+              [sj]="sj.sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"
             >
+              <code>{{ button.computedStyle }}</code>
+            </sj-typography>
           </section>
           }
         </sj-card>
-      </sj-card>
+      </div>
     </app-section>
   `,
 })
@@ -134,8 +118,8 @@ export class DemoButtonsComponent {
         label: 'Primary Action',
         message: 'Default contained button with primary coloring.',
         titleColor: 'primary',
-        usageExample: `<sj-button [sj]="sj.button()">Click me</sj-button>`,
-        build: () => sj.button(),
+        usageExample: `<sj-button [sj]="sj.sjButton()">Click me</sj-button>`,
+        build: () => sj.sjButton(),
       },
       {
         title: 'sjButton.light()',
@@ -143,72 +127,72 @@ export class DemoButtonsComponent {
         message:
           'Subtle surface-friendly background with strong text contrast.',
         titleColor: 'primary',
-        usageExample: `<sj-button [sj]="sj.button.light()">Light</sj-button>`,
-        build: () => sj.button.light(),
+        usageExample: `<sj-button [sj]="sj.sjButton.light()">Light</sj-button>`,
+        build: () => sj.sjButton.light(),
       },
       {
         title: 'sjButton.contained()',
         label: 'Neutral Contained',
         message: 'Neutral tone with shadow for elevated emphasis.',
         titleColor: 'primary',
-        usageExample: `<sj-button [sj]="sj.button.contained()">Neutral</sj-button>`,
-        build: () => sj.button.contained(),
+        usageExample: `<sj-button [sj]="sj.sjButton.contained()">Neutral</sj-button>`,
+        build: () => sj.sjButton.contained(),
       },
       {
         title: 'sjButton.outlined()',
         label: 'Outlined',
         message: 'Transparent body with a crisp border.',
         titleColor: 'primary',
-        usageExample: `<sj-button [sj]="sj.button.outlined()">Outlined</sj-button>`,
-        build: () => sj.button.outlined(),
+        usageExample: `<sj-button [sj]="sj.sjButton.outlined()">Outlined</sj-button>`,
+        build: () => sj.sjButton.outlined(),
       },
       {
         title: 'sjButton.containedPrimary()',
         label: 'Primary Contained',
         message: 'Primary brand color with elevated shadow.',
         titleColor: 'primary',
-        usageExample: `<sj-button [sj]="sj.button.containedPrimary()">Primary</sj-button>`,
-        build: () => sj.button.containedPrimary(),
+        usageExample: `<sj-button [sj]="sj.sjButton.containedPrimary()">Primary</sj-button>`,
+        build: () => sj.sjButton.containedPrimary(),
       },
       {
         title: 'sjButton.containedSecondary()',
         label: 'Secondary Contained',
         message: 'Secondary palette coloring for complementary actions.',
         titleColor: 'secondary.dark',
-        usageExample: `<sj-button [sj]="sj.button.containedSecondary()">Secondary</sj-button>`,
-        build: () => sj.button.containedSecondary(),
+        usageExample: `<sj-button [sj]="sj.sjButton.containedSecondary()">Secondary</sj-button>`,
+        build: () => sj.sjButton.containedSecondary(),
       },
       {
         title: 'sjButton.danger()',
         label: 'Danger Action',
         message: 'Error palette styling for destructive or critical tasks.',
         titleColor: 'error.dark',
-        usageExample: `<sj-button [sj]="sj.button.danger()">Delete</sj-button>`,
-        build: () => sj.button.danger(),
+        usageExample: `<sj-button [sj]="sj.sjButton.danger()">Delete</sj-button>`,
+        build: () => sj.sjButton.danger(),
       },
       {
         title: 'sjButton.containedLight()',
         label: 'Surface Light',
         message: 'Light background with soft accent tone.',
         titleColor: 'primary',
-        usageExample: `<sj-button [sj]="sj.button.containedLight()">Light</sj-button>`,
-        build: () => sj.button.containedLight(),
+        usageExample: `<sj-button [sj]="sj.sjButton.containedLight()">Light</sj-button>`,
+        build: () => sj.sjButton.containedLight(),
       },
       {
         title: 'sjButton.containedDark()',
         label: 'Dark Hero',
         message: 'High-contrast dark background for hero actions.',
         titleColor: 'primary',
-        usageExample: `<sj-button [sj]="sj.button.containedDark()">Dark</sj-button>`,
-        build: () => sj.button.containedDark(),
+        usageExample: `<sj-button [sj]="sj.sjButton.containedDark()">Dark</sj-button>`,
+        build: () => sj.sjButton.containedDark(),
       },
       {
         title: `sjButton.contained({ px: 2, borderRadius: 2 })`,
         label: 'Custom Contained',
         message: 'Overrides demonstrate padding and pill radius tweaks.',
         titleColor: 'primary',
-        usageExample: `<sj-button [sj]="sj.button.contained({ px: 2, borderRadius: 2 })">Custom</sj-button>`,
-        build: () => sj.button.contained({ px: 2, borderRadius: 2 }),
+        usageExample: `<sj-button [sj]="sj.sjButton.contained({ px: 2, borderRadius: 2 })">Custom</sj-button>`,
+        build: () => sj.sjButton.contained({ px: 2, borderRadius: 2 }),
       },
     ];
 

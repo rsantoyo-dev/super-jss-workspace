@@ -1,4 +1,4 @@
-import { SjStyle, SjTheme } from '../models/interfaces';
+import { SjStyle, SjResolvedTheme } from '../models/interfaces';
 
 /** Function API for composing typography styles with variant helpers. */
 export type SjTypographyApi = ((overrides?: Partial<SjStyle>) => SjStyle) & {
@@ -17,128 +17,144 @@ export type SjTypographyApi = ((overrides?: Partial<SjStyle>) => SjStyle) & {
   pre: (overrides?: Partial<SjStyle>) => SjStyle;
 };
 
-export function createSjTypographyApi(theme: SjTheme) {
-
+export function createSjTypographyApi(theme: SjResolvedTheme) {
   // Base styles for typography variants
   const h1Style: SjStyle = {
-    ...theme.typography.H1,
+    ...(theme.typography.H1 || {}),
   };
 
   const h2Style: SjStyle = {
-    ...theme.typography.H2,
+    ...(theme.typography.H2 || {}),
   };
 
   const h3Style: SjStyle = {
-    ...theme.typography.H3,
+    ...(theme.typography.H3 || {}),
   };
 
   const h4Style: SjStyle = {
-    ...theme.typography.H4,
+    ...(theme.typography.H4 || {}),
   };
 
   const h5Style: SjStyle = {
-    ...theme.typography.H5,
+    ...(theme.typography.H5 || {}),
   };
 
   const h6Style: SjStyle = {
-    ...theme.typography.H6,
+    ...(theme.typography.H6 || {}),
   };
 
   const pStyle: SjStyle = {
-    ...theme.typography.P,
+    ...(theme.typography.P || {}),
   };
 
   const spanStyle: SjStyle = {
-    ...theme.typography.SPAN,
+    ...(theme.typography.SPAN || {}),
   };
 
   const strongStyle: SjStyle = {
-    ...theme.typography.STRONG,
+    ...(theme.typography.STRONG || {}),
   };
 
   const bodyStyle: SjStyle = {
-    ...theme.typography.BODY,
+    ...(theme.typography.BODY || {}),
   };
 
   const captionStyle: SjStyle = {
-    ...theme.typography.CAPTION,
+    ...(theme.typography.CAPTION || {}),
   };
 
   const smallStyle: SjStyle = {
-    ...theme.typography.SMALL,
+    ...(theme.typography.SMALL || {}),
   };
 
   const preStyle: SjStyle = {
-    ...theme.typography.PRE,
+    ...(theme.typography.PRE || {}),
   };
 
-  const sjTypographyApi: SjTypographyApi = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...theme.typography.P,
+  const sjTypographyApi: SjTypographyApi = (
+    overrides: Partial<SjStyle> = {}
+  ): SjStyle => ({
+    // Include defaults first so shared props like fontFamily are present
+    ...(theme.typography.default || {}),
+    ...(theme.typography.P || {}),
     ...overrides,
   });
 
   sjTypographyApi.h1 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...theme.typography.H1,
+    ...(theme.typography.default || {}),
+    ...(theme.typography.H1 || {}),
     ...overrides,
   });
 
   sjTypographyApi.h2 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...theme.typography.H2,
+    ...(theme.typography.default || {}),
+    ...(theme.typography.H2 || {}),
     ...overrides,
   });
 
   sjTypographyApi.h3 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...theme.typography.H3,
+    ...(theme.typography.default || {}),
+    ...(theme.typography.H3 || {}),
     ...overrides,
   });
 
   sjTypographyApi.h4 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...theme.typography.H4,
+    ...(theme.typography.default || {}),
+    ...(theme.typography.H4 || {}),
     ...overrides,
   });
 
   sjTypographyApi.h5 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...theme.typography.H5,
+    ...(theme.typography.default || {}),
+    ...(theme.typography.H5 || {}),
     ...overrides,
   });
 
   sjTypographyApi.h6 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...theme.typography.H6,
+    ...(theme.typography.default || {}),
+    ...(theme.typography.H6 || {}),
     ...overrides,
   });
 
   sjTypographyApi.p = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...theme.typography.P,
+    ...(theme.typography.default || {}),
+    ...(theme.typography.P || {}),
     ...overrides,
   });
 
   sjTypographyApi.span = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...theme.typography.SPAN,
+    ...(theme.typography.default || {}),
+    ...(theme.typography.SPAN || {}),
     ...overrides,
   });
 
   sjTypographyApi.strong = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...theme.typography.STRONG,
+    ...(theme.typography.default || {}),
+    ...(theme.typography.STRONG || {}),
     ...overrides,
   });
 
   sjTypographyApi.body = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...theme.typography.BODY,
+    ...(theme.typography.default || {}),
+    ...(theme.typography.BODY || {}),
     ...overrides,
   });
 
   sjTypographyApi.caption = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...theme.typography.CAPTION,
+    ...(theme.typography.default || {}),
+    ...(theme.typography.CAPTION || {}),
     ...overrides,
   });
 
   sjTypographyApi.small = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...theme.typography.SMALL,
+    ...(theme.typography.default || {}),
+    ...(theme.typography.SMALL || {}),
     ...overrides,
   });
 
   sjTypographyApi.pre = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...theme.typography.PRE,
+    ...(theme.typography.default || {}),
+    ...(theme.typography.PRE || {}),
     ...overrides,
   });
 

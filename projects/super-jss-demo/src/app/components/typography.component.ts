@@ -6,6 +6,7 @@ import {
   SjBoxComponent,
   sj,
   SjRootApi,
+  SJ_BASE_COMPONENTS_IMPORTS,
 } from 'super-jss';
 import { SectionContainerComponent } from './section-container.component';
 
@@ -15,32 +16,23 @@ import { SectionContainerComponent } from './section-container.component';
   imports: [
     CommonModule,
     SectionContainerComponent,
-    SjDirective,
-    SjTypographyComponent,
-    SjBoxComponent,
+    SJ_BASE_COMPONENTS_IMPORTS,
   ],
   template: `
     <app-section title="Typography">
-      <sj-box
-        [sj]="[
-          sj.display(sj.display.options.flex),
-          sj.fxDir({ xs: sj.fxDir.options.column })
-        ]"
-      >
-        <sj-box [sj]="[sj.sjCard.flat(), sj.d('block')]">
-          <sj-typography variant="p"
-            >SJSS typography is seamlessly integrated with your theme. Styles
-            for HTML elements like h1, p, and span are defined in your active
-            theme and automatically applied. You can easily override these
-            default styles using the [sj] directive for fine-grained
-            control.</sj-typography
-          >
-          <sj-typography
-            variant="pre"
-            [sj]="{ m: 0, mt: 1, p: 1, bg: 'light.light', brad: 0.5 }"
-            ><code>{{ this.sampleImplement }}</code></sj-typography
-          >
-        </sj-box>
+      <sj-card [variant]="sj.sjCard.variants.outlined" [sj]="[sj.p(0)]">
+        <sj-typography variant="p"
+          >SJSS typography is seamlessly integrated with your theme. Styles for
+          HTML elements like h1, p, and span are defined in your active theme
+          and automatically applied. You can easily override these default
+          styles using the [sj] directive for fine-grained
+          control.</sj-typography
+        >
+        <sj-typography
+          variant="pre"
+          [sj]="{ m: 0, mt: 1, p: 1, bg: 'light.light', brad: 0.5 }"
+          ><code>{{ this.sampleImplement }}</code></sj-typography
+        >
         <a
           href="https://sjss.dev/typography/"
           target="_blank"
@@ -79,7 +71,7 @@ import { SectionContainerComponent } from './section-container.component';
         <sj-typography variant="small" [sj]
           >SMALL: {{ sampleText }}
         </sj-typography>
-      </sj-box>
+      </sj-card>
     </app-section>
   `,
 })

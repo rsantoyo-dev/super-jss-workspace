@@ -17,33 +17,10 @@ import { sj, SjRootApi, SjThemeService } from 'super-jss';
 import { inject } from '@angular/core';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
 
-function deepMerge(target: any, source: any): any {
-  const output = { ...target };
-
-  if (isObject(target) && isObject(source)) {
-    Object.keys(source).forEach((key) => {
-      if (isObject(source[key])) {
-        if (!(key in target)) {
-          Object.assign(output, { [key]: source[key] });
-        } else {
-          output[key] = deepMerge(target[key], source[key]);
-        }
-      } else {
-        Object.assign(output, { [key]: source[key] });
-      }
-    });
-  }
-
-  return output;
-}
-
-function isObject(item: any): boolean {
-  return item && typeof item === 'object' && !Array.isArray(item);
-}
-
 interface ThemeMeta {
   name: string;
-  theme: Partial<SjTheme>;
+  theme: SjTheme | Partial<SjTheme>;
+  base?: SjTheme; // optional base to reset before applying partial overrides
   type: 'Library' | 'Custom';
   isDark: boolean;
 }
@@ -54,9 +31,11 @@ interface ThemeMeta {
   imports: [CommonModule, ...SJ_BASE_COMPONENTS_IMPORTS],
   template: `
     <sj-host [sj]="[sj.sjCard(), sj.bg(sj.palette.primary.dark), sj.gap(0.25)]">
-      <sj-typography [variant]="'small'" [sj]="[sj.c(sj.palette.primary.contrast)]">{{
-        previewLabel()
-      }}</sj-typography>
+      <sj-typography
+        [variant]="'small'"
+        [sj]="[sj.c(sj.palette.primary.contrast)]"
+        >{{ previewLabel() }}</sj-typography
+      >
 
       <sj-card [variant]="'flat'" [sj]="[sj.flexDirection('row'), sj.p(0)]">
         @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {
@@ -93,7 +72,7 @@ interface ThemeMeta {
         </sj-button>
         } }
         <sj-box
-          [sj]="sj.sjCard({ bg: sj.palette.primary.main, p: 0.1 })"
+          [sj]="sj.sjCard({ bg: sj.palette.primary.main, padding: 0.1 })"
         ></sj-box>
         @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
         <sj-button
@@ -146,7 +125,8 @@ export class ThemeSelectorComponent {
     },
     {
       name: 'Default Dark',
-      theme: deepMerge(defaultTheme, defaultDarkTheme),
+      theme: defaultDarkTheme,
+      base: defaultTheme,
       type: 'Library',
       isDark: true,
     },
@@ -158,14 +138,16 @@ export class ThemeSelectorComponent {
     },
     {
       name: 'Desert Dark',
-      theme: deepMerge(desertTheme, desertDarkTheme),
+      theme: desertDarkTheme,
+      base: desertTheme,
       type: 'Library',
       isDark: true,
     },
     { name: 'Ocean Light', theme: oceanTheme, type: 'Library', isDark: false },
     {
       name: 'Ocean Dark',
-      theme: deepMerge(oceanTheme, oceanDarkTheme),
+      theme: oceanDarkTheme,
+      base: oceanTheme,
       type: 'Library',
       isDark: true,
     },
@@ -202,7 +184,12 @@ export class ThemeSelectorComponent {
   }
 
   onSelect(theme: ThemeMeta): void {
-    this.theme.setTheme(theme.theme);
+    // Replace strategy to avoid carry-over from previous theme overrides (e.g., font sizes)
+    if (theme.base) {
+      this.theme.setThemeReset({ ...theme.base, ...theme.theme });
+    } else {
+      this.theme.setThemeReset(theme.theme);
+    }
     this.hoveredTheme.set(null);
   }
 }

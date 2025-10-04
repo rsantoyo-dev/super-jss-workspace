@@ -103,7 +103,6 @@ type CssOverrides = {
 };
 
 type ReservedRootKeys =
-  | 'button'
   | 'compose'
   | 'hover'
   | 'focus'
@@ -131,9 +130,6 @@ export type SjApi = {
   sjBox: SjBoxApi;
   sjCard: SjCardApi & { variants: typeof SjCardVariants };
   sjButton: SjButtonApi & { variants: typeof SjButtonVariants };
-
-  // Convenience alias (kept)
-  button: SjButtonApi;
 
   // Helpers
   compose: (
@@ -444,9 +440,6 @@ const sjBase: SjApi = {
   sjBox: sjBox,
   sjCard: Object.assign(sjCard, { variants: SjCardVariants }),
   sjButton: Object.assign(sjButton, { variants: SjButtonVariants }),
-
-  // Convenience alias
-  button: sjButton,
 
   compose: helpers.compose,
   hover: helpers.hover,

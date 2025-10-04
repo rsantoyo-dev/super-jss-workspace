@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { isPlatformBrowser } from '@angular/common';
-import { SjStyle, SjTheme } from '../models/interfaces';
+import { SjStyle, SjResolvedTheme } from '../models/interfaces';
 import { CssGenerator } from '../core/css-generator';
 import { generateBundleId } from '../core/class-name';
 
@@ -48,7 +48,7 @@ export class SjCssGeneratorService {
    */
   public getOrGenerateClasses(
     styles: SjStyle,
-    theme: SjTheme,
+    theme: SjResolvedTheme,
     version = 0
   ): string[] {
     const prefix = version > 0 ? `v${version}-` : '';
@@ -142,7 +142,7 @@ export class SjCssGeneratorService {
    */
   public getOrGenerateClassBundle(
     styles: SjStyle,
-    theme: SjTheme,
+    theme: SjResolvedTheme,
     version = 0
   ): string[] {
     const prefix = version > 0 ? `v${version}-` : '';

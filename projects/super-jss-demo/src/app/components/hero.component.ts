@@ -1,5 +1,11 @@
 import { Component, effect, inject } from '@angular/core';
-import { SJ_BASE_COMPONENTS_IMPORTS, SjThemeService, sj } from 'super-jss';
+import {
+  SJ_BASE_COMPONENTS_IMPORTS,
+  SjPalette,
+  SjThemeService,
+  SjTypography,
+  sj,
+} from 'super-jss';
 
 @Component({
   standalone: true,
@@ -20,25 +26,20 @@ import { SJ_BASE_COMPONENTS_IMPORTS, SjThemeService, sj } from 'super-jss';
         sj.bg(sj.bg.options.light.light)
       ]"
     >
-      <sj-box
-        [sj]="[
-          sj.p(1),
-          sj.brad(0.5),
-          sj.bg(sj.bg.options.primary.main),
-          sj.c(sj.c.options.primary.contrast)
-        ]"
-      >
-        <h1 [sj]="[sj.m(0)]">Hello SJSS</h1>
+      <sj-box [sj]="[sj.p(1), sj.brad(0.5), sj.bg(sj.bg.options.primary.main)]">
+        <sj-typography
+          variant="h1"
+          [sj]="[sj.px(4), sj.c(sj.c.options.light.light)]"
+          >Hello SJSS</sj-typography
+        >
       </sj-box>
 
       <sj-button
         [sj]="[
           sj.p(2),
-          sj.bg('primary.main'),
-          sj.c('white'),
           sj.hover([sj.backgroundColor(sj.bg.options.primary.dark)])
         ]"
-        (click)="updatePrimaryColor()"
+        (click)="updateTheme()"
       >
         Update Primary
       </sj-button>
@@ -56,12 +57,11 @@ export class HeroComponent {
   });
 
   // One‑liner theme update for primary color
-  updatePrimaryColor() {
-    // update only primary.main while keeping other shades; cast partial palette for brevity
+  updateTheme() {
+    // update only primary.main while keeping other shades, and override default typography
     this.theme.setTheme({
-      palette: {
-        primary: { ...this.theme.sjTheme().palette.primary, main: '#4e3149ff' },
-      } as any,
+      palette: { primary: { main: 'purple' } },
+      typography: { default: { color: 'light', fontFamily: 'cursive' } },
     });
   }
 }

@@ -65,6 +65,8 @@ export class SjDirective implements OnChanges {
     // Initialize effect to re-render styles when the current breakpoint or theme changes.
     effect(() => {
       this.sjt.currentBreakpoint(); // depend on currentBreakpoint (responsive changes)
+      // Snapshot theme ref as well so overrides that don't bump version still update
+      this.sjt.sjTheme();
       // Removed windowWidth dependency to avoid re-rendering on every pixel resize.
       // Media queries handle responsive class application between breakpoints.
       const tv = this.sjt.themeVersion(); // depend on themeVersion (theme structure changes)
@@ -74,6 +76,9 @@ export class SjDirective implements OnChanges {
       try {
         this.mergeCache = new WeakMap();
       } catch {}
+      // Reset resolved-style memo so we recompute styles against the new theme
+      this._lastSjInputRef = undefined;
+      this._lastResolvedStyles = undefined;
       this.renderStyles();
       return tv;
     });

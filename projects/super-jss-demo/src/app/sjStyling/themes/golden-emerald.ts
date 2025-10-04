@@ -1,4 +1,10 @@
-import { SjTheme, SjPalette, SjTypography, SjBreakPoints, SjColors } from 'super-jss';
+import {
+  SjTheme,
+  SjPalette,
+  SjTypography,
+  SjBreakPoints,
+  SjColors,
+} from 'super-jss';
 
 const palette: SjPalette = {
   primary: {
@@ -64,42 +70,26 @@ const palette: SjPalette = {
 };
 
 const typography: SjTypography = {
-    default: {
-      fontFamily: 'monospace',
-      fontSize: '16px',
-      fontWeight: '400',
-      lineHeight: '1.5',
-    },
-    H1: { fontSize: { xs: 2.7, md: 3.7 }, fontWeight: '600', lineHeight: 4 },
-    H2: { fontSize: { xs: 2.2, md: 3.2 }, fontWeight: '600', lineHeight: 3.5 },
-    H3: { fontSize: { xs: 1.95, md: 2.7 }, fontWeight: '600', lineHeight: 3 },
-    H4: { fontSize: { xs: 1.7, md: 2.2 }, fontWeight: '600', lineHeight: 2 },
-    H5: { fontSize: { xs: 1.45, md: 1.95 }, fontWeight: '600', lineHeight: 2 },
-    H6: { fontSize: { xs: 1.2, md: 1.45 }, fontWeight: '600', lineHeight: 1.5 },
-    P: { fontSize: 1.1, fontWeight: 'normal', lineHeight: 1.4 },
-    SPAN: { fontSize: 1, fontWeight: 'normal', lineHeight: 1.2 },
-    STRONG: { fontSize: 1.1, fontWeight: 'bold', lineHeight: 1.2 },
-    BODY: { fontSize: 1.1, fontWeight: 'normal', lineHeight: 1.2 },
-    CAPTION: { fontSize: 0.9, fontWeight: 'normal', lineHeight: 1.2 },
-    SMALL: { fontSize: 0.85, fontWeight: 'normal', lineHeight: 1.2 },
-    PRE: { fontSize: 0.85, fontWeight: 'normal', lineHeight: 1.2 },
+  default: {
+    fontFamily: 'monospace',
+  },
 };
 
 const breakpoints: SjBreakPoints = {
-    xs: 0,
-    sm: 550,
-    md: 920,
-    lg: 1120,
-    xl: 1620,
-    xxl: 2560
+  xs: 0,
+  sm: 550,
+  md: 920,
+  lg: 1120,
+  xl: 1620,
+  xxl: 2560,
 };
 
-const spacing = (factor: number): string => `${factor * 0.5}rem`;
+const spacing = (factor: number): string => `${factor * 0.8}rem`;
 
-export const goldenEmeraldTheme: Partial<SjTheme> = {
-      name: 'Golden Emerald',
-      palette,
-      breakpoints,
-      typography,
-      spacing
+export const goldenEmeraldTheme: SjTheme = {
+  name: 'Golden Emerald',
+  palette,
+  breakpoints,
+  typography,
+  spacing,
 };

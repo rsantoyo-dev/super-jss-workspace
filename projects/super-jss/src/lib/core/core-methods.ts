@@ -1,4 +1,9 @@
-import { SjBreakPoints, SjStyle, SjTheme, ResponsiveStyle } from "../models/interfaces";
+import {
+  SjBreakPoints,
+  SjStyle,
+  SjResolvedTheme,
+  ResponsiveStyle,
+} from '../models/interfaces';
 import { shorthandMappings } from '../models/mappings';
 
 /**
@@ -7,14 +12,17 @@ import { shorthandMappings } from '../models/mappings';
  * @param screenWidth Current viewport width in pixels.
  * @returns Breakpoint key (e.g., 'xs', 'md').
  */
-export const getCurrentBreakpoint = (breakpoints:SjBreakPoints,screenWidth: number): string => {
-    let bp = 'xs'
-    for (const key of Object.keys(breakpoints)) {
-        const breakpoint = key as keyof SjBreakPoints;
-        bp = breakpoints[breakpoint] <= screenWidth ? breakpoint : bp;
-    }
-    return bp;
-}
+export const getCurrentBreakpoint = (
+  breakpoints: SjBreakPoints,
+  screenWidth: number
+): string => {
+  let bp = 'xs';
+  for (const key of Object.keys(breakpoints)) {
+    const breakpoint = key as keyof SjBreakPoints;
+    bp = breakpoints[breakpoint] <= screenWidth ? breakpoint : bp;
+  }
+  return bp;
+};
 
 /**
  * Resolves a theme token (e.g., 'primary.main', 'blue.500') to a CSS color.
@@ -23,11 +31,16 @@ export const getCurrentBreakpoint = (breakpoints:SjBreakPoints,screenWidth: numb
  * @param theme Active theme.
  * @returns CSS color string.
  */
-export const resolveThemeColor = (value: string, theme: SjTheme): string => {
+export const resolveThemeColor = (
+  value: string,
+  theme: SjResolvedTheme
+): string => {
   const parts = value.split('.');
   if ((parts.length === 1 && value in theme.palette) || value in theme.colors) {
     if (value in theme.colors) {
-      const colorObject = theme.colors[value as keyof typeof theme.colors] as any;
+      const colorObject = theme.colors[
+        value as keyof typeof theme.colors
+      ] as any;
       return typeof colorObject === 'object' ? colorObject['500'] : colorObject;
     }
     if (value in theme.palette) {
@@ -36,11 +49,17 @@ export const resolveThemeColor = (value: string, theme: SjTheme): string => {
   } else if (parts.length === 2) {
     const [category, shade] = parts;
     if (category in theme.colors) {
-      const colorObject = theme.colors[category as keyof typeof theme.colors] as any;
-      return typeof colorObject === 'object' ? colorObject[shade] ?? value : colorObject;
+      const colorObject = theme.colors[
+        category as keyof typeof theme.colors
+      ] as any;
+      return typeof colorObject === 'object'
+        ? colorObject[shade] ?? value
+        : colorObject;
     }
     if (category in theme.palette) {
-      const colorObject = theme.palette[category as keyof typeof theme.palette] as any;
+      const colorObject = theme.palette[
+        category as keyof typeof theme.palette
+      ] as any;
       return colorObject[shade] ?? value;
     }
   }
@@ -59,15 +78,22 @@ export const applyResponsiveStyle = (
   el: HTMLElement,
   styles: SjStyle,
   screenWidth: number,
-  theme: SjTheme
+  theme: SjResolvedTheme
 ) => {
-  const currentBp = getCurrentBreakpoint(theme.breakpoints, screenWidth) as keyof SjBreakPoints;
+  const currentBp = getCurrentBreakpoint(
+    theme.breakpoints,
+    screenWidth
+  ) as keyof SjBreakPoints;
   for (const key in styles) {
     if (!Object.prototype.hasOwnProperty.call(styles, key)) continue;
     if (key.startsWith('&')) continue; // Skip pseudos for inline application
 
     const cssProp = (shorthandMappings as any)[key] || key;
-    const value = (styles as any)[key] as ResponsiveStyle | string | number | undefined;
+    const value = (styles as any)[key] as
+      | ResponsiveStyle
+      | string
+      | number
+      | undefined;
 
     let finalValue: string | undefined;
     if (value === undefined) {
@@ -75,7 +101,9 @@ export const applyResponsiveStyle = (
     } else if (typeof value === 'object' && value !== null) {
       // Responsive object: use the nearest defined breakpoint value <= current
       const byBp = value as ResponsiveStyle;
-      const orderedBps = Object.keys(theme.breakpoints) as (keyof SjBreakPoints)[];
+      const orderedBps = Object.keys(
+        theme.breakpoints
+      ) as (keyof SjBreakPoints)[];
       const idx = orderedBps.indexOf(currentBp);
       let raw: any = undefined;
       for (let i = idx; i >= 0; i--) {
@@ -97,7 +125,8 @@ export const applyResponsiveStyle = (
       }
       if (raw === undefined) continue;
       if (typeof raw === 'number') finalValue = theme.spacing(raw);
-      else if (typeof raw === 'string') finalValue = resolveThemeColor(raw, theme);
+      else if (typeof raw === 'string')
+        finalValue = resolveThemeColor(raw, theme);
     } else if (typeof value === 'number') {
       finalValue = theme.spacing(value);
     } else {
@@ -108,7 +137,8 @@ export const applyResponsiveStyle = (
       (el.style as any)[cssProp] = finalValue as any;
     } catch {
       // Fallback: set as CSS custom property when property is not recognized
-      if (finalValue !== undefined) el.style.setProperty(cssProp as string, finalValue);
+      if (finalValue !== undefined)
+        el.style.setProperty(cssProp as string, finalValue);
     }
   }
 };
@@ -120,13 +150,26 @@ export const applyResponsiveStyle = (
  * @param theme Active theme.
  * @param screenWidth Current viewport width in pixels.
  */
-export const applyTypography = (el: HTMLElement, theme: SjTheme, screenWidth: number) => {
+export const applyTypography = (
+  el: HTMLElement,
+  theme: SjResolvedTheme,
+  screenWidth: number
+) => {
   const nodeName = el.nodeName.toUpperCase();
   const hasType = (theme.typography as any)[nodeName];
   if (!hasType) return;
 
   const defaults = theme.typography.default || {};
   const specific = (theme.typography as any)[nodeName] || {};
-  const jss: SjStyle = { marginBlockStart: '0', marginBlockEnd: '0', ...(defaults as any) };
-  applyResponsiveStyle(el, { ...(jss as any), ...(specific as any) } as SjStyle, screenWidth, theme);
+  const jss: SjStyle = {
+    marginBlockStart: '0',
+    marginBlockEnd: '0',
+    ...(defaults as any),
+  };
+  applyResponsiveStyle(
+    el,
+    { ...(jss as any), ...(specific as any) } as SjStyle,
+    screenWidth,
+    theme
+  );
 };

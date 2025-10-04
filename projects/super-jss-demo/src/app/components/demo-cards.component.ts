@@ -28,32 +28,24 @@ interface DemoCard {
   ],
   template: `
     <app-section title="Cards">
-      <sj-card [variant]="sj.sjCard.variants.info">
-        <sj-typography variant="span">
-          Each card ships with a predefined style that keeps layouts pleasant
-          out of the box. Flip the toggle to inspect the generated styles or
-          override them to create your own twists.
-        </sj-typography>
-        <button
-          type="button"
-          (click)="toggleSnippets()"
-          [attr.aria-pressed]="showSnippets"
-          [sj]="[
-            sj.sjButton.containedLight({
-              bg: sj.palette.light.dark,
-              p: 0.5
-            }),
-            sj.mt(0)
-          ]"
-        >
-          {{ showSnippets ? 'Hide usage & styles' : 'Show usage & styles' }}
-        </button>
-      </sj-card>
-      <sj-card
-        [sj]="[sj.backgroundColor(sj.palette.light.dark), sj.mt(0)]"
-      ></sj-card>
+      <!-- Header content lives inside SectionContainer's outlined card -->
+      <sj-typography variant="span">
+        Each card ships with a predefined style that keeps layouts pleasant out
+        of the box. Toggle to inspect the generated styles or override them to
+        create your own twists.
+      </sj-typography>
+      <sj-button
+        type="button"
+        (click)="toggleSnippets()"
+        [attr.aria-pressed]="showSnippets"
+        [variant]="sj.sjButton.variants.outlined"
+        [sj]="{ px: 1, py: 0.5 }"
+      >
+        {{ showSnippets ? 'Hide usage & styles' : 'Show usage & styles' }}
+      </sj-button>
 
-      <sj-card
+      <!-- Responsive grid of examples -->
+      <div
         [sj]="[
           sj.d(sj.d.options.grid),
           sj.gridTemplateColumns('repeat(auto-fit, minmax(380px, 1fr))'),
@@ -62,56 +54,39 @@ interface DemoCard {
         ]"
       >
         <sj-card *ngFor="let card of cardData" [sj]="[card.cardType, sj.mt(0)]">
-          <sj-typography
-            variant="h6"
-            [sj]="[sj.c(card.titleColor), sj.mt(0)]"
-            >{{ card.title }}</sj-typography
-          >
-          <sj-typography variant="p" [sj]="[sj.m(0), sj.mt(0)]">{{
-            card.message
-          }}</sj-typography>
+          <sj-typography variant="h6" [sj]="[sj.c(card.titleColor), sj.mt(0)]">
+            {{ card.title }}
+          </sj-typography>
+          <sj-typography variant="p" [sj]="[sj.m(0), sj.mt(0)]">
+            {{ card.message }}
+          </sj-typography>
           @if (showSnippets) {
-          <section [sj]="[sj.mt(0)]">
-            <sj-typography
-              variant="p"
-              [sj]="[
-                sj.mt(0),
-                sj.mb(0),
-                sj.fontSize('0.75rem'),
-                sj.fontWeight(600)
-              ]"
-              >Usage</sj-typography
-            >
+          <section
+            [sj]="[
+              sj.d('flex'),
+              sj.flexDirection('column'),
+              sj.gap(1),
+              sj.mt(1)
+            ]"
+          >
+            <sj-typography variant="small">Usage</sj-typography>
             <sj-typography
               variant="pre"
-              [sj]="[
-                sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 }),
-                sj.mt(0)
-              ]"
-              ><code>{{ card.usageExample }}</code></sj-typography
+              [sj]="sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"
             >
-            <sj-typography
-              variant="p"
-              [sj]="[
-                sj.mt(1),
-                sj.mb(0),
-                sj.fontSize('0.75rem'),
-                sj.fontWeight(600)
-              ]"
-              >Computed style</sj-typography
-            >
+              <code>{{ card.usageExample }}</code>
+            </sj-typography>
+            <sj-typography variant="small">Computed style</sj-typography>
             <sj-typography
               variant="pre"
-              [sj]="[
-                sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 }),
-                sj.mt(0)
-              ]"
-              ><code>{{ card.computedStyle }}</code></sj-typography
+              [sj]="sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"
             >
+              <code>{{ card.computedStyle }}</code>
+            </sj-typography>
           </section>
           }
         </sj-card>
-      </sj-card>
+      </div>
     </app-section>
   `,
 })

@@ -2,105 +2,131 @@ import * as CSS from 'csstype';
 
 // Defines options for theme colors with main, light, dark, and contrast variants.
 export type SjThemeColorOption = {
-  main: string,
-  light: string,
-  dark: string,
-  contrast: string,
-}
+  main: string;
+  light: string;
+  dark: string;
+  contrast: string;
+};
 
 // Represents a color option with different shades and a contrast color.
 export type SjColorOption = {
-  50: string,
-  100: string,
-  200: string,
-  300: string,
-  400: string,
-  500: string, // Default shade
-  600: string,
-  700: string,
-  800: string,
-  900: string,
-  contrast: string,
-}
+  50: string;
+  100: string;
+  200: string;
+  300: string;
+  400: string;
+  500: string; // Default shade
+  600: string;
+  700: string;
+  800: string;
+  900: string;
+  contrast: string;
+};
 
 // Collection of color options for different color themes.
 export type SjColors = {
-  blue: SjColorOption,
-  indigo: SjColorOption,
-  purple: SjColorOption,
-  pink: SjColorOption,
-  red: SjColorOption,
-  orange: SjColorOption,
-  yellow: SjColorOption,
-  green: SjColorOption,
-  teal: SjColorOption,
-  cyan: SjColorOption,
-  gray: SjColorOption,
-  black: string,
-  white: string
-}
+  blue: SjColorOption;
+  indigo: SjColorOption;
+  purple: SjColorOption;
+  pink: SjColorOption;
+  red: SjColorOption;
+  orange: SjColorOption;
+  yellow: SjColorOption;
+  green: SjColorOption;
+  teal: SjColorOption;
+  cyan: SjColorOption;
+  gray: SjColorOption;
+  black: string;
+  white: string;
+};
 
 // Defines the color palette for primary, secondary, and other specific UI elements.
 export type SjPalette = {
-  primary: SjThemeColorOption,
-  secondary: SjThemeColorOption,
-  tertiary: SjThemeColorOption,
-  success: SjThemeColorOption,
-  info: SjThemeColorOption,
-  warning: SjThemeColorOption,
-  error: SjThemeColorOption,
-  dark: SjThemeColorOption,
-  neutral: SjThemeColorOption,
-  light: SjThemeColorOption
-}
+  primary: SjThemeColorOption;
+  secondary: SjThemeColorOption;
+  tertiary: SjThemeColorOption;
+  success: SjThemeColorOption;
+  info: SjThemeColorOption;
+  warning: SjThemeColorOption;
+  error: SjThemeColorOption;
+  dark: SjThemeColorOption;
+  neutral: SjThemeColorOption;
+  light: SjThemeColorOption;
+};
 
 // Typographic styles for various text elements.
 export type SjTypography = {
-  default: SjStyle,
-  H1: SjStyle,
-  H2: SjStyle,
-  H3: SjStyle,
-  H4: SjStyle,
-  H5: SjStyle,
-  H6: SjStyle,
-  SPAN: SjStyle,
-  P: SjStyle,
-  BODY: SjStyle,
-  STRONG: SjStyle,
-  CAPTION: SjStyle,
-  SMALL: SjStyle,
-  PRE: SjStyle
-}
+  default?: SjStyle;
+  H1?: SjStyle;
+  H2?: SjStyle;
+  H3?: SjStyle;
+  H4?: SjStyle;
+  H5?: SjStyle;
+  H6?: SjStyle;
+  SPAN?: SjStyle;
+  P?: SjStyle;
+  BODY?: SjStyle;
+  STRONG?: SjStyle;
+  CAPTION?: SjStyle;
+  SMALL?: SjStyle;
+  PRE?: SjStyle;
+};
 
 // Main theme configuration including breakpoints, spacing, typography, colors, and palette.
 export type SjTheme = {
-  name: string,
-  breakpoints: SjBreakPoints,
-  spacing: (factor: number) => string,
-  typography: SjTypography,
-  colors: SjColors,
-  palette: SjPalette
-}
+  name?: string;
+  breakpoints?: SjBreakPoints;
+  spacing?: (factor: number) => string;
+  typography?: SjTypography;
+  colors?: SjColors;
+  palette?: SjPalette;
+};
+
+// DeepPartial utility to allow nested, partial updates of SjTheme
+type Primitive = string | number | boolean | bigint | symbol | undefined | null;
+export type DeepPartial<T> = T extends Function
+  ? T
+  : T extends Primitive
+  ? T
+  : T extends Array<infer U>
+  ? Array<DeepPartial<U>>
+  : T extends object
+  ? { [P in keyof T]?: DeepPartial<T[P]> }
+  : T;
+
+// Internal resolved theme with all required fields. The library uses this type
+// after merging user-provided partial themes with defaults so downstream code
+// doesn't need optional chaining everywhere.
+export type SjResolvedTheme = Omit<
+  SjTheme,
+  'breakpoints' | 'spacing' | 'typography' | 'colors' | 'palette'
+> & {
+  breakpoints: SjBreakPoints;
+  spacing: (factor: number) => string;
+  typography: SjTypography;
+  colors: SjColors;
+  palette: SjPalette;
+};
 
 // Breakpoints for responsive design, typically width thresholds.
 export type SjBreakPoints = {
-  xs: number,
-  sm: number,
-  md: number,
-  lg: number,
-  xl: number,
-  xxl: number
-}
+  xs: number;
+  sm: number;
+  md: number;
+  lg: number;
+  xl: number;
+  xxl: number;
+};
 
 // Type for responsive styles, allowing different values for different breakpoints.
 export type ResponsiveStyle = {
-  xs?: string | number,
-  sm?: string | number,
-  md?: string | number,
-  lg?: string | number,
-  xl?: string | number,
-  xxl?: string | number
-}
+  xs?: string | number;
+  sm?: string | number;
+  md?: string | number;
+  lg?: string | number;
+  xl?: string | number;
+  xxl?: string | number;
+};
 
 // Utility type to make all properties of a type accept ResponsiveStyle
 type WithResponsive<T> = {
@@ -163,26 +189,15 @@ export type SjShorthandStyle = {
 
 // Custom shorthand styles extending SjShorthandStyle with additional combined properties.
 export type SjShorthandCustomStyle = {
-  py?: ResponsiveStyle | string | number; // shorthand for padding
-  px?: ResponsiveStyle | string | number; // shorthand for paddingTop
-  my?: ResponsiveStyle | string | number; // shorthand for padding
-  mx?: ResponsiveStyle | string | number; // shorthand for paddingTop
-  bx?: ResponsiveStyle | string | number; // shorthand for borderLeft and borderRight
-  by?: ResponsiveStyle | string | number; // shorthand for borderTop and borderBottom
-
-}
-export type SjStyle = WithResponsive<CSS.Properties<string | number>> & SjShorthandStyle & SjShorthandCustomStyle & {
-  [key: string]:
-    | ResponsiveStyle
-    | string
-    | number
-    | SjStyle
-    | undefined;
+  py?: ResponsiveStyle | string | number; // padding on Y-axis (paddingTop & paddingBottom)
+  px?: ResponsiveStyle | string | number; // padding on X-axis (paddingLeft & paddingRight)
+  my?: ResponsiveStyle | string | number; // margin on Y-axis (marginTop & marginBottom)
+  mx?: ResponsiveStyle | string | number; // margin on X-axis (marginLeft & marginRight)
+  bx?: ResponsiveStyle | string | number; // border on X-axis (borderLeft & borderRight)
+  by?: ResponsiveStyle | string | number; // border on Y-axis (borderTop & borderBottom)
 };
-
-
-
-
-
-
-
+export type SjStyle = WithResponsive<CSS.Properties<string | number>> &
+  SjShorthandStyle &
+  SjShorthandCustomStyle & {
+    [key: string]: ResponsiveStyle | string | number | SjStyle | undefined;
+  };
