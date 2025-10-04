@@ -18,6 +18,9 @@
     "paths": {
       "super-jss": [
         "dist/super-jss"
+      ],
+      "super-jss/themes": [
+        "dist/super-jss/themes"
       ]
     },
     "lib": [

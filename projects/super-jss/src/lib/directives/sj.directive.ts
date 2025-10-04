@@ -11,7 +11,6 @@ import {
 import { SjBreakPoints, SjStyle } from '../models/interfaces';
 import { SjThemeService, SjCssGeneratorService } from '../services';
 import { deepMerge } from '../utils/deep-merge';
-import { applyResponsiveStyle } from '../core/core-methods';
 import { shorthandMappings } from '../models/mappings';
 
 /**

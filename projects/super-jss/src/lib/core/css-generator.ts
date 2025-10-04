@@ -1,50 +1,8 @@
-import {
-  SjBreakPoints,
-  SjStyle,
-  SjResolvedTheme,
-  ResponsiveStyle,
-} from '../models/interfaces';
+import { SjBreakPoints, SjStyle, SjResolvedTheme, ResponsiveStyle } from '../models/interfaces';
 import { shorthandMappings } from '../models/mappings';
 import { generateAtomicClassName } from './class-name';
-/**
- * Internal: resolve theme color tokens (e.g., palette or colors) to CSS values.
- * Falls back to the raw value when not resolvable.
- */
-const resolveThemeColor = (value: string, theme: SjResolvedTheme): string => {
-  const themeKeyParts = value.split('.');
-  if (
-    (themeKeyParts.length === 1 && value in theme.palette) ||
-    value in theme.colors
-  ) {
-    if (value in theme.colors) {
-      const colorObject = theme.colors[value as keyof typeof theme.colors];
-      return typeof colorObject === 'object' ? colorObject['500'] : colorObject;
-    }
-
-    if (value in theme.palette) {
-      return theme.palette[value as keyof typeof theme.palette].main;
-    }
-  } else if (themeKeyParts.length === 2) {
-    const colorCategory = themeKeyParts[0];
-    const colorShade = themeKeyParts[1];
-
-    if (colorCategory in theme.colors) {
-      const colorObject =
-        theme.colors[colorCategory as keyof typeof theme.colors];
-      return typeof colorObject === 'object'
-        ? colorObject[colorShade as keyof typeof colorObject]
-        : colorObject;
-    }
-
-    if (colorCategory in theme.palette) {
-      const colorObject =
-        theme.palette[colorCategory as keyof typeof theme.palette];
-      return colorObject[colorShade as keyof typeof colorObject] || value;
-    }
-  }
-
-  return value;
-};
+import { resolveThemeColor } from '../core/core-methods';
+// Use core resolver to avoid code duplication and reduce bundle size
 
 /**
  * Generates deterministic atomic CSS classes from a SjStyle object.

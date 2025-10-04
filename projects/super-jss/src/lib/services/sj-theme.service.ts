@@ -31,14 +31,7 @@ import {
   Subscription,
 } from 'rxjs';
 import { SjCssGeneratorService } from './sj-css-generator.service';
-import {
-  defaultTheme,
-  defaultDarkTheme,
-  desertTheme,
-  desertDarkTheme,
-  oceanTheme,
-  oceanDarkTheme,
-} from '../themes';
+import { defaultTheme } from '../themes/theme-definitions/default-theme';
 
 @Injectable({
   providedIn: 'root',
@@ -56,35 +49,8 @@ export class SjThemeService implements OnDestroy {
   themeVersion = signal(0);
   private resizeSubscription?: Subscription;
 
-  // Built-in library theme presets (extendable in the future via tokens)
-  private readonly presets: Array<{
-    name: string;
-    theme: SjTheme | Partial<SjTheme>;
-    base?: SjTheme;
-    isDark?: boolean;
-  }> = [
-    { name: 'Default Light', theme: defaultTheme, isDark: false },
-    {
-      name: 'Default Dark',
-      theme: defaultDarkTheme,
-      base: defaultTheme,
-      isDark: true,
-    },
-    { name: 'Desert Light', theme: desertTheme, isDark: false },
-    {
-      name: 'Desert Dark',
-      theme: desertDarkTheme,
-      base: desertTheme,
-      isDark: true,
-    },
-    { name: 'Ocean Light', theme: oceanTheme, isDark: false },
-    {
-      name: 'Ocean Dark',
-      theme: oceanDarkTheme,
-      base: oceanTheme,
-      isDark: true,
-    },
-  ];
+  // Removed bundled presets from core to reduce bundle size. Consumers can
+  // import presets from secondary entry: `super-jss/themes`.
 
   // Convenience computed helpers (exposed for components and WithSj)
   themeName = computed(() => this.sjTheme().name);
@@ -143,61 +109,8 @@ export class SjThemeService implements OnDestroy {
     }
   }
 
-  /**
-   * List the names of available built-in theme presets.
-   */
-  public listThemePresets(): string[] {
-    return this.presets.map((p) => p.name);
-  }
-
-  /**
-   * Get a preset definition by name.
-   */
-  public getThemePreset(name: string) {
-    return this.presets.find((p) => p.name === name);
-  }
-
-  /**
-   * Create a resolved, standalone theme object from a preset plus optional overrides.
-   * Returns an SjResolvedTheme which can be used with setTheme or setThemeReset.
-   */
-  public cloneThemePreset(
-    name: string,
-    overrides?: import('../models/interfaces').DeepPartial<SjTheme>
-  ): SjResolvedTheme {
-    const preset = this.getThemePreset(name);
-    if (!preset) throw new Error(`Unknown theme preset: ${name}`);
-    const base = preset.base ?? ({} as SjTheme);
-    const merged = deepMerge(
-      deepMerge(base, preset.theme as any),
-      overrides || {}
-    );
-    let newTheme = resolveTheme(merged as SjTheme);
-    newTheme = {
-      ...newTheme,
-      typography: normalizeTypography(newTheme.typography),
-    } as SjResolvedTheme;
-    return newTheme;
-  }
-
-  /**
-   * Apply a preset by name, with optional overrides, using reset (default) or merge mode.
-   */
-  public applyThemePreset(
-    name: string,
-    opts?: {
-      overrides?: import('../models/interfaces').DeepPartial<SjTheme>;
-      mode?: 'reset' | 'merge';
-    }
-  ): void {
-    const { overrides, mode } = opts || {};
-    const resolved = this.cloneThemePreset(name, overrides);
-    if (mode === 'merge') {
-      this.setTheme(resolved);
-    } else {
-      this.setThemeReset(resolved);
-    }
-  }
+  // Preset management API removed from core. Import presets from
+  // `super-jss/themes` and apply them via setTheme / setThemeReset.
 
   /**
    * Deep-merges provided theme into the current one, resets CSS cache and bumps version.

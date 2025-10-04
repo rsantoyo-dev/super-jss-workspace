@@ -1,18 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  SjDirective,
-  SjTheme,
-  defaultDarkTheme,
-  defaultTheme,
-  desertDarkTheme,
-  desertTheme,
-  oceanDarkTheme,
-  oceanTheme,
-  icon,
-  SjBoxComponent,
-  SJ_BASE_COMPONENTS_IMPORTS,
-} from 'super-jss';
+import { SjDirective, SjTheme, icon, SjBoxComponent, SJ_BASE_COMPONENTS_IMPORTS, defaultTheme, defaultDarkTheme } from 'super-jss';
+import { desertTheme, desertDarkTheme, oceanTheme, oceanDarkTheme } from 'super-jss/themes';
 import { sj, SjRootApi, SjThemeService } from 'super-jss';
 import { inject } from '@angular/core';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
@@ -154,6 +143,7 @@ export class ThemeSelectorComponent {
     {
       name: 'Golden Emerald',
       theme: goldenEmeraldTheme,
+      base: defaultTheme,
       type: 'Custom',
       isDark: false,
     },
