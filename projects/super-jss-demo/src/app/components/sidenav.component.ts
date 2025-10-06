@@ -8,7 +8,7 @@ import { SjDirective, SJ_BASE_COMPONENTS_IMPORTS, SjTypographyComponent, SjRootA
   selector: 'app-sidenav',
   imports: [CommonModule, RouterModule, SjDirective, SjTypographyComponent, ...SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-paper usePadding [density]="sj.density.options.default">
+    <sj-paper usePadding [density]="sj.density.options.default" [sj]="[sj.h('100%')]">
       <a routerLink="/home" [sj]="sj.sjButton.light()"
         ><sj-typography [variant]="'span'">Home</sj-typography></a
       >

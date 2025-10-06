@@ -56,45 +56,47 @@ interface DemoButton {
           sj.mt(0)
         ]"
       >
-        <sj-paper *ngFor="let button of buttonData" variant="outlined">
-          <sj-typography
-            variant="h6"
-            [sj]="{ c: button.titleColor, m: 0, p: 0 }"
-          >
-            {{ button.title }}
-          </sj-typography>
-          <sj-typography variant="span">
-            {{ button.message }}
-          </sj-typography>
-          <sj-button type="button" [sj]="button.buttonStyle">
-            {{ button.label }}
-          </sj-button>
-          @if (showSnippets) {
-          <section
-            [sj]="[
-              sj.d('flex'),
-              sj.flexDirection('column'),
-              sj.gap(1),
-              sj.mt(1)
-            ]"
-          >
-            <sj-typography variant="small">Usage</sj-typography>
+        @for (button of buttonData; track button.title) {
+          <sj-card [variant]="sj.sjCard.variants.outlined">
             <sj-typography
-              variant="pre"
-              [sj]="sj.sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"
+              variant="h6"
+              [sj]="{ c: button.titleColor, m: 0, p: 0 }"
             >
-              <code>{{ button.usageExample }}</code>
+              {{ button.title }}
             </sj-typography>
-            <sj-typography variant="small">Computed style</sj-typography>
-            <sj-typography
-              variant="pre"
-              [sj]="sj.sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"
+            <sj-typography variant="span">
+              {{ button.message }}
+            </sj-typography>
+            <sj-button type="button" [sj]="button.buttonStyle">
+              {{ button.label }}
+            </sj-button>
+            @if (showSnippets) {
+            <section
+              [sj]="[
+                sj.d('flex'),
+                sj.flexDirection('column'),
+                sj.gap(1),
+                sj.mt(1)
+              ]"
             >
-              <code>{{ button.computedStyle }}</code>
-            </sj-typography>
-          </section>
-          }
-        </sj-paper>
+              <sj-typography variant="small">Usage</sj-typography>
+              <sj-typography
+                variant="pre"
+                [sj]="sj.sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"
+              >
+                <code>{{ button.usageExample }}</code>
+              </sj-typography>
+              <sj-typography variant="small">Computed style</sj-typography>
+              <sj-typography
+                variant="pre"
+                [sj]="sj.sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"
+              >
+                <code>{{ button.computedStyle }}</code>
+              </sj-typography>
+            </section>
+            }
+          </sj-card>
+        }
       </div>
     </app-section>
   `,

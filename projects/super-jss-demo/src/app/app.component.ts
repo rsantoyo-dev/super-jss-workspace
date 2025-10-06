@@ -1,7 +1,18 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { HeaderComponent } from './components/header.component';
 
-import { SjDirective, SjTheme, SJ_BASE_COMPONENTS_IMPORTS, SjBoxComponent, SjButtonComponent, SjTypographyComponent, sj, SjStyle, SjThemeService, SjRootApi } from 'super-jss';
+import {
+  SjDirective,
+  SjTheme,
+  SJ_BASE_COMPONENTS_IMPORTS,
+  SjBoxComponent,
+  SjButtonComponent,
+  SjTypographyComponent,
+  sj,
+  SjStyle,
+  SjThemeService,
+  SjRootApi,
+} from 'super-jss';
 
 import { BreakpointIndicatorComponent } from './components/breakpoint-indicator.component';
 
@@ -25,7 +36,7 @@ import { SidenavComponent } from './components/sidenav.component';
     <sj-box
       [sj]="[
         sj.fxDir(sj.fxDir.options.column),
-        sj.bg(sj.palette.light.main),
+        sj.bg('sj.palette.light.main'),
         sj.minHeight('100vh')
       ]"
     >
@@ -45,13 +56,10 @@ import { SidenavComponent } from './components/sidenav.component';
         ]"
       >
         @if (theme.currentBreakpoint() !== sj.breakpoints.xs){
-        <app-sidenav></app-sidenav>
+        <app-sidenav [sj]="[sj.h('100%')]"></app-sidenav>
         }
 
-        <sj-paper
-          variant="flat"
-          [sj]="[sj.minHeight('100vh')]"
-        >
+        <sj-paper variant="flat" [sj]="[sj.minHeight('100vh')]">
           <app-breakpoint-indicator></app-breakpoint-indicator>
           <router-outlet></router-outlet>
         </sj-paper>

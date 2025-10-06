@@ -80,6 +80,13 @@ export type SjTheme = {
   typography?: SjTypography;
   colors?: SjColors;
   palette?: SjPalette;
+  components?: {
+    surfaces?: {
+      padding?: Partial<Record<1 | 2 | 3 | 4, ResponsiveStyle | number>>;
+      gap?: Partial<Record<1 | 2 | 3 | 4, ResponsiveStyle | number>>;
+      radius?: Partial<Record<1 | 2 | 3 | 4, ResponsiveStyle | number | string>>;
+    };
+  };
 };
 
 // DeepPartial utility to allow nested, partial updates of SjTheme
@@ -99,13 +106,14 @@ export type DeepPartial<T> = T extends Function
 // doesn't need optional chaining everywhere.
 export type SjResolvedTheme = Omit<
   SjTheme,
-  'breakpoints' | 'spacing' | 'typography' | 'colors' | 'palette'
+  'breakpoints' | 'spacing' | 'typography' | 'colors' | 'palette' | 'components'
 > & {
   breakpoints: SjBreakPoints;
   spacing: (factor: number) => string;
   typography: SjTypography;
   colors: SjColors;
   palette: SjPalette;
+  components: Required<Required<SjTheme>['components']>;
 };
 
 // Breakpoints for responsive design, typically width thresholds.

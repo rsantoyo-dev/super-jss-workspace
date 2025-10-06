@@ -21,37 +21,28 @@ import { ThemeSelectorComponent } from './theme-selector.component';
     ...SJ_BASE_COMPONENTS_IMPORTS,
   ],
   template: `
-    <sj-paper
+    <sj-host
+      asPaper
       useSurface
       [density]="sj.density.options.default"
       [sj]="[
         sj.bg(sj.palette.primary.main),
         sj.color(sj.palette.primary.contrast),
         sj.fxDir({ xs: sj.fxDir.options.column, sm: sj.fxDir.options.row }),
+        sj.flexFlow(sj.flexFlow.options.wrap.wrap),
         sj.borderRadius(0),
+        sj.flexDirection({ xs: 'column', md: 'row' }),
         sj.justifyContent({
           xs: sj.justifyContent.options.center,
-          sm: sj.justifyContent.options.spaceBetween
+          md: sj.justifyContent.options.spaceBetween
         }),
-        sj.alignItems(sj.alignItems.options.center),
-        sj.position(sj.position.options.relative)
+        sj.alignItems(sj.alignItems.options.center)
       ]"
     >
-      @if (theme.isMobile()) {
-      <sj-button
-        [sj]="[
-          sj.bg(sj.palette.light.light),
-          sj.position(sj.position.options.absolute),
-          sj.zIndex(2),
-          sj.top(0.5),
-          sj.left(0.5)
-        ]"
-        (click)="menuClick.emit()"
+      <sj-card
+        [variant]="'flat'"
+        [sj]="[sj.alignItems({ xs: 'center', md: 'flex-start' })]"
       >
-        <span [sj]="[sj.c('primary'), sj.lineHeight(0.8)]">☰</span>
-      </sj-button>
-      }
-      <sj-box [sj]="[sj.sjBox.column()]">
         <sj-typography
           variant="h4"
           [sj]="[sj.color(sj.palette.primary.contrast)]"
@@ -63,30 +54,16 @@ import { ThemeSelectorComponent } from './theme-selector.component';
           [sj]="[sj.color(sj.palette.primary.contrast)]"
           >The ultimate solution for dynamic styling</sj-typography
         >
-        @if (theme.isMobile()) {
-        <sj-paper
-          variant="flat"
-          usePadding
-          [density]="sj.density.options.compact"
-          [sj]="[sj.marginTop(0.5)]"
-        >
-          <app-theme-selector></app-theme-selector>
-        </sj-paper>
-        }
-      </sj-box>
+      </sj-card>
 
-      <sj-box [sj]="sj.sjBox.row({ fxAItems: 'center' })">
-        @if (!theme.isMobile()) {
-        <sj-paper
-          variant="flat"
-          usePadding
-          [density]="sj.density.options.compact"
-        >
-          <app-theme-selector></app-theme-selector>
-        </sj-paper>
-        }
-      </sj-box>
-    </sj-paper>
+      <sj-paper
+        variant="flat"
+        usePadding
+        [density]="sj.density.options.compact"
+      >
+        <app-theme-selector></app-theme-selector>
+      </sj-paper>
+    </sj-host>
   `,
 })
 export class HeaderComponent {

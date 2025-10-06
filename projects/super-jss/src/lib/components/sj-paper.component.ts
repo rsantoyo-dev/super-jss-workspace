@@ -1,10 +1,10 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, Inject, Input, Optional } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { sjPaper, SjPaperApi } from '../blueprints/paper';
 import { SjHostComponent } from './sj-host.component';
 import { SjStyle } from '../models/interfaces';
 import type { SjInput } from '../directives/sj.directive';
 import { SjPaperVariant } from '../models/variants';
-import { DEFAULT_SURFACE_DENSITIES, SJ_SURFACES_CONFIG, SjSurfacesConfig } from '../tokens';
+import { SjThemeService } from '../services';
 
 @Component({
   selector: 'sj-paper',
@@ -27,7 +27,7 @@ export class SjPaperComponent {
   // Convenience: enable padding+gap+rounded together at current density
   @Input({ transform: booleanAttribute }) useSurface: boolean = false;
 
-  constructor(@Optional() @Inject(SJ_SURFACES_CONFIG) private surfaces?: SjSurfacesConfig) {}
+  constructor(private themeService: SjThemeService) {}
 
   get selectedSj(): (overrides?: Partial<SjStyle>) => SjStyle {
     return this.pickVariant(this.sjPaper);
@@ -52,9 +52,11 @@ export class SjPaperComponent {
       const style = this.selectedSj();
       const overrides: Partial<SjStyle> = {};
       const level = this.density ?? 2;
-      const paddingMap = this.surfaces?.padding ?? DEFAULT_SURFACE_DENSITIES.padding;
-      const gapMap = this.surfaces?.gap ?? DEFAULT_SURFACE_DENSITIES.gap;
-      const radiusMap = this.surfaces?.radius ?? DEFAULT_SURFACE_DENSITIES.radius;
+      const theme = this.themeService.sjTheme();
+      const surfaces = theme.components?.surfaces;
+      const paddingMap = surfaces?.padding ?? {};
+      const gapMap = surfaces?.gap ?? {};
+      const radiusMap = surfaces?.radius ?? {};
 
       const enablePadding = this.useSurface || this.usePadding;
       const enableGap = this.useSurface || this.useGap;

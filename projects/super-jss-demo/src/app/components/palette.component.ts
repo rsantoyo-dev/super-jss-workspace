@@ -49,31 +49,34 @@ import { SectionContainerComponent } from './section-container.component';
           sj.gap({ xs: 0.5, md: 1 })
         ]"
       >
-        <sj-paper *ngFor="let color of demoColors()" variant="outlined">
-          <sj-typography variant="h6" [sj]="[sj.c(color[0]), sj.mt(0)]">{{
-            color[0]
-          }}</sj-typography>
-          <div [sj]="[sj.d('flex'), sj.fxDir({ xs: 'column' }), sj.gap(0.5)]">
-            <sj-paper
-              *ngFor="let colorVariant of color"
-              variant="flat"
-              [sj]="[sj.bg(colorVariant), sj.flexGrow(1), sj.p(0.5)]"
-            >
-              <sj-typography
-                variant="span"
-                [sj]="[
-                  sj.d(sj.d.options.flex),
-                  sj.justifyContent(sj.justifyContent.options.center),
-                  sj.alignItems(sj.alignItems.options.center),
-                  sj.w('100%'),
-                  sj.c(textColorFor(colorVariant)),
-                  sj.m(0)
-                ]"
-                >{{ colorVariant }}</sj-typography
-              >
-            </sj-paper>
-          </div>
-        </sj-paper>
+        @for (color of demoColors(); track color[0]) {
+          <sj-card [variant]="sj.sjCard.variants.outlined">
+            <sj-typography variant="h6" [sj]="[sj.c(color[0]), sj.mt(0)]">{{
+              color[0]
+            }}</sj-typography>
+            <div [sj]="[sj.d('flex'), sj.fxDir({ xs: 'column' }), sj.gap(0.5)]">
+              @for (colorVariant of color; track colorVariant) {
+                <sj-card
+                  [variant]="sj.sjCard.variants.flat"
+                  [sj]="[sj.bg(colorVariant), sj.flexGrow(1), sj.p(0.5)]"
+                >
+                  <sj-typography
+                    variant="span"
+                    [sj]="[
+                      sj.d(sj.d.options.flex),
+                      sj.justifyContent(sj.justifyContent.options.center),
+                      sj.alignItems(sj.alignItems.options.center),
+                      sj.w('100%'),
+                      sj.c(textColorFor(colorVariant)),
+                      sj.m(0)
+                    ]"
+                    >{{ colorVariant }}</sj-typography
+                  >
+                </sj-card>
+              }
+            </div>
+          </sj-card>
+        }
       </div>
     </app-section>
   `,

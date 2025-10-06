@@ -433,6 +433,10 @@ type SjCssApiWithOptions = Omit<
     (typeof SjFlexTokens)['direction']
   >;
   flexWrap: WithOptions<SjCssApi['flexWrap'], (typeof SjFlexTokens)['wrap']>;
+  flexFlow: WithOptions<
+    SjCssApi['flexFlow'],
+    { direction: (typeof SjFlexTokens)['direction']; wrap: (typeof SjFlexTokens)['wrap'] }
+  >;
 };
 
 type SjShApiWithOptions = Omit<
@@ -489,6 +493,11 @@ const optionsMapCss: Record<string, unknown> = {
   alignItems: FlexAlignOptions,
   flexDirection: SjFlexTokens.direction,
   flexWrap: SjFlexTokens.wrap,
+  // flex-flow supports direction and wrap; expose both under options
+  flexFlow: {
+    direction: SjFlexTokens.direction,
+    wrap: SjFlexTokens.wrap,
+  },
   // Surface-related density mirrors for discoverability under sj.property.options
   padding: {
     compact: 1,

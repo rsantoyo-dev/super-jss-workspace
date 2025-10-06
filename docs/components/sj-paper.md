@@ -44,5 +44,4 @@ Tokens
 
 Theme overrides
 
-Provide `SJ_SURFACES_CONFIG` (app-level) or extend theme later to customize the density maps.
-
+Customize density maps via your theme under `components.surfaces` (padding, gap, radius). Values are numbers/responsive numbers that flow through `theme.spacing()`.

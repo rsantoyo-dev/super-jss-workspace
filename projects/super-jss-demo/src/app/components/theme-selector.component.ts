@@ -1,7 +1,20 @@
 import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SjDirective, SjTheme, icon, SjBoxComponent, SJ_BASE_COMPONENTS_IMPORTS, defaultTheme, defaultDarkTheme } from 'super-jss';
-import { desertTheme, desertDarkTheme, oceanTheme, oceanDarkTheme } from 'super-jss/themes';
+import {
+  SjDirective,
+  SjTheme,
+  icon,
+  SjBoxComponent,
+  SJ_BASE_COMPONENTS_IMPORTS,
+  defaultTheme,
+  defaultDarkTheme,
+} from 'super-jss';
+import {
+  desertTheme,
+  desertDarkTheme,
+  oceanTheme,
+  oceanDarkTheme,
+} from 'super-jss/themes';
 import { sj, SjRootApi, SjThemeService } from 'super-jss';
 import { inject } from '@angular/core';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
@@ -19,14 +32,19 @@ interface ThemeMeta {
   selector: 'app-theme-selector',
   imports: [CommonModule, ...SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-paper useSurface [density]="sj.density.options.compact" [sj]="[sj.bg(sj.palette.primary.dark)]">
+    <sj-host as="paper" useSurface [sj]="[sj.bg(sj.bg.options.primary.dark)]">
       <sj-typography
         [variant]="'small'"
         [sj]="[sj.c(sj.palette.primary.contrast)]"
         >{{ previewLabel() }}</sj-typography
       >
 
-      <sj-paper variant="flat" [sj]="[sj.flexDirection('row'), sj.p(0)]">
+      <sj-paper
+        variant="flat"
+        useSurface
+        usePadding="false"
+        [sj]="[sj.flexDirection('row'), sj.p(0)]"
+      >
         @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {
         <sj-button
           [sj]="sj.sjButton({ bg: theme.theme.palette?.primary?.dark })"
@@ -95,7 +113,7 @@ interface ThemeMeta {
         </sj-button>
         } }
       </sj-paper>
-    </sj-paper>
+    </sj-host>
   `,
 })
 export class ThemeSelectorComponent {

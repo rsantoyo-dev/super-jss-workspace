@@ -1,14 +1,4 @@
-import {
-  Injectable,
-  computed,
-  signal,
-  OnDestroy,
-  WritableSignal,
-  Optional,
-  Inject,
-  Injector,
-  PLATFORM_ID,
-} from '@angular/core';
+import { Injectable, computed, signal, OnDestroy, WritableSignal, Injector, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import {
   SjBreakPoints,
@@ -21,7 +11,6 @@ import {
 } from '../models/interfaces';
 import { getCurrentBreakpoint } from '../core/core-methods';
 import { deepMerge } from '../utils';
-import { SJ_THEME } from '../tokens';
 import { DOCUMENT } from '@angular/common';
 import {
   debounceTime,
@@ -62,14 +51,10 @@ export class SjThemeService implements OnDestroy {
   );
 
   constructor(
-    @Optional() @Inject(SJ_THEME) private initialTheme: SjTheme,
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: Object,
     private injector: Injector
   ) {
-    if (this.initialTheme) {
-      this.setTheme(this.initialTheme);
-    }
     // Apply initial typography to document
     this.applyDocumentTypography(this.sjTheme());
     // Only initialize resize listener in browser environment
@@ -199,6 +184,7 @@ function resolveTheme(incoming: SjTheme): SjResolvedTheme {
     typography: incoming.typography ?? fromDefaults.typography!,
     colors: incoming.colors ?? fromDefaults.colors!,
     palette: incoming.palette ?? fromDefaults.palette!,
+    components: (incoming.components ?? fromDefaults.components!) as any,
   } as SjResolvedTheme;
 }
 
