@@ -191,13 +191,11 @@ function resolveTheme(incoming: SjTheme): SjResolvedTheme {
 // Merge default typography into all variants; variant-specific values win.
 function normalizeTypography(typography: SjTypography): SjTypography {
   const base = typography.default || ({} as SjStyle);
+  // Do NOT propagate default.fontFamily into variants; font-family is theme-managed.
+  const { fontFamily: _ignored, ...baseWithoutFont } = base as any;
   const merge = (v: SjStyle | undefined): SjStyle => {
-    const merged = deepMerge(base, v || {});
-    // Ensure default fontFamily propagates to all variants unless explicitly redefined post-merge.
-    if ((base as any).fontFamily !== undefined) {
-      (merged as any).fontFamily = (base as any).fontFamily;
-    }
-    return merged;
+    // Merge base (without fontFamily) so color/other props flow; variant overrides win.
+    return deepMerge(baseWithoutFont, v || {});
   };
   return {
     default: base,

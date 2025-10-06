@@ -12,12 +12,13 @@ import {
   selector: 'app-hero',
   imports: [SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-paper
-      useSurface
-      [density]="sj.density.options.default"
+    <sj-host
       [sj]="[
         sj.display(sj.display.options.flex),
-        sj.flexDirection({ xs: sj.flexDirection.options.column, md: sj.flexDirection.options.row }),
+        sj.flexDirection({
+          xs: sj.flexDirection.options.column,
+          md: sj.flexDirection.options.row
+        }),
         sj.justifyContent(sj.justifyContent.options.center),
         sj.alignItems(sj.alignItems.options.center),
         sj.gap({ xs: 0.5, md: 1 }),
@@ -42,7 +43,7 @@ import {
       >
         Update Primary
       </sj-button>
-    </sj-paper>
+    </sj-host>
   `,
 })
 export class HeroComponent {
@@ -50,7 +51,6 @@ export class HeroComponent {
   // expose sj to template
   readonly sj = sj;
 
-  // Log breakpoint changes reactively
   private _bpLogger = effect(() => {
     console.log('current breakpoint:', this.theme.breakpoint());
   });

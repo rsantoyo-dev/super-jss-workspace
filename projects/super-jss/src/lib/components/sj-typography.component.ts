@@ -12,9 +12,6 @@ import type { SjInput } from '../directives/sj.directive';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SjHostComponent],
-  host: {
-    '[style.font-family]': 'hostFontFamily',
-  },
 })
 export class SjTypographyComponent {
   @Input() variant: SjTypographyVariant = 'default';
@@ -64,20 +61,5 @@ export class SjTypographyComponent {
     const user = this.sj;
     if (user === undefined) return base;
     return Array.isArray(user) ? [base, ...user] : [base, user];
-  }
-
-  // Inline font-family to guarantee typography updates regardless of class timing
-  get hostFontFamily(): string | null {
-    // Track theme changes reactively
-    this.themeService.themeVersion();
-    const style = this.selectedSj();
-    const themeFf = (this.themeService.sjTheme().typography as any)?.default?.fontFamily;
-    const ff = (style as any)?.fontFamily ?? themeFf;
-    if (!ff) return null;
-    const asStr = Array.isArray(ff) ? (ff as any).join(', ') : (ff as any);
-    // If variant explicitly requests monospace (e.g., PRE), respect it directly
-    if (/\bmonospace\b/i.test(asStr)) return asStr;
-    // Default to CSS variable with fallback to computed value
-    return `var(--sj-ff, ${asStr})`;
   }
 }

@@ -215,16 +215,7 @@ export class SjDirective implements OnChanges {
       this.lastClasses = [canonical];
     }
 
-    // Ensure font-family updates instantly using CSS variable fallback.
-    try {
-      const ff = (processedStyles as any)?.fontFamily;
-      if (ff) {
-        const asStr = Array.isArray(ff) ? (ff as any).join(', ') : (ff as any);
-        const value = /\bmonospace\b/i.test(asStr)
-          ? asStr
-          : `var(--sj-ff, ${asStr})`;
-        this.renderer.setStyle(element, 'font-family', value);
-      }
-    } catch {}
+    // Typography font-family is now theme-managed via CSS variable on <body>.
+    // Avoid injecting inline font-family to keep updates centralized and fast.
   }
 }

@@ -206,8 +206,8 @@ export class CssGenerator {
       if (/\bmonospace\b/i.test(v)) {
         return v;
       }
-      // Drive via CSS variable so theme font changes propagate instantly
-      return `var(--sj-ff, ${v})`;
+      // Emit explicit override as-is (no CSS var indirection here)
+      return v;
     }
     return v;
   }

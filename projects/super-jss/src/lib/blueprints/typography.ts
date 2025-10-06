@@ -18,6 +18,13 @@ export type SjTypographyApi = ((overrides?: Partial<SjStyle>) => SjStyle) & {
 };
 
 export function createSjTypographyApi(theme: SjResolvedTheme) {
+  const omitFontFamily = (s: Partial<SjStyle> | undefined): Partial<SjStyle> => {
+    if (!s) return {};
+    const { fontFamily, ...rest } = s as any;
+    return rest as any;
+  };
+  // Use default style without fontFamily so classes don't emit it by default
+  const defaultNoFF: Partial<SjStyle> = omitFontFamily(theme.typography.default as any);
   // Base styles for typography variants
   const h1Style: SjStyle = {
     ...(theme.typography.H1 || {}),
@@ -74,86 +81,86 @@ export function createSjTypographyApi(theme: SjResolvedTheme) {
   const sjTypographyApi: SjTypographyApi = (
     overrides: Partial<SjStyle> = {}
   ): SjStyle => ({
-    // Include defaults first so shared props like fontFamily are present
-    ...(theme.typography.default || {}),
+    // Include defaults (without fontFamily) so shared props like color are present
+    ...(defaultNoFF || {}),
     ...(theme.typography.P || {}),
     ...overrides,
   });
 
   sjTypographyApi.h1 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...(theme.typography.default || {}),
+    ...(defaultNoFF || {}),
     ...(theme.typography.H1 || {}),
     ...overrides,
   });
 
   sjTypographyApi.h2 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...(theme.typography.default || {}),
+    ...(defaultNoFF || {}),
     ...(theme.typography.H2 || {}),
     ...overrides,
   });
 
   sjTypographyApi.h3 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...(theme.typography.default || {}),
+    ...(defaultNoFF || {}),
     ...(theme.typography.H3 || {}),
     ...overrides,
   });
 
   sjTypographyApi.h4 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...(theme.typography.default || {}),
+    ...(defaultNoFF || {}),
     ...(theme.typography.H4 || {}),
     ...overrides,
   });
 
   sjTypographyApi.h5 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...(theme.typography.default || {}),
+    ...(defaultNoFF || {}),
     ...(theme.typography.H5 || {}),
     ...overrides,
   });
 
   sjTypographyApi.h6 = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...(theme.typography.default || {}),
+    ...(defaultNoFF || {}),
     ...(theme.typography.H6 || {}),
     ...overrides,
   });
 
   sjTypographyApi.p = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...(theme.typography.default || {}),
+    ...(defaultNoFF || {}),
     ...(theme.typography.P || {}),
     ...overrides,
   });
 
   sjTypographyApi.span = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...(theme.typography.default || {}),
+    ...(defaultNoFF || {}),
     ...(theme.typography.SPAN || {}),
     ...overrides,
   });
 
   sjTypographyApi.strong = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...(theme.typography.default || {}),
+    ...(defaultNoFF || {}),
     ...(theme.typography.STRONG || {}),
     ...overrides,
   });
 
   sjTypographyApi.body = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...(theme.typography.default || {}),
+    ...(defaultNoFF || {}),
     ...(theme.typography.BODY || {}),
     ...overrides,
   });
 
   sjTypographyApi.caption = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...(theme.typography.default || {}),
+    ...(defaultNoFF || {}),
     ...(theme.typography.CAPTION || {}),
     ...overrides,
   });
 
   sjTypographyApi.small = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...(theme.typography.default || {}),
+    ...(defaultNoFF || {}),
     ...(theme.typography.SMALL || {}),
     ...overrides,
   });
 
   sjTypographyApi.pre = (overrides: Partial<SjStyle> = {}): SjStyle => ({
-    ...(theme.typography.default || {}),
+    ...(defaultNoFF || {}),
     ...(theme.typography.PRE || {}),
     ...overrides,
   });
