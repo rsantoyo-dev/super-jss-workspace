@@ -18,6 +18,7 @@ import {
 import { sj, SjRootApi, SjThemeService } from 'super-jss';
 import { inject } from '@angular/core';
 import { goldenEmeraldTheme } from '../sjStyling/themes/golden-emerald';
+import { midnightVioletTheme } from '../sjStyling/themes/midnight-violet';
 
 interface ThemeMeta {
   name: string;
@@ -163,6 +164,13 @@ export class ThemeSelectorComponent {
     {
       name: 'Golden Emerald',
       theme: goldenEmeraldTheme,
+      base: defaultTheme,
+      type: 'Custom',
+      isDark: false,
+    },
+    {
+      name: 'Midnight Violet',
+      theme: midnightVioletTheme,
       base: defaultTheme,
       type: 'Custom',
       isDark: false,

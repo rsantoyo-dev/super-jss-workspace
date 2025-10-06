@@ -1,4 +1,24 @@
-theme: material
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: orange
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: orange
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - content.code.copy
+    - content.tabs.link
 site_name: Super JSS
 site_url: https://sjss.dev/
 site_description: Super JSS is a dynamic, responsive, and lightweight styling library for Angular applications, offering effortless responsiveness, simplified theming, and on-the-fly CSS generation.
@@ -46,7 +66,6 @@ nav:
   - Home: index.md
   - Installation: installation.md
   - Basic Usage: basic-usage.md
-  - App Docs (Demo): /docs/
   - SJ API: sj-api.md
   - Styling Shortcuts: styling-shortcuts.md
   - Blueprints:

@@ -1,10 +1,13 @@
+/* Respect Material primary color; don't hardcode header background */
 .md-header {
-  background-color: rgb(52, 152, 219);
-  border-bottom: 1px solid grey;
+  background-color: var(--md-primary-fg-color);
+  border-bottom: 1px solid rgba(0,0,0,.08);
   padding: 4px 8px;
   position: relative;
   z-index: 100;
 }
+
+/* Allow mkdocs-material palette to drive brand colors; no hardcoded overrides */
 
 /* Simple color chips for docs */
 .sj-chip {
