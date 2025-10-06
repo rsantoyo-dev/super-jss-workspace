@@ -2,15 +2,12 @@ import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SJ_BASE_COMPONENTS_IMPORTS, sj, SjRootApi } from 'super-jss';
 import { SectionContainerComponent } from './section-container.component';
+import { CodeBlockComponent } from './code-block.component';
 
 @Component({
   selector: 'app-palette',
   standalone: true,
-  imports: [
-    CommonModule,
-    SectionContainerComponent,
-    SJ_BASE_COMPONENTS_IMPORTS,
-  ],
+  imports: [CommonModule, SectionContainerComponent, SJ_BASE_COMPONENTS_IMPORTS, CodeBlockComponent],
   template: `
     <app-section title="Palette">
       <sj-typography variant="p">
@@ -27,12 +24,7 @@ import { SectionContainerComponent } from './section-container.component';
         {{ showSnippets ? 'Hide usage' : 'Show usage' }}
       </sj-button>
       @if (showSnippets) {
-      <sj-typography
-        variant="pre"
-        [sj]="[sj.m(0), sj.p(1), sj.bg('light.light'), sj.brad(0.5)]"
-      >
-        <code>{{ sampleImplement }}</code>
-      </sj-typography>
+      <app-code-block [code]="sampleImplement"></app-code-block>
       }
       <a
         href="https://sjss.dev/palette/"

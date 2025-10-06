@@ -18,6 +18,9 @@ import { SjDirective, SJ_BASE_COMPONENTS_IMPORTS, SjTypographyComponent, SjRootA
       <a routerLink="/buttons" [sj]="sj.sjButton.light()"
         ><sj-typography [variant]="'span'">Buttons</sj-typography></a
       >
+      <a routerLink="/paper" [sj]="sj.sjButton.light()"
+        ><sj-typography [variant]="'span'">Paper</sj-typography></a
+      >
       <a routerLink="/cards" [sj]="sj.sjButton.light()"
         ><sj-typography [variant]="'span'">Cards</sj-typography></a
       >

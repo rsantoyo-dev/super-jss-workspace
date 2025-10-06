@@ -8,6 +8,7 @@ import {
   sjCard as sjCardBlueprint,
 } from 'super-jss';
 import { SectionContainerComponent } from './section-container.component';
+import { CodeBlockComponent } from './code-block.component';
 
 interface DemoCard {
   title: string;
@@ -21,11 +22,7 @@ interface DemoCard {
 @Component({
   selector: 'app-demo-cards',
   standalone: true,
-  imports: [
-    CommonModule,
-    SectionContainerComponent,
-    SJ_BASE_COMPONENTS_IMPORTS,
-  ],
+  imports: [CommonModule, SectionContainerComponent, SJ_BASE_COMPONENTS_IMPORTS, CodeBlockComponent],
   template: `
     <app-section title="Cards">
       <!-- Header content lives inside SectionContainer's outlined card -->
@@ -70,19 +67,9 @@ interface DemoCard {
             ]"
           >
             <sj-typography variant="small">Usage</sj-typography>
-            <sj-typography
-              variant="pre"
-              [sj]="sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"
-            >
-              <code>{{ card.usageExample }}</code>
-            </sj-typography>
+            <app-code-block [code]="card.usageExample"></app-code-block>
             <sj-typography variant="small">Computed style</sj-typography>
-            <sj-typography
-              variant="pre"
-              [sj]="sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"
-            >
-              <code>{{ card.computedStyle }}</code>
-            </sj-typography>
+            <app-code-block [code]="card.computedStyle"></app-code-block>
           </section>
           }
         </sj-card>

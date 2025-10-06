@@ -10,6 +10,7 @@ import {
   SjRootApi,
 } from 'super-jss';
 import { SectionContainerComponent } from './section-container.component';
+import { CodeBlockComponent } from './code-block.component';
 
 interface DemoButton {
   title: string;
@@ -24,11 +25,7 @@ interface DemoButton {
 @Component({
   selector: 'app-demo-buttons',
   standalone: true,
-  imports: [
-    CommonModule,
-    SectionContainerComponent,
-    SJ_BASE_COMPONENTS_IMPORTS,
-  ],
+  imports: [CommonModule, SectionContainerComponent, SJ_BASE_COMPONENTS_IMPORTS, CodeBlockComponent],
   template: `
     <app-section title="Buttons">
       <!-- Header content lives inside SectionContainer's outlined card -->
@@ -79,20 +76,10 @@ interface DemoButton {
                 sj.mt(1)
               ]"
             >
-              <sj-typography variant="small">Usage</sj-typography>
-              <sj-typography
-                variant="pre"
-                [sj]="sj.sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"
-              >
-                <code>{{ button.usageExample }}</code>
-              </sj-typography>
-              <sj-typography variant="small">Computed style</sj-typography>
-              <sj-typography
-                variant="pre"
-                [sj]="sj.sjCard.codeSnippet({ fontSize: '0.7rem', mt: 0.25 })"
-              >
-                <code>{{ button.computedStyle }}</code>
-              </sj-typography>
+            <sj-typography variant="small">Usage</sj-typography>
+            <app-code-block [code]="button.usageExample"></app-code-block>
+            <sj-typography variant="small">Computed style</sj-typography>
+            <app-code-block [code]="button.computedStyle"></app-code-block>
             </section>
             }
           </sj-card>
