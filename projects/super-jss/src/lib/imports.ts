@@ -1,6 +1,7 @@
 import { SjDirective } from './directives/sj.directive';
 import { SjHostComponent } from './components/sj-host.component';
 import { SjCardComponent } from './components/sj-card.component';
+import { SjPaperComponent } from './components/sj-paper.component';
 import { SjBoxComponent } from './components/sj-box.component';
 import { SjButtonComponent } from './components/sj-button.component';
 import { SjTypographyComponent } from './components/sj-typography.component';
@@ -13,6 +14,7 @@ export const SJ_BASE_COMPONENTS_IMPORTS = [
   SjDirective,
   SjHostComponent,
   SjCardComponent,
+  SjPaperComponent,
   SjBoxComponent,
   SjButtonComponent,
   SjTypographyComponent,

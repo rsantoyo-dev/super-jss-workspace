@@ -14,7 +14,7 @@ import {
   selector: 'app-breakpoint-indicator',
   imports: [CommonModule, ...SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-host [sj]="[sj.sjCard(), sj.gap(0), sj.bg(sj.palette.info.main)]">
+    <sj-paper useSurface [density]="sj.density.options.compact" [sj]="[sj.gap(0), sj.bg(sj.palette.info.main)]">
       <sj-typography variant="small" [sj]="sj.c(sj.palette.info.contrast)">
         <strong>Breakpoints:</strong>
         {{ JSON.stringify(this.breakpoints()) }}
@@ -25,7 +25,7 @@ import {
       <sj-typography variant="small" [sj]="sj.c(sj.palette.info.contrast)">
         <strong>Breakpoint:</strong> {{ theme.currentBreakpoint() }}
       </sj-typography>
-    </sj-host>
+    </sj-paper>
   `,
 })
 export class BreakpointIndicatorComponent {

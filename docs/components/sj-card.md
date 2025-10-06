@@ -26,6 +26,11 @@ API
 |----------|------------------------|------------------------------------------------|
 | `variant`| `SjCardVariant\|string` | Card variant (e.g., 'flat', 'elevated', ...)   |
 | `sj`     | `SjStyle\|SjStyle[]`    | Additional styles merged after the variant     |
+| `useSurface` | `boolean`            | Enable density-driven padding + gap + rounded  |
+| `usePadding` | `boolean`            | Enable density padding only                    |
+| `useGap`     | `boolean`            | Enable density gap only                        |
+| `useRounded` | `boolean`            | Enable density border radius only              |
+| `density`    | `1\|2\|3\|4`         | Density level (default 2); prefer tokens       |
 
 Variants
 
@@ -40,4 +45,3 @@ Variants
 Override precedence
 
 - The [sj] input merges after the variant, so your styles win.
-

@@ -1,19 +1,7 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { HeaderComponent } from './components/header.component';
 
-import {
-  SjDirective,
-  SjTheme,
-  SjHostComponent,
-  SjBoxComponent,
-  SjCardComponent,
-  SjButtonComponent,
-  SjTypographyComponent,
-  sj,
-  SjStyle,
-  SjThemeService,
-  SjRootApi,
-} from 'super-jss';
+import { SjDirective, SjTheme, SJ_BASE_COMPONENTS_IMPORTS, SjBoxComponent, SjButtonComponent, SjTypographyComponent, sj, SjStyle, SjThemeService, SjRootApi } from 'super-jss';
 
 import { BreakpointIndicatorComponent } from './components/breakpoint-indicator.component';
 
@@ -30,8 +18,8 @@ import { SidenavComponent } from './components/sidenav.component';
     SidenavComponent,
     BreakpointIndicatorComponent,
     SjBoxComponent,
-    SjCardComponent,
     SjButtonComponent,
+    ...SJ_BASE_COMPONENTS_IMPORTS,
   ],
   template: `
     <sj-box
@@ -43,8 +31,8 @@ import { SidenavComponent } from './components/sidenav.component';
     >
       <app-header (menuClick)="openSidenav()"></app-header>
 
-      <sj-card
-        [variant]="sj.sjCard.variants.flat"
+      <sj-paper
+        variant="flat"
         [sj]="[
           sj.d(sj.d.options.grid),
           sj.gridTemplateColumns({
@@ -60,13 +48,13 @@ import { SidenavComponent } from './components/sidenav.component';
         <app-sidenav></app-sidenav>
         }
 
-        <sj-card
-          [variant]="sj.sjCard.variants.flat"
+        <sj-paper
+          variant="flat"
           [sj]="[sj.minHeight('100vh')]"
         >
           <app-breakpoint-indicator></app-breakpoint-indicator>
           <router-outlet></router-outlet>
-        </sj-card>
+        </sj-paper>
 
         <sj-box
           [sj]="[
@@ -115,7 +103,7 @@ import { SidenavComponent } from './components/sidenav.component';
           <app-sidenav></app-sidenav>
         </sj-box>
         }
-      </sj-card>
+      </sj-paper>
     </sj-box>
   `,
 })

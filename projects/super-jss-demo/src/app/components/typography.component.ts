@@ -20,7 +20,7 @@ import { SectionContainerComponent } from './section-container.component';
   ],
   template: `
     <app-section title="Typography">
-      <sj-card [variant]="sj.sjCard.variants.outlined" [sj]="[sj.p(0)]">
+      <sj-paper variant="outlined" [sj]="[sj.p(0)]">
         <sj-typography variant="p"
           >SJSS typography is seamlessly integrated with your theme. Styles for
           HTML elements like h1, p, and span are defined in your active theme
@@ -71,7 +71,7 @@ import { SectionContainerComponent } from './section-container.component';
         <sj-typography variant="small" [sj]
           >SMALL: {{ sampleText }}
         </sj-typography>
-      </sj-card>
+      </sj-paper>
     </app-section>
   `,
 })

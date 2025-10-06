@@ -1,0 +1,35 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.7.0
+2 info using node@v20.14.0
+3 silly config:load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config:load:file:/Users/ricardosantoyo/Documents/projects/sjss/super-jss-workspace/dist/super-jss/.npmrc
+5 silly config:load:file:/Users/ricardosantoyo/.npmrc
+6 silly config:load:file:/usr/local/etc/npmrc
+7 verbose title npm pack
+8 verbose argv "pack" "--cache" "/Users/ricardosantoyo/Documents/projects/sjss/super-jss-workspace/dist/super-jss/../../.npm-cache"
+9 verbose logfile logs-max:10 dir:/Users/ricardosantoyo/Documents/projects/sjss/super-jss-workspace/.npm-cache/_logs/2025-10-04T17_43_12_994Z-
+10 verbose logfile /Users/ricardosantoyo/Documents/projects/sjss/super-jss-workspace/.npm-cache/_logs/2025-10-04T17_43_12_994Z-debug-0.log
+11 silly logfile done cleaning log files
+12 http fetch GET https://registry.npmjs.org/npm attempt 1 failed with ENOTFOUND
+13 notice
+14 notice package: super-jss@0.0.1-beta.31
+15 notice Tarball Contents
+16 notice 1.1kB LICENSE.txt
+16 notice 8.0kB README.md
+16 notice 8.3kB fesm2022/super-jss-themes.mjs
+16 notice 95.3kB fesm2022/super-jss.mjs
+16 notice 33.1kB index.d.ts
+16 notice 1.4kB package.json
+16 notice 277B themes/index.d.ts
+17 notice Tarball Details
+18 notice name: super-jss
+19 notice version: 0.0.1-beta.31
+20 notice filename: super-jss-0.0.1-beta.31.tgz
+21 notice package size: 33.0 kB
+22 notice unpacked size: 147.7 kB
+23 notice shasum: bb25abf3d5efed4b194aa2652404e1b833a4b105
+24 notice integrity: sha512-mn7DoAvHPXchY[...]GobnObZ2mmFSw==
+25 notice total files: 7
+26 notice
+27 verbose exit 0
+28 info ok

@@ -7,8 +7,9 @@ import {
 } from '../models/interfaces';
 import { sjBox, SjBoxApi } from '../blueprints/box';
 import { sjCard, SjCardApi } from '../blueprints/card';
+import { sjPaper, SjPaperApi } from '../blueprints/paper';
 import { sjButton, SjButtonApi } from '../blueprints/button';
-import { SjButtonVariants, SjCardVariants } from '../models/variants';
+import { SjButtonVariants, SjCardVariants, SjPaperVariants } from '../models/variants';
 
 // Typed palette tokens used in styles (string literals)
 const SjPaletteTokens = {
@@ -111,6 +112,7 @@ type ReservedRootKeys =
   | 'palette'
   | 'breakpoints'
   | 'sjBox'
+  | 'sjPaper'
   | 'sjCard'
   | 'sjButton'
   | 'options';
@@ -128,8 +130,16 @@ export type SjStyleApi = SjCssApi & SjShApi;
 export type SjApi = {
   // Blueprints exposed directly
   sjBox: SjBoxApi;
+  sjPaper: SjPaperApi & { variants: typeof SjPaperVariants };
   sjCard: SjCardApi & { variants: typeof SjCardVariants };
   sjButton: SjButtonApi & { variants: typeof SjButtonVariants };
+  // Density tokens for discoverability
+  density: { options: {
+    compact: 1;
+    default: 2;
+    comfortable: 3;
+    spacious: 4;
+  }};
 
   // Helpers
   compose: (
@@ -441,8 +451,18 @@ type SjShApiWithOptions = Omit<
 const sjBase: SjApi = {
   // Blueprints at root
   sjBox: sjBox,
+  sjPaper: Object.assign(sjPaper, { variants: SjPaperVariants }),
   sjCard: Object.assign(sjCard, { variants: SjCardVariants }),
   sjButton: Object.assign(sjButton, { variants: SjButtonVariants }),
+
+  density: {
+    options: {
+      compact: 1,
+      default: 2,
+      comfortable: 3,
+      spacious: 4,
+    },
+  },
 
   compose: helpers.compose,
   hover: helpers.hover,
@@ -469,6 +489,19 @@ const optionsMapCss: Record<string, unknown> = {
   alignItems: FlexAlignOptions,
   flexDirection: SjFlexTokens.direction,
   flexWrap: SjFlexTokens.wrap,
+  // Surface-related density mirrors for discoverability under sj.property.options
+  padding: {
+    compact: 1,
+    default: 2,
+    comfortable: 3,
+    spacious: 4,
+  },
+  borderRadius: {
+    compact: 1,
+    default: 2,
+    comfortable: 3,
+    spacious: 4,
+  },
 };
 
 const optionsMapSh: Record<string, unknown> = {
@@ -478,6 +511,13 @@ const optionsMapSh: Record<string, unknown> = {
   fxAItems: FlexAlignOptions,
   bg: SjPaletteTokens,
   c: SjPaletteTokens,
+  // expose density options under sj.gap.options as well
+  gap: {
+    compact: 1,
+    default: 2,
+    comfortable: 3,
+    spacious: 4,
+  },
 };
 
 // Root-level Proxy: if property exists on base, return it; else try shorthand; else treat as CSS prop

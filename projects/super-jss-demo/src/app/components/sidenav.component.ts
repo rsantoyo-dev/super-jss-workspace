@@ -1,30 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import {
-  SjDirective,
-  sjCard,
-  SjStyle,
-  sjButton,
-  SjHostComponent,
-  sjBox,
-  SjTypographyComponent,
-  SjRootApi,
-  sj,
-} from 'super-jss';
+import { SjDirective, SJ_BASE_COMPONENTS_IMPORTS, SjTypographyComponent, SjRootApi, sj } from 'super-jss';
 
 @Component({
   standalone: true,
   selector: 'app-sidenav',
-  imports: [
-    CommonModule,
-    RouterModule,
-    SjDirective,
-    SjHostComponent,
-    SjTypographyComponent,
-  ],
+  imports: [CommonModule, RouterModule, SjDirective, SjTypographyComponent, ...SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-host [sj]="[sj.sjCard]">
+    <sj-paper usePadding [density]="sj.density.options.default">
       <a routerLink="/home" [sj]="sj.sjButton.light()"
         ><sj-typography [variant]="'span'">Home</sj-typography></a
       >
@@ -43,7 +27,7 @@ import {
       <a routerLink="/theming" [sj]="sj.sjButton.light()"
         ><sj-typography [variant]="'span'">Theming</sj-typography></a
       >
-    </sj-host>
+    </sj-paper>
   `,
 })
 export class SidenavComponent {

@@ -1,58 +1,55 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, Inject, Input, Optional } from '@angular/core';
-import { sjCard, SjCardApi } from '../blueprints/card';
+import { sjPaper, SjPaperApi } from '../blueprints/paper';
 import { SjHostComponent } from './sj-host.component';
 import { SjStyle } from '../models/interfaces';
 import type { SjInput } from '../directives/sj.directive';
-import { SjCardVariant } from '../models/variants';
+import { SjPaperVariant } from '../models/variants';
 import { DEFAULT_SURFACE_DENSITIES, SJ_SURFACES_CONFIG, SjSurfacesConfig } from '../tokens';
 
 @Component({
-  selector: 'sj-card',
+  selector: 'sj-paper',
   standalone: true,
   template: `<sj-host [sj]="hostSj"><ng-content></ng-content></sj-host>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SjHostComponent],
 })
-export class SjCardComponent {
-  sjCard = sjCard
-  // Visual variant of the card blueprint
-  @Input() variant: SjCardVariant = 'default';
-  // Optional user overrides to merge after the variant
-  @Input() sj: SjInput | undefined;
+export class SjPaperComponent {
+  sjPaper = sjPaper;
 
-  // Optional surface controls (off by default to preserve current look)
+  @Input() variant: SjPaperVariant = 'default';
+  @Input() sj: SjInput | undefined;
+  // Surface density: 1..4 (compact -> spacious). Default 2.
   @Input() density: 1 | 2 | 3 | 4 = 2;
+  // Toggles to apply density-driven styles
   @Input({ transform: booleanAttribute }) usePadding: boolean = false;
   @Input({ transform: booleanAttribute }) useGap: boolean = false;
   @Input({ transform: booleanAttribute }) useRounded: boolean = false;
+  // Convenience: enable padding+gap+rounded together at current density
   @Input({ transform: booleanAttribute }) useSurface: boolean = false;
 
   constructor(@Optional() @Inject(SJ_SURFACES_CONFIG) private surfaces?: SjSurfacesConfig) {}
 
   get selectedSj(): (overrides?: Partial<SjStyle>) => SjStyle {
-    return this.pickVariant(this.sjCard);
+    return this.pickVariant(this.sjPaper);
   }
 
-  private pickVariant(api: SjCardApi): (overrides?: Partial<SjStyle>) => SjStyle {
+  private pickVariant(api: SjPaperApi): (overrides?: Partial<SjStyle>) => SjStyle {
     switch (this.variant) {
-      case 'outlined': return api.outlined;
-      case 'flat': return api.flat;
-      case 'elevated': return api.elevated;
-      case 'interactive': return api.interactive;
-      case 'primary': return api.primary;
-      case 'secondary': return api.secondary;
-      case 'info': return api.info;
-      case 'codeSnippet': return api.codeSnippet;
+      case 'flat':
+        return api.flat;
+      case 'outlined':
+        return api.outlined;
+      case 'filled':
+        return api.filled;
       case 'default':
-      default: return api;
+      default:
+        return api;
     }
   }
 
-  // Compose variant base with user-provided overrides so user wins
   get hostSj(): SjInput {
-    // Normalize selected variant to a zero-arg producer for SjInput
     const base = () => {
-      const v = this.selectedSj();
+      const style = this.selectedSj();
       const overrides: Partial<SjStyle> = {};
       const level = this.density ?? 2;
       const paddingMap = this.surfaces?.padding ?? DEFAULT_SURFACE_DENSITIES.padding;
@@ -76,11 +73,10 @@ export class SjCardComponent {
         if (r !== undefined) (overrides as any).borderRadius = r as any;
       }
 
-      return Object.keys(overrides).length ? { ...v, ...overrides } : v;
+      return Object.keys(overrides).length ? { ...style, ...overrides } : style;
     };
     const user = this.sj;
     if (user === undefined) return base;
     return Array.isArray(user) ? [base, ...user] : [base, user];
   }
-
 }

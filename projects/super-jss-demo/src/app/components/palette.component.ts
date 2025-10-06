@@ -49,13 +49,14 @@ import { SectionContainerComponent } from './section-container.component';
           sj.gap({ xs: 0.5, md: 1 })
         ]"
       >
-        <sj-card *ngFor="let color of demoColors()" [sj]="sj.sjCard.outlined()">
+        <sj-paper *ngFor="let color of demoColors()" variant="outlined">
           <sj-typography variant="h6" [sj]="[sj.c(color[0]), sj.mt(0)]">{{
             color[0]
           }}</sj-typography>
           <div [sj]="[sj.d('flex'), sj.fxDir({ xs: 'column' }), sj.gap(0.5)]">
-            <sj-card
+            <sj-paper
               *ngFor="let colorVariant of color"
+              variant="flat"
               [sj]="[sj.bg(colorVariant), sj.flexGrow(1), sj.p(0.5)]"
             >
               <sj-typography
@@ -70,9 +71,9 @@ import { SectionContainerComponent } from './section-container.component';
                 ]"
                 >{{ colorVariant }}</sj-typography
               >
-            </sj-card>
+            </sj-paper>
           </div>
-        </sj-card>
+        </sj-paper>
       </div>
     </app-section>
   `,

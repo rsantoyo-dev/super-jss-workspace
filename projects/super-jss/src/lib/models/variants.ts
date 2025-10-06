@@ -14,6 +14,15 @@ export const SjCardVariants = {
 
 export type SjCardVariant = typeof SjCardVariants[keyof typeof SjCardVariants];
 
+export const SjPaperVariants = {
+  default: 'default',
+  flat: 'flat',
+  outlined: 'outlined',
+  filled: 'filled',
+} as const;
+
+export type SjPaperVariant = typeof SjPaperVariants[keyof typeof SjPaperVariants];
+
 export const SjButtonVariants = {
   default: 'default',
   light: 'light',

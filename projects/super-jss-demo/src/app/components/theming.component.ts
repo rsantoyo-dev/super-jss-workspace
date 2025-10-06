@@ -1,13 +1,4 @@
-import {
-  SjCardComponent,
-  SjDirective,
-  SjTheme,
-  SjBoxComponent,
-  SjTypographyComponent,
-  sj,
-  SjRootApi,
-  SjThemeService,
-} from 'super-jss';
+import { SJ_BASE_COMPONENTS_IMPORTS, SjDirective, SjTheme, sj, SjRootApi, SjThemeService } from 'super-jss';
 import { JsonStudioComponent } from '../sj-json-studio/json-studio.component';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
@@ -16,17 +7,10 @@ import { SectionContainerComponent } from './section-container.component';
 @Component({
   standalone: true,
   selector: 'app-theming',
-  imports: [
-    CommonModule,
-    SjDirective,
-    SjCardComponent,
-    JsonStudioComponent,
-    SectionContainerComponent,
-    SjTypographyComponent,
-  ],
+  imports: [CommonModule, SjDirective, JsonStudioComponent, SectionContainerComponent, ...SJ_BASE_COMPONENTS_IMPORTS],
   template: `
     <app-section title="Theming">
-      <sj-card [variant]="sj.sjCard.variants.flat" [sj]="[]">
+      <sj-paper variant="flat" usePadding [density]="sj.density.options.default" [sj]="[]">
         <sj-box
           [sj]="[
             sj.fxDir(sj.fxDir.options.row),
@@ -59,7 +43,7 @@ import { SectionContainerComponent } from './section-container.component';
           [value]="themeData"
           (valueChange)="onStudioChange($event)"
         ></app-json-studio>
-      </sj-card>
+      </sj-paper>
     </app-section>
   `,
 })

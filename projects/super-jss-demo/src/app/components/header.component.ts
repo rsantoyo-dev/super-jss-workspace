@@ -21,9 +21,12 @@ import { ThemeSelectorComponent } from './theme-selector.component';
     ...SJ_BASE_COMPONENTS_IMPORTS,
   ],
   template: `
-    <sj-host
+    <sj-paper
+      useSurface
+      [density]="sj.density.options.default"
       [sj]="[
-        sj.sjCard.primary(),
+        sj.bg(sj.palette.primary.main),
+        sj.color(sj.palette.primary.contrast),
         sj.fxDir({ xs: sj.fxDir.options.column, sm: sj.fxDir.options.row }),
         sj.borderRadius(0),
         sj.justifyContent({
@@ -55,22 +58,35 @@ import { ThemeSelectorComponent } from './theme-selector.component';
         >
           SUPER JSS
         </sj-typography>
-        <small [sj]="[sj.color(sj.palette.primary.contrast)]"
-          >The ultimate solution for dynamic styling</small
+        <sj-typography
+          [variant]="'small'"
+          [sj]="[sj.color(sj.palette.primary.contrast)]"
+          >The ultimate solution for dynamic styling</sj-typography
         >
         @if (theme.isMobile()) {
-        <sj-box [sj]="[sj.marginTop(0.5)]">
+        <sj-paper
+          variant="flat"
+          usePadding
+          [density]="sj.density.options.compact"
+          [sj]="[sj.marginTop(0.5)]"
+        >
           <app-theme-selector></app-theme-selector>
-        </sj-box>
+        </sj-paper>
         }
       </sj-box>
 
       <sj-box [sj]="sj.sjBox.row({ fxAItems: 'center' })">
         @if (!theme.isMobile()) {
-        <app-theme-selector></app-theme-selector>
+        <sj-paper
+          variant="flat"
+          usePadding
+          [density]="sj.density.options.compact"
+        >
+          <app-theme-selector></app-theme-selector>
+        </sj-paper>
         }
       </sj-box>
-    </sj-host>
+    </sj-paper>
   `,
 })
 export class HeaderComponent {

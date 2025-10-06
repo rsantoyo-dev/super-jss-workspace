@@ -12,13 +12,12 @@ import {
   selector: 'app-hero',
   imports: [SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-host
+    <sj-paper
+      useSurface
+      [density]="sj.density.options.default"
       [sj]="[
         sj.display(sj.display.options.flex),
-        sj.flexDirection({
-          xs: sj.flexDirection.options.column,
-          md: sj.flexDirection.options.row
-        }),
+        sj.flexDirection({ xs: sj.flexDirection.options.column, md: sj.flexDirection.options.row }),
         sj.justifyContent(sj.justifyContent.options.center),
         sj.alignItems(sj.alignItems.options.center),
         sj.gap({ xs: 0.5, md: 1 }),
@@ -43,7 +42,7 @@ import {
       >
         Update Primary
       </sj-button>
-    </sj-host>
+    </sj-paper>
   `,
 })
 export class HeroComponent {

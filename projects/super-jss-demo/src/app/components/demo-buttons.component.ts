@@ -56,7 +56,7 @@ interface DemoButton {
           sj.mt(0)
         ]"
       >
-        <sj-card *ngFor="let button of buttonData" [sj]="sj.sjCard.outlined()">
+        <sj-paper *ngFor="let button of buttonData" variant="outlined">
           <sj-typography
             variant="h6"
             [sj]="{ c: button.titleColor, m: 0, p: 0 }"
@@ -94,7 +94,7 @@ interface DemoButton {
             </sj-typography>
           </section>
           }
-        </sj-card>
+        </sj-paper>
       </div>
     </app-section>
   `,

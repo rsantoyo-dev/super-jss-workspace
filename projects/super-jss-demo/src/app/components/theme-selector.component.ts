@@ -19,14 +19,14 @@ interface ThemeMeta {
   selector: 'app-theme-selector',
   imports: [CommonModule, ...SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-host [sj]="[sj.sjCard(), sj.bg(sj.palette.primary.dark), sj.gap(0.25)]">
+    <sj-paper useSurface [density]="sj.density.options.compact" [sj]="[sj.bg(sj.palette.primary.dark)]">
       <sj-typography
         [variant]="'small'"
         [sj]="[sj.c(sj.palette.primary.contrast)]"
         >{{ previewLabel() }}</sj-typography
       >
 
-      <sj-card [variant]="'flat'" [sj]="[sj.flexDirection('row'), sj.p(0)]">
+      <sj-paper variant="flat" [sj]="[sj.flexDirection('row'), sj.p(0)]">
         @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {
         <sj-button
           [sj]="sj.sjButton({ bg: theme.theme.palette?.primary?.dark })"
@@ -60,9 +60,7 @@ interface ThemeMeta {
           ></sj-icon>
         </sj-button>
         } }
-        <sj-box
-          [sj]="sj.sjCard({ bg: sj.palette.primary.main, padding: 0.1 })"
-        ></sj-box>
+        <sj-box [sj]="{ bg: sj.palette.primary.main, p: 0.1 }"></sj-box>
         @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
         <sj-button
           [sj]="sj.sjButton({ bg: theme.theme.palette?.primary?.dark })"
@@ -96,8 +94,8 @@ interface ThemeMeta {
           ></sj-icon>
         </sj-button>
         } }
-      </sj-card>
-    </sj-host>
+      </sj-paper>
+    </sj-paper>
   `,
 })
 export class ThemeSelectorComponent {
