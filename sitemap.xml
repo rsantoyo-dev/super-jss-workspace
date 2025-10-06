@@ -2,102 +2,106 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://sjss.dev/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/basic-usage/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/colors/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/examples/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/faqs/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/installation/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/palette/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/responsive-style/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/sj-api/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/spacing/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/styling-shortcuts/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/theming/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/typography/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/blueprints/_index/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/blueprints/box/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/blueprints/buttons/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/blueprints/cards/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/blueprints/typography/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/components/_index/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/components/sj-box/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/components/sj-button/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/components/sj-card/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/components/sj-host/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/components/sj-icon/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
+    </url>
+    <url>
+         <loc>https://sjss.dev/components/sj-paper/</loc>
+         <lastmod>2025-10-06</lastmod>
     </url>
     <url>
          <loc>https://sjss.dev/components/sj-typography/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-06</lastmod>
     </url>
 </urlset>

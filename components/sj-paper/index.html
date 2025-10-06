@@ -10,13 +10,9 @@
       
       
       
-        <link rel="canonical" href="https://sjss.dev/components/sj-card/">
+        <link rel="canonical" href="https://sjss.dev/components/sj-paper/">
       
       
-        <link rel="prev" href="../sj-box/">
-      
-      
-        <link rel="next" href="../sj-button/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +20,7 @@
     
     
       
-        <title>sj-card Component - Super JSS</title>
+        <title>sj-paper Component - Super JSS</title>
       
     
     
@@ -78,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sj-card" class="md-skip">
+        <a href="#sj-paper" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              sj-card Component
+              sj-paper Component
             
           </span>
         </div>
@@ -476,20 +472,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
@@ -505,7 +499,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             Components
@@ -585,19 +579,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../sj-card/" class="md-nav__link">
         
   
   
@@ -608,7 +593,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -854,80 +838,50 @@
 
 
 
-<h1 id="sj-card">sj-card</h1>
-<p>sj-card is a lightweight wrapper that applies a card blueprint to its parent via sj-host and accepts variant and [sj] overrides.</p>
+<h1 id="sj-paper">sj-paper</h1>
+<p>sj-paper is a visual surface with simple variants and density-driven defaults.</p>
 <p>Usage</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">sj-card</span> <span class="err">[</span><span class="na">variant</span><span class="err">]=&quot;&#39;</span><span class="na">flat</span><span class="err">&#39;&quot;</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;[</span> <span class="na">sj</span><span class="err">.</span><span class="na">gap</span><span class="err">(</span><span class="na">0</span><span class="err">.</span><span class="na">5</span><span class="err">)</span> <span class="err">]&quot;</span><span class="p">&gt;</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="p">&lt;</span><span class="nt">h3</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;{</span> <span class="na">m:</span> <span class="na">0</span> <span class="err">}&quot;</span><span class="p">&gt;</span>Title<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  <span class="p">&lt;</span><span class="nt">p</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;{</span> <span class="na">m:</span> <span class="na">0</span> <span class="err">}&quot;</span><span class="p">&gt;</span>Body<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  <span class="p">&lt;</span><span class="nt">sj-button</span> <span class="err">[</span><span class="na">variant</span><span class="err">]=&quot;&#39;</span><span class="na">outlined</span><span class="err">&#39;&quot;</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;{</span> <span class="na">px:</span> <span class="na">1</span> <span class="err">}&quot;</span><span class="p">&gt;</span>Action<span class="p">&lt;/</span><span class="nt">sj-button</span><span class="p">&gt;</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  <span class="cm">&lt;!-- content --&gt;</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  <span class="cm">&lt;!-- footer --&gt;</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  <span class="p">&lt;</span><span class="nt">small</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;{</span> <span class="na">c:</span> <span class="err">&#39;</span><span class="na">neutral</span><span class="err">&#39;</span> <span class="err">}&quot;</span><span class="p">&gt;</span>Meta<span class="p">&lt;/</span><span class="nt">small</span><span class="p">&gt;</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  <span class="cm">&lt;!-- ... --&gt;</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">&lt;/</span><span class="nt">sj-card</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cm">&lt;!-- Neutral surface (no spacing/rounding) --&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">&lt;</span><span class="nt">sj-paper</span> <span class="na">variant</span><span class="o">=</span><span class="s">&quot;flat&quot;</span><span class="p">&gt;</span>Content<span class="p">&lt;/</span><span class="nt">sj-paper</span><span class="p">&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="cm">&lt;!-- Apply default spacing (density 2) to padding/gap/rounded --&gt;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">&lt;</span><span class="nt">sj-paper</span> <span class="na">useSurface</span> <span class="err">[</span><span class="na">density</span><span class="err">]=&quot;</span><span class="na">sj</span><span class="err">.</span><span class="na">density</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">default</span><span class="err">&quot;</span><span class="p">&gt;</span>Content<span class="p">&lt;/</span><span class="nt">sj-paper</span><span class="p">&gt;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="cm">&lt;!-- Compact padding only --&gt;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">&lt;</span><span class="nt">sj-paper</span> <span class="na">usePadding</span> <span class="err">[</span><span class="na">density</span><span class="err">]=&quot;</span><span class="na">sj</span><span class="err">.</span><span class="na">density</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">compact</span><span class="err">&quot;</span><span class="p">&gt;</span>Content<span class="p">&lt;/</span><span class="nt">sj-paper</span><span class="p">&gt;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="cm">&lt;!-- Comfortable padding + rounded; override child spacing via [sj] --&gt;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">&lt;</span><span class="nt">sj-paper</span> <span class="na">usePadding</span> <span class="na">useRounded</span> <span class="err">[</span><span class="na">density</span><span class="err">]=&quot;</span><span class="na">sj</span><span class="err">.</span><span class="na">density</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">comfortable</span><span class="err">&quot;</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;{</span> <span class="na">gap:</span> <span class="na">0</span> <span class="err">}&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>  Content
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="p">&lt;/</span><span class="nt">sj-paper</span><span class="p">&gt;</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="cm">&lt;!-- Override anything via [sj] (always wins) --&gt;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="p">&lt;</span><span class="nt">sj-paper</span> <span class="na">useSurface</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;{</span> <span class="na">p:</span> <span class="na">0</span><span class="err">,</span> <span class="na">brad:</span> <span class="na">0</span> <span class="err">}&quot;</span><span class="p">&gt;</span>Content<span class="p">&lt;/</span><span class="nt">sj-paper</span><span class="p">&gt;</span>
 </code></pre></div>
-<p>API</p>
-<table>
-<thead>
-<tr>
-<th>Input</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>variant</code></td>
-<td><code>SjCardVariant\|string</code></td>
-<td>Card variant (e.g., 'flat', 'elevated', ...)</td>
-</tr>
-<tr>
-<td><code>sj</code></td>
-<td><code>SjStyle\|SjStyle[]</code></td>
-<td>Additional styles merged after the variant</td>
-</tr>
-<tr>
-<td><code>useSurface</code></td>
-<td><code>boolean</code></td>
-<td>Enable density-driven padding + gap + rounded</td>
-</tr>
-<tr>
-<td><code>usePadding</code></td>
-<td><code>boolean</code></td>
-<td>Enable density padding only</td>
-</tr>
-<tr>
-<td><code>useGap</code></td>
-<td><code>boolean</code></td>
-<td>Enable density gap only</td>
-</tr>
-<tr>
-<td><code>useRounded</code></td>
-<td><code>boolean</code></td>
-<td>Enable density border radius only</td>
-</tr>
-<tr>
-<td><code>density</code></td>
-<td><code>1\|2\|3\|4</code></td>
-<td>Density level (default 2); prefer tokens</td>
-</tr>
-</tbody>
-</table>
-<p>Variants</p>
+<p>Inputs</p>
 <ul>
-<li>default</li>
-<li>outlined</li>
-<li>flat</li>
-<li>elevated</li>
-<li>interactive</li>
-<li>primary, secondary</li>
-<li>info, codeSnippet</li>
+<li><code>variant</code>: <code>flat | outlined | filled</code></li>
+<li><code>useSurface</code>: boolean — enables padding + gap + rounded using current <code>density</code></li>
+<li><code>usePadding</code>, <code>useGap</code>, <code>useRounded</code>: boolean — enable per concern</li>
+<li><code>density</code>: 1 | 2 | 3 | 4 (default 2). Prefer tokens: <code>sj.density.options.compact|default|comfortable|spacious</code>.</li>
+<li><code>[sj]</code>: fine-grained overrides (merges last)</li>
 </ul>
-<p>Override precedence</p>
+<p>Tokens</p>
 <ul>
-<li>The [sj] input merges after the variant, so your styles win.</li>
+<li><code>sj.density.options.compact</code> → 1</li>
+<li><code>sj.density.options.default</code> → 2</li>
+<li><code>sj.density.options.comfortable</code> → 3</li>
+<li><code>sj.density.options.spacious</code> → 4</li>
 </ul>
+<p>Theme overrides</p>
+<p>Customize density maps via your theme under <code>components.surfaces</code> (padding, gap, radius). Values are numbers/responsive numbers that flow through <code>theme.spacing()</code>.</p>
+<p>Host shortcut</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cm">&lt;!-- Apply surface to the parent element without adding a wrapper --&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">&lt;</span><span class="nt">sj-host</span> <span class="na">asPaper</span> <span class="na">useSurface</span> <span class="err">[</span><span class="na">density</span><span class="err">]=&quot;</span><span class="na">sj</span><span class="err">.</span><span class="na">density</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">default</span><span class="err">&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  <span class="cm">&lt;!-- content becomes the host&#39;s children --&gt;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  Content
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">&lt;/</span><span class="nt">sj-host</span><span class="p">&gt;</span>
+</code></pre></div>
 
 
 
