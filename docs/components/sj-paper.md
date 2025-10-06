@@ -45,3 +45,13 @@ Tokens
 Theme overrides
 
 Customize density maps via your theme under `components.surfaces` (padding, gap, radius). Values are numbers/responsive numbers that flow through `theme.spacing()`.
+
+Host shortcut
+
+```html
+<!-- Apply surface to the parent element without adding a wrapper -->
+<sj-host asPaper useSurface [density]="sj.density.options.default">
+  <!-- content becomes the host's children -->
+  Content
+</sj-host>
+```

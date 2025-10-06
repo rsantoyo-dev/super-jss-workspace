@@ -135,7 +135,7 @@ This FAQ consolidates the most common questions about Super JavaScript Styleshee
   - A: Class names are namespaced with `sj-` and include property/value segments. Collisions are unlikely. Specificity is low (single class) — apply order controls which wins.
 
 - Q: How to avoid over‑generation?
-  - A: Prefer tokens (`blue.500`, `primary.main`) and spacing units instead of many ad‑hoc pixel strings. Reuse composed style objects and arrays (e.g., `sjCard()` helpers).
+  - A: Prefer tokens (`blue.500`, `primary.main`) and spacing units instead of many ad‑hoc pixel strings. Reuse composed style objects and arrays (e.g., `<sj-card variant="...">` with `[sj]` overrides).
   - See also: [Styling Shortcuts](styling-shortcuts.md), [Colors](colors.md), [Spacing](spacing.md)
 
 - Q: Sticky header example?

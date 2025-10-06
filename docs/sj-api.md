@@ -7,6 +7,8 @@
 - Discoverable `.options` on popular props to reduce guesswork.
 - Minimal tokens at root: `sj.palette` and `sj.breakpoints`.
 - Blueprints at root with variants: `sj.sjBox`, `sj.sjCard`, `sj.sjButton`.
+- Components for common UI: `<sj-paper>`, `<sj-card>`, `<sj-button>` (use `[variant]`).
+- Host shortcuts: `<sj-host asPaper>` / `<sj-host asCard>` to apply surface/card styles to the parent.
 
 This lean surface is SSR‑safe and designed for fast authoring with great IDE autocomplete.
 
@@ -31,8 +33,9 @@ This lean surface is SSR‑safe and designed for fast authoring with great IDE a
   sj.hover([ sj.bg('primary.dark'), sj.c('primary.contrast') ])
 ]"></button>
 
-<!-- Blueprints and variants at root -->
-<div [sj]="sj.sjCard.flat({ p: 1 })"></div>
+<!-- Components with variants -->
+<sj-paper useSurface [density]="sj.density.options.default">Surface</sj-paper>
+<sj-card [variant]="'flat'" [sj]="{ p: 1 }">Card</sj-card>
 <sj-card [variant]="'elevated'">Card</sj-card>
 
 <!-- Tokens -->
@@ -96,4 +99,3 @@ Blueprints (and helpers) can be passed as functions (producers). The `[sj]` dire
 - Prefer `sj.<cssProp>` for maximum clarity; use shorthands for speed on common properties.
 - Use `.options` on props and shorthands to avoid guessing string literals.
 - Use `sj.palette` and responsive objects frequently; arrays merge left→right, so keep overrides last.
-

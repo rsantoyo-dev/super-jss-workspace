@@ -10,7 +10,7 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 - 🎯 Atomic CSS generation: only what you use
 - 📱 Responsive + theming: `xs…xxl` breakpoints and palette tokens
 - 🎨 Pseudo‑selectors: `&:hover`, `&:focus`, etc.
-- 🧩 Ready‑made building blocks: `<sj-box>`, `<sj-card>`, `<sj-button>`
+- 🧩 Ready‑made building blocks: `<sj-box>`, `<sj-paper>`, `<sj-card>`, `<sj-button>`
 
 ## Important links
 
@@ -146,14 +146,13 @@ import { SJ_BASE_COMPONENTS_IMPORTS, sj } from 'super-jss';
   imports: [SJ_BASE_COMPONENTS_IMPORTS],
   template: `
     <sj-box [sj]="box">Content</sj-box>
-    <sj-card [sj]="card">Card content</sj-card>
-    <sj-button [sj]="btn">Click</sj-button>
+    <sj-paper variant="outlined" useSurface [density]="sj.density.options.default">Surface</sj-paper>
+    <sj-card [variant]="'elevated'" [sj]="{ p: 1, gap: 1 }">Card content</sj-card>
+    <sj-button [variant]="'containedPrimary'" [sj]="{ w: 'fit-content' }">Click</sj-button>
   `,
 })
 export class DemoComponent {
   box = [sj.p(1), sj.bg('light.light')];
-  card = sj.sjCard.elevated({ padding: 1, gap: 1 });
-  btn = sj.sjButton.containedPrimary({ w: 'fit-content' });
 }
 ```
 
@@ -214,3 +213,47 @@ For inquiries, feedback, or issues, reach out at [ricardo.santoyo@hotmail.com](m
 ## License
 
 MIT © Ricardo Santoyo
+## Surfaces (density‑driven spacing)
+
+Use `<sj-paper>` for neutral surfaces and enable consistent padding/gap/rounding via density levels sourced from your theme.
+
+Define densities in theme (TypeScript):
+
+```ts
+// Align surfaces globally via the active theme
+theme.setTheme({
+  components: {
+    surfaces: {
+      padding: { 2: { xs: 0.5, md: 0.75, lg: 1 } },
+      gap:     { 2: { xs: 0.5, md: 0.75, lg: 1 } },
+      radius:  { 2: 0.5 }
+    }
+  }
+});
+```
+
+Use in templates (HTML):
+
+```html
+<!-- Component form: padding+gap+rounded by density -->
+<sj-paper variant="outlined" useSurface [density]="sj.density.options.default">
+  Content
+</sj-paper>
+
+<!-- Individual toggles (still density‑driven) -->
+<sj-paper variant="outlined" usePadding [density]="sj.density.options.default">…</sj-paper>
+<sj-paper variant="outlined" useGap [density]="sj.density.options.default">…</sj-paper>
+<sj-paper variant="outlined" useRounded [density]="sj.density.options.default">…</sj-paper>
+```
+
+Host shortcut (style parent as a surface):
+
+```html
+<sj-host asPaper useSurface [density]="sj.density.options.default">
+  Content
+</sj-host>
+```
+
+Notes
+- Densities live under `theme.components.surfaces` (padding, gap, radius) and use your theme.spacing units.
+- `[sj]` merges last; explicit overrides always win.

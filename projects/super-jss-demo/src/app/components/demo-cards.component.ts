@@ -1,28 +1,22 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  sj,
-  SJ_BASE_COMPONENTS_IMPORTS,
-  SjRootApi,
-  SjStyle,
-  sjCard as sjCardBlueprint,
-} from 'super-jss';
+import { sj, SJ_BASE_COMPONENTS_IMPORTS, SjRootApi } from 'super-jss';
 import { SectionContainerComponent } from './section-container.component';
-import { CodeBlockComponent } from './code-block.component';
+import { DemoItemComponent } from './demo-item.component';
 
 interface DemoCard {
   title: string;
-  cardType: SjStyle;
   message: string;
   titleColor: string;
+  variant: string | undefined;
+  overrides?: any;
   usageExample: string;
-  computedStyle: string;
 }
 
 @Component({
   selector: 'app-demo-cards',
   standalone: true,
-  imports: [CommonModule, SectionContainerComponent, SJ_BASE_COMPONENTS_IMPORTS, CodeBlockComponent],
+  imports: [CommonModule, SectionContainerComponent, SJ_BASE_COMPONENTS_IMPORTS, DemoItemComponent],
   template: `
     <app-section title="Cards">
       <!-- Header content lives inside SectionContainer's outlined card -->
@@ -31,16 +25,6 @@ interface DemoCard {
         of the box. Toggle to inspect the generated styles or override them to
         create your own twists.
       </sj-typography>
-      <sj-button
-        type="button"
-        (click)="toggleSnippets()"
-        [attr.aria-pressed]="showSnippets"
-        [variant]="sj.sjButton.variants.outlined"
-        [sj]="{ px: 1, py: 0.5 }"
-      >
-        {{ showSnippets ? 'Hide usage & styles' : 'Show usage & styles' }}
-      </sj-button>
-
       <!-- Responsive grid of examples -->
       <div
         [sj]="[
@@ -50,124 +34,90 @@ interface DemoCard {
           sj.mt(0)
         ]"
       >
-        <sj-card *ngFor="let card of cardData" [sj]="[card.cardType, sj.mt(0)]">
-          <sj-typography variant="h6" [sj]="[sj.c(card.titleColor), sj.mt(0)]">
-            {{ card.title }}
-          </sj-typography>
-          <sj-typography variant="p" [sj]="[sj.m(0), sj.mt(0)]">
-            {{ card.message }}
-          </sj-typography>
-          @if (showSnippets) {
-          <section
-            [sj]="[
-              sj.d('flex'),
-              sj.flexDirection('column'),
-              sj.gap(1),
-              sj.mt(1)
-            ]"
-          >
-            <sj-typography variant="small">Usage</sj-typography>
-            <app-code-block [code]="card.usageExample"></app-code-block>
-            <sj-typography variant="small">Computed style</sj-typography>
-            <app-code-block [code]="card.computedStyle"></app-code-block>
-          </section>
-          }
-        </sj-card>
+        @for (card of cardData; track card.title) {
+          <app-demo-item [title]="card.title" [titleColor]="card.titleColor" [code]="card.usageExample">
+            <sj-card [variant]="$any(card.variant)" [sj]="card.overrides">
+              <sj-typography variant="p" [sj]="[sj.m(0), sj.mt(0)]">{{ card.message }}</sj-typography>
+            </sj-card>
+          </app-demo-item>
+        }
       </div>
     </app-section>
   `,
 })
 export class DemoCardsComponent {
   readonly sj: SjRootApi = sj;
-  readonly sjCard = sjCardBlueprint;
-
-  protected showSnippets = false;
-
   protected readonly cardData: DemoCard[] = this.buildCardData();
 
-  protected toggleSnippets(): void {
-    this.showSnippets = !this.showSnippets;
-  }
-
   private buildCardData(): DemoCard[] {
-    const cards = [
+    const items: DemoCard[] = [
       {
-        title: 'sjCard()',
-        build: () => this.sjCard(),
+        title: '<sj-card>',
         message: 'Default card with light background.',
         titleColor: 'primary',
-        usageExample: `[sj]="sjCard()"`,
+        variant: 'default',
+        usageExample: `<sj-card>...</sj-card>`,
       },
       {
-        title: 'sjCard.outlined()',
-        build: () => this.sjCard.outlined(),
+        title: '<sj-card variant="outlined">',
         message: 'Outlined, transparent background, no shadow.',
         titleColor: 'primary',
-        usageExample: `[sj]="sjCard.outlined()"`,
+        variant: 'outlined',
+        usageExample: `<sj-card variant="outlined">...</sj-card>`,
       },
       {
-        title: 'sjCard.flat()',
-        build: () => this.sjCard.flat(),
+        title: '<sj-card variant="flat">',
         message: 'No shadow.',
         titleColor: 'primary',
-        usageExample: `[sj]="sjCard.flat()"`,
+        variant: 'flat',
+        usageExample: `<sj-card variant="flat">...</sj-card>`,
       },
       {
-        title: 'sjCard.elevated()',
-        build: () => this.sjCard.elevated(),
+        title: '<sj-card variant="elevated">',
         message: 'Stronger shadow.',
         titleColor: 'primary',
-        usageExample: `[sj]="sjCard.elevated()"`,
+        variant: 'elevated',
+        usageExample: `<sj-card variant="elevated">...</sj-card>`,
       },
       {
-        title: 'sjCard.primary()',
-        build: () => this.sjCard.primary(),
+        title: '<sj-card variant="primary">',
         message: 'Primary background and contrast text.',
         titleColor: 'primary.contrast',
-        usageExample: `[sj]="sjCard.primary()"`,
+        variant: 'primary',
+        usageExample: `<sj-card variant="primary">...</sj-card>`,
       },
       {
-        title: 'sjCard.interactive()',
-        build: () => this.sjCard.interactive(),
+        title: '<sj-card variant="interactive">',
         message: 'Card with hover effects.',
         titleColor: 'primary',
-        usageExample: `[sj]="sjCard.interactive()"`,
+        variant: 'interactive',
+        usageExample: `<sj-card variant="interactive">...</sj-card>`,
       },
       {
-        title: `sjCard({ bg: 'secondary.main' })`,
-        build: () =>
-          this.sjCard({ bg: 'secondary.main', borderColor: 'transparent' }),
+        title: `<sj-card [sj]="{ bg: 'secondary.main' }">`,
         message: 'Default card with overridden background.',
         titleColor: 'secondary.contrast',
-        usageExample: `[sj]="sjCard({ bg: 'secondary.main' })"`,
+        variant: 'default',
+        overrides: { bg: 'secondary.main', borderColor: 'transparent' },
+        usageExample: `<sj-card [sj]="{ bg: 'secondary.main' }">...</sj-card>`,
       },
       {
-        title: `sjCard.primary({ borderRadius: 4 })`,
-        build: () => this.sjCard.primary({ borderRadius: 4 }),
+        title: `<sj-card variant="primary" [sj]="{ borderRadius: 4 }">`,
         message: 'Primary card with overridden border radius.',
         titleColor: 'primary.contrast',
-        usageExample: `[sj]="sjCard.primary({ borderRadius: 4 })"`,
+        variant: 'primary',
+        overrides: { borderRadius: 4 },
+        usageExample: `<sj-card variant="primary" [sj]="{ borderRadius: 4 }">...</sj-card>`,
       },
       {
-        title: `sjCard.elevated({ p: 3 })`,
-        build: () => this.sjCard.elevated({ p: 3 }),
+        title: `<sj-card variant="elevated" [sj]="{ p: 3 }">`,
         message: 'Secondary card with overridden padding.',
         titleColor: 'secondary.contrast',
-        usageExample: `[sj]="sjCard.elevated({ p: 3 })"`,
+        variant: 'elevated',
+        overrides: { p: 3 },
+        usageExample: `<sj-card variant="elevated" [sj]="{ p: 3 }">...</sj-card>`,
       },
     ];
-
-    return cards.map(({ build, ...card }) => {
-      const cardType = build();
-      return {
-        ...card,
-        cardType,
-        computedStyle: this.stringifyStyle(cardType),
-      };
-    });
-  }
-
-  private stringifyStyle(style: SjStyle): string {
-    return JSON.stringify(style, null, 2);
+    return items;
   }
 }

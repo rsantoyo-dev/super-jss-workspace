@@ -12,7 +12,7 @@ Usage
 <sj-card [variant]="'flat'" [sj]="[ sj.gap(0.5) ]">
   <h3 [sj]="{ m: 0 }">Title</h3>
   <p [sj]="{ m: 0 }">Body</p>
-  <a [sj]="sj.sjButton.outlined({ px: 1 })">Action</a>
+  <sj-button [variant]="'outlined'" [sj]="{ px: 1 }">Action</sj-button>
   <!-- content -->
   <!-- footer -->
   <small [sj]="{ c: 'neutral' }">Meta</small>
@@ -34,7 +34,7 @@ API
 
 Variants
 
-- default (sjCard())
+- default
 - outlined
 - flat
 - elevated

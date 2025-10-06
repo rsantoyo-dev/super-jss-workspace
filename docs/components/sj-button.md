@@ -13,9 +13,7 @@ Usage
   Outlined
 </sj-button>
 
-<sj-button [sj]="sj.sjButton.containedPrimary({ px: 1 })">
-  Primary
-</sj-button>
+<sj-button variant="containedPrimary" [sj]="{ px: 1 }">Primary</sj-button>
 ```
 
 API
@@ -35,4 +33,3 @@ Variants
 Notes
 
 - [sj] overrides are merged after the variant so you can adjust spacing, colors, etc.
-

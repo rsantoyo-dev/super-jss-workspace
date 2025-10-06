@@ -2,38 +2,19 @@ import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SJ_BASE_COMPONENTS_IMPORTS, sj, SjRootApi } from 'super-jss';
 import { SectionContainerComponent } from './section-container.component';
-import { CodeBlockComponent } from './code-block.component';
+import { DemoItemComponent } from './demo-item.component';
 
 @Component({
   selector: 'app-palette',
   standalone: true,
-  imports: [CommonModule, SectionContainerComponent, SJ_BASE_COMPONENTS_IMPORTS, CodeBlockComponent],
+  imports: [CommonModule, SectionContainerComponent, SJ_BASE_COMPONENTS_IMPORTS, DemoItemComponent],
   template: `
     <app-section title="Palette">
       <sj-typography variant="p">
         The theme palette defines semantic colors. Each color typically includes
         main, light, dark, and contrast variants. Toggle to view usage.
       </sj-typography>
-      <sj-button
-        type="button"
-        (click)="toggleSnippets()"
-        [attr.aria-pressed]="showSnippets"
-        [variant]="sj.sjButton.variants.outlined"
-        [sj]="{ px: 1, py: 0.5 }"
-      >
-        {{ showSnippets ? 'Hide usage' : 'Show usage' }}
-      </sj-button>
-      @if (showSnippets) {
-      <app-code-block [code]="sampleImplement"></app-code-block>
-      }
-      <a
-        href="https://sjss.dev/palette/"
-        target="_blank"
-        rel="noopener"
-        [sj]="sj.sjButton.containedPrimary({ w: 5, p: 0.5, px: 1, my: 1 })"
-        >Docs</a
-      >
-
+      
       <div
         [sj]="[
           sj.d(sj.d.options.grid),
@@ -42,10 +23,7 @@ import { CodeBlockComponent } from './code-block.component';
         ]"
       >
         @for (color of demoColors(); track color[0]) {
-          <sj-card [variant]="sj.sjCard.variants.outlined">
-            <sj-typography variant="h6" [sj]="[sj.c(color[0]), sj.mt(0)]">{{
-              color[0]
-            }}</sj-typography>
+          <app-demo-item [title]="color[0]" [titleColor]="color[0]" [code]="codeForColor(color[0])">
             <div [sj]="[sj.d('flex'), sj.fxDir({ xs: 'column' }), sj.gap(0.5)]">
               @for (colorVariant of color; track colorVariant) {
                 <sj-card
@@ -67,7 +45,7 @@ import { CodeBlockComponent } from './code-block.component';
                 </sj-card>
               }
             </div>
-          </sj-card>
+          </app-demo-item>
         }
       </div>
     </app-section>
@@ -75,7 +53,7 @@ import { CodeBlockComponent } from './code-block.component';
 })
 export class PaletteComponent {
   readonly sj: SjRootApi = sj;
-  showSnippets = false;
+  readonly outlinedCardSnippet = `<sj-card [variant]="sj.sjCard.variants.outlined">…</sj-card>`;
 
   demoColors = signal([
     ['primary', 'primary.light', 'primary.dark', 'primary.contrast'],
@@ -90,18 +68,48 @@ export class PaletteComponent {
     ['light', 'light.light', 'light.dark', 'light.contrast'],
   ]);
 
-  toggleSnippets() {
-    this.showSnippets = !this.showSnippets;
-  }
-
-  sampleImplement: string = `
-<div [sj]="[sj.bg(sj.palette.primary.main), sj.c(sj.palette.primary.contrast), sj.p(1)]">
-  Primary surface
-</div>`;
+  
 
   textColorFor(variant: string): string {
     if (variant.endsWith('.contrast')) return 'neutral.dark';
     const key = variant.includes('.') ? variant.split('.')[0] : variant;
     return `${key}.contrast`;
+  }
+
+  codeForColor(colorName: string): string {
+    // Present clearly separated examples with small titles as comments and indentation
+    const bgLiteral = `<sj-card
+  variant="flat"
+  [sj]="{ bg: '${colorName}' }">…</sj-card>`;
+    const bgApiToken = `<sj-card
+  variant=\"flat\"
+  [sj]=\"sj.backgroundColor('${colorName}')\">…</sj-card>`;
+    const bgApiOptions = `<sj-card
+  variant=\"flat\"
+  [sj]=\"sj.bg(sj.bg.options.${colorName}.main || '${colorName}')\">…</sj-card>`;
+
+    const bgTextLiteral = `<sj-card
+  variant="flat"
+  [sj]="{ bg: '${colorName}', c: '${colorName}.contrast' }">…</sj-card>`;
+    const bgTextApi = `<sj-card
+  variant=\"flat\"
+  [sj]=\"sj.compose(sj.backgroundColor('${colorName}'), sj.c('${colorName}.contrast'))\">…</sj-card>`;
+
+    return [
+      `// Component + object literal (background)`,
+      bgLiteral,
+      '',
+      `// API + token string (background)`,
+      bgApiToken,
+      '',
+      `// API + options token (background)`,
+      bgApiOptions,
+      '',
+      `// Component + object literal (background + text)`,
+      bgTextLiteral,
+      '',
+      `// API + token string (background + text)`,
+      bgTextApi,
+    ].join('\n');
   }
 }

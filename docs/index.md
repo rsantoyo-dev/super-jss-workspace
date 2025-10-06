@@ -146,14 +146,12 @@ import { SJ_BASE_COMPONENTS_IMPORTS, sj } from 'super-jss';
   imports: [SJ_BASE_COMPONENTS_IMPORTS],
   template: `
     <sj-box [sj]="box">Content</sj-box>
-    <sj-card [sj]="card">Card content</sj-card>
-    <sj-button [sj]="btn">Click</sj-button>
+    <sj-card [variant]="'elevated'" [sj]="{ p: 1, gap: 1 }">Card content</sj-card>
+    <sj-button [variant]="'containedPrimary'" [sj]="{ w: 'fit-content' }">Click</sj-button>
   `,
 })
 export class DemoComponent {
   box = [sj.p(1), sj.bg('light.light')];
-  card = sj.sjCard.elevated({ padding: 1, gap: 1 });
-  btn = sj.sjButton.containedPrimary({ w: 'fit-content' });
 }
 ```
 

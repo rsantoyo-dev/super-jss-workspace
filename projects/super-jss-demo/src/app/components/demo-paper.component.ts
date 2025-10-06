@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SJ_BASE_COMPONENTS_IMPORTS, SjRootApi, SjStyle, sj, sjPaper as sjPaperBlueprint } from 'super-jss';
-import { CodeBlockComponent } from './code-block.component';
 import { DemoItemComponent } from './demo-item.component';
 import { SectionContainerComponent } from './section-container.component';
 
@@ -17,7 +16,7 @@ interface DemoPaper {
 @Component({
   selector: 'app-demo-paper',
   standalone: true,
-  imports: [CommonModule, SectionContainerComponent, ...SJ_BASE_COMPONENTS_IMPORTS, CodeBlockComponent, DemoItemComponent],
+  imports: [CommonModule, SectionContainerComponent, ...SJ_BASE_COMPONENTS_IMPORTS, DemoItemComponent],
   template: `
     <app-section title="Paper (Surface)">
       <sj-typography variant="span">
@@ -125,10 +124,16 @@ export class DemoPaperComponent {
   
 
   codeSurface(level: 'compact' | 'default' | 'comfortable' | 'spacious'): string {
-    return `<sj-paper variant="outlined" useSurface [density]="sj.density.options.${level}">…</sj-paper>`;
+    return `<sj-paper
+  variant="outlined"
+  useSurface
+  [density]="sj.density.options.${level}">…</sj-paper>`;
   }
   codeToggle(toggle: 'usePadding' | 'useGap' | 'useRounded'): string {
-    return `<sj-paper variant="outlined" ${toggle} [density]="sj.density.options.default">…</sj-paper>`;
+    return `<sj-paper
+  variant="outlined"
+  ${toggle}
+  [density]="sj.density.options.default">…</sj-paper>`;
   }
 
   

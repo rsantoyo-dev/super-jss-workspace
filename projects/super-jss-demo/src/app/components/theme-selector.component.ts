@@ -32,7 +32,7 @@ interface ThemeMeta {
   selector: 'app-theme-selector',
   imports: [CommonModule, ...SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-host as="paper" useSurface [sj]="[sj.bg(sj.bg.options.primary.dark)]">
+    <sj-host asPaper useSurface [sj]="[sj.bg(sj.bg.options.primary.dark)]">
       <sj-typography
         [variant]="'small'"
         [sj]="[sj.c(sj.palette.primary.contrast)]"
@@ -47,7 +47,8 @@ interface ThemeMeta {
       >
         @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {
         <sj-button
-          [sj]="sj.sjButton({ bg: theme.theme.palette?.primary?.dark })"
+          [variant]="'contained'"
+          [sj]="{ bg: theme.theme.palette?.primary?.dark }"
           (mouseenter)="onHover(theme.name)"
           (mouseleave)="onHoverEnd()"
           (click)="onSelect(theme)"
@@ -64,7 +65,8 @@ interface ThemeMeta {
 
         } @else {
         <sj-button
-          [sj]="sj.sjButton({ bg: theme.theme.palette?.primary?.light })"
+          [variant]="'contained'"
+          [sj]="{ bg: theme.theme.palette?.primary?.light }"
           (mouseenter)="onHover(theme.name)"
           (mouseleave)="onHoverEnd()"
           (click)="onSelect(theme)"
@@ -81,7 +83,8 @@ interface ThemeMeta {
         <sj-box [sj]="{ bg: sj.palette.primary.main, p: 0.1 }"></sj-box>
         @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
         <sj-button
-          [sj]="sj.sjButton({ bg: theme.theme.palette?.primary?.dark })"
+          [variant]="'contained'"
+          [sj]="{ bg: theme.theme.palette?.primary?.dark }"
           (mouseenter)="onHover(theme.name)"
           (mouseleave)="onHoverEnd()"
           (click)="onSelect(theme)"
@@ -98,7 +101,8 @@ interface ThemeMeta {
 
         } @else {
         <sj-button
-          [sj]="sj.sjButton({ bg: theme.theme.palette?.primary?.light })"
+          [variant]="'contained'"
+          [sj]="{ bg: theme.theme.palette?.primary?.light }"
           (mouseenter)="onHover(theme.name)"
           (mouseleave)="onHoverEnd()"
           (click)="onSelect(theme)"
