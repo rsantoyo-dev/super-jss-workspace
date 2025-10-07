@@ -4,7 +4,7 @@ title: sj-card Component
 
 # sj-card
 
-sj-card is a lightweight wrapper that applies a card blueprint to its parent via sj-host and accepts variant and [sj] overrides.
+sj-card is a surface component with card variants. By default it styles its own element; you can also enable host mode to apply styles to the parent element (wrapperless).
 
 Usage
 
@@ -31,6 +31,7 @@ API
 | `useGap`     | `boolean`            | Enable density gap only                        |
 | `useRounded` | `boolean`            | Enable density border radius only              |
 | `density`    | `1\|2\|3\|4`         | Density level (default 2); prefer tokens       |
+| `host`       | `boolean`             | If true, apply styles to parent element and remove wrapper |
 
 Variants
 
@@ -45,3 +46,14 @@ Variants
 Override precedence
 
 - The [sj] input merges after the variant, so your styles win.
+
+Host mode
+
+```html
+<div>
+  <sj-card host useSurface [variant]="'elevated'">
+    Content
+  </sj-card>
+  <!-- sj-card removes itself; the <div> becomes the card surface -->
+</div>
+```

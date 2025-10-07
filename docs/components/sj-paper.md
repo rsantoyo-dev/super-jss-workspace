@@ -34,6 +34,7 @@ Inputs
 - `usePadding`, `useGap`, `useRounded`: boolean — enable per concern
 - `density`: 1 | 2 | 3 | 4 (default 2). Prefer tokens: `sj.density.options.compact|default|comfortable|spacious`.
 - `[sj]`: fine-grained overrides (merges last)
+- `host`: boolean — if true, apply styles to the parent element and remove wrapper
 
 Tokens
 
@@ -46,12 +47,15 @@ Theme overrides
 
 Customize density maps via your theme under `components.surfaces` (padding, gap, radius). Values are numbers/responsive numbers that flow through `theme.spacing()`.
 
-Host shortcut
+Host mode
 
 ```html
-<!-- Apply surface to the parent element without adding a wrapper -->
-<sj-host asPaper useSurface [density]="sj.density.options.default">
-  <!-- content becomes the host's children -->
-  Content
-</sj-host>
+<!-- Apply surface to the parent element (wrapperless) -->
+<div>
+  <sj-paper host useSurface [density]="sj.density.options.default">
+    Content
+  </sj-paper>
+  <!-- sj-paper removes itself; the <div> becomes the surface -->
+  <!-- content becomes the parent’s children -->
+</div>
 ```

@@ -33,6 +33,9 @@ export const SjButtonVariants = {
   containedDark: 'containedDark',
   containedSecondary: 'containedSecondary',
   danger: 'danger',
+  // New simplified variants
+  filled: 'filled',
+  flat: 'flat',
 } as const;
 
 export type SjButtonVariant = typeof SjButtonVariants[keyof typeof SjButtonVariants];

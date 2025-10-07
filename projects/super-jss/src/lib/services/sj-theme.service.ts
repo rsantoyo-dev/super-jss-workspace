@@ -163,9 +163,8 @@ export class SjThemeService implements OnDestroy {
         const value = Array.isArray(ff) ? (ff as any).join(', ') : (ff as any);
         // Expose as a CSS custom property; classes use var(--sj-ff, <fallback>)
         this.document.documentElement.style.setProperty('--sj-ff', value);
-        this.document.body.style.setProperty('--sj-ff', value);
-        // Also set body font-family using the CSS var to ensure inheritance
-        this.document.body.style.fontFamily = `var(--sj-ff, ${value})`;
+        // Do not set body font-family; keep global DOM pristine.
+        // SJ Typography classes reference var(--sj-ff) explicitly.
       }
     } catch {
       // noop

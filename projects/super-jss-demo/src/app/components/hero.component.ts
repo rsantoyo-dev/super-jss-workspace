@@ -1,49 +1,46 @@
 import { Component, effect, inject } from '@angular/core';
-import {
-  SJ_BASE_COMPONENTS_IMPORTS,
-  SjPalette,
-  SjThemeService,
-  SjTypography,
-  sj,
-} from 'super-jss';
+import { RouterModule } from '@angular/router';
+import { SJ_BASE_COMPONENTS_IMPORTS, SjThemeService, sj } from 'super-jss';
 
 @Component({
   standalone: true,
   selector: 'app-hero',
-  imports: [SJ_BASE_COMPONENTS_IMPORTS],
+  imports: [RouterModule, SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-host
+    <sj-card
+      host
+      cardVariant="elevated"
+      useSurface
+      useRounded
+      [density]="3"
       [sj]="[
-        sj.display(sj.display.options.flex),
-        sj.flexDirection({
-          xs: sj.flexDirection.options.column,
-          md: sj.flexDirection.options.row
-        }),
-        sj.justifyContent(sj.justifyContent.options.center),
-        sj.alignItems(sj.alignItems.options.center),
-        sj.gap({ xs: 0.5, md: 1 }),
-        sj.p(2),
-        sj.bg(sj.bg.options.light.light)
+        sj.maxW('960px'),
+        sj.mx('auto'),
+        sj.my(1),
+        sj.bg(sj.palette.light.main)
       ]"
     >
-      <sj-box [sj]="[sj.p(1), sj.brad(0.5), sj.bg(sj.bg.options.primary.main)]">
-        <sj-typography
-          variant="h1"
-          [sj]="[sj.px(4), sj.c(sj.c.options.light.light)]"
-          >Hello SJSS</sj-typography
-        >
-      </sj-box>
+      <sj-typography variant="h2" [sj]="sj.m(0)">Super JSS</sj-typography>
+      <sj-typography variant="span" [sj]="[sj.opacity(0.85), sj.mt(0.25)]">
+        Tiny, flexible, themeable styling primitives for Angular.
+      </sj-typography>
 
-      <sj-button
-        [sj]="[
-          sj.p(2),
-          sj.hover([sj.backgroundColor(sj.bg.options.primary.dark)])
-        ]"
-        (click)="updateTheme()"
+      <sj-button [sj]="sj.w(10)" (click)="updateTheme()"
+        >Shuffle Colors</sj-button
       >
-        Update Primary
-      </sj-button>
-    </sj-host>
+
+      <sj-paper
+        variant="flat"
+        usePadding
+        [sj]="[sj.mt(1), sj.bg(sj.palette.light.light)]"
+      >
+        <sj-typography variant="p" [sj]="sj.m(0)">
+          Use <strong>[sj]</strong> on any element, or drop ready components
+          like <strong>sj-paper</strong>, <strong>sj-card</strong>, and
+          <strong>sj-button</strong>.
+        </sj-typography>
+      </sj-paper>
+    </sj-card>
   `,
 })
 export class HeroComponent {
@@ -57,10 +54,9 @@ export class HeroComponent {
 
   // One‑liner theme update for primary color
   updateTheme() {
-    // update only primary.main while keeping other shades, and override default typography
-    this.theme.setTheme({
-      palette: { primary: { main: 'purple' } },
-      typography: { default: { color: 'light', fontFamily: 'cursive' } },
-    });
+    // update only primary.main while keeping other shades
+    const colors = ['purple', 'teal', 'orange', 'indigo', 'green'];
+    const pick = colors[Math.floor(Math.random() * colors.length)];
+    this.theme.setTheme({ palette: { primary: { main: pick } } as any });
   }
 }

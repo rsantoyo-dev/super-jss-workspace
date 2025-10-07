@@ -17,6 +17,6 @@ export const routes: Routes = [
   { path: 'buttons', component: DemoButtonsComponent },
   { path: 'palette', component: PaletteComponent },
   { path: 'perf', component: PerfBenchmarkComponent },
-  { path: 'home', component: DemoCardsComponent },
-  { path: '', redirectTo: 'cards', pathMatch: 'full' },
+  { path: 'home', component: DemoPaperComponent },
+  { path: '', redirectTo: 'paper', pathMatch: 'full' },
 ];

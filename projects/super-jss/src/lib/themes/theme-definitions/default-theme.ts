@@ -31,9 +31,9 @@ const lightPalette: SjPalette = {
     contrast: DEFAULT_COLORS.white,
   },
   info: {
-    main: DEFAULT_COLORS.cyan[500],
-    light: DEFAULT_COLORS.cyan[300],
-    dark: DEFAULT_COLORS.cyan[700],
+    main: DEFAULT_COLORS.blue[100],
+    light: DEFAULT_COLORS.white,
+    dark: DEFAULT_COLORS.blue[200],
     contrast: DEFAULT_COLORS.black,
   },
   warning: {

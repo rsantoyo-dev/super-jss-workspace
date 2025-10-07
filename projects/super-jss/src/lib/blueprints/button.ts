@@ -62,6 +62,23 @@ const applyDisabled = (style: SjStyle, extensions?: SjStyle): SjStyle => {
   return style;
 };
 
+// Adds a persistent "selected/active" UI state with a soft visual.
+// No outlines here (focus-visible keeps outline for a11y). Selected subtly
+// changes background and elevates slightly so it feels active but not noisy.
+const applySelected = (style: SjStyle, extensions?: SjStyle): SjStyle => {
+  const selected: SjStyle = {
+    transform: 'translateY(-1px)',
+    ...extensions,
+  };
+  style['&.active'] = { ...(style['&.active'] as SjStyle), ...selected };
+  style['&[aria-current="page"]'] = {
+    ...(style['&[aria-current="page"]'] as SjStyle),
+    ...selected,
+  };
+  style['&.selected'] = { ...(style['&.selected'] as SjStyle), ...selected };
+  return style;
+};
+
 const createContainedButton = (
   background: string,
   color: string,
@@ -88,6 +105,11 @@ const createContainedButton = (
     outlineColor: borderColor === 'transparent' ? background : borderColor,
   });
   applyDisabled(style, { backgroundColor: background, borderColor });
+  // Softer selected: reuse hover color and add slight elevation
+  applySelected(style, {
+    backgroundColor: hoverBg || background,
+    boxShadow: shadow || '0 6px 16px rgba(0,0,0,0.18)',
+  });
 
   return style;
 };
@@ -106,6 +128,11 @@ const createLightButton = (): SjStyle => {
     borderColor: 'light.dark',
     color: 'neutral.dark',
   });
+  // Softer selected for light buttons
+  applySelected(style, {
+    backgroundColor: 'light.main',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.12)',
+  });
 
   return style;
 };
@@ -118,6 +145,10 @@ const createOutlinedButton = (): SjStyle => {
   applyHover(style, { bg: 'light.main' });
   applyFocus(style, { outlineColor: 'primary.main' });
   style['&:disabled'] = { ...disabled, borderColor: 'primary.main' };
+  applySelected(style, {
+    backgroundColor: 'light.main',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.12)',
+  });
 
   return style;
 };

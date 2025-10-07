@@ -6,13 +6,20 @@ import {
   SjColors,
 } from 'super-jss';
 
+const primary = {
+  main: '#f1c40f', // gold
+  light: '#f39c12', // orange
+  dark: '#c0392b', // dark red/brown
+  contrast: '#ffffff',
+};
+const info = {
+  main: primary.light,
+  light: '#ffffff',
+  dark: primary.main,
+  contrast: '#000000',
+};
 const palette: SjPalette = {
-  primary: {
-    main: '#f1c40f', // gold
-    light: '#f39c12', // orange
-    dark: '#c0392b', // dark red/brown
-    contrast: '#ffffff',
-  },
+  primary,
   secondary: {
     main: '#2ecc71', // emerald
     light: '#a9e8c3ff', // lighter emerald
@@ -31,12 +38,7 @@ const palette: SjPalette = {
     dark: '#388E3C',
     contrast: '#FFFFFF',
   },
-  info: {
-    main: '#00BCD4',
-    light: '#4DD0E1',
-    dark: '#0097A7',
-    contrast: '#FFFFFF',
-  },
+  info,
   warning: {
     main: '#F39C12',
     light: '#FFB74D',

@@ -1,12 +1,20 @@
 import { SjPalette, SjTheme, DEFAULT_BREAKPOINTS, DEFAULT_COLORS, DEFAULT_SPACING, DEFAULT_TYPOGRAPHY } from 'super-jss';
 
+// Derive info from primary hue (lighter tints) so it stays related
+const lightPrimary = {
+  main: DEFAULT_COLORS.cyan[700],
+  light: DEFAULT_COLORS.cyan[500],
+  dark: DEFAULT_COLORS.cyan[900],
+  contrast: DEFAULT_COLORS.white,
+};
+const lightInfo = {
+  main: lightPrimary.light,
+  light: DEFAULT_COLORS.white,
+  dark: lightPrimary.main,
+  contrast: DEFAULT_COLORS.black,
+};
 const lightPalette: SjPalette = {
-  primary: {
-    main: DEFAULT_COLORS.cyan[700],
-    light: DEFAULT_COLORS.cyan[500],
-    dark: DEFAULT_COLORS.cyan[900],
-    contrast: DEFAULT_COLORS.white,
-  },
+  primary: lightPrimary,
   secondary: {
     main: DEFAULT_COLORS.teal[500],
     light: DEFAULT_COLORS.teal[300],
@@ -25,12 +33,7 @@ const lightPalette: SjPalette = {
     dark: DEFAULT_COLORS.green[700],
     contrast: DEFAULT_COLORS.gray[50],
   },
-  info: {
-    main: DEFAULT_COLORS.cyan[500],
-    light: DEFAULT_COLORS.cyan[300],
-    dark: DEFAULT_COLORS.cyan[700],
-    contrast: DEFAULT_COLORS.gray[50],
-  },
+  info: lightInfo,
   warning: {
     main: DEFAULT_COLORS.orange[500],
     light: DEFAULT_COLORS.orange[300],
@@ -63,13 +66,20 @@ const lightPalette: SjPalette = {
   },
 };
 
+const darkPrimary = {
+  main: DEFAULT_COLORS.cyan[300],
+  light: DEFAULT_COLORS.cyan[100],
+  dark: DEFAULT_COLORS.cyan[500],
+  contrast: DEFAULT_COLORS.gray[900],
+};
+const darkInfo = {
+  main: darkPrimary.light,
+  light: darkPrimary.main,
+  dark: darkPrimary.dark,
+  contrast: darkPrimary.contrast,
+};
 const darkPalette: SjPalette = {
-  primary: {
-    main: DEFAULT_COLORS.cyan[300],
-    light: DEFAULT_COLORS.cyan[100],
-    dark: DEFAULT_COLORS.cyan[500],
-    contrast: DEFAULT_COLORS.gray[900],
-  },
+  primary: darkPrimary,
   secondary: {
     main: DEFAULT_COLORS.teal[200],
     light: DEFAULT_COLORS.teal[100],
@@ -88,12 +98,7 @@ const darkPalette: SjPalette = {
     dark: DEFAULT_COLORS.green[500],
     contrast: DEFAULT_COLORS.gray[900],
   },
-  info: {
-    main: DEFAULT_COLORS.cyan[300],
-    light: DEFAULT_COLORS.cyan[100],
-    dark: DEFAULT_COLORS.cyan[500],
-    contrast: DEFAULT_COLORS.gray[900],
-  },
+  info: darkInfo,
   warning: {
     main: DEFAULT_COLORS.orange[300],
     light: DEFAULT_COLORS.orange[100],
@@ -139,4 +144,3 @@ export const oceanDarkTheme: Partial<SjTheme> = {
   name: 'Ocean Dark',
   palette: darkPalette,
 };
-

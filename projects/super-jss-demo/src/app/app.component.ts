@@ -33,11 +33,12 @@ import { SidenavComponent } from './components/sidenav.component';
     ...SJ_BASE_COMPONENTS_IMPORTS,
   ],
   template: `
-    <sj-box
+    <sj-paper
+      host
       [sj]="[
         sj.fxDir(sj.fxDir.options.column),
-        sj.bg('sj.palette.light.main'),
-        sj.minHeight('100vh')
+        sj.bg(sj.palette.light.main),
+        sj.minHeight({ xs: '100dvh', md: '100vh' })
       ]"
     >
       <app-header (menuClick)="openSidenav()"></app-header>
@@ -46,11 +47,10 @@ import { SidenavComponent } from './components/sidenav.component';
         variant="flat"
         [sj]="[
           sj.d(sj.d.options.grid),
-          sj.gridTemplateColumns({
-            xs: '1fr',
-            sm: '30% 70%',
-            md: '15% 85%'
-          }),
+          sj.gridTemplateColumns({ xs: '1fr', sm: '30% 70%', md: '15% 85%' }),
+          sj.gridTemplateRows('1fr'),
+          sj.alignItems('stretch'),
+          sj.h('100%'),
           sj.padding(0),
           sj.gap(0)
         ]"
@@ -59,8 +59,11 @@ import { SidenavComponent } from './components/sidenav.component';
         <app-sidenav [sj]="[sj.h('100%')]"></app-sidenav>
         }
 
-        <sj-paper variant="flat" [sj]="[sj.minHeight('100vh')]">
-          <app-breakpoint-indicator></app-breakpoint-indicator>
+        <sj-paper variant="flat" [sj]="[sj.h('auto')]">
+          <sj-paper variant="flat" usePadding [sj]="[]">
+            <app-breakpoint-indicator></app-breakpoint-indicator>
+          </sj-paper>
+
           <router-outlet></router-outlet>
         </sj-paper>
 
@@ -99,8 +102,6 @@ import { SidenavComponent } from './components/sidenav.component';
         >
           <sj-box
             [sj]="[
-              sj.d(sj.d.options.flex),
-              sj.fxDir(sj.fxDir.options.row),
               sj.fxAItems(sj.fxAItems.options.center),
               sj.justifyContent(sj.justifyContent.options.spaceBetween)
             ]"
@@ -112,7 +113,7 @@ import { SidenavComponent } from './components/sidenav.component';
         </sj-box>
         }
       </sj-paper>
-    </sj-box>
+    </sj-paper>
   `,
 })
 export class AppComponent {

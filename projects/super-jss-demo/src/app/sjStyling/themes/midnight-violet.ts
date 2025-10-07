@@ -1,12 +1,19 @@
 import { SjTheme, SjPalette, SjTypography, SjBreakPoints } from 'super-jss';
 
+const primary = {
+  main: '#6A1B9A', // deep violet
+  light: '#8E24AA',
+  dark: '#4A148C',
+  contrast: '#FFFFFF',
+};
+const info = {
+  main: primary.light,
+  light: '#FFFFFF',
+  dark: primary.main,
+  contrast: '#000000',
+};
 const palette: SjPalette = {
-  primary: {
-    main: '#6A1B9A', // deep violet
-    light: '#8E24AA',
-    dark: '#4A148C',
-    contrast: '#FFFFFF',
-  },
+  primary,
   secondary: {
     main: '#00ACC1', // cyan
     light: '#26C6DA',
@@ -25,12 +32,7 @@ const palette: SjPalette = {
     dark: '#2E7D32',
     contrast: '#FFFFFF',
   },
-  info: {
-    main: '#29B6F6',
-    light: '#4FC3F7',
-    dark: '#0288D1',
-    contrast: '#FFFFFF',
-  },
+  info,
   warning: {
     main: '#FB8C00',
     light: '#FFB74D',
@@ -87,4 +89,3 @@ export const midnightVioletTheme: SjTheme = {
   breakpoints,
   spacing,
 };
-

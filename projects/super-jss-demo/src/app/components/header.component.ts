@@ -21,8 +21,8 @@ import { ThemeSelectorComponent } from './theme-selector.component';
     ...SJ_BASE_COMPONENTS_IMPORTS,
   ],
   template: `
-    <sj-host
-      asPaper
+    <sj-paper
+      host
       useSurface
       [density]="sj.density.options.default"
       [sj]="[
@@ -63,7 +63,7 @@ import { ThemeSelectorComponent } from './theme-selector.component';
       >
         <app-theme-selector></app-theme-selector>
       </sj-paper>
-    </sj-host>
+    </sj-paper>
   `,
 })
 export class HeaderComponent {

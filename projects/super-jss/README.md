@@ -246,12 +246,14 @@ Use in templates (HTML):
 <sj-paper variant="outlined" useRounded [density]="sj.density.options.default">…</sj-paper>
 ```
 
-Host shortcut (style parent as a surface):
+Host mode (apply surface to the parent element):
 
 ```html
-<sj-host asPaper useSurface [density]="sj.density.options.default">
-  Content
-</sj-host>
+<div>
+  <sj-paper host useSurface [density]="sj.density.options.default">
+    Content
+  </sj-paper>
+</div>
 ```
 
 Notes
