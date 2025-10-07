@@ -9,7 +9,7 @@ import {
   SjResolvedTheme,
   SjStyle,
 } from '../models/interfaces';
-import { getCurrentBreakpoint } from '../core/core-methods';
+import { getCurrentBreakpoint, resolveThemeColor } from '../core/core-methods';
 import { deepMerge } from '../utils';
 import { DOCUMENT } from '@angular/common';
 import {
@@ -154,7 +154,7 @@ export class SjThemeService implements OnDestroy {
     this.resizeSubscription?.unsubscribe();
   }
 
-  /** Apply current theme typography to document via CSS variable so classes can reference it */
+  /** Apply current theme variables (typography + app background) to :root/body */
   private applyDocumentTypography(theme: SjResolvedTheme) {
     try {
       if (!isPlatformBrowser(this.platformId)) return;
@@ -163,9 +163,19 @@ export class SjThemeService implements OnDestroy {
         const value = Array.isArray(ff) ? (ff as any).join(', ') : (ff as any);
         // Expose as a CSS custom property; classes use var(--sj-ff, <fallback>)
         this.document.documentElement.style.setProperty('--sj-ff', value);
-        // Do not set body font-family; keep global DOM pristine.
-        // SJ Typography classes reference var(--sj-ff) explicitly.
+        // Do not set body font-family; keep global DOM pristine. SJ Typography
+        // classes reference var(--sj-ff) explicitly.
       }
+
+      // Also expose a global app background variable so html/body can bind it
+      try {
+        const token = (theme.palette as any)?.light?.main ?? '#ffffff';
+        const bg = resolveThemeColor(String(token), theme);
+        this.document.documentElement.style.setProperty('--sj-app-bg', bg);
+        if (this.document.body) {
+          this.document.body.style.setProperty('--sj-app-bg', bg);
+        }
+      } catch {}
     } catch {
       // noop
     }

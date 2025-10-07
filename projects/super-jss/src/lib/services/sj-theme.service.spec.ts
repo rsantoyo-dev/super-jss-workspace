@@ -41,7 +41,7 @@ describe('SjThemeService', () => {
   it('should set Typography via setTheme', () => {
     const typography: Partial<SjTypography> = { default: { fontFamily: 'Arial' } };
     service.setTheme({ typography: typography as SjTypography });
-    expect(service.sjTheme().typography.default.fontFamily).toBe('Arial');
+    expect(service.sjTheme().typography.default!.fontFamily).toBe('Arial');
   });
 
   it('should clear CSS cache and bump themeVersion when theme changes', () => {

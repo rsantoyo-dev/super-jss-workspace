@@ -1,10 +1,18 @@
 import { CssGenerator } from './css-generator';
-import { defaultTheme } from '../themes';
+import { TestBed } from '@angular/core/testing';
+import { SjThemeService } from '../services';
 import { generateAtomicClassName } from './class-name';
 
 describe('CssGenerator', () => {
+  let themeSvc: SjThemeService;
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    themeSvc = TestBed.inject(SjThemeService);
+  });
+
   it('generates atomic css for simple styles and resolves palette/colors', () => {
-    const gen = new CssGenerator(defaultTheme);
+    const theme = themeSvc.sjTheme();
+    const gen = new CssGenerator(theme);
     const css = gen.generateAtomicCss({
       color: 'primary.main',
       backgroundColor: 'blue.500',
@@ -14,16 +22,10 @@ describe('CssGenerator', () => {
     let foundColor = false;
     let foundBg = false;
     css.forEach((rule) => {
-      if (
-        rule.includes('color') &&
-        rule.includes(defaultTheme.palette.primary.main)
-      ) {
+      if (rule.includes('color') && rule.includes(theme.palette.primary.main)) {
         foundColor = true;
       }
-      if (
-        rule.includes('background-color') &&
-        rule.includes(defaultTheme.colors.blue[500])
-      ) {
+      if (rule.includes('background-color') && rule.includes(theme.colors.blue[500])) {
         foundBg = true;
       }
     });
@@ -32,16 +34,17 @@ describe('CssGenerator', () => {
   });
 
   it('generates responsive rules under media queries and applies spacing()', () => {
-    const gen = new CssGenerator(defaultTheme);
+    const theme = themeSvc.sjTheme();
+    const gen = new CssGenerator(theme);
     const css = gen.generateAtomicCss({ padding: { md: 2 } });
 
     // find any generated rule that contains the md media query and padding value
     let found = false;
     css.forEach((rule) => {
       if (
-        rule.includes(`@media (min-width: ${defaultTheme.breakpoints.md}px)`) &&
+        rule.includes(`@media (min-width: ${theme.breakpoints.md}px)`) &&
         rule.includes('padding') &&
-        rule.includes(defaultTheme.spacing(2))
+        rule.includes(theme.spacing(2))
       ) {
         found = true;
       }
@@ -50,7 +53,8 @@ describe('CssGenerator', () => {
   });
 
   it('supports pseudo selectors via & and prefixes class names accordingly', () => {
-    const gen = new CssGenerator(defaultTheme);
+    const theme = themeSvc.sjTheme();
+    const gen = new CssGenerator(theme);
     const css = gen.generateAtomicCss({
       '&:hover': { color: 'secondary.dark' },
     });
@@ -58,10 +62,7 @@ describe('CssGenerator', () => {
     // ensure a :hover rule exists that uses the resolved secondary.dark color
     let foundHover = false;
     css.forEach((rule) => {
-      if (
-        rule.includes(':hover') &&
-        rule.includes(defaultTheme.palette.secondary.dark)
-      ) {
+      if (rule.includes(':hover') && rule.includes(theme.palette.secondary.dark)) {
         foundHover = true;
       }
     });
@@ -69,7 +70,8 @@ describe('CssGenerator', () => {
   });
 
   it('falls back to initial when responsive value is non-primitive', () => {
-    const gen = new CssGenerator(defaultTheme);
+    const theme = themeSvc.sjTheme();
+    const gen = new CssGenerator(theme);
     const css = gen.generateAtomicCss({
       padding: { md: { foo: 'bar' } as any },
     });
@@ -85,7 +87,8 @@ describe('CssGenerator', () => {
   });
 
   it('resolves single-segment keys: palette -> .main and colors -> 500', () => {
-    const gen2 = new CssGenerator(defaultTheme);
+    const theme2 = themeSvc.sjTheme();
+    const gen2 = new CssGenerator(theme2);
     const css2 = gen2.generateAtomicCss({
       backgroundColor: 'primary',
       color: 'blue',
@@ -95,27 +98,29 @@ describe('CssGenerator', () => {
     let foundBg2 = false;
     let foundC2 = false;
     css2.forEach((rule) => {
-      if (rule.includes(defaultTheme.palette.primary.main)) foundBg2 = true;
-      if (rule.includes(defaultTheme.colors.blue[500])) foundC2 = true;
+      if (rule.includes(theme2.palette.primary.main)) foundBg2 = true;
+      if (rule.includes(theme2.colors.blue[500])) foundC2 = true;
     });
     expect(foundBg2).toBeTrue();
     expect(foundC2).toBeTrue();
   });
 
   it('resolves palette shade like primary.contrast', () => {
-    const gen3 = new CssGenerator(defaultTheme);
+    const theme3 = themeSvc.sjTheme();
+    const gen3 = new CssGenerator(theme3);
     const css3 = gen3.generateAtomicCss({ color: 'primary.contrast' });
     // ensure resolved contrast color appears in rules
     let foundContrast = false;
     css3.forEach((rule) => {
-      if (rule.includes(defaultTheme.palette.primary.contrast))
+      if (rule.includes(theme3.palette.primary.contrast))
         foundContrast = true;
     });
     expect(foundContrast).toBeTrue();
   });
 
   it('uses initial when responsive value is undefined', () => {
-    const gen4 = new CssGenerator(defaultTheme);
+    const theme4 = themeSvc.sjTheme();
+    const gen4 = new CssGenerator(theme4);
     const css4 = gen4.generateAtomicCss({ margin: { lg: undefined } });
     let foundInitialRule = false;
     css4.forEach((rule) => {

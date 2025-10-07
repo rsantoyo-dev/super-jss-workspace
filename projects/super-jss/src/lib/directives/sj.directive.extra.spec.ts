@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SjDirective } from './sj.directive';
 import { SjCssGeneratorService, SjThemeService } from '../services';
-import { defaultTheme } from '../themes';
 
 @Component({
   standalone: true,
@@ -54,6 +53,7 @@ describe('SjDirective extra scenarios', () => {
     const style = getComputedStyle(div);
     // padding 1 -> spacing(1)
     const toPx = (rem: string) => `${parseFloat(rem) * 16}px`;
-    expect(style.paddingTop).toBe(toPx(defaultTheme.spacing(1)));
+    const theme = TestBed.inject(SjThemeService).sjTheme();
+    expect(style.paddingTop).toBe(toPx(theme.spacing(1)));
   });
 });
