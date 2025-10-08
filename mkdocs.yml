@@ -77,7 +77,9 @@ nav:
     - Overview: components/_index.md
     - sj-host: components/sj-host.md
     - sj-box: components/sj-box.md
+    - sj-paper: components/sj-paper.md
     - sj-card: components/sj-card.md
+    - Surfaces: Host vs Normal: components/surfaces-host-mode.md
     - sj-button: components/sj-button.md
   - Responsive Styling: responsive-style.md
   - Colors: colors.md

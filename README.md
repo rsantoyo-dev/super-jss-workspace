@@ -277,7 +277,17 @@ sj.breakpoints.md;
 import { SJ_BASE_COMPONENTS_IMPORTS } from 'super-jss';
 ```
 
-💖 Support
+## SuperJSS vs. Material-UI for React
+
+| Feature          | Material-UI for React | SuperJSS              |
+| :--------------- | :-------------------- | :-------------------- |
+| **Type**         | Component Library     | Styling Library       |
+| **Design System**| Material Design       | Agnostic              |
+| **Framework**    | React                 | Angular               |
+| **Core Concept** | Pre-built components  | Utility-first styling |
+| **Customization**| Theming system        | Theming system, direct style manipulation |
+
+### 💖 Support
 If you find Super JSS useful, consider supporting its development:
 
 ☕ ☕ ☕ Buy me a coffee

@@ -39,7 +39,8 @@ import { SJ_BASE_COMPONENTS_IMPORTS, SjThemeService, sj } from 'super-jss';
   selector: 'app-hero',
   imports: [SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-host
+    <sj-paper
+      useSurface
       [sj]="[
         sj.display(sj.display.options.flex),
         sj.flexDirection({ xs: sj.flexDirection.options.column, md: sj.flexDirection.options.row }),
@@ -47,7 +48,7 @@ import { SJ_BASE_COMPONENTS_IMPORTS, SjThemeService, sj } from 'super-jss';
         sj.alignItems(sj.alignItems.options.center),
         sj.gap({ xs: 0.5, md: 1 }),
         sj.p(2),
-        sj.bg(sj.bg.options.light.light)
+        sj.bg(sj.palette.light.light)
       ]"
     >
       <sj-box [sj]="[ sj.p(1), sj.brad(0.5), sj.bg(sj.bg.options.primary.main), sj.c(sj.c.options.primary.contrast) ]">
@@ -65,7 +66,7 @@ import { SJ_BASE_COMPONENTS_IMPORTS, SjThemeService, sj } from 'super-jss';
       >
         Update Primary
       </sj-button>
-    </sj-host>
+    </sj-paper>
   `,
 })
 export class HeroComponent {

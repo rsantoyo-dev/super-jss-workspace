@@ -1,37 +1,111 @@
-import { ChangeDetectionStrategy, Component, Input, computed, ChangeDetectorRef, effect } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, Renderer2, SimpleChanges, computed, effect } from '@angular/core';
 import { SjStyle } from '../models/interfaces';
 import { createSjTypographyApi, SjTypographyApi } from '../blueprints/typography';
 import { SjTypographyVariant } from '../models/variants';
 import { SjThemeService } from '../services';
-import { SjHostComponent } from './sj-host.component';
 import type { SjInput } from '../directives/sj.directive';
+import { SjCssGeneratorService } from '../services/sj-css-generator.service';
 
 @Component({
   selector: 'sj-typography',
-  template: `<sj-host [sj]="hostSj"><ng-content></ng-content></sj-host>`,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SjHostComponent],
+  template: `<ng-content></ng-content>`,
 })
-export class SjTypographyComponent {
+export class SjTypographyComponent implements AfterContentInit, OnChanges {
   @Input() variant: SjTypographyVariant = 'default';
+  // Optional: explicitly choose tag; when set it takes precedence over variant mapping
+  @Input() component: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'strong' | 'small' | 'pre' | 'code' | 'label' | 'div' | undefined;
   @Input() sj: SjInput | undefined;
 
   private sjTypographyApi = computed(() => createSjTypographyApi(this.themeService.sjTheme()));
 
-  constructor(private themeService: SjThemeService, private cdr: ChangeDetectorRef) {
-    // Ensure OnPush host bindings refresh when theme changes
+  private targetEl: HTMLElement | null = null;
+  private lastAppliedClass: string | null = null;
+
+  constructor(
+    private themeService: SjThemeService,
+    private cssGenerator: SjCssGeneratorService,
+    private hostRef: ElementRef<HTMLElement>,
+    private renderer: Renderer2,
+  ) {
+    // Ensure styles re-apply on theme structure changes
     effect(() => {
       this.themeService.themeVersion();
-      this.cdr.markForCheck();
+      this.applyToTarget();
     });
   }
 
-  get selectedSj(): (overrides?: Partial<SjStyle>) => SjStyle {
-    return this.pickVariant(this.sjTypographyApi());
+  ngAfterContentInit(): void {
+    const host = this.hostRef.nativeElement;
+    const parent = host.parentElement;
+    if (!parent) return;
+
+    const tag = this.resolveTag();
+    const newEl = this.renderer.createElement(tag);
+    // Add a stable class for debugging/authoring
+    this.renderer.addClass(newEl, 'SjTypography');
+
+    while (host.firstChild) this.renderer.appendChild(newEl, host.firstChild);
+    this.renderer.insertBefore(parent, newEl, host);
+    this.renderer.removeChild(parent, host);
+
+    this.targetEl = newEl as HTMLElement;
+    this.applyToTarget();
   }
 
-  private pickVariant(api: SjTypographyApi): (overrides?: Partial<SjStyle>) => SjStyle {
+  ngOnChanges(changes: SimpleChanges): void {
+    const variantChanged = !!changes['variant'] && !changes['variant'].firstChange;
+    const componentChanged = !!changes['component'] && !changes['component'].firstChange;
+    if (variantChanged || componentChanged) {
+      this.rebuildTargetElement();
+    }
+    if (changes['sj'] || variantChanged || componentChanged) {
+      this.applyToTarget();
+    }
+  }
+
+  private resolveTag(): string {
+    if (this.component) return this.component;
+    switch (this.variant) {
+      case 'h1':
+      case 'h2':
+      case 'h3':
+      case 'h4':
+      case 'h5':
+      case 'h6':
+        return this.variant;
+      case 'p':
+      case 'body':
+        return 'p';
+      case 'caption':
+      case 'small':
+        return 'small';
+      case 'strong':
+        return 'strong';
+      case 'pre':
+        return 'pre';
+      case 'span':
+      default:
+        return 'span';
+    }
+  }
+
+  private rebuildTargetElement(): void {
+    if (!this.targetEl) return;
+    const old = this.targetEl;
+    const parent = old.parentElement;
+    if (!parent) return;
+    const replacement = this.renderer.createElement(this.resolveTag());
+    this.renderer.addClass(replacement, 'SjTypography');
+    while (old.firstChild) this.renderer.appendChild(replacement, old.firstChild);
+    this.renderer.insertBefore(parent, replacement, old);
+    this.renderer.removeChild(parent, old);
+    this.targetEl = replacement as HTMLElement;
+    this.lastAppliedClass = null;
+  }
+
+  private selectedSj(api: SjTypographyApi): (overrides?: Partial<SjStyle>) => SjStyle {
     switch (this.variant) {
       case 'h1': return api.h1;
       case 'h2': return api.h2;
@@ -51,15 +125,46 @@ export class SjTypographyComponent {
     }
   }
 
-  // Compose variant base with user-provided overrides so user wins
-  get hostSj(): SjInput {
-    // Read themeVersion so Angular re-evaluates this binding on theme changes
-    // ensuring fresh styles even if the input reference is otherwise stable.
-    this.themeService.themeVersion();
-    // Normalize selected variant to a zero-arg producer for SjInput
-    const base = () => this.selectedSj();
+  private composeStyle(): SjStyle {
+    const baseFn = this.selectedSj(this.sjTypographyApi());
+    const base = baseFn();
     const user = this.sj;
-    if (user === undefined) return base;
-    return Array.isArray(user) ? [base, ...user] : [base, user];
+    let merged: any;
+    if (user === undefined) {
+      merged = base;
+    } else if (Array.isArray(user)) {
+      merged = [() => base, ...user];
+    } else {
+      merged = [() => base, user];
+    }
+    // Shallow merge like sj.compose
+    let acc: any = {};
+    const push = (v: any) => {
+      if (v === undefined || v === null) return;
+      if (Array.isArray(v)) return v.forEach(push);
+      if (typeof v === 'function') return push(v());
+      if (typeof v === 'object') {
+        acc = Object.assign(acc, v);
+        return;
+      }
+    };
+    push(merged);
+    return acc as SjStyle;
+  }
+
+  private applyToTarget(): void {
+    if (!this.targetEl) return;
+    const theme = this.themeService.sjTheme();
+    const styles = this.composeStyle();
+    const classes = (this.cssGenerator as any).getOrGenerateClassBundle
+      ? (this.cssGenerator as any).getOrGenerateClassBundle(styles, theme, this.themeService.themeVersion())
+      : this.cssGenerator.getOrGenerateClasses(styles, theme, this.themeService.themeVersion());
+    const canonical = Array.isArray(classes) && classes.length ? classes[0] : null;
+    if (!canonical) return;
+    if (this.lastAppliedClass) {
+      this.renderer.removeClass(this.targetEl, this.lastAppliedClass);
+    }
+    this.renderer.addClass(this.targetEl, canonical);
+    this.lastAppliedClass = canonical;
   }
 }

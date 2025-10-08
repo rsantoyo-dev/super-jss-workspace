@@ -17,9 +17,10 @@
     "sj-component": "ng g c $1 --standalone --inline-template",
     "mkdocs": "mkdocs serve",
     "mkdocs-build": "mkdocs build",
-    "mkdocs-deploy": "mkdocs build &&mkdocs gh-deploy",
+    "mkdocs-deploy": "mkdocs build && mkdocs gh-deploy",
     "netlify-login": "netlify login",
-    "netlify": "netlify login & netlify deploy --prod"
+    "netlify": "netlify login & netlify deploy --prod",
+    "super-deploy": "npm run publish && npm run netlify && npm run mkdocs-deploy"
   },
   "dependencies": {
     "@angular/animations": "20.0.0",

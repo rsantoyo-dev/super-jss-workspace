@@ -16,7 +16,12 @@ interface DemoCard {
 @Component({
   selector: 'app-demo-cards',
   standalone: true,
-  imports: [CommonModule, SectionContainerComponent, SJ_BASE_COMPONENTS_IMPORTS, DemoItemComponent],
+  imports: [
+    CommonModule,
+    SectionContainerComponent,
+    SJ_BASE_COMPONENTS_IMPORTS,
+    DemoItemComponent,
+  ],
   template: `
     <app-section title="Cards">
       <!-- Header content lives inside SectionContainer's outlined card -->
@@ -26,7 +31,7 @@ interface DemoCard {
         create your own twists.
       </sj-typography>
       <!-- Responsive grid of examples -->
-      <div
+      <sj-box
         [sj]="[
           sj.d(sj.d.options.grid),
           sj.gridTemplateColumns('repeat(auto-fit, minmax(380px, 1fr))'),
@@ -35,13 +40,19 @@ interface DemoCard {
         ]"
       >
         @for (card of cardData; track card.title) {
-          <app-demo-item [title]="card.title" [titleColor]="card.titleColor" [code]="card.usageExample">
-            <sj-card [variant]="$any(card.variant)" [sj]="card.overrides">
-              <sj-typography variant="p" [sj]="[sj.m(0), sj.mt(0)]">{{ card.message }}</sj-typography>
-            </sj-card>
-          </app-demo-item>
+        <app-demo-item
+          [title]="card.title"
+          [titleColor]="card.titleColor"
+          [code]="card.usageExample"
+        >
+          <sj-card [variant]="$any(card.variant)" [sj]="card.overrides">
+            <sj-typography variant="p" [sj]="[sj.m(0), sj.mt(0)]">{{
+              card.message
+            }}</sj-typography>
+          </sj-card>
+        </app-demo-item>
         }
-      </div>
+      </sj-box>
     </app-section>
   `,
 })

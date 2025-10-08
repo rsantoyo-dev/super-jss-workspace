@@ -27,7 +27,8 @@ export type SjInput =
 @Directive({
   standalone: true,
   // Opt-in only: apply styles/typography when [sj] is present
-  selector: '[sj]:not(sj-host)',
+  // Exclude sj-host (forwards to parent), sj-box and sj-typography (both render native elements)
+  selector: '[sj]:not(sj-host):not(sj-box):not(sj-typography)',
 })
 export class SjDirective implements OnChanges {
   /**
