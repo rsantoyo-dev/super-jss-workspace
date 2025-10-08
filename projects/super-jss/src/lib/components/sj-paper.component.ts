@@ -1,8 +1,6 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, Input, AfterContentInit, OnChanges, SimpleChanges, ElementRef, Renderer2, effect } from '@angular/core';
 import { sjPaper, SjPaperApi } from '../blueprints/paper';
-import { SjHostComponent } from './sj-host.component';
 import { SjStyle } from '../models/interfaces';
-import type { SjInput } from '../directives/sj.directive';
 import { SjPaperVariant } from '../models/variants';
 import { SjThemeService } from '../services';
 import { SjCssGeneratorService } from '../services/sj-css-generator.service';
@@ -10,15 +8,15 @@ import { SjCssGeneratorService } from '../services/sj-css-generator.service';
 @Component({
   selector: 'sj-paper',
   standalone: true,
-  template: `<sj-host [sj]="hostSj"><ng-content></ng-content></sj-host>`,
+  template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SjHostComponent],
+  imports: [],
 })
 export class SjPaperComponent implements AfterContentInit, OnChanges {
   sjPaper = sjPaper;
 
   @Input() variant: SjPaperVariant = 'default';
-  @Input() sj: SjInput | undefined;
+  @Input() sj: any | undefined;
   // Surface density: 1..4 (compact -> spacious). Default 2.
   @Input() density: 1 | 2 | 3 | 4 = 2;
   // Toggles to apply density-driven styles
@@ -29,7 +27,11 @@ export class SjPaperComponent implements AfterContentInit, OnChanges {
   @Input({ transform: booleanAttribute }) useSurface: boolean = false;
   // Host mode: apply styles to parent element and remove <sj-paper> wrapper
   @Input({ transform: booleanAttribute }) host: boolean = false;
+  // Non-host mode: choose underlying element when replacing wrapper
+  @Input() component: 'div' | 'section' | 'article' | 'span' | 'main' | 'aside' | 'header' | 'footer' = 'div';
+
   private parentEl: HTMLElement | null = null;
+  private targetEl: HTMLElement | null = null;
   private lastAppliedClass: string | null = null;
 
   constructor(
@@ -38,11 +40,13 @@ export class SjPaperComponent implements AfterContentInit, OnChanges {
     private el: ElementRef<HTMLElement>,
     private renderer: Renderer2,
   ) {
-    // Re-apply classes on theme structure changes when in host mode
+    // Re-apply classes on theme changes
     effect(() => {
       this.themeService.themeVersion();
-      if (this.host && this.parentEl) {
-        this.applyToParent();
+      if (this.host) {
+        if (this.parentEl) this.applyToParent();
+      } else {
+        this.applyToTarget();
       }
     });
   }
@@ -51,12 +55,14 @@ export class SjPaperComponent implements AfterContentInit, OnChanges {
     return this.pickVariant(this.sjPaper);
   }
 
-  private pickVariant(api: SjPaperApi): (overrides?: Partial<SjStyle>) => SjStyle {
+  private pickVariant(
+    api: SjPaperApi
+  ): (overrides?: Partial<SjStyle>) => SjStyle {
     switch (this.variant) {
-      case 'flat':
-        return api.flat;
       case 'outlined':
         return api.outlined;
+      case 'flat':
+        return api.flat;
       case 'filled':
         return api.filled;
       case 'default':
@@ -65,41 +71,8 @@ export class SjPaperComponent implements AfterContentInit, OnChanges {
     }
   }
 
-  get hostSj(): SjInput {
-    const base = () => {
-      const style = this.composeStyle();
-      return style;
-    };
-    const user = this.sj;
-    if (user === undefined) return base;
-    return Array.isArray(user) ? [base, ...user] : [base, user];
-  }
-
-  ngAfterContentInit(): void {
-    if (!this.host) return;
-    const paperEl = this.el.nativeElement;
-    const parent = paperEl.parentElement as HTMLElement | null;
-    if (!parent) return;
-    this.parentEl = parent;
-
-    // Apply classes to parent before moving nodes so initial paint looks right
-    this.applyToParent();
-
-    // Move children out and remove this wrapper element
-    while (paperEl.firstChild) {
-      parent.insertBefore(paperEl.firstChild, paperEl);
-    }
-    parent.removeChild(paperEl);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.host && this.parentEl) {
-      this.applyToParent();
-    }
-  }
-
   private composeStyle(): SjStyle {
-    const style = this.selectedSj();
+    const v = this.selectedSj();
     const overrides: Partial<SjStyle> = {};
     const level = this.density ?? 2;
     const theme = this.themeService.sjTheme();
@@ -125,7 +98,51 @@ export class SjPaperComponent implements AfterContentInit, OnChanges {
       if (r !== undefined) (overrides as any).borderRadius = r as any;
     }
 
-    return Object.keys(overrides).length ? ({ ...style, ...overrides } as SjStyle) : (style as SjStyle);
+    let style: SjStyle = Object.keys(overrides).length ? ({ ...v, ...overrides } as SjStyle) : (v as SjStyle);
+    // Merge user overrides after base
+    const user = this.sj;
+    if (user !== undefined) {
+      const push = (acc: any, val: any) => {
+        if (val === undefined || val === null) return acc;
+        if (Array.isArray(val)) return val.reduce(push, acc);
+        if (typeof val === 'function') return push(acc, val());
+        if (typeof val === 'object') return Object.assign(acc, val);
+        return acc;
+      };
+      style = push(style, user);
+    }
+    return style;
+  }
+
+  ngAfterContentInit(): void {
+    const hostEl = this.el.nativeElement;
+    const parent = hostEl.parentElement as HTMLElement | null;
+    if (!parent) return;
+    if (this.host) {
+      this.parentEl = parent;
+      this.applyToParent();
+      // Move children out and remove host wrapper
+      while (hostEl.firstChild) parent.insertBefore(hostEl.firstChild, hostEl);
+      parent.removeChild(hostEl);
+    } else {
+      const newEl = this.renderer.createElement(this.component || 'div');
+      this.renderer.addClass(newEl, 'SjPaper');
+      this.renderer.addClass(newEl, 'Paper');
+      while (hostEl.firstChild) this.renderer.appendChild(newEl, hostEl.firstChild);
+      this.renderer.insertBefore(parent, newEl, hostEl);
+      this.renderer.removeChild(parent, hostEl);
+      this.targetEl = newEl as HTMLElement;
+      this.applyToTarget();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.host) {
+      if (this.parentEl) this.applyToParent();
+    } else {
+      if (changes['component'] && !changes['component'].firstChange) this.rebuildTargetElement();
+      this.applyToTarget();
+    }
   }
 
   private applyToParent(): void {
@@ -137,10 +154,37 @@ export class SjPaperComponent implements AfterContentInit, OnChanges {
       : this.cssGenerator.getOrGenerateClasses(styles, theme, this.themeService.themeVersion());
     const canonical = Array.isArray(classes) && classes.length ? classes[0] : null;
     if (!canonical) return;
-    if (this.lastAppliedClass) {
-      this.renderer.removeClass(this.parentEl, this.lastAppliedClass);
-    }
+    if (this.lastAppliedClass) this.renderer.removeClass(this.parentEl, this.lastAppliedClass);
     this.renderer.addClass(this.parentEl, canonical);
+    this.lastAppliedClass = canonical;
+  }
+
+  private rebuildTargetElement(): void {
+    if (!this.targetEl) return;
+    const old = this.targetEl;
+    const parent = old.parentElement;
+    if (!parent) return;
+    const replacement = this.renderer.createElement(this.component || 'div');
+    this.renderer.addClass(replacement, 'SjPaper');
+    this.renderer.addClass(replacement, 'Paper');
+    while (old.firstChild) this.renderer.appendChild(replacement, old.firstChild);
+    this.renderer.insertBefore(parent, replacement, old);
+    this.renderer.removeChild(parent, old);
+    this.targetEl = replacement as HTMLElement;
+    this.lastAppliedClass = null;
+  }
+
+  private applyToTarget(): void {
+    if (!this.targetEl) return;
+    const theme = this.themeService.sjTheme();
+    const styles = this.composeStyle();
+    const classes = (this.cssGenerator as any).getOrGenerateClassBundle
+      ? (this.cssGenerator as any).getOrGenerateClassBundle(styles, theme, this.themeService.themeVersion())
+      : this.cssGenerator.getOrGenerateClasses(styles, theme, this.themeService.themeVersion());
+    const canonical = Array.isArray(classes) && classes.length ? classes[0] : null;
+    if (!canonical) return;
+    if (this.lastAppliedClass) this.renderer.removeClass(this.targetEl, this.lastAppliedClass);
+    this.renderer.addClass(this.targetEl, canonical);
     this.lastAppliedClass = canonical;
   }
 }

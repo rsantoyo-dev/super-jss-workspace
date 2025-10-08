@@ -50,3 +50,6 @@ Thumbs.db
 
 # Local Netlify folder
 .netlify
+
+*storybook.log
+storybook-static
