@@ -1,13 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import {
-  SjDirective,
-  SJ_BASE_COMPONENTS_IMPORTS,
-  SjTypographyComponent,
-  SjRootApi,
-  sj,
-} from 'super-jss';
+import { SJ_BASE_COMPONENTS_IMPORTS, SjTypographyComponent, SjRootApi, sj } from 'super-jss';
 
 @Component({
   standalone: true,
@@ -15,7 +9,6 @@ import {
   imports: [
     CommonModule,
     RouterModule,
-    SjDirective,
     SjTypographyComponent,
     ...SJ_BASE_COMPONENTS_IMPORTS,
   ],

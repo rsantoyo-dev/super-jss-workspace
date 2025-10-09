@@ -13,17 +13,17 @@ import { SectionContainerComponent } from './section-container.component';
     <app-section title="Theming">
       <app-demo-item title="Theming" [titleColor]="'primary'" [code]="codeThemeSnippet">
         <sj-paper variant="flat" usePadding [density]="sj.density.options.default" [sj]="[]">
-          <sj-box [sj]="[ sj.fxDir(sj.fxDir.options.row), sj.justifyContent(sj.justifyContent.options.spaceBetween), sj.alignItems(sj.alignItems.options.center) ]">
+          <sj-flex [sj]="[ sj.fxDir(sj.fxDir.options.row), sj.justifyContent(sj.justifyContent.options.spaceBetween), sj.alignItems(sj.alignItems.options.center) ]">
             <sj-typography variant="h2" [sj]="[sj.margin(0)]">Theming</sj-typography>
-            <sj-box [sj]="[sj.fxDir(sj.fxDir.options.row), sj.gap(0.5)]">
+            <sj-flex [sj]="[sj.fxDir(sj.fxDir.options.row), sj.gap(0.5)]">
               <button [disabled]="!pendingThemePatch" (click)="discardEditedTheme()" [sj]="sj.sjButton()">
                 <sj-typography variant="span" [sj]="[]">Discard</sj-typography>
               </button>
               <button [disabled]="!pendingThemePatch" (click)="applyEditedTheme()" [sj]="sj.sjButton.containedPrimary()">
                 <sj-typography variant="span" [sj]="[]">Apply</sj-typography>
               </button>
-            </sj-box>
-          </sj-box>
+            </sj-flex>
+          </sj-flex>
 
           <app-json-studio [value]="themeData" (valueChange)="onStudioChange($event)"></app-json-studio>
         </sj-paper>

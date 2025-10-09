@@ -4,7 +4,7 @@ import {
   SjDirective,
   SjTheme,
   icon,
-  SjBoxComponent,
+  SjFlexComponent,
   SJ_BASE_COMPONENTS_IMPORTS,
   defaultTheme,
   defaultDarkTheme,
@@ -81,7 +81,7 @@ interface ThemeMeta {
           ></sj-icon>
         </sj-button>
         } }
-        <sj-box [sj]="{ bg: sj.palette.primary.main, p: 0.1 }"></sj-box>
+        <sj-flex [sj]="{ bg: sj.palette.primary.main, p: 0.1 }"></sj-flex>
         @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
         <sj-button
           [variant]="'contained'"

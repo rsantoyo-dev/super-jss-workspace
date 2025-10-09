@@ -1,20 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {
-  sjButton,
-  sjCard,
-  SjDirective,
-  SjStyle,
-  sj,
-  SjBoxComponent,
-  SjTypographyComponent,
-} from 'super-jss';
+import { SjStackComponent } from 'super-jss';
+import { sjButton, sjCard, SjDirective, SjStyle, sj, SjFlexComponent, SjTypographyComponent } from 'super-jss';
 
 @Component({
   selector: 'app-panel-header',
   standalone: true,
-  imports: [SjDirective, SjBoxComponent, SjTypographyComponent],
+  imports: [SjDirective, SjFlexComponent, SjTypographyComponent, SjStackComponent],
   template: `
-    <sj-box
+    <sj-flex
       [sj]="
         sjCard.primary({
           fxJustify: 'space-between',
@@ -23,14 +16,15 @@ import {
         })
       "
     >
-      <sj-box [sj]="left">
+      <sj-stack>nsdkndslknkl</sj-stack>
+      <sj-flex [sj]="left">
         <sj-typography
           variant="small"
           [sj]="{ c: sj.palette.primary.contrast }"
           >{{ title }}</sj-typography
         >
         @if (viewMode) {
-        <sj-box [sj]="toggleGroup">
+        <sj-flex [sj]="toggleGroup">
           <button
             [sj]="toggleBtn(viewMode === 'tree')"
             (click)="onToggle('tree')"
@@ -47,11 +41,11 @@ import {
           >
             <sj-typography variant="small" [sj]>Raw</sj-typography>
           </button>
-        </sj-box>
+        </sj-flex>
         }
-      </sj-box>
+      </sj-flex>
 
-      <sj-box [sj]="right">
+      <sj-flex [sj]="right">
         <button
           [sj]="sjButton"
           (click)="collapse.emit()"
@@ -105,8 +99,8 @@ import {
           </svg>
         </button>
         }
-      </sj-box>
-    </sj-box>
+      </sj-flex>
+    </sj-flex>
   `,
 })
 export class PanelHeaderComponent {

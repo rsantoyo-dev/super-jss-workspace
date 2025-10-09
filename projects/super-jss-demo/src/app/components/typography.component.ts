@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   SjDirective,
   SjTypographyComponent,
-  SjBoxComponent,
+  SjFlexComponent,
   sj,
   SjRootApi,
   SJ_BASE_COMPONENTS_IMPORTS,

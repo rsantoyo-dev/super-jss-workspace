@@ -31,7 +31,7 @@ interface DemoCard {
         create your own twists.
       </sj-typography>
       <!-- Responsive grid of examples -->
-      <sj-box
+      <sj-flex
         [sj]="[
           sj.d(sj.d.options.grid),
           sj.gridTemplateColumns('repeat(auto-fit, minmax(380px, 1fr))'),
@@ -52,7 +52,7 @@ interface DemoCard {
           </sj-card>
         </app-demo-item>
         }
-      </sj-box>
+      </sj-flex>
     </app-section>
   `,
 })

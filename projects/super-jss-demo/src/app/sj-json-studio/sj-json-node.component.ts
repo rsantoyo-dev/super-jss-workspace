@@ -1,13 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  SjDirective,
-  SjBoxComponent,
-  SjButtonComponent,
-  SjTypographyComponent,
-  sj,
-  SjRootApi,
-} from 'super-jss';
+import { SjDirective, SjFlexComponent, SjButtonComponent, SjTypographyComponent, sj, SjRootApi } from 'super-jss';
 
 export interface JsonNode {
   key: string;
@@ -23,13 +16,13 @@ export interface JsonNode {
   imports: [
     FormsModule,
     SjDirective,
-    SjBoxComponent,
+    SjFlexComponent,
     SjButtonComponent,
     SjTypographyComponent,
   ],
   template: `
-    <sj-box [sj]="[sj.fxDir(sj.fxDir.options.column), sj.ml(0.5)]">
-      <sj-box
+    <sj-flex [sj]="[sj.fxDir(sj.fxDir.options.column), sj.ml(0.5)]">
+      <sj-flex
         [sj]="[
           sj.d(sj.d.options.flex),
           sj.fxDir(sj.fxDir.options.row),
@@ -151,10 +144,10 @@ export interface JsonNode {
           >null</sj-typography
         >
         } }
-      </sj-box>
+      </sj-flex>
 
       @if ((node.type === 'object' || node.type === 'array') && node.expanded) {
-      <sj-box
+      <sj-flex
         [sj]="[
           sj.fxDir(sj.fxDir.options.column),
           sj.pl(1.25),
@@ -170,9 +163,9 @@ export interface JsonNode {
           (remove)="onRemove($event)"
         ></app-json-node>
         }
-      </sj-box>
+      </sj-flex>
       }
-    </sj-box>
+    </sj-flex>
   `,
   styles: [],
 })

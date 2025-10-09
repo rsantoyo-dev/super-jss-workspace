@@ -19,6 +19,7 @@ import { BreakpointIndicatorComponent } from './components/breakpoint-indicator.
 import { RouterOutlet } from '@angular/router';
 
 import { SidenavComponent } from './components/sidenav.component';
+import { SjFlexComponent } from 'super-jss';
 
 @Component({
   selector: 'app-root',
@@ -28,8 +29,8 @@ import { SidenavComponent } from './components/sidenav.component';
     HeaderComponent,
     SidenavComponent,
     BreakpointIndicatorComponent,
-    SjBoxComponent,
     SjButtonComponent,
+    SjFlexComponent,
     ...SJ_BASE_COMPONENTS_IMPORTS,
   ],
   template: `
@@ -67,16 +68,6 @@ import { SidenavComponent } from './components/sidenav.component';
           <router-outlet></router-outlet>
         </sj-paper>
 
-        <sj-box
-          [sj]="[
-            sj.d(sj.d.options.flex),
-            sj.fxDir(sj.fxDir.options.row),
-            sj.fxAItems(sj.fxAItems.options.center),
-            sj.justifyContent(sj.justifyContent.options.spaceBetween)
-          ]"
-        >
-        </sj-box>
-
         @if (theme.isMobile() && showSidenav()) {
         <sj-button
           [sj]="[
@@ -87,7 +78,7 @@ import { SidenavComponent } from './components/sidenav.component';
           (click)="closeSidenav()"
         ></sj-button>
         <!-- Drawer panel -->
-        <sj-box
+        <sj-flex
           [sj]="[
             sj.position(sj.position.options.fixed),
             sj.top(0),
@@ -100,7 +91,7 @@ import { SidenavComponent } from './components/sidenav.component';
             sj.padding(0.5)
           ]"
         >
-          <sj-box
+          <sj-flex
             [sj]="[
               sj.fxAItems(sj.fxAItems.options.center),
               sj.justifyContent(sj.justifyContent.options.spaceBetween)
@@ -108,9 +99,9 @@ import { SidenavComponent } from './components/sidenav.component';
           >
             <sj-typography variant="strong" [sj]="[]">Menu</sj-typography>
             <sj-button (click)="closeSidenav()">✕</sj-button>
-          </sj-box>
+          </sj-flex>
           <app-sidenav></app-sidenav>
-        </sj-box>
+        </sj-flex>
         }
       </sj-paper>
     </sj-paper>

@@ -1,17 +1,11 @@
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  SjDirective,
-  sj,
-  SjTypographyComponent,
-  SjBoxComponent,
-  SjRootApi,
-} from 'super-jss';
+import { sj, SjTypographyComponent, SjFlexComponent, SjCardComponent, SjRootApi } from 'super-jss';
 
 @Component({
   selector: 'app-perf-benchmark',
   standalone: true,
-  imports: [CommonModule, SjDirective, SjTypographyComponent, SjBoxComponent],
+  imports: [CommonModule, SjTypographyComponent, SjFlexComponent, SjCardComponent],
   template: `
     <style>
       .perf-css-grid {
@@ -88,7 +82,7 @@ import {
       }
     </style>
 
-    <sj-box [sj]="rootStyle">
+    <sj-flex [sj]="rootStyle">
       <sj-typography variant="h3" [sj]="[sj.margin(0), sj.padding(0)]">
         SJSS {{ itemsCount() }} elements demo
       </sj-typography>
@@ -131,9 +125,9 @@ import {
 
       <div style="margin-top:12px">
         <div *ngIf="mode() === 'sj'">
-          <sj-box [sj]="containerStyle">
+          <sj-flex [sj]="containerStyle">
             <ng-container *ngFor="let item of items(); trackBy: trackByFn">
-              <sj-box [sj]="cardStyle">
+              <sj-flex [sj]="cardStyle">
                 <sj-typography variant="strong" [sj]="strongStyle"
                   >Item {{ item }}</sj-typography
                 >
@@ -141,17 +135,17 @@ import {
                 <sj-typography variant="span" [sj]="spanStyle"
                   >Styled by SJSS</sj-typography
                 >
-                <sj-box [sj]="dotsRow">
+                <sj-flex [sj]="dotsRow">
                   <sj-typography variant="span" [sj]="dotBlue"></sj-typography>
                   <sj-typography
                     variant="span"
                     [sj]="dotOrange"
                   ></sj-typography>
                   <sj-typography variant="span" [sj]="dotGreen"></sj-typography>
-                </sj-box>
-              </sj-box>
+                </sj-flex>
+              </sj-flex>
             </ng-container>
-          </sj-box>
+          </sj-flex>
         </div>
 
         <div *ngIf="mode() === 'css'">
@@ -180,7 +174,7 @@ import {
           </div>
         </div>
       </div>
-    </sj-box>
+    </sj-flex>
   `,
 })
 export class PerfBenchmarkComponent {

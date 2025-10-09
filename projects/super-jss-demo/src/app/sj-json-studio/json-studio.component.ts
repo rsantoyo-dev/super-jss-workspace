@@ -22,7 +22,7 @@ import {
   panelHeader,
   headerBtn,
 } from './json-studio.sjstyles';
-import { SjDirective, SjBoxComponent } from 'super-jss';
+import { SjDirective, SjFlexComponent } from 'super-jss';
 import { PanelHeaderComponent } from './panel-header.component';
 import { sjCard, SjStyle } from 'super-jss';
 
@@ -35,10 +35,10 @@ import { sjCard, SjStyle } from 'super-jss';
     JsonNodeComponent,
     SjDirective,
     PanelHeaderComponent,
-    SjBoxComponent,
+    SjFlexComponent,
   ],
   template: `
-    <sj-box [sj]="treePanelStyle">
+    <sj-flex [sj]="treePanelStyle">
       <app-panel-header
         title="JSON Editor"
         (collapse)="setTreeMode('collapsed')"
@@ -48,7 +48,7 @@ import { sjCard, SjStyle } from 'super-jss';
         [mode]="treeMode()"
         (viewModeChange)="viewMode.set($event)"
       />
-      <sj-box [sj]="treeContentStyle">
+      <sj-flex [sj]="treeContentStyle">
         @if (viewMode() === 'raw') {
 
         <textarea
@@ -69,8 +69,8 @@ import { sjCard, SjStyle } from 'super-jss';
           (remove)="onNodeRemove($event)"
         ></app-json-node>
         } }
-      </sj-box>
-    </sj-box>
+      </sj-flex>
+    </sj-flex>
   `,
   // Removed CSS file in favor of SJSS styles
 })
