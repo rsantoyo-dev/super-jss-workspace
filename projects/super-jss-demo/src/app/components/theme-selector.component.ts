@@ -33,91 +33,97 @@ interface ThemeMeta {
   selector: 'app-theme-selector',
   imports: [CommonModule, ...SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-paper host useGutters="default" useRounded="default" [sj]="[sj.bg(sj.palette.primary.dark)]">
-      <sj-typography
-        [variant]="'small'"
-        [sj]="[sj.c(sj.palette.primary.contrast)]"
-        >{{ previewLabel() }}</sj-typography
-      >
+    <sj-paper
+      variant="flat"
+      usePadding="compact"
+      useRounded="compact"
+      [sj]="[sj.bg(sj.palette.primary.dark)]"
+    >
+      <sj-flex useCol useGap="compact">
+        <sj-typography
+          [variant]="'small'"
+          [sj]="[sj.c(sj.palette.primary.contrast)]"
+          >{{ previewLabel() }}</sj-typography
+        >
 
-      <sj-paper
-        variant="flat"
-        useGutters="default"
-        useRounded="default"
-        [sj]="[sj.flexDirection('row'), sj.p(0)]"
-      >
-        @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {
-        <sj-button
-          [variant]="'contained'"
-          [sj]="{ bg: theme.theme.palette?.primary?.dark }"
-          (mouseenter)="onHover(theme.name)"
-          (mouseleave)="onHoverEnd()"
-          (click)="onSelect(theme)"
+        <sj-flex
+          useGap="compact"
+          useRounded="default"
+          [sj]="[sj.flexDirection('row'), sj.p(0)]"
         >
-          <sj-icon
-            [name]="icon.moon"
-            [fill]="'light'"
-            size="1.5rem"
-            [ariaHidden]="false"
-            role="img"
-            [label]="theme.name"
-          ></sj-icon>
-        </sj-button>
+          @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {
+          <sj-button
+            [variant]="'contained'"
+            [sj]="{ bg: theme.theme.palette?.primary?.dark }"
+            (mouseenter)="onHover(theme.name)"
+            (mouseleave)="onHoverEnd()"
+            (click)="onSelect(theme)"
+          >
+            <sj-icon
+              [name]="icon.moon"
+              [fill]="'light'"
+              size="1.5rem"
+              [ariaHidden]="false"
+              role="img"
+              [label]="theme.name"
+            ></sj-icon>
+          </sj-button>
 
-        } @else {
-        <sj-button
-          [variant]="'contained'"
-          [sj]="{ bg: theme.theme.palette?.primary?.light }"
-          (mouseenter)="onHover(theme.name)"
-          (mouseleave)="onHoverEnd()"
-          (click)="onSelect(theme)"
-        >
-          <sj-icon
-            [name]="icon.sun"
-            size="1.5rem"
-            [ariaHidden]="false"
-            role="img"
-            [label]="theme.name"
-          ></sj-icon>
-        </sj-button>
-        } }
-        <sj-flex [sj]="{ bg: sj.palette.primary.main, p: 0.1 }"></sj-flex>
-        @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
-        <sj-button
-          [variant]="'contained'"
-          [sj]="{ bg: theme.theme.palette?.primary?.dark }"
-          (mouseenter)="onHover(theme.name)"
-          (mouseleave)="onHoverEnd()"
-          (click)="onSelect(theme)"
-        >
-          <sj-icon
-            [name]="icon.moon"
-            [fill]="'light'"
-            size="1.5rem"
-            [ariaHidden]="false"
-            role="img"
-            [label]="theme.name"
-          ></sj-icon>
-        </sj-button>
+          } @else {
+          <sj-button
+            [variant]="'contained'"
+            [sj]="{ bg: theme.theme.palette?.primary?.light }"
+            (mouseenter)="onHover(theme.name)"
+            (mouseleave)="onHoverEnd()"
+            (click)="onSelect(theme)"
+          >
+            <sj-icon
+              [name]="icon.sun"
+              size="1.5rem"
+              [ariaHidden]="false"
+              role="img"
+              [label]="theme.name"
+            ></sj-icon>
+          </sj-button>
+          } }
+          <sj-flex [sj]="{ bg: sj.palette.primary.main, p: 0.1 }"></sj-flex>
+          @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
+          <sj-button
+            [variant]="'contained'"
+            [sj]="{ bg: theme.theme.palette?.primary?.dark }"
+            (mouseenter)="onHover(theme.name)"
+            (mouseleave)="onHoverEnd()"
+            (click)="onSelect(theme)"
+          >
+            <sj-icon
+              [name]="icon.moon"
+              [fill]="'light'"
+              size="1.5rem"
+              [ariaHidden]="false"
+              role="img"
+              [label]="theme.name"
+            ></sj-icon>
+          </sj-button>
 
-        } @else {
-        <sj-button
-          [variant]="'contained'"
-          [sj]="{ bg: theme.theme.palette?.primary?.light }"
-          (mouseenter)="onHover(theme.name)"
-          (mouseleave)="onHoverEnd()"
-          (click)="onSelect(theme)"
-        >
-          <sj-icon
-            [name]="icon.sun"
-            size="1.5rem"
-            [ariaHidden]="false"
-            role="img"
-            [label]="theme.name"
-          ></sj-icon>
-        </sj-button>
-        } }
-      </sj-paper>
+          } @else {
+          <sj-button
+            [variant]="'contained'"
+            [sj]="{ bg: theme.theme.palette?.primary?.light }"
+            (mouseenter)="onHover(theme.name)"
+            (mouseleave)="onHoverEnd()"
+            (click)="onSelect(theme)"
+          >
+            <sj-icon
+              [name]="icon.sun"
+              size="1.5rem"
+              [ariaHidden]="false"
+              role="img"
+              [label]="theme.name"
+            ></sj-icon>
+          </sj-button>
+          } }
+        </sj-flex>
+      </sj-flex>
     </sj-paper>
   `,
 })

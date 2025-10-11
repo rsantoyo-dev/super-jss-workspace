@@ -3,6 +3,10 @@ import { SjTypography } from '../../models/interfaces';
 const defaultStyle = {
   fontFamily: 'system-ui, "Helvetica", "Arial", sans-serif',
   color: 'dark.dark',
+  marginBlockStart: 'auto',
+  marginBlockEnd: 'auto',
+  marginInlineStart: 0,
+  marginInlineEnd: 0,
 };
 
 export const DEFAULT_TYPOGRAPHY: SjTypography = {

@@ -21,47 +21,26 @@ import { ThemeSelectorComponent } from './theme-selector.component';
     ...SJ_BASE_COMPONENTS_IMPORTS,
   ],
   template: `
-    <sj-paper
-      host
-      useGutters="default"
-      useRounded="default"
-      [sj]="[
-        sj.bg(sj.palette.primary.main),
-        sj.color(sj.palette.primary.contrast),
-        sj.fxDir({ xs: sj.fxDir.options.column, sm: sj.fxDir.options.row }),
-        sj.flexFlow(sj.flexFlow.options.wrap.wrap),
-        sj.borderRadius(0),
-        sj.flexDirection({ xs: 'column', md: 'row' }),
-        sj.justifyContent({
-          xs: sj.justifyContent.options.center,
-          md: sj.justifyContent.options.spaceBetween
-        }),
-        sj.alignItems(sj.alignItems.options.center)
-      ]"
-    >
-      <sj-card
-        [variant]="'flat'"
-        [sj]="[sj.alignItems({ xs: 'center', md: 'flex-start' })]"
+    <sj-paper host usePadding [sj]="[ sj.bg('primary.main') ]">
+      <sj-flex
+        useGap
+        [sj]="[
+          sj.fxDir({ xs: 'column', md: 'row' }),
+          sj.justifyContent({ xs: 'center', md: 'space-between' }),
+          sj.alignItems('center')
+        ]"
       >
-        <sj-typography
-          variant="h4"
-          [sj]="[sj.color(sj.palette.primary.contrast)]"
-        >
-          SUPER JSS
-        </sj-typography>
-        <sj-typography
-          [variant]="'small'"
-          [sj]="[sj.color(sj.palette.primary.contrast)]"
-          >The ultimate solution for dynamic styling</sj-typography
-        >
-      </sj-card>
+        <sj-flex useCol [sj]="[ sj.alignItems({ xs: 'center', md: 'flex-start' }) ]">
+          <sj-typography variant="h4" [sj]="[ sj.c('primary.contrast') ]">
+            SUPER JSS
+          </sj-typography>
+          <sj-typography [variant]="'small'" [sj]="[ sj.c('primary.contrast') ]">
+            The ultimate solution for dynamic styling
+          </sj-typography>
+        </sj-flex>
 
-      <sj-paper
-        variant="flat"
-        usePadding="compact"
-      >
         <app-theme-selector></app-theme-selector>
-      </sj-paper>
+      </sj-flex>
     </sj-paper>
   `,
 })

@@ -15,20 +15,22 @@ import {
   imports: [CommonModule, ...SJ_BASE_COMPONENTS_IMPORTS],
   template: `
     <sj-paper
-      useGutters="compact"
+      usePadding="compact"
       useRounded="compact"
       [sj]="[sj.bg(sj.palette.info.main)]"
     >
-      <sj-typography variant="small" [sj]="sj.c(sj.palette.info.contrast)">
-        <strong>Breakpoints:</strong>
-        {{ JSON.stringify(this.breakpoints()) }}
-      </sj-typography>
-      <sj-typography variant="small" [sj]="sj.c(sj.palette.info.contrast)">
-        <strong>Current Theme:</strong> {{ theme.sjTheme().name }}
-      </sj-typography>
-      <sj-typography variant="small" [sj]="sj.c(sj.palette.info.contrast)">
-        <strong>Breakpoint:</strong> {{ theme.currentBreakpoint() }}
-      </sj-typography>
+      <sj-flex useCol useGap="compact">
+        <sj-typography variant="small" [sj]="sj.c(sj.palette.info.contrast)">
+          <strong>Breakpoints:</strong>
+          {{ JSON.stringify(this.breakpoints()) }}
+        </sj-typography>
+        <sj-typography variant="small" [sj]="sj.c(sj.palette.info.contrast)">
+          <strong>Current Theme:</strong> {{ theme.sjTheme().name }}
+        </sj-typography>
+        <sj-typography variant="small" [sj]="sj.c(sj.palette.info.contrast)">
+          <strong>Breakpoint:</strong> {{ theme.currentBreakpoint() }}
+        </sj-typography>
+      </sj-flex>
     </sj-paper>
   `,
 })

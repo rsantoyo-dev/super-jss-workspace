@@ -47,6 +47,20 @@ export class SjFlexComponent extends SjBaseComponent {
     | ''
     | undefined;
 
+  @Input() usePadding:
+    | 1
+    | 2
+    | 3
+    | 4
+    | 'compact'
+    | 'default'
+    | 'comfortable'
+    | 'spacious'
+    | 'none'
+    | true
+    | ''
+    | undefined;
+
   constructor(
     hostRef: ElementRef<HTMLElement>,
     renderer: Renderer2,
@@ -94,6 +108,30 @@ export class SjFlexComponent extends SjBaseComponent {
       const gapLevel = mapDensity(this.useGap);
       if (gapLevel && (gapMap as any)?.[gapLevel] !== undefined) {
         flexStyles.gap = (gapMap as any)[gapLevel];
+      }
+    }
+
+    // Handle usePadding (container padding)
+    if (this.usePadding !== undefined && this.usePadding !== 'none') {
+      const theme = this.themeService.sjTheme();
+      const surfaces = theme.components?.surfaces ?? {};
+      const paddingMap = surfaces?.padding ?? {};
+      const mapDensity = (v: any): 1 | 2 | 3 | 4 | undefined => {
+        if (v === undefined || v === null || v === 'none') return undefined;
+        if (v === true || v === '' || v === 'true') return 2;
+        if (typeof v === 'number')
+          return Math.max(1, Math.min(4, Math.round(v))) as 1 | 2 | 3 | 4;
+        const m: Record<string, 1 | 2 | 3 | 4> = {
+          compact: 1,
+          default: 2,
+          comfortable: 3,
+          spacious: 4,
+        };
+        return m[String(v).toLowerCase()];
+      };
+      const padLevel = mapDensity(this.usePadding);
+      if (padLevel && (paddingMap as any)?.[padLevel] !== undefined) {
+        flexStyles.padding = (paddingMap as any)[padLevel];
       }
     }
 
