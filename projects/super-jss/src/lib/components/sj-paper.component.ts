@@ -1,190 +1,123 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, Input, AfterContentInit, OnChanges, SimpleChanges, ElementRef, Renderer2, effect } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { sjPaper, SjPaperApi } from '../blueprints/paper';
 import { SjStyle } from '../models/interfaces';
 import { SjPaperVariant } from '../models/variants';
-import { SjThemeService } from '../services';
-import { SjCssGeneratorService } from '../services/sj-css-generator.service';
+import { SjBaseComponent } from '../core/base.component';
+import { ElementRef, Renderer2 } from '@angular/core';
+import { SjThemeService, SjCssGeneratorService } from '../services';
 
 @Component({
   selector: 'sj-paper',
   standalone: true,
   template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [],
 })
-export class SjPaperComponent implements AfterContentInit, OnChanges {
-  sjPaper = sjPaper;
-
+export class SjPaperComponent extends SjBaseComponent {
   @Input() variant: SjPaperVariant = 'default';
-  @Input() sj: any | undefined;
-  // Surface density: 1..4 (compact -> spacious). Default 2.
-  @Input() density: 1 | 2 | 3 | 4 = 2;
-  // Toggles to apply density-driven styles
-  @Input({ transform: booleanAttribute }) usePadding: boolean = false;
-  @Input({ transform: booleanAttribute }) useGap: boolean = false;
-  @Input({ transform: booleanAttribute }) useRounded: boolean = false;
-  // Convenience: enable padding+gap+rounded together at current density
-  @Input({ transform: booleanAttribute }) useSurface: boolean = false;
-  // Host mode: apply styles to parent element and remove <sj-paper> wrapper
-  @Input({ transform: booleanAttribute }) host: boolean = false;
-  // Non-host mode: choose underlying element when replacing wrapper
-  @Input() component: 'div' | 'section' | 'article' | 'span' | 'main' | 'aside' | 'header' | 'footer' = 'div';
-
-  private parentEl: HTMLElement | null = null;
-  private targetEl: HTMLElement | null = null;
-  private lastAppliedClass: string | null = null;
+  @Input() usePadding:
+    | 1
+    | 2
+    | 3
+    | 4
+    | 'compact'
+    | 'default'
+    | 'comfortable'
+    | 'spacious'
+    | 'none'
+    | true
+    | ''
+    | undefined;
+  @Input() useRounded:
+    | 1
+    | 2
+    | 3
+    | 4
+    | 'compact'
+    | 'default'
+    | 'comfortable'
+    | 'spacious'
+    | 'none'
+    | true
+    | ''
+    | undefined;
 
   constructor(
-    private themeService: SjThemeService,
-    private cssGenerator: SjCssGeneratorService,
-    private el: ElementRef<HTMLElement>,
-    private renderer: Renderer2,
+    hostRef: ElementRef<HTMLElement>,
+    renderer: Renderer2,
+    themeService: SjThemeService,
+    cssGenerator: SjCssGeneratorService
   ) {
-    // Re-apply classes on theme changes
-    effect(() => {
-      this.themeService.themeVersion();
-      if (this.host) {
-        if (this.parentEl) this.applyToParent();
-      } else {
-        this.applyToTarget();
-      }
-    });
+    super(hostRef, renderer, themeService, cssGenerator);
   }
 
-  get selectedSj(): (overrides?: Partial<SjStyle>) => SjStyle {
-    return this.pickVariant(this.sjPaper);
+  private getVariantStyles(): SjStyle {
+    const variantMap: Record<
+      SjPaperVariant,
+      (api: SjPaperApi) => () => SjStyle
+    > = {
+      default: (api) => api,
+      outlined: (api) => api.outlined,
+      flat: (api) => api.flat,
+      filled: (api) => api.filled,
+    };
+    const selectedVariant = variantMap[this.variant] || variantMap.default;
+    return selectedVariant(sjPaper)();
   }
 
-  private pickVariant(
-    api: SjPaperApi
-  ): (overrides?: Partial<SjStyle>) => SjStyle {
-    switch (this.variant) {
-      case 'outlined':
-        return api.outlined;
-      case 'flat':
-        return api.flat;
-      case 'filled':
-        return api.filled;
-      case 'default':
-      default:
-        return api;
-    }
-  }
+  override composeStyle(): SjStyle {
+    const baseStyles = super.composeBaseStyle(); // Base sugars: useBg/useColor
+    const variantStyles = this.getVariantStyles();
+    const paperStyles: SjStyle = {};
 
-  private composeStyle(): SjStyle {
-    const v = this.selectedSj();
-    const overrides: Partial<SjStyle> = {};
-    const level = this.density ?? 2;
     const theme = this.themeService.sjTheme();
-    const surfaces = theme.components?.surfaces;
-    const paddingMap = surfaces?.padding ?? {};
-    const gapMap = surfaces?.gap ?? {};
-    const radiusMap = surfaces?.radius ?? {};
-
-    const enablePadding = this.useSurface || this.usePadding;
-    const enableGap = this.useSurface || this.useGap;
-    const enableRounded = this.useSurface || this.useRounded;
-
-    if (enablePadding) {
-      const p = (paddingMap as any)[level];
-      if (p !== undefined) (overrides as any).padding = p as any;
-    }
-    if (enableGap) {
-      const g = (gapMap as any)[level];
-      if (g !== undefined) (overrides as any).gap = g as any;
-    }
-    if (enableRounded) {
-      const r = (radiusMap as any)[level];
-      if (r !== undefined) (overrides as any).borderRadius = r as any;
-    }
-
-    let style: SjStyle = Object.keys(overrides).length ? ({ ...v, ...overrides } as SjStyle) : (v as SjStyle);
-    // Merge user overrides after base
-    const user = this.sj;
-    if (user !== undefined) {
-      const push = (acc: any, val: any) => {
-        if (val === undefined || val === null) return acc;
-        if (Array.isArray(val)) return val.reduce(push, acc);
-        if (typeof val === 'function') return push(acc, val());
-        if (typeof val === 'object') return Object.assign(acc, val);
-        return acc;
+    const surfaces = theme.components?.surfaces ?? {};
+    const mapDensity = (v: any): 1 | 2 | 3 | 4 | undefined => {
+      if (v === undefined || v === null || v === 'none') return undefined;
+      if (v === true || v === '' || v === 'true') return 2;
+      if (typeof v === 'number')
+        return Math.max(1, Math.min(4, Math.round(v))) as 1 | 2 | 3 | 4;
+      const m: Record<string, 1 | 2 | 3 | 4> = {
+        compact: 1,
+        default: 2,
+        comfortable: 3,
+        spacious: 4,
       };
-      style = push(style, user);
+      return m[String(v).toLowerCase()];
+    };
+
+    // Handle surface-specific sugars
+    const padLevel = mapDensity(this.usePadding);
+    if (padLevel && (surfaces.padding as any)?.[padLevel] !== undefined) {
+      paperStyles.padding = (surfaces.padding as any)[padLevel];
     }
-    return style;
-  }
 
-  ngAfterContentInit(): void {
-    const hostEl = this.el.nativeElement;
-    const parent = hostEl.parentElement as HTMLElement | null;
-    if (!parent) return;
-    if (this.host) {
-      this.parentEl = parent;
-      this.applyToParent();
-      // Move children out and remove host wrapper
-      while (hostEl.firstChild) parent.insertBefore(hostEl.firstChild, hostEl);
-      parent.removeChild(hostEl);
-    } else {
-      const newEl = this.renderer.createElement(this.component || 'div');
-      this.renderer.addClass(newEl, 'SjPaper');
-      this.renderer.addClass(newEl, 'Paper');
-      while (hostEl.firstChild) this.renderer.appendChild(newEl, hostEl.firstChild);
-      this.renderer.insertBefore(parent, newEl, hostEl);
-      this.renderer.removeChild(parent, hostEl);
-      this.targetEl = newEl as HTMLElement;
-      this.applyToTarget();
+    const roundedLevel = mapDensity(this.useRounded);
+    if (
+      roundedLevel &&
+      (surfaces.radius as any)?.[roundedLevel] !== undefined
+    ) {
+      paperStyles.borderRadius = (surfaces.radius as any)[roundedLevel];
     }
-  }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.host) {
-      if (this.parentEl) this.applyToParent();
-    } else {
-      if (changes['component'] && !changes['component'].firstChange) this.rebuildTargetElement();
-      this.applyToTarget();
+    // Final merge order:
+    // 1) variant defaults
+    // 2) paper-specific sugars (padding/radius)
+    // 3) base sugars (useBg/useColor) so they can override variant defaults
+    // 4) user-provided [sj] last
+    const finalStyles: SjStyle = {
+      ...variantStyles,
+      ...paperStyles,
+      ...baseStyles,
+    };
+    if (this.sj) {
+      const items = Array.isArray(this.sj) ? this.sj : [this.sj];
+      for (const item of items) {
+        const styleObj = typeof item === 'function' ? item() : item;
+        if (typeof styleObj === 'object' && styleObj !== null) {
+          Object.assign(finalStyles, styleObj);
+        }
+      }
     }
-  }
-
-  private applyToParent(): void {
-    if (!this.parentEl) return;
-    const theme = this.themeService.sjTheme();
-    const styles = this.composeStyle();
-    const classes = (this.cssGenerator as any).getOrGenerateClassBundle
-      ? (this.cssGenerator as any).getOrGenerateClassBundle(styles, theme, this.themeService.themeVersion())
-      : this.cssGenerator.getOrGenerateClasses(styles, theme, this.themeService.themeVersion());
-    const canonical = Array.isArray(classes) && classes.length ? classes[0] : null;
-    if (!canonical) return;
-    if (this.lastAppliedClass) this.renderer.removeClass(this.parentEl, this.lastAppliedClass);
-    this.renderer.addClass(this.parentEl, canonical);
-    this.lastAppliedClass = canonical;
-  }
-
-  private rebuildTargetElement(): void {
-    if (!this.targetEl) return;
-    const old = this.targetEl;
-    const parent = old.parentElement;
-    if (!parent) return;
-    const replacement = this.renderer.createElement(this.component || 'div');
-    this.renderer.addClass(replacement, 'SjPaper');
-    this.renderer.addClass(replacement, 'Paper');
-    while (old.firstChild) this.renderer.appendChild(replacement, old.firstChild);
-    this.renderer.insertBefore(parent, replacement, old);
-    this.renderer.removeChild(parent, old);
-    this.targetEl = replacement as HTMLElement;
-    this.lastAppliedClass = null;
-  }
-
-  private applyToTarget(): void {
-    if (!this.targetEl) return;
-    const theme = this.themeService.sjTheme();
-    const styles = this.composeStyle();
-    const classes = (this.cssGenerator as any).getOrGenerateClassBundle
-      ? (this.cssGenerator as any).getOrGenerateClassBundle(styles, theme, this.themeService.themeVersion())
-      : this.cssGenerator.getOrGenerateClasses(styles, theme, this.themeService.themeVersion());
-    const canonical = Array.isArray(classes) && classes.length ? classes[0] : null;
-    if (!canonical) return;
-    if (this.lastAppliedClass) this.renderer.removeClass(this.targetEl, this.lastAppliedClass);
-    this.renderer.addClass(this.targetEl, canonical);
-    this.lastAppliedClass = canonical;
+    return finalStyles;
   }
 }

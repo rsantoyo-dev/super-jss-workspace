@@ -214,9 +214,10 @@ For inquiries, feedback, or issues, reach out at [ricardo.santoyo@hotmail.com](m
 ## License
 
 MIT © Ricardo Santoyo
+
 ## Surfaces (density‑driven spacing)
 
-Use `<sj-paper>` for neutral surfaces and enable consistent padding/gap/rounding via density levels sourced from your theme.
+Use `<sj-paper>` for neutral surfaces and enable consistent padding and rounding via density levels sourced from your theme.
 
 Define densities in theme (TypeScript):
 
@@ -243,7 +244,6 @@ Use in templates (HTML):
 
 <!-- Individual toggles (still density‑driven) -->
 <sj-paper variant="outlined" usePadding [density]="sj.density.options.default">…</sj-paper>
-<sj-paper variant="outlined" useGap [density]="sj.density.options.default">…</sj-paper>
 <sj-paper variant="outlined" useRounded [density]="sj.density.options.default">…</sj-paper>
 ```
 
@@ -258,5 +258,6 @@ Host mode (apply surface to the parent element):
 ```
 
 Notes
+
 - Densities live under `theme.components.surfaces` (padding, gap, radius) and use your theme.spacing units.
 - `[sj]` merges last; explicit overrides always win.

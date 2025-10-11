@@ -15,8 +15,8 @@ import {
   imports: [CommonModule, ...SJ_BASE_COMPONENTS_IMPORTS],
   template: `
     <sj-paper
-      useSurface
-      [density]="sj.density.options.compact"
+      useGutters="compact"
+      useRounded="compact"
       [sj]="[sj.bg(sj.palette.info.main)]"
     >
       <sj-typography variant="small" [sj]="sj.c(sj.palette.info.contrast)">

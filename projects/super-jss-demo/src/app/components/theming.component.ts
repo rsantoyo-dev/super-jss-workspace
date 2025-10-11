@@ -12,7 +12,7 @@ import { SectionContainerComponent } from './section-container.component';
   template: `
     <app-section title="Theming">
       <app-demo-item title="Theming" [titleColor]="'primary'" [code]="codeThemeSnippet">
-        <sj-paper variant="flat" usePadding [density]="sj.density.options.default" [sj]="[]">
+        <sj-paper variant="flat" usePadding="default" [sj]="[]">
           <sj-flex [sj]="[ sj.fxDir(sj.fxDir.options.row), sj.justifyContent(sj.justifyContent.options.spaceBetween), sj.alignItems(sj.alignItems.options.center) ]">
             <sj-typography variant="h2" [sj]="[sj.margin(0)]">Theming</sj-typography>
             <sj-flex [sj]="[sj.fxDir(sj.fxDir.options.row), sj.gap(0.5)]">

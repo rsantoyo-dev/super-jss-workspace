@@ -22,9 +22,8 @@ interface DemoPaper {
       <sj-typography variant="span">
         Paper is a neutral visual surface component. Use
         <code>&lt;sj-paper variant="..."&gt;</code> for filled/flat/outlined
-        looks. For consistent padding/gap/rounded, enable
-        <code>useSurface</code> (or individual toggles) with a
-        <code>[density]</code> level sourced from your theme.
+        looks. For consistent spacing and corners, use the density-aware inputs
+        <code>usePadding</code>, <code>useGap</code>, <code>useGutters</code>, and <code>useRounded</code>.
       </sj-typography>
 
       
@@ -46,65 +45,63 @@ interface DemoPaper {
         want specifics.
       </sj-typography>
 
-      <sj-typography variant="h6" [sj]="{ mt: 1 }">Surface density toggles</sj-typography>
+      <sj-typography variant="h6" [sj]="{ mt: 1 }">Density-Aware Inputs</sj-typography>
       <sj-typography variant="span">
-        Using the sj-paper component with <code>useSurface</code> applies
-        padding, gap, and rounded according to the selected
-        <code>density</code>, sourced from your theme under
-        <code>components.surfaces</code>. This keeps spacing uniform across the
-        app.
+        Using inputs like <code>useGutters</code> applies consistent spacing and rounding
+        based on a density level (e.g., 'compact', 'default'). This keeps spacing uniform across the
+        app, sourcing values from <code>theme.components.surfaces</code>.
       </sj-typography>
 
       <div [sj]="[ sj.d(sj.d.options.grid), sj.gridTemplateColumns('repeat(auto-fit, minmax(280px, 1fr))'), sj.gap({ xs: 0.5, md: 1 }) ]">
         <app-demo-item title="Compact" [code]="codeSurface('compact')">
-          <sj-paper variant="outlined" useSurface [density]="sj.density.options.compact">
+          <sj-paper variant="outlined" useGutters="compact" useRounded="compact">
             <sj-typography variant="strong" [sj]="sj.m(0)">Compact</sj-typography>
-            <sj-typography variant="small" [sj]="sj.m(0)">useSurface + density.compact</sj-typography>
+            <sj-typography variant="small" [sj]="sj.m(0)">useGutters="compact"</sj-typography>
           </sj-paper>
         </app-demo-item>
         <app-demo-item title="Default" [code]="codeSurface('default')">
-          <sj-paper variant="outlined" useSurface [density]="sj.density.options.default">
+          <sj-paper variant="outlined" useGutters="default" useRounded="default">
             <sj-typography variant="strong" [sj]="sj.m(0)">Default</sj-typography>
-            <sj-typography variant="small" [sj]="sj.m(0)">useSurface + density.default</sj-typography>
+            <sj-typography variant="small" [sj]="sj.m(0)">useGutters="default"</sj-typography>
           </sj-paper>
         </app-demo-item>
         <app-demo-item title="Comfortable" [code]="codeSurface('comfortable')">
-          <sj-paper variant="outlined" useSurface [density]="sj.density.options.comfortable">
+          <sj-paper variant="outlined" useGutters="comfortable" useRounded="comfortable">
             <sj-typography variant="strong" [sj]="sj.m(0)">Comfortable</sj-typography>
-            <sj-typography variant="small" [sj]="sj.m(0)">useSurface + density.comfortable</sj-typography>
+            <sj-typography variant="small" [sj]="sj.m(0)">useGutters="comfortable"</sj-typography>
           </sj-paper>
         </app-demo-item>
         <app-demo-item title="Spacious" [code]="codeSurface('spacious')">
-          <sj-paper variant="outlined" useSurface [density]="sj.density.options.spacious">
+          <sj-paper variant="outlined" useGutters="spacious" useRounded="spacious">
             <sj-typography variant="strong" [sj]="sj.m(0)">Spacious</sj-typography>
-            <sj-typography variant="small" [sj]="sj.m(0)">useSurface + density.spacious</sj-typography>
+            <sj-typography variant="small" [sj]="sj.m(0)">useGutters="spacious"</sj-typography>
           </sj-paper>
         </app-demo-item>
       </div>
 
-      <sj-typography variant="h6" [sj]="{ mt: 1 }">Individual toggles</sj-typography>
+      <sj-typography variant="h6" [sj]="{ mt: 1 }">Individual Inputs</sj-typography>
       <sj-typography variant="span">
-        You can also turn on one thing at a time: only padding, only gap, or
-        only rounded — still using the same <code>[density]</code>.
+        You can also apply one concern at a time by passing a density level to
+        <code>usePadding</code>, <code>useGap</code>, or <code>useRounded</code>.
       </sj-typography>
 
       <div [sj]="[ sj.d(sj.d.options.grid), sj.gridTemplateColumns('repeat(auto-fit, minmax(280px, 1fr))'), sj.gap({ xs: 0.5, md: 1 }), sj.mt(0.5) ]">
         <app-demo-item title="Padding" [code]="codeToggle('usePadding')">
-          <sj-paper variant="outlined" usePadding [density]="sj.density.options.default">
+          <sj-paper variant="outlined" usePadding="default">
             <sj-typography variant="strong" [sj]="sj.m(0)">Padding</sj-typography>
-            <sj-typography variant="small" [sj]="sj.m(0)">usePadding + density.default</sj-typography>
+            <sj-typography variant="small" [sj]="sj.m(0)">usePadding="default"</sj-typography>
           </sj-paper>
         </app-demo-item>
         <app-demo-item title="Gap" [code]="codeToggle('useGap')">
-          <sj-paper variant="outlined" useGap [density]="sj.density.options.default">
+          <sj-paper variant="outlined" useGap="default">
             <sj-typography variant="strong" [sj]="sj.m(0)">Gap</sj-typography>
-            <sj-typography variant="small" [sj]="sj.m(0)">useGap + density.default</sj-typography>
+            <sj-typography variant="small" [sj]="sj.m(0)">useGap="default"</sj-typography>
           </sj-paper>
         </app-demo-item>
         <app-demo-item title="Rounded" [code]="codeToggle('useRounded')">
-          <sj-paper variant="outlined" useRounded [density]="sj.density.options.default">
+          <sj-paper variant="outlined" useRounded="default">
             <sj-typography variant="strong" [sj]="sj.m(0)">Rounded</sj-typography>
-            <sj-typography variant="small" [sj]="sj.m(0)">useRounded + density.default</sj-typography>
+            <sj-typography variant="small" [sj]="sj.m(0)">useRounded="default"</sj-typography>
           </sj-paper>
         </app-demo-item>
       </div>
@@ -126,14 +123,13 @@ export class DemoPaperComponent {
   codeSurface(level: 'compact' | 'default' | 'comfortable' | 'spacious'): string {
     return `<sj-paper
   variant="outlined"
-  useSurface
-  [density]="sj.density.options.${level}">…</sj-paper>`;
+  useGutters="${level}"
+  useRounded="${level}">...</sj-paper>`;
   }
   codeToggle(toggle: 'usePadding' | 'useGap' | 'useRounded'): string {
     return `<sj-paper
   variant="outlined"
-  ${toggle}
-  [density]="sj.density.options.default">…</sj-paper>`;
+  ${toggle}="default">...</sj-paper>`;
   }
 
   

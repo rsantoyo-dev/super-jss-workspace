@@ -13,8 +13,8 @@ import { SjButtonVariant } from '../models/variants';
   template: `
     <sj-paper
       [host]="true"
-      [useSurface]="true"
-      [density]="density"
+      [usePadding]="density"
+      [useRounded]="density"
       [sj]="hostSj"
     >
       <ng-content></ng-content>
@@ -46,18 +46,29 @@ export class SjButtonComponent {
     return this.pickLegacyVariant(this.sjButton);
   }
 
-  private pickLegacyVariant(api: SjButtonApi): (overrides?: Partial<SjStyle>) => SjStyle {
+  private pickLegacyVariant(
+    api: SjButtonApi
+  ): (overrides?: Partial<SjStyle>) => SjStyle {
     switch (this.variant) {
-      case 'light': return api.light;
-      case 'contained': return api.contained;
-      case 'outlined': return api.outlined;
-      case 'containedPrimary': return api.containedPrimary;
-      case 'containedLight': return api.containedLight;
-      case 'containedDark': return api.containedDark;
-      case 'containedSecondary': return api.containedSecondary;
-      case 'danger': return api.danger;
+      case 'light':
+        return api.light;
+      case 'contained':
+        return api.contained;
+      case 'outlined':
+        return api.outlined;
+      case 'containedPrimary':
+        return api.containedPrimary;
+      case 'containedLight':
+        return api.containedLight;
+      case 'containedDark':
+        return api.containedDark;
+      case 'containedSecondary':
+        return api.containedSecondary;
+      case 'danger':
+        return api.danger;
       case 'default':
-      default: return api;
+      default:
+        return api;
     }
   }
 
@@ -105,10 +116,25 @@ export class SjButtonComponent {
         borderColor: 'transparent',
         '&:hover': { backgroundColor: `${color}.dark` },
         '&:focus-visible': { outlineColor: `${color}.main` },
-        '&:disabled': { backgroundColor: `${color}.main`, borderColor: 'transparent' },
-        '&.active': { backgroundColor: `${color}.dark`, transform: 'translateY(-1px)', boxShadow: '0 8px 20px rgba(0,0,0,0.20)' },
-        '&[aria-current="page"]': { backgroundColor: `${color}.dark`, transform: 'translateY(-1px)', boxShadow: '0 8px 20px rgba(0,0,0,0.20)' },
-        '&.selected': { backgroundColor: `${color}.dark`, transform: 'translateY(-1px)', boxShadow: '0 8px 20px rgba(0,0,0,0.20)' },
+        '&:disabled': {
+          backgroundColor: `${color}.main`,
+          borderColor: 'transparent',
+        },
+        '&.active': {
+          backgroundColor: `${color}.dark`,
+          transform: 'translateY(-1px)',
+          boxShadow: '0 8px 20px rgba(0,0,0,0.20)',
+        },
+        '&[aria-current="page"]': {
+          backgroundColor: `${color}.dark`,
+          transform: 'translateY(-1px)',
+          boxShadow: '0 8px 20px rgba(0,0,0,0.20)',
+        },
+        '&.selected': {
+          backgroundColor: `${color}.dark`,
+          transform: 'translateY(-1px)',
+          boxShadow: '0 8px 20px rgba(0,0,0,0.20)',
+        },
       } as SjStyle;
     }
     if (kind === 'outlined') {
@@ -121,9 +147,21 @@ export class SjButtonComponent {
         '&:hover': { backgroundColor: 'light.main' },
         '&:focus-visible': { outlineColor: `${color}.main` },
         '&:disabled': { borderColor: `${color}.main`, color: 'neutral.dark' },
-        '&.active': { backgroundColor: 'light.main', transform: 'translateY(-1px)', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' },
-        '&[aria-current="page"]': { backgroundColor: 'light.main', transform: 'translateY(-1px)', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' },
-        '&.selected': { backgroundColor: 'light.main', transform: 'translateY(-1px)', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' },
+        '&.active': {
+          backgroundColor: 'light.main',
+          transform: 'translateY(-1px)',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.12)',
+        },
+        '&[aria-current="page"]': {
+          backgroundColor: 'light.main',
+          transform: 'translateY(-1px)',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.12)',
+        },
+        '&.selected': {
+          backgroundColor: 'light.main',
+          transform: 'translateY(-1px)',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.12)',
+        },
       } as SjStyle;
     }
     // flat
@@ -136,9 +174,21 @@ export class SjButtonComponent {
       '&:hover': { backgroundColor: 'light.main' },
       '&:focus-visible': { outlineColor: `${color}.main` },
       '&:disabled': { color: 'neutral.dark' },
-      '&.active': { backgroundColor: 'light.main', transform: 'translateY(-1px)', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' },
-      '&[aria-current="page"]': { backgroundColor: 'light.main', transform: 'translateY(-1px)', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' },
-      '&.selected': { backgroundColor: 'light.main', transform: 'translateY(-1px)', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' },
+      '&.active': {
+        backgroundColor: 'light.main',
+        transform: 'translateY(-1px)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.12)',
+      },
+      '&[aria-current="page"]': {
+        backgroundColor: 'light.main',
+        transform: 'translateY(-1px)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.12)',
+      },
+      '&.selected': {
+        backgroundColor: 'light.main',
+        transform: 'translateY(-1px)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.12)',
+      },
     } as SjStyle;
   }
 

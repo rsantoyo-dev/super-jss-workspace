@@ -1,0 +1,86 @@
+# `<sj-flex>`
+
+`<sj-flex>` is the primary component for creating flexbox layouts. It combines the power of the `[sj]` directive for detailed styling with convenient shortcuts for common flex patterns.
+
+## Quick Start
+
+Use the `use*` inputs as shortcuts for common layouts, and the `[sj]` directive for fine-grained control over any CSS property.
+
+```html
+<!-- Simple centered layout with gap -->
+<sj-flex useCenter [sj]="{ gap: '1rem', padding: '2rem', background: '#f4f4f4', borderRadius: '8px' }">
+  <div>Item 1</div>
+  <div>Item 2</div>
+</sj-flex>
+
+<!-- Responsive column/row layout -->
+<sj-flex [sj]="{ flexDirection: { xs: 'column', md: 'row' }, gap: 1 }">
+  <div>Responsive Item 1</div>
+  <div>Responsive Item 2</div>
+</sj-flex>
+```
+
+## API
+
+| Input        | Type                                                                      | Description                                                                                                                              |
+|--------------|---------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| `sj`         | `SjStyle \| SjStyle[]`                                                    | The primary way to apply detailed styles. Use for any CSS property, responsive values, and overrides. This input always has the final say. |
+| `component`  | `'div' \| 'section' \| ...`                                                | The HTML element to render (default: `'div'`). Allows for semantic markup.                                                              |
+| `host`       | `boolean`                                                                 | If `true`, styles are applied to the parent element and `<sj-flex>` removes itself from the DOM.                                         |
+| `useCol`     | `boolean`                                                                 | Shortcut for `flex-direction: column`.                                                                                                   |
+| `useWrap`    | `boolean`                                                                 | Shortcut for `flex-wrap: wrap`.                                                                                                          |
+| `useInline`  | `boolean`                                                                 | Shortcut for `display: inline-flex`.                                                                                                     |
+| `useCenter`  | `boolean`                                                                 | Shortcut for `justify-content: center` and `align-items: center`.                                                                        |
+| `useBetween` | `boolean`                                                                 | Shortcut for `justify-content: space-between`.                                                                                         |
+| `useAround`  | `boolean`                                                                 | Shortcut for `justify-content: space-around`.                                                                                          |
+| `useEvenly`  | `boolean`                                                                 | Shortcut for `justify-content: space-evenly`.                                                                                          |
+| `useGap`     | `1\|2\|3\|4 \| 'compact'\|...`                                             | Applies a theme-based gap between items.                                                                                                 |
+| `usePadding` | `1\|2\|3\|4 \| 'compact'\|...`                                             | Applies theme-based padding to the container.                                                                                            |
+| `useBg`      | `string \| 'none'`                                                         | Background color token or CSS color (e.g., `primary`, `primary.light`, `#111`, `white`).                                                 |
+| `useColor`   | `string \| 'auto' \| 'none'`                                              | Text color token or CSS color. `auto` picks `<family>.contrast` when `useBg` is a palette token.                                         |
+
+
+## Key Concepts
+
+### Layout Sugars
+
+The `use*` boolean inputs are designed for speed. You can combine them to create common layouts quickly.
+
+```html
+<sj-flex useCol useCenter useGap="default">
+  <!-- This will be a centered vertical stack with a default theme gap -->
+</sj-flex>
+```
+
+### Fine-Grained Control with `[sj]`
+
+For any style not covered by the sugars, or for responsive control, use the `[sj]` directive. It accepts a style object or an array of them. Styles passed to `[sj]` will always override any styles generated by the `use*` inputs.
+
+```html
+<sj-flex useCol [sj]="{
+  justifyContent: 'flex-end', // Overrides any default justification
+  alignItems: { xs: 'stretch', md: 'center' }, // Responsive alignment
+  border: '1px solid token:light.dark' // Use theme tokens
+}">
+  <!-- Content -->
+</sj-flex>
+```
+
+### Polymorphism & Host Mode
+
+Like other base components, `<sj-flex>` can render as a different HTML element or apply its styles directly to its parent, giving you full control over the final DOM structure.
+
+```html
+<!-- Render as a <section> element -->
+<sj-flex component="section">
+  ...
+</sj-flex>
+
+<!-- Apply flex styles directly to an existing div -->
+<div>
+  <sj-flex host useCenter>
+    <span>Item 1</span>
+    <span>Item 2</span>
+  </sj-flex>
+</div>
+```

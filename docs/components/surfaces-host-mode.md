@@ -40,7 +40,8 @@ Live demo
 ></iframe>
 
 Notes
-- `useSurface` enables padding+gap+rounded from the current `density`
-- Individual toggles: `usePadding`, `useGap`, `useRounded`
+
+- `useSurface` enables padding+rounded from the current `density`
+- Individual toggles: `usePadding`, `useRounded`
 - `[sj]` overrides always merge last
 

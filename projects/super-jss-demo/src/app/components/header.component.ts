@@ -23,8 +23,8 @@ import { ThemeSelectorComponent } from './theme-selector.component';
   template: `
     <sj-paper
       host
-      useSurface
-      [density]="sj.density.options.default"
+      useGutters="default"
+      useRounded="default"
       [sj]="[
         sj.bg(sj.palette.primary.main),
         sj.color(sj.palette.primary.contrast),
@@ -58,8 +58,7 @@ import { ThemeSelectorComponent } from './theme-selector.component';
 
       <sj-paper
         variant="flat"
-        usePadding
-        [density]="sj.density.options.compact"
+        usePadding="compact"
       >
         <app-theme-selector></app-theme-selector>
       </sj-paper>

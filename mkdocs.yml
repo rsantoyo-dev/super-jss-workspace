@@ -68,15 +68,10 @@ nav:
   - Basic Usage: basic-usage.md
   - SJ API: sj-api.md
   - Styling Shortcuts: styling-shortcuts.md
-  - Blueprints:
-    - Overview: blueprints/_index.md
-    - Cards: blueprints/cards.md
-    - Buttons: blueprints/buttons.md
-    - Box: blueprints/box.md
   - Components:
     - Overview: components/_index.md
     - sj-host: components/sj-host.md
-    - sj-box: components/sj-box.md
+    - sj-flex: components/sj-flex.md
     - sj-paper: components/sj-paper.md
     - sj-card: components/sj-card.md
     - Surfaces: Host vs Normal: components/surfaces-host-mode.md

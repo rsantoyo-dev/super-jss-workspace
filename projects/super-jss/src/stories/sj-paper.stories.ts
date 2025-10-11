@@ -1,45 +1,104 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { SjPaperComponent } from 'super-jss';
+import { SjInput, SjPaperComponent, sj } from 'super-jss';
 
-// Use untyped Meta/StoryObj to allow "component" input control without TS narrowing issues
 const meta: Meta = {
   title: 'SJ/Paper',
   component: SjPaperComponent as any,
   tags: ['autodocs'],
   argTypes: {
-    variant: { control: 'select', options: ['default', 'flat', 'outlined', 'filled'] },
+    variant: {
+      control: 'select',
+      options: ['default', 'flat', 'outlined', 'filled'],
+    },
     component: { control: 'select', options: ['div', 'section', 'article'] },
-    usePadding: { control: 'boolean' },
-    useGap: { control: 'boolean' },
-    useRounded: { control: 'boolean' },
-    useSurface: { control: 'boolean' },
-    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },
+    usePadding: {
+      control: 'select',
+      options: [
+        'none',
+        'compact',
+        'default',
+        'comfortable',
+        'spacious',
+        1,
+        2,
+        3,
+        4,
+      ],
+    },
+    useRounded: {
+      control: 'select',
+      options: [
+        'none',
+        'compact',
+        'default',
+        'comfortable',
+        'spacious',
+        1,
+        2,
+        3,
+        4,
+      ],
+    },
+    playgroundSj: {
+      control: 'object',
+      description:
+        'Use this to pass any style object to the component for live testing. This input always has the final say in styling.',
+      table: {
+        category: 'Playground',
+        type: { summary: 'SjStyle | SjStyle[]' },
+      },
+    },
+    // Playground: color sugars (demo only; not shown as required API in minimal stories)
+    useBg: {
+      control: 'text',
+      description:
+        'Background color token or CSS color (e.g., primary, primary.light, #111, white).',
+      table: { category: 'Playground' },
+    },
+    useColor: {
+      control: 'text',
+      description:
+        'Text color token or CSS color. Use "auto" to derive <family>.contrast when useBg is a palette token.',
+      table: { category: 'Playground' },
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj;
 
-export const Flat: Story = {
-  args: { variant: 'flat', component: 'div', density: 2, usePadding: true },
+export const Playground: Story = {
+  args: {
+    variant: 'outlined',
+    component: 'div',
+    usePadding: 'default',
+    useRounded: 'default',
+    playgroundSj: {} as SjInput | undefined,
+    useBg: 'light.light',
+    useColor: 'auto',
+  },
   render: (args) => ({
-    props: args,
-    template: `<sj-paper [variant]="variant" [component]="component" [density]="density" [usePadding]="usePadding">Flat paper</sj-paper>`,
+    props: { ...args, sj },
+    template: `<sj-paper [variant]="variant" [component]="component" [usePadding]="usePadding" [useRounded]="useRounded" [useBg]="useBg" [useColor]="useColor" [sj]="playgroundSj">Paper Playground</sj-paper>`,
+  }),
+};
+
+export const Flat: Story = {
+  args: { variant: 'flat', usePadding: 'default', useRounded: 'default' },
+  render: (args) => ({
+    props: { ...args, sj },
+    template: `<sj-paper [variant]="variant" [usePadding]="usePadding" [useRounded]="useRounded">Flat paper</sj-paper>`,
   }),
 };
 
 export const Outlined: Story = {
-  args: { variant: 'outlined', component: 'section', density: 2, usePadding: true },
+  args: {
+    variant: 'outlined',
+    usePadding: 'comfortable',
+    useRounded: 'comfortable',
+  },
   render: (args) => ({
-    props: args,
-    template: `<sj-paper [variant]="variant" [component]="component" [density]="density" [usePadding]="usePadding">Outlined paper</sj-paper>`,
-  }),
-};
-
-export const Filled: Story = {
-  args: { variant: 'filled', component: 'article', density: 2, usePadding: true },
-  render: (args) => ({
-    props: args,
-    template: `<sj-paper [variant]="variant" [component]="component" [density]="density" [usePadding]="usePadding">Filled paper</sj-paper>`,
+    props: { ...args, sj },
+    template: `<sj-paper [variant]="variant" [usePadding]="usePadding" [useRounded]="useRounded">Outlined paper</sj-paper>`,
   }),
 };

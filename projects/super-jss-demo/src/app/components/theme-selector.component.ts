@@ -33,7 +33,7 @@ interface ThemeMeta {
   selector: 'app-theme-selector',
   imports: [CommonModule, ...SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-paper host useSurface [sj]="[sj.bg(sj.palette.primary.dark)]">
+    <sj-paper host useGutters="default" useRounded="default" [sj]="[sj.bg(sj.palette.primary.dark)]">
       <sj-typography
         [variant]="'small'"
         [sj]="[sj.c(sj.palette.primary.contrast)]"
@@ -42,8 +42,8 @@ interface ThemeMeta {
 
       <sj-paper
         variant="flat"
-        useSurface
-        usePadding="false"
+        useGutters="default"
+        useRounded="default"
         [sj]="[sj.flexDirection('row'), sj.p(0)]"
       >
         @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {
