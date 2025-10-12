@@ -41,16 +41,6 @@
                 "defaultValue": "{\n  args: {\n    playgroundSj: {\n      padding: '2px',\n    },\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [sj]=\"[ sj.p(3) ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">One</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">Two</div>\n      </sj-flex>\n    `,\n  }),\n}"
             },
             {
-                "name": "Column",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/super-jss/src/stories/sj-stack.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: { direction: 'column', gap: 0.5 },\n  render: (args) => ({\n    props: args,\n    template: `\n      <sj-stack [direction]=\"direction\" [gap]=\"gap\">\n        <div [sj]=\"{ p: 0.5, bg: 'primary.light', brad: 0.5 }\">1</div>\n        <div [sj]=\"{ p: 0.5, bg: 'secondary.light', brad: 0.5 }\">2</div>\n        <div [sj]=\"{ p: 0.5, bg: 'info.light', brad: 0.5 }\">3</div>\n      </sj-stack>\n    `,\n  }),\n}"
-            },
-            {
                 "name": "ColumnCentered",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -71,16 +61,6 @@
                 "defaultValue": "{\n  args: { component: 'section', useGap: 2 },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [component]=\"component\" [useGap]=\"useGap\" [sj]=\"[ sj.bg('light.light') ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">Section tag</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">With gap 2</div>\n      </sj-flex>\n    `,\n  }),\n}"
             },
             {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: { variant: 'default', component: 'div', density: 2 },\n  render: (args) => ({\n    props: args,\n    template: `<sj-card [variant]=\"variant\" [component]=\"component\" [density]=\"density\">\n      Card content\n    </sj-card>`,\n  }),\n}"
-            },
-            {
                 "name": "DensityGap",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -99,16 +79,6 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: { usePadding: 'compact' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [usePadding]=\"usePadding\">\n        <div [sj]=\"[ sj.bg('primary.light') ]\">A</div>\n        <div [sj]=\"[ sj.bg('secondary.light') ]\">B</div>\n        <div [sj]=\"[ sj.bg('info.light') ]\">C</div>\n      </sj-flex>\n    `,\n  }),\n}"
-            },
-            {
-                "name": "Elevated",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: { variant: 'elevated', component: 'article', density: 2, usePadding: true },\n  render: (args) => ({\n    props: args,\n    template: `<sj-card [variant]=\"variant\" [component]=\"component\" [density]=\"density\" [usePadding]=\"usePadding\">\n      Elevated card content\n    </sj-card>`,\n  }),\n}"
             },
             {
                 "name": "Filled",
@@ -148,17 +118,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta",
-                "defaultValue": "{\n  title: 'SJ/Button',\n  component: SjButtonComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  argTypes: {\n    variant: { control: 'select', options: ['filled', 'outlined', 'flat'] },\n    color: {\n      control: 'select',\n      options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n    fullWidth: { control: 'boolean' },\n    useRounded: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', 'none'] },\n    useColor: {\n      control: 'text',\n      description: 'Optional explicit text color. Use a full token like \"primary.contrast\" or a CSS color like \"#fff\". Prefer color prop for normal usage.',\n    },\n    sj: {\n      control: 'object',\n      table: { type: { summary: 'SjStyle | SjStyle[]' } },\n    },\n  },\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta",
-                "defaultValue": "{\n  title: 'SJ/Card',\n  component: SjCardComponent as any,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: 'select',\n      options: ['default', 'outlined', 'flat', 'elevated', 'interactive', 'primary', 'secondary', 'info'],\n    },\n    component: {\n      control: 'select',\n      options: ['div', 'section', 'article'],\n    },\n    usePadding: { control: 'boolean' },\n    useGap: { control: 'boolean' },\n    useRounded: { control: 'boolean' },\n    useSurface: { control: 'boolean' },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n  },\n}"
+                "defaultValue": "{\n  title: 'SJ/Button',\n  component: SjButtonComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  argTypes: {\n    variant: { control: 'select', options: ['filled', 'outlined', 'flat'] },\n    color: {\n      control: 'select',\n      options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n    fullWidth: { control: 'boolean' },\n    useRounded: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', 'none'] },\n    usePaint: { control: 'select', options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light', 'auto', 'none'] },\n    sj: {\n      control: 'object',\n      table: { type: { summary: 'SjStyle | SjStyle[]' } },\n    },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -184,21 +144,11 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/super-jss/src/stories/sj-stack.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta",
-                "defaultValue": "{\n  title: 'SJ/Stack',\n  component: SjStackComponent as any,\n  tags: ['autodocs'],\n  argTypes: {\n    direction: { control: 'select', options: ['row', 'column'] },\n    gap: { control: 'number' },\n    justify: { control: 'select', options: ['flex-start','flex-end','center','space-between','space-around','space-evenly'] },\n    align: { control: 'select', options: ['flex-start','flex-end','center','stretch','baseline'] },\n    wrap: { control: 'select', options: ['nowrap','wrap','wrap-reverse'] },\n    inline: { control: 'boolean' },\n  },\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/super-jss/src/stories/sj-typography.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<SjTypographyComponent>",
-                "defaultValue": "{\n  title: 'SJ/Typography',\n  component: SjTypographyComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: { control: 'select', options: ['h1','h2','h3','h4','h5','h6','p','span','strong','small','pre','body'] },\n  },\n}"
+                "defaultValue": "{\n  title: 'SJ/Typography',\n  component: SjTypographyComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: { control: 'select', options: ['h1','h2','h3','h4','h5','h6','p','span','strong','small','pre','body'] },\n    sj: { control: 'object' },\n  },\n}"
             },
             {
                 "name": "Outlined",
@@ -209,16 +159,6 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: { variant: 'outlined', color: 'secondary', density: 2 },\n  render: (args) => ({\n    props: args,\n    template: `<sj-button [variant]=\"variant\" [color]=\"color\" [density]=\"density\">Outlined</sj-button>`,\n  }),\n}"
-            },
-            {
-                "name": "Outlined",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: { variant: 'outlined', component: 'section', density: 2, usePadding: true },\n  render: (args) => ({\n    props: args,\n    template: `<sj-card [variant]=\"variant\" [component]=\"component\" [density]=\"density\" [usePadding]=\"usePadding\">\n      Outlined card content\n    </sj-card>`,\n  }),\n}"
             },
             {
                 "name": "Outlined",
@@ -238,7 +178,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    variant: 'filled',\n    color: 'primary',\n    density: 2,\n    fullWidth: false,\n    useRounded: 2,\n    useColor: undefined,\n    sj: undefined,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <div style=\"width: 20rem\">\n        <sj-button\n          [variant]=\"variant\"\n          [color]=\"color\"\n          [density]=\"density\"\n          [fullWidth]=\"fullWidth\"\n          [useRounded]=\"useRounded\"\n          [useColor]=\"useColor || undefined\"\n          [sj]=\"sj\"\n        >\n          Button Playground\n        </sj-button>\n      </div>\n    `,\n  }),\n}"
+                "defaultValue": "{\n  args: {\n    variant: 'filled',\n    color: 'primary',\n    density: 2,\n    fullWidth: false,\n    useRounded: 2,\n    usePaint: 'auto',\n    sj: undefined,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <div style=\"width: 20rem\">\n        <sj-button\n          [variant]=\"variant\"\n          [color]=\"color\"\n          [density]=\"density\"\n          [fullWidth]=\"fullWidth\"\n          [useRounded]=\"useRounded\"\n          [usePaint]=\"usePaint\"\n          [sj]=\"sj\"\n        >\n          Button Playground\n        </sj-button>\n      </div>\n    `,\n  }),\n}"
             },
             {
                 "name": "Playground",
@@ -281,16 +221,6 @@
                 "defaultValue": "{\n  args: { useGap: 'default' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [useGap]=\"useGap\" [sj]=\"[ sj.gap({ xs: .25, md: .75 }) ]\">\n        <div [sj]=\"[ sj.p(0.3), sj.bg('primary.light'), sj.brad(0.5) ]\">xs/md gap override</div>\n        <div [sj]=\"[ sj.p(0.3), sj.bg('secondary.light'), sj.brad(0.5) ]\">(sj.gap wins)</div>\n      </sj-flex>\n    `,\n  }),\n}"
             },
             {
-                "name": "Row",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/super-jss/src/stories/sj-stack.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: { direction: 'row', gap: 1, align: 'center' },\n  render: (args) => ({\n    props: args,\n    template: `\n      <sj-stack [direction]=\"direction\" [gap]=\"gap\" [align]=\"align\">\n        <div [sj]=\"{ p: 0.5, bg: 'primary.light', brad: 0.5 }\">A</div>\n        <div [sj]=\"{ p: 0.5, bg: 'secondary.light', brad: 0.5 }\">B</div>\n        <div [sj]=\"{ p: 0.5, bg: 'info.light', brad: 0.5 }\">C</div>\n      </sj-stack>\n    `,\n  }),\n}"
-            },
-            {
                 "name": "Single",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -298,7 +228,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: { variant: 'h4' },\n  render: (args) => ({\n    props: args,\n    template: `<sj-typography [variant]=\"variant\">Typography {{ variant }}</sj-typography>`,\n  }),\n}"
+                "defaultValue": "{\n  args: { variant: 'h4', sj: { color: 'dark' } },\n  render: (args) => ({\n    props: args,\n    template: `<sj-typography [variant]=\"variant\" [sj]=\"sj\">Typography {{ variant }}</sj-typography>`,\n  }),\n}"
             },
             {
                 "name": "WrapAndInline",
@@ -329,17 +259,6 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "StoryObj",
-                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 183
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "StoryObj",
                 "file": "projects/super-jss/src/stories/sj-flex.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -352,17 +271,6 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj",
                 "file": "projects/super-jss/src/stories/sj-paper.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 183
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "StoryObj",
-                "file": "projects/super-jss/src/stories/sj-stack.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -503,7 +411,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<SjTypographyComponent>",
-                    "defaultValue": "{\n  title: 'SJ/Typography',\n  component: SjTypographyComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: { control: 'select', options: ['h1','h2','h3','h4','h5','h6','p','span','strong','small','pre','body'] },\n  },\n}"
+                    "defaultValue": "{\n  title: 'SJ/Typography',\n  component: SjTypographyComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: { control: 'select', options: ['h1','h2','h3','h4','h5','h6','p','span','strong','small','pre','body'] },\n    sj: { control: 'object' },\n  },\n}"
                 },
                 {
                     "name": "Single",
@@ -513,81 +421,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: { variant: 'h4' },\n  render: (args) => ({\n    props: args,\n    template: `<sj-typography [variant]=\"variant\">Typography {{ variant }}</sj-typography>`,\n  }),\n}"
-                }
-            ],
-            "projects/super-jss/src/stories/sj-stack.stories.ts": [
-                {
-                    "name": "Column",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/super-jss/src/stories/sj-stack.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: { direction: 'column', gap: 0.5 },\n  render: (args) => ({\n    props: args,\n    template: `\n      <sj-stack [direction]=\"direction\" [gap]=\"gap\">\n        <div [sj]=\"{ p: 0.5, bg: 'primary.light', brad: 0.5 }\">1</div>\n        <div [sj]=\"{ p: 0.5, bg: 'secondary.light', brad: 0.5 }\">2</div>\n        <div [sj]=\"{ p: 0.5, bg: 'info.light', brad: 0.5 }\">3</div>\n      </sj-stack>\n    `,\n  }),\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/super-jss/src/stories/sj-stack.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta",
-                    "defaultValue": "{\n  title: 'SJ/Stack',\n  component: SjStackComponent as any,\n  tags: ['autodocs'],\n  argTypes: {\n    direction: { control: 'select', options: ['row', 'column'] },\n    gap: { control: 'number' },\n    justify: { control: 'select', options: ['flex-start','flex-end','center','space-between','space-around','space-evenly'] },\n    align: { control: 'select', options: ['flex-start','flex-end','center','stretch','baseline'] },\n    wrap: { control: 'select', options: ['nowrap','wrap','wrap-reverse'] },\n    inline: { control: 'boolean' },\n  },\n}"
-                },
-                {
-                    "name": "Row",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/super-jss/src/stories/sj-stack.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: { direction: 'row', gap: 1, align: 'center' },\n  render: (args) => ({\n    props: args,\n    template: `\n      <sj-stack [direction]=\"direction\" [gap]=\"gap\" [align]=\"align\">\n        <div [sj]=\"{ p: 0.5, bg: 'primary.light', brad: 0.5 }\">A</div>\n        <div [sj]=\"{ p: 0.5, bg: 'secondary.light', brad: 0.5 }\">B</div>\n        <div [sj]=\"{ p: 0.5, bg: 'info.light', brad: 0.5 }\">C</div>\n      </sj-stack>\n    `,\n  }),\n}"
-                }
-            ],
-            "projects/super-jss/src/stories/sj-card.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: { variant: 'default', component: 'div', density: 2 },\n  render: (args) => ({\n    props: args,\n    template: `<sj-card [variant]=\"variant\" [component]=\"component\" [density]=\"density\">\n      Card content\n    </sj-card>`,\n  }),\n}"
-                },
-                {
-                    "name": "Elevated",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: { variant: 'elevated', component: 'article', density: 2, usePadding: true },\n  render: (args) => ({\n    props: args,\n    template: `<sj-card [variant]=\"variant\" [component]=\"component\" [density]=\"density\" [usePadding]=\"usePadding\">\n      Elevated card content\n    </sj-card>`,\n  }),\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta",
-                    "defaultValue": "{\n  title: 'SJ/Card',\n  component: SjCardComponent as any,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: 'select',\n      options: ['default', 'outlined', 'flat', 'elevated', 'interactive', 'primary', 'secondary', 'info'],\n    },\n    component: {\n      control: 'select',\n      options: ['div', 'section', 'article'],\n    },\n    usePadding: { control: 'boolean' },\n    useGap: { control: 'boolean' },\n    useRounded: { control: 'boolean' },\n    useSurface: { control: 'boolean' },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n  },\n}"
-                },
-                {
-                    "name": "Outlined",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: { variant: 'outlined', component: 'section', density: 2, usePadding: true },\n  render: (args) => ({\n    props: args,\n    template: `<sj-card [variant]=\"variant\" [component]=\"component\" [density]=\"density\" [usePadding]=\"usePadding\">\n      Outlined card content\n    </sj-card>`,\n  }),\n}"
+                    "defaultValue": "{\n  args: { variant: 'h4', sj: { color: 'dark' } },\n  render: (args) => ({\n    props: args,\n    template: `<sj-typography [variant]=\"variant\" [sj]=\"sj\">Typography {{ variant }}</sj-typography>`,\n  }),\n}"
                 }
             ],
             "projects/super-jss/src/stories/sj-button.stories.ts": [
@@ -619,7 +453,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta",
-                    "defaultValue": "{\n  title: 'SJ/Button',\n  component: SjButtonComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  argTypes: {\n    variant: { control: 'select', options: ['filled', 'outlined', 'flat'] },\n    color: {\n      control: 'select',\n      options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n    fullWidth: { control: 'boolean' },\n    useRounded: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', 'none'] },\n    useColor: {\n      control: 'text',\n      description: 'Optional explicit text color. Use a full token like \"primary.contrast\" or a CSS color like \"#fff\". Prefer color prop for normal usage.',\n    },\n    sj: {\n      control: 'object',\n      table: { type: { summary: 'SjStyle | SjStyle[]' } },\n    },\n  },\n}"
+                    "defaultValue": "{\n  title: 'SJ/Button',\n  component: SjButtonComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  argTypes: {\n    variant: { control: 'select', options: ['filled', 'outlined', 'flat'] },\n    color: {\n      control: 'select',\n      options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n    fullWidth: { control: 'boolean' },\n    useRounded: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', 'none'] },\n    usePaint: { control: 'select', options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light', 'auto', 'none'] },\n    sj: {\n      control: 'object',\n      table: { type: { summary: 'SjStyle | SjStyle[]' } },\n    },\n  },\n}"
                 },
                 {
                     "name": "Outlined",
@@ -639,7 +473,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {\n    variant: 'filled',\n    color: 'primary',\n    density: 2,\n    fullWidth: false,\n    useRounded: 2,\n    useColor: undefined,\n    sj: undefined,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <div style=\"width: 20rem\">\n        <sj-button\n          [variant]=\"variant\"\n          [color]=\"color\"\n          [density]=\"density\"\n          [fullWidth]=\"fullWidth\"\n          [useRounded]=\"useRounded\"\n          [useColor]=\"useColor || undefined\"\n          [sj]=\"sj\"\n        >\n          Button Playground\n        </sj-button>\n      </div>\n    `,\n  }),\n}"
+                    "defaultValue": "{\n  args: {\n    variant: 'filled',\n    color: 'primary',\n    density: 2,\n    fullWidth: false,\n    useRounded: 2,\n    usePaint: 'auto',\n    sj: undefined,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <div style=\"width: 20rem\">\n        <sj-button\n          [variant]=\"variant\"\n          [color]=\"color\"\n          [density]=\"density\"\n          [fullWidth]=\"fullWidth\"\n          [useRounded]=\"useRounded\"\n          [usePaint]=\"usePaint\"\n          [sj]=\"sj\"\n        >\n          Button Playground\n        </sj-button>\n      </div>\n    `,\n  }),\n}"
                 }
             ],
             "projects/super-jss/src/stories/sj-paper.stories.ts": [
@@ -713,19 +547,6 @@
                     "kind": 183
                 }
             ],
-            "projects/super-jss/src/stories/sj-card.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj",
-                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 183
-                }
-            ],
             "projects/super-jss/src/stories/sj-flex.stories.ts": [
                 {
                     "name": "Story",
@@ -746,19 +567,6 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj",
                     "file": "projects/super-jss/src/stories/sj-paper.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 183
-                }
-            ],
-            "projects/super-jss/src/stories/sj-stack.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj",
-                    "file": "projects/super-jss/src/stories/sj-stack.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -847,56 +655,6 @@
             },
             {
                 "filePath": "projects/super-jss/src/stories/sj-button.stories.ts",
-                "type": "type alias",
-                "linktype": "miscellaneous",
-                "linksubtype": "typealias",
-                "name": "Story",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Default",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Elevated",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "meta",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Outlined",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
@@ -1057,46 +815,6 @@
             },
             {
                 "filePath": "projects/super-jss/src/stories/sj-paper.stories.ts",
-                "type": "type alias",
-                "linktype": "miscellaneous",
-                "linksubtype": "typealias",
-                "name": "Story",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/super-jss/src/stories/sj-stack.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Column",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/super-jss/src/stories/sj-stack.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "meta",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/super-jss/src/stories/sj-stack.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Row",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/super-jss/src/stories/sj-stack.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
