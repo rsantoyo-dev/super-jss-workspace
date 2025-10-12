@@ -11,14 +11,14 @@
     "miscellaneous": {
         "variables": [
             {
-                "name": "AlignmentTokens",
+                "name": "Alignment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/super-jss/src/stories/sj-flex.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: { useJustify: 'space-between', useAlign: 'center' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [useJustify]=\"useJustify\" [useAlign]=\"useAlign\" [sj]=\"[ sj.minH(6), sj.bg('light.dark'), sj.p(0.5) ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">Left</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">Right</div>\n      </sj-flex>\n    `,\n  }),\n}"
+                "defaultValue": "{\n  args: {},\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [sj]=\"[{ justifyContent: 'space-between', alignItems: 'center' }, sj.minH(6), sj.bg('light.dark'), sj.p(0.5) ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">Left</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">Right</div>\n      </sj-flex>\n    `,\n  }),\n}"
             },
             {
                 "name": "AllVariants",
@@ -38,7 +38,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  parameters: { controls: { disable: true } },\n  render: () => ({\n    props: { sj },\n    template: `\n      <sj-flex>\n        <div [sj]=\"[ sj.p(0.5), sj.c('primary.contrast'), sj.bg('primary'), sj.brad(0.5) ]\">A</div>\n        <div [sj]=\"[ sj.p(0.5), sj.c('secondary.contrast'), sj.bg('secondary'), sj.brad(0.5) ]\">B</div>\n        <div [sj]=\"[ sj.p(0.5), sj.c('info.contrast'), sj.bg('info'), sj.brad(0.5) ]\">C</div>\n      </sj-flex>\n    `,\n  }),\n}"
+                "defaultValue": "{\n  args: {\n    playgroundSj: {\n      padding: '2px',\n    },\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [sj]=\"[ sj.p(3) ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">One</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">Two</div>\n      </sj-flex>\n    `,\n  }),\n}"
             },
             {
                 "name": "Column",
@@ -98,7 +98,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: { usePadding: 'compact' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [usePadding]=\"usePadding\" [sj]=\"[ sj.bg('light.light') ]\">\n        <div [sj]=\"[ sj.p(0.3), sj.bg('primary.light'), sj.brad(0.5), sj.mr(0.3) ]\">One</div>\n        <div [sj]=\"[ sj.p(0.3), sj.bg('secondary.light'), sj.brad(0.5), sj.mr(0.3) ]\">Two</div>\n      </sj-flex>\n    `,\n  }),\n}"
+                "defaultValue": "{\n  args: { usePadding: 'compact' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [usePadding]=\"usePadding\">\n        <div [sj]=\"[ sj.bg('primary.light') ]\">A</div>\n        <div [sj]=\"[ sj.bg('secondary.light') ]\">B</div>\n        <div [sj]=\"[ sj.bg('info.light') ]\">C</div>\n      </sj-flex>\n    `,\n  }),\n}"
             },
             {
                 "name": "Elevated",
@@ -121,16 +121,6 @@
                 "defaultValue": "{\n  args: { variant: 'filled', color: 'primary', density: 2 },\n  render: (args) => ({\n    props: args,\n    template: `<sj-button [variant]=\"variant\" [color]=\"color\" [density]=\"density\">Click me</sj-button>`,\n  }),\n}"
             },
             {
-                "name": "Filled",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/super-jss/src/stories/sj-paper.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: { variant: 'filled', component: 'article', density: 2, usePadding: true },\n  render: (args) => ({\n    props: args,\n    template: `<sj-paper [variant]=\"variant\" [component]=\"component\" [density]=\"density\" [usePadding]=\"usePadding\">Filled paper</sj-paper>`,\n  }),\n}"
-            },
-            {
                 "name": "Flat",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -148,37 +138,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: { variant: 'flat', component: 'div', density: 2, usePadding: true },\n  render: (args) => ({\n    props: args,\n    template: `<sj-paper [variant]=\"variant\" [component]=\"component\" [density]=\"density\" [usePadding]=\"usePadding\">Flat paper</sj-paper>`,\n  }),\n}"
-            },
-            {
-                "name": "GuttersCombined",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/super-jss/src/stories/sj-flex.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: { useGutters: 'default' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [useGutters]=\"useGutters\" [sj]=\"[ sj.bg('light.light') ]\">\n        <div [sj]=\"[ sj.p(0.3), sj.bg('primary.light'), sj.brad(0.5), sj.mr(0.3) ]\">One</div>\n        <div [sj]=\"[ sj.p(0.3), sj.bg('secondary.light'), sj.brad(0.5), sj.mr(0.3) ]\">Two</div>\n      </sj-flex>\n    `,\n  }),\n}"
-            },
-            {
-                "name": "GuttersWithOverrides",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/super-jss/src/stories/sj-flex.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: { useGutters: 'default', useGap: 'compact' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [useGutters]=\"useGutters\" [useGap]=\"useGap\" [sj]=\"[ sj.bg('light.light') ]\">\n        <div [sj]=\"[ sj.p(0.3), sj.bg('primary.light'), sj.brad(0.5), sj.mr(0.3) ]\">One</div>\n        <div [sj]=\"[ sj.p(0.3), sj.bg('secondary.light'), sj.brad(0.5), sj.mr(0.3) ]\">Two</div>\n      </sj-flex>\n    `,\n  }),\n}"
-            },
-            {
-                "name": "HostModeGutters",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/super-jss/src/stories/sj-flex.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  args: { host: true, useGutters: 'default' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div [sj]=\"[ sj.bg('light.dark'), sj.brad(0.5) ]\">\n        <!-- host applies to this div -->\n        <sj-flex [host]=\"host\" [useGutters]=\"useGutters\">\n          <div [sj]=\"[ sj.p(0.3), sj.bg('primary.light'), sj.brad(0.5), sj.mr(0.3) ]\">One</div>\n          <div [sj]=\"[ sj.p(0.3), sj.bg('secondary.light'), sj.brad(0.5), sj.mr(0.3) ]\">Two</div>\n        </sj-flex>\n      </div>\n    `,\n  }),\n}"
+                "defaultValue": "{\n  args: { variant: 'flat', usePadding: 'default', useRounded: 'default' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `<sj-paper [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\">Flat paper</sj-paper>`,\n  }),\n}"
             },
             {
                 "name": "meta",
@@ -187,8 +147,8 @@
                 "file": "projects/super-jss/src/stories/sj-button.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<SjButtonComponent>",
-                "defaultValue": "{\n  title: 'SJ/Button',\n  component: SjButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: 'select',\n      options: ['filled', 'outlined', 'flat', 'contained', 'light', 'danger', 'containedPrimary'],\n    },\n    color: {\n      control: 'select',\n      options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n  },\n}"
+                "type": "Meta",
+                "defaultValue": "{\n  title: 'SJ/Button',\n  component: SjButtonComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  argTypes: {\n    variant: { control: 'select', options: ['filled', 'outlined', 'flat'] },\n    color: {\n      control: 'select',\n      options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n    fullWidth: { control: 'boolean' },\n    sj: {\n      control: 'object',\n      table: { type: { summary: 'SjStyle | SjStyle[]' } },\n    },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -208,7 +168,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta",
-                "defaultValue": "{\n  title: 'SJ/Flex',\n  component: SjFlexComponent as any,\n  tags: ['autodocs'],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'sj-flex is a layout primitive. Use use* sugars for common flex patterns and density sugars (useGap/usePadding/useGutters) to apply theme spacing. [sj] always merges last.',\n      },\n    },\n  },\n  decorators: [\n    moduleMetadata({\n      // Needed for [sj] on native elements inside story templates\n      imports: [SjDirective],\n    }),\n  ],\n  argTypes: {\n    component: {\n      control: 'select',\n      options: ['div', 'section', 'article', 'span'],\n    },\n    host: { control: 'boolean' },\n    useCol: { control: 'boolean' },\n    useWrap: { control: 'boolean' },\n    useInline: { control: 'boolean' },\n    useCenter: { control: 'boolean' },\n    useBetween: { control: 'boolean' },\n    useAround: { control: 'boolean' },\n    useEvenly: { control: 'boolean' },\n    useJustify: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        'center',\n        'space-between',\n        'space-around',\n        'space-evenly',\n        'flex-start',\n        'flex-end',\n        'start',\n        'end',\n        'stretch',\n        'baseline',\n      ],\n    },\n    useAlign: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        'center',\n        'flex-start',\n        'flex-end',\n        'start',\n        'end',\n        'stretch',\n        'baseline',\n      ],\n    },\n    useGap: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    usePadding: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    useGutters: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n  },\n}"
+                "defaultValue": "{\n  title: 'SJ/Flex',\n  component: SjFlexComponent as any,\n  tags: ['autodocs'],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'A powerful and flexible layout component. Use the `use*` inputs for common flexbox patterns and density adjustments. For fine-grained control, including responsive layouts and properties like `justifyContent` or `alignItems`, use the `[sj]` input.',\n      },\n    },\n  },\n  decorators: [\n    moduleMetadata({\n      // Needed for [sj] on native elements inside story templates\n      imports: [SjDirective],\n    }),\n  ],\n  argTypes: {\n    component: {\n      control: 'select',\n      options: ['div', 'section', 'article', 'span'],\n    },\n    host: { control: 'boolean' },\n    useCol: { control: 'boolean' },\n    useWrap: { control: 'boolean' },\n    useInline: { control: 'boolean' },\n    useCenter: { control: 'boolean' },\n    useBetween: { control: 'boolean' },\n    useAround: { control: 'boolean' },\n    useEvenly: { control: 'boolean' },\n\n    useGap: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    usePadding: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    // Playground-only: allow testing the [sj] input with object or array\n    playgroundSj: {\n      control: 'object',\n      description:\n        'Use this to pass any style object to the component. This is the primary way to apply detailed styles like `justifyContent`, `alignItems`, or responsive values. E.g., `{ justifyContent: \"flex-end\" }`.',\n      table: {\n        category: 'Playground',\n        type: { summary: 'SjStyle | SjStyle[]' },\n      },\n    },\n    // Playground: color sugars from base component\n    useBg: {\n      control: 'text',\n      description:\n        'Background color token or CSS color (e.g., primary, primary.light, #111, white).',\n      table: { category: 'Playground' },\n    },\n    useColor: {\n      control: 'text',\n      description:\n        'Text color token or CSS color. Use \"auto\" to derive <family>.contrast when useBg is a palette token.',\n      table: { category: 'Playground' },\n    },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -218,7 +178,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta",
-                "defaultValue": "{\n  title: 'SJ/Paper',\n  component: SjPaperComponent as any,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: { control: 'select', options: ['default', 'flat', 'outlined', 'filled'] },\n    component: { control: 'select', options: ['div', 'section', 'article'] },\n    usePadding: { control: 'boolean' },\n    useGap: { control: 'boolean' },\n    useRounded: { control: 'boolean' },\n    useSurface: { control: 'boolean' },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n  },\n}"
+                "defaultValue": "{\n  title: 'SJ/Paper',\n  component: SjPaperComponent as any,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: 'select',\n      options: ['default', 'flat', 'outlined', 'filled'],\n    },\n    component: { control: 'select', options: ['div', 'section', 'article'] },\n    usePadding: {\n      control: 'select',\n      options: [\n        'none',\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n        1,\n        2,\n        3,\n        4,\n      ],\n    },\n    useRounded: {\n      control: 'select',\n      options: [\n        'none',\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n        1,\n        2,\n        3,\n        4,\n      ],\n    },\n    playgroundSj: {\n      control: 'object',\n      description:\n        'Use this to pass any style object to the component for live testing. This input always has the final say in styling.',\n      table: {\n        category: 'Playground',\n        type: { summary: 'SjStyle | SjStyle[]' },\n      },\n    },\n    // Colors are set via [sj] (e.g., sj.bg('primary.light'), sj.c('primary.contrast'))\n  },\n}"
             },
             {
                 "name": "meta",
@@ -268,7 +228,17 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: { variant: 'outlined', component: 'section', density: 2, usePadding: true },\n  render: (args) => ({\n    props: args,\n    template: `<sj-paper [variant]=\"variant\" [component]=\"component\" [density]=\"density\" [usePadding]=\"usePadding\">Outlined paper</sj-paper>`,\n  }),\n}"
+                "defaultValue": "{\n  args: {\n    variant: 'outlined',\n    usePadding: 'comfortable',\n    useRounded: 'comfortable',\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `<sj-paper [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\">Outlined paper</sj-paper>`,\n  }),\n}"
+            },
+            {
+                "name": "Playground",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    variant: 'filled',\n    color: 'primary',\n    density: 2,\n    fullWidth: false,\n    sj: undefined,\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div [sj]=\"[ sj.w('20rem') ]\">\n        <sj-button\n          [variant]=\"variant\"\n          [color]=\"color\"\n          [density]=\"density\"\n          [fullWidth]=\"fullWidth\"\n          [sj]=\"sj\"\n        >\n          Button Playground\n        </sj-button>\n      </div>\n    `,\n  }),\n}"
             },
             {
                 "name": "Playground",
@@ -278,7 +248,17 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    component: 'section',\n    host: false,\n    useCol: false,\n    useWrap: false,\n    useInline: false,\n    useCenter: false,\n    useBetween: false,\n    useAround: false,\n    useEvenly: false,\n    useJustify: undefined,\n    useAlign: undefined,\n    useGap: 'none',\n    usePadding: 'none',\n    useGutters: 'none',\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex\n        [component]=\"component\"\n        [host]=\"host\"\n        [useCol]=\"useCol\"\n        [useWrap]=\"useWrap\"\n        [useInline]=\"useInline\"\n        [useCenter]=\"useCenter\"\n        [useBetween]=\"useBetween\"\n        [useAround]=\"useAround\"\n        [useEvenly]=\"useEvenly\"\n        [useJustify]=\"useJustify || undefined\"\n        [useAlign]=\"useAlign || undefined\"\n        [useGap]=\"useGap\"\n        [usePadding]=\"usePadding\"\n        [useGutters]=\"useGutters\"\n        [sj]=\"sj.bg('light.light')\"\n      >\n        <div [sj]=\"[ sj.p(0.5), sj.c('primary.contrast'), sj.bg('primary'), sj.brad(0.5) ]\">A</div>\n        <div [sj]=\"[ sj.padding(0.5),  sj.color('secondary.contrast'), sj.backgroundColor('secondary'), sj.brad(0.5) ]\">B</div>\n        <div [sj]=\"{padding:0.5, color:'info.contrast', backgroundColor:'info', borderRadius:0.5}\">C</div>\n      </sj-flex>\n    `,\n  }),\n}"
+                "defaultValue": "{\n  args: {\n    component: 'section',\n    host: false,\n    useCol: false,\n    useWrap: false,\n    useInline: false,\n    useCenter: false,\n    useBetween: false,\n    useAround: false,\n    useEvenly: false,\n    useGap: 'none',\n    usePadding: 'none',\n    playgroundSj: {} as SjInput | undefined,\n    useBg: 'light.light',\n    useColor: 'auto',\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex\n        [component]=\"component\"\n        [host]=\"host\"\n        [useCol]=\"useCol\"\n        [useWrap]=\"useWrap\"\n        [useInline]=\"useInline\"\n        [useCenter]=\"useCenter\"\n        [useBetween]=\"useBetween\"\n        [useAround]=\"useAround\"\n        [useEvenly]=\"useEvenly\"\n        [useGap]=\"useGap\"\n        [usePadding]=\"usePadding\"\n        [useBg]=\"useBg\"\n        [useColor]=\"useColor\"\n        [sj]=\"playgroundSj\"\n      >\n        <div [sj]=\"[ sj.p(0.5), sj.c('primary.contrast'), sj.bg('primary'), sj.brad(0.5) ]\">A</div>\n        <div [sj]=\"[ sj.padding(0.5),  sj.color('secondary.contrast'), sj.backgroundColor('secondary'), sj.brad(0.5) ]\">B</div>\n        <div [sj]=\"{padding:0.5, color:'info.contrast', backgroundColor:'info', borderRadius:0.5}\">C</div>\n      </sj-flex>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Playground",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-paper.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    variant: 'outlined',\n    component: 'div',\n    usePadding: 'default',\n    useRounded: 'default',\n    playgroundSj: {} as SjInput | undefined,\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-paper\n        [variant]=\"variant\"\n        [component]=\"component\"\n        [usePadding]=\"usePadding\"\n        [useRounded]=\"useRounded\"\n        [sj]=\"playgroundSj ?? [ sj.bg('light.light'), sj.c('dark.contrast') ]\"\n      >\n        Paper Playground\n      </sj-paper>\n    `,\n  }),\n}"
             },
             {
                 "name": "preview",
@@ -328,7 +308,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: { useWrap: true, useInline: true },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [useWrap]=\"useWrap\" [useInline]=\"useInline\" [sj]=\"[ sj.bg('light.light'), sj.p(0.5) ]\">\n        <div *ngFor=\"let i of [1,2,3,4,5,6,7]\" [sj]=\"[ sj.p(0.3), sj.bg('neutral.light'), sj.mr(0.3), sj.mb(0.3) ]\">{{ i }}</div>\n      </sj-flex>\n    `,\n  }),\n}"
+                "defaultValue": "{\n  args: { useWrap: true, useInline: true, useGap: 'default' },\n  render: (args) => ({\n    props: {\n      ...args,\n      sj,\n      numbers: Array.from({ length: 40 }, (_, i) => i + 1),\n    },\n    template: `\n      <sj-flex [useWrap]=\"useWrap\" [useInline]=\"useInline\" [useGap]=\"useGap\" [sj]=\"[ sj.bg('light.light') ]\">\n        <div *ngFor=\"let n of numbers\" [sj]=\"[ sj.p(0.3), sj.bg('neutral.light'), sj.mr(0.3), sj.mb(0.3) ]\">{{ n }}</div>\n      </sj-flex>\n    `,\n  }),\n}"
             }
         ],
         "functions": [],
@@ -337,7 +317,7 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<SjButtonComponent>",
+                "rawtype": "StoryObj",
                 "file": "projects/super-jss/src/stories/sj-button.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -404,14 +384,14 @@
         "groupedVariables": {
             "projects/super-jss/src/stories/sj-flex.stories.ts": [
                 {
-                    "name": "AlignmentTokens",
+                    "name": "Alignment",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/super-jss/src/stories/sj-flex.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: { useJustify: 'space-between', useAlign: 'center' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [useJustify]=\"useJustify\" [useAlign]=\"useAlign\" [sj]=\"[ sj.minH(6), sj.bg('light.dark'), sj.p(0.5) ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">Left</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">Right</div>\n      </sj-flex>\n    `,\n  }),\n}"
+                    "defaultValue": "{\n  args: {},\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [sj]=\"[{ justifyContent: 'space-between', alignItems: 'center' }, sj.minH(6), sj.bg('light.dark'), sj.p(0.5) ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">Left</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">Right</div>\n      </sj-flex>\n    `,\n  }),\n}"
                 },
                 {
                     "name": "BasicRow",
@@ -421,7 +401,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  parameters: { controls: { disable: true } },\n  render: () => ({\n    props: { sj },\n    template: `\n      <sj-flex>\n        <div [sj]=\"[ sj.p(0.5), sj.c('primary.contrast'), sj.bg('primary'), sj.brad(0.5) ]\">A</div>\n        <div [sj]=\"[ sj.p(0.5), sj.c('secondary.contrast'), sj.bg('secondary'), sj.brad(0.5) ]\">B</div>\n        <div [sj]=\"[ sj.p(0.5), sj.c('info.contrast'), sj.bg('info'), sj.brad(0.5) ]\">C</div>\n      </sj-flex>\n    `,\n  }),\n}"
+                    "defaultValue": "{\n  args: {\n    playgroundSj: {\n      padding: '2px',\n    },\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [sj]=\"[ sj.p(3) ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">One</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">Two</div>\n      </sj-flex>\n    `,\n  }),\n}"
                 },
                 {
                     "name": "ColumnCentered",
@@ -461,37 +441,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: { usePadding: 'compact' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [usePadding]=\"usePadding\" [sj]=\"[ sj.bg('light.light') ]\">\n        <div [sj]=\"[ sj.p(0.3), sj.bg('primary.light'), sj.brad(0.5), sj.mr(0.3) ]\">One</div>\n        <div [sj]=\"[ sj.p(0.3), sj.bg('secondary.light'), sj.brad(0.5), sj.mr(0.3) ]\">Two</div>\n      </sj-flex>\n    `,\n  }),\n}"
-                },
-                {
-                    "name": "GuttersCombined",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/super-jss/src/stories/sj-flex.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: { useGutters: 'default' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [useGutters]=\"useGutters\" [sj]=\"[ sj.bg('light.light') ]\">\n        <div [sj]=\"[ sj.p(0.3), sj.bg('primary.light'), sj.brad(0.5), sj.mr(0.3) ]\">One</div>\n        <div [sj]=\"[ sj.p(0.3), sj.bg('secondary.light'), sj.brad(0.5), sj.mr(0.3) ]\">Two</div>\n      </sj-flex>\n    `,\n  }),\n}"
-                },
-                {
-                    "name": "GuttersWithOverrides",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/super-jss/src/stories/sj-flex.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: { useGutters: 'default', useGap: 'compact' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [useGutters]=\"useGutters\" [useGap]=\"useGap\" [sj]=\"[ sj.bg('light.light') ]\">\n        <div [sj]=\"[ sj.p(0.3), sj.bg('primary.light'), sj.brad(0.5), sj.mr(0.3) ]\">One</div>\n        <div [sj]=\"[ sj.p(0.3), sj.bg('secondary.light'), sj.brad(0.5), sj.mr(0.3) ]\">Two</div>\n      </sj-flex>\n    `,\n  }),\n}"
-                },
-                {
-                    "name": "HostModeGutters",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/super-jss/src/stories/sj-flex.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: { host: true, useGutters: 'default' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div [sj]=\"[ sj.bg('light.dark'), sj.brad(0.5) ]\">\n        <!-- host applies to this div -->\n        <sj-flex [host]=\"host\" [useGutters]=\"useGutters\">\n          <div [sj]=\"[ sj.p(0.3), sj.bg('primary.light'), sj.brad(0.5), sj.mr(0.3) ]\">One</div>\n          <div [sj]=\"[ sj.p(0.3), sj.bg('secondary.light'), sj.brad(0.5), sj.mr(0.3) ]\">Two</div>\n        </sj-flex>\n      </div>\n    `,\n  }),\n}"
+                    "defaultValue": "{\n  args: { usePadding: 'compact' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [usePadding]=\"usePadding\">\n        <div [sj]=\"[ sj.bg('primary.light') ]\">A</div>\n        <div [sj]=\"[ sj.bg('secondary.light') ]\">B</div>\n        <div [sj]=\"[ sj.bg('info.light') ]\">C</div>\n      </sj-flex>\n    `,\n  }),\n}"
                 },
                 {
                     "name": "meta",
@@ -501,7 +451,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta",
-                    "defaultValue": "{\n  title: 'SJ/Flex',\n  component: SjFlexComponent as any,\n  tags: ['autodocs'],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'sj-flex is a layout primitive. Use use* sugars for common flex patterns and density sugars (useGap/usePadding/useGutters) to apply theme spacing. [sj] always merges last.',\n      },\n    },\n  },\n  decorators: [\n    moduleMetadata({\n      // Needed for [sj] on native elements inside story templates\n      imports: [SjDirective],\n    }),\n  ],\n  argTypes: {\n    component: {\n      control: 'select',\n      options: ['div', 'section', 'article', 'span'],\n    },\n    host: { control: 'boolean' },\n    useCol: { control: 'boolean' },\n    useWrap: { control: 'boolean' },\n    useInline: { control: 'boolean' },\n    useCenter: { control: 'boolean' },\n    useBetween: { control: 'boolean' },\n    useAround: { control: 'boolean' },\n    useEvenly: { control: 'boolean' },\n    useJustify: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        'center',\n        'space-between',\n        'space-around',\n        'space-evenly',\n        'flex-start',\n        'flex-end',\n        'start',\n        'end',\n        'stretch',\n        'baseline',\n      ],\n    },\n    useAlign: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        'center',\n        'flex-start',\n        'flex-end',\n        'start',\n        'end',\n        'stretch',\n        'baseline',\n      ],\n    },\n    useGap: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    usePadding: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    useGutters: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n  },\n}"
+                    "defaultValue": "{\n  title: 'SJ/Flex',\n  component: SjFlexComponent as any,\n  tags: ['autodocs'],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'A powerful and flexible layout component. Use the `use*` inputs for common flexbox patterns and density adjustments. For fine-grained control, including responsive layouts and properties like `justifyContent` or `alignItems`, use the `[sj]` input.',\n      },\n    },\n  },\n  decorators: [\n    moduleMetadata({\n      // Needed for [sj] on native elements inside story templates\n      imports: [SjDirective],\n    }),\n  ],\n  argTypes: {\n    component: {\n      control: 'select',\n      options: ['div', 'section', 'article', 'span'],\n    },\n    host: { control: 'boolean' },\n    useCol: { control: 'boolean' },\n    useWrap: { control: 'boolean' },\n    useInline: { control: 'boolean' },\n    useCenter: { control: 'boolean' },\n    useBetween: { control: 'boolean' },\n    useAround: { control: 'boolean' },\n    useEvenly: { control: 'boolean' },\n\n    useGap: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    usePadding: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    // Playground-only: allow testing the [sj] input with object or array\n    playgroundSj: {\n      control: 'object',\n      description:\n        'Use this to pass any style object to the component. This is the primary way to apply detailed styles like `justifyContent`, `alignItems`, or responsive values. E.g., `{ justifyContent: \"flex-end\" }`.',\n      table: {\n        category: 'Playground',\n        type: { summary: 'SjStyle | SjStyle[]' },\n      },\n    },\n    // Playground: color sugars from base component\n    useBg: {\n      control: 'text',\n      description:\n        'Background color token or CSS color (e.g., primary, primary.light, #111, white).',\n      table: { category: 'Playground' },\n    },\n    useColor: {\n      control: 'text',\n      description:\n        'Text color token or CSS color. Use \"auto\" to derive <family>.contrast when useBg is a palette token.',\n      table: { category: 'Playground' },\n    },\n  },\n}"
                 },
                 {
                     "name": "Playground",
@@ -511,7 +461,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {\n    component: 'section',\n    host: false,\n    useCol: false,\n    useWrap: false,\n    useInline: false,\n    useCenter: false,\n    useBetween: false,\n    useAround: false,\n    useEvenly: false,\n    useJustify: undefined,\n    useAlign: undefined,\n    useGap: 'none',\n    usePadding: 'none',\n    useGutters: 'none',\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex\n        [component]=\"component\"\n        [host]=\"host\"\n        [useCol]=\"useCol\"\n        [useWrap]=\"useWrap\"\n        [useInline]=\"useInline\"\n        [useCenter]=\"useCenter\"\n        [useBetween]=\"useBetween\"\n        [useAround]=\"useAround\"\n        [useEvenly]=\"useEvenly\"\n        [useJustify]=\"useJustify || undefined\"\n        [useAlign]=\"useAlign || undefined\"\n        [useGap]=\"useGap\"\n        [usePadding]=\"usePadding\"\n        [useGutters]=\"useGutters\"\n        [sj]=\"sj.bg('light.light')\"\n      >\n        <div [sj]=\"[ sj.p(0.5), sj.c('primary.contrast'), sj.bg('primary'), sj.brad(0.5) ]\">A</div>\n        <div [sj]=\"[ sj.padding(0.5),  sj.color('secondary.contrast'), sj.backgroundColor('secondary'), sj.brad(0.5) ]\">B</div>\n        <div [sj]=\"{padding:0.5, color:'info.contrast', backgroundColor:'info', borderRadius:0.5}\">C</div>\n      </sj-flex>\n    `,\n  }),\n}"
+                    "defaultValue": "{\n  args: {\n    component: 'section',\n    host: false,\n    useCol: false,\n    useWrap: false,\n    useInline: false,\n    useCenter: false,\n    useBetween: false,\n    useAround: false,\n    useEvenly: false,\n    useGap: 'none',\n    usePadding: 'none',\n    playgroundSj: {} as SjInput | undefined,\n    useBg: 'light.light',\n    useColor: 'auto',\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex\n        [component]=\"component\"\n        [host]=\"host\"\n        [useCol]=\"useCol\"\n        [useWrap]=\"useWrap\"\n        [useInline]=\"useInline\"\n        [useCenter]=\"useCenter\"\n        [useBetween]=\"useBetween\"\n        [useAround]=\"useAround\"\n        [useEvenly]=\"useEvenly\"\n        [useGap]=\"useGap\"\n        [usePadding]=\"usePadding\"\n        [useBg]=\"useBg\"\n        [useColor]=\"useColor\"\n        [sj]=\"playgroundSj\"\n      >\n        <div [sj]=\"[ sj.p(0.5), sj.c('primary.contrast'), sj.bg('primary'), sj.brad(0.5) ]\">A</div>\n        <div [sj]=\"[ sj.padding(0.5),  sj.color('secondary.contrast'), sj.backgroundColor('secondary'), sj.brad(0.5) ]\">B</div>\n        <div [sj]=\"{padding:0.5, color:'info.contrast', backgroundColor:'info', borderRadius:0.5}\">C</div>\n      </sj-flex>\n    `,\n  }),\n}"
                 },
                 {
                     "name": "ResponsiveOverride",
@@ -531,7 +481,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: { useWrap: true, useInline: true },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [useWrap]=\"useWrap\" [useInline]=\"useInline\" [sj]=\"[ sj.bg('light.light'), sj.p(0.5) ]\">\n        <div *ngFor=\"let i of [1,2,3,4,5,6,7]\" [sj]=\"[ sj.p(0.3), sj.bg('neutral.light'), sj.mr(0.3), sj.mb(0.3) ]\">{{ i }}</div>\n      </sj-flex>\n    `,\n  }),\n}"
+                    "defaultValue": "{\n  args: { useWrap: true, useInline: true, useGap: 'default' },\n  render: (args) => ({\n    props: {\n      ...args,\n      sj,\n      numbers: Array.from({ length: 40 }, (_, i) => i + 1),\n    },\n    template: `\n      <sj-flex [useWrap]=\"useWrap\" [useInline]=\"useInline\" [useGap]=\"useGap\" [sj]=\"[ sj.bg('light.light') ]\">\n        <div *ngFor=\"let n of numbers\" [sj]=\"[ sj.p(0.3), sj.bg('neutral.light'), sj.mr(0.3), sj.mb(0.3) ]\">{{ n }}</div>\n      </sj-flex>\n    `,\n  }),\n}"
                 }
             ],
             "projects/super-jss/src/stories/sj-typography.stories.ts": [
@@ -668,8 +618,8 @@
                     "file": "projects/super-jss/src/stories/sj-button.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "Meta<SjButtonComponent>",
-                    "defaultValue": "{\n  title: 'SJ/Button',\n  component: SjButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: 'select',\n      options: ['filled', 'outlined', 'flat', 'contained', 'light', 'danger', 'containedPrimary'],\n    },\n    color: {\n      control: 'select',\n      options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n  },\n}"
+                    "type": "Meta",
+                    "defaultValue": "{\n  title: 'SJ/Button',\n  component: SjButtonComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  argTypes: {\n    variant: { control: 'select', options: ['filled', 'outlined', 'flat'] },\n    color: {\n      control: 'select',\n      options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n    fullWidth: { control: 'boolean' },\n    sj: {\n      control: 'object',\n      table: { type: { summary: 'SjStyle | SjStyle[]' } },\n    },\n  },\n}"
                 },
                 {
                     "name": "Outlined",
@@ -680,19 +630,19 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\n  args: { variant: 'outlined', color: 'secondary', density: 2 },\n  render: (args) => ({\n    props: args,\n    template: `<sj-button [variant]=\"variant\" [color]=\"color\" [density]=\"density\">Outlined</sj-button>`,\n  }),\n}"
-                }
-            ],
-            "projects/super-jss/src/stories/sj-paper.stories.ts": [
+                },
                 {
-                    "name": "Filled",
+                    "name": "Playground",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/super-jss/src/stories/sj-paper.stories.ts",
+                    "file": "projects/super-jss/src/stories/sj-button.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: { variant: 'filled', component: 'article', density: 2, usePadding: true },\n  render: (args) => ({\n    props: args,\n    template: `<sj-paper [variant]=\"variant\" [component]=\"component\" [density]=\"density\" [usePadding]=\"usePadding\">Filled paper</sj-paper>`,\n  }),\n}"
-                },
+                    "defaultValue": "{\n  args: {\n    variant: 'filled',\n    color: 'primary',\n    density: 2,\n    fullWidth: false,\n    sj: undefined,\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div [sj]=\"[ sj.w('20rem') ]\">\n        <sj-button\n          [variant]=\"variant\"\n          [color]=\"color\"\n          [density]=\"density\"\n          [fullWidth]=\"fullWidth\"\n          [sj]=\"sj\"\n        >\n          Button Playground\n        </sj-button>\n      </div>\n    `,\n  }),\n}"
+                }
+            ],
+            "projects/super-jss/src/stories/sj-paper.stories.ts": [
                 {
                     "name": "Flat",
                     "ctype": "miscellaneous",
@@ -701,7 +651,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: { variant: 'flat', component: 'div', density: 2, usePadding: true },\n  render: (args) => ({\n    props: args,\n    template: `<sj-paper [variant]=\"variant\" [component]=\"component\" [density]=\"density\" [usePadding]=\"usePadding\">Flat paper</sj-paper>`,\n  }),\n}"
+                    "defaultValue": "{\n  args: { variant: 'flat', usePadding: 'default', useRounded: 'default' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `<sj-paper [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\">Flat paper</sj-paper>`,\n  }),\n}"
                 },
                 {
                     "name": "meta",
@@ -711,7 +661,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta",
-                    "defaultValue": "{\n  title: 'SJ/Paper',\n  component: SjPaperComponent as any,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: { control: 'select', options: ['default', 'flat', 'outlined', 'filled'] },\n    component: { control: 'select', options: ['div', 'section', 'article'] },\n    usePadding: { control: 'boolean' },\n    useGap: { control: 'boolean' },\n    useRounded: { control: 'boolean' },\n    useSurface: { control: 'boolean' },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n  },\n}"
+                    "defaultValue": "{\n  title: 'SJ/Paper',\n  component: SjPaperComponent as any,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: 'select',\n      options: ['default', 'flat', 'outlined', 'filled'],\n    },\n    component: { control: 'select', options: ['div', 'section', 'article'] },\n    usePadding: {\n      control: 'select',\n      options: [\n        'none',\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n        1,\n        2,\n        3,\n        4,\n      ],\n    },\n    useRounded: {\n      control: 'select',\n      options: [\n        'none',\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n        1,\n        2,\n        3,\n        4,\n      ],\n    },\n    playgroundSj: {\n      control: 'object',\n      description:\n        'Use this to pass any style object to the component for live testing. This input always has the final say in styling.',\n      table: {\n        category: 'Playground',\n        type: { summary: 'SjStyle | SjStyle[]' },\n      },\n    },\n    // Colors are set via [sj] (e.g., sj.bg('primary.light'), sj.c('primary.contrast'))\n  },\n}"
                 },
                 {
                     "name": "Outlined",
@@ -721,7 +671,17 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: { variant: 'outlined', component: 'section', density: 2, usePadding: true },\n  render: (args) => ({\n    props: args,\n    template: `<sj-paper [variant]=\"variant\" [component]=\"component\" [density]=\"density\" [usePadding]=\"usePadding\">Outlined paper</sj-paper>`,\n  }),\n}"
+                    "defaultValue": "{\n  args: {\n    variant: 'outlined',\n    usePadding: 'comfortable',\n    useRounded: 'comfortable',\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `<sj-paper [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\">Outlined paper</sj-paper>`,\n  }),\n}"
+                },
+                {
+                    "name": "Playground",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-paper.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    variant: 'outlined',\n    component: 'div',\n    usePadding: 'default',\n    useRounded: 'default',\n    playgroundSj: {} as SjInput | undefined,\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-paper\n        [variant]=\"variant\"\n        [component]=\"component\"\n        [usePadding]=\"usePadding\"\n        [useRounded]=\"useRounded\"\n        [sj]=\"playgroundSj ?? [ sj.bg('light.light'), sj.c('dark.contrast') ]\"\n      >\n        Paper Playground\n      </sj-paper>\n    `,\n  }),\n}"
                 }
             ],
             "projects/super-jss/.storybook/preview.ts": [
@@ -745,7 +705,7 @@
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
-                    "rawtype": "StoryObj<SjButtonComponent>",
+                    "rawtype": "StoryObj",
                     "file": "projects/super-jss/src/stories/sj-button.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -877,6 +837,16 @@
             },
             {
                 "filePath": "projects/super-jss/src/stories/sj-button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Playground",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-button.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
@@ -940,7 +910,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "AlignmentTokens",
+                "name": "Alignment",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -1000,36 +970,6 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "GuttersCombined",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/super-jss/src/stories/sj-flex.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "GuttersWithOverrides",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/super-jss/src/stories/sj-flex.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "HostModeGutters",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/super-jss/src/stories/sj-flex.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
                 "name": "meta",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
@@ -1080,16 +1020,6 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "Filled",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/super-jss/src/stories/sj-paper.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
                 "name": "Flat",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
@@ -1111,6 +1041,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "Outlined",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-paper.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Playground",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

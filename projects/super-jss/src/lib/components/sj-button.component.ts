@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, effect } from '@angular/core';
 import { SjPaperComponent } from './sj-paper.component';
 import { sjButton, SjButtonApi } from '../blueprints/button';
 import { SjStyle, SjPalette } from '../models/interfaces';
 import type { SjInput } from '../directives/sj.directive';
 import { SjButtonVariant } from '../models/variants';
+import { SjThemeService } from '../services';
 
 @Component({
   selector: 'sj-button',
@@ -13,8 +14,9 @@ import { SjButtonVariant } from '../models/variants';
   template: `
     <sj-paper
       [host]="true"
+      variant="flat"
       [usePadding]="density"
-      [useRounded]="density"
+      [useRounded]="useRounded"
       [sj]="hostSj"
     >
       <ng-content></ng-content>
@@ -32,6 +34,28 @@ export class SjButtonComponent {
   @Input() density: 1 | 2 | 3 | 4 = 2;
   // Optional user overrides to merge after the variant
   @Input() sj: SjInput | undefined;
+
+  // Additional sugars consistent with flex/paper philosophy
+  @Input() fullWidth = false;
+  @Input() useRounded:
+    | 1
+    | 2
+    | 3
+    | 4
+    | 'compact'
+    | 'default'
+    | 'comfortable'
+    | 'spacious'
+    | 'none'
+    | true
+    | ''
+    | undefined = 2;
+
+  constructor(private themeService: SjThemeService) {
+    effect(() => {
+      this.themeService.themeVersion();
+    });
+  }
 
   get selectedSj(): (overrides?: Partial<SjStyle>) => SjStyle {
     // Map new simplified variants first; fallback to legacy blueprint variants
@@ -78,7 +102,6 @@ export class SjButtonComponent {
       display: 'inline-flex',
       fxAItems: 'center',
       fxJustify: 'center',
-      gap: 0.5,
       textDecoration: 'none',
       cursor: 'pointer',
       userSelect: 'none',
@@ -194,7 +217,34 @@ export class SjButtonComponent {
 
   // Compose variant base with user-provided overrides so user wins
   get hostSj(): SjInput {
-    const base = () => this.selectedSj();
+    const base = () => {
+      // Variant + base layout
+      let style = { ...this.baseButtonStyles(), ...this.selectedSj() } as SjStyle;
+      // Apply fullWidth (also switch to block-level flex so width:100% takes effect)
+      if (this.fullWidth) {
+        (style as any).width = '100%';
+        (style as any).display = 'flex';
+      }
+      const theme = this.themeService.sjTheme();
+      const surfaces = (theme as any).components?.surfaces ?? {};
+      const toLevel = (val: any): 1 | 2 | 3 | 4 | undefined => {
+        if (val === undefined || val === null) return undefined;
+        if (val === true || val === 'true' || val === '') return 2;
+        if (typeof val === 'number') {
+          const n = Math.max(1, Math.min(4, Math.round(val)));
+          return n as 1 | 2 | 3 | 4;
+        }
+        const m: Record<string, 1 | 2 | 3 | 4> = {
+          compact: 1,
+          default: 2,
+          comfortable: 3,
+          spacious: 4,
+        } as const;
+        return m[String(val).toLowerCase()] ?? undefined;
+      };
+      // No default inner gap; authors can set [sj].gap or use surface map explicitly later if desired
+      return style;
+    };
     const user = this.sj;
     if (user === undefined) return base;
     return Array.isArray(user) ? [base, ...user] : [base, user];

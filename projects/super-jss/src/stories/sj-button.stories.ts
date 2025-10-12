@@ -1,25 +1,58 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { SjButtonComponent } from 'super-jss';
+import { moduleMetadata } from '@storybook/angular';
+import { SjButtonComponent, SjDirective, sj } from 'super-jss';
 
-const meta: Meta<SjButtonComponent> = {
+const meta: Meta = {
   title: 'SJ/Button',
-  component: SjButtonComponent,
+  component: SjButtonComponent as any,
   tags: ['autodocs'],
+  decorators: [moduleMetadata({ imports: [SjDirective] })],
   argTypes: {
-    variant: {
-      control: 'select',
-      options: ['filled', 'outlined', 'flat', 'contained', 'light', 'danger', 'containedPrimary'],
-    },
+    variant: { control: 'select', options: ['filled', 'outlined', 'flat'] },
     color: {
       control: 'select',
       options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],
     },
     density: { control: { type: 'number', min: 1, max: 4, step: 1 } },
+    fullWidth: { control: 'boolean' },
+    useRounded: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', 'none'] },
+    sj: {
+      control: 'object',
+      table: { type: { summary: 'SjStyle | SjStyle[]' } },
+    },
   },
 };
 
 export default meta;
-type Story = StoryObj<SjButtonComponent>;
+type Story = StoryObj;
+
+export const Playground: Story = {
+  args: {
+    variant: 'filled',
+    color: 'primary',
+    density: 2,
+    fullWidth: false,
+    useRounded: 2,
+    sj: undefined,
+  },
+  render: (args) => ({
+    props: args,
+    template: `
+      <div style="width: 20rem">
+        <sj-button
+          [variant]="variant"
+          [color]="color"
+          [density]="density"
+          [fullWidth]="fullWidth"
+          [useRounded]="useRounded"
+          [sj]="sj"
+        >
+          Button Playground
+        </sj-button>
+      </div>
+    `,
+  }),
+};
 
 export const Filled: Story = {
   args: { variant: 'filled', color: 'primary', density: 2 },
@@ -44,4 +77,3 @@ export const Flat: Story = {
     template: `<sj-button [variant]="variant" [color]="color" [density]="density">Flat</sj-button>`,
   }),
 };
-

@@ -48,19 +48,7 @@ const meta: Meta = {
         type: { summary: 'SjStyle | SjStyle[]' },
       },
     },
-    // Playground: color sugars (demo only; not shown as required API in minimal stories)
-    useBg: {
-      control: 'text',
-      description:
-        'Background color token or CSS color (e.g., primary, primary.light, #111, white).',
-      table: { category: 'Playground' },
-    },
-    useColor: {
-      control: 'text',
-      description:
-        'Text color token or CSS color. Use "auto" to derive <family>.contrast when useBg is a palette token.',
-      table: { category: 'Playground' },
-    },
+    // Colors are set via [sj] (e.g., sj.bg('primary.light'), sj.c('primary.contrast'))
   },
 };
 
@@ -74,12 +62,20 @@ export const Playground: Story = {
     usePadding: 'default',
     useRounded: 'default',
     playgroundSj: {} as SjInput | undefined,
-    useBg: 'light.light',
-    useColor: 'auto',
   },
   render: (args) => ({
     props: { ...args, sj },
-    template: `<sj-paper [variant]="variant" [component]="component" [usePadding]="usePadding" [useRounded]="useRounded" [useBg]="useBg" [useColor]="useColor" [sj]="playgroundSj">Paper Playground</sj-paper>`,
+    template: `
+      <sj-paper
+        [variant]="variant"
+        [component]="component"
+        [usePadding]="usePadding"
+        [useRounded]="useRounded"
+        [sj]="playgroundSj ?? [ sj.bg('light.light'), sj.c('dark.contrast') ]"
+      >
+        Paper Playground
+      </sj-paper>
+    `,
   }),
 };
 
