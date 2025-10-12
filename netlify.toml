@@ -1,4 +1,4 @@
-so a[build]
+[build]
   command = "npm ci && npm run build-storybook"
   publish = "dist/storybook/super-jss"
 
