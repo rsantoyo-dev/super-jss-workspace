@@ -41,6 +41,16 @@
                 "defaultValue": "{\n  args: {\n    playgroundSj: {\n      padding: '2px',\n    },\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [sj]=\"[ sj.p(3) ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">One</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">Two</div>\n      </sj-flex>\n    `,\n  }),\n}"
             },
             {
+                "name": "CodeSnippet",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: { variant: 'codeSnippet', density: 2 },\n  render: (args) => ({\n    props: { ...args, sj, code: 'npm i super-jss' },\n    template: `\n      <sj-card [variant]=\"variant\" [density]=\"density\">\n        <code>{{ code }}</code>\n      </sj-card>\n    `,\n  }),\n}"
+            },
+            {
                 "name": "ColumnCentered",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -81,6 +91,16 @@
                 "defaultValue": "{\n  args: { usePadding: 'compact' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [usePadding]=\"usePadding\">\n        <div [sj]=\"[ sj.bg('primary.light') ]\">A</div>\n        <div [sj]=\"[ sj.bg('secondary.light') ]\">B</div>\n        <div [sj]=\"[ sj.bg('info.light') ]\">C</div>\n      </sj-flex>\n    `,\n  }),\n}"
             },
             {
+                "name": "Elevated",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: { variant: 'elevated', usePadding: true, useRounded: true, density: 2 },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [density]=\"density\">\n        <div [sj]=\"[ sj.fw(600) ]\">Elevated</div>\n        <div [sj]=\"[ sj.c('neutral.dark') ]\">Light shadow for emphasis.</div>\n      </sj-card>\n    `,\n  }),\n}"
+            },
+            {
                 "name": "Filled",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -104,11 +124,41 @@
                 "name": "Flat",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: { variant: 'flat', usePadding: true, useRounded: true, density: 2 },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [density]=\"density\">\n        <div [sj]=\"[ sj.fw(600) ]\">Flat</div>\n        <div [sj]=\"[ sj.c('neutral.dark') ]\">No border or shadow by default.</div>\n      </sj-card>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Flat",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/super-jss/src/stories/sj-paper.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: { variant: 'flat', usePadding: 'default', useRounded: 'default' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `<sj-paper [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\">Flat paper</sj-paper>`,\n  }),\n}"
+            },
+            {
+                "name": "InfoTint",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: { variant: 'info', usePadding: true, useRounded: true, density: 2 },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [density]=\"density\">\n        <div [sj]=\"[ sj.fw(600) ]\">Info</div>\n        <div>Subtle info background for notices.</div>\n      </sj-card>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Interactive",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: { variant: 'interactive', usePadding: true, useRounded: true, density: 2 },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [density]=\"density\" [sj]=\"[ sj.td('none') ]\">\n        <div [sj]=\"[ sj.fw(600) ]\">Interactive</div>\n        <div [sj]=\"[ sj.c('neutral.dark') ]\">Hover raises slightly; use as a link region.</div>\n      </sj-card>\n    `,\n  }),\n}"
             },
             {
                 "name": "meta",
@@ -119,6 +169,16 @@
                 "deprecationMessage": "",
                 "type": "Meta",
                 "defaultValue": "{\n  title: 'SJ/Button',\n  component: SjButtonComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  argTypes: {\n    variant: { control: 'select', options: ['filled', 'outlined', 'flat'] },\n    color: {\n      control: 'select',\n      options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n    fullWidth: { control: 'boolean' },\n    useRounded: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', 'none'] },\n    usePaint: { control: 'select', options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light', 'auto', 'none'] },\n    sj: {\n      control: 'object',\n      table: { type: { summary: 'SjStyle | SjStyle[]' } },\n    },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta",
+                "defaultValue": "{\n  title: 'SJ/Card',\n  component: SjCardComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'Surface for a self-contained item. Spacing/shape come from density via useSurface/usePadding/useGap/useRounded. Variants provide base look; [sj] merges last and can override anything.',\n      },\n    },\n  },\n  argTypes: {\n    variant: {\n      control: 'select',\n      options: [\n        'default',\n        'flat',\n        'outlined',\n        'elevated',\n        'interactive',\n        'primary',\n        'secondary',\n        'info',\n        'codeSnippet',\n      ],\n    },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n    useSurface: { control: 'boolean' },\n    usePadding: { control: 'boolean' },\n    useGap: { control: 'boolean' },\n    useRounded: { control: 'boolean' },\n\n    playgroundSj: {\n      control: 'object',\n      description:\n        'Optional [sj] override for the card. This merges last and can override any style from the variant or density sugars.',\n      table: { category: 'Playground', type: { summary: 'SjStyle | SjStyle[]' } },\n    },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -164,6 +224,16 @@
                 "name": "Outlined",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: { variant: 'outlined', usePadding: true, useRounded: true, density: 2 },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [density]=\"density\">\n        <div [sj]=\"[ sj.fw(600) ]\">Outlined</div>\n        <div [sj]=\"[ sj.c('neutral.dark') ]\">Subtle stroke; great for lists.</div>\n      </sj-card>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Outlined",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/super-jss/src/stories/sj-paper.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -179,6 +249,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    variant: 'filled',\n    color: 'primary',\n    density: 2,\n    fullWidth: false,\n    useRounded: 2,\n    usePaint: 'auto',\n    sj: undefined,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <div style=\"width: 20rem\">\n        <sj-button\n          [variant]=\"variant\"\n          [color]=\"color\"\n          [density]=\"density\"\n          [fullWidth]=\"fullWidth\"\n          [useRounded]=\"useRounded\"\n          [usePaint]=\"usePaint\"\n          [sj]=\"sj\"\n        >\n          Button Playground\n        </sj-button>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Playground",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    variant: 'outlined',\n    density: 2,\n    useSurface: false,\n    usePadding: true,\n    useGap: true,\n    useRounded: true,\n    playgroundSj: {} as SjInput | undefined,\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card\n        [variant]=\"variant\"\n        [density]=\"density\"\n        [useSurface]=\"useSurface\"\n        [usePadding]=\"usePadding\"\n        [useGap]=\"useGap\"\n        [useRounded]=\"useRounded\"\n        [sj]=\"playgroundSj ?? [ sj.bg('light.light'), sj.c('dark.contrast') ]\"\n      >\n        <div [sj]=\"[ sj.fw(600) ]\">Card Playground</div>\n        <div [sj]=\"[ sj.fs(0.9), sj.c('neutral.dark') ]\">Use controls to tweak variant, density and spacing.</div>\n      </sj-card>\n    `,\n  }),\n}"
             },
             {
                 "name": "Playground",
@@ -211,6 +291,16 @@
                 "defaultValue": "{\n  parameters: {\n    controls: {\n      matchers: {\n       color: /(background|color)$/i,\n       date: /Date$/i,\n      },\n    },\n  },\n}"
             },
             {
+                "name": "PrimaryTint",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: { variant: 'primary', usePadding: true, useRounded: true, density: 2 },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [density]=\"density\">\n        <div [sj]=\"[ sj.fw(600) ]\">Primary</div>\n        <div>Card tinted with primary palette, contrast text applied.</div>\n      </sj-card>\n    `,\n  }),\n}"
+            },
+            {
                 "name": "ResponsiveOverride",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -219,6 +309,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: { useGap: 'default' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [useGap]=\"useGap\" [sj]=\"[ sj.gap({ xs: .25, md: .75 }) ]\">\n        <div [sj]=\"[ sj.p(0.3), sj.bg('primary.light'), sj.brad(0.5) ]\">xs/md gap override</div>\n        <div [sj]=\"[ sj.p(0.3), sj.bg('secondary.light'), sj.brad(0.5) ]\">(sj.gap wins)</div>\n      </sj-flex>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "SecondaryTint",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: { variant: 'secondary', usePadding: true, useRounded: true, density: 2 },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [density]=\"density\">\n        <div [sj]=\"[ sj.fw(600) ]\">Secondary</div>\n        <div>Card tinted with secondary palette.</div>\n      </sj-card>\n    `,\n  }),\n}"
             },
             {
                 "name": "Single",
@@ -249,6 +349,17 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj",
                 "file": "projects/super-jss/src/stories/sj-button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj",
+                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -424,6 +535,108 @@
                     "defaultValue": "{\n  args: { variant: 'h4', sj: { color: 'dark' } },\n  render: (args) => ({\n    props: args,\n    template: `<sj-typography [variant]=\"variant\" [sj]=\"sj\">Typography {{ variant }}</sj-typography>`,\n  }),\n}"
                 }
             ],
+            "projects/super-jss/src/stories/sj-card.stories.ts": [
+                {
+                    "name": "CodeSnippet",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { variant: 'codeSnippet', density: 2 },\n  render: (args) => ({\n    props: { ...args, sj, code: 'npm i super-jss' },\n    template: `\n      <sj-card [variant]=\"variant\" [density]=\"density\">\n        <code>{{ code }}</code>\n      </sj-card>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "Elevated",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { variant: 'elevated', usePadding: true, useRounded: true, density: 2 },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [density]=\"density\">\n        <div [sj]=\"[ sj.fw(600) ]\">Elevated</div>\n        <div [sj]=\"[ sj.c('neutral.dark') ]\">Light shadow for emphasis.</div>\n      </sj-card>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "Flat",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { variant: 'flat', usePadding: true, useRounded: true, density: 2 },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [density]=\"density\">\n        <div [sj]=\"[ sj.fw(600) ]\">Flat</div>\n        <div [sj]=\"[ sj.c('neutral.dark') ]\">No border or shadow by default.</div>\n      </sj-card>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "InfoTint",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { variant: 'info', usePadding: true, useRounded: true, density: 2 },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [density]=\"density\">\n        <div [sj]=\"[ sj.fw(600) ]\">Info</div>\n        <div>Subtle info background for notices.</div>\n      </sj-card>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "Interactive",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { variant: 'interactive', usePadding: true, useRounded: true, density: 2 },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [density]=\"density\" [sj]=\"[ sj.td('none') ]\">\n        <div [sj]=\"[ sj.fw(600) ]\">Interactive</div>\n        <div [sj]=\"[ sj.c('neutral.dark') ]\">Hover raises slightly; use as a link region.</div>\n      </sj-card>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta",
+                    "defaultValue": "{\n  title: 'SJ/Card',\n  component: SjCardComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'Surface for a self-contained item. Spacing/shape come from density via useSurface/usePadding/useGap/useRounded. Variants provide base look; [sj] merges last and can override anything.',\n      },\n    },\n  },\n  argTypes: {\n    variant: {\n      control: 'select',\n      options: [\n        'default',\n        'flat',\n        'outlined',\n        'elevated',\n        'interactive',\n        'primary',\n        'secondary',\n        'info',\n        'codeSnippet',\n      ],\n    },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n    useSurface: { control: 'boolean' },\n    usePadding: { control: 'boolean' },\n    useGap: { control: 'boolean' },\n    useRounded: { control: 'boolean' },\n\n    playgroundSj: {\n      control: 'object',\n      description:\n        'Optional [sj] override for the card. This merges last and can override any style from the variant or density sugars.',\n      table: { category: 'Playground', type: { summary: 'SjStyle | SjStyle[]' } },\n    },\n  },\n}"
+                },
+                {
+                    "name": "Outlined",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { variant: 'outlined', usePadding: true, useRounded: true, density: 2 },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [density]=\"density\">\n        <div [sj]=\"[ sj.fw(600) ]\">Outlined</div>\n        <div [sj]=\"[ sj.c('neutral.dark') ]\">Subtle stroke; great for lists.</div>\n      </sj-card>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "Playground",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    variant: 'outlined',\n    density: 2,\n    useSurface: false,\n    usePadding: true,\n    useGap: true,\n    useRounded: true,\n    playgroundSj: {} as SjInput | undefined,\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card\n        [variant]=\"variant\"\n        [density]=\"density\"\n        [useSurface]=\"useSurface\"\n        [usePadding]=\"usePadding\"\n        [useGap]=\"useGap\"\n        [useRounded]=\"useRounded\"\n        [sj]=\"playgroundSj ?? [ sj.bg('light.light'), sj.c('dark.contrast') ]\"\n      >\n        <div [sj]=\"[ sj.fw(600) ]\">Card Playground</div>\n        <div [sj]=\"[ sj.fs(0.9), sj.c('neutral.dark') ]\">Use controls to tweak variant, density and spacing.</div>\n      </sj-card>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "PrimaryTint",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { variant: 'primary', usePadding: true, useRounded: true, density: 2 },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [density]=\"density\">\n        <div [sj]=\"[ sj.fw(600) ]\">Primary</div>\n        <div>Card tinted with primary palette, contrast text applied.</div>\n      </sj-card>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "SecondaryTint",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { variant: 'secondary', usePadding: true, useRounded: true, density: 2 },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-card [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [density]=\"density\">\n        <div [sj]=\"[ sj.fw(600) ]\">Secondary</div>\n        <div>Card tinted with secondary palette.</div>\n      </sj-card>\n    `,\n  }),\n}"
+                }
+            ],
             "projects/super-jss/src/stories/sj-button.stories.ts": [
                 {
                     "name": "Filled",
@@ -547,6 +760,19 @@
                     "kind": 183
                 }
             ],
+            "projects/super-jss/src/stories/sj-card.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj",
+                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
             "projects/super-jss/src/stories/sj-flex.stories.ts": [
                 {
                     "name": "Story",
@@ -655,6 +881,116 @@
             },
             {
                 "filePath": "projects/super-jss/src/stories/sj-button.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "CodeSnippet",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Elevated",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Flat",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "InfoTint",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Interactive",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Outlined",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Playground",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "PrimaryTint",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "SecondaryTint",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",

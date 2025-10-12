@@ -15,9 +15,8 @@ import { SJ_BASE_COMPONENTS_IMPORTS, SjTypographyComponent, SjRootApi, sj } from
   template: `
     <sj-card
       host
-      usePadding
-      useGap
-      [density]="sj.density.options.default"
+      usePadding="default"
+      useGap="default"
       [sj]="[sj.h(sj.height.options.auto)]"
     >
       <sj-button

@@ -6,9 +6,6 @@ export const SjCardVariants = {
   flat: 'flat',
   elevated: 'elevated',
   interactive: 'interactive',
-  primary: 'primary',
-  secondary: 'secondary',
-  info: 'info',
   codeSnippet: 'codeSnippet',
 } as const;
 

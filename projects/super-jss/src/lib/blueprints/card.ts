@@ -7,7 +7,6 @@ export const sjBorder: SjStyle = {
   borderStyle: 'solid',
   borderWidth: 0.1,
   borderColor: 'light',
-  borderRadius: 0.5,
 };
 
 /** Light shadow used by card variants. */
@@ -42,9 +41,6 @@ const codeSnippetStyle: SjStyle = {
 const sjCardBase = (): SjStyle => ({
   display: 'flex',
   fxDir: 'column',
-  padding: { xs: 0.25, sm: 0.5, md: 0.75, lg: 1, xl: 1.25 },
-  gap: { xs: 0.25, sm: 0.5, md: 0.75, lg: 1, xl: 1.25 },
-  borderRadius: 0.5,
 });
 
 // Function API with dot-variants for better DX and autocomplete

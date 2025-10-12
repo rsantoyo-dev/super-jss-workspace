@@ -9,6 +9,7 @@ interface DemoCard {
   message: string;
   titleColor: string;
   variant: string | undefined;
+  tint?: 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'error' | 'dark' | 'neutral' | 'light';
   overrides?: any;
   usageExample: string;
 }
@@ -45,7 +46,7 @@ interface DemoCard {
           [titleColor]="card.titleColor"
           [code]="card.usageExample"
         >
-          <sj-card [variant]="$any(card.variant)" [sj]="card.overrides">
+          <sj-card [variant]="$any(card.variant)" [useTint]="$any(card.tint)" [sj]="card.overrides">
             <sj-typography variant="p" [sj]="[sj.m(0), sj.mt(0)]">{{
               card.message
             }}</sj-typography>
@@ -91,11 +92,12 @@ export class DemoCardsComponent {
         usageExample: `<sj-card variant="elevated">...</sj-card>`,
       },
       {
-        title: '<sj-card variant="primary">',
+        title: '<sj-card useTint="primary">',
         message: 'Primary background and contrast text.',
         titleColor: 'primary.contrast',
-        variant: 'primary',
-        usageExample: `<sj-card variant="primary">...</sj-card>`,
+        variant: 'flat',
+        tint: 'primary',
+        usageExample: `<sj-card useTint="primary">...</sj-card>`,
       },
       {
         title: '<sj-card variant="interactive">',
@@ -113,12 +115,13 @@ export class DemoCardsComponent {
         usageExample: `<sj-card [sj]="{ bg: 'secondary.main' }">...</sj-card>`,
       },
       {
-        title: `<sj-card variant="primary" [sj]="{ borderRadius: 4 }">`,
+        title: `<sj-card useTint="primary" [sj]="{ borderRadius: 4 }">`,
         message: 'Primary card with overridden border radius.',
         titleColor: 'primary.contrast',
-        variant: 'primary',
+        variant: 'flat',
+        tint: 'primary',
         overrides: { borderRadius: 4 },
-        usageExample: `<sj-card variant="primary" [sj]="{ borderRadius: 4 }">...</sj-card>`,
+        usageExample: `<sj-card useTint="primary" [sj]="{ borderRadius: 4 }">...</sj-card>`,
       },
       {
         title: `<sj-card variant="elevated" [sj]="{ p: 3 }">`,
