@@ -37,6 +37,7 @@ export class SjButtonComponent {
 
   // Additional sugars consistent with flex/paper philosophy
   @Input() fullWidth = false;
+  @Input() usePaint: string | 'auto' | 'none' | undefined;
   @Input() useRounded:
     | 1
     | 2
@@ -224,6 +225,11 @@ export class SjButtonComponent {
       if (this.fullWidth) {
         (style as any).width = '100%';
         (style as any).display = 'flex';
+      }
+
+      if (this.usePaint && this.usePaint !== 'none' && this.usePaint !== 'auto') {
+        (style as any).backgroundColor = `${this.usePaint}.main`;
+        (style as any).color = `${this.usePaint}.contrast`;
       }
       const theme = this.themeService.sjTheme();
       const surfaces = (theme as any).components?.surfaces ?? {};

@@ -148,7 +148,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta",
-                "defaultValue": "{\n  title: 'SJ/Button',\n  component: SjButtonComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  argTypes: {\n    variant: { control: 'select', options: ['filled', 'outlined', 'flat'] },\n    color: {\n      control: 'select',\n      options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n    fullWidth: { control: 'boolean' },\n    sj: {\n      control: 'object',\n      table: { type: { summary: 'SjStyle | SjStyle[]' } },\n    },\n  },\n}"
+                "defaultValue": "{\n  title: 'SJ/Button',\n  component: SjButtonComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  argTypes: {\n    variant: { control: 'select', options: ['filled', 'outlined', 'flat'] },\n    color: {\n      control: 'select',\n      options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n    fullWidth: { control: 'boolean' },\n    useRounded: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', 'none'] },\n    useColor: {\n      control: 'text',\n      description: 'Optional explicit text color. Use a full token like \"primary.contrast\" or a CSS color like \"#fff\". Prefer color prop for normal usage.',\n    },\n    sj: {\n      control: 'object',\n      table: { type: { summary: 'SjStyle | SjStyle[]' } },\n    },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -238,7 +238,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    variant: 'filled',\n    color: 'primary',\n    density: 2,\n    fullWidth: false,\n    sj: undefined,\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div [sj]=\"[ sj.w('20rem') ]\">\n        <sj-button\n          [variant]=\"variant\"\n          [color]=\"color\"\n          [density]=\"density\"\n          [fullWidth]=\"fullWidth\"\n          [sj]=\"sj\"\n        >\n          Button Playground\n        </sj-button>\n      </div>\n    `,\n  }),\n}"
+                "defaultValue": "{\n  args: {\n    variant: 'filled',\n    color: 'primary',\n    density: 2,\n    fullWidth: false,\n    useRounded: 2,\n    useColor: undefined,\n    sj: undefined,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <div style=\"width: 20rem\">\n        <sj-button\n          [variant]=\"variant\"\n          [color]=\"color\"\n          [density]=\"density\"\n          [fullWidth]=\"fullWidth\"\n          [useRounded]=\"useRounded\"\n          [useColor]=\"useColor || undefined\"\n          [sj]=\"sj\"\n        >\n          Button Playground\n        </sj-button>\n      </div>\n    `,\n  }),\n}"
             },
             {
                 "name": "Playground",
@@ -619,7 +619,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta",
-                    "defaultValue": "{\n  title: 'SJ/Button',\n  component: SjButtonComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  argTypes: {\n    variant: { control: 'select', options: ['filled', 'outlined', 'flat'] },\n    color: {\n      control: 'select',\n      options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n    fullWidth: { control: 'boolean' },\n    sj: {\n      control: 'object',\n      table: { type: { summary: 'SjStyle | SjStyle[]' } },\n    },\n  },\n}"
+                    "defaultValue": "{\n  title: 'SJ/Button',\n  component: SjButtonComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  argTypes: {\n    variant: { control: 'select', options: ['filled', 'outlined', 'flat'] },\n    color: {\n      control: 'select',\n      options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n    fullWidth: { control: 'boolean' },\n    useRounded: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', 'none'] },\n    useColor: {\n      control: 'text',\n      description: 'Optional explicit text color. Use a full token like \"primary.contrast\" or a CSS color like \"#fff\". Prefer color prop for normal usage.',\n    },\n    sj: {\n      control: 'object',\n      table: { type: { summary: 'SjStyle | SjStyle[]' } },\n    },\n  },\n}"
                 },
                 {
                     "name": "Outlined",
@@ -639,7 +639,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {\n    variant: 'filled',\n    color: 'primary',\n    density: 2,\n    fullWidth: false,\n    sj: undefined,\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div [sj]=\"[ sj.w('20rem') ]\">\n        <sj-button\n          [variant]=\"variant\"\n          [color]=\"color\"\n          [density]=\"density\"\n          [fullWidth]=\"fullWidth\"\n          [sj]=\"sj\"\n        >\n          Button Playground\n        </sj-button>\n      </div>\n    `,\n  }),\n}"
+                    "defaultValue": "{\n  args: {\n    variant: 'filled',\n    color: 'primary',\n    density: 2,\n    fullWidth: false,\n    useRounded: 2,\n    useColor: undefined,\n    sj: undefined,\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <div style=\"width: 20rem\">\n        <sj-button\n          [variant]=\"variant\"\n          [color]=\"color\"\n          [density]=\"density\"\n          [fullWidth]=\"fullWidth\"\n          [useRounded]=\"useRounded\"\n          [useColor]=\"useColor || undefined\"\n          [sj]=\"sj\"\n        >\n          Button Playground\n        </sj-button>\n      </div>\n    `,\n  }),\n}"
                 }
             ],
             "projects/super-jss/src/stories/sj-paper.stories.ts": [

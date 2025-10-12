@@ -16,6 +16,7 @@ const meta: Meta = {
     density: { control: { type: 'number', min: 1, max: 4, step: 1 } },
     fullWidth: { control: 'boolean' },
     useRounded: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', 'none'] },
+    usePaint: { control: 'select', options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light', 'auto', 'none'] },
     sj: {
       control: 'object',
       table: { type: { summary: 'SjStyle | SjStyle[]' } },
@@ -33,6 +34,7 @@ export const Playground: Story = {
     density: 2,
     fullWidth: false,
     useRounded: 2,
+    usePaint: 'auto',
     sj: undefined,
   },
   render: (args) => ({
@@ -45,6 +47,7 @@ export const Playground: Story = {
           [density]="density"
           [fullWidth]="fullWidth"
           [useRounded]="useRounded"
+          [usePaint]="usePaint"
           [sj]="sj"
         >
           Button Playground

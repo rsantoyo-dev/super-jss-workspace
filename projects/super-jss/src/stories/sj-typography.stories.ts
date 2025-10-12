@@ -7,6 +7,7 @@ const meta: Meta<SjTypographyComponent> = {
   tags: ['autodocs'],
   argTypes: {
     variant: { control: 'select', options: ['h1','h2','h3','h4','h5','h6','p','span','strong','small','pre','body'] },
+    sj: { control: 'object' },
   },
 };
 
@@ -14,10 +15,10 @@ export default meta;
 type Story = StoryObj<SjTypographyComponent>;
 
 export const Single: Story = {
-  args: { variant: 'h4' },
+  args: { variant: 'h4', sj: { color: 'dark' } },
   render: (args) => ({
     props: args,
-    template: `<sj-typography [variant]="variant">Typography {{ variant }}</sj-typography>`,
+    template: `<sj-typography [variant]="variant" [sj]="sj">Typography {{ variant }}</sj-typography>`,
   }),
 };
 
