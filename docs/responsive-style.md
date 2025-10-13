@@ -27,13 +27,14 @@ With sj helpers and arrays
 ]"></div>
 ```
 
-On components (e.g., sj-box)
+On components (e.g., sj-paper)
 
 ```html
-<sj-box [sj]="[
+<sj-paper [sj]="[
+  sj.d(sj.d.options.flex),
   sj.fxDir({ xs: sj.fxDir.options.column, md: sj.fxDir.options.row }),
   sj.gap({ xs: 0.5, md: 1 })
-]"></sj-box>
+]"></sj-paper>
 ```
 
 ## Breakpoints

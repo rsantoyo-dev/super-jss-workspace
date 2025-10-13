@@ -27,6 +27,8 @@ export class SjPaperComponent extends SjBaseComponent {
     | true
     | ''
     | undefined;
+  // Full paint override; for subtle surfaces prefer [useBg] or a future useTint
+  @Input() usePaint: string | 'auto' | 'none' | undefined;
   @Input() useRounded:
     | 1
     | 2
@@ -68,6 +70,34 @@ export class SjPaperComponent extends SjBaseComponent {
     const baseStyles = super.composeBaseStyle(); // Base sugars: useBg/useColor
     const variantStyles = this.getVariantStyles();
     const paperStyles: SjStyle = {};
+
+    // Apply usePaint semantics similar to button:
+    // - filled/default: bg=<fam>.main, color=<fam>.contrast
+    // - outlined: border/text = <fam>.main (bg transparent)
+    // - flat: text = <fam>.main
+    if (this.usePaint && this.usePaint !== 'none' && this.usePaint !== 'auto') {
+      const fam = String(this.usePaint);
+      const kind: 'filled' | 'outlined' | 'flat' =
+        this.variant === 'outlined'
+          ? 'outlined'
+          : this.variant === 'flat'
+          ? 'flat'
+          : 'filled'; // treat 'default' and 'filled' as filled
+
+      if (kind === 'filled') {
+        (paperStyles as any).backgroundColor = `${fam}.main`;
+        (paperStyles as any).color = `${fam}.contrast`;
+        (paperStyles as any).borderColor = 'transparent';
+      } else if (kind === 'outlined') {
+        (paperStyles as any).backgroundColor = 'transparent';
+        (paperStyles as any).color = `${fam}.main`;
+        (paperStyles as any).borderStyle = 'solid';
+        (paperStyles as any).borderWidth = 0.1;
+        (paperStyles as any).borderColor = `${fam}.main`;
+      } else {
+        (paperStyles as any).color = `${fam}.main`;
+      }
+    }
 
     const theme = this.themeService.sjTheme();
     const surfaces = theme.components?.surfaces ?? {};

@@ -9,10 +9,10 @@ import { SJ_BASE_COMPONENTS_IMPORTS, SjThemeService, sj } from 'super-jss';
   template: `
     <sj-card
       host
-      cardVariant="elevated"
-      useSurface
-      useRounded
-      [density]="3"
+      variant="elevated"
+      usePadding="comfortable"
+      useGap="comfortable"
+      useRounded="comfortable"
       [sj]="[
         sj.maxW('960px'),
         sj.mx('auto'),

@@ -46,7 +46,7 @@ interface DemoCard {
           [titleColor]="card.titleColor"
           [code]="card.usageExample"
         >
-          <sj-card [variant]="$any(card.variant)" [useTint]="$any(card.tint)" [sj]="card.overrides">
+          <sj-card [variant]="$any(card.variant)" [usePaint]="$any(card.tint)" [sj]="card.overrides">
             <sj-typography variant="p" [sj]="[sj.m(0), sj.mt(0)]">{{
               card.message
             }}</sj-typography>
@@ -92,12 +92,12 @@ export class DemoCardsComponent {
         usageExample: `<sj-card variant="elevated">...</sj-card>`,
       },
       {
-        title: '<sj-card useTint="primary">',
+        title: '<sj-card usePaint="primary">',
         message: 'Primary background and contrast text.',
         titleColor: 'primary.contrast',
         variant: 'flat',
         tint: 'primary',
-        usageExample: `<sj-card useTint="primary">...</sj-card>`,
+        usageExample: `<sj-card usePaint="primary">...</sj-card>`,
       },
       {
         title: '<sj-card variant="interactive">',
@@ -115,13 +115,13 @@ export class DemoCardsComponent {
         usageExample: `<sj-card [sj]="{ bg: 'secondary.main' }">...</sj-card>`,
       },
       {
-        title: `<sj-card useTint="primary" [sj]="{ borderRadius: 4 }">`,
+        title: `<sj-card usePaint="primary" [sj]="{ borderRadius: 4 }">`,
         message: 'Primary card with overridden border radius.',
         titleColor: 'primary.contrast',
         variant: 'flat',
         tint: 'primary',
         overrides: { borderRadius: 4 },
-        usageExample: `<sj-card useTint="primary" [sj]="{ borderRadius: 4 }">...</sj-card>`,
+        usageExample: `<sj-card usePaint="primary" [sj]="{ borderRadius: 4 }">...</sj-card>`,
       },
       {
         title: `<sj-card variant="elevated" [sj]="{ p: 3 }">`,

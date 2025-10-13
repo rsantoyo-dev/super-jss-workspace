@@ -1,5 +1,5 @@
-redirectsOrigin = "config"
 headers = []
+redirects = []
 
 [functions]
 
@@ -15,9 +15,10 @@ package = "@netlify/angular-runtime"
 publish = "/Users/ricardosantoyo/Documents/projects/sjss/super-jss-workspace/dist/super-jss-demo"
 publishOrigin = "inline"
 commandOrigin = "config"
-command = "ng build super-jss-demo"
+command = "npm ci && npm run build-storybook"
 
 [build.environment]
+NODE_VERSION = "20.19.0"
 
 [build.processing]
 
@@ -30,15 +31,3 @@ command = "ng build super-jss-demo"
 [build.processing.js]
 
 [build.services]
-
-[[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200.0
-force = false
-
-[redirects.query]
-
-[redirects.conditions]
-
-[redirects.headers]

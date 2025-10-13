@@ -28,7 +28,7 @@ export type SjInput =
   standalone: true,
   // Opt-in only: apply styles/typography when [sj] is present
   // Exclude components that render styles on other elements
-  selector: '[sj]:not(sj-host):not(sj-box):not(sj-typography):not(sj-card):not(sj-paper):not(sj-stack):not(sj-flex)',
+  selector: '[sj]:not(sj-host):not(sj-typography):not(sj-card):not(sj-paper):not(sj-stack):not(sj-flex)',
 })
 export class SjDirective implements OnChanges {
   /**
@@ -98,29 +98,7 @@ export class SjDirective implements OnChanges {
     this.renderStyles();
   }
 
-  /**
-   * Normalizes incoming styles. Core no longer expands shorthand keys; callers
-   * should provide canonical longhand properties (e.g., backgroundColor, padding)
-   * or use the API shorthand helpers (sj.sh.*) which return canonical styles.
-   * This method will still recurse into pseudo selectors to keep nested objects
-   * intact but will not mutate shorthand keys.
-   */
-  protected processShorthands(styles: SjStyle): SjStyle {
-    const newStyles: SjStyle = { ...styles };
-
-    // Recurse pseudos to normalize nested objects but do not expand shorthands
-    for (const key in newStyles) {
-      if (
-        key.startsWith('&') &&
-        typeof newStyles[key] === 'object' &&
-        newStyles[key] !== null
-      ) {
-        newStyles[key] = this.processShorthands(newStyles[key] as SjStyle);
-      }
-    }
-
-    return newStyles;
-  }
+  // Removed unused processShorthands(): generator handles shorthands directly.
 
   /**
    * Generates/attaches classes and applies inline typography + text overrides.
@@ -182,7 +160,7 @@ export class SjDirective implements OnChanges {
 
     const sjStyles = resolveAndMergeOnce(this.sj) as SjStyle;
 
-    const processedStyles = this.processShorthands(sjStyles);
+    const processedStyles = sjStyles;
 
     // Use a cache key that includes themeVersion so classes are regenerated
     // when theme/token values change.

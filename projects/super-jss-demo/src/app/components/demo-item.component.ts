@@ -8,7 +8,7 @@ import { CodeBlockComponent } from './code-block.component';
   selector: 'app-demo-item',
   imports: [CommonModule, ...SJ_BASE_COMPONENTS_IMPORTS, CodeBlockComponent],
   template: `
-    <sj-card host variant="outlined" [sj]="[sj.mt(0)]">
+    <sj-card host usePadding="default" variant="outlined" [sj]="[]">
       <sj-typography
         variant="h6"
         [sj]="[sj.c(titleColor || 'primary'), sj.mt(0)]"

@@ -15,7 +15,7 @@ import { SjThemeService } from '../services';
     <sj-paper
       [host]="true"
       variant="flat"
-      [usePadding]="density"
+      [usePadding]="useDensity"
       [useRounded]="useRounded"
       [sj]="hostSj"
     >
@@ -28,15 +28,14 @@ export class SjButtonComponent {
 
   // Visual variant: legacy names + new simplified ones
   @Input() variant: SjButtonVariant | 'filled' | 'flat' = 'filled';
-  // Theme color key to use for the variant accents
-  @Input() color: keyof SjPalette = 'primary';
+
   // Surface density level; forwarded to SjPaper host surface
-  @Input() density: 1 | 2 | 3 | 4 = 2;
+  @Input() useDensity: 1 | 2 | 3 | 4 = 2;
   // Optional user overrides to merge after the variant
   @Input() sj: SjInput | undefined;
 
   // Additional sugars consistent with flex/paper philosophy
-  @Input() fullWidth = false;
+  @Input() useFullWidth = false;
   @Input() usePaint: string | 'auto' | 'none' | undefined;
   @Input() useRounded:
     | 1
@@ -64,7 +63,7 @@ export class SjButtonComponent {
     if (v === 'filled' || v === 'outlined' || v === 'flat') {
       return (overrides: Partial<SjStyle> = {}): SjStyle => ({
         ...this.baseButtonStyles(),
-        ...this.variantStyles(v as any, this.color),
+        ...this.variantStyles(v as any),
         ...overrides,
       });
     }
@@ -128,9 +127,9 @@ export class SjButtonComponent {
   }
 
   private variantStyles(
-    kind: 'filled' | 'outlined' | 'flat',
-    color: keyof SjPalette
+    kind: 'filled' | 'outlined' | 'flat'
   ): SjStyle {
+    const color: keyof SjPalette = 'primary';
     if (kind === 'filled') {
       return {
         backgroundColor: `${color}.main`,
@@ -222,14 +221,49 @@ export class SjButtonComponent {
       // Variant + base layout
       let style = { ...this.baseButtonStyles(), ...this.selectedSj() } as SjStyle;
       // Apply fullWidth (also switch to block-level flex so width:100% takes effect)
-      if (this.fullWidth) {
+      if (this.useFullWidth) {
         (style as any).width = '100%';
         (style as any).display = 'flex';
       }
-
+      // Apply paint semantics depending on the current variant
       if (this.usePaint && this.usePaint !== 'none' && this.usePaint !== 'auto') {
-        (style as any).backgroundColor = `${this.usePaint}.main`;
-        (style as any).color = `${this.usePaint}.contrast`;
+        const fam = String(this.usePaint) as keyof SjPalette;
+        // Normalize kind to our simplified set; treat unknowns as 'filled'
+        const v = String(this.variant);
+        const kind: 'filled' | 'outlined' | 'flat' =
+          v === 'outlined' ? 'outlined' : v === 'flat' ? 'flat' : 'filled';
+
+        if (kind === 'filled') {
+          (style as any).backgroundColor = `${fam}.main`;
+          (style as any).color = `${fam}.contrast`;
+          (style as any).borderColor = 'transparent';
+          // keep existing hover/focus/disabled behaviors but tint them
+          const hov = ((style as any)['&:hover'] as any) || {};
+          ((style as any)['&:hover'] as any) = { ...hov, backgroundColor: `${fam}.dark` };
+          const foc = ((style as any)['&:focus-visible'] as any) || {};
+          ((style as any)['&:focus-visible'] as any) = { ...foc, outlineColor: `${fam}.main` };
+          const dis = ((style as any)['&:disabled'] as any) || {};
+          ((style as any)['&:disabled'] as any) = { ...dis, backgroundColor: `${fam}.main`, borderColor: 'transparent' };
+        } else if (kind === 'outlined') {
+          (style as any).backgroundColor = 'transparent';
+          (style as any).color = `${fam}.main`;
+          (style as any).borderStyle = 'solid';
+          (style as any).borderWidth = 0.1;
+          (style as any).borderColor = `${fam}.main`;
+          const hov = ((style as any)['&:hover'] as any) || {};
+          ((style as any)['&:hover'] as any) = { ...hov, backgroundColor: 'light.main' };
+          const foc = ((style as any)['&:focus-visible'] as any) || {};
+          ((style as any)['&:focus-visible'] as any) = { ...foc, outlineColor: `${fam}.main` };
+          const dis = ((style as any)['&:disabled'] as any) || {};
+          ((style as any)['&:disabled'] as any) = { ...dis, borderColor: `${fam}.main`, color: 'neutral.dark' };
+        } else {
+          // flat: paint only affects text color
+          (style as any).color = `${fam}.main`;
+          const foc = ((style as any)['&:focus-visible'] as any) || {};
+          ((style as any)['&:focus-visible'] as any) = { ...foc, outlineColor: `${fam}.main` };
+          const hov = ((style as any)['&:hover'] as any) || {};
+          ((style as any)['&:hover'] as any) = { ...hov, backgroundColor: 'light.main' };
+        }
       }
       const theme = this.themeService.sjTheme();
       const surfaces = (theme as any).components?.surfaces ?? {};

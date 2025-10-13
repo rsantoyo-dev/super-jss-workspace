@@ -9,12 +9,8 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [SjDirective] })],
   argTypes: {
     variant: { control: 'select', options: ['filled', 'outlined', 'flat'] },
-    color: {
-      control: 'select',
-      options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],
-    },
-    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },
-    fullWidth: { control: 'boolean' },
+    useDensity: { control: { type: 'number', min: 1, max: 4, step: 1 } },
+    useFullWidth: { control: 'boolean' },
     useRounded: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', 'none'] },
     usePaint: { control: 'select', options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light', 'auto', 'none'] },
     sj: {
@@ -30,9 +26,8 @@ type Story = StoryObj;
 export const Playground: Story = {
   args: {
     variant: 'filled',
-    color: 'primary',
-    density: 2,
-    fullWidth: false,
+    useDensity: 2,
+    useFullWidth: false,
     useRounded: 2,
     usePaint: 'auto',
     sj: undefined,
@@ -43,9 +38,8 @@ export const Playground: Story = {
       <div style="width: 20rem">
         <sj-button
           [variant]="variant"
-          [color]="color"
-          [density]="density"
-          [fullWidth]="fullWidth"
+          [useDensity]="useDensity"
+          [useFullWidth]="useFullWidth"
           [useRounded]="useRounded"
           [usePaint]="usePaint"
           [sj]="sj"
@@ -58,25 +52,25 @@ export const Playground: Story = {
 };
 
 export const Filled: Story = {
-  args: { variant: 'filled', color: 'primary', density: 2 },
+  args: { variant: 'filled', useDensity: 2 },
   render: (args) => ({
     props: args,
-    template: `<sj-button [variant]="variant" [color]="color" [density]="density">Click me</sj-button>`,
+    template: `<sj-button [variant]="variant" [useDensity]="useDensity">Click me</sj-button>`,
   }),
 };
 
 export const Outlined: Story = {
-  args: { variant: 'outlined', color: 'secondary', density: 2 },
+  args: { variant: 'outlined', useDensity: 2 },
   render: (args) => ({
     props: args,
-    template: `<sj-button [variant]="variant" [color]="color" [density]="density">Outlined</sj-button>`,
+    template: `<sj-button [variant]="variant" [useDensity]="useDensity">Outlined</sj-button>`,
   }),
 };
 
 export const Flat: Story = {
-  args: { variant: 'flat', color: 'primary', density: 2 },
+  args: { variant: 'flat', useDensity: 2 },
   render: (args) => ({
     props: args,
-    template: `<sj-button [variant]="variant" [color]="color" [density]="density">Flat</sj-button>`,
+    template: `<sj-button [variant]="variant" [useDensity]="useDensity">Flat</sj-button>`,
   }),
 };

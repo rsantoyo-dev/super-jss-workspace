@@ -6,7 +6,6 @@ import {
   SjThemeService,
   SjButtonComponent,
   SJ_BASE_COMPONENTS_IMPORTS,
-  SjBoxComponent,
   sj,
   SjRootApi,
 } from 'super-jss';

@@ -20,8 +20,10 @@ sj-paper is a visual surface with simple variants and a few ergonomic sugars for
   Content
 </sj-paper>
 
-<!-- Color sugars (base component): background + auto contrast -->
-<sj-paper [useBg]="'primary'" [useColor]="'auto'">Colored surface</sj-paper>
+<!-- Color sugars (base component): tint vs paint -->
+<sj-paper [useBg]="'primary'" [useColor]="'auto'">Tinted surface</sj-paper>
+<sj-paper variant="outlined" usePaint="primary">Outlined paint</sj-paper>
+<sj-paper variant="filled" usePaint="primary">Filled paint</sj-paper>
 
 <!-- Override anything via [sj] (always wins) -->
 <sj-paper [sj]="{ p: 0, brad: 0 }">Content</sj-paper>
@@ -34,6 +36,10 @@ sj-paper is a visual surface with simple variants and a few ergonomic sugars for
 - `useRounded`: `1|2|3|4 | 'compact'|'default'|'comfortable'|'spacious'|'none'|true|''` — theme density for border radius
 - `useBg`: `string | 'none'` — background token or CSS color; e.g., `primary`, `primary.light`, `#222`, `white`
 - `useColor`: `string | 'auto' | 'none'` — text color token or CSS color; `auto` picks `<family>.contrast` when `useBg` is a palette token
+- `usePaint`: `'none'|'auto'|palette` — full paint override; behavior depends on `variant`:
+  - `filled`/`default`: bg=`<family>.main`, color=`<family>.contrast`
+  - `outlined`: border/text=`<family>.main` (transparent bg)
+  - `flat`: text=`<family>.main`
 - `component`: render element tag (default `'div'`)
 - `host`: if `true`, apply styles to the parent and remove the wrapper
 - `[sj]`: fine-grained overrides (merges last and takes precedence)

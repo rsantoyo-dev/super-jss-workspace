@@ -10,7 +10,7 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 - 🎯 Atomic CSS generation: only what you use
 - 📱 Responsive + theming: `xs…xxl` breakpoints and palette tokens
 - 🎨 Pseudo‑selectors: `&:hover`, `&:focus`, etc.
-- 🧩 Ready‑made building blocks: `<sj-box>`, `<sj-card>`, `<sj-button>`
+- 🧩 Ready‑made building blocks: `<sj-paper>`, `<sj-card>`, `<sj-button>`
 
 ## Important links
 
@@ -18,6 +18,7 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 - Demo & lib workspace (StackBlitz): <https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace?file=projects/super-jss-demo/src/app/app.component.ts>
 - GitHub repository: <https://github.com/rsantoyo-dev/super-jss-workspace>
 - Deployed demo: <https://sjssdemo.netlify.app/>
+- Storybook: <https://sjss-storybook.netlify.app/>
 - NPM: <https://www.npmjs.com/package/super-jss>
 
 ## Install
@@ -50,9 +51,9 @@ import { SJ_BASE_COMPONENTS_IMPORTS, SjThemeService, sj } from 'super-jss';
         sj.bg(sj.bg.options.light.light)
       ]"
     >
-      <sj-box [sj]="[ sj.p(1), sj.brad(0.5), sj.bg(sj.bg.options.primary.main), sj.c(sj.c.options.primary.contrast) ]">
+      <sj-paper usePaint="primary" useRounded="default" usePadding="default">
         <h1 [sj]="[ sj.m(0) ]">Hello SJSS</h1>
-      </sj-box>
+      </sj-paper>
 
       <sj-button
         [sj]="[
@@ -145,9 +146,9 @@ import { SJ_BASE_COMPONENTS_IMPORTS, sj } from 'super-jss';
   standalone: true,
   imports: [SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-box [sj]="box">Content</sj-box>
-    <sj-card [variant]="'elevated'" [sj]="{ p: 1, gap: 1 }">Card content</sj-card>
-    <sj-button [variant]="'containedPrimary'" [sj]="{ w: 'fit-content' }">Click</sj-button>
+    <sj-paper usePadding="default">Content</sj-paper>
+    <sj-card variant="elevated" usePadding="default">Card content</sj-card>
+    <sj-button variant="filled" [sj]="{ w: 'fit-content' }">Click</sj-button>
   `,
 })
 export class DemoComponent {
@@ -161,7 +162,6 @@ Blueprints are also callable:
 sj.sjCard();                 // default card
 sj.sjCard.outlined();        // outlined
 sj.sjCard.elevated();        // elevated
-sj.sjCard.variants.info();   // variants attached under sjCard/sjButton
 ```
 
 ## Responsive examples

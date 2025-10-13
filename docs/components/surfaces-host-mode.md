@@ -4,30 +4,29 @@ title: Surfaces — Host vs Normal
 
 # Surfaces: Host vs Normal
 
-Surfaces (`<sj-paper>`, `<sj-card>`) can either style themselves (normal) or style their parent element (host mode). Host mode removes the wrapper so the parent becomes the surface.
+`<sj-paper>` can style itself (normal) or style its parent element (host mode). Host mode removes the wrapper so the parent becomes the surface.
 
 Why host mode?
 - Wrapperless DOM when you need to style an existing container
 - Keep semantics (e.g., style a native `<section>` or `<a>`)
 
-Normal usage
+Normal usage (self-styled)
 
 ```html
-<sj-card useSurface variant="flat" [density]="sj.density.options.default">
+<sj-paper variant="flat" usePadding="default" useRounded="default">
   Content
-  <!-- The <sj-card> element is the surface -->
-  <!-- padding/gap/radius from theme surfaces -->
-</sj-card>
+  <!-- The <sj-paper> element is the surface -->
+</sj-paper>
 ```
 
 Host mode (wrapperless)
 
 ```html
 <div>
-  <sj-card host useSurface variant="elevated">
+  <sj-paper host variant="elevated" usePadding="default" useRounded="default">
     Content
-  </sj-card>
-  <!-- sj-card removes itself; the <div> becomes the surface -->
+  </sj-paper>
+  <!-- sj-paper removes itself; the <div> becomes the surface -->
 </div>
 ```
 
@@ -41,7 +40,6 @@ Live demo
 
 Notes
 
-- `useSurface` enables padding+rounded from the current `density`
-- Individual toggles: `usePadding`, `useRounded`
-- `[sj]` overrides always merge last
-
+- Use `usePadding` and `useRounded` with density tokens ('compact'|'default'|'comfortable'|'spacious' or 1..4).
+- `[sj]` overrides always merge last.
+- Cards forward to paper internally; host mode is provided by `<sj-paper>`.

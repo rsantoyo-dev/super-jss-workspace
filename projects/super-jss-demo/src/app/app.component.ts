@@ -5,7 +5,6 @@ import {
   SjDirective,
   SjTheme,
   SJ_BASE_COMPONENTS_IMPORTS,
-  SjBoxComponent,
   SjButtonComponent,
   SjTypographyComponent,
   sj,

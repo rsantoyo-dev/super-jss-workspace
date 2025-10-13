@@ -11,6 +11,28 @@ const meta: Meta = {
       options: ['default', 'flat', 'outlined', 'filled'],
     },
     component: { control: 'select', options: ['div', 'section', 'article'] },
+    usePaint: {
+      control: 'select',
+      options: [
+        'none',
+        'auto',
+        'primary',
+        'secondary',
+        'success',
+        'info',
+        'warning',
+        'error',
+        'dark',
+        'neutral',
+        'light',
+      ],
+      table: {
+        category: 'Surface',
+        type: { summary: `'none' | 'auto' | palette family` },
+      },
+      description:
+        'Full paint override. For subtle tints prefer [useBg] or future useTint.',
+    },
     usePadding: {
       control: 'select',
       options: [
@@ -59,6 +81,7 @@ export const Playground: Story = {
   args: {
     variant: 'outlined',
     component: 'div',
+    usePaint: 'none',
     usePadding: 'default',
     useRounded: 'default',
     playgroundSj: {} as SjInput | undefined,
@@ -69,6 +92,7 @@ export const Playground: Story = {
       <sj-paper
         [variant]="variant"
         [component]="component"
+        [usePaint]="usePaint"
         [usePadding]="usePadding"
         [useRounded]="useRounded"
         [sj]="playgroundSj ?? [ sj.bg('light.light'), sj.c('dark.contrast') ]"
@@ -90,11 +114,12 @@ export const Flat: Story = {
 export const Outlined: Story = {
   args: {
     variant: 'outlined',
+    usePaint: 'none',
     usePadding: 'comfortable',
     useRounded: 'comfortable',
   },
   render: (args) => ({
     props: { ...args, sj },
-    template: `<sj-paper [variant]="variant" [usePadding]="usePadding" [useRounded]="useRounded">Outlined paper</sj-paper>`,
+    template: `<sj-paper [variant]="variant" [usePaint]="usePaint" [usePadding]="usePadding" [useRounded]="useRounded">Outlined paper</sj-paper>`,
   }),
 };

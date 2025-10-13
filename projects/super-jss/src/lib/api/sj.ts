@@ -78,10 +78,22 @@ const SjPaletteTokens = {
 // Responsive value helper: allow raw or responsive object
 type Responsive<T> = T | ResponsiveStyle;
 
-// Map every CSS property to a function producing an SjStyle (base)
+// Helper to remove index signatures from a type
+type RemoveIndex<T> = {
+  [K in keyof T as string extends K
+    ? never
+    : number extends K
+    ? never
+    : symbol extends K
+    ? never
+    : K]: T[K];
+};
+
+// Map every CSS property (without index signatures) to a function producing an SjStyle (base)
+type CssPropsNoIndex = RemoveIndex<CSS.Properties<string | number>>;
 type CssFunctionsBase = {
-  [K in keyof CSS.Properties<string | number>]-?: (
-    value: Responsive<CSS.Properties<string | number>[K]>
+  [K in keyof CssPropsNoIndex]-?: (
+    value: Responsive<CssPropsNoIndex[K]>
   ) => SjStyle;
 };
 

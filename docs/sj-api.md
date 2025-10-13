@@ -6,9 +6,9 @@
 - Curated shorthands at the root: `sj.p(1)`, `sj.bg('primary.main')`, `sj.fxJustify('space-between')`.
 - Discoverable `.options` on popular props to reduce guesswork.
 - Minimal tokens at root: `sj.palette` and `sj.breakpoints`.
-- Blueprints at root with variants: `sj.sjBox`, `sj.sjCard`, `sj.sjButton`.
+- Blueprints at root with variants: `sj.sjCard`, `sj.sjButton`.
 - Components for common UI: `<sj-paper>`, `<sj-card>`, `<sj-button>` (use `[variant]`).
-- Host mode on surfaces: add `[host]` on `<sj-paper>` / `<sj-card>` to apply styles to the parent element (wrapperless).
+- Host mode on surfaces: add `[host]` on `<sj-paper>` to apply styles to the parent element (wrapperless).
 
 This lean surface is SSR‑safe and designed for fast authoring with great IDE autocomplete.
 
@@ -34,7 +34,7 @@ This lean surface is SSR‑safe and designed for fast authoring with great IDE a
 ]"></button>
 
 <!-- Components with variants -->
-<sj-paper useSurface [density]="sj.density.options.default">Surface</sj-paper>
+<sj-paper usePadding="default" useRounded="default">Surface</sj-paper>
 <sj-card [variant]="'flat'" [sj]="{ p: 1 }">Card</sj-card>
 <sj-card [variant]="'elevated'">Card</sj-card>
 
@@ -68,8 +68,8 @@ This lean surface is SSR‑safe and designed for fast authoring with great IDE a
   - `sj.breakpoints = { xs, sm, md, lg, xl, xxl }` — breakpoint names for responsive objects.
 
 - Blueprints (builders) at root:
-  - `sj.sjBox`, `sj.sjCard`, `sj.sjButton` are functions with dot‑variants, e.g. `sj.sjCard.elevated()`.
-  - Components `<sj-card>` and `<sj-button>` accept a `variant` string (e.g. `'outlined'`) or you can use the registry values from `sj.sjCard.variants` / `sj.sjButton.variants`.
+  - `sj.sjCard`, `sj.sjButton` are functions with dot‑variants, e.g. `sj.sjCard.elevated()`.
+  - Components accept a `variant` string (e.g. `'outlined'`), or use the blueprint helpers.
 
 ## Responsive values
 

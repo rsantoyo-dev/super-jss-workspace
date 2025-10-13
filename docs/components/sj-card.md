@@ -4,12 +4,12 @@ title: sj-card Component
 
 # sj-card
 
-sj-card is a surface component with card variants. By default it styles its own element; you can also enable host mode to apply styles to the parent element (wrapperless).
+sj-card is a lean surface wrapper. It forwards to `<sj-paper>` under the hood and focuses on surface styling — not layout. Use `<sj-flex>` or `[sj]` inside the card for layout.
 
 Usage
 
 ```html
-<sj-card [variant]="'flat'" [sj]="[ sj.gap(0.5) ]">
+<sj-card variant="flat" usePadding="default">
   <h3 [sj]="{ m: 0 }">Title</h3>
   <p [sj]="{ m: 0 }">Body</p>
   <sj-button [variant]="'outlined'" [sj]="{ px: 1 }">Action</sj-button>
@@ -22,38 +22,26 @@ Usage
 
 API
 
-| Input    | Type                   | Description                                    |
-|----------|------------------------|------------------------------------------------|
-| `variant`| `SjCardVariant\|string` | Card variant (e.g., 'flat', 'elevated', ...)   |
-| `sj`     | `SjStyle\|SjStyle[]`    | Additional styles merged after the variant     |
-| `useSurface` | `boolean`            | Enable density-driven padding + gap + rounded  |
-| `usePadding` | `boolean`            | Enable density padding only                    |
-| `useGap`     | `boolean`            | Enable density gap only                        |
-| `useRounded` | `boolean`            | Enable density border radius only              |
-| `density`    | `1\|2\|3\|4`         | Density level (default 2); prefer tokens       |
-| `host`       | `boolean`             | If true, apply styles to parent element and remove wrapper |
+| Input      | Type                                                       | Description                                      |
+|------------|------------------------------------------------------------|--------------------------------------------------|
+| `variant`  | `'flat'|'outlined'|'elevated'|'interactive'`               | Surface style and behavior                       |
+| `usePaint` | `'none'|'auto'|paletteFamily`                              | Full paint override; variant decides how to apply|
+| `usePadding`| `1\|2\|3\|4|'compact'|'default'|'comfortable'|'spacious'|'none'` | Container padding from theme surfaces            |
+| `useRounded`| `1\|2\|3\|4|'compact'|'default'|'comfortable'|'spacious'|'none'` | Border radius from theme surfaces                |
+| `sj`       | `SjStyle\|SjStyle[]`                                       | Merges last; can override anything               |
 
 Variants
 
-- default
-- outlined
 - flat
-- elevated
-- interactive
-- primary, secondary
-- info, codeSnippet
+- outlined
+- elevated (adds shadow)
+- interactive (hover raise)
 
 Override precedence
 
 - The [sj] input merges after the variant, so your styles win.
 
-Host mode
+Notes
 
-```html
-<div>
-  <sj-card host useSurface [variant]="'elevated'">
-    Content
-  </sj-card>
-  <!-- sj-card removes itself; the <div> becomes the card surface -->
-</div>
-```
+- For subtle color, prefer `[sj]="sj.bg('<family>.light')"` and `sj.c('...')`. For full color, use `usePaint`.
+- Layout is not part of the card API. Use `<sj-flex>` or `[sj]` inside the card for stacks/rows.

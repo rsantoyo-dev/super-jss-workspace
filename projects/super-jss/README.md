@@ -10,7 +10,7 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 - 🎯 Atomic CSS generation: only what you use
 - 📱 Responsive + theming: `xs…xxl` breakpoints and palette tokens
 - 🎨 Pseudo‑selectors: `&:hover`, `&:focus`, etc.
-- 🧩 Ready‑made building blocks: `<sj-box>`, `<sj-paper>`, `<sj-card>`, `<sj-button>`
+- 🧩 Ready‑made building blocks: `<sj-paper>`, `<sj-card>`, `<sj-button>`
 
 ## Important links
 
@@ -18,6 +18,7 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 - Demo & lib workspace (StackBlitz): <https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace?file=projects/super-jss-demo/src/app/app.component.ts>
 - GitHub repository: <https://github.com/rsantoyo-dev/super-jss-workspace>
 - Deployed demo: <https://sjssdemo.netlify.app/>
+- Storybook: <https://sjss-storybook.netlify.app/>
 - NPM: <https://www.npmjs.com/package/super-jss>
 
 ## Install
@@ -40,7 +41,8 @@ import { SJ_BASE_COMPONENTS_IMPORTS, SjThemeService, sj } from 'super-jss';
   imports: [SJ_BASE_COMPONENTS_IMPORTS],
   template: `
     <sj-paper
-      useSurface
+      usePadding="default"
+      useRounded="default"
       [sj]="[
         sj.display(sj.display.options.flex),
         sj.flexDirection({ xs: sj.flexDirection.options.column, md: sj.flexDirection.options.row }),
@@ -51,9 +53,9 @@ import { SJ_BASE_COMPONENTS_IMPORTS, SjThemeService, sj } from 'super-jss';
         sj.bg(sj.palette.light.light)
       ]"
     >
-      <sj-box [sj]="[ sj.p(1), sj.brad(0.5), sj.bg(sj.bg.options.primary.main), sj.c(sj.c.options.primary.contrast) ]">
+      <sj-paper usePaint="primary" useRounded="default" usePadding="default">
         <h1 [sj]="[ sj.m(0) ]">Hello SJSS</h1>
-      </sj-box>
+      </sj-paper>
 
       <sj-button
         [sj]="[
@@ -146,8 +148,8 @@ import { SJ_BASE_COMPONENTS_IMPORTS, sj } from 'super-jss';
   standalone: true,
   imports: [SJ_BASE_COMPONENTS_IMPORTS],
   template: `
-    <sj-box [sj]="box">Content</sj-box>
-    <sj-paper variant="outlined" useSurface [density]="sj.density.options.default">Surface</sj-paper>
+    <sj-paper usePadding="default">Content</sj-paper>
+    <sj-paper variant="outlined" usePadding="default" useRounded="default">Surface</sj-paper>
     <sj-card [variant]="'elevated'" [sj]="{ p: 1, gap: 1 }">Card content</sj-card>
     <sj-button [variant]="'containedPrimary'" [sj]="{ w: 'fit-content' }">Click</sj-button>
   `,
@@ -238,20 +240,20 @@ Use in templates (HTML):
 
 ```html
 <!-- Component form: padding+gap+rounded by density -->
-<sj-paper variant="outlined" useSurface [density]="sj.density.options.default">
+<sj-paper variant="outlined" usePadding="default" useRounded="default">
   Content
 </sj-paper>
 
 <!-- Individual toggles (still density‑driven) -->
-<sj-paper variant="outlined" usePadding [density]="sj.density.options.default">…</sj-paper>
-<sj-paper variant="outlined" useRounded [density]="sj.density.options.default">…</sj-paper>
+<sj-paper variant="outlined" usePadding="default">…</sj-paper>
+<sj-paper variant="outlined" useRounded="default">…</sj-paper>
 ```
 
 Host mode (apply surface to the parent element):
 
 ```html
 <div>
-  <sj-paper host useSurface [density]="sj.density.options.default">
+  <sj-paper host usePadding="default" useRounded="default">
     Content
   </sj-paper>
 </div>

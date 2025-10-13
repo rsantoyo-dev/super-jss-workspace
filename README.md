@@ -10,9 +10,10 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 - 🎯 Atomic CSS generation: only what you use
 - 📱 Responsive + theming: `xs…xxl` breakpoints and palette tokens
 - 🎨 Pseudo‑selectors: `&:hover`, `&:focus`, etc.
-- 🧩 Ready‑made building blocks: `<sj-box>`, `<sj-card>`, `<sj-button>`
+- 🧩 Ready‑made building blocks: `<sj-paper>`, `<sj-card>`, `<sj-button>`
 
 Docs: <https://sjss.dev>
+Storybook: <https://sjss-storybook.netlify.app/>
 
 ## Why SJSS?
 
@@ -51,16 +52,9 @@ import { SJ_BASE_COMPONENTS_IMPORTS, SjThemeService, sj } from 'super-jss';
         sj.bg(sj.bg.options.light.light)
       ]"
     >
-      <sj-box
-        [sj]="[
-          sj.p(1),
-          sj.brad(0.5),
-          sj.bg(sj.bg.options.primary.main),
-          sj.c(sj.c.options.primary.contrast)
-        ]"
-      >
+      <sj-paper usePaint="primary" usePadding="default" useRounded="default">
         <h1 [sj]="[sj.m(0)]">Hello SJSS</h1>
-      </sj-box>
+      </sj-paper>
 
       <sj-button
         [sj]="[
@@ -130,16 +124,9 @@ import { SJ_BASE_COMPONENTS_IMPORTS, SjThemeService, sj } from 'super-jss';
         sj.bg(sj.bg.options.light.light)
       ]"
     >
-      <sj-box
-        [sj]="[
-          sj.p(1),
-          sj.brad(0.5),
-          sj.bg(sj.bg.options.primary.main),
-          sj.c(sj.c.options.primary.contrast)
-        ]"
-      >
+      <sj-paper usePaint="primary" usePadding="default" useRounded="default">
         <h1 [sj]="[sj.m(0)]">Hello SJSS</h1>
-      </sj-box>
+      </sj-paper>
 
       <sj-button
         [sj]="[
@@ -238,7 +225,7 @@ sj.active({ transform: 'scale(0.95)' });
 Pre-built components with variants:
 
 ```html
-<sj-box [sj]="sj.flex.center()">...</sj-box>
+<sj-paper usePadding="default">...</sj-paper>
 <sj-card variant="elevated" [sj]="customStyles">...</sj-card>
 <sj-button variant="contained">Click me</sj-button>
 <sj-typography variant="h2">Heading</sj-typography>

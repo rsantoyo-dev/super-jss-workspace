@@ -20,12 +20,16 @@ import { SectionContainerComponent } from './section-container.component';
   ],
   template: `
     <app-section title="Typography">
-      <sj-typography variant="p"
-        >SJSS typography is seamlessly integrated with your theme. Styles for
-        HTML elements like h1, p, and span are defined in your active theme and
-        automatically applied. You can easily override these default styles
-        using the [sj] directive for fine-grained control.</sj-typography
-      >
+      <sj-paper usePadding [useColor]="'info'" [variant]="'outlined'">
+        <sj-typography variant="p"
+          >SJSS typography is seamlessly integrated with your theme. Styles for
+          HTML elements like h1, p, and span are defined in your active theme
+          and automatically applied. You can easily override these default
+          styles using the [sj] directive for fine-grained
+          control.</sj-typography
+        >
+      </sj-paper>
+
       <sj-typography
         variant="pre"
         [sj]="{ m: 0, mt: 1, p: 1, bg: 'light.light', brad: 0.5 }"
