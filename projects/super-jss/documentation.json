@@ -128,7 +128,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<SjCardComponent>",
-                "defaultValue": "{\n  title: 'SJ/Card',\n  component: SjCardComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: { control: 'select', options: ['flat', 'outlined', 'elevated', 'interactive'] },\n    paint: { control: 'select', options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'] },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n    usePadding: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', true, ''] },\n    useRounded: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', true, ''] },\n    useGutters: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', true, ''] },\n    useGap: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', true, ''] },\n    useCol: { control: 'boolean' },\n    useCenter: { control: 'boolean' },\n    useBetween: { control: 'boolean' },\n    useAround: { control: 'boolean' },\n    useEvenly: { control: 'boolean' },\n    useWrap: { control: 'boolean' },\n    useInline: { control: 'boolean' },\n    fullClickable: { control: 'boolean' },\n    sj: { control: 'object' },\n  },\n}"
+                "defaultValue": "{\n  title: 'SJ/Card',\n  component: SjCardComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: { control: 'select', options: ['flat', 'outlined', 'elevated', 'interactive'] },\n    usePaint: {\n      control: 'select',\n      options: ['none', 'auto', 'primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    usePadding: { control: 'select', options: [undefined, 'none', 1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious'] },\n    useRounded: { control: 'select', options: [undefined, 'none', 1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious'] },\n    sj: { control: 'object' },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -198,7 +198,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    variant: 'flat',\n    density: 2,\n  },\n  render: (args) => ({\n    props: args,\n    template: `<sj-card [variant]=\"variant\" [paint]=\"paint\" [density]=\"density\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [useGutters]=\"useGutters\" [useGap]=\"useGap\" [useCol]=\"useCol\" [useCenter]=\"useCenter\" [useBetween]=\"useBetween\" [useAround]=\"useAround\" [useEvenly]=\"useEvenly\" [useWrap]=\"useWrap\" [useInline]=\"useInline\" [fullClickable]=\"fullClickable\" [sj]=\"sj\">Card Content</sj-card>`,\n  }),\n}"
+                "defaultValue": "{\n  args: {\n    variant: 'flat',\n    usePaint: 'none',\n  },\n  render: (args) => ({\n    props: args,\n    template: `<sj-card [variant]=\"variant\" [usePaint]=\"usePaint\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [sj]=\"sj\">Card Content</sj-card>`,\n  }),\n}"
             },
             {
                 "name": "Playground",
@@ -558,7 +558,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<SjCardComponent>",
-                    "defaultValue": "{\n  title: 'SJ/Card',\n  component: SjCardComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: { control: 'select', options: ['flat', 'outlined', 'elevated', 'interactive'] },\n    paint: { control: 'select', options: ['primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'] },\n    density: { control: { type: 'number', min: 1, max: 4, step: 1 } },\n    usePadding: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', true, ''] },\n    useRounded: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', true, ''] },\n    useGutters: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', true, ''] },\n    useGap: { control: 'select', options: [1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious', true, ''] },\n    useCol: { control: 'boolean' },\n    useCenter: { control: 'boolean' },\n    useBetween: { control: 'boolean' },\n    useAround: { control: 'boolean' },\n    useEvenly: { control: 'boolean' },\n    useWrap: { control: 'boolean' },\n    useInline: { control: 'boolean' },\n    fullClickable: { control: 'boolean' },\n    sj: { control: 'object' },\n  },\n}"
+                    "defaultValue": "{\n  title: 'SJ/Card',\n  component: SjCardComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: { control: 'select', options: ['flat', 'outlined', 'elevated', 'interactive'] },\n    usePaint: {\n      control: 'select',\n      options: ['none', 'auto', 'primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    usePadding: { control: 'select', options: [undefined, 'none', 1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious'] },\n    useRounded: { control: 'select', options: [undefined, 'none', 1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious'] },\n    sj: { control: 'object' },\n  },\n}"
                 },
                 {
                     "name": "Playground",
@@ -568,7 +568,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {\n    variant: 'flat',\n    density: 2,\n  },\n  render: (args) => ({\n    props: args,\n    template: `<sj-card [variant]=\"variant\" [paint]=\"paint\" [density]=\"density\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [useGutters]=\"useGutters\" [useGap]=\"useGap\" [useCol]=\"useCol\" [useCenter]=\"useCenter\" [useBetween]=\"useBetween\" [useAround]=\"useAround\" [useEvenly]=\"useEvenly\" [useWrap]=\"useWrap\" [useInline]=\"useInline\" [fullClickable]=\"fullClickable\" [sj]=\"sj\">Card Content</sj-card>`,\n  }),\n}"
+                    "defaultValue": "{\n  args: {\n    variant: 'flat',\n    usePaint: 'none',\n  },\n  render: (args) => ({\n    props: args,\n    template: `<sj-card [variant]=\"variant\" [usePaint]=\"usePaint\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [sj]=\"sj\">Card Content</sj-card>`,\n  }),\n}"
                 }
             ],
             "projects/super-jss/.storybook/preview.ts": [
