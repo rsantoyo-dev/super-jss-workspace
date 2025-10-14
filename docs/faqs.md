@@ -23,6 +23,16 @@ This FAQ consolidates the most common questions about Super JavaScript Styleshee
 - Q: Do I need Angular Material?
   - A: No. Use SJSS alone or combine them: SJSS for layout, tokens, and dynamic theming; Material for ready‑made components if you like.
 
+### How does SJSS compare (quick view)?
+
+| Library           | Type               | Theming/Tokens     | Angular 20 |
+|-------------------|--------------------|--------------------|------------|
+| Tailwind CSS      | Utility framework  | Config‑based       | Generic    |
+| Angular Material  | Component library  | Material tokens    | Yes        |
+| PrimeNG           | Component library  | Theme packs        | Yes        |
+| MUI (React)       | Component library  | Rich (React)       | No         |
+| SJSS              | Styling library    | Tokens + responsive| Yes        |
+
 - Q: How does SJSS compare to styled‑components or Emotion?
   - A: Those are component‑scoped CSS‑in‑JS for React. SJSS is Angular‑native, atomic, and signal‑driven. Similar flexibility (theming, pseudo‑selectors), different ecosystem and ergonomics.
 

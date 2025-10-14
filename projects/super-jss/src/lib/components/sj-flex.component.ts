@@ -71,7 +71,7 @@ export class SjFlexComponent extends SjBaseComponent {
   }
 
   override composeStyle(): SjStyle {
-    const base = super.composeBaseStyle(); // Base sugars: useBg/useColor
+    // Intentionally ignore base color sugars (useBg/useColor) for layout-only flex
     const flexStyles: SjStyle = {
       display: this.useInline ? 'inline-flex' : 'flex',
       flexDirection: this.useCol ? 'column' : 'row',
@@ -135,8 +135,8 @@ export class SjFlexComponent extends SjBaseComponent {
       }
     }
 
-    // Final merge order: flex-specific first, then base sugars so bg/color can win, then user [sj]
-    const finalStyles: SjStyle = { ...flexStyles, ...base };
+    // Final merge order: flex-specific, then user [sj]
+    const finalStyles: SjStyle = { ...flexStyles };
     if (this.sj) {
       const items = Array.isArray(this.sj) ? this.sj : [this.sj];
       for (const item of items) {

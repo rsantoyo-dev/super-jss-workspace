@@ -6,7 +6,112 @@
     "interceptors": [],
     "classes": [],
     "directives": [],
-    "components": [],
+    "components": [
+        {
+            "name": "SjBasicArrayExampleComponent",
+            "id": "component-SjBasicArrayExampleComponent-a20a715fccd4984d4e85478c2c99f803f15f8f1fa909d83def46e183c6c05c864c06034c0c08fbe19d9b38713162a5ad1b944690f08e257e21408247b10670ff",
+            "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "story-sj-basic-array",
+            "styleUrls": [],
+            "styles": [],
+            "template": "<div [sj]=\"styles\">\n  bound to class property typed as SjStyle[] (merged left→right)\n</div>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "styles",
+                    "defaultValue": "[\n    { padding: '12px' },\n    { backgroundColor: '#f7f7f7' },\n    { borderRadius: '6px' },\n  ]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "SjStyle[]",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 32
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "SjDirective",
+                    "type": "directive"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import type { Meta, StoryObj } from '@storybook/angular';\nimport { moduleMetadata } from '@storybook/angular';\nimport { Component } from '@angular/core';\nimport { SjDirective } from 'super-jss';\nimport type { SjStyle } from 'super-jss';\n\n@Component({\n  standalone: true,\n  selector: 'story-sj-basic-class',\n  imports: [SjDirective],\n  template: ` <div [sj]=\"box\">bound to class property typed as SjStyle</div> `,\n})\nclass SjBasicClassExampleComponent {\n  box: SjStyle = {\n    padding: '20px',\n    backgroundColor: '#eeeeee',\n    borderRadius: '8px',\n  };\n}\n\n@Component({\n  standalone: true,\n  selector: 'story-sj-basic-array',\n  imports: [SjDirective],\n  template: `\n    <div [sj]=\"styles\">\n      bound to class property typed as SjStyle[] (merged left→right)\n    </div>\n  `,\n})\nclass SjBasicArrayExampleComponent {\n  styles: SjStyle[] = [\n    { padding: '12px' },\n    { backgroundColor: '#f7f7f7' },\n    { borderRadius: '6px' },\n  ];\n}\n\nconst meta: Meta = {\n  title: 'SJ/[sj] Basic',\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [\n        SjDirective,\n        SjBasicClassExampleComponent,\n        SjBasicArrayExampleComponent,\n      ],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          '[sj] is a lightweight Angular directive that lets you author styles as plain JavaScript objects directly in your templates.\\n\\nKey ideas:\\n- Use camelCase CSS properties (e.g., padding, backgroundColor).\\n- Values can be raw CSS (px, rem, hex) or theme tokens — start with raw CSS here.\\n- Inline or class property: bind a literal object, or a component field typed as `SjStyle` or `SjStyle[]`.\\n- You can pass a single object, an array of objects (merged left→right), or responsive objects like { xs, sm, md, ... }.\\n- The library generates tiny atomic CSS classes at runtime; no global CSS needed.\\n\\nThese first examples avoid theming to show the most basic form.',\n      },\n    },\n  },\n};\n\nexport default meta;\ntype Story = StoryObj;\n\nexport const Padding: Story = {\n  name: 'Padding (simple object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{ padding: '24px', backgroundColor: '#f7f7f7', borderRadius: '8px' }\">\n        div with padding: 24px (plain CSS units)\n      </div>\n    `,\n  }),\n};\n\nexport const ResponsivePadding: Story = {\n  name: 'Padding (responsive object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{\n        padding: { xs: '16px', sm: '24px', md: '32px' },\n        backgroundColor: '#f7f7f7',\n        borderRadius: '8px'\n      }\">\n        div with responsive padding: xs=16px, sm=24px, md=32px\n      </div>\n    `,\n  }),\n};\n\nexport const ClassPropertySjStyle: Story = {\n  name: 'Class property (SjStyle)',\n  render: () => ({ props: {}, template: `<story-sj-basic-class></story-sj-basic-class>` }),\n  parameters: { docs: { disable: true } },\n};\n\nexport const ClassPropertySjStyleArray: Story = {\n  name: 'Class property (SjStyle[])',\n  render: () => ({ props: {}, template: `<story-sj-basic-array></story-sj-basic-array>` }),\n  parameters: { docs: { disable: true } },\n};\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": []
+        },
+        {
+            "name": "SjBasicClassExampleComponent",
+            "id": "component-SjBasicClassExampleComponent-a20a715fccd4984d4e85478c2c99f803f15f8f1fa909d83def46e183c6c05c864c06034c0c08fbe19d9b38713162a5ad1b944690f08e257e21408247b10670ff",
+            "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "story-sj-basic-class",
+            "styleUrls": [],
+            "styles": [],
+            "template": "<div [sj]=\"box\">bound to class property typed as SjStyle</div>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "box",
+                    "defaultValue": "{\n    padding: '20px',\n    backgroundColor: '#eeeeee',\n    borderRadius: '8px',\n  }",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "SjStyle",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "SjDirective",
+                    "type": "directive"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import type { Meta, StoryObj } from '@storybook/angular';\nimport { moduleMetadata } from '@storybook/angular';\nimport { Component } from '@angular/core';\nimport { SjDirective } from 'super-jss';\nimport type { SjStyle } from 'super-jss';\n\n@Component({\n  standalone: true,\n  selector: 'story-sj-basic-class',\n  imports: [SjDirective],\n  template: ` <div [sj]=\"box\">bound to class property typed as SjStyle</div> `,\n})\nclass SjBasicClassExampleComponent {\n  box: SjStyle = {\n    padding: '20px',\n    backgroundColor: '#eeeeee',\n    borderRadius: '8px',\n  };\n}\n\n@Component({\n  standalone: true,\n  selector: 'story-sj-basic-array',\n  imports: [SjDirective],\n  template: `\n    <div [sj]=\"styles\">\n      bound to class property typed as SjStyle[] (merged left→right)\n    </div>\n  `,\n})\nclass SjBasicArrayExampleComponent {\n  styles: SjStyle[] = [\n    { padding: '12px' },\n    { backgroundColor: '#f7f7f7' },\n    { borderRadius: '6px' },\n  ];\n}\n\nconst meta: Meta = {\n  title: 'SJ/[sj] Basic',\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [\n        SjDirective,\n        SjBasicClassExampleComponent,\n        SjBasicArrayExampleComponent,\n      ],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          '[sj] is a lightweight Angular directive that lets you author styles as plain JavaScript objects directly in your templates.\\n\\nKey ideas:\\n- Use camelCase CSS properties (e.g., padding, backgroundColor).\\n- Values can be raw CSS (px, rem, hex) or theme tokens — start with raw CSS here.\\n- Inline or class property: bind a literal object, or a component field typed as `SjStyle` or `SjStyle[]`.\\n- You can pass a single object, an array of objects (merged left→right), or responsive objects like { xs, sm, md, ... }.\\n- The library generates tiny atomic CSS classes at runtime; no global CSS needed.\\n\\nThese first examples avoid theming to show the most basic form.',\n      },\n    },\n  },\n};\n\nexport default meta;\ntype Story = StoryObj;\n\nexport const Padding: Story = {\n  name: 'Padding (simple object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{ padding: '24px', backgroundColor: '#f7f7f7', borderRadius: '8px' }\">\n        div with padding: 24px (plain CSS units)\n      </div>\n    `,\n  }),\n};\n\nexport const ResponsivePadding: Story = {\n  name: 'Padding (responsive object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{\n        padding: { xs: '16px', sm: '24px', md: '32px' },\n        backgroundColor: '#f7f7f7',\n        borderRadius: '8px'\n      }\">\n        div with responsive padding: xs=16px, sm=24px, md=32px\n      </div>\n    `,\n  }),\n};\n\nexport const ClassPropertySjStyle: Story = {\n  name: 'Class property (SjStyle)',\n  render: () => ({ props: {}, template: `<story-sj-basic-class></story-sj-basic-class>` }),\n  parameters: { docs: { disable: true } },\n};\n\nexport const ClassPropertySjStyleArray: Story = {\n  name: 'Class property (SjStyle[])',\n  render: () => ({ props: {}, template: `<story-sj-basic-array></story-sj-basic-array>` }),\n  parameters: { docs: { disable: true } },\n};\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": []
+        }
+    ],
     "modules": [],
     "miscellaneous": {
         "variables": [
@@ -18,7 +123,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {},\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [sj]=\"[{ justifyContent: 'space-between', alignItems: 'center' }, sj.minH(6), sj.bg('light.dark'), sj.p(0.5) ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">Left</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">Right</div>\n      </sj-flex>\n    `,\n  }),\n}"
+                "defaultValue": "{\n  args: {},\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [sj]=\"[{ justifyContent: 'space-between', alignItems: 'center' }, sj.minH(6), sj.p(0.5) ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">Left</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">Right</div>\n      </sj-flex>\n    `,\n  }),\n}"
             },
             {
                 "name": "AllVariants",
@@ -39,6 +144,26 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    playgroundSj: {\n      padding: '2px',\n    },\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [sj]=\"[ sj.p(3) ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">One</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">Two</div>\n      </sj-flex>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "ClassPropertySjStyle",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Class property (SjStyle)',\n  render: () => ({ props: {}, template: `<story-sj-basic-class></story-sj-basic-class>` }),\n  parameters: { docs: { disable: true } },\n}"
+            },
+            {
+                "name": "ClassPropertySjStyleArray",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Class property (SjStyle[])',\n  render: () => ({ props: {}, template: `<story-sj-basic-array></story-sj-basic-array>` }),\n  parameters: { docs: { disable: true } },\n}"
             },
             {
                 "name": "ColumnCentered",
@@ -134,11 +259,31 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta",
+                "defaultValue": "{\n  title: 'SJ/[sj] Basic',\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [\n        SjDirective,\n        SjBasicClassExampleComponent,\n        SjBasicArrayExampleComponent,\n      ],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          '[sj] is a lightweight Angular directive that lets you author styles as plain JavaScript objects directly in your templates.\\n\\nKey ideas:\\n- Use camelCase CSS properties (e.g., padding, backgroundColor).\\n- Values can be raw CSS (px, rem, hex) or theme tokens — start with raw CSS here.\\n- Inline or class property: bind a literal object, or a component field typed as `SjStyle` or `SjStyle[]`.\\n- You can pass a single object, an array of objects (merged left→right), or responsive objects like { xs, sm, md, ... }.\\n- The library generates tiny atomic CSS classes at runtime; no global CSS needed.\\n\\nThese first examples avoid theming to show the most basic form.',\n      },\n    },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta",
+                "defaultValue": "{\n  title: 'SJ/[sj] Basic + Shortcuts',\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'Popular shorthand keys for common CSS: p, px, py, m, mx, my, brad, bg, c, w, h, d, fxDir, fxJustify, fxAItems, gap.\\n' +\n          'Shorthands are authoring sugar — the generator outputs full CSS behind the scenes. These examples still use plain CSS values (no theming).',\n      },\n    },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/super-jss/src/stories/sj-flex.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta",
-                "defaultValue": "{\n  title: 'SJ/Flex',\n  component: SjFlexComponent as any,\n  tags: ['autodocs'],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'A powerful and flexible layout component. Use the `use*` inputs for common flexbox patterns and density adjustments. For fine-grained control, including responsive layouts and properties like `justifyContent` or `alignItems`, use the `[sj]` input.',\n      },\n    },\n  },\n  decorators: [\n    moduleMetadata({\n      // Needed for [sj] on native elements inside story templates\n      imports: [SjDirective],\n    }),\n  ],\n  argTypes: {\n    component: {\n      control: 'select',\n      options: ['div', 'section', 'article', 'span'],\n    },\n    host: { control: 'boolean' },\n    useCol: { control: 'boolean' },\n    useWrap: { control: 'boolean' },\n    useInline: { control: 'boolean' },\n    useCenter: { control: 'boolean' },\n    useBetween: { control: 'boolean' },\n    useAround: { control: 'boolean' },\n    useEvenly: { control: 'boolean' },\n\n    useGap: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    usePadding: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    // Playground-only: allow testing the [sj] input with object or array\n    playgroundSj: {\n      control: 'object',\n      description:\n        'Use this to pass any style object to the component. This is the primary way to apply detailed styles like `justifyContent`, `alignItems`, or responsive values. E.g., `{ justifyContent: \"flex-end\" }`.',\n      table: {\n        category: 'Playground',\n        type: { summary: 'SjStyle | SjStyle[]' },\n      },\n    },\n    // Playground: color sugars from base component\n    useBg: {\n      control: 'text',\n      description:\n        'Background color token or CSS color (e.g., primary, primary.light, #111, white).',\n      table: { category: 'Playground' },\n    },\n    useColor: {\n      control: 'text',\n      description:\n        'Text color token or CSS color. Use \"auto\" to derive <family>.contrast when useBg is a palette token.',\n      table: { category: 'Playground' },\n    },\n  },\n}"
+                "defaultValue": "{\n  title: 'SJ/Flex',\n  component: SjFlexComponent as any,\n  tags: ['autodocs'],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'A powerful and flexible layout component. Use the `use*` inputs for common flexbox patterns and density adjustments. For fine-grained control, including responsive layouts and properties like `justifyContent` or `alignItems`, use the `[sj]` input.',\n      },\n    },\n  },\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  argTypes: {\n    component: {\n      control: 'select',\n      options: ['div', 'section', 'article', 'span'],\n    },\n    host: { control: 'boolean' },\n    useCol: { control: 'boolean' },\n    useWrap: { control: 'boolean' },\n    useInline: { control: 'boolean' },\n    useCenter: { control: 'boolean' },\n    useBetween: { control: 'boolean' },\n    useAround: { control: 'boolean' },\n    useEvenly: { control: 'boolean' },\n\n    useGap: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    usePadding: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    // Playground-only: allow testing the [sj] input with object or array\n    playgroundSj: {\n      control: 'object',\n      description:\n        'Use this to pass any style object to the component. This is the primary way to apply detailed styles like `justifyContent`, `alignItems`, or responsive values. E.g., `{ justifyContent: \"flex-end\" }`.',\n      table: {\n        category: 'Playground',\n        type: { summary: 'SjStyle | SjStyle[]' },\n      },\n    },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -154,11 +299,41 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-root-api-tokens.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta",
+                "defaultValue": "{\n  title: 'SJ/sjRootApi + Theming & Tokens',\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'Use theme palette tokens and `.options` for discoverable, theme-aware styling. Also shows sj.compose for merging style parts.',\n      },\n    },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-root-api.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta",
+                "defaultValue": "{\n  title: 'SJ/sjRootApi Basic',\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'The `sj` root API exposes every CSS property as a typed function and a small set of curated shorthands.\\n' +\n          'Use it inline for great IDE autocomplete in Angular templates. These basic examples use plain CSS values (no theming).',\n      },\n    },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/super-jss/src/stories/sj-typography.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<SjTypographyComponent>",
                 "defaultValue": "{\n  title: 'SJ/Typography',\n  component: SjTypographyComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: { control: 'select', options: ['h1','h2','h3','h4','h5','h6','p','span','strong','small','pre','body'] },\n    sj: { control: 'object' },\n  },\n}"
+            },
+            {
+                "name": "MixingFunctionsAndObjects",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-root-api.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Mixing sj.* and literal objects',\n  render: () => ({\n    props: { sj },\n    template: `\n      <div [sj]=\"[ sj.padding('12px'), { backgroundColor: 'red', marginTop: '2px', borderRadius: '6px', color: '#fff' } ]\">\n        [sj] can take an array mixing sj.* helpers and plain objects\n      </div>\n    `,\n  }),\n}"
             },
             {
                 "name": "Outlined",
@@ -179,6 +354,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    variant: 'outlined',\n    usePaint: 'none',\n    usePadding: 'comfortable',\n    useRounded: 'comfortable',\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `<sj-paper [variant]=\"variant\" [usePaint]=\"usePaint\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\">Outlined paper</sj-paper>`,\n  }),\n}"
+            },
+            {
+                "name": "Padding",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Padding (simple object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{ padding: '24px', backgroundColor: '#f7f7f7', borderRadius: '8px' }\">\n        div with padding: 24px (plain CSS units)\n      </div>\n    `,\n  }),\n}"
             },
             {
                 "name": "Playground",
@@ -208,7 +393,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    component: 'section',\n    host: false,\n    useCol: false,\n    useWrap: false,\n    useInline: false,\n    useCenter: false,\n    useBetween: false,\n    useAround: false,\n    useEvenly: false,\n    useGap: 'none',\n    usePadding: 'none',\n    playgroundSj: {} as SjInput | undefined,\n    useBg: 'light.light',\n    useColor: 'auto',\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex\n        [component]=\"component\"\n        [host]=\"host\"\n        [useCol]=\"useCol\"\n        [useWrap]=\"useWrap\"\n        [useInline]=\"useInline\"\n        [useCenter]=\"useCenter\"\n        [useBetween]=\"useBetween\"\n        [useAround]=\"useAround\"\n        [useEvenly]=\"useEvenly\"\n        [useGap]=\"useGap\"\n        [usePadding]=\"usePadding\"\n        [useBg]=\"useBg\"\n        [useColor]=\"useColor\"\n        [sj]=\"playgroundSj\"\n      >\n        <div [sj]=\"[ sj.p(0.5), sj.c('primary.contrast'), sj.bg('primary'), sj.brad(0.5) ]\">A</div>\n        <div [sj]=\"[ sj.padding(0.5),  sj.color('secondary.contrast'), sj.backgroundColor('secondary'), sj.brad(0.5) ]\">B</div>\n        <div [sj]=\"{padding:0.5, color:'info.contrast', backgroundColor:'info', borderRadius:0.5}\">C</div>\n      </sj-flex>\n    `,\n  }),\n}"
+                "defaultValue": "{\n  args: {\n    component: 'section',\n    host: false,\n    useCol: false,\n    useWrap: false,\n    useInline: false,\n    useCenter: false,\n    useBetween: false,\n    useAround: false,\n    useEvenly: false,\n    useGap: 'none',\n    usePadding: 'none',\n    playgroundSj: {} as SjInput | undefined,\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex\n        [component]=\"component\"\n        [host]=\"host\"\n        [useCol]=\"useCol\"\n        [useWrap]=\"useWrap\"\n        [useInline]=\"useInline\"\n        [useCenter]=\"useCenter\"\n        [useBetween]=\"useBetween\"\n        [useAround]=\"useAround\"\n        [useEvenly]=\"useEvenly\"\n        [useGap]=\"useGap\"\n        [usePadding]=\"usePadding\"\n        [sj]=\"playgroundSj\"\n      >\n        <div [sj]=\"[ sj.p(0.5), sj.c('primary.contrast'), sj.bg('primary'), sj.brad(0.5) ]\">A</div>\n        <div [sj]=\"[ sj.padding(0.5),  sj.color('secondary.contrast'), sj.backgroundColor('secondary'), sj.brad(0.5) ]\">B</div>\n        <div [sj]=\"{padding:0.5, color:'info.contrast', backgroundColor:'info', borderRadius:0.5}\">C</div>\n      </sj-flex>\n    `,\n  }),\n}"
             },
             {
                 "name": "Playground",
@@ -228,7 +413,37 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Preview",
-                "defaultValue": "{\n  parameters: {\n    controls: {\n      matchers: {\n       color: /(background|color)$/i,\n       date: /Date$/i,\n      },\n    },\n  },\n}"
+                "defaultValue": "{\n  parameters: {\n    controls: {\n      matchers: {\n       color: /(background|color)$/i,\n       date: /Date$/i,\n      },\n    },\n    options: {\n      storySort: {\n        order: [\n          'SJ',\n          [\n            '[sj] Basic',\n            '[sj] Basic + Shortcuts',\n            'sjRootApi Basic',\n            'sjRootApi + Theming & Tokens',\n            'Typography',\n            'Flex',\n            'Paper',\n            'Card',\n            'Button',\n          ],\n        ],\n      },\n    },\n  },\n}"
+            },
+            {
+                "name": "PropsAndShorthands",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-root-api.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Properties & shorthands (inline array)',\n  render: () => ({\n    props: { sj },\n    template: `\n      <div [sj]=\"[ sj.padding('16px'), sj.backgroundColor('#f7f7f7'), sj.color('#333'), sj.brad('8px') ]\">\n        padding:16px, bg:#f7f7f7, color:#333, radius:8px\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "QuickLayout",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Quick layout (d/flex + fx*)',\n  render: () => ({\n    template: `\n      <div [sj]=\"{ d: 'flex', fxDir: 'row', fxJustify: 'space-between', fxAItems: 'center', gap: '8px', bg: '#f0f0f0', p: '8px', brad: '6px' }\">\n        <div [sj]=\"{ bg: '#ccc', p: '4px', brad: '4px' }\">A</div>\n        <div [sj]=\"{ bg: '#ccc', p: '4px', brad: '4px' }\">B</div>\n        <div [sj]=\"{ bg: '#ccc', p: '4px', brad: '4px' }\">C</div>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "ResponsiveLonghand",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-root-api.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Responsive (longhand CSS functions)',\n  render: () => ({\n    props: { sj },\n    template: `\n      <div [sj]=\"[ sj.padding({ xs: '8px', md: '16px' }), sj.backgroundColor('#eee'), sj.brad('8px') ]\">\n        padding: xs 8px → md 16px (sj.padding responsive object)\n      </div>\n    `,\n  }),\n}"
             },
             {
                 "name": "ResponsiveOverride",
@@ -241,6 +456,36 @@
                 "defaultValue": "{\n  args: { useGap: 'default' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [useGap]=\"useGap\" [sj]=\"[ sj.gap({ xs: .25, md: .75 }) ]\">\n        <div [sj]=\"[ sj.p(0.3), sj.bg('primary.light'), sj.brad(0.5) ]\">xs/md gap override</div>\n        <div [sj]=\"[ sj.p(0.3), sj.bg('secondary.light'), sj.brad(0.5) ]\">(sj.gap wins)</div>\n      </sj-flex>\n    `,\n  }),\n}"
             },
             {
+                "name": "ResponsivePadding",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Padding (responsive object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{\n        padding: { xs: '16px', sm: '24px', md: '32px' },\n        backgroundColor: '#f7f7f7',\n        borderRadius: '8px'\n      }\">\n        div with responsive padding: xs=16px, sm=24px, md=32px\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "ResponsiveShorthands",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Responsive shorthands',\n  render: () => ({\n    template: `\n      <div [sj]=\"{\n        p: { xs: '8px', md: '16px' },\n        brad: { xs: '4px', md: '8px' },\n        bg: '#f7f7f7'\n      }\">\n        p: xs 8px → md 16px, brad: xs 4px → md 8px\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "ShorthandsSimple",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Shorthands (simple object)',\n  render: () => ({\n    template: `\n      <div [sj]=\"{ bg: '#036', c: '#fff', p: '12px', brad: '8px' }\">\n        bg:#036, c:#fff, p:12px, brad:8px\n      </div>\n    `,\n  }),\n}"
+            },
+            {
                 "name": "Single",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -249,6 +494,26 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: { variant: 'h4', sj: { color: 'dark' } },\n  render: (args) => ({\n    props: args,\n    template: `<sj-typography [variant]=\"variant\" [sj]=\"sj\">Typography {{ variant }}</sj-typography>`,\n  }),\n}"
+            },
+            {
+                "name": "SpacingAxes",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Spacing axes (px/py/m)',\n  render: () => ({\n    template: `\n      <div [sj]=\"{ px: '16px', py: '8px', m: '4px', bg: '#f7f7f7', brad: '6px' }\">\n        px:16px, py:8px, m:4px\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "TokensAndOptions",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-root-api-tokens.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Tokens & .options',\n  render: () => ({\n    props: { sj },\n    template: `\n      <div [sj]=\"[\n        sj.bg(sj.bg.options.primary.main),\n        sj.c(sj.c.options.primary.contrast),\n        sj.p('12px'),\n        sj.brad('8px')\n      ]\">\n        Using palette tokens via .options (primary.main / primary.contrast)\n      </div>\n    `,\n  }),\n}"
             },
             {
                 "name": "WrapAndInline",
@@ -290,6 +555,28 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "StoryObj",
+                "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj",
+                "file": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj",
                 "file": "projects/super-jss/src/stories/sj-flex.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -302,6 +589,28 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj",
                 "file": "projects/super-jss/src/stories/sj-paper.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj",
+                "file": "projects/super-jss/src/stories/sj-root-api-tokens.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj",
+                "file": "projects/super-jss/src/stories/sj-root-api.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -330,7 +639,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {},\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [sj]=\"[{ justifyContent: 'space-between', alignItems: 'center' }, sj.minH(6), sj.bg('light.dark'), sj.p(0.5) ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">Left</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">Right</div>\n      </sj-flex>\n    `,\n  }),\n}"
+                    "defaultValue": "{\n  args: {},\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [sj]=\"[{ justifyContent: 'space-between', alignItems: 'center' }, sj.minH(6), sj.p(0.5) ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">Left</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">Right</div>\n      </sj-flex>\n    `,\n  }),\n}"
                 },
                 {
                     "name": "BasicRow",
@@ -390,7 +699,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta",
-                    "defaultValue": "{\n  title: 'SJ/Flex',\n  component: SjFlexComponent as any,\n  tags: ['autodocs'],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'A powerful and flexible layout component. Use the `use*` inputs for common flexbox patterns and density adjustments. For fine-grained control, including responsive layouts and properties like `justifyContent` or `alignItems`, use the `[sj]` input.',\n      },\n    },\n  },\n  decorators: [\n    moduleMetadata({\n      // Needed for [sj] on native elements inside story templates\n      imports: [SjDirective],\n    }),\n  ],\n  argTypes: {\n    component: {\n      control: 'select',\n      options: ['div', 'section', 'article', 'span'],\n    },\n    host: { control: 'boolean' },\n    useCol: { control: 'boolean' },\n    useWrap: { control: 'boolean' },\n    useInline: { control: 'boolean' },\n    useCenter: { control: 'boolean' },\n    useBetween: { control: 'boolean' },\n    useAround: { control: 'boolean' },\n    useEvenly: { control: 'boolean' },\n\n    useGap: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    usePadding: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    // Playground-only: allow testing the [sj] input with object or array\n    playgroundSj: {\n      control: 'object',\n      description:\n        'Use this to pass any style object to the component. This is the primary way to apply detailed styles like `justifyContent`, `alignItems`, or responsive values. E.g., `{ justifyContent: \"flex-end\" }`.',\n      table: {\n        category: 'Playground',\n        type: { summary: 'SjStyle | SjStyle[]' },\n      },\n    },\n    // Playground: color sugars from base component\n    useBg: {\n      control: 'text',\n      description:\n        'Background color token or CSS color (e.g., primary, primary.light, #111, white).',\n      table: { category: 'Playground' },\n    },\n    useColor: {\n      control: 'text',\n      description:\n        'Text color token or CSS color. Use \"auto\" to derive <family>.contrast when useBg is a palette token.',\n      table: { category: 'Playground' },\n    },\n  },\n}"
+                    "defaultValue": "{\n  title: 'SJ/Flex',\n  component: SjFlexComponent as any,\n  tags: ['autodocs'],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'A powerful and flexible layout component. Use the `use*` inputs for common flexbox patterns and density adjustments. For fine-grained control, including responsive layouts and properties like `justifyContent` or `alignItems`, use the `[sj]` input.',\n      },\n    },\n  },\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  argTypes: {\n    component: {\n      control: 'select',\n      options: ['div', 'section', 'article', 'span'],\n    },\n    host: { control: 'boolean' },\n    useCol: { control: 'boolean' },\n    useWrap: { control: 'boolean' },\n    useInline: { control: 'boolean' },\n    useCenter: { control: 'boolean' },\n    useBetween: { control: 'boolean' },\n    useAround: { control: 'boolean' },\n    useEvenly: { control: 'boolean' },\n\n    useGap: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    usePadding: {\n      control: 'select',\n      options: [\n        undefined,\n        'none',\n        1,\n        2,\n        3,\n        4,\n        'compact',\n        'default',\n        'comfortable',\n        'spacious',\n      ],\n    },\n    // Playground-only: allow testing the [sj] input with object or array\n    playgroundSj: {\n      control: 'object',\n      description:\n        'Use this to pass any style object to the component. This is the primary way to apply detailed styles like `justifyContent`, `alignItems`, or responsive values. E.g., `{ justifyContent: \"flex-end\" }`.',\n      table: {\n        category: 'Playground',\n        type: { summary: 'SjStyle | SjStyle[]' },\n      },\n    },\n  },\n}"
                 },
                 {
                     "name": "Playground",
@@ -400,7 +709,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {\n    component: 'section',\n    host: false,\n    useCol: false,\n    useWrap: false,\n    useInline: false,\n    useCenter: false,\n    useBetween: false,\n    useAround: false,\n    useEvenly: false,\n    useGap: 'none',\n    usePadding: 'none',\n    playgroundSj: {} as SjInput | undefined,\n    useBg: 'light.light',\n    useColor: 'auto',\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex\n        [component]=\"component\"\n        [host]=\"host\"\n        [useCol]=\"useCol\"\n        [useWrap]=\"useWrap\"\n        [useInline]=\"useInline\"\n        [useCenter]=\"useCenter\"\n        [useBetween]=\"useBetween\"\n        [useAround]=\"useAround\"\n        [useEvenly]=\"useEvenly\"\n        [useGap]=\"useGap\"\n        [usePadding]=\"usePadding\"\n        [useBg]=\"useBg\"\n        [useColor]=\"useColor\"\n        [sj]=\"playgroundSj\"\n      >\n        <div [sj]=\"[ sj.p(0.5), sj.c('primary.contrast'), sj.bg('primary'), sj.brad(0.5) ]\">A</div>\n        <div [sj]=\"[ sj.padding(0.5),  sj.color('secondary.contrast'), sj.backgroundColor('secondary'), sj.brad(0.5) ]\">B</div>\n        <div [sj]=\"{padding:0.5, color:'info.contrast', backgroundColor:'info', borderRadius:0.5}\">C</div>\n      </sj-flex>\n    `,\n  }),\n}"
+                    "defaultValue": "{\n  args: {\n    component: 'section',\n    host: false,\n    useCol: false,\n    useWrap: false,\n    useInline: false,\n    useCenter: false,\n    useBetween: false,\n    useAround: false,\n    useEvenly: false,\n    useGap: 'none',\n    usePadding: 'none',\n    playgroundSj: {} as SjInput | undefined,\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex\n        [component]=\"component\"\n        [host]=\"host\"\n        [useCol]=\"useCol\"\n        [useWrap]=\"useWrap\"\n        [useInline]=\"useInline\"\n        [useCenter]=\"useCenter\"\n        [useBetween]=\"useBetween\"\n        [useAround]=\"useAround\"\n        [useEvenly]=\"useEvenly\"\n        [useGap]=\"useGap\"\n        [usePadding]=\"usePadding\"\n        [sj]=\"playgroundSj\"\n      >\n        <div [sj]=\"[ sj.p(0.5), sj.c('primary.contrast'), sj.bg('primary'), sj.brad(0.5) ]\">A</div>\n        <div [sj]=\"[ sj.padding(0.5),  sj.color('secondary.contrast'), sj.backgroundColor('secondary'), sj.brad(0.5) ]\">B</div>\n        <div [sj]=\"{padding:0.5, color:'info.contrast', backgroundColor:'info', borderRadius:0.5}\">C</div>\n      </sj-flex>\n    `,\n  }),\n}"
                 },
                 {
                     "name": "ResponsiveOverride",
@@ -453,6 +762,58 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\n  args: { variant: 'h4', sj: { color: 'dark' } },\n  render: (args) => ({\n    props: args,\n    template: `<sj-typography [variant]=\"variant\" [sj]=\"sj\">Typography {{ variant }}</sj-typography>`,\n  }),\n}"
+                }
+            ],
+            "projects/super-jss/src/stories/sj-directive-basics.stories.ts": [
+                {
+                    "name": "ClassPropertySjStyle",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'Class property (SjStyle)',\n  render: () => ({ props: {}, template: `<story-sj-basic-class></story-sj-basic-class>` }),\n  parameters: { docs: { disable: true } },\n}"
+                },
+                {
+                    "name": "ClassPropertySjStyleArray",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'Class property (SjStyle[])',\n  render: () => ({ props: {}, template: `<story-sj-basic-array></story-sj-basic-array>` }),\n  parameters: { docs: { disable: true } },\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta",
+                    "defaultValue": "{\n  title: 'SJ/[sj] Basic',\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [\n        SjDirective,\n        SjBasicClassExampleComponent,\n        SjBasicArrayExampleComponent,\n      ],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          '[sj] is a lightweight Angular directive that lets you author styles as plain JavaScript objects directly in your templates.\\n\\nKey ideas:\\n- Use camelCase CSS properties (e.g., padding, backgroundColor).\\n- Values can be raw CSS (px, rem, hex) or theme tokens — start with raw CSS here.\\n- Inline or class property: bind a literal object, or a component field typed as `SjStyle` or `SjStyle[]`.\\n- You can pass a single object, an array of objects (merged left→right), or responsive objects like { xs, sm, md, ... }.\\n- The library generates tiny atomic CSS classes at runtime; no global CSS needed.\\n\\nThese first examples avoid theming to show the most basic form.',\n      },\n    },\n  },\n}"
+                },
+                {
+                    "name": "Padding",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'Padding (simple object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{ padding: '24px', backgroundColor: '#f7f7f7', borderRadius: '8px' }\">\n        div with padding: 24px (plain CSS units)\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "ResponsivePadding",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'Padding (responsive object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{\n        padding: { xs: '16px', sm: '24px', md: '32px' },\n        backgroundColor: '#f7f7f7',\n        borderRadius: '8px'\n      }\">\n        div with responsive padding: xs=16px, sm=24px, md=32px\n      </div>\n    `,\n  }),\n}"
                 }
             ],
             "projects/super-jss/src/stories/sj-button.stories.ts": [
@@ -571,6 +932,122 @@
                     "defaultValue": "{\n  args: {\n    variant: 'flat',\n    usePaint: 'none',\n  },\n  render: (args) => ({\n    props: args,\n    template: `<sj-card [variant]=\"variant\" [usePaint]=\"usePaint\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\" [sj]=\"sj\">Card Content</sj-card>`,\n  }),\n}"
                 }
             ],
+            "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts": [
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta",
+                    "defaultValue": "{\n  title: 'SJ/[sj] Basic + Shortcuts',\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'Popular shorthand keys for common CSS: p, px, py, m, mx, my, brad, bg, c, w, h, d, fxDir, fxJustify, fxAItems, gap.\\n' +\n          'Shorthands are authoring sugar — the generator outputs full CSS behind the scenes. These examples still use plain CSS values (no theming).',\n      },\n    },\n  },\n}"
+                },
+                {
+                    "name": "QuickLayout",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'Quick layout (d/flex + fx*)',\n  render: () => ({\n    template: `\n      <div [sj]=\"{ d: 'flex', fxDir: 'row', fxJustify: 'space-between', fxAItems: 'center', gap: '8px', bg: '#f0f0f0', p: '8px', brad: '6px' }\">\n        <div [sj]=\"{ bg: '#ccc', p: '4px', brad: '4px' }\">A</div>\n        <div [sj]=\"{ bg: '#ccc', p: '4px', brad: '4px' }\">B</div>\n        <div [sj]=\"{ bg: '#ccc', p: '4px', brad: '4px' }\">C</div>\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "ResponsiveShorthands",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'Responsive shorthands',\n  render: () => ({\n    template: `\n      <div [sj]=\"{\n        p: { xs: '8px', md: '16px' },\n        brad: { xs: '4px', md: '8px' },\n        bg: '#f7f7f7'\n      }\">\n        p: xs 8px → md 16px, brad: xs 4px → md 8px\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "ShorthandsSimple",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'Shorthands (simple object)',\n  render: () => ({\n    template: `\n      <div [sj]=\"{ bg: '#036', c: '#fff', p: '12px', brad: '8px' }\">\n        bg:#036, c:#fff, p:12px, brad:8px\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "SpacingAxes",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'Spacing axes (px/py/m)',\n  render: () => ({\n    template: `\n      <div [sj]=\"{ px: '16px', py: '8px', m: '4px', bg: '#f7f7f7', brad: '6px' }\">\n        px:16px, py:8px, m:4px\n      </div>\n    `,\n  }),\n}"
+                }
+            ],
+            "projects/super-jss/src/stories/sj-root-api-tokens.stories.ts": [
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-root-api-tokens.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta",
+                    "defaultValue": "{\n  title: 'SJ/sjRootApi + Theming & Tokens',\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'Use theme palette tokens and `.options` for discoverable, theme-aware styling. Also shows sj.compose for merging style parts.',\n      },\n    },\n  },\n}"
+                },
+                {
+                    "name": "TokensAndOptions",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-root-api-tokens.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'Tokens & .options',\n  render: () => ({\n    props: { sj },\n    template: `\n      <div [sj]=\"[\n        sj.bg(sj.bg.options.primary.main),\n        sj.c(sj.c.options.primary.contrast),\n        sj.p('12px'),\n        sj.brad('8px')\n      ]\">\n        Using palette tokens via .options (primary.main / primary.contrast)\n      </div>\n    `,\n  }),\n}"
+                }
+            ],
+            "projects/super-jss/src/stories/sj-root-api.stories.ts": [
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-root-api.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta",
+                    "defaultValue": "{\n  title: 'SJ/sjRootApi Basic',\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjDirective] })],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          'The `sj` root API exposes every CSS property as a typed function and a small set of curated shorthands.\\n' +\n          'Use it inline for great IDE autocomplete in Angular templates. These basic examples use plain CSS values (no theming).',\n      },\n    },\n  },\n}"
+                },
+                {
+                    "name": "MixingFunctionsAndObjects",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-root-api.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'Mixing sj.* and literal objects',\n  render: () => ({\n    props: { sj },\n    template: `\n      <div [sj]=\"[ sj.padding('12px'), { backgroundColor: 'red', marginTop: '2px', borderRadius: '6px', color: '#fff' } ]\">\n        [sj] can take an array mixing sj.* helpers and plain objects\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "PropsAndShorthands",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-root-api.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'Properties & shorthands (inline array)',\n  render: () => ({\n    props: { sj },\n    template: `\n      <div [sj]=\"[ sj.padding('16px'), sj.backgroundColor('#f7f7f7'), sj.color('#333'), sj.brad('8px') ]\">\n        padding:16px, bg:#f7f7f7, color:#333, radius:8px\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "ResponsiveLonghand",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-root-api.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'Responsive (longhand CSS functions)',\n  render: () => ({\n    props: { sj },\n    template: `\n      <div [sj]=\"[ sj.padding({ xs: '8px', md: '16px' }), sj.backgroundColor('#eee'), sj.brad('8px') ]\">\n        padding: xs 8px → md 16px (sj.padding responsive object)\n      </div>\n    `,\n  }),\n}"
+                }
+            ],
             "projects/super-jss/.storybook/preview.ts": [
                 {
                     "name": "preview",
@@ -580,7 +1057,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Preview",
-                    "defaultValue": "{\n  parameters: {\n    controls: {\n      matchers: {\n       color: /(background|color)$/i,\n       date: /Date$/i,\n      },\n    },\n  },\n}"
+                    "defaultValue": "{\n  parameters: {\n    controls: {\n      matchers: {\n       color: /(background|color)$/i,\n       date: /Date$/i,\n      },\n    },\n    options: {\n      storySort: {\n        order: [\n          'SJ',\n          [\n            '[sj] Basic',\n            '[sj] Basic + Shortcuts',\n            'sjRootApi Basic',\n            'sjRootApi + Theming & Tokens',\n            'Typography',\n            'Flex',\n            'Paper',\n            'Card',\n            'Button',\n          ],\n        ],\n      },\n    },\n  },\n}"
                 }
             ]
         },
@@ -613,6 +1090,32 @@
                     "kind": 183
                 }
             ],
+            "projects/super-jss/src/stories/sj-directive-basics.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj",
+                    "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj",
+                    "file": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
             "projects/super-jss/src/stories/sj-flex.stories.ts": [
                 {
                     "name": "Story",
@@ -633,6 +1136,32 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj",
                     "file": "projects/super-jss/src/stories/sj-paper.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "projects/super-jss/src/stories/sj-root-api-tokens.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj",
+                    "file": "projects/super-jss/src/stories/sj-root-api-tokens.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "projects/super-jss/src/stories/sj-root-api.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj",
+                    "file": "projects/super-jss/src/stories/sj-root-api.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -760,6 +1289,144 @@
                 "status": "low"
             },
             {
+                "filePath": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "SjBasicArrayExampleComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "SjBasicClassExampleComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ClassPropertySjStyle",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ClassPropertySjStyleArray",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Padding",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ResponsivePadding",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "QuickLayout",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ResponsiveShorthands",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ShorthandsSimple",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "SpacingAxes",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "projects/super-jss/src/stories/sj-flex.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -911,6 +1578,86 @@
             },
             {
                 "filePath": "projects/super-jss/src/stories/sj-paper.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-root-api-tokens.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-root-api-tokens.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TokensAndOptions",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-root-api-tokens.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-root-api.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-root-api.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "MixingFunctionsAndObjects",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-root-api.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "PropsAndShorthands",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-root-api.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ResponsiveLonghand",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-root-api.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",

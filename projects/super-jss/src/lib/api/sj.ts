@@ -116,7 +116,6 @@ type CssOverrides = {
 };
 
 type ReservedRootKeys =
-  | 'compose'
   | 'hover'
   | 'focus'
   | 'active'
@@ -154,9 +153,6 @@ export type SjApi = {
   }};
 
   // Helpers
-  compose: (
-    ...styles: Array<Partial<SjStyle> | undefined | null | false>
-  ) => SjStyle;
   hover: (
     style: SjStyle | Array<Partial<SjStyle> | undefined | null | false>
   ) => SjStyle;
@@ -183,13 +179,6 @@ export interface SjRootApi extends SjApi, SjCssApiWithOptions, SjShApiWithOption
 
 // Small helpers implemented explicitly
 const helpers = {
-  compose: (
-    ...styles: Array<Partial<SjStyle> | undefined | null | false>
-  ): SjStyle => {
-    const parts = styles.filter((s): s is Partial<SjStyle> => Boolean(s));
-    return parts.reduce((acc, s) => Object.assign(acc, s), {} as SjStyle);
-  },
-
   hover: (
     style: SjStyle | Array<Partial<SjStyle> | undefined | null | false>
   ): SjStyle => {
@@ -480,7 +469,6 @@ const sjBase: SjApi = {
     },
   },
 
-  compose: helpers.compose,
   hover: helpers.hover,
   focus: helpers.focus,
   active: helpers.active,

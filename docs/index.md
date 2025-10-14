@@ -1,3 +1,18 @@
+<div align="center">
+
+<h1>SJSS — Design Systems. Reimagined for Angular.</h1>
+<p>Build dynamic, token‑driven, and responsive UIs using Angular Signals.<br>
+SJSS brings Tailwind’s speed and MUI’s theming — natively in Angular 20.</p>
+
+<p>
+  <a href="/installation" class="md-button md-button--primary">🚀 Get Started</a>
+  <a href="https://sjssdemo.netlify.app/" class="md-button">👀 View Demo</a>
+  <a href="https://sjss-storybook.netlify.app/" class="md-button">📚 Open Storybook</a>
+  <a href="https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace?file=projects/super-jss-demo/src/app/app.component.ts" class="md-button">⚡ Try on StackBlitz</a>
+</p>
+
+</div>
+
 # Super JSS — Atomic CSS‑in‑JS for Angular 20
 
 [![npm version](https://img.shields.io/npm/v/super-jss.svg)](https://www.npmjs.com/package/super-jss)
@@ -20,6 +35,23 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 - Deployed demo: <https://sjssdemo.netlify.app/>
 - Storybook: <https://sjss-storybook.netlify.app/>
 - NPM: <https://www.npmjs.com/package/super-jss>
+
+## Why SJSS
+
+- Angular‑native, powered by Signals; no build‑time plugin required.
+- Atomic CSS at runtime: ship only the CSS you use.
+- Token‑driven theming with responsive objects on every property.
+- Minimal, ergonomic API: write plain CSS (or shorthands) as TS objects.
+
+### Compare at a glance
+
+| Library           | Type               | Theming/Tokens         | Angular 20 | Notes |
+|-------------------|--------------------|------------------------|------------|------|
+| Tailwind CSS      | Utility framework  | Limited via config     | Generic    | Build‑time, globals |
+| Angular Material  | Component library  | Material tokens        | Yes        | Prescriptive UI components |
+| PrimeNG           | Component library  | Theme packs            | Yes        | Theming via CSS variables |
+| MUI (React)       | Component library  | Rich theming (React)   | No         | React‑only |
+| SJSS              | Styling library    | Tokens + responsive API| Yes        | Atomic CSS‑in‑JS, Signals‑native |
 
 ## Install
 
@@ -128,11 +160,7 @@ sj.palette.primary.main;
 sj.breakpoints.md;
 
 // Composition helpers
-sj.compose(
-  sj.display('flex'),
-  sj.justifyContent('center'),
-  sj.active({ transform: 'scale(0.98)' })
-);
+// Prefer passing an array to [sj] instead of composing in TS
 ```
 
 ## Components and blueprints

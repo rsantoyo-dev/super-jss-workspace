@@ -15,12 +15,7 @@ const meta: Meta = {
       },
     },
   },
-  decorators: [
-    moduleMetadata({
-      // Needed for [sj] on native elements inside story templates
-      imports: [SjDirective],
-    }),
-  ],
+  decorators: [moduleMetadata({ imports: [SjDirective] })],
   argTypes: {
     component: {
       control: 'select',
@@ -75,19 +70,6 @@ const meta: Meta = {
         type: { summary: 'SjStyle | SjStyle[]' },
       },
     },
-    // Playground: color sugars from base component
-    useBg: {
-      control: 'text',
-      description:
-        'Background color token or CSS color (e.g., primary, primary.light, #111, white).',
-      table: { category: 'Playground' },
-    },
-    useColor: {
-      control: 'text',
-      description:
-        'Text color token or CSS color. Use "auto" to derive <family>.contrast when useBg is a palette token.',
-      table: { category: 'Playground' },
-    },
   },
 };
 
@@ -108,8 +90,6 @@ export const Playground: Story = {
     useGap: 'none',
     usePadding: 'none',
     playgroundSj: {} as SjInput | undefined,
-    useBg: 'light.light',
-    useColor: 'auto',
   },
   render: (args) => ({
     props: { ...args, sj },
@@ -126,8 +106,6 @@ export const Playground: Story = {
         [useEvenly]="useEvenly"
         [useGap]="useGap"
         [usePadding]="usePadding"
-        [useBg]="useBg"
-        [useColor]="useColor"
         [sj]="playgroundSj"
       >
         <div [sj]="[ sj.p(0.5), sj.c('primary.contrast'), sj.bg('primary'), sj.brad(0.5) ]">A</div>
@@ -189,7 +167,7 @@ export const Alignment: Story = {
   render: (args) => ({
     props: { ...args, sj },
     template: `
-      <sj-flex [sj]="[{ justifyContent: 'space-between', alignItems: 'center' }, sj.minH(6), sj.bg('light.dark'), sj.p(0.5) ]">
+      <sj-flex [sj]="[{ justifyContent: 'space-between', alignItems: 'center' }, sj.minH(6), sj.p(0.5) ]">
         <div [sj]="[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]">Left</div>
         <div [sj]="[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]">Right</div>
       </sj-flex>

@@ -60,7 +60,6 @@ This lean surface is SSR‑safe and designed for fast authoring with great IDE a
   - Shorthands also expose `.options` where it makes sense: `sj.bg.options`, `sj.c.options`, `sj.d.options`, `sj.fxDir.options`, `sj.fxJustify.options`, `sj.fxAItems.options`.
 
 - Helpers:
-  - `sj.compose(...parts)` — Merge style parts left→right.
   - `sj.hover(style | style[])`, `sj.focus(...)`, `sj.active(...)`, `sj.disabled(...)` — Pseudo helpers that accept a single style or an array of styles.
 
 - Tokens:

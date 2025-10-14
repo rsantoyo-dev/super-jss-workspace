@@ -139,22 +139,14 @@ Or with helpers:
 
 ## 6) Reuse styles from TypeScript
 
-Define `SjStyle` objects in code and compose them in the template. You can also compose in TS with `sj.compose(...)`.
+Define `SjStyle` objects in code and merge them via an array in the template.
 
 ```ts
 import { SjStyle, sj } from 'super-jss';
 
-const cardBase: SjStyle = sj.compose(
-  sj.p(1),
-  sj.brad(0.5),
-  sj.bg('light.light')
-);
+const cardBase: SjStyle = { p: 1, brad: 0.5, bg: 'light.light' };
 
-const cardPrimary: SjStyle = sj.compose(
-  cardBase,
-  sj.bg('primary.main'),
-  sj.c('primary.contrast')
-);
+const cardPrimary: SjStyle = { bg: 'primary.main', c: 'primary.contrast' };
 ```
 
 ## Where to go next

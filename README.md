@@ -2,6 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/super-jss.svg)](https://www.npmjs.com/package/super-jss)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/super-jss?label=size)](https://bundlephobia.com/package/super-jss)
+[![Storybook](https://img.shields.io/badge/Storybook-Visit-FF4785)](https://sjss-storybook.netlify.app/)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angular 20. It generates atomic CSS as you use it, supports responsive breakpoints and theming, and gives you a minimal, ergonomic API.
@@ -253,7 +254,6 @@ sj.bg('primary');
 sj.p(2);
 
 // Helpers
-sj.compose(style1, style2);
 sj.hover({ bg: 'dark' });
 
 // Tokens

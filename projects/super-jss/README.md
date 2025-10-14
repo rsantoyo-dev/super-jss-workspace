@@ -2,7 +2,26 @@
 
 [![npm version](https://img.shields.io/npm/v/super-jss.svg)](https://www.npmjs.com/package/super-jss)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/super-jss?label=size)](https://bundlephobia.com/package/super-jss)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Storybook](https://img.shields.io/badge/Storybook-Visit-FF4785)](https://sjss-storybook.netlify.app/)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
+
+<div align="center">
+
+<h1>SJSS — Design Systems. Reimagined for Angular.</h1>
+<p>
+Build dynamic, token‑driven, responsive UIs using Angular Signals.<br>
+SJSS brings Tailwind’s speed and MUI’s theming — natively in Angular 20.
+</p>
+
+<p>
+  <a href="https://sjss.dev/installation"><strong>🚀 Get Started</strong></a>
+  ·
+  <a href="https://sjssdemo.netlify.app/"><strong>👀 View Demo</strong></a>
+  ·
+  <a href="https://sjss-storybook.netlify.app/"><strong>📚 Open Storybook</strong></a>
+</p>
+
+</div>
 
 Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angular 20. It generates atomic CSS as you use it, supports responsive breakpoints and theming, and gives you a minimal, ergonomic API.
 
@@ -20,6 +39,23 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 - Deployed demo: <https://sjssdemo.netlify.app/>
 - Storybook: <https://sjss-storybook.netlify.app/>
 - NPM: <https://www.npmjs.com/package/super-jss>
+
+## Why SJSS (in 30 seconds)
+
+- Angular‑native, powered by Signals; no build‑time plugin required.
+- Atomic CSS at runtime: ship only what you use.
+- Token‑driven theming with responsive objects on every property.
+- Tiny API: write plain CSS (or shorthands) as TypeScript objects.
+
+### Compare at a glance
+
+| Library           | Type                 | Theming/Tokens         | Angular 20 | Notes |
+|-------------------|----------------------|------------------------|------------|------|
+| Tailwind CSS      | Utility framework    | Limited via config     | Generic    | Build‑time, globals |
+| Angular Material  | Component library    | Material tokens        | Yes        | Heavy components, prescriptive UI |
+| PrimeNG           | Component library    | Theme packs            | Yes        | Large bundle, theming via CSS vars |
+| MUI (React)       | Component library    | Rich theming (React)   | No         | React‑only |
+| SJSS              | Styling library      | Tokens + responsive API| Yes        | Atomic CSS‑in‑JS, Signals‑native |
 
 ## Install
 
@@ -128,13 +164,6 @@ sj.position.options;        // { static, relative, absolute, fixed, sticky }
 // Tokens available at root
 sj.palette.primary.main;
 sj.breakpoints.md;
-
-// Composition helpers
-sj.compose(
-  sj.display('flex'),
-  sj.justifyContent('center'),
-  sj.active({ transform: 'scale(0.98)' })
-);
 ```
 
 ## Components and blueprints
@@ -150,8 +179,8 @@ import { SJ_BASE_COMPONENTS_IMPORTS, sj } from 'super-jss';
   template: `
     <sj-paper usePadding="default">Content</sj-paper>
     <sj-paper variant="outlined" usePadding="default" useRounded="default">Surface</sj-paper>
-    <sj-card [variant]="'elevated'" [sj]="{ p: 1, gap: 1 }">Card content</sj-card>
-    <sj-button [variant]="'containedPrimary'" [sj]="{ w: 'fit-content' }">Click</sj-button>
+    <sj-card [variant]="'elevated'" [sj]="{ p: 1 }">Card content</sj-card>
+    <sj-button [variant]="'filled'" [sj]="{ w: 'fit-content' }">Click</sj-button>
   `,
 })
 export class DemoComponent {
@@ -165,7 +194,7 @@ Blueprints are also callable:
 sj.sjCard();                 // default card
 sj.sjCard.outlined();        // outlined
 sj.sjCard.elevated();        // elevated
-sj.sjCard.variants.info();   // variants attached under sjCard/sjButton
+sjCard.info();               // info blueprint (not a component variant)
 ```
 
 ## Responsive examples

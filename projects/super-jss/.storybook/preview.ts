@@ -11,6 +11,24 @@ const preview: Preview = {
        date: /Date$/i,
       },
     },
+    options: {
+      storySort: {
+        order: [
+          'SJ',
+          [
+            '[sj] Basic',
+            '[sj] Basic + Shortcuts',
+            'sjRootApi Basic',
+            'sjRootApi + Theming & Tokens',
+            'Typography',
+            'Flex',
+            'Paper',
+            'Card',
+            'Button',
+          ],
+        ],
+      },
+    },
   },
 };
 
