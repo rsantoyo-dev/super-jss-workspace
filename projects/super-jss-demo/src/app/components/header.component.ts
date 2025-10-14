@@ -9,6 +9,7 @@ import {
   sj,
   SjRootApi,
 } from 'super-jss';
+import { icon } from 'super-jss';
 import { ThemeSelectorComponent } from './theme-selector.component';
 
 @Component({
@@ -20,7 +21,7 @@ import { ThemeSelectorComponent } from './theme-selector.component';
     ...SJ_BASE_COMPONENTS_IMPORTS,
   ],
   template: `
-    <sj-paper host usePadding [sj]="[ sj.bg('primary.main') ]">
+    <sj-paper host usePadding [sj]="[sj.bg('primary.main')]">
       <sj-flex
         useGap
         [sj]="[
@@ -29,23 +30,37 @@ import { ThemeSelectorComponent } from './theme-selector.component';
           sj.alignItems('center')
         ]"
       >
-        <sj-flex useCol [sj]="[ sj.alignItems({ xs: 'center', md: 'flex-start' }) ]">
+        <sj-flex
+          useCol
+          [sj]="[sj.alignItems({ xs: 'center', md: 'flex-start' })]"
+        >
           <!-- Mobile burger (xs only) -->
           <sj-button
             variant="flat"
             (click)="menuClick.emit()"
             [sj]="[
-              sj.d({ xs: 'inline-flex', md: 'none' }),
+              sj.d({ xs: 'inline-flex', sm: 'none' }),
               sj.alignSelf('flex-start'),
               sj.mb(0.25),
               sj.bg('transparent'),
               sj.c('primary.contrast')
             ]"
-          >☰</sj-button>
-          <sj-typography variant="h4" [sj]="[ sj.c('primary.contrast') ]">
-            SUPER JSS
-          </sj-typography>
-          <sj-typography [variant]="'small'" [sj]="[ sj.c('primary.contrast') ]">
+            >☰</sj-button
+          >
+          <sj-flex [sj]="[sj.fxAItems('center'), sj.gap(0.5)]">
+            <sj-icon
+              [name]="icon.superJson"
+              size="3.5rem"
+              fill="'light'"
+              [ariaHidden]="false"
+              role="img"
+              [sj]="[sj.c('primary.contrast')]"
+            ></sj-icon>
+            <sj-typography variant="h4" [sj]="[sj.c('primary.contrast')]">
+              SUPER JSS
+            </sj-typography>
+          </sj-flex>
+          <sj-typography [variant]="'small'" [sj]="[sj.c('primary.contrast')]">
             The ultimate solution for dynamic styling
           </sj-typography>
         </sj-flex>
@@ -58,6 +73,7 @@ import { ThemeSelectorComponent } from './theme-selector.component';
 export class HeaderComponent {
   @Output() menuClick = new EventEmitter<void>();
   readonly sj: SjRootApi = sj;
+  readonly icon = icon;
 
   readonly theme = inject(SjThemeService);
 }

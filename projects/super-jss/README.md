@@ -3,7 +3,8 @@
 [![npm version](https://img.shields.io/npm/v/super-jss.svg)](https://www.npmjs.com/package/super-jss)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/super-jss?label=size)](https://bundlephobia.com/package/super-jss)
 [![Storybook](https://img.shields.io/badge/Storybook-Visit-FF4785)](https://sjss-storybook.netlify.app/)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Open Source](https://img.shields.io/badge/OSI-Approved-3DA639)](https://opensource.org/licenses)
 
 <div align="center">
 

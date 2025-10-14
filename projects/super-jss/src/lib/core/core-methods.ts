@@ -10,12 +10,16 @@ export const getCurrentBreakpoint = (
   breakpoints: SjBreakPoints,
   screenWidth: number
 ): string => {
-  let bp = 'xs';
-  for (const key of Object.keys(breakpoints)) {
-    const breakpoint = key as keyof SjBreakPoints;
-    bp = breakpoints[breakpoint] <= screenWidth ? breakpoint : bp;
+  const sortedBreakpoints = Object.entries(breakpoints).sort(
+    (a, b) => a[1] - b[1]
+  );
+  let currentBp = 'xs';
+  for (const [key, value] of sortedBreakpoints) {
+    if (screenWidth >= value) {
+      currentBp = key;
+    }
   }
-  return bp;
+  return currentBp;
 };
 
 /**

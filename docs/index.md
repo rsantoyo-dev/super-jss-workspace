@@ -35,6 +35,7 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 - Deployed demo: <https://sjssdemo.netlify.app/>
 - Storybook: <https://sjss-storybook.netlify.app/>
 - NPM: <https://www.npmjs.com/package/super-jss>
+- Open Source Licenses (OSI): <https://opensource.org/licenses>
 
 ## Why SJSS
 
