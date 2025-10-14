@@ -102,6 +102,26 @@ import { SjFlexComponent } from 'super-jss';
           <app-sidenav></app-sidenav>
         </sj-flex>
         }
+
+        <!-- Floating burger button on mobile when sidenav is closed -->
+        @if (theme.isMobile() && !showSidenav()) {
+          <sj-button
+            variant="outlined"
+            (click)="openSidenav()"
+            [sj]="[
+              sj.position('fixed'),
+              sj.right('16px'),
+              sj.bottom('16px'),
+              sj.zIndex(900),
+              sj.brad('50%'),
+              sj.w('48px'),
+              sj.h('48px'),
+              sj.d('flex'),
+              sj.fxAItems('center'),
+              sj.fxJustify('center')
+            ]"
+          >☰</sj-button>
+        }
       </sj-paper>
     </sj-paper>
   `,

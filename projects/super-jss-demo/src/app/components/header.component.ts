@@ -30,6 +30,18 @@ import { ThemeSelectorComponent } from './theme-selector.component';
         ]"
       >
         <sj-flex useCol [sj]="[ sj.alignItems({ xs: 'center', md: 'flex-start' }) ]">
+          <!-- Mobile burger (xs only) -->
+          <sj-button
+            variant="flat"
+            (click)="menuClick.emit()"
+            [sj]="[
+              sj.d({ xs: 'inline-flex', md: 'none' }),
+              sj.alignSelf('flex-start'),
+              sj.mb(0.25),
+              sj.bg('transparent'),
+              sj.c('primary.contrast')
+            ]"
+          >☰</sj-button>
           <sj-typography variant="h4" [sj]="[ sj.c('primary.contrast') ]">
             SUPER JSS
           </sj-typography>
