@@ -477,7 +477,7 @@
   
   
   <span class="md-ellipsis">
-    Blueprints
+    Components
     
   </span>
   
@@ -487,143 +487,6 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
-            <span class="md-nav__icon md-icon"></span>
-            Blueprints
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../blueprints/_index/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Overview
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../blueprints/cards/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Cards
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../blueprints/buttons/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Buttons
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../blueprints/box/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Box
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
-        
-          
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    Components
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             Components
           </label>
@@ -682,12 +545,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../components/sj-box/" class="md-nav__link">
+      <a href="../components/sj-flex/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    sj-box
+    sj-flex
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/sj-paper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    sj-paper
     
   </span>
   
@@ -711,6 +597,29 @@
   
   <span class="md-ellipsis">
     sj-card
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/surfaces-host-mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Surfaces: Host vs Normal
     
   </span>
   
@@ -1143,20 +1052,12 @@
 <a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="err">]&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 </code></pre></div>
 <h2 id="6-reuse-styles-from-typescript">6) Reuse styles from TypeScript</h2>
-<p>Define <code>SjStyle</code> objects in code and compose them in the template. You can also compose in TS with <code>sj.compose(...)</code>.</p>
+<p>Define <code>SjStyle</code> objects in code and merge them via an array in the template.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">SjStyle</span><span class="p">,</span><span class="w"> </span><span class="nx">sj</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;super-jss&#39;</span><span class="p">;</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kd">const</span><span class="w"> </span><span class="nx">cardBase</span><span class="o">:</span><span class="w"> </span><span class="kt">SjStyle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sj</span><span class="p">.</span><span class="nx">compose</span><span class="p">(</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nx">sj</span><span class="p">.</span><span class="nx">p</span><span class="p">(</span><span class="mf">1</span><span class="p">),</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="nx">sj</span><span class="p">.</span><span class="nx">brad</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="nx">sj</span><span class="p">.</span><span class="nx">bg</span><span class="p">(</span><span class="s1">&#39;light.light&#39;</span><span class="p">)</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">);</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="kd">const</span><span class="w"> </span><span class="nx">cardPrimary</span><span class="o">:</span><span class="w"> </span><span class="kt">SjStyle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sj</span><span class="p">.</span><span class="nx">compose</span><span class="p">(</span>
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">  </span><span class="nx">cardBase</span><span class="p">,</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">  </span><span class="nx">sj</span><span class="p">.</span><span class="nx">bg</span><span class="p">(</span><span class="s1">&#39;primary.main&#39;</span><span class="p">),</span>
-<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">  </span><span class="nx">sj</span><span class="p">.</span><span class="nx">c</span><span class="p">(</span><span class="s1">&#39;primary.contrast&#39;</span><span class="p">)</span>
-<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="p">);</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kd">const</span><span class="w"> </span><span class="nx">cardBase</span><span class="o">:</span><span class="w"> </span><span class="kt">SjStyle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">p</span><span class="o">:</span><span class="w"> </span><span class="kt">1</span><span class="p">,</span><span class="w"> </span><span class="nx">brad</span><span class="o">:</span><span class="w"> </span><span class="kt">0.5</span><span class="p">,</span><span class="w"> </span><span class="nx">bg</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;light.light&#39;</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="kd">const</span><span class="w"> </span><span class="nx">cardPrimary</span><span class="o">:</span><span class="w"> </span><span class="kt">SjStyle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">bg</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;primary.main&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;primary.contrast&#39;</span><span class="w"> </span><span class="p">};</span>
 </code></pre></div>
 <h2 id="where-to-go-next">Where to go next</h2>
 <ul>

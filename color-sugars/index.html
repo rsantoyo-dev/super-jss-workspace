@@ -10,28 +10,24 @@
       
       
       
-        <link rel="canonical" href="https://sjss.dev/components/sj-box/">
+        <link rel="canonical" href="https://sjss.dev/color-sugars/">
       
       
-        <link rel="prev" href="../sj-host/">
       
       
-        <link rel="next" href="../sj-card/">
-      
-      
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
     
     
       
-        <title>sj-box - Super JSS</title>
+        <title>Color sugars (useBg/useColor) - Super JSS</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -50,9 +46,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -88,7 +84,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sj-box" class="md-skip">
+        <a href="#auto-contrast" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +100,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Super JSS" class="md-header__button md-logo" aria-label="Super JSS" data-md-component="logo">
+    <a href=".." title="Super JSS" class="md-header__button md-logo" aria-label="Super JSS" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -124,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              sj-box
+              Color sugars (useBg/useColor)
             
           </span>
         </div>
@@ -228,7 +224,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Super JSS" class="md-nav__button md-logo" aria-label="Super JSS" data-md-component="logo">
+    <a href=".." title="Super JSS" class="md-nav__button md-logo" aria-label="Super JSS" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -246,7 +242,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -268,7 +264,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../installation/" class="md-nav__link">
+      <a href="../installation/" class="md-nav__link">
         
   
   
@@ -290,7 +286,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../basic-usage/" class="md-nav__link">
+      <a href="../basic-usage/" class="md-nav__link">
         
   
   
@@ -312,7 +308,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sj-api/" class="md-nav__link">
+      <a href="../sj-api/" class="md-nav__link">
         
   
   
@@ -334,7 +330,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../styling-shortcuts/" class="md-nav__link">
+      <a href="../styling-shortcuts/" class="md-nav__link">
         
   
   
@@ -372,7 +368,7 @@
   
   
   <span class="md-ellipsis">
-    Blueprints
+    Components
     
   </span>
   
@@ -382,145 +378,6 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
-            <span class="md-nav__icon md-icon"></span>
-            Blueprints
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../blueprints/_index/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Overview
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../blueprints/cards/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Cards
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../blueprints/buttons/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Buttons
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../blueprints/box/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Box
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    Components
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             Components
           </label>
@@ -533,7 +390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../_index/" class="md-nav__link">
+      <a href="../components/_index/" class="md-nav__link">
         
   
   
@@ -556,7 +413,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../sj-host/" class="md-nav__link">
+      <a href="../components/sj-host/" class="md-nav__link">
         
   
   
@@ -576,98 +433,20 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    sj-box
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../components/sj-flex/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    sj-box
+    sj-flex
     
   </span>
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#quick-start" class="md-nav__link">
-    <span class="md-ellipsis">
-      Quick start
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#api" class="md-nav__link">
-    <span class="md-ellipsis">
-      API
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#compose-with-sj-helpers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Compose with sj helpers
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Notes
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -680,7 +459,30 @@
   
   
     <li class="md-nav__item">
-      <a href="../sj-card/" class="md-nav__link">
+      <a href="../components/sj-paper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    sj-paper
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/sj-card/" class="md-nav__link">
         
   
   
@@ -703,7 +505,30 @@
   
   
     <li class="md-nav__item">
-      <a href="../sj-button/" class="md-nav__link">
+      <a href="../components/surfaces-host-mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Surfaces: Host vs Normal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/sj-button/" class="md-nav__link">
         
   
   
@@ -733,7 +558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../responsive-style/" class="md-nav__link">
+      <a href="../responsive-style/" class="md-nav__link">
         
   
   
@@ -755,7 +580,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../colors/" class="md-nav__link">
+      <a href="../colors/" class="md-nav__link">
         
   
   
@@ -777,7 +602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../spacing/" class="md-nav__link">
+      <a href="../spacing/" class="md-nav__link">
         
   
   
@@ -799,7 +624,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../palette/" class="md-nav__link">
+      <a href="../palette/" class="md-nav__link">
         
   
   
@@ -821,7 +646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../typography/" class="md-nav__link">
+      <a href="../typography/" class="md-nav__link">
         
   
   
@@ -843,7 +668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../theming/" class="md-nav__link">
+      <a href="../theming/" class="md-nav__link">
         
   
   
@@ -865,7 +690,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/" class="md-nav__link">
+      <a href="../examples/" class="md-nav__link">
         
   
   
@@ -887,7 +712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../faqs/" class="md-nav__link">
+      <a href="../faqs/" class="md-nav__link">
         
   
   
@@ -919,8 +744,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -929,36 +752,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#quick-start" class="md-nav__link">
+  <a href="#auto-contrast" class="md-nav__link">
     <span class="md-ellipsis">
-      Quick start
+      Auto-contrast
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#api" class="md-nav__link">
+  <a href="#precedence" class="md-nav__link">
     <span class="md-ellipsis">
-      API
+      Precedence
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#compose-with-sj-helpers" class="md-nav__link">
+  <a href="#tips" class="md-nav__link">
     <span class="md-ellipsis">
-      Compose with sj helpers
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Notes
+      Tips
     </span>
   </a>
   
@@ -980,53 +794,35 @@
 
 
 
-<h1 id="sj-box"><code>&lt;sj-box&gt;</code></h1>
-<p><code>&lt;sj-box&gt;</code> is the component equivalent of the <code>sjBox</code> blueprint. It no longer exposes layout inputs like <code>display</code> or <code>gap</code>; all styling is applied via the <code>[sj]</code> directive using the root <code>sj</code> API or plain style objects. Because it's already a box, you don't need to call <code>sjBox</code>—use direct helpers like <code>sj.fxDir</code>, <code>sj.gap</code>, <code>sj.justifyContent</code>, and <code>sj.alignItems</code>.</p>
-<h2 id="quick-start">Quick start</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">sj-box</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;[</span> <span class="na">sj</span><span class="err">.</span><span class="na">fxDir</span><span class="err">(</span><span class="na">sj</span><span class="err">.</span><span class="na">fxDir</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">column</span><span class="err">),</span> <span class="na">sj</span><span class="err">.</span><span class="na">gap</span><span class="err">(</span><span class="na">1</span><span class="err">)</span> <span class="err">]&quot;</span><span class="p">&gt;</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Profile<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Contact info and preferences<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">&lt;/</span><span class="nt">sj-box</span><span class="p">&gt;</span>
-</code></pre></div>
-<p>Style it through <code>[sj]</code> using the <code>sj.*</code> helpers and compose freely with arrays.</p>
-<h2 id="api">API</h2>
-<table>
-<thead>
-<tr>
-<th>Input</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>sj</code></td>
-<td><code>SjStyle \| SjStyle[]</code></td>
-<td>Styles applied to the host container.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="compose-with-sj-helpers">Compose with sj helpers</h2>
-<p>Compose any layout you need using <code>sj.*</code> helpers. Later entries override earlier ones.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">&lt;</span><span class="nt">sj-box</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;[</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">fxDir</span><span class="err">(</span><span class="na">sj</span><span class="err">.</span><span class="na">fxDir</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">row</span><span class="err">),</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">gap</span><span class="err">({</span> <span class="na">xs:</span> <span class="na">0</span><span class="err">.</span><span class="na">5</span><span class="err">,</span> <span class="na">md:</span> <span class="na">1</span> <span class="err">}),</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">justifyContent</span><span class="err">(</span><span class="na">sj</span><span class="err">.</span><span class="na">justifyContent</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">center</span><span class="err">),</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">alignItems</span><span class="err">(</span><span class="na">sj</span><span class="err">.</span><span class="na">alignItems</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">center</span><span class="err">),</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">p</span><span class="err">({</span> <span class="na">xs:</span> <span class="na">1</span><span class="err">,</span> <span class="na">md:</span> <span class="na">2</span> <span class="err">}),</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  <span class="na">sj</span><span class="err">.</span><span class="na">bg</span><span class="err">(</span><span class="na">sj</span><span class="err">.</span><span class="na">bg</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">light</span><span class="err">.</span><span class="na">light</span><span class="err">)</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="err">]&quot;</span><span class="p">&gt;</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  <span class="p">&lt;</span><span class="nt">ng-container</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&quot;let item of items&quot;</span><span class="p">&gt;</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;{</span> <span class="na">p:</span> <span class="na">0</span><span class="err">.</span><span class="na">5</span><span class="err">,</span> <span class="na">brad:</span> <span class="na">0</span><span class="err">.</span><span class="na">5</span><span class="err">,</span> <span class="na">bg:</span> <span class="err">&#39;</span><span class="na">light</span><span class="err">.</span><span class="na">main</span><span class="err">&#39;</span> <span class="err">}&quot;</span><span class="p">&gt;</span>{{ item }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  <span class="p">&lt;/</span><span class="nt">ng-container</span><span class="p">&gt;</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">&lt;/</span><span class="nt">sj-box</span><span class="p">&gt;</span>
-</code></pre></div>
-<h2 id="notes">Notes</h2>
+  <h1>Color sugars (useBg/useColor)</h1>
+
+<p>All base components (e.g., <code>&lt;sj-paper&gt;</code>, <code>&lt;sj-flex&gt;</code>) support two ergonomic color inputs:</p>
 <ul>
-<li><code>&lt;sj-box&gt;</code> is standalone; import it directly or via your shared components
-  module.</li>
-<li>Styles are applied via <code>SjDirective</code>, so shorthand helpers and responsive values work the same as with any element.</li>
-<li>Need even more control? You can still drop down to the <code>sjBox</code> blueprint and pass the result to <code>[sj]</code> directly.</li>
+<li><code>useBg</code>: sets the background color</li>
+<li><code>useColor</code>: sets the text color</li>
+</ul>
+<p>These sugars reuse the same token system as <code>[sj]</code>, so you can pass either:</p>
+<ul>
+<li>Palette tokens: <code>primary</code>, <code>primary.light</code>, <code>secondary.dark</code>, <code>light.light</code>, etc.</li>
+<li>Raw CSS colors: <code>#111</code>, <code>white</code>, <code>rgb(0 0 0 / 0.5)</code>, etc.</li>
+</ul>
+<h2 id="auto-contrast">Auto-contrast</h2>
+<p>When <code>useBg</code> is a palette token, setting <code>useColor="auto"</code> automatically applies <code>&lt;family&gt;.contrast</code> for accessible text. For example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">sj-paper</span> <span class="err">[</span><span class="na">useBg</span><span class="err">]=&quot;&#39;</span><span class="na">primary</span><span class="err">&#39;&quot;</span> <span class="err">[</span><span class="na">useColor</span><span class="err">]=&quot;&#39;</span><span class="na">auto</span><span class="err">&#39;&quot;</span><span class="p">&gt;</span>Readable on primary<span class="p">&lt;/</span><span class="nt">sj-paper</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>If you provide an explicit <code>useColor</code> (e.g., <code>useColor="white"</code>), your value is used. The <code>[sj]</code> input always merges last and can override both.</p>
+<h2 id="precedence">Precedence</h2>
+<ul>
+<li><code>[sj]</code> overrides everything</li>
+<li>Component sugars (like variant defaults, padding styles) come before base color sugars</li>
+<li>Base sugars (<code>useBg</code>, <code>useColor</code>) override component defaults</li>
+</ul>
+<p>This ensures you can quickly set a background/text color without losing the ability to refine styles with <code>[sj]</code>.</p>
+<h2 id="tips">Tips</h2>
+<ul>
+<li>Use tokens for theme-aware colors and automatic contrast.</li>
+<li>Use raw CSS colors for ad-hoc shades or one-off demos.</li>
+<li>Set <code>useColor='none'</code> to skip text color if you only want to change the background.</li>
 </ul>
 
 
@@ -1034,6 +830,9 @@
 
 
 
+
+  
+  
 
 
 
@@ -1113,10 +912,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "content.code.copy", "content.tabs.link"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
       
     
   </body>

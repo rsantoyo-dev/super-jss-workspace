@@ -459,7 +459,7 @@
   
   
   <span class="md-ellipsis">
-    Blueprints
+    Components
     
   </span>
   
@@ -469,143 +469,6 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
-            <span class="md-nav__icon md-icon"></span>
-            Blueprints
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../blueprints/_index/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Overview
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../blueprints/cards/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Cards
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../blueprints/buttons/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Buttons
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../blueprints/box/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Box
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
-        
-          
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    Components
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             Components
           </label>
@@ -664,12 +527,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../components/sj-box/" class="md-nav__link">
+      <a href="../components/sj-flex/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    sj-box
+    sj-flex
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/sj-paper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    sj-paper
     
   </span>
   
@@ -693,6 +579,29 @@
   
   <span class="md-ellipsis">
     sj-card
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/surfaces-host-mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Surfaces: Host vs Normal
     
   </span>
   
@@ -1003,9 +912,9 @@
 <li>Curated shorthands at the root: <code>sj.p(1)</code>, <code>sj.bg('primary.main')</code>, <code>sj.fxJustify('space-between')</code>.</li>
 <li>Discoverable <code>.options</code> on popular props to reduce guesswork.</li>
 <li>Minimal tokens at root: <code>sj.palette</code> and <code>sj.breakpoints</code>.</li>
-<li>Blueprints at root with variants: <code>sj.sjBox</code>, <code>sj.sjCard</code>, <code>sj.sjButton</code>.</li>
+<li>Blueprints at root with variants: <code>sj.sjCard</code>, <code>sj.sjButton</code>.</li>
 <li>Components for common UI: <code>&lt;sj-paper&gt;</code>, <code>&lt;sj-card&gt;</code>, <code>&lt;sj-button&gt;</code> (use <code>[variant]</code>).</li>
-<li>Host mode on surfaces: add <code>[host]</code> on <code>&lt;sj-paper&gt;</code> / <code>&lt;sj-card&gt;</code> to apply styles to the parent element (wrapperless).</li>
+<li>Host mode on surfaces: add <code>[host]</code> on <code>&lt;sj-paper&gt;</code> to apply styles to the parent element (wrapperless).</li>
 </ul>
 <p>This lean surface is SSR‑safe and designed for fast authoring with great IDE autocomplete.</p>
 <h2 id="quick-examples">Quick examples</h2>
@@ -1028,7 +937,7 @@
 <a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="err">]&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
 <a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="cm">&lt;!-- Components with variants --&gt;</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="p">&lt;</span><span class="nt">sj-paper</span> <span class="na">useSurface</span> <span class="err">[</span><span class="na">density</span><span class="err">]=&quot;</span><span class="na">sj</span><span class="err">.</span><span class="na">density</span><span class="err">.</span><span class="na">options</span><span class="err">.</span><span class="na">default</span><span class="err">&quot;</span><span class="p">&gt;</span>Surface<span class="p">&lt;/</span><span class="nt">sj-paper</span><span class="p">&gt;</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="p">&lt;</span><span class="nt">sj-paper</span> <span class="na">usePadding</span><span class="o">=</span><span class="s">&quot;default&quot;</span> <span class="na">useRounded</span><span class="o">=</span><span class="s">&quot;default&quot;</span><span class="p">&gt;</span>Surface<span class="p">&lt;/</span><span class="nt">sj-paper</span><span class="p">&gt;</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="p">&lt;</span><span class="nt">sj-card</span> <span class="err">[</span><span class="na">variant</span><span class="err">]=&quot;&#39;</span><span class="na">flat</span><span class="err">&#39;&quot;</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;{</span> <span class="na">p:</span> <span class="na">1</span> <span class="err">}&quot;</span><span class="p">&gt;</span>Card<span class="p">&lt;/</span><span class="nt">sj-card</span><span class="p">&gt;</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="p">&lt;</span><span class="nt">sj-card</span> <span class="err">[</span><span class="na">variant</span><span class="err">]=&quot;&#39;</span><span class="na">elevated</span><span class="err">&#39;&quot;</span><span class="p">&gt;</span>Card<span class="p">&lt;/</span><span class="nt">sj-card</span><span class="p">&gt;</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
@@ -1061,7 +970,6 @@
 <li>
 <p>Helpers:</p>
 </li>
-<li><code>sj.compose(...parts)</code> — Merge style parts left→right.</li>
 <li>
 <p><code>sj.hover(style | style[])</code>, <code>sj.focus(...)</code>, <code>sj.active(...)</code>, <code>sj.disabled(...)</code> — Pseudo helpers that accept a single style or an array of styles.</p>
 </li>
@@ -1075,8 +983,8 @@
 <li>
 <p>Blueprints (builders) at root:</p>
 </li>
-<li><code>sj.sjBox</code>, <code>sj.sjCard</code>, <code>sj.sjButton</code> are functions with dot‑variants, e.g. <code>sj.sjCard.elevated()</code>.</li>
-<li>Components <code>&lt;sj-card&gt;</code> and <code>&lt;sj-button&gt;</code> accept a <code>variant</code> string (e.g. <code>'outlined'</code>) or you can use the registry values from <code>sj.sjCard.variants</code> / <code>sj.sjButton.variants</code>.</li>
+<li><code>sj.sjCard</code>, <code>sj.sjButton</code> are functions with dot‑variants, e.g. <code>sj.sjCard.elevated()</code>.</li>
+<li>Components accept a <code>variant</code> string (e.g. <code>'outlined'</code>), or use the blueprint helpers.</li>
 </ul>
 <h2 id="responsive-values">Responsive values</h2>
 <p>Any property or shorthand that accepts a value can take a responsive object:</p>
