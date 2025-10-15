@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://sjss.dev/components/_index/">
+        <link rel="canonical" href="https://sjss.dev/components/sj-input/">
       
       
-        <link rel="prev" href="../../styling-shortcuts/">
+        <link rel="prev" href="../sj-card/">
       
       
-        <link rel="next" href="../sj-host/">
+        <link rel="next" href="../surfaces-host-mode/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Overview - Super JSS</title>
+        <title>sj-input Component - Super JSS</title>
       
     
     
@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#components" class="md-skip">
+        <a href="#sj-input" class="md-skip">
           Skip to content
         </a>
       
@@ -124,7 +124,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Overview
+              sj-input Component
             
           </span>
         </div>
@@ -393,19 +393,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../_index/" class="md-nav__link">
         
   
   
@@ -416,7 +407,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -518,10 +508,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../sj-input/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    sj-input
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -532,6 +544,71 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prefixsuffix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prefix/Suffix
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inputs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#states" class="md-nav__link">
+    <span class="md-ellipsis">
+      States
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -786,6 +863,59 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prefixsuffix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prefix/Suffix
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inputs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#states" class="md-nav__link">
+    <span class="md-ellipsis">
+      States
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -800,13 +930,55 @@
 
 
 
-<h1 id="components">Components</h1>
-<p>These are lightweight, standalone wrappers powered by the same <code>[sj]</code> directive you use everywhere. Styling is applied via <code>[sj]</code> only; some components expose a <code>variant</code> input. There are no layout inputs like <code>display</code> or <code>gap</code>—use the root <code>sj</code> API instead (e.g., <code>sj.sjBox.*</code>).</p>
+<h1 id="sj-input">sj-input</h1>
+<p><code>&lt;sj-input&gt;</code> is a minimal, theme-aware text input that follows the same surface + density + paint patterns as <code>&lt;sj-paper&gt;</code> and <code>&lt;sj-button&gt;</code>. It renders a native <code>&lt;input&gt;</code> inside an SJ surface so you get predictable variants, spacing, and focus rings with a small API.</p>
+<h2 id="usage">Usage</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cm">&lt;!-- Outlined input with default spacing/rounding --&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">&lt;</span><span class="nt">sj-input</span> <span class="na">variant</span><span class="o">=</span><span class="s">&quot;outlined&quot;</span> <span class="na">usePadding</span><span class="o">=</span><span class="s">&quot;default&quot;</span> <span class="na">useRounded</span><span class="o">=</span><span class="s">&quot;default&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Email&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">sj-input</span><span class="p">&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="cm">&lt;!-- Filled paint + full width --&gt;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">&lt;</span><span class="nt">sj-input</span> <span class="na">variant</span><span class="o">=</span><span class="s">&quot;filled&quot;</span> <span class="na">usePaint</span><span class="o">=</span><span class="s">&quot;primary&quot;</span> <span class="na">fullWidth</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Search&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">sj-input</span><span class="p">&gt;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="cm">&lt;!-- Flat variant (no border), author text size via [sj] --&gt;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">&lt;</span><span class="nt">sj-input</span> <span class="na">variant</span><span class="o">=</span><span class="s">&quot;flat&quot;</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;[</span> <span class="na">sj</span><span class="err">.</span><span class="na">fs</span><span class="err">(&#39;</span><span class="na">1rem</span><span class="err">&#39;)</span> <span class="err">]&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Promo code&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">sj-input</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="prefixsuffix">Prefix/Suffix</h2>
+<p>Project content using the <code>prefix</code> / <code>suffix</code> attributes.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">&lt;</span><span class="nt">sj-input</span> <span class="na">variant</span><span class="o">=</span><span class="s">&quot;outlined&quot;</span> <span class="na">usePadding</span><span class="o">=</span><span class="s">&quot;default&quot;</span> <span class="na">useRounded</span><span class="o">=</span><span class="s">&quot;default&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Search&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  <span class="p">&lt;</span><span class="nt">sj-icon</span> <span class="na">prefix</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;superJson&quot;</span> <span class="na">size</span><span class="o">=</span><span class="s">&quot;1rem&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">sj-icon</span><span class="p">&gt;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  <span class="p">&lt;</span><span class="nt">span</span> <span class="na">suffix</span> <span class="err">[</span><span class="na">sj</span><span class="err">]=&quot;[</span> <span class="na">sj</span><span class="err">.</span><span class="na">c</span><span class="err">(&#39;</span><span class="na">neutral</span><span class="err">.</span><span class="na">dark</span><span class="err">&#39;)</span> <span class="err">]&quot;</span><span class="p">&gt;</span>@<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  <span class="cm">&lt;!-- Any element with the attribute prefix/suffix is projected --&gt;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">&lt;/</span><span class="nt">sj-input</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="inputs">Inputs</h2>
 <ul>
-<li><a href="../sj-host/"><code>&lt;sj-host&gt;</code></a> — Base wrapper that forwards <code>[sj]</code> to its parent</li>
-<li><a href="../sj-flex/"><code>&lt;sj-flex&gt;</code></a> — A powerful and flexible layout component for flexbox.</li>
-<li><a href="../sj-card/"><code>&lt;sj-card&gt;</code></a> — Content container with variants + <code>[sj]</code> overrides</li>
-<li><a href="../sj-button/"><code>&lt;sj-button&gt;</code></a> — Button styles with variants + <code>[sj]</code> overrides</li>
+<li><code>variant</code>: <code>'outlined' | 'filled' | 'flat'</code> — visual style (outlined default)</li>
+<li><code>type</code>: <code>'text'|'email'|'password'|'search'|'number'|'url'</code> — native input type</li>
+<li><code>usePadding</code>: <code>1|2|3|4|'compact'|'default'|'comfortable'|'spacious'|'none'</code> — control padding via surface density</li>
+<li><code>useRounded</code>: <code>1|2|3|4|'compact'|'default'|'comfortable'|'spacious'|'none'</code> — border radius via surface density</li>
+<li><code>usePaint</code>: <code>'none'|'auto'|palette</code> — full paint override. Behavior by variant:</li>
+<li>filled: bg=<code>&lt;family&gt;.main</code>, color=<code>&lt;family&gt;.contrast</code></li>
+<li>outlined: border/text=<code>&lt;family&gt;.main</code>, transparent bg</li>
+<li>flat: text=<code>&lt;family&gt;.main</code></li>
+<li><code>fullWidth</code>: boolean — makes the control width 100%</li>
+<li><code>disabled</code>: boolean — dims + disables interactions</li>
+<li><code>invalid</code>: boolean — shows an error border/outline (uses theme <code>error.main</code>)</li>
+<li><code>placeholder</code>: string — native placeholder</li>
+<li><code>value</code>: string — current value; use <code>(valueChange)</code> for two-way binding</li>
+<li><code>sj</code>: <code>SjStyle | SjStyle[]</code> — container overrides (merged last)</li>
+</ul>
+<h2 id="states">States</h2>
+<ul>
+<li><code>:hover</code> — subtle background on flat/outlined</li>
+<li><code>:focus-within</code> — 2px outline using <code>usePaint</code> family (or theme primary)</li>
+<li><code>:disabled</code> — reduced opacity and pointer-events disabled</li>
+<li><code>invalid</code> — outlined: borderColor = <code>error.main</code>; others: outline = <code>error.main</code></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>The native <code>&lt;input&gt;</code> inside inherits font and color; customize with <code>[sj]</code> (e.g., <code>sj.fs('1rem')</code>).</li>
+<li>Placeholder uses <code>neutral.dark</code> at a reduced opacity; override via <code>[sj]</code> if desired.</li>
+<li>Prefix/suffix are opt-in slots; the component doesn’t reserve space unless they’re projected.</li>
 </ul>
 
 
@@ -814,6 +986,9 @@
 
 
 
+
+  
+  
 
 
 
