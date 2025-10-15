@@ -126,6 +126,16 @@
                 "defaultValue": "{\n  args: {},\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [sj]=\"[{ justifyContent: 'space-between', alignItems: 'center' }, sj.minH(6), sj.p(0.5) ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">Left</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">Right</div>\n      </sj-flex>\n    `,\n  }),\n}"
             },
             {
+                "name": "AllIcons",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    props: { sj, iconNames: Object.values(icon) },\n    template: `\n      <div [sj]=\"[ sj.d('grid'), sj.gridTemplateColumns('repeat(auto-fit, minmax(140px, 1fr))'), sj.gap(0.75) ]\">\n        <div *ngFor=\"let n of iconNames\" [sj]=\"[ sj.d('flex'), sj.fxDir('column'), sj.fxAItems('center'), sj.gap(0.25), sj.p(0.5), sj.bg('light.light'), sj.brad(0.5) ]\">\n          <sj-icon [name]=\"n\" size=\"2rem\"></sj-icon>\n          <code [sj]=\"[ sj.fs('0.8rem'), sj.c('neutral.dark') ]\">{{ n }}</code>\n        </div>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
                 "name": "AllVariants",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -289,6 +299,16 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta",
+                "defaultValue": "{\n  title: 'SJ/Icon',\n  component: SjIconComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjIconComponent, SjDirective] })],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          '<sj-icon> renders theme-aware SVG icons. Size is controlled by the host via `size` (px/rem). Colors accept palette tokens or raw CSS.',\n      },\n    },\n  },\n  argTypes: {\n    name: { control: 'select', options: Object.values(icon) as any },\n    size: { control: 'text', table: { type: { summary: 'string | number' } } },\n    fill: { control: 'text' },\n    stroke: { control: 'text' },\n    fillOpacity: { control: { type: 'number', min: 0, max: 1, step: 0.05 } },\n    strokeOpacity: { control: { type: 'number', min: 0, max: 1, step: 0.05 } },\n    sj: { control: 'object' },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/super-jss/src/stories/sj-input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -409,11 +429,21 @@
                 "name": "Playground",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    name: icon.superJson,\n    size: '2rem',\n    fill: undefined,\n    stroke: undefined,\n    fillOpacity: undefined,\n    strokeOpacity: undefined,\n    sj: [sj.c('primary.main')],\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div [sj]=\"[ sj.d('flex'), sj.fxAItems('center'), sj.gap(0.5) ]\">\n        <sj-icon [name]=\"name\" [size]=\"size\" [fill]=\"fill\" [stroke]=\"stroke\" [fillOpacity]=\"fillOpacity\" [strokeOpacity]=\"strokeOpacity\" [sj]=\"sj\"></sj-icon>\n        <span [sj]=\"[ sj.c('neutral.dark') ]\">{{ name }}</span>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Playground",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/super-jss/src/stories/sj-input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    variant: 'outlined',\n    type: 'text',\n    placeholder: 'Your email',\n    value: '',\n    usePadding: 'default',\n    useRounded: 'default',\n    usePaint: 'none',\n    fullWidth: false,\n    disabled: false,\n    invalid: false,\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div style=\"max-width: 360px;\">\n        <sj-input\n          [variant]=\"variant\"\n          [type]=\"type\"\n          [placeholder]=\"placeholder\"\n          [value]=\"value\"\n          (valueChange)=\"value = $event\"\n          [usePadding]=\"usePadding\"\n          [useRounded]=\"useRounded\"\n          [usePaint]=\"usePaint\"\n          [fullWidth]=\"fullWidth\"\n          [disabled]=\"disabled\"\n          [invalid]=\"invalid\"\n          [sj]=\"sj\"\n        ></sj-input>\n      </div>\n    `,\n  }),\n}"
+                "defaultValue": "{\n  args: {\n    variant: 'outlined',\n    type: 'text',\n    placeholder: 'Your email',\n    value: '',\n    usePadding: 'default',\n    useRounded: 'default',\n    usePaint: 'none',\n    fullWidth: false,\n    disabled: false,\n    invalid: false,\n  },\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <div style=\"max-width: 360px;\">\n        <sj-input\n          [variant]=\"variant\"\n          [type]=\"type\"\n          [placeholder]=\"placeholder\"\n          [value]=\"value\"\n          (valueChange)=\"value = $event\"\n          [usePadding]=\"usePadding\"\n          [useRounded]=\"useRounded\"\n          [usePaint]=\"usePaint\"\n          [fullWidth]=\"fullWidth\"\n          [disabled]=\"disabled\"\n          [invalid]=\"invalid\"\n        ></sj-input>\n      </div>\n    `,\n  }),\n}"
             },
             {
                 "name": "Playground",
@@ -628,6 +658,17 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "StoryObj",
+                "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj",
                 "file": "projects/super-jss/src/stories/sj-input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -781,6 +822,38 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\n  args: { useWrap: true, useInline: true, useGap: 'default' },\n  render: (args) => ({\n    props: {\n      ...args,\n      sj,\n      numbers: Array.from({ length: 40 }, (_, i) => i + 1),\n    },\n    template: `\n      <sj-flex [useWrap]=\"useWrap\" [useInline]=\"useInline\" [useGap]=\"useGap\" [sj]=\"[ sj.bg('light.light') ]\">\n        <div *ngFor=\"let n of numbers\" [sj]=\"[ sj.p(0.3), sj.bg('neutral.light'), sj.mr(0.3), sj.mb(0.3) ]\">{{ n }}</div>\n      </sj-flex>\n    `,\n  }),\n}"
+                }
+            ],
+            "projects/super-jss/src/stories/sj-icon.stories.ts": [
+                {
+                    "name": "AllIcons",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    props: { sj, iconNames: Object.values(icon) },\n    template: `\n      <div [sj]=\"[ sj.d('grid'), sj.gridTemplateColumns('repeat(auto-fit, minmax(140px, 1fr))'), sj.gap(0.75) ]\">\n        <div *ngFor=\"let n of iconNames\" [sj]=\"[ sj.d('flex'), sj.fxDir('column'), sj.fxAItems('center'), sj.gap(0.25), sj.p(0.5), sj.bg('light.light'), sj.brad(0.5) ]\">\n          <sj-icon [name]=\"n\" size=\"2rem\"></sj-icon>\n          <code [sj]=\"[ sj.fs('0.8rem'), sj.c('neutral.dark') ]\">{{ n }}</code>\n        </div>\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta",
+                    "defaultValue": "{\n  title: 'SJ/Icon',\n  component: SjIconComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjIconComponent, SjDirective] })],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          '<sj-icon> renders theme-aware SVG icons. Size is controlled by the host via `size` (px/rem). Colors accept palette tokens or raw CSS.',\n      },\n    },\n  },\n  argTypes: {\n    name: { control: 'select', options: Object.values(icon) as any },\n    size: { control: 'text', table: { type: { summary: 'string | number' } } },\n    fill: { control: 'text' },\n    stroke: { control: 'text' },\n    fillOpacity: { control: { type: 'number', min: 0, max: 1, step: 0.05 } },\n    strokeOpacity: { control: { type: 'number', min: 0, max: 1, step: 0.05 } },\n    sj: { control: 'object' },\n  },\n}"
+                },
+                {
+                    "name": "Playground",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    name: icon.superJson,\n    size: '2rem',\n    fill: undefined,\n    stroke: undefined,\n    fillOpacity: undefined,\n    strokeOpacity: undefined,\n    sj: [sj.c('primary.main')],\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div [sj]=\"[ sj.d('flex'), sj.fxAItems('center'), sj.gap(0.5) ]\">\n        <sj-icon [name]=\"name\" [size]=\"size\" [fill]=\"fill\" [stroke]=\"stroke\" [fillOpacity]=\"fillOpacity\" [strokeOpacity]=\"strokeOpacity\" [sj]=\"sj\"></sj-icon>\n        <span [sj]=\"[ sj.c('neutral.dark') ]\">{{ name }}</span>\n      </div>\n    `,\n  }),\n}"
                 }
             ],
             "projects/super-jss/src/stories/sj-typography.stories.ts": [
@@ -1054,7 +1127,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {\n    variant: 'outlined',\n    type: 'text',\n    placeholder: 'Your email',\n    value: '',\n    usePadding: 'default',\n    useRounded: 'default',\n    usePaint: 'none',\n    fullWidth: false,\n    disabled: false,\n    invalid: false,\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div style=\"max-width: 360px;\">\n        <sj-input\n          [variant]=\"variant\"\n          [type]=\"type\"\n          [placeholder]=\"placeholder\"\n          [value]=\"value\"\n          (valueChange)=\"value = $event\"\n          [usePadding]=\"usePadding\"\n          [useRounded]=\"useRounded\"\n          [usePaint]=\"usePaint\"\n          [fullWidth]=\"fullWidth\"\n          [disabled]=\"disabled\"\n          [invalid]=\"invalid\"\n          [sj]=\"sj\"\n        ></sj-input>\n      </div>\n    `,\n  }),\n}"
+                    "defaultValue": "{\n  args: {\n    variant: 'outlined',\n    type: 'text',\n    placeholder: 'Your email',\n    value: '',\n    usePadding: 'default',\n    useRounded: 'default',\n    usePaint: 'none',\n    fullWidth: false,\n    disabled: false,\n    invalid: false,\n  },\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <div style=\"max-width: 360px;\">\n        <sj-input\n          [variant]=\"variant\"\n          [type]=\"type\"\n          [placeholder]=\"placeholder\"\n          [value]=\"value\"\n          (valueChange)=\"value = $event\"\n          [usePadding]=\"usePadding\"\n          [useRounded]=\"useRounded\"\n          [usePaint]=\"usePaint\"\n          [fullWidth]=\"fullWidth\"\n          [disabled]=\"disabled\"\n          [invalid]=\"invalid\"\n        ></sj-input>\n      </div>\n    `,\n  }),\n}"
                 },
                 {
                     "name": "Variants",
@@ -1216,6 +1289,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj",
                     "file": "projects/super-jss/src/stories/sj-flex.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "projects/super-jss/src/stories/sj-icon.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj",
+                    "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -1634,6 +1720,46 @@
             },
             {
                 "filePath": "projects/super-jss/src/stories/sj-flex.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "AllIcons",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Playground",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-icon.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",

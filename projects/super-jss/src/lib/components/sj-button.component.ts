@@ -1,26 +1,20 @@
 import { ChangeDetectionStrategy, Component, Input, effect } from '@angular/core';
-import { SjPaperComponent } from './sj-paper.component';
 import { sjButton, SjButtonApi } from '../blueprints/button';
 import { SjStyle, SjPalette } from '../models/interfaces';
 import type { SjInput } from '../directives/sj.directive';
 import { SjButtonVariant } from '../models/variants';
 import { SjThemeService } from '../services';
+import { SjDirective } from '../directives/sj.directive';
 
 @Component({
   selector: 'sj-button',
   standalone: true,
-  imports: [SjPaperComponent],
+  imports: [SjDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <sj-paper
-      [host]="true"
-      variant="flat"
-      [usePadding]="useDensity"
-      [useRounded]="useRounded"
-      [sj]="hostSj"
-    >
+    <button [sj]="hostSj">
       <ng-content></ng-content>
-    </sj-paper>
+    </button>
   `,
 })
 export class SjButtonComponent {
@@ -282,6 +276,19 @@ export class SjButtonComponent {
         } as const;
         return m[String(val).toLowerCase()] ?? undefined;
       };
+
+      const padLevel = toLevel(this.useDensity);
+      if (padLevel && (surfaces.padding as any)?.[padLevel] !== undefined) {
+        (style as any).padding = (surfaces.padding as any)[padLevel];
+      }
+
+      const roundedLevel = toLevel(this.useRounded);
+      if (
+        roundedLevel &&
+        (surfaces.radius as any)?.[roundedLevel] !== undefined
+      ) {
+        (style as any).borderRadius = (surfaces.radius as any)[roundedLevel];
+      }
       // No default inner gap; authors can set [sj].gap or use surface map explicitly later if desired
       return style;
     };

@@ -10,9 +10,9 @@ import { resolveThemeColor } from '../core/core-methods';
   template: `
     <span
       class="sj-icon"
-      [attr.role]="role"
-      [attr.aria-hidden]="ariaHidden ? 'true' : null"
-      [attr.aria-label]="ariaHidden ? null : label"
+      [attr.role]="computedRole"
+      [attr.aria-hidden]="isAriaHidden ? 'true' : null"
+      [attr.aria-label]="label"
       [innerHTML]="svg"
     ></span>
   `,
@@ -29,8 +29,6 @@ export class SjIconComponent implements OnChanges {
 
   @Input() name: SjIconName = 'sun';
   @Input() size: string | number = '1.5rem';
-  @Input() ariaHidden = true;
-  @Input() role: string | null = null;
   @Input() label: string | null = null;
   @Input() fill?: string;
   @Input() stroke?: string;
@@ -44,6 +42,14 @@ export class SjIconComponent implements OnChanges {
       this.themeService.themeVersion();
       this.updateSvg();
     });
+  }
+
+  get computedRole(): string | null {
+    return this.label ? 'img' : null;
+  }
+
+  get isAriaHidden(): boolean {
+    return !this.label;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -72,7 +78,7 @@ export class SjIconComponent implements OnChanges {
 
   private normalizeSize(): void {
     if (typeof this.size === 'number') {
-      this.size = `${this.size}px`;
+      this.size = this.themeService.sjTheme().spacing(this.size as number);
     }
   }
 

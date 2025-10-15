@@ -1,10 +1,17 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SjPaperComponent } from './sj-paper.component';
 import type { SjInput as SjStyleInput } from '../directives/sj.directive';
 import { SjStyle } from '../models/interfaces';
  
 import { SjDirective } from '../directives/sj.directive';
 
+/**
+ * To make this component accessible, you should provide a label and associate it with the input.
+ *
+ * @example
+ * <label for="my-input">My Input</label>
+ * <sj-input id="my-input"></sj-input>
+ */
 @Component({
   selector: 'sj-input',
   standalone: true,
@@ -22,18 +29,28 @@ import { SjDirective } from '../directives/sj.directive';
       <ng-content select="[prefix]"></ng-content>
       <input
         class="sj-input-native"
+        [attr.id]="id"
         [attr.type]="type"
         [disabled]="disabled"
         [attr.placeholder]="placeholder || null"
         [value]="value || ''"
         (input)="onInput($event)"
         [sj]="inputSj"
+        [attr.aria-invalid]="invalid ? 'true' : null"
+        [attr.aria-describedby]="ariaDescribedby"
       />
       <ng-content select="[suffix]"></ng-content>
     </sj-paper>
   `,
 })
-export class SjInputComponent {
+export class SjInputComponent implements OnInit {
+  private static nextId = 0;
+
+  ngOnInit(): void {
+    if (!this.id) {
+      this.id = `sj-input-${SjInputComponent.nextId++}`;
+    }
+  }
   // Visual variant
   @Input() variant: 'flat' | 'outlined' | 'filled' = 'outlined';
   @Input() type: 'text' | 'email' | 'password' | 'search' | 'number' | 'url' = 'text';
@@ -69,6 +86,10 @@ export class SjInputComponent {
   // State
   @Input() disabled = false;
   @Input() invalid = false;
+
+  // Accessibility
+  @Input() id: string | undefined;
+  @Input() ariaDescribedby: string | undefined;
 
   // Value/placeholder
   @Input() placeholder: string | undefined;

@@ -7,6 +7,7 @@ import { DemoPaperComponent } from './components/demo-paper.component';
 import { ThemingComponent } from './components/theming.component';
 import { PerfBenchmarkComponent } from './components/perf-benchmark.component';
 import { HeroComponent } from './components/hero.component';
+import { DemoInputsComponent } from './components/demo-inputs.component';
 
 export const routes: Routes = [
   { path: 'hero', component: HeroComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'theming', component: ThemingComponent },
   { path: 'typography', component: TypographyComponent },
   { path: 'buttons', component: DemoButtonsComponent },
+  { path: 'inputs', component: DemoInputsComponent },
   { path: 'palette', component: PaletteComponent },
   { path: 'perf', component: PerfBenchmarkComponent },
   { path: 'home', component: DemoPaperComponent },

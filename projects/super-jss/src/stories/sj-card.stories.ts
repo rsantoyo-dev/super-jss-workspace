@@ -30,3 +30,25 @@ export const Playground: Story = {
     template: `<sj-card [variant]="variant" [usePaint]="usePaint" [usePadding]="usePadding" [useRounded]="useRounded" [sj]="sj">Card Content</sj-card>`,
   }),
 };
+
+export const InteractiveAccessibility: Story = {
+  render: () => ({
+    template: `
+      <div style="display: flex; gap: 1rem;">
+        <a href="#" style="text-decoration: none; color: inherit;">
+          <sj-card variant="interactive" usePadding="default" useRounded="default">
+            <h3>Navigational Card</h3>
+            <p>This card is wrapped in an anchor tag and navigates on click.</p>
+          </sj-card>
+        </a>
+        <sj-card variant="interactive" usePadding="default" useRounded="default" role="button" tabindex="0" (click)="onClick()">
+          <h3>Action Card</h3>
+          <p>This card has a role of "button" and a click handler.</p>
+        </sj-card>
+      </div>
+    `,
+    props: {
+      onClick: () => alert('Card clicked!'),
+    },
+  }),
+};

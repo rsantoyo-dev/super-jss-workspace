@@ -97,3 +97,46 @@ export const WithPrefixSuffix: Story = {
     `,
   }),
 };
+
+export const WithLabel: Story = {
+  args: {
+    id: 'my-input',
+    placeholder: 'Your email',
+  },
+  render: (args) => ({
+    props: { ...args },
+    template: `
+      <div style="max-width: 360px; display: flex; flex-direction: column; gap: 0.5rem;">
+        <label for="my-input">Email Address</label>
+        <sj-input
+          [id]="id"
+          [placeholder]="placeholder"
+        ></sj-input>
+      </div>
+    `,
+  }),
+};
+
+export const WithErrorMessage: Story = {
+  args: {
+    id: 'error-input',
+    placeholder: 'Your email',
+    invalid: true,
+    ariaDescribedby: 'error-message',
+  },
+  render: (args) => ({
+    props: { ...args },
+    template: `
+      <div style="max-width: 360px; display: flex; flex-direction: column; gap: 0.5rem;">
+        <label for="error-input">Email Address</label>
+        <sj-input
+          [id]="id"
+          [placeholder]="placeholder"
+          [invalid]="invalid"
+          [ariaDescribedby]="ariaDescribedby"
+        ></sj-input>
+        <div id="error-message" style="color: red; font-size: 0.875rem;">This field is required.</div>
+      </div>
+    `,
+  }),
+};

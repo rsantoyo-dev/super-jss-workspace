@@ -49,6 +49,14 @@ import {
         >
         <sj-button
           [variant]="'outlined'"
+          routerLink="/inputs"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="navigate.emit()"
+          ><sj-typography [variant]="'span'">Inputs</sj-typography></sj-button
+        >
+        <sj-button
+          [variant]="'outlined'"
           routerLink="/paper"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"

@@ -2,6 +2,25 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { SjPaperComponent } from './sj-paper.component';
 import type { SjInput } from '../directives/sj.directive';
 
+/**
+ * A card is a container for content.
+ *
+ * If you make a card interactive (e.g., by adding a click handler),
+ * you must make it accessible.
+ *
+ * @example
+ * <!-- For navigation -->
+ * <a href="/details" style="text-decoration: none;">
+ *   <sj-card variant="interactive">
+ *     ...
+ *   </sj-card>
+ * </a>
+ *
+ * <!-- For an action -->
+ * <sj-card variant="interactive" role="button" tabindex="0" (click)="doSomething()">
+ *   ...
+ * </sj-card>
+ */
 @Component({
   selector: 'sj-card',
   standalone: true,

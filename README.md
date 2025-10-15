@@ -12,10 +12,15 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 - 🎯 Atomic CSS generation: only what you use
 - 📱 Responsive + theming: `xs…xxl` breakpoints and palette tokens
 - 🎨 Pseudo‑selectors: `&:hover`, `&:focus`, etc.
-- 🧩 Ready‑made building blocks: `<sj-paper>`, `<sj-card>`, `<sj-button>`
+- 🧩 Ready‑made building blocks: `<sj-paper>`, `<sj-card>`, `<sj-button>`, `<sj-icon>`, and `<sj-input>`
 
 Docs: <https://sjss.dev>
 Storybook: <https://sjss-storybook.netlify.app/>
+
+## What's New?
+
+- **`<sj-icon>`**: A versatile icon component with support for Material Icons, SVG, and font-based icons.
+- **`<sj-input>`**: A customizable input component with built-in theming and validation styling.
 
 ## Why SJSS?
 
