@@ -28,7 +28,7 @@ export class SjPaperComponent extends SjBaseComponent {
     | ''
     | undefined;
   // Full paint override; for subtle surfaces prefer [useBg] or a future useTint
-  @Input() usePaint: string | 'auto' | 'none' | undefined;
+  @Input() usePaint: string | 'auto' | 'none' = 'auto';
   @Input() useRounded:
     | 1
     | 2
@@ -75,8 +75,9 @@ export class SjPaperComponent extends SjBaseComponent {
     // - filled/default: bg=<fam>.main, color=<fam>.contrast
     // - outlined: border/text = <fam>.main (bg transparent)
     // - flat: text = <fam>.main
-    if (this.usePaint && this.usePaint !== 'none' && this.usePaint !== 'auto') {
-      const fam = String(this.usePaint);
+    if (this.usePaint && this.usePaint !== 'none') {
+      const isAuto = this.usePaint === 'auto';
+      const fam = isAuto ? '' : String(this.usePaint);
       const kind: 'filled' | 'outlined' | 'flat' =
         this.variant === 'outlined'
           ? 'outlined'
@@ -85,17 +86,17 @@ export class SjPaperComponent extends SjBaseComponent {
           : 'filled'; // treat 'default' and 'filled' as filled
 
       if (kind === 'filled') {
-        (paperStyles as any).backgroundColor = `${fam}.main`;
-        (paperStyles as any).color = `${fam}.contrast`;
+        (paperStyles as any).backgroundColor = isAuto ? 'light.light' : `${fam}.main`;
+        if(!isAuto) (paperStyles as any).color = `${fam}.contrast`;
         (paperStyles as any).borderColor = 'transparent';
       } else if (kind === 'outlined') {
         (paperStyles as any).backgroundColor = 'transparent';
-        (paperStyles as any).color = `${fam}.main`;
+        (paperStyles as any).color = isAuto ? 'inherit' : `${fam}.main`;
         (paperStyles as any).borderStyle = 'solid';
         (paperStyles as any).borderWidth = 0.1;
-        (paperStyles as any).borderColor = `${fam}.main`;
+        (paperStyles as any).borderColor = isAuto ? 'light.dark' : `${fam}.main`;
       } else {
-        (paperStyles as any).color = `${fam}.main`;
+        if(!isAuto) (paperStyles as any).color = `${fam}.main`;
       }
     }
 

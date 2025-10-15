@@ -74,6 +74,7 @@ nav:
     - sj-flex: components/sj-flex.md
     - sj-paper: components/sj-paper.md
     - sj-card: components/sj-card.md
+    - sj-input: components/sj-input.md
     - 'Surfaces: Host vs Normal': components/surfaces-host-mode.md
     - sj-button: components/sj-button.md
   - Responsive Styling: responsive-style.md

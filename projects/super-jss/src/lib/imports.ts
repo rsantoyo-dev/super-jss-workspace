@@ -5,6 +5,7 @@ import { SjPaperComponent } from './components/sj-paper.component';
 import { SjButtonComponent } from './components/sj-button.component';
 import { SjTypographyComponent } from './components/sj-typography.component';
 import { SjIconComponent } from './components/sj-icon.component';
+import { SjInputComponent } from './components/sj-input.component';
 import { SjStackComponent } from './components/sj-stack.component';
 import { SjFlexComponent } from './components/sj-flex.component';
 
@@ -19,6 +20,7 @@ export const SJ_BASE_COMPONENTS_IMPORTS = [
   SjStackComponent,
   SjFlexComponent,
   SjButtonComponent,
+  SjInputComponent,
   SjTypographyComponent,
   SjIconComponent,
 ] as const;

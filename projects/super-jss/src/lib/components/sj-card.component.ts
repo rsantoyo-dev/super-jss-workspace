@@ -10,7 +10,7 @@ import type { SjInput } from '../directives/sj.directive';
   template: `
     <sj-paper
       [host]="true"
-      [variant]="variant === 'outlined' ? 'outlined' : (variant === 'flat' ? 'flat' : 'filled')"
+      [variant]="variant === 'outlined' ? 'outlined' : (variant === 'flat' ? 'flat' : 'outlined')"
       [usePaint]="usePaint"
       [usePadding]="usePadding"
       [useRounded]="useRounded"
@@ -22,7 +22,7 @@ import type { SjInput } from '../directives/sj.directive';
 })
 export class SjCardComponent {
   @Input() variant: 'flat' | 'outlined' | 'elevated' | 'interactive' = 'flat';
-  @Input() usePaint: string | 'auto' | 'none' | undefined;
+  @Input() usePaint: string | 'auto' | 'none' = 'auto';
   @Input() usePadding:
     | 1
     | 2

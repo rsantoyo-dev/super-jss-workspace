@@ -289,6 +289,16 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta",
+                "defaultValue": "{\n  title: 'SJ/Input',\n  component: SjInputComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjPaperComponent, SjDirective, SjIconComponent] })],\n  argTypes: {\n    variant: { control: 'select', options: ['outlined', 'filled', 'flat'] },\n    type: { control: 'select', options: ['text', 'email', 'password', 'search', 'number', 'url'] },\n    placeholder: { control: 'text' },\n    value: { control: 'text' },\n    usePadding: {\n      control: 'select',\n      options: [undefined, 'none', 1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious'],\n    },\n    useRounded: {\n      control: 'select',\n      options: [undefined, 'none', 1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious'],\n    },\n    usePaint: {\n      control: 'select',\n      options: ['none', 'auto', 'primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    fullWidth: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    invalid: { control: 'boolean' },\n    sj: { control: 'object' },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/super-jss/src/stories/sj-paper.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -394,6 +404,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    component: 'section',\n    host: false,\n    useCol: false,\n    useWrap: false,\n    useInline: false,\n    useCenter: false,\n    useBetween: false,\n    useAround: false,\n    useEvenly: false,\n    useGap: 'none',\n    usePadding: 'none',\n    playgroundSj: {} as SjInput | undefined,\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex\n        [component]=\"component\"\n        [host]=\"host\"\n        [useCol]=\"useCol\"\n        [useWrap]=\"useWrap\"\n        [useInline]=\"useInline\"\n        [useCenter]=\"useCenter\"\n        [useBetween]=\"useBetween\"\n        [useAround]=\"useAround\"\n        [useEvenly]=\"useEvenly\"\n        [useGap]=\"useGap\"\n        [usePadding]=\"usePadding\"\n        [sj]=\"playgroundSj\"\n      >\n        <div [sj]=\"[ sj.p(0.5), sj.c('primary.contrast'), sj.bg('primary'), sj.brad(0.5) ]\">A</div>\n        <div [sj]=\"[ sj.padding(0.5),  sj.color('secondary.contrast'), sj.backgroundColor('secondary'), sj.brad(0.5) ]\">B</div>\n        <div [sj]=\"{padding:0.5, color:'info.contrast', backgroundColor:'info', borderRadius:0.5}\">C</div>\n      </sj-flex>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "Playground",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    variant: 'outlined',\n    type: 'text',\n    placeholder: 'Your email',\n    value: '',\n    usePadding: 'default',\n    useRounded: 'default',\n    usePaint: 'none',\n    fullWidth: false,\n    disabled: false,\n    invalid: false,\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div style=\"max-width: 360px;\">\n        <sj-input\n          [variant]=\"variant\"\n          [type]=\"type\"\n          [placeholder]=\"placeholder\"\n          [value]=\"value\"\n          (valueChange)=\"value = $event\"\n          [usePadding]=\"usePadding\"\n          [useRounded]=\"useRounded\"\n          [usePaint]=\"usePaint\"\n          [fullWidth]=\"fullWidth\"\n          [disabled]=\"disabled\"\n          [invalid]=\"invalid\"\n          [sj]=\"sj\"\n        ></sj-input>\n      </div>\n    `,\n  }),\n}"
             },
             {
                 "name": "Playground",
@@ -516,6 +536,26 @@
                 "defaultValue": "{\n  name: 'Tokens & .options',\n  render: () => ({\n    props: { sj },\n    template: `\n      <div [sj]=\"[\n        sj.bg(sj.bg.options.primary.main),\n        sj.c(sj.c.options.primary.contrast),\n        sj.p('12px'),\n        sj.brad('8px')\n      ]\">\n        Using palette tokens via .options (primary.main / primary.contrast)\n      </div>\n    `,\n  }),\n}"
             },
             {
+                "name": "Variants",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: { placeholder: 'Placeholder' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div [sj]=\"[ sj.d('flex'), sj.fxDir('column'), sj.gap(0.5), sj.w('320px') ]\">\n        <sj-input variant=\"outlined\" usePadding=\"default\" useRounded=\"default\" [placeholder]=\"placeholder\"></sj-input>\n        <sj-input variant=\"filled\" usePaint=\"primary\" usePadding=\"default\" useRounded=\"default\" [placeholder]=\"placeholder\"></sj-input>\n        <sj-input variant=\"flat\" [placeholder]=\"placeholder\"></sj-input>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "WithPrefixSuffix",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: { placeholder: 'Search...' },\n  render: (args) => ({\n    props: { ...args, sj, icon },\n    template: `\n      <div style=\"max-width: 360px;\">\n        <sj-input variant=\"outlined\" usePadding=\"default\" useRounded=\"default\" [placeholder]=\"placeholder\">\n          <sj-icon prefix [name]=\"icon.superJson\" size=\"1rem\" [sj]=\"[ sj.mr(0.25) ]\"></sj-icon>\n          <span suffix [sj]=\"[ sj.c('neutral.dark') ]\">&#64;</span>\n        </sj-input>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
                 "name": "WrapAndInline",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -578,6 +618,17 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj",
                 "file": "projects/super-jss/src/stories/sj-flex.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj",
+                "file": "projects/super-jss/src/stories/sj-input.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -984,6 +1035,48 @@
                     "defaultValue": "{\n  name: 'Spacing axes (px/py/m)',\n  render: () => ({\n    template: `\n      <div [sj]=\"{ px: '16px', py: '8px', m: '4px', bg: '#f7f7f7', brad: '6px' }\">\n        px:16px, py:8px, m:4px\n      </div>\n    `,\n  }),\n}"
                 }
             ],
+            "projects/super-jss/src/stories/sj-input.stories.ts": [
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta",
+                    "defaultValue": "{\n  title: 'SJ/Input',\n  component: SjInputComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjPaperComponent, SjDirective, SjIconComponent] })],\n  argTypes: {\n    variant: { control: 'select', options: ['outlined', 'filled', 'flat'] },\n    type: { control: 'select', options: ['text', 'email', 'password', 'search', 'number', 'url'] },\n    placeholder: { control: 'text' },\n    value: { control: 'text' },\n    usePadding: {\n      control: 'select',\n      options: [undefined, 'none', 1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious'],\n    },\n    useRounded: {\n      control: 'select',\n      options: [undefined, 'none', 1, 2, 3, 4, 'compact', 'default', 'comfortable', 'spacious'],\n    },\n    usePaint: {\n      control: 'select',\n      options: ['none', 'auto', 'primary', 'secondary', 'success', 'info', 'warning', 'error', 'dark', 'neutral', 'light'],\n    },\n    fullWidth: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    invalid: { control: 'boolean' },\n    sj: { control: 'object' },\n  },\n}"
+                },
+                {
+                    "name": "Playground",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    variant: 'outlined',\n    type: 'text',\n    placeholder: 'Your email',\n    value: '',\n    usePadding: 'default',\n    useRounded: 'default',\n    usePaint: 'none',\n    fullWidth: false,\n    disabled: false,\n    invalid: false,\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div style=\"max-width: 360px;\">\n        <sj-input\n          [variant]=\"variant\"\n          [type]=\"type\"\n          [placeholder]=\"placeholder\"\n          [value]=\"value\"\n          (valueChange)=\"value = $event\"\n          [usePadding]=\"usePadding\"\n          [useRounded]=\"useRounded\"\n          [usePaint]=\"usePaint\"\n          [fullWidth]=\"fullWidth\"\n          [disabled]=\"disabled\"\n          [invalid]=\"invalid\"\n          [sj]=\"sj\"\n        ></sj-input>\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "Variants",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { placeholder: 'Placeholder' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div [sj]=\"[ sj.d('flex'), sj.fxDir('column'), sj.gap(0.5), sj.w('320px') ]\">\n        <sj-input variant=\"outlined\" usePadding=\"default\" useRounded=\"default\" [placeholder]=\"placeholder\"></sj-input>\n        <sj-input variant=\"filled\" usePaint=\"primary\" usePadding=\"default\" useRounded=\"default\" [placeholder]=\"placeholder\"></sj-input>\n        <sj-input variant=\"flat\" [placeholder]=\"placeholder\"></sj-input>\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "WithPrefixSuffix",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: { placeholder: 'Search...' },\n  render: (args) => ({\n    props: { ...args, sj, icon },\n    template: `\n      <div style=\"max-width: 360px;\">\n        <sj-input variant=\"outlined\" usePadding=\"default\" useRounded=\"default\" [placeholder]=\"placeholder\">\n          <sj-icon prefix [name]=\"icon.superJson\" size=\"1rem\" [sj]=\"[ sj.mr(0.25) ]\"></sj-icon>\n          <span suffix [sj]=\"[ sj.c('neutral.dark') ]\">&#64;</span>\n        </sj-input>\n      </div>\n    `,\n  }),\n}"
+                }
+            ],
             "projects/super-jss/src/stories/sj-root-api-tokens.stories.ts": [
                 {
                     "name": "meta",
@@ -1123,6 +1216,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj",
                     "file": "projects/super-jss/src/stories/sj-flex.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "projects/super-jss/src/stories/sj-input.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj",
+                    "file": "projects/super-jss/src/stories/sj-input.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -1528,6 +1634,56 @@
             },
             {
                 "filePath": "projects/super-jss/src/stories/sj-flex.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Playground",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Variants",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithPrefixSuffix",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-input.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
