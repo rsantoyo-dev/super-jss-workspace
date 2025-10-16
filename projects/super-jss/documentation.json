@@ -116,6 +116,16 @@
     "miscellaneous": {
         "variables": [
             {
+                "name": "Accessibility",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    props: { sj, icon },\n    template: `\n      <div [sj]=\"[ sj.d('flex'), sj.fxDir('column'), sj.gap(1) ]\">\n        <div>\n          <p>This icon is decorative and is hidden from screen readers:</p>\n          <sj-icon [name]=\"icon.sun\"></sj-icon>\n        </div>\n        <div>\n          <p>This icon has a label and is announced by screen readers:</p>\n          <sj-icon [name]=\"icon.moon\" label=\"Moon icon\"></sj-icon>\n        </div>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
                 "name": "Alignment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -244,6 +254,16 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: { variant: 'flat', usePadding: 'default', useRounded: 'default' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `<sj-paper [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\">Flat paper</sj-paper>`,\n  }),\n}"
+            },
+            {
+                "name": "InteractiveAccessibility",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 1rem;\">\n        <a href=\"#\" style=\"text-decoration: none; color: inherit;\">\n          <sj-card variant=\"interactive\" usePadding=\"default\" useRounded=\"default\">\n            <h3>Navigational Card</h3>\n            <p>This card is wrapped in an anchor tag and navigates on click.</p>\n          </sj-card>\n        </a>\n        <sj-card variant=\"interactive\" usePadding=\"default\" useRounded=\"default\" role=\"button\" tabindex=\"0\" (click)=\"onClick()\">\n          <h3>Action Card</h3>\n          <p>This card has a role of \"button\" and a click handler.</p>\n        </sj-card>\n      </div>\n    `,\n    props: {\n      onClick: () => alert('Card clicked!'),\n    },\n  }),\n}"
             },
             {
                 "name": "meta",
@@ -576,6 +596,26 @@
                 "defaultValue": "{\n  args: { placeholder: 'Placeholder' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div [sj]=\"[ sj.d('flex'), sj.fxDir('column'), sj.gap(0.5), sj.w('320px') ]\">\n        <sj-input variant=\"outlined\" usePadding=\"default\" useRounded=\"default\" [placeholder]=\"placeholder\"></sj-input>\n        <sj-input variant=\"filled\" usePaint=\"primary\" usePadding=\"default\" useRounded=\"default\" [placeholder]=\"placeholder\"></sj-input>\n        <sj-input variant=\"flat\" [placeholder]=\"placeholder\"></sj-input>\n      </div>\n    `,\n  }),\n}"
             },
             {
+                "name": "WithErrorMessage",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    id: 'error-input',\n    placeholder: 'Your email',\n    invalid: true,\n    ariaDescribedby: 'error-message',\n  },\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <div style=\"max-width: 360px; display: flex; flex-direction: column; gap: 0.5rem;\">\n        <label for=\"error-input\">Email Address</label>\n        <sj-input\n          [id]=\"id\"\n          [placeholder]=\"placeholder\"\n          [invalid]=\"invalid\"\n          [ariaDescribedby]=\"ariaDescribedby\"\n        ></sj-input>\n        <div id=\"error-message\" style=\"color: red; font-size: 0.875rem;\">This field is required.</div>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "WithLabel",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    id: 'my-input',\n    placeholder: 'Your email',\n  },\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <div style=\"max-width: 360px; display: flex; flex-direction: column; gap: 0.5rem;\">\n        <label for=\"my-input\">Email Address</label>\n        <sj-input\n          [id]=\"id\"\n          [placeholder]=\"placeholder\"\n        ></sj-input>\n      </div>\n    `,\n  }),\n}"
+            },
+            {
                 "name": "WithPrefixSuffix",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -722,6 +762,48 @@
         ],
         "enumerations": [],
         "groupedVariables": {
+            "projects/super-jss/src/stories/sj-icon.stories.ts": [
+                {
+                    "name": "Accessibility",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    props: { sj, icon },\n    template: `\n      <div [sj]=\"[ sj.d('flex'), sj.fxDir('column'), sj.gap(1) ]\">\n        <div>\n          <p>This icon is decorative and is hidden from screen readers:</p>\n          <sj-icon [name]=\"icon.sun\"></sj-icon>\n        </div>\n        <div>\n          <p>This icon has a label and is announced by screen readers:</p>\n          <sj-icon [name]=\"icon.moon\" label=\"Moon icon\"></sj-icon>\n        </div>\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "AllIcons",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    props: { sj, iconNames: Object.values(icon) },\n    template: `\n      <div [sj]=\"[ sj.d('grid'), sj.gridTemplateColumns('repeat(auto-fit, minmax(140px, 1fr))'), sj.gap(0.75) ]\">\n        <div *ngFor=\"let n of iconNames\" [sj]=\"[ sj.d('flex'), sj.fxDir('column'), sj.fxAItems('center'), sj.gap(0.25), sj.p(0.5), sj.bg('light.light'), sj.brad(0.5) ]\">\n          <sj-icon [name]=\"n\" size=\"2rem\"></sj-icon>\n          <code [sj]=\"[ sj.fs('0.8rem'), sj.c('neutral.dark') ]\">{{ n }}</code>\n        </div>\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta",
+                    "defaultValue": "{\n  title: 'SJ/Icon',\n  component: SjIconComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjIconComponent, SjDirective] })],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          '<sj-icon> renders theme-aware SVG icons. Size is controlled by the host via `size` (px/rem). Colors accept palette tokens or raw CSS.',\n      },\n    },\n  },\n  argTypes: {\n    name: { control: 'select', options: Object.values(icon) as any },\n    size: { control: 'text', table: { type: { summary: 'string | number' } } },\n    fill: { control: 'text' },\n    stroke: { control: 'text' },\n    fillOpacity: { control: { type: 'number', min: 0, max: 1, step: 0.05 } },\n    strokeOpacity: { control: { type: 'number', min: 0, max: 1, step: 0.05 } },\n    sj: { control: 'object' },\n  },\n}"
+                },
+                {
+                    "name": "Playground",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    name: icon.superJson,\n    size: '2rem',\n    fill: undefined,\n    stroke: undefined,\n    fillOpacity: undefined,\n    strokeOpacity: undefined,\n    sj: [sj.c('primary.main')],\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div [sj]=\"[ sj.d('flex'), sj.fxAItems('center'), sj.gap(0.5) ]\">\n        <sj-icon [name]=\"name\" [size]=\"size\" [fill]=\"fill\" [stroke]=\"stroke\" [fillOpacity]=\"fillOpacity\" [strokeOpacity]=\"strokeOpacity\" [sj]=\"sj\"></sj-icon>\n        <span [sj]=\"[ sj.c('neutral.dark') ]\">{{ name }}</span>\n      </div>\n    `,\n  }),\n}"
+                }
+            ],
             "projects/super-jss/src/stories/sj-flex.stories.ts": [
                 {
                     "name": "Alignment",
@@ -822,38 +904,6 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\n  args: { useWrap: true, useInline: true, useGap: 'default' },\n  render: (args) => ({\n    props: {\n      ...args,\n      sj,\n      numbers: Array.from({ length: 40 }, (_, i) => i + 1),\n    },\n    template: `\n      <sj-flex [useWrap]=\"useWrap\" [useInline]=\"useInline\" [useGap]=\"useGap\" [sj]=\"[ sj.bg('light.light') ]\">\n        <div *ngFor=\"let n of numbers\" [sj]=\"[ sj.p(0.3), sj.bg('neutral.light'), sj.mr(0.3), sj.mb(0.3) ]\">{{ n }}</div>\n      </sj-flex>\n    `,\n  }),\n}"
-                }
-            ],
-            "projects/super-jss/src/stories/sj-icon.stories.ts": [
-                {
-                    "name": "AllIcons",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  render: () => ({\n    props: { sj, iconNames: Object.values(icon) },\n    template: `\n      <div [sj]=\"[ sj.d('grid'), sj.gridTemplateColumns('repeat(auto-fit, minmax(140px, 1fr))'), sj.gap(0.75) ]\">\n        <div *ngFor=\"let n of iconNames\" [sj]=\"[ sj.d('flex'), sj.fxDir('column'), sj.fxAItems('center'), sj.gap(0.25), sj.p(0.5), sj.bg('light.light'), sj.brad(0.5) ]\">\n          <sj-icon [name]=\"n\" size=\"2rem\"></sj-icon>\n          <code [sj]=\"[ sj.fs('0.8rem'), sj.c('neutral.dark') ]\">{{ n }}</code>\n        </div>\n      </div>\n    `,\n  }),\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta",
-                    "defaultValue": "{\n  title: 'SJ/Icon',\n  component: SjIconComponent as any,\n  tags: ['autodocs'],\n  decorators: [moduleMetadata({ imports: [SjIconComponent, SjDirective] })],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          '<sj-icon> renders theme-aware SVG icons. Size is controlled by the host via `size` (px/rem). Colors accept palette tokens or raw CSS.',\n      },\n    },\n  },\n  argTypes: {\n    name: { control: 'select', options: Object.values(icon) as any },\n    size: { control: 'text', table: { type: { summary: 'string | number' } } },\n    fill: { control: 'text' },\n    stroke: { control: 'text' },\n    fillOpacity: { control: { type: 'number', min: 0, max: 1, step: 0.05 } },\n    strokeOpacity: { control: { type: 'number', min: 0, max: 1, step: 0.05 } },\n    sj: { control: 'object' },\n  },\n}"
-                },
-                {
-                    "name": "Playground",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/super-jss/src/stories/sj-icon.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {\n    name: icon.superJson,\n    size: '2rem',\n    fill: undefined,\n    stroke: undefined,\n    fillOpacity: undefined,\n    strokeOpacity: undefined,\n    sj: [sj.c('primary.main')],\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div [sj]=\"[ sj.d('flex'), sj.fxAItems('center'), sj.gap(0.5) ]\">\n        <sj-icon [name]=\"name\" [size]=\"size\" [fill]=\"fill\" [stroke]=\"stroke\" [fillOpacity]=\"fillOpacity\" [strokeOpacity]=\"strokeOpacity\" [sj]=\"sj\"></sj-icon>\n        <span [sj]=\"[ sj.c('neutral.dark') ]\">{{ name }}</span>\n      </div>\n    `,\n  }),\n}"
                 }
             ],
             "projects/super-jss/src/stories/sj-typography.stories.ts": [
@@ -1036,6 +1086,16 @@
             ],
             "projects/super-jss/src/stories/sj-card.stories.ts": [
                 {
+                    "name": "InteractiveAccessibility",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 1rem;\">\n        <a href=\"#\" style=\"text-decoration: none; color: inherit;\">\n          <sj-card variant=\"interactive\" usePadding=\"default\" useRounded=\"default\">\n            <h3>Navigational Card</h3>\n            <p>This card is wrapped in an anchor tag and navigates on click.</p>\n          </sj-card>\n        </a>\n        <sj-card variant=\"interactive\" usePadding=\"default\" useRounded=\"default\" role=\"button\" tabindex=\"0\" (click)=\"onClick()\">\n          <h3>Action Card</h3>\n          <p>This card has a role of \"button\" and a click handler.</p>\n        </sj-card>\n      </div>\n    `,\n    props: {\n      onClick: () => alert('Card clicked!'),\n    },\n  }),\n}"
+                },
+                {
                     "name": "meta",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
@@ -1138,6 +1198,26 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\n  args: { placeholder: 'Placeholder' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <div [sj]=\"[ sj.d('flex'), sj.fxDir('column'), sj.gap(0.5), sj.w('320px') ]\">\n        <sj-input variant=\"outlined\" usePadding=\"default\" useRounded=\"default\" [placeholder]=\"placeholder\"></sj-input>\n        <sj-input variant=\"filled\" usePaint=\"primary\" usePadding=\"default\" useRounded=\"default\" [placeholder]=\"placeholder\"></sj-input>\n        <sj-input variant=\"flat\" [placeholder]=\"placeholder\"></sj-input>\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "WithErrorMessage",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    id: 'error-input',\n    placeholder: 'Your email',\n    invalid: true,\n    ariaDescribedby: 'error-message',\n  },\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <div style=\"max-width: 360px; display: flex; flex-direction: column; gap: 0.5rem;\">\n        <label for=\"error-input\">Email Address</label>\n        <sj-input\n          [id]=\"id\"\n          [placeholder]=\"placeholder\"\n          [invalid]=\"invalid\"\n          [ariaDescribedby]=\"ariaDescribedby\"\n        ></sj-input>\n        <div id=\"error-message\" style=\"color: red; font-size: 0.875rem;\">This field is required.</div>\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "WithLabel",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    id: 'my-input',\n    placeholder: 'Your email',\n  },\n  render: (args) => ({\n    props: { ...args },\n    template: `\n      <div style=\"max-width: 360px; display: flex; flex-direction: column; gap: 0.5rem;\">\n        <label for=\"my-input\">Email Address</label>\n        <sj-input\n          [id]=\"id\"\n          [placeholder]=\"placeholder\"\n        ></sj-input>\n      </div>\n    `,\n  }),\n}"
                 },
                 {
                     "name": "WithPrefixSuffix",
@@ -1455,6 +1535,16 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "InteractiveAccessibility",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "meta",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
@@ -1733,6 +1823,16 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "Accessibility",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-icon.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "AllIcons",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
@@ -1794,6 +1894,26 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "Variants",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithErrorMessage",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithLabel",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

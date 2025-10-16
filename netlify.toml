@@ -1,6 +1,5 @@
-[build]
-  command = "npm ci && npm run build-storybook"
-  publish = "dist/storybook/super-jss"
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
 
-[build.environment]
-  NODE_VERSION = "20.19.0"

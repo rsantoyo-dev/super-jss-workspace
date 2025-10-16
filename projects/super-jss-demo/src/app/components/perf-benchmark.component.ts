@@ -109,7 +109,7 @@ import { sj, SjTypographyComponent, SjFlexComponent, SjCardComponent, SjRootApi 
           [value]="itemsCount()"
           (input)="setCount(+($any($event.target).value || 0))"
           min="0"
-          max="20000"
+          max="2000"
         />
         <small style="color:#61748a">(updates count immediately)</small>
 
@@ -119,7 +119,7 @@ import { sj, SjTypographyComponent, SjFlexComponent, SjCardComponent, SjRootApi 
           <span style="color:#61748a; font-size:13px">Presets:</span>
           <button (click)="setCount(500)">500</button>
           <button (click)="setCount(1000)">1,000</button>
-          <button (click)="setCount(5000)">5,000</button>
+          <button (click)="setCount(2000)">2,000</button>
         </div>
       </div>
 
@@ -248,7 +248,8 @@ export class PerfBenchmarkComponent {
   // no per-item text; count-only benchmark
 
   setCount(n: number) {
-    this.itemsCount.set(n);
+    const clamped = Math.max(0, Math.min(2000, n));
+    this.itemsCount.set(clamped);
   }
 
   setMode(m: 'sj' | 'css') {
