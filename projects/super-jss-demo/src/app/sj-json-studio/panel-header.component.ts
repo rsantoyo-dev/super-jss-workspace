@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SjStackComponent } from 'super-jss';
 import { sjButton, sjCard, SjDirective, SjStyle, sj, SjFlexComponent, SjTypographyComponent } from 'super-jss';
 
 @Component({
   selector: 'app-panel-header',
   standalone: true,
-  imports: [SjDirective, SjFlexComponent, SjTypographyComponent, SjStackComponent],
+  imports: [SjDirective, SjFlexComponent, SjTypographyComponent],
   template: `
     <sj-flex
       [sj]="
@@ -16,7 +15,7 @@ import { sjButton, sjCard, SjDirective, SjStyle, sj, SjFlexComponent, SjTypograp
         })
       "
     >
-      <sj-stack>nsdkndslknkl</sj-stack>
+      <!-- Removed sj-stack; use sj-flex or delete placeholder -->
       <sj-flex [sj]="left">
         <sj-typography
           variant="small"

@@ -28,7 +28,7 @@ export type SjInput =
   standalone: true,
   // Opt-in only: apply styles/typography when [sj] is present
   // Exclude components that render styles on other elements
-  selector: '[sj]:not(sj-host):not(sj-typography):not(sj-card):not(sj-paper):not(sj-stack):not(sj-flex)',
+  selector: '[sj]:not(sj-host):not(sj-typography):not(sj-card):not(sj-paper):not(sj-flex)',
 })
 export class SjDirective implements OnChanges {
   /**

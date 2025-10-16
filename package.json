@@ -5,7 +5,9 @@
     "ng": "ng",
     "start": "ng build super-jss && ng serve",
     "start:watch": "sh -c 'ng build super-jss --watch & ng serve'",
-    "build": "ng build",
+    "build": "ng build super-jss-demo",
+    "build:demo": "ng build super-jss-demo",
+    "build:lib": "ng build super-jss",
     "watch": "ng build --watch --configuration development",
     "storybook": "ng run super-jss:storybook",
     "build-storybook": "ng run super-jss:build-storybook",
@@ -21,7 +23,7 @@
     "mkdocs-build": "mkdocs build",
     "mkdocs-deploy": "mkdocs build && mkdocs gh-deploy",
     "netlify-login": "netlify login",
-    "netlify": "netlify login & netlify deploy --prod",
+    "netlify": "netlify login & netlify deploy --prod --dir=dist/super-jss-demo",
     "super-deploy": "npm run publish && npm run netlify && npm run mkdocs-deploy"
   },
   "dependencies": {

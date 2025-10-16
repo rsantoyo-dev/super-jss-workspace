@@ -38,6 +38,19 @@ export class SjCssGeneratorService {
     }
   }
 
+  /** Create atomic CSS map for a given style and theme. */
+  private generateCssMap(styles: SjStyle, theme: SjResolvedTheme) {
+    const cssGenerator = new CssGenerator(theme);
+    return cssGenerator.generateAtomicCss(styles);
+  }
+
+  /** Append CSS text to the single managed <style> tag if any. */
+  private appendCss(cssText: string) {
+    if (!cssText || !this.styleEl) return;
+    const node = this.renderer.createText(cssText);
+    this.renderer.appendChild(this.styleEl, node);
+  }
+
   /**
    * Returns prefixed class names for styles, appending new CSS to a single <style> tag.
    * Deduplicates previously generated rules using an in-memory cache.
@@ -56,8 +69,7 @@ export class SjCssGeneratorService {
     const cached = this.classCache.get(cacheKey);
     if (cached) return cached;
 
-    const cssGenerator = new CssGenerator(theme);
-    const cssMap = cssGenerator.generateAtomicCss(styles);
+    const cssMap = this.generateCssMap(styles, theme);
     const classes: string[] = [];
     // Merge declarations per selector/media instead of appending one-rule blocks
     // to make the stylesheet contain combined rule blocks (faster to parse
@@ -124,10 +136,7 @@ export class SjCssGeneratorService {
       if (inMedia) newCss += `}\n`;
     }
 
-    if (newCss && this.styleEl) {
-      const cssText = this.renderer.createText(newCss);
-      this.renderer.appendChild(this.styleEl, cssText);
-    }
+    this.appendCss(newCss);
 
     // Store computed classes in cache so repeated identical style objects
     // return immediately without re-generating CSS.
@@ -150,8 +159,7 @@ export class SjCssGeneratorService {
     const cached = this.classCache.get(cacheKey);
     if (cached) return cached;
 
-    const cssGenerator = new CssGenerator(theme);
-    const cssMap = cssGenerator.generateAtomicCss(styles);
+    const cssMap = this.generateCssMap(styles, theme);
 
     // Make a compact, deterministic id for this bundle from the JSON
     const bundleId = `${prefix}${generateBundleId(
@@ -229,10 +237,7 @@ export class SjCssGeneratorService {
         if (inMedia) newCss += `}\n`;
       }
 
-      if (newCss && this.styleEl) {
-        const cssText = this.renderer.createText(newCss);
-        this.renderer.appendChild(this.styleEl, cssText);
-      }
+      this.appendCss(newCss);
       this.generatedClasses.add(bundleId);
     }
 
