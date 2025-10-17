@@ -24,9 +24,11 @@
     "mkdocs-build": "mkdocs build",
     "mkdocs-deploy": "mkdocs build && mkdocs gh-deploy",
     "netlify-login": "netlify login",
-    "netlify": "netlify login & netlify deploy --prod --dir=dist/super-jss-demo",
-    "deploy:demo": "npm run build:demo && netlify deploy --prod --dir=dist/super-jss-demo",
-    "super-deploy": "npm run publish && npm run netlify && npm run mkdocs-deploy"
+    "netlify:demo": "NETLIFY_SITE_ID=$NETLIFY_DEMO_SITE_ID netlify deploy --prod --dir=dist/super-jss-demo --build \"true\"",
+    "netlify:storybook": "NETLIFY_SITE_ID=$NETLIFY_STORYBOOK_SITE_ID netlify deploy --prod --dir=dist/storybook/super-jss --build \"true\"",
+    "deploy:demo": "npm run build:demo && npm run netlify:demo",
+    "deploy:storybook": "ng run super-jss:build-storybook && npm run netlify:storybook",
+    "super-deploy": "npm run publish && npm run deploy:demo && npm run deploy:storybook && npm run mkdocs-deploy"
   },
   "dependencies": {
     "@angular/animations": "20.0.0",
