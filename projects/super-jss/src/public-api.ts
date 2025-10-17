@@ -11,6 +11,7 @@ export * from './lib/components';
 export * from './lib/icons';
 export * from './lib/api/sj';
 export * from './lib/imports';
+export * from './lib/utils';
 // Expose shared theme options and default theme for secondary entry usage
 export { DEFAULT_BREAKPOINTS } from './lib/themes/shared-options/breakpoints';
 export { DEFAULT_COLORS } from './lib/themes/shared-options/colors';

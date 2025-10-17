@@ -5,6 +5,7 @@ import type { SjInput } from '../directives/sj.directive';
 import { SjButtonVariant } from '../models/variants';
 import { SjThemeService } from '../services';
 import { SjDirective } from '../directives/sj.directive';
+import { toDensityLevel } from '../utils';
 
 @Component({
   selector: 'sj-button',
@@ -131,7 +132,8 @@ export class SjButtonComponent {
         borderStyle: 'solid',
         borderWidth: 0.1,
         borderColor: 'transparent',
-        '&:hover': { backgroundColor: `${color}.dark` },
+        '&:hover': { backgroundColor: `${color}.dark`, transform: 'translateY(-1px)' },
+        '&:active': { transform: 'translateY(0)' },
         '&:focus-visible': { outlineColor: `${color}.main` },
         '&:disabled': {
           backgroundColor: `${color}.main`,
@@ -161,7 +163,8 @@ export class SjButtonComponent {
         borderStyle: 'solid',
         borderWidth: 0.1,
         borderColor: `${color}.main`,
-        '&:hover': { backgroundColor: 'light.main' },
+        '&:hover': { backgroundColor: 'light.main', transform: 'translateY(-1px)' },
+        '&:active': { transform: 'translateY(0)' },
         '&:focus-visible': { outlineColor: `${color}.main` },
         '&:disabled': { borderColor: `${color}.main`, color: 'neutral.dark' },
         '&.active': {
@@ -186,10 +189,10 @@ export class SjButtonComponent {
       backgroundColor: 'transparent',
       color: `${color}.main`,
       borderStyle: 'solid',
-      borderWidth: 0.1,
-      borderColor: 'transparent',
-      '&:hover': { backgroundColor: 'light.main' },
-      '&:focus-visible': { outlineColor: `${color}.main` },
+              borderWidth: 0.1,
+              borderColor: 'transparent',
+              '&:hover': { backgroundColor: 'light.main', transform: 'translateY(-1px)' },
+              '&:active': { transform: 'translateY(0)' },      '&:focus-visible': { outlineColor: `${color}.main` },
       '&:disabled': { color: 'neutral.dark' },
       '&.active': {
         backgroundColor: 'light.main',
@@ -212,8 +215,8 @@ export class SjButtonComponent {
   // Compose variant base with user-provided overrides so user wins
   get hostSj(): SjInput {
     const base = () => {
-      // Variant + base layout
-      let style = { ...this.baseButtonStyles(), ...this.selectedSj() } as SjStyle;
+      // Variant base (already includes baseButtonStyles via selectedSj for simple variants)
+      let style = { ...this.selectedSj() } as SjStyle;
       // Apply fullWidth (also switch to block-level flex so width:100% takes effect)
       if (this.useFullWidth) {
         (style as any).width = '100%';
@@ -261,28 +264,12 @@ export class SjButtonComponent {
       }
       const theme = this.themeService.sjTheme();
       const surfaces = (theme as any).components?.surfaces ?? {};
-      const toLevel = (val: any): 1 | 2 | 3 | 4 | undefined => {
-        if (val === undefined || val === null) return undefined;
-        if (val === true || val === 'true' || val === '') return 2;
-        if (typeof val === 'number') {
-          const n = Math.max(1, Math.min(4, Math.round(val)));
-          return n as 1 | 2 | 3 | 4;
-        }
-        const m: Record<string, 1 | 2 | 3 | 4> = {
-          compact: 1,
-          default: 2,
-          comfortable: 3,
-          spacious: 4,
-        } as const;
-        return m[String(val).toLowerCase()] ?? undefined;
-      };
-
-      const padLevel = toLevel(this.useDensity);
+      const padLevel = toDensityLevel(this.useDensity);
       if (padLevel && (surfaces.padding as any)?.[padLevel] !== undefined) {
         (style as any).padding = (surfaces.padding as any)[padLevel];
       }
 
-      const roundedLevel = toLevel(this.useRounded);
+      const roundedLevel = toDensityLevel(this.useRounded);
       if (
         roundedLevel &&
         (surfaces.radius as any)?.[roundedLevel] !== undefined

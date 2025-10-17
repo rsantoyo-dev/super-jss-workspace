@@ -3,11 +3,12 @@
   "version": "0.0.1-beta.30",
   "scripts": {
     "ng": "ng",
-    "start": "ng build super-jss && ng serve",
+    "start": "ng build super-jss && ng serve super-jss-demo",
     "start:watch": "sh -c 'ng build super-jss --watch & ng serve'",
     "build": "ng build super-jss-demo",
     "build:demo": "ng build super-jss-demo",
     "build:lib": "ng build super-jss",
+    "serve:demo": "ng serve super-jss-demo",
     "watch": "ng build --watch --configuration development",
     "storybook": "ng run super-jss:storybook",
     "build-storybook": "ng run super-jss:build-storybook",
@@ -24,6 +25,7 @@
     "mkdocs-deploy": "mkdocs build && mkdocs gh-deploy",
     "netlify-login": "netlify login",
     "netlify": "netlify login & netlify deploy --prod --dir=dist/super-jss-demo",
+    "deploy:demo": "npm run build:demo && netlify deploy --prod --dir=dist/super-jss-demo",
     "super-deploy": "npm run publish && npm run netlify && npm run mkdocs-deploy"
   },
   "dependencies": {

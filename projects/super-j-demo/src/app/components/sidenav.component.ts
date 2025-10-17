@@ -80,8 +80,6 @@ import {
         <sj-button
           [useFullWidth]="true"
           [variant]="'outlined'"
-          [variant]="'flat'"
-          [variant]="'outlined'"
           routerLink="/palette"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
@@ -101,6 +99,7 @@ import {
         </sj-button>
 
         <sj-button
+          [useDensity]="1"
           [useFullWidth]="true"
           [variant]="'outlined'"
           routerLink="/perf"

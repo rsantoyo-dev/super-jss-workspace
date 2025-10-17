@@ -22,7 +22,9 @@ import {
         <sj-typography variant="h5">{{ title }}</sj-typography>
 
         <sj-paper usePadding useRounded [variant]="'outlined'">
-          <ng-content></ng-content>
+          <sj-flex useCol useGap>
+            <ng-content></ng-content>
+          </sj-flex>
         </sj-paper>
       </sj-flex>
     </sj-paper>
