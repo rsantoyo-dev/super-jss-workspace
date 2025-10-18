@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, effect } from '@angular/core';
+import { SjMarkerDirective } from '../directives/sj-marker.directive';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SjIconName, icon, renderIcon, SjIconOptions } from '../icons';
 import { SjThemeService } from '../services';
@@ -7,9 +8,11 @@ import { resolveThemeColor } from '../core/core-methods';
 @Component({
   selector: 'sj-icon',
   standalone: true,
+  imports: [SjMarkerDirective],
   template: `
     <span
       class="sj-icon"
+      [sjMarker]="'SjIcon'"
       [attr.role]="computedRole"
       [attr.aria-hidden]="isAriaHidden ? 'true' : null"
       [attr.aria-label]="label"

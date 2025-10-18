@@ -29,6 +29,7 @@ import type { SjInput } from '../directives/sj.directive';
   template: `
     <sj-paper
       [host]="true"
+      [marker]="'SjCard'"
       [variant]="variant === 'outlined' ? 'outlined' : (variant === 'flat' ? 'flat' : 'outlined')"
       [usePaint]="usePaint"
       [usePadding]="usePadding"

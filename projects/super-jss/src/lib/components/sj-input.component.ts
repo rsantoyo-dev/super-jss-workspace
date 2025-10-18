@@ -4,6 +4,7 @@ import type { SjInput as SjStyleInput } from '../directives/sj.directive';
 import { SjStyle } from '../models/interfaces';
  
 import { SjDirective } from '../directives/sj.directive';
+import { SjMarkerDirective } from '../directives/sj-marker.directive';
 
 /**
  * To make this component accessible, you should provide a label and associate it with the input.
@@ -15,11 +16,12 @@ import { SjDirective } from '../directives/sj.directive';
 @Component({
   selector: 'sj-input',
   standalone: true,
-  imports: [SjPaperComponent, SjDirective],
+  imports: [SjPaperComponent, SjDirective, SjMarkerDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <sj-paper
       [host]="true"
+      [marker]="'SjInput'"
       [variant]="paperVariant"
       [usePaint]="usePaint"
       [usePadding]="usePadding"
@@ -38,6 +40,7 @@ import { SjDirective } from '../directives/sj.directive';
         [sj]="inputSj"
         [attr.aria-invalid]="invalid ? 'true' : null"
         [attr.aria-describedby]="ariaDescribedby"
+        [sjMarker]="'SjInputNative'"
       />
       <ng-content select="[suffix]"></ng-content>
     </sj-paper>

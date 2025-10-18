@@ -13,6 +13,7 @@ import { SjThemeService, SjCssGeneratorService } from '../services';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SjPaperComponent extends SjBaseComponent {
+  protected override get defaultMarker(): string { return 'SjPaper'; }
   @Input() variant: SjPaperVariant = 'default';
   @Input() usePadding:
     | 1

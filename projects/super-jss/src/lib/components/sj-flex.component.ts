@@ -17,6 +17,7 @@ import { SjBaseComponent } from '../core/base.component';
   template: `<ng-content></ng-content>`,
 })
 export class SjFlexComponent extends SjBaseComponent {
+  protected override get defaultMarker(): string { return 'SjFlex'; }
   // Flexbox-specific layout sugars
   @Input({ transform: (v: any) => v === '' || v === true || v === 'true' })
   useCol = false;

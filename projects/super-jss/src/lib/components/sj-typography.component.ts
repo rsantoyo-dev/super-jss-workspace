@@ -13,6 +13,7 @@ import { SjCssGeneratorService } from '../services/sj-css-generator.service';
   template: `<ng-content></ng-content>`,
 })
 export class SjTypographyComponent implements AfterContentInit, OnChanges {
+  private static _nextId = 1;
   @Input() variant: SjTypographyVariant = 'default';
   // Optional: explicitly choose tag; when set it takes precedence over variant mapping
   @Input() component: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'strong' | 'small' | 'pre' | 'code' | 'label' | 'div' | undefined;
@@ -43,8 +44,14 @@ export class SjTypographyComponent implements AfterContentInit, OnChanges {
 
     const tag = this.resolveTag();
     const newEl = this.renderer.createElement(tag);
-    // Add a stable class for debugging/authoring
+    // Add marker class and data attributes for debugging/authoring
     this.renderer.addClass(newEl, 'SjTypography');
+    try {
+      const id = SjTypographyComponent._nextId++;
+      this.renderer.addClass(newEl, `SjTypography--${id}`);
+      this.renderer.setAttribute(newEl, 'data-sj-component', 'SjTypography');
+      this.renderer.setAttribute(newEl, 'data-sj-id', String(id));
+    } catch {}
 
     while (host.firstChild) this.renderer.appendChild(newEl, host.firstChild);
     this.renderer.insertBefore(parent, newEl, host);
@@ -98,6 +105,12 @@ export class SjTypographyComponent implements AfterContentInit, OnChanges {
     if (!parent) return;
     const replacement = this.renderer.createElement(this.resolveTag());
     this.renderer.addClass(replacement, 'SjTypography');
+    try {
+      const id = SjTypographyComponent._nextId++;
+      this.renderer.addClass(replacement, `SjTypography--${id}`);
+      this.renderer.setAttribute(replacement, 'data-sj-component', 'SjTypography');
+      this.renderer.setAttribute(replacement, 'data-sj-id', String(id));
+    } catch {}
     while (old.firstChild) this.renderer.appendChild(replacement, old.firstChild);
     this.renderer.insertBefore(parent, replacement, old);
     this.renderer.removeChild(parent, old);

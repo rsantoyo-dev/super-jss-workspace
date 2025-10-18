@@ -27,6 +27,8 @@ export abstract class SjBaseComponent implements AfterContentInit, OnChanges {
     | 'aside' = 'div';
   @Input({ transform: (v: any) => v === '' || v === true || v === 'true' })
   host = false;
+  // Optional marker to identify the component type in the DOM
+  @Input() marker: string | undefined;
   // Color sugars (inherit by all components)
   @Input() useBg: string | 'none' | undefined;
   @Input() useColor: string | 'auto' | 'none' | undefined;
@@ -34,6 +36,8 @@ export abstract class SjBaseComponent implements AfterContentInit, OnChanges {
   protected parentEl: HTMLElement | null = null;
   protected targetEl: HTMLElement | null = null;
   protected lastAppliedClass: string | null = null;
+  private static _instanceCounter = 0;
+  private _instanceId = ++SjBaseComponent._instanceCounter;
 
   constructor(
     protected hostRef: ElementRef<HTMLElement>,
@@ -58,12 +62,13 @@ export abstract class SjBaseComponent implements AfterContentInit, OnChanges {
 
     if (this.host) {
       this.parentEl = parent;
+      this.applyMarkerToEl(this.parentEl);
       this.applyToParent();
       while (host.firstChild) parent.insertBefore(host.firstChild, host);
       this.renderer.removeChild(parent, host);
     } else {
       const newEl = this.renderer.createElement(this.component || 'div');
-      this.renderer.addClass(newEl, 'SjBase'); // Add a generic class
+      this.applyMarkerToEl(newEl);
       while (host.firstChild) {
         this.renderer.appendChild(newEl, host.firstChild);
       }
@@ -91,7 +96,7 @@ export abstract class SjBaseComponent implements AfterContentInit, OnChanges {
     const parent = old.parentElement;
     if (!parent) return;
     const replacement = this.renderer.createElement(this.component || 'div');
-    this.renderer.addClass(replacement, 'SjBase'); // Add a generic class
+    this.applyMarkerToEl(replacement);
     while (old.firstChild) {
       this.renderer.appendChild(replacement, old.firstChild);
     }
@@ -99,6 +104,22 @@ export abstract class SjBaseComponent implements AfterContentInit, OnChanges {
     this.renderer.removeChild(parent, old);
     this.targetEl = replacement as HTMLElement;
     this.lastAppliedClass = null;
+  }
+
+  // Default marker can be overridden by subclasses
+  protected get defaultMarker(): string {
+    return 'SjBase';
+  }
+
+  private applyMarkerToEl(el: HTMLElement) {
+    const marker = this.marker || this.defaultMarker;
+    try {
+      // Add specific marker class; keep generic for debugging consistency
+      this.renderer.addClass(el, marker);
+      // Add data attributes for tooling/debugging
+      this.renderer.setAttribute(el, 'data-sj-component', marker);
+      this.renderer.setAttribute(el, 'data-sj-id', String(this._instanceId));
+    } catch {}
   }
 
   protected composeBaseStyle(): SjStyle {
@@ -188,6 +209,7 @@ export abstract class SjBaseComponent implements AfterContentInit, OnChanges {
 
   protected applyToParent(): void {
     if (!this.parentEl) return;
+    this.applyMarkerToEl(this.parentEl);
     const theme = this.themeService.sjTheme();
     const styles = this.composeStyle();
     const classes = (this.cssGenerator as any).getOrGenerateClassBundle
