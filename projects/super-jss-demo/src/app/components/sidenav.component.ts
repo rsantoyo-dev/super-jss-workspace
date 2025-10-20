@@ -103,6 +103,17 @@ import {
         <sj-button
           [useFullWidth]="true"
           [variant]="'outlined'"
+          routerLink="/element-options"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="navigate.emit()"
+        >
+          <sj-typography [variant]="'span'">Element Options</sj-typography>
+        </sj-button>
+
+        <sj-button
+          [useFullWidth]="true"
+          [variant]="'outlined'"
           routerLink="/perf"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"

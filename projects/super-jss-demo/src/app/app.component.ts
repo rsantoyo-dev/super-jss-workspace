@@ -19,6 +19,7 @@ import { RouterOutlet } from '@angular/router';
 
 import { SidenavComponent } from './components/sidenav.component';
 import { SjFlexComponent } from 'super-jss';
+import { DemoElementOptionsComponent } from './components/demo-element-options.component';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,7 @@ import { SjFlexComponent } from 'super-jss';
     SjButtonComponent,
     SjFlexComponent,
     ...SJ_BASE_COMPONENTS_IMPORTS,
+    DemoElementOptionsComponent,
   ],
   template: `
     <sj-paper

@@ -21,4 +21,10 @@ export const DEFAULT_SURFACES: NonNullable<
     3: { xs: 0.75, sm: 0.9, md: 1, lg: 1.25, xl: 1.5 },
     4: { xs: 1, sm: 1.25, md: 1.5, lg: 1.75, xl: 2 },
   },
+  border: {
+    1: { xs: 1, sm: 1, md: 1, lg: 1, xl: 1 }, // thin: 1px
+    2: { xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }, // default: 2px
+    3: { xs: 3, sm: 3, md: 3, lg: 3, xl: 3 }, // medium: 3px
+    4: { xs: 4, sm: 4, md: 4, lg: 4, xl: 4 }, // thick: 4px
+  },
 };

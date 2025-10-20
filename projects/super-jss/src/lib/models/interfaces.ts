@@ -84,7 +84,10 @@ export type SjTheme = {
     surfaces?: {
       padding?: Partial<Record<1 | 2 | 3 | 4, ResponsiveStyle | number>>;
       gap?: Partial<Record<1 | 2 | 3 | 4, ResponsiveStyle | number>>;
-      radius?: Partial<Record<1 | 2 | 3 | 4, ResponsiveStyle | number | string>>;
+      radius?: Partial<
+        Record<1 | 2 | 3 | 4, ResponsiveStyle | number | string>
+      >;
+      border?: Partial<Record<1 | 2 | 3 | 4, ResponsiveStyle | number>>;
     };
   };
 };

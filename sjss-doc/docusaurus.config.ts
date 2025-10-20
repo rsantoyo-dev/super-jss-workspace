@@ -147,6 +147,7 @@ const config: Config = {
           resolve: {
             alias: {
               'super-jss': path.resolve(__dirname, 'src/stubs/empty.js'),
+              '@storybook/angular': path.resolve(__dirname, 'src/stubs/empty.js'),
             },
           },
         };

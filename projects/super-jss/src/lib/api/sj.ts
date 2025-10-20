@@ -9,7 +9,11 @@ import { sjBox, SjBoxApi } from '../blueprints/box';
 import { sjCard, SjCardApi } from '../blueprints/card';
 import { sjPaper, SjPaperApi } from '../blueprints/paper';
 import { sjButton, SjButtonApi } from '../blueprints/button';
-import { SjButtonVariants, SjCardVariants, SjPaperVariants } from '../models/variants';
+import {
+  SjButtonVariants,
+  SjCardVariants,
+  SjPaperVariants,
+} from '../models/variants';
 
 // Typed palette tokens used in styles (string literals)
 const SjPaletteTokens = {
@@ -134,7 +138,14 @@ type CssFunctions = Omit<
 > &
   CssOverrides;
 
-export type SjCssApi = CssFunctions;
+// Add options to all CSS functions dynamically
+type CssFunctionWithOptions<T> = T & { options: Record<string, any> };
+
+type CssFunctionsWithOptions = {
+  [K in keyof CssFunctions]: CssFunctionWithOptions<CssFunctions[K]>;
+};
+
+export type SjCssApi = CssFunctionsWithOptions;
 
 export type SjStyleApi = SjCssApi & SjShApi;
 
@@ -145,12 +156,14 @@ export type SjApi = {
   sjCard: SjCardApi & { variants: typeof SjCardVariants };
   sjButton: SjButtonApi & { variants: typeof SjButtonVariants };
   // Density tokens for discoverability
-  density: { options: {
-    compact: 1;
-    default: 2;
-    comfortable: 3;
-    spacious: 4;
-  }};
+  density: {
+    options: {
+      compact: 1;
+      default: 2;
+      comfortable: 3;
+      spacious: 4;
+    };
+  };
 
   // Helpers
   hover: (
@@ -175,7 +188,10 @@ export type SjApi = {
 // Use an interface (not just a type alias) so Angular's Template Language
 // Service can better surface member completions in templates. Extending the
 // constituent types preserves the full shape while improving IDE hints.
-export interface SjRootApi extends SjApi, SjCssApiWithOptions, SjShApiWithOptions {}
+export interface SjRootApi
+  extends SjApi,
+    SjCssApiWithOptions,
+    SjShApiWithOptions {}
 
 // Small helpers implemented explicitly
 const helpers = {
@@ -406,6 +422,11 @@ type SjCssApiWithOptions = Omit<
   SjCssApi,
   | 'color'
   | 'backgroundColor'
+  | 'borderColor'
+  | 'outlineColor'
+  | 'textDecorationColor'
+  | 'fill'
+  | 'stroke'
   | 'display'
   | 'position'
   | 'width'
@@ -414,12 +435,27 @@ type SjCssApiWithOptions = Omit<
   | 'alignItems'
   | 'flexDirection'
   | 'flexWrap'
+  | 'padding'
+  | 'borderRadius'
+  | 'borderWidth'
+  | 'gap'
+  | 'margin'
 > & {
+  // Color properties - all get full palette access
   color: WithOptions<SjCssApi['color'], typeof SjPaletteTokens>;
   backgroundColor: WithOptions<
     SjCssApi['backgroundColor'],
     typeof SjPaletteTokens
   >;
+  borderColor: WithOptions<SjCssApi['borderColor'], typeof SjPaletteTokens>;
+  outlineColor: WithOptions<SjCssApi['outlineColor'], typeof SjPaletteTokens>;
+  textDecorationColor: WithOptions<
+    SjCssApi['textDecorationColor'],
+    typeof SjPaletteTokens
+  >;
+  fill: WithOptions<SjCssApi['fill'], typeof SjPaletteTokens>;
+  stroke: WithOptions<SjCssApi['stroke'], typeof SjPaletteTokens>;
+
   display: WithOptions<SjCssApi['display'], typeof SjDisplayTokens>;
   position: WithOptions<SjCssApi['position'], typeof SjPositionTokens>;
   width: WithOptions<SjCssApi['width'], (typeof SjSizingTokens)['width']>;
@@ -434,15 +470,47 @@ type SjCssApiWithOptions = Omit<
     (typeof SjFlexTokens)['direction']
   >;
   flexWrap: WithOptions<SjCssApi['flexWrap'], (typeof SjFlexTokens)['wrap']>;
-  flexFlow: WithOptions<
-    SjCssApi['flexFlow'],
-    { direction: (typeof SjFlexTokens)['direction']; wrap: (typeof SjFlexTokens)['wrap'] }
+  padding: WithOptions<
+    SjCssApi['padding'],
+    {
+      compact: 1;
+      default: 2;
+      comfortable: 3;
+      spacious: 4;
+    }
+  >;
+  borderRadius: WithOptions<
+    SjCssApi['borderRadius'],
+    {
+      compact: 1;
+      default: 2;
+      comfortable: 3;
+      spacious: 4;
+    }
+  >;
+  borderWidth: WithOptions<
+    SjCssApi['borderWidth'],
+    {
+      compact: 1;
+      default: 2;
+      comfortable: 3;
+      spacious: 4;
+    }
+  >;
+  margin: WithOptions<
+    SjCssApi['margin'],
+    {
+      compact: 1;
+      default: 2;
+      comfortable: 3;
+      spacious: 4;
+    }
   >;
 };
 
 type SjShApiWithOptions = Omit<
   SjShApi,
-  'd' | 'fxDir' | 'fxJustify' | 'fxAItems' | 'bg' | 'c'
+  'd' | 'fxDir' | 'fxJustify' | 'fxAItems' | 'bg' | 'c' | 'gap'
 > & {
   d: WithOptions<SjShApi['d'], typeof SjDisplayTokens>;
   fxDir: WithOptions<SjShApi['fxDir'], (typeof SjFlexTokens)['direction']>;
@@ -450,6 +518,15 @@ type SjShApiWithOptions = Omit<
   fxAItems: WithOptions<SjShApi['fxAItems'], typeof FlexAlignOptions>;
   bg: WithOptions<SjShApi['bg'], typeof SjPaletteTokens>;
   c: WithOptions<SjShApi['c'], typeof SjPaletteTokens>;
+  gap: WithOptions<
+    SjShApi['gap'],
+    {
+      compact: 1;
+      default: 2;
+      comfortable: 3;
+      spacious: 4;
+    }
+  >;
 };
 
 // Build the base object first; we'll wrap it in a Proxy to expose root style methods
@@ -483,8 +560,15 @@ const sjBase: SjApi = {
 
 // Curated option maps for props/shorthands
 const optionsMapCss: Record<string, unknown> = {
+  // Color properties - all get full palette access
   color: SjPaletteTokens,
   backgroundColor: SjPaletteTokens,
+  borderColor: SjPaletteTokens,
+  outlineColor: SjPaletteTokens,
+  textDecorationColor: SjPaletteTokens,
+  fill: SjPaletteTokens,
+  stroke: SjPaletteTokens,
+
   display: SjDisplayTokens,
   position: SjPositionTokens,
   width: SjSizingTokens.width,
@@ -511,6 +595,12 @@ const optionsMapCss: Record<string, unknown> = {
     comfortable: 3,
     spacious: 4,
   },
+  borderWidth: {
+    compact: 1,
+    default: 2,
+    comfortable: 3,
+    spacious: 4,
+  },
 };
 
 const optionsMapSh: Record<string, unknown> = {
@@ -518,9 +608,6 @@ const optionsMapSh: Record<string, unknown> = {
   fxDir: SjFlexTokens.direction,
   fxJustify: FlexJustifyOptions,
   fxAItems: FlexAlignOptions,
-  bg: SjPaletteTokens,
-  c: SjPaletteTokens,
-  // expose density options under sj.gap.options as well
   gap: {
     compact: 1,
     default: 2,
@@ -528,6 +615,106 @@ const optionsMapSh: Record<string, unknown> = {
     spacious: 4,
   },
 };
+
+/**
+ * Dynamically generates options for any CSS property based on common patterns
+ */
+function getDynamicOptionsForProperty(
+  propName: string
+): Record<string, any> | undefined {
+  // Color-related properties
+  if (propName.includes('color') || propName.includes('Color')) {
+    return SjPaletteTokens;
+  }
+
+  // Spacing/sizing properties (padding, margin, gap, etc.)
+  if (
+    propName.includes('padding') ||
+    propName.includes('margin') ||
+    propName.includes('gap')
+  ) {
+    return {
+      compact: 1,
+      default: 2,
+      comfortable: 3,
+      spacious: 4,
+    };
+  }
+
+  // Border radius
+  if (propName.includes('radius') || propName.includes('Radius')) {
+    return {
+      compact: 1,
+      default: 2,
+      comfortable: 3,
+      spacious: 4,
+    };
+  }
+
+  // Display properties
+  if (
+    propName.includes('display') ||
+    propName === 'overflow' ||
+    propName === 'visibility'
+  ) {
+    return SjDisplayTokens;
+  }
+
+  // Position properties
+  if (
+    propName.includes('position') ||
+    propName === 'top' ||
+    propName === 'right' ||
+    propName === 'bottom' ||
+    propName === 'left' ||
+    propName === 'zIndex'
+  ) {
+    return SjPositionTokens;
+  }
+
+  // Flex properties
+  if (
+    propName.includes('flex') ||
+    propName === 'justifyContent' ||
+    propName === 'alignItems'
+  ) {
+    if (propName.includes('direction')) return SjFlexTokens.direction;
+    if (propName.includes('wrap')) return SjFlexTokens.wrap;
+    if (propName.includes('justify')) return FlexJustifyOptions;
+    if (propName.includes('align')) return FlexAlignOptions;
+    return SjFlexTokens;
+  }
+
+  // Sizing properties
+  if (
+    propName === 'width' ||
+    propName === 'height' ||
+    propName === 'minWidth' ||
+    propName === 'maxWidth' ||
+    propName === 'minHeight' ||
+    propName === 'maxHeight'
+  ) {
+    return propName.includes('width')
+      ? SjSizingTokens.width
+      : SjSizingTokens.height;
+  }
+
+  // Typography properties
+  if (
+    propName.includes('font') ||
+    propName === 'textAlign' ||
+    propName === 'textDecoration' ||
+    propName === 'textTransform' ||
+    propName === 'letterSpacing' ||
+    propName === 'lineHeight'
+  ) {
+    // For now, return undefined for typography - could be extended later
+    return undefined;
+  }
+
+  // For any other property, return undefined (no options available)
+  return undefined;
+}
 
 // Root-level Proxy: if property exists on base, return it; else try shorthand; else treat as CSS prop
 const sjProxy: SjRootApi = new Proxy(sjBase as any, {
@@ -564,6 +751,20 @@ const sjProxy: SjRootApi = new Proxy(sjBase as any, {
         });
       } catch {
         (fn as any).options = (optionsMapCss as any)[propKey];
+      }
+    } else if (typeof propKey === 'string') {
+      // For CSS properties not in optionsMapCss, try dynamic options
+      const dynamicOptions = getDynamicOptionsForProperty(propKey);
+      if (dynamicOptions) {
+        try {
+          Object.defineProperty(fn, 'options', {
+            value: dynamicOptions,
+            writable: false,
+            enumerable: true,
+          });
+        } catch {
+          (fn as any).options = dynamicOptions;
+        }
       }
     }
     return fn as any;
