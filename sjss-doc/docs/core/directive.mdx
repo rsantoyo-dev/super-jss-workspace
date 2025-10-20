@@ -1,0 +1,477 @@
+---
+title: Core Directive
+description: The heart of Super-JSS - the [sj] directive for CSS-in-JS styling
+---
+
+import { Tabs, TabItem } from "@theme/Tabs";
+
+# Core Directive
+
+**The `[sj]` directive is the heart of Super-JSS** - a powerful CSS-in-JS system that lets you author styles as JavaScript objects directly in your Angular templates. This directive transforms how you write CSS, making it type-safe, theme-aware, and responsive.
+
+## Why the Directive Matters
+
+Unlike traditional CSS or even other CSS-in-JS libraries, Super-JSS centers around the `[sj]` directive as its core primitive. Components are just convenient wrappers around directive usage. The directive gives you:
+
+- **Type Safety**: Full TypeScript autocomplete for CSS properties
+- **Theme Integration**: Automatic access to colors, spacing, and tokens
+- **Responsive Design**: Built-in breakpoint system
+- **Performance**: Atomic CSS generation with deduplication
+- **Flexibility**: Mix plain CSS with theme values seamlessly
+
+## SJ Types: Objects & Arrays
+
+The `[sj]` directive accepts two primary types:
+
+### **Single SJ Object**
+
+```typescript
+// Type: SjStyle
+{
+  padding: '16px',
+  backgroundColor: '#f7f7f7',
+  borderRadius: '8px'
+}
+```
+
+### **Array of SJ Objects** (Most Common)
+
+```typescript
+// Type: SjStyle[]
+[{ padding: "16px" }, { backgroundColor: "#f7f7f7" }, { borderRadius: "8px" }];
+```
+
+**Why arrays?** They allow composition, overrides, and logical separation of concerns.
+
+## Basic Usage
+
+### Inline Objects
+
+```html
+<!-- Single object -->
+<div
+  [sj]="{ padding: '24px', backgroundColor: '#f7f7f7', borderRadius: '8px' }"
+>
+  Simple styling with plain CSS values
+</div>
+
+<!-- Array of objects -->
+<div
+  [sj]="[
+  { padding: '24px' },
+  { backgroundColor: '#f7f7f7' },
+  { borderRadius: '8px' }
+]"
+>
+  Same result, but more composable
+</div>
+```
+
+### Component Properties
+
+```typescript
+import { SjStyle } from 'super-jss';
+
+@Component({...})
+export class MyComponent {
+  cardStyle: SjStyle = {
+    padding: '20px',
+    backgroundColor: '#ffffff',
+    borderRadius: '12px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+  };
+
+  spacingStyle: SjStyle = {
+    margin: '16px',
+    gap: '12px'
+  };
+}
+```
+
+```html
+<!-- Use in template -->
+<div [sj]="cardStyle">
+  <h3>Card Title</h3>
+  <p>Card content</p>
+</div>
+
+<!-- Combine multiple styles -->
+<div [sj]="[cardStyle, spacingStyle]">Multiple style objects merged</div>
+```
+
+## Recommended Usage
+
+For the best development experience, we recommend using **SJ objects with the SJ Root API** (`sj.*`). This approach provides:
+
+- **Full IDE autocomplete** for CSS properties and theme tokens
+- **Type safety** with TypeScript
+- **Quick access** to theme values and utilities
+- **Consistent API** across your entire application
+
+### Objects with sjApi (Recommended)
+
+```html
+<!-- Using sj.* functions for autocomplete and theme integration -->
+<div
+  [sj]="[
+  sj.padding('16px'),
+  sj.backgroundColor(sj.bg.options.primary.main),
+  sj.borderRadius('8px'),
+  sj.color(sj.c.options.primary.contrast)
+]"
+>
+  Recommended: sj.* functions with theme tokens
+</div>
+```
+
+### Why sjRoot Matters
+
+The `sj` object is attached to your theme and provides:
+
+- **Theme-aware values**: Access colors, spacing, and tokens via `.options`
+- **Quick property access**: `sj.p()` instead of `sj.padding()`
+- **Consistent theming**: All values respect your theme configuration
+- **Autocomplete everywhere**: Works inline in templates and in component logic
+
+### Plain Objects (Alternative)
+
+```html
+<!-- Plain objects still work but lack autocomplete -->
+<div
+  [sj]="[
+  { padding: '16px', backgroundColor: '#007acc', borderRadius: '8px' }
+]"
+>
+  Alternative: Plain objects (no autocomplete)
+</div>
+```
+
+**Recommendation**: Use `sj.*` functions for new code. Plain objects are fine for simple cases or when migrating existing styles.
+
+## Responsive Design
+
+Super-JSS has built-in responsive breakpoints: `xs`, `sm`, `md`, `lg`, `xl`.
+
+### Responsive Objects
+
+```html
+<div
+  [sj]="{
+  padding: { xs: '8px', sm: '16px', md: '24px', lg: '32px' },
+  fontSize: { xs: '14px', md: '16px' },
+  display: { xs: 'block', md: 'flex' }
+}"
+>
+  Responsive padding, font size, and layout
+</div>
+```
+
+### Responsive Arrays
+
+```html
+<div
+  [sj]="[
+  { padding: { xs: '8px', md: '16px' } },
+  { backgroundColor: '#f7f7f7' },
+  { borderRadius: { xs: '4px', md: '8px' } }
+]"
+>
+  Responsive properties in arrays
+</div>
+```
+
+## Shorthands & Shortcuts
+
+Super-JSS provides convenient shorthands for common CSS properties:
+
+### Spacing Shorthands
+
+```html
+<div
+  [sj]="{
+  p: '16px',      // padding
+  px: '12px',     // padding-left + padding-right
+  py: '8px',      // padding-top + padding-bottom
+  m: '10px',      // margin
+  mx: '20px',     // margin-left + margin-right
+  my: '15px'      // margin-top + margin-bottom
+}"
+>
+  Spacing shorthands
+</div>
+```
+
+### Layout Shorthands
+
+```html
+<div
+  [sj]="{
+  d: 'flex',           // display
+  fxDir: 'column',     // flex-direction
+  fxJustify: 'center', // justify-content
+  fxAItems: 'center',  // align-items
+  gap: '12px'          // gap
+}"
+>
+  Layout shorthands
+</div>
+```
+
+### Other Common Shorthands
+
+```html
+<div
+  [sj]="{
+  bg: '#f7f7f7',    // background-color
+  c: '#333333',     // color
+  brad: '8px',      // border-radius
+  w: '100%',        // width
+  h: '200px'        // height
+}"
+>
+  Common property shorthands
+</div>
+```
+
+## SJ Root API Integration
+
+The SJ Root API (`sj.*`) provides semantic, theme-aware values that work seamlessly with the directive:
+
+### Theme Colors
+
+```html
+<div
+  [sj]="[
+  sj.color(sj.color.options.primary.main),
+  sj.backgroundColor(sj.backgroundColor.options.secondary.light),
+  sj.padding(sj.padding.options.default)
+]"
+>
+  Using theme colors and spacing
+</div>
+```
+
+### Semantic Spacing
+
+```html
+<div
+  [sj]="[
+  sj.padding(sj.padding.options.compact),    // 1 unit
+  sj.margin(sj.margin.options.default),       // 2 units
+  sj.gap(sj.gap.options.comfortable)          // 3 units
+]"
+>
+  Semantic spacing from theme
+</div>
+```
+
+### Border System
+
+```html
+<div
+  [sj]="[
+  sj.borderWidth(sj.borderWidth.options.default),
+  sj.borderColor(sj.borderColor.options.primary.main),
+  sj.borderStyle('solid')
+]"
+>
+  Semantic border properties
+</div>
+```
+
+## Advanced Patterns
+
+### Conditional Styling
+
+```typescript
+@Component({...})
+export class MyComponent {
+  isActive = true;
+
+  get conditionalStyle(): SjStyle[] {
+    return this.isActive ? [
+      { backgroundColor: '#e3f2fd' },
+      { borderColor: '#2196f3' }
+    ] : [
+      { backgroundColor: '#f5f5f5' },
+      { borderColor: '#cccccc' }
+    ];
+  }
+}
+```
+
+```html
+<div [sj]="conditionalStyle">Conditional styling based on component state</div>
+```
+
+### Style Composition
+
+```typescript
+@Component({...})
+export class MyComponent {
+  baseCard: SjStyle = {
+    padding: '16px',
+    borderRadius: '8px',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+  };
+
+  primaryCard: SjStyle = {
+    backgroundColor: '#ffffff',
+    border: '1px solid #e0e0e0'
+  };
+
+  secondaryCard: SjStyle = {
+    backgroundColor: '#f8f9fa',
+    border: '1px solid #dee2e6'
+  };
+}
+```
+
+```html
+<!-- Primary card -->
+<div [sj]="[baseCard, primaryCard]">Primary card content</div>
+
+<!-- Secondary card -->
+<div [sj]="[baseCard, secondaryCard]">Secondary card content</div>
+```
+
+### Dynamic Theming
+
+```html
+<!-- Theme-aware button -->
+<button
+  [sj]="[
+  sj.padding(sj.padding.options.default),
+  sj.borderRadius(sj.borderRadius.options.default),
+  sj.color(sj.color.options.primary.contrast),
+  sj.backgroundColor(sj.backgroundColor.options.primary.main),
+  sj.border('none'),
+  sj.cursor('pointer')
+]"
+>
+  Theme-aware button
+</button>
+```
+
+## Performance & Best Practices
+
+### ✅ Do: Use Arrays for Composition
+
+```html
+<!-- Good: Composable -->
+<div [sj]="[baseStyles, themeStyles, responsiveStyles]">Content</div>
+```
+
+### ❌ Avoid: Monolithic Objects
+
+```html
+<!-- Avoid: Hard to maintain -->
+<div
+  [sj]="{ padding: '16px', backgroundColor: '#fff', borderRadius: '8px', /* ... 20 more properties */ }"
+>
+  Content
+</div>
+```
+
+### ✅ Do: Extract to Component Properties
+
+```typescript
+// Good: Reusable and testable
+export class CardComponent {
+  cardStyles: SjStyle[] = [
+    { padding: "16px" },
+    { backgroundColor: "#ffffff" },
+    { borderRadius: "8px" },
+  ];
+}
+```
+
+### ✅ Do: Use Theme Values
+
+```html
+<!-- Good: Theme-aware -->
+<div [sj]="sj.color(sj.color.options.primary.main)">Themed text</div>
+```
+
+### ❌ Avoid: Hardcoded Colors
+
+```html
+<!-- Avoid: Not theme-aware -->
+<div [sj]="{ color: '#1976d2' }">Hardcoded color</div>
+```
+
+## TypeScript Integration
+
+Super-JSS provides full TypeScript support:
+
+```typescript
+import { SjStyle, SjResponsiveStyle } from "super-jss";
+
+interface MyComponent {
+  // Single style object
+  cardStyle: SjStyle;
+
+  // Array of styles
+  combinedStyles: SjStyle[];
+
+  // Responsive style
+  responsiveStyle: SjResponsiveStyle;
+
+  // Method returning styles
+  getDynamicStyles(): SjStyle[];
+}
+```
+
+## Migration from CSS
+
+### Before (Traditional CSS)
+
+```css
+/* styles.css */
+.card {
+  padding: 16px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 24px;
+  }
+}
+```
+
+```html
+<div class="card">Card content</div>
+```
+
+### After (Super-JSS)
+
+```typescript
+// component.ts
+export class CardComponent {
+  cardStyles: SjStyle = {
+    padding: { xs: "16px", md: "24px" },
+    backgroundColor: "#ffffff",
+    borderRadius: "8px",
+    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+  };
+}
+```
+
+```html
+<!-- template.html -->
+<div [sj]="cardStyle">Card content</div>
+```
+
+## Next Steps
+
+Now that you understand the core directive, explore:
+
+- **[Directive Basics](directive-basics)** - Plain CSS usage examples
+- **[Directive Shortcuts](directive-shortcuts)** - Shorthand properties for common patterns
+- **[SJ Root API](sj-api)** - The `sj.*` functions for semantic values
+- **[Theming](sj-api-tokens)** - How themes and tokens work
+- **[Components](../components/sj-typography)** - Pre-built components using the directive
+- **[Quick Start](../getting-started/quick-start)** - Put it all together

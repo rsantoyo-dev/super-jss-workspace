@@ -1,10 +1,12 @@
 ---
-title: '[sj] Directive Basics'
+title: "Directive Basics"
+description: "Fundamental usage of the [sj] directive with plain CSS"
 ---
 
 `[sj]` is a lightweight Angular directive that lets you author styles as plain JavaScript objects directly in your templates.
 
 Key ideas:
+
 - Use camelCase CSS properties (e.g., padding, backgroundColor).
 - Values can be raw CSS (px, rem, hex) or theme tokens — start with raw CSS here.
 - Inline or class property: bind a literal object, or a component field typed as `SjStyle` or `SjStyle[]`.
@@ -18,7 +20,9 @@ These first examples avoid theming to show the most basic form.
 ### Padding (simple object)
 
 ```html
-<div [sj]="{ padding: '24px', backgroundColor: '#f7f7f7', borderRadius: '8px' }">
+<div
+  [sj]="{ padding: '24px', backgroundColor: '#f7f7f7', borderRadius: '8px' }"
+>
   div with padding: 24px (plain CSS units)
 </div>
 ```
@@ -26,11 +30,13 @@ These first examples avoid theming to show the most basic form.
 ### Responsive Padding
 
 ```html
-<div [sj]="{
+<div
+  [sj]="{
   padding: { xs: '16px', sm: '24px', md: '32px' },
   backgroundColor: '#f7f7f7',
   borderRadius: '8px'
-}">
+}"
+>
   div with responsive padding: xs=16px, sm=24px, md=32px
 </div>
 ```

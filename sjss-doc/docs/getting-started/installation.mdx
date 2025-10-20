@@ -1,0 +1,101 @@
+---
+title: Installation
+description: How to install and set up Super-JSS in your Angular project
+---
+
+# Installation
+
+Super-JSS is a CSS-in-JS library specifically designed for Angular applications. Follow these steps to add it to your project.
+
+## Prerequisites
+
+- **Angular**: Version 20.0.0 or higher
+- **Node.js**: Version 18.0.0 or higher
+- **TypeScript**: Version 5.0.0 or higher
+
+## Install Super-JSS
+
+### npm
+
+```bash
+npm install super-jss
+```
+
+### Yarn
+
+```bash
+yarn add super-jss
+```
+
+### pnpm
+
+```bash
+pnpm add super-jss
+```
+
+## Import the Module
+
+Add the `SJ_BASE_COMPONENTS_IMPORTS` to your application's root module or standalone component:
+
+```typescript
+import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { SJ_BASE_COMPONENTS_IMPORTS } from "super-jss";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  imports: [
+    CommonModule,
+    SJ_BASE_COMPONENTS_IMPORTS, // Add this line
+  ],
+  template: `
+    <div [sj]="[sj.padding('16px'), sj.backgroundColor('#f5f5f5')]">
+      Hello Super-JSS!
+    </div>
+  `,
+})
+export class AppComponent {
+  // Import the sj API
+  sj = (globalThis as any).sj;
+}
+```
+
+## Configure Your Theme (Optional)
+
+Super-JSS comes with a default theme, but you can customize it by providing your own theme configuration:
+
+```typescript
+import { SJ_THEME_PROVIDER } from "super-jss";
+
+@NgModule({
+  providers: [
+    SJ_THEME_PROVIDER, // Provides default theme
+  ],
+})
+export class AppModule {}
+```
+
+## Verify Installation
+
+Create a simple component to test your installation:
+
+```html
+<!-- app.component.html -->
+<div
+  [sj]="[
+  sj.padding('20px'),
+  sj.backgroundColor('#e3f2fd'),
+  sj.borderRadius('8px'),
+  sj.color('#1976d2')
+]"
+>
+  <h1>Welcome to Super-JSS!</h1>
+  <p>Your installation is working correctly.</p>
+</div>
+```
+
+## Next Steps
+
+- [Quick Start Guide](./quick-start) - Learn the basics
+- [Components Reference](../components/sj-button) - Explore available components

@@ -1,5 +1,6 @@
 ---
-title: '[sj] Directive Shortcuts'
+title: "Directive Shortcuts"
+description: "Shorthand properties for common CSS patterns"
 ---
 
 Popular shorthand keys for common CSS: `p`, `px`, `py`, `m`, `mx`, `my`, `brad`, `bg`, `c`, `w`, `h`, `d`, `fxDir`, `fxJustify`, `fxAItems`, `gap`.
@@ -27,19 +28,23 @@ Shorthands are authoring sugar — the generator outputs full CSS behind the sce
 ### Responsive shorthands
 
 ```html
-<div [sj]="{
+<div
+  [sj]="{
   p: { xs: '8px', md: '16px' },
   brad: { xs: '4px', md: '8px' },
   bg: '#f7f7f7'
-}">
+}"
+>
   p: xs 8px → md 16px, brad: xs 4px → md 8px
 </div>
 ```
 
-### Quick layout (d/flex + fx*)
+### Quick layout (d/flex + fx\*)
 
 ```html
-<div [sj]="{ d: 'flex', fxDir: 'row', fxJustify: 'space-between', fxAItems: 'center', gap: '8px', bg: '#f0f0f0', p: '8px', brad: '6px' }">
+<div
+  [sj]="{ d: 'flex', fxDir: 'row', fxJustify: 'space-between', fxAItems: 'center', gap: '8px', bg: '#f0f0f0', p: '8px', brad: '6px' }"
+>
   <div [sj]="{ bg: '#ccc', p: '4px', brad: '4px' }">A</div>
   <div [sj]="{ bg: '#ccc', p: '4px', brad: '4px' }">B</div>
   <div [sj]="{ bg: '#ccc', p: '4px', brad: '4px' }">C</div>

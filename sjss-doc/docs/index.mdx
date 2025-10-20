@@ -1,13 +1,91 @@
 ---
 title: Introduction
+description: Super-powered CSS-in-JS library for Angular applications
 ---
 
-# SJSS — Component Reference
+# Super-JSS Documentation
 
-Explore components and APIs with live controls.
+**Super-JSS** is a powerful CSS-in-JS library specifically designed for Angular applications. It provides a type-safe, theme-aware styling system with pre-built components and a flexible API for custom styling.
 
-This documentation is a developer playground for Super JSS (SJSS). It mirrors the latest package and lets you try props and tokens interactively. For guided docs and theming guides, use the links below.
+## 🚀 Quick Start
 
-- [Components](./components/sj-button)
-- [Demo](https://sjssdemo.netlify.app)
-- [Docs](https://sjss.dev)
+Get up and running in minutes:
+
+- **[Installation](./getting-started/installation)** - Add Super-JSS to your Angular project
+- **[Quick Start](./getting-started/quick-start)** - Your first styled components
+- **[Demo](https://sjssdemo.netlify.app)** - Interactive playground
+
+## 📚 Documentation Sections
+
+### 🎯 Getting Started
+
+Installation guides, basic setup, and first steps with Super-JSS.
+
+- [Installation](./getting-started/installation)
+- [Quick Start](./getting-started/quick-start)
+
+### 🧩 Components
+
+Pre-built UI components with consistent styling and theme integration.
+
+- [SJButton](./components/sj-button)
+- [SJCard](./components/sj-card)
+- [SJInput](./components/sj-input)
+- [SJPaper](./components/sj-paper)
+
+### 🎨 Theming _(Coming soon in Phase 2)_
+
+Customize colors, spacing, typography, and component behavior.
+
+### 📖 API Reference _(Coming soon in Phase 2)_
+
+Complete API documentation for all Super-JSS features.
+
+## ✨ Key Features
+
+- **🎯 Type-Safe**: Full TypeScript support with autocomplete
+- **🎨 Theme-Aware**: Consistent theming across all components
+- **📱 Responsive**: Built-in responsive design utilities
+- **🔧 Flexible**: Mix pre-built components with custom styling
+- **♿ Accessible**: WCAG compliant components
+- **🚀 Performant**: Optimized CSS generation and delivery
+
+## 💡 Example
+
+```typescript
+import { Component } from "@angular/core";
+import { sj, SJ_BASE_COMPONENTS_IMPORTS } from "super-jss";
+
+@Component({
+  selector: "app-example",
+  standalone: true,
+  imports: [SJ_BASE_COMPONENTS_IMPORTS],
+  template: `
+    <div
+      [sj]="[
+        sj.padding('24px'),
+        sj.backgroundColor(sj.backgroundColor.options.primary.light),
+        sj.borderRadius('12px')
+      ]"
+    >
+      <h1 [sj]="[sj.color(sj.color.options.primary.main)]">Hello Super-JSS!</h1>
+
+      <sj-button variant="filled" useDensity="2"> Get Started </sj-button>
+    </div>
+  `,
+})
+export class ExampleComponent {
+  protected sj = sj;
+}
+```
+
+## 🤝 Contributing
+
+Super-JSS is open source and welcomes contributions! Check out our [GitHub repository](https://github.com/super-jss/super-jss) to get involved.
+
+## 📞 Support
+
+- **📖 Documentation**: You're reading it!
+- **💬 Discussions**: [GitHub Discussions](https://github.com/super-jss/super-jss/discussions)
+- **🐛 Issues**: [GitHub Issues](https://github.com/super-jss/super-jss/issues)
+- **🎮 Demo**: [Interactive Playground](https://sjssdemo.netlify.app)

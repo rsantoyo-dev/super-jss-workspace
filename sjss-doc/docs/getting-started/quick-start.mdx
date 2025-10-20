@@ -1,0 +1,179 @@
+---
+title: Quick Start
+description: Get up and running with Super-JSS in minutes
+---
+
+# Quick Start
+
+Get started with Super-JSS in just a few minutes. This guide will walk you through creating your first styled components.
+
+## Basic Setup
+
+First, make sure Super-JSS is installed and imported in your Angular application. If you haven't done this yet, check out the [Installation Guide](./installation).
+
+## Your First Styled Component
+
+Let's create a simple card component using Super-JSS:
+
+```typescript
+import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { SJ_BASE_COMPONENTS_IMPORTS, sj } from "super-jss";
+
+@Component({
+  selector: "app-welcome-card",
+  standalone: true,
+  imports: [CommonModule, SJ_BASE_COMPONENTS_IMPORTS],
+  template: `
+    <div
+      [sj]="[
+        sj.padding('24px'),
+        sj.backgroundColor('#ffffff'),
+        sj.borderRadius('12px'),
+        sj.boxShadow('0 4px 6px rgba(0, 0, 0, 0.1)'),
+        sj.maxWidth('400px'),
+        sj.margin('0 auto')
+      ]"
+    >
+      <h2
+        [sj]="[
+          sj.margin('0 0 16px 0'),
+          sj.color('#1976d2'),
+          sj.fontSize('24px'),
+          sj.fontWeight('600')
+        ]"
+      >
+        Welcome to Super-JSS!
+      </h2>
+
+      <p
+        [sj]="[
+          sj.margin('0 0 20px 0'),
+          sj.color('#666666'),
+          sj.lineHeight('1.6')
+        ]"
+      >
+        This card is styled entirely with Super-JSS. No CSS files needed!
+      </p>
+
+      <sj-button variant="filled" useDensity="2" [sj]="[sj.width('100%')]">
+        Get Started
+      </sj-button>
+    </div>
+  `,
+})
+export class WelcomeCardComponent {
+  protected sj = sj;
+}
+```
+
+## Using the SJ Root API
+
+The `sj` object provides access to every CSS property as a typed function. Here are some common examples:
+
+### Layout and Spacing
+
+```html
+<div
+  [sj]="[
+  sj.display('flex'),
+  sj.justifyContent('center'),
+  sj.alignItems('center'),
+  sj.gap('16px'),
+  sj.padding('20px'),
+  sj.margin('10px')
+]"
+>
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</div>
+```
+
+### Colors and Typography
+
+```html
+<div
+  [sj]="[
+  sj.color(sj.color.options.primary.main),
+  sj.backgroundColor(sj.backgroundColor.options.secondary.light),
+  sj.fontSize('18px'),
+  sj.fontWeight('500'),
+  sj.textAlign('center')
+]"
+>
+  Styled with theme colors and typography
+</div>
+```
+
+### Responsive Design
+
+```html
+<div
+  [sj]="[
+  sj.padding({ xs: '16px', md: '24px', lg: '32px' }),
+  sj.fontSize({ xs: '14px', md: '16px' }),
+  sj.display({ xs: 'block', md: 'flex' })
+]"
+>
+  Responsive padding, font size, and layout
+</div>
+```
+
+## Using Pre-built Components
+
+Super-JSS comes with ready-to-use components that follow your theme:
+
+### Button Variants
+
+```html
+<sj-button variant="filled" useDensity="2">Primary Action</sj-button>
+<sj-button variant="outlined" useDensity="2">Secondary Action</sj-button>
+<sj-button variant="flat" useDensity="2">Tertiary Action</sj-button>
+```
+
+### Card Component
+
+```html
+<sj-card variant="elevated" useDensity="2>
+  <div [sj]="[sj.padding('16px')]">
+    <h3>Card Title</h3>
+    <p>Card content goes here.</p>
+  </div>
+</sj-card>
+```
+
+### Input Component
+
+```html
+<sj-input
+  label="Email"
+  type="email"
+  placeholder="Enter your email"
+  useDensity="2"
+></sj-input>
+```
+
+## Theme Integration
+
+Super-JSS automatically uses your theme's colors, spacing, and typography:
+
+```html
+<!-- Uses theme palette -->
+<div [sj]="[sj.color(sj.color.options.primary.main)]">Primary text color</div>
+
+<!-- Uses theme spacing -->
+<div [sj]="[sj.padding(sj.padding.options.default)]">
+  Default padding from theme
+</div>
+
+<!-- Uses theme border radius -->
+<div [sj]="[sj.borderRadius(sj.borderRadius.options.comfortable)]">
+  Comfortable border radius
+</div>
+```
+
+## What's Next?
+
+- [Components Reference](../components/sj-button) - Explore all available components
+- [Demo](https://sjssdemo.netlify.app) - Interactive playground

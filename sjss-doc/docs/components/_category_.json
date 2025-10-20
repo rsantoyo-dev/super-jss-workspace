@@ -1,4 +1,5 @@
 {
   "label": "Components",
-  "position": 2
+  "position": 3,
+  "description": "Pre-built UI components with Super-JSS styling"
 }

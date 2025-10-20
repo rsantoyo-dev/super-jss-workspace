@@ -1,0 +1,229 @@
+---
+title: "Services & Advanced Theming"
+description: "Using Super-JSS services for dynamic theming and signal-based updates"
+---
+
+# Services & Advanced Theming
+
+Super-JSS provides services for advanced theming scenarios, including runtime theme switching, dynamic updates, and signal-based reactive theming.
+
+## SjThemeService
+
+The `SjThemeService` manages theme state and provides methods for dynamic theming.
+
+### Basic Usage
+
+```typescript
+import { SjThemeService } from 'super-jss';
+
+@Component({...})
+export class ThemeSwitcherComponent {
+  constructor(private themeService: SjThemeService) {}
+
+  switchTheme(theme: SjTheme) {
+    this.themeService.setTheme(theme);
+  }
+
+  getCurrentTheme() {
+    return this.themeService.getCurrentTheme();
+  }
+}
+```
+
+### Reactive Theme Changes
+
+```typescript
+import { SjThemeService } from 'super-jss';
+import { signal, computed } from '@angular/core';
+
+@Component({...})
+export class ReactiveThemeComponent {
+  private themeService = inject(SjThemeService);
+
+  // Reactive theme state
+  currentTheme = signal<SjTheme>(this.themeService.getCurrentTheme());
+
+  // Computed values based on theme
+  primaryColor = computed(() => this.currentTheme().palette.primary.main);
+
+  constructor() {
+    // Subscribe to theme changes
+    this.themeService.theme$.subscribe(theme => {
+      this.currentTheme.set(theme);
+    });
+  }
+
+  updatePrimaryColor(color: string) {
+    const newTheme = {
+      ...this.currentTheme(),
+      palette: {
+        ...this.currentTheme().palette,
+        primary: {
+          ...this.currentTheme().palette.primary,
+          main: color
+        }
+      }
+    };
+
+    this.themeService.setTheme(newTheme);
+  }
+}
+```
+
+## Signal-Based Components
+
+Modern Angular applications can use signals for reactive theming:
+
+```typescript
+import { signal, computed, effect } from "@angular/core";
+import { SjThemeService } from "super-jss";
+
+@Component({
+  template: `
+    <div [sj]="buttonStyle()">
+      <button [sj]="textStyle()">Themed Button</button>
+    </div>
+  `,
+})
+export class SignalThemedComponent {
+  private themeService = inject(SjThemeService);
+
+  // Signal for current theme
+  theme = signal(this.themeService.getCurrentTheme());
+
+  // Computed styles based on theme
+  buttonStyle = computed(() => [
+    sj.backgroundColor(this.theme().palette.primary.main),
+    sj.padding("12px"),
+    sj.borderRadius("8px"),
+  ]);
+
+  textStyle = computed(() => [
+    sj.color(this.theme().palette.primary.contrast),
+    sj.fontWeight("bold"),
+  ]);
+
+  constructor() {
+    // Update theme signal when service changes
+    effect(() => {
+      const currentTheme = this.themeService.getCurrentTheme();
+      this.theme.set(currentTheme);
+    });
+  }
+}
+```
+
+## Theme Overrides at Component Level
+
+Override themes for specific components or sections:
+
+```typescript
+@Component({
+  providers: [
+    {
+      provide: SJ_THEME_PROVIDER,
+      useValue: customComponentTheme,
+    },
+  ],
+})
+export class CustomThemedComponent {
+  // This component and its children use customComponentTheme
+}
+```
+
+## Advanced Patterns
+
+### Theme Variants
+
+```typescript
+// Define theme variants
+const themes = {
+  light: lightTheme,
+  dark: darkTheme,
+  highContrast: highContrastTheme
+};
+
+@Component({...})
+export class AppComponent {
+  currentVariant = signal<'light' | 'dark' | 'highContrast'>('light');
+
+  switchVariant(variant: keyof typeof themes) {
+    this.currentVariant.set(variant);
+    this.themeService.setTheme(themes[variant]);
+  }
+}
+```
+
+### Conditional Theming
+
+```typescript
+@Component({...})
+export class ConditionalComponent {
+  theme = signal(this.themeService.getCurrentTheme());
+
+  // Different styles based on theme properties
+  containerStyle = computed(() => {
+    const isDark = this.theme().palette.mode === 'dark';
+
+    return [
+      sj.padding('16px'),
+      sj.backgroundColor(
+        isDark
+          ? this.theme().palette.grey[900]
+          : this.theme().palette.grey[100]
+      )
+    ];
+  });
+}
+```
+
+## Performance Considerations
+
+- **Signal Updates**: Use signals for reactive theme changes to minimize re-renders
+- **Memoization**: Computed signals automatically memoize theme-derived values
+- **Lazy Loading**: Load theme variants on demand for better initial bundle size
+- **Change Detection**: Theme changes trigger minimal component updates
+
+## Best Practices
+
+### ✅ Do: Use Signals for Reactivity
+
+```typescript
+// Good: Reactive theme updates
+theme = signal(initialTheme);
+styles = computed(() => /* derive from theme */);
+```
+
+### ❌ Don't: Direct Theme Access
+
+```typescript
+// Avoid: Direct service calls in templates
+<div [sj]="themeService.getCurrentTheme().palette.primary.main">
+  Avoid this pattern
+</div>
+```
+
+### ✅ Do: Component-Level Overrides
+
+```typescript
+// Good: Scoped theme overrides
+@Component({
+  providers: [{ provide: SJ_THEME_PROVIDER, useValue: scopedTheme }],
+})
+export class ScopedComponent {}
+```
+
+## Migration from Traditional Theming
+
+When migrating from CSS variables or traditional theming:
+
+1. **Identify Theme Values**: Map existing CSS variables to theme structure
+2. **Create Theme Object**: Define your theme using the SjTheme interface
+3. **Update Components**: Replace CSS variable usage with `sj.*` functions
+4. **Add Reactivity**: Use signals for dynamic theme switching
+5. **Test Thoroughly**: Ensure all theme variants work correctly
+
+## Next Steps
+
+- **[Core Directive](directive)** - Back to directive basics
+- **[SJ API Theming & Tokens](sj-api-tokens)** - Using theme tokens effectively

@@ -1,38 +1,154 @@
 ---
-title: Button
+title: SJButton
+description: A versatile button component with multiple variants, sizes, and theme integration
 ---
 
-// Removed Storybook/Angular imports to avoid bundling in docs build
+# SJButton
 
-The `sj-button` component is a wrapper for the native HTML button element that provides styling and extra features.
+The `sj-button` component is a wrapper for the native HTML button element that provides consistent styling, multiple variants, and seamless theme integration.
 
-## Props
+:::info Components vs Directive
+Components like `sj-button` are convenient wrappers around the core `[sj]` directive. For full control and customization, use the directive directly. Learn more in the [Core Directive](/docs/core/directive) section.
+:::
 
-| Prop           | Type                                       | Options                                                              | Default    |
-| -------------- | ------------------------------------------ | -------------------------------------------------------------------- | ---------- |
-| `variant`      | `'filled' │ 'outlined' │ 'flat'`            | `filled`, `outlined`, `flat`                                         | `'filled'` |
-| `useDensity`   | `number`                                   | `1`, `2`, `3`, `4`                                                   | `2`        |
-| `useFullWidth` | `boolean`                                  | `true`, `false`                                                      | `false`    |
-| `useRounded`   | `1 │ 2 │ 3 │ 4 │ 'compact' │ 'default' │ 'comfortable' │ 'spacious' │ 'none'` | `1`, `2`, `3`, `4`, `compact`, `default`, `comfortable`, `spacious`, `none` | `2`        |
-| `usePaint`     | `'primary' │ 'secondary' │ 'success' │ 'info' │ 'warning' │ 'error' │ `dark` │ `neutral` │ `light` │ `auto` │ `none` | `primary`, `secondary`, `success`, `info`, `warning`, `error`, `dark`, `neutral`, `light`, `auto`, `none` | `'auto'`   |
-| `sj`           | `SjStyle │ SjStyle[]`                      | -                                                                    | `undefined`|
+## When to Use
 
-## Examples
+- **Primary Actions**: Use filled buttons for main call-to-actions
+- **Secondary Actions**: Use outlined buttons for less prominent actions
+- **Tertiary Actions**: Use flat buttons for subtle actions like cancel or back
+- **Full-width**: Use with `useFullWidth` for mobile-first designs
 
-### Filled
+## Basic Usage
 
-```html
-<sj-button variant="filled" useDensity="2">Click me</sj-button>
-```
+## Basic Usage
 
-### Outlined
+### Filled Button (Default)
 
 ```html
-<sj-button variant="outlined" useDensity="2">Outlined</sj-button>
+<sj-button variant="filled" useDensity="2>Primary Action</sj-button>
 ```
 
-### Flat
+### Outlined Button
 
 ```html
-<sj-button variant="flat" useDensity="2">Flat</sj-button>
+<sj-button variant="outlined" useDensity="2>Secondary Action</sj-button>
 ```
+
+### Flat Button
+
+```html
+<sj-button variant="flat" useDensity="2>Tertiary Action</sj-button>
+```
+
+## Props API
+
+| Prop           | Type                                                                                                                            | Default     | Description                                                                                                                                                                        |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `variant`      | `'filled' \| 'outlined' \| 'flat'`                                                                                              | `'filled'`  | Visual style variant                                                                                                                                                               |
+| `useDensity`   | `1 \| 2 \| 3 \| 4 \| 'compact' \| 'default' \| 'comfortable' \| 'spacious'`                                                     | `2`         | Size density level (1=compact, 4=spacious)                                                                                                                                         |
+| `useFullWidth` | `boolean`                                                                                                                       | `false`     | Makes button full width                                                                                                                                                            |
+| `useRounded`   | `1 \| 2 \| 3 \| 4 \| 'compact' \| 'default' \| 'comfortable' \| 'spacious' \| 'none'`                                           | `2`         | Border radius level                                                                                                                                                                |
+| `usePaint`     | `'primary' \| 'secondary' \| 'success' \| 'info' \| 'warning' \| 'error' \| 'dark' \| 'neutral' \| 'light' \| 'auto' \| 'none'` | `'auto'`    | Theme color to apply (main + contrast). For filled: background=main, text=contrast. For outlined/flat: text/border=main. Unique to Super-JSS - not common in other component libs. |
+| `sj`           | `SjStyle \| SjStyle[]`                                                                                                          | `undefined` | Additional Super-JSS styles                                                                                                                                                        |
+
+## Variants
+
+### Filled Buttons
+
+Filled buttons have a solid background color and are ideal for primary actions.
+
+```html
+<div [sj]="[sj.display('flex'), sj.gap('12px'), sj.flexWrap('wrap')]">
+  <sj-button variant="filled" usePaint="primary">Primary</sj-button>
+  <sj-button variant="filled" usePaint="secondary">Secondary</sj-button>
+  <sj-button variant="filled" usePaint="success">Success</sj-button>
+  <sj-button variant="filled" usePaint="warning">Warning</sj-button>
+  <sj-button variant="filled" usePaint="error">Error</sj-button>
+</div>
+```
+
+### Outlined Buttons
+
+Outlined buttons have a transparent background with a colored border, perfect for secondary actions.
+
+```html
+<div [sj]="[sj.display('flex'), sj.gap('12px'), sj.flexWrap('wrap')]">
+  <sj-button variant="outlined" usePaint="primary">Primary</sj-button>
+  <sj-button variant="outlined" usePaint="secondary">Secondary</sj-button>
+  <sj-button variant="outlined" usePaint="success">Success</sj-button>
+  <sj-button variant="outlined" usePaint="warning">Warning</sj-button>
+  <sj-button variant="outlined" usePaint="error">Error</sj-button>
+</div>
+```
+
+### Flat Buttons
+
+Flat buttons have no background or border, ideal for subtle actions or within other components.
+
+```html
+<div [sj]="[sj.display('flex'), sj.gap('12px'), sj.flexWrap('wrap')]">
+  <sj-button variant="flat" usePaint="primary">Primary</sj-button>
+  <sj-button variant="flat" usePaint="secondary">Secondary</sj-button>
+  <sj-button variant="flat" usePaint="success">Success</sj-button>
+  <sj-button variant="flat" usePaint="warning">Warning</sj-button>
+  <sj-button variant="flat" usePaint="error">Error</sj-button>
+</div>
+```
+
+## Density Levels
+
+Control button size with the `useDensity` prop. Higher numbers mean larger buttons.
+
+```html
+<div [sj]="[sj.display('flex'), sj.gap('12px'), sj.alignItems('center')]">
+  <sj-button variant="filled" useDensity="1">Compact</sj-button>
+  <sj-button variant="filled" useDensity="2">Default</sj-button>
+  <sj-button variant="filled" useDensity="3">Comfortable</sj-button>
+  <sj-button variant="filled" useDensity="4">Spacious</sj-button>
+</div>
+```
+
+## Full Width
+
+Use `useFullWidth` for buttons that should span their container's full width.
+
+```html
+<div
+  [sj]="[sj.maxWidth('300px'), sj.display('flex'), sj.flexDirection('column'), sj.gap('12px')]"
+>
+  <sj-button variant="filled" useFullWidth>Full Width Button</sj-button>
+  <sj-button variant="outlined" useFullWidth>Another Full Width</sj-button>
+</div>
+```
+
+## Custom Styling
+
+Combine with the `sj` prop for additional custom styling.
+
+```html
+<sj-button
+  variant="filled"
+  [sj]="[
+    sj.fontSize('18px'),
+    sj.fontWeight('bold'),
+    sj.textTransform('uppercase'),
+    sj.letterSpacing('1px')
+  ]"
+>
+  Custom Styled Button
+</sj-button>
+```
+
+## Accessibility
+
+- **Keyboard Navigation**: Fully keyboard accessible with Enter/Space activation
+- **Screen Readers**: Proper ARIA labels and roles
+- **Focus Management**: Visible focus indicators following WCAG guidelines
+- **Color Contrast**: All variants meet WCAG AA contrast requirements
+- **Semantic HTML**: Renders as native `<button>` element
+
+## Related Components
+
+- SJCard - For card layouts with action buttons
+- SJInput - For form inputs that pair with buttons
+- SJPaper - For surface styling around button groups

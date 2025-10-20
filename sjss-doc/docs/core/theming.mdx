@@ -1,0 +1,167 @@
+---
+title: "Theming Definitions"
+description: "Understanding Super-JSS theme structure and customization"
+---
+
+# Theming Definitions
+
+Super-JSS provides a comprehensive theming system that defines colors, spacing, typography, and other design tokens. Understanding the theme structure is key to effective customization.
+
+## Theme Structure
+
+A Super-JSS theme consists of several key areas:
+
+### Colors (Palette)
+
+```typescript
+interface SjTheme {
+  palette: {
+    primary: {
+      main: string; // Primary brand color
+      contrast: string; // Text color on primary
+      light: string; // Lighter variant
+      dark: string; // Darker variant
+    };
+    secondary: {
+      main: string;
+      contrast: string;
+      light: string;
+      dark: string;
+    };
+    // ... success, info, warning, error, etc.
+  };
+}
+```
+
+### Spacing
+
+```typescript
+interface SjTheme {
+  spacing: {
+    unit: number; // Base spacing unit (usually 8px)
+    scale: number[]; // Spacing scale [0, 8, 16, 24, ...]
+  };
+}
+```
+
+### Typography
+
+```typescript
+interface SjTheme {
+  typography: {
+    fontFamily: string;
+    fontSize: {
+      xs: string;
+      sm: string;
+      md: string;
+      lg: string;
+      xl: string;
+    };
+    fontWeight: {
+      light: number;
+      regular: number;
+      medium: number;
+      bold: number;
+    };
+  };
+}
+```
+
+### Breakpoints
+
+```typescript
+interface SjTheme {
+  breakpoints: {
+    xs: string; // Extra small: '0px'
+    sm: string; // Small: '600px'
+    md: string; // Medium: '960px'
+    lg: string; // Large: '1280px'
+    xl: string; // Extra large: '1920px'
+  };
+}
+```
+
+## Default Theme
+
+Super-JSS ships with a sensible default theme that works out of the box:
+
+```typescript
+// Default theme values
+const defaultTheme: SjTheme = {
+  palette: {
+    primary: {
+      main: "#007acc",
+      contrast: "#ffffff",
+      light: "#4dabf5",
+      dark: "#1565c0",
+    },
+    // ... other colors
+  },
+  spacing: {
+    unit: 8,
+    scale: [0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 56, 64],
+  },
+  // ... typography, breakpoints
+};
+```
+
+## Customizing Themes
+
+### Method 1: Theme Provider Override
+
+```typescript
+import { SJ_THEME_PROVIDER } from "super-jss";
+
+const customTheme: SjTheme = {
+  palette: {
+    primary: {
+      main: "#ff6b35", // Custom brand color
+      contrast: "#ffffff",
+      light: "#ff8f6b",
+      dark: "#c53d13",
+    },
+  },
+};
+
+@NgModule({
+  providers: [
+    {
+      provide: SJ_THEME_PROVIDER,
+      useValue: customTheme,
+    },
+  ],
+})
+export class AppModule {}
+```
+
+### Method 2: Runtime Theme Switching
+
+```typescript
+import { SjThemeService } from 'super-jss';
+
+@Component({...})
+export class AppComponent {
+  constructor(private themeService: SjThemeService) {}
+
+  switchToDarkTheme() {
+    this.themeService.setTheme(darkTheme);
+  }
+}
+```
+
+## Theme Integration
+
+The theme is automatically available through the `sj` object in templates:
+
+```html
+<!-- Uses theme colors -->
+<div [sj]="sj.color(sj.color.options.primary.main)">Themed content</div>
+
+<!-- Uses theme spacing -->
+<div [sj]="sj.padding(sj.spacing.options.scale[2])">Spaced content</div>
+```
+
+## Next Steps
+
+- **[SJ API Theming & Tokens](sj-api-tokens)** - Using theme tokens in practice
+- **[Services](services)** - Advanced theme management and overrides
