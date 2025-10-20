@@ -4,7 +4,6 @@ import { SjDirective, sj } from 'super-jss';
 
 const meta: Meta = {
   title: 'SJ/sjRootApi + Theming & Tokens',
-  tags: ['autodocs'],
   decorators: [moduleMetadata({ imports: [SjDirective] })],
   parameters: {
     docs: {

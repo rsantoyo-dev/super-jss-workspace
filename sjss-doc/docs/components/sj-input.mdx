@@ -1,0 +1,65 @@
+---
+title: Input
+---
+
+import { SjInputComponent } from 'super-jss';
+
+The `sj-input` component is a customizable input field for forms.
+
+## Props
+
+| Prop | Type | Options | Default |
+| --- | --- | --- | --- |
+| `variant` | `'outlined' │ 'filled' │ 'flat'` | `outlined`, `filled`, `flat` | `'outlined'` |
+| `type` | `'text' │ 'email' │ 'password' │ 'search' │ 'number' │ 'url'` | `text`, `email`, `password`, `search`, `number`, `url` | `'text'` |
+| `placeholder` | `string` | - | `''` |
+| `value` | `string` | - | `''` |
+| `usePadding` | `undefined │ 'none' │ 1 │ 2 │ 3 │ 4 │ 'compact' │ 'default' │ 'comfortable' │ 'spacious'` | `undefined`, `none`, `1`, `2`, `3`, `4`, `compact`, `default`, `comfortable`, `spacious` | `'default'` |
+| `useRounded` | `undefined │ 'none' │ 1 │ 2 │ 3 │ 4 │ 'compact' │ 'default' │ 'comfortable' │ 'spacious'` | `undefined`, `none`, `1`, `2`, `3`, `4`, `compact`, `default`, `comfortable`, `spacious` | `'default'` |
+| `usePaint` | `'none' │ 'auto' │ 'primary' │ 'secondary' │ 'success' │ 'info' │ 'warning' │ 'error' │ 'dark' │ 'neutral' │ 'light'` | `none`, `auto`, `primary`, `secondary`, `success`, `info`, `warning`, `error`, `dark`, `neutral`, `light` | `'none'` |
+| `fullWidth` | `boolean` | `true`, `false` | `false` |
+| `disabled` | `boolean` | `true`, `false` | `false` |
+| `invalid` | `boolean` | `true`, `false` | `false` |
+| `sj` | `SjStyle │ SjStyle[]` | - | `undefined` |
+
+## Examples
+
+### Variants
+
+```html
+<div style="display: flex; flex-direction: column; gap: 0.5rem; width: 320px;">
+  <sj-input variant="outlined" usePadding="default" useRounded="default" placeholder="Placeholder"></sj-input>
+  <sj-input variant="filled" usePaint="primary" usePadding="default" useRounded="default" placeholder="Placeholder"></sj-input>
+  <sj-input variant="flat" placeholder="Placeholder"></sj-input>
+</div>
+```
+
+### With Prefix/Suffix
+
+```html
+<div style="max-width: 360px;">
+  <sj-input variant="outlined" usePadding="default" useRounded="default" placeholder="Search...">
+    <sj-icon prefix name="superJson" size="1rem" style="margin-right: 0.25rem"></sj-icon>
+    <span suffix style="color: neutral.dark">&#64;</span>
+  </sj-input>
+</div>
+```
+
+### With Label
+
+```html
+<div style="max-width: 360px; display: flex; flex-direction: column; gap: 0.5rem;">
+  <label for="my-input">Email Address</label>
+  <sj-input id="my-input" placeholder="Your email"></sj-input>
+</div>
+```
+
+### With Error Message
+
+```html
+<div style="max-width: 360px; display: flex; flex-direction: column; gap: 0.5rem;">
+  <label for="error-input">Email Address</label>
+  <sj-input id="error-input" placeholder="Your email" invalid="true" aria-describedby="error-message"></sj-input>
+  <div id="error-message" style="color: red; font-size: 0.875rem;">This field is required.</div>
+</div>
+```

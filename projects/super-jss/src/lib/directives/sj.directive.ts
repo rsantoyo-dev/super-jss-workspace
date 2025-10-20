@@ -11,11 +11,16 @@ import {
 import { SjBreakPoints, SjStyle } from '../models/interfaces';
 import { SjThemeService, SjCssGeneratorService } from '../services';
 import { deepMerge } from '../utils/deep-merge';
+import { StyleCacheManager } from '../utils/style-cache-manager';
 import { shorthandMappings } from '../models/mappings';
 
 /**
  * [sj] directive applies SJSS styles: responsive classes + inline typography.
  * Re-renders on theme, breakpoint and window resize changes.
+ *
+ * This directive is the core of SJSS, transforming style objects into atomic CSS classes
+ * that are applied reactively based on theme and responsive breakpoints. It supports
+ * various input formats including static styles, arrays, and producer functions.
  */
 type SjStyleProducer = () => SjStyle;
 export type SjInput =
@@ -28,23 +33,19 @@ export type SjInput =
   standalone: true,
   // Opt-in only: apply styles/typography when [sj] is present
   // Exclude components that render styles on other elements
-  selector: '[sj]:not(sj-host):not(sj-typography):not(sj-card):not(sj-paper):not(sj-flex)',
+  selector:
+    '[sj]:not(sj-host):not(sj-typography):not(sj-card):not(sj-paper):not(sj-flex)',
 })
 export class SjDirective implements OnChanges {
   /**
    * The style object or array of style objects to be applied.
-   * It can be a single style object or an array of style objects for responsive design.
+   * Can be a single style object, an array of styles, a producer function,
+   * or a mixed array of styles and producers for dynamic styling.
    */
   @Input() sj: SjInput | undefined;
 
   private lastClasses: string[] = [];
-  // Cache mapping serialized processed styles + themeVersion -> generated class list
-  private styleCache = new Map<string, string[]>();
-  // Memoize the last raw sj input reference and its resolved merged styles
-  private _lastSjInputRef: any = undefined;
-  private _lastResolvedStyles: SjStyle | undefined = undefined;
-  // Cache resolved merged styles keyed by the original sj input reference
-  private mergeCache: WeakMap<object | Function, SjStyle> = new WeakMap();
+  private cacheManager = new StyleCacheManager();
 
   /**
    * Constructs the SjDirective.
@@ -71,14 +72,7 @@ export class SjDirective implements OnChanges {
       // Media queries handle responsive class application between breakpoints.
       const tv = this.sjt.themeVersion(); // depend on themeVersion (theme structure changes)
       // Clear local style cache when themeVersion changes to avoid stale classes
-      this.styleCache.clear();
-      // Clear merged-style cache too since theme token resolution may change
-      try {
-        this.mergeCache = new WeakMap();
-      } catch {}
-      // Reset resolved-style memo so we recompute styles against the new theme
-      this._lastSjInputRef = undefined;
-      this._lastResolvedStyles = undefined;
+      this.cacheManager.clearCaches();
       this.renderStyles();
       return tv;
     });
@@ -86,14 +80,14 @@ export class SjDirective implements OnChanges {
 
   /**
    * Triggers a re-render when [sj] input changes.
-   * @param changes Angular input change set.
+   * Clears caches when the input reference changes to ensure fresh resolution.
+   * @param changes Angular input change set containing changed properties.
    */
   ngOnChanges(changes: SimpleChanges): void {
     // Re-render styles when any @Input properties change.
     // Clear the last resolved input ref if the sj input reference changed
     if (changes['sj']) {
-      this._lastSjInputRef = undefined;
-      this._lastResolvedStyles = undefined;
+      this.cacheManager.clearCaches();
     }
     this.renderStyles();
   }
@@ -113,88 +107,65 @@ export class SjDirective implements OnChanges {
 
     const theme = this.sjt.sjTheme();
 
-    // Use a cheap reference-based memo to avoid repeated deepMerge work when
-    // the input hasn't changed (most callers pass precomputed style refs).
-    const callIfFn = (v: any) =>
-      typeof v === 'function' ? (v as SjStyleProducer)() : v;
-
-    const resolveAndMergeOnce = (input: any): SjStyle => {
-      // Fast path: exact same input reference
-      if (input === this._lastSjInputRef && this._lastResolvedStyles) {
-        return this._lastResolvedStyles;
+    let sjStyles: SjStyle;
+    try {
+      sjStyles = this.cacheManager.resolveAndMergeOnce(this.sj) as SjStyle;
+    } catch (error) {
+      if (typeof window !== 'undefined' && (window as any).ngDevMode) {
+        console.warn('[SJ Directive] Failed to resolve styles:', error);
       }
-
-      // If input is an object/function, try WeakMap cache
-      const canWeakKey =
-        input && (typeof input === 'object' || typeof input === 'function');
-      if (canWeakKey) {
-        const existing = this.mergeCache.get(input as object | Function);
-        if (existing) {
-          this._lastSjInputRef = input;
-          this._lastResolvedStyles = existing;
-          return existing;
-        }
-      }
-
-      let acc: SjStyle = {};
-      const push = (v: any) => {
-        if (v === undefined || v === null) return;
-        if (Array.isArray(v)) return v.forEach(push);
-        if (typeof v === 'function') return push(callIfFn(v));
-        if (typeof v === 'object') {
-          acc = deepMerge(acc, v as SjStyle);
-          return;
-        }
-      };
-      push(input);
-
-      this._lastSjInputRef = input;
-      this._lastResolvedStyles = acc;
-      if (canWeakKey) {
-        try {
-          this.mergeCache.set(input as object | Function, acc);
-        } catch {}
-      }
-      return acc;
-    };
-
-    const sjStyles = resolveAndMergeOnce(this.sj) as SjStyle;
+      sjStyles = {}; // Fallback
+    }
 
     const processedStyles = sjStyles;
 
-    // Use a cache key that includes themeVersion so classes are regenerated
-    // when theme/token values change.
-    const cacheKey =
-      JSON.stringify(processedStyles || {}) + `::v${this.sjt.themeVersion()}`;
-
-    let classes: string[] | undefined = this.styleCache.get(cacheKey);
-    if (!classes && Object.keys(processedStyles).length > 0) {
-      // Prefer bundled single-class generation when available for faster application
-      // fallback to atomic class generation.
-      if ((this.cssGenerator as any).getOrGenerateClassBundle) {
-        classes = (this.cssGenerator as any).getOrGenerateClassBundle(
-          processedStyles,
-          theme,
-          this.sjt.themeVersion()
-        );
-      } else {
-        classes = this.cssGenerator.getOrGenerateClasses(
-          processedStyles,
-          theme,
-          this.sjt.themeVersion()
+    // Validate processed styles before generating CSS
+    if (processedStyles && typeof processedStyles !== 'object') {
+      if (typeof window !== 'undefined' && (window as any).ngDevMode) {
+        console.warn(
+          '[SJ Directive] Processed styles must be an object:',
+          processedStyles
         );
       }
-      if (classes) this.styleCache.set(cacheKey, classes);
+      return; // Skip rendering invalid styles
     }
 
+    const classes = this.generateClasses(processedStyles, theme);
+    this.applyClasses(element, classes);
+  }
+
+  /**
+   * Generates CSS classes for the given processed styles and theme.
+   * @param processedStyles The resolved and merged styles object.
+   * @param theme The current theme object.
+   * @returns Array of generated class names or undefined if generation failed.
+   */
+  private generateClasses(
+    processedStyles: SjStyle,
+    theme: any
+  ): string[] | undefined {
+    return this.cacheManager.getOrGenerateClasses(
+      processedStyles,
+      theme,
+      this.sjt.themeVersion(),
+      this.cssGenerator
+    );
+  }
+
+  /**
+   * Applies the generated classes to the DOM element.
+   * @param element The native DOM element to apply classes to.
+   * @param classes Array of class names to apply.
+   */
+  private applyClasses(
+    element: HTMLElement,
+    classes: string[] | undefined
+  ): void {
     if (classes && classes.length > 0) {
       // Apply only one canonical SJ class for best runtime performance.
       const canonical = classes[0];
       this.renderer.addClass(element, canonical);
       this.lastClasses = [canonical];
     }
-
-    // Typography font-family is now theme-managed via CSS variable on <body>.
-    // Avoid injecting inline font-family to keep updates centralized and fast.
   }
 }

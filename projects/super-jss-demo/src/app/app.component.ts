@@ -67,64 +67,64 @@ import { SjFlexComponent } from 'super-jss';
           <router-outlet></router-outlet>
         </sj-paper>
 
-        @if (theme.isMobile()) {
-          @if (showSidenav()) {
-            <sj-button
-              [sj]="[
-                sj.position(sj.position.options.fixed),
-                sj.inset(0),
-                sj.zIndex(1000)
-              ]"
-              (click)="closeSidenav()"
-            ></sj-button>
-          }
-          <!-- Drawer panel -->
+        @if (theme.isMobile()) { @if (showSidenav()) {
+        <sj-button
+          [sj]="[
+            sj.position(sj.position.options.fixed),
+            sj.inset(0),
+            sj.zIndex(1000)
+          ]"
+          (click)="closeSidenav()"
+        ></sj-button>
+        }
+        <!-- Drawer panel -->
+        <sj-flex
+          [sj]="[
+            sj.position(sj.position.options.fixed),
+            sj.top(0),
+            sj.left(0),
+            sj.height('100%'),
+            sj.width({ xs: '80%', sm: '320px' }),
+            sj.backgroundColor(sj.palette.light.light),
+            sj.boxShadow('0 8px 24px rgba(0,0,0,0.2)'),
+            sj.zIndex(1001),
+            sj.padding(0.5),
+            sj.transition('transform 0.2s ease-out'),
+            sj.transform(showSidenav() ? 'translateX(0)' : 'translateX(-100%)')
+          ]"
+        >
           <sj-flex
             [sj]="[
-              sj.position(sj.position.options.fixed),
-              sj.top(0),
-              sj.left(0),
-              sj.height('100%'),
-              sj.width({ xs: '80%', sm: '320px' }),
-              sj.backgroundColor(sj.palette.light.light),
-              sj.boxShadow('0 8px 24px rgba(0,0,0,0.2)'),
-              sj.zIndex(1001),
-              sj.padding(0.5),
-              sj.transition('transform 0.2s ease-out'),
-              sj.transform(showSidenav() ? 'translateX(0)' : 'translateX(-100%)')
+              sj.fxAItems(sj.fxAItems.options.center),
+              sj.justifyContent(sj.justifyContent.options.spaceBetween)
             ]"
           >
-            <sj-flex
-              [sj]="[
-                sj.fxAItems(sj.fxAItems.options.center),
-                sj.justifyContent(sj.justifyContent.options.spaceBetween)
-              ]"
-            >
-              <sj-typography variant="strong" [sj]="[]">Menu</sj-typography>
-              <sj-button (click)="closeSidenav()">✕</sj-button>
-            </sj-flex>
-            <app-sidenav (navigate)="closeSidenav()"></app-sidenav>
+            <sj-typography variant="strong" [sj]="[]">Menu</sj-typography>
+            <sj-button (click)="closeSidenav()">✕</sj-button>
           </sj-flex>
+          <app-sidenav (navigate)="closeSidenav()"></app-sidenav>
+        </sj-flex>
         }
 
         <!-- Floating burger button on mobile when sidenav is closed -->
         @if (theme.isMobile() && !showSidenav()) {
-          <sj-button
-            variant="outlined"
-            (click)="openSidenav()"
-            [sj]="[
-              sj.position('fixed'),
-              sj.right('16px'),
-              sj.bottom('16px'),
-              sj.zIndex(900),
-              sj.brad('50%'),
-              sj.w('48px'),
-              sj.h('48px'),
-              sj.d('flex'),
-              sj.fxAItems('center'),
-              sj.fxJustify('center')
-            ]"
-          >☰</sj-button>
+        <sj-button
+          variant="outlined"
+          (click)="openSidenav()"
+          [sj]="[
+            sj.position('fixed'),
+            sj.right('16px'),
+            sj.bottom('16px'),
+            sj.zIndex(900),
+            sj.brad('50%'),
+            sj.w('48px'),
+            sj.h('48px'),
+            sj.d('flex'),
+            sj.fxAItems('center'),
+            sj.fxJustify('center')
+          ]"
+          >☰</sj-button
+        >
         }
       </sj-paper>
     </sj-paper>

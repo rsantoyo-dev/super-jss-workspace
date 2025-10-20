@@ -1,0 +1,32 @@
+---
+title: Paper
+---
+
+import { SjPaperComponent } from 'super-jss';
+
+The `sj-paper` component is a basic surface component that can be used to build other components.
+
+## Props
+
+| Prop | Type | Options | Default |
+| --- | --- | --- | --- |
+| `variant` | `'default' │ 'flat' │ 'outlined' │ 'filled'` | `default`, `flat`, `outlined`, `filled` | `'default'` |
+| `component` | `'div' │ 'section' │ 'article'` | `div`, `section`, `article` | `'div'` |
+| `usePaint` | `'none' │ 'auto' │ 'primary' │ 'secondary' │ 'success' │ 'info' │ 'warning' │ 'error' │ 'dark' │ 'neutral' │ 'light'` | `none`, `auto`, `primary`, `secondary`, `success`, `info`, `warning`, `error`, `dark`, `neutral`, `light` | `'none'` |
+| `usePadding` | `'none' │ 'compact' │ 'default' │ 'comfortable' │ 'spacious' │ 1 │ 2 │ 3 │ 4` | `none`, `compact`, `default`, `comfortable`, `spacious`, `1`, `2`, `3`, `4` | `'default'` |
+| `useRounded` | `'none' │ 'compact' │ 'default' │ 'comfortable' │ 'spacious' │ 1 │ 2 │ 3 │ 4` | `none`, `compact`, `default`, `comfortable`, `spacious`, `1`, `2`, `3`, `4` | `'default'` |
+| `playgroundSj` | `SjStyle │ SjStyle[]` | - | `undefined` |
+
+## Examples
+
+### Flat
+
+```html
+<sj-paper variant="flat" usePadding="default" useRounded="default">Flat paper</sj-paper>
+```
+
+### Outlined
+
+```html
+<sj-paper variant="outlined" usePaint="none" usePadding="comfortable" useRounded="comfortable">Outlined paper</sj-paper>
+```

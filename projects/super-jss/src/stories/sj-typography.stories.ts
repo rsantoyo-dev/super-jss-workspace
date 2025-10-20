@@ -4,7 +4,6 @@ import { SjTypographyComponent } from 'super-jss';
 const meta: Meta<SjTypographyComponent> = {
   title: 'SJ/Typography',
   component: SjTypographyComponent,
-  tags: ['autodocs'],
   argTypes: {
     variant: { control: 'select', options: ['h1','h2','h3','h4','h5','h6','p','span','strong','small','pre','body'] },
     sj: { control: 'object' },
@@ -41,4 +40,3 @@ export const AllVariants: Story = {
     `,
   }),
 };
-

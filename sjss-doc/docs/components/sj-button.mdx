@@ -1,0 +1,39 @@
+---
+title: Button
+---
+
+import { Meta, StoryObj } from '@storybook/angular';
+import { SjButtonComponent } from 'super-jss';
+
+The `sj-button` component is a wrapper for the native HTML button element that provides styling and extra features.
+
+## Props
+
+| Prop           | Type                                       | Options                                                              | Default    |
+| -------------- | ------------------------------------------ | -------------------------------------------------------------------- | ---------- |
+| `variant`      | `'filled' │ 'outlined' │ 'flat'`            | `filled`, `outlined`, `flat`                                         | `'filled'` |
+| `useDensity`   | `number`                                   | `1`, `2`, `3`, `4`                                                   | `2`        |
+| `useFullWidth` | `boolean`                                  | `true`, `false`                                                      | `false`    |
+| `useRounded`   | `1 │ 2 │ 3 │ 4 │ 'compact' │ 'default' │ 'comfortable' │ 'spacious' │ 'none'` | `1`, `2`, `3`, `4`, `compact`, `default`, `comfortable`, `spacious`, `none` | `2`        |
+| `usePaint`     | `'primary' │ 'secondary' │ 'success' │ 'info' │ 'warning' │ 'error' │ `dark` │ `neutral` │ `light` │ `auto` │ `none` | `primary`, `secondary`, `success`, `info`, `warning`, `error`, `dark`, `neutral`, `light`, `auto`, `none` | `'auto'`   |
+| `sj`           | `SjStyle │ SjStyle[]`                      | -                                                                    | `undefined`|
+
+## Examples
+
+### Filled
+
+```html
+<sj-button variant="filled" useDensity="2">Click me</sj-button>
+```
+
+### Outlined
+
+```html
+<sj-button variant="outlined" useDensity="2">Outlined</sj-button>
+```
+
+### Flat
+
+```html
+<sj-button variant="flat" useDensity="2">Flat</sj-button>
+```

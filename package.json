@@ -23,6 +23,7 @@
     "mkdocs": "mkdocs serve",
     "mkdocs-build": "mkdocs build",
     "mkdocs-deploy": "mkdocs build && mkdocs gh-deploy",
+    "docus": "cd sjss-doc && npm start",
     "netlify-login": "netlify login",
     "netlify:demo": "NETLIFY_SITE_ID=$NETLIFY_DEMO_SITE_ID netlify deploy --prod --dir=dist/super-jss-demo --build \"true\"",
     "netlify:storybook": "NETLIFY_SITE_ID=$NETLIFY_STORYBOOK_SITE_ID netlify deploy --prod --dir=dist/storybook/super-jss --build \"true\"",
@@ -43,6 +44,7 @@
     "microlight": "^0.0.7",
     "rainbow-code": "^2.1.7",
     "rxjs": "^7.8.2",
+    "super-jss": "^0.0.1-beta.59",
     "tslib": "^2.6.2",
     "zone.js": "~0.15.1"
   },

@@ -9,7 +9,8 @@ export const SjCardVariants = {
   codeSnippet: 'codeSnippet',
 } as const;
 
-export type SjCardVariant = typeof SjCardVariants[keyof typeof SjCardVariants];
+export type SjCardVariant =
+  (typeof SjCardVariants)[keyof typeof SjCardVariants];
 
 export const SjPaperVariants = {
   default: 'default',
@@ -18,7 +19,8 @@ export const SjPaperVariants = {
   filled: 'filled',
 } as const;
 
-export type SjPaperVariant = typeof SjPaperVariants[keyof typeof SjPaperVariants];
+export type SjPaperVariant =
+  (typeof SjPaperVariants)[keyof typeof SjPaperVariants];
 
 export const SjButtonVariants = {
   default: 'default',
@@ -35,7 +37,8 @@ export const SjButtonVariants = {
   flat: 'flat',
 } as const;
 
-export type SjButtonVariant = typeof SjButtonVariants[keyof typeof SjButtonVariants];
+export type SjButtonVariant =
+  (typeof SjButtonVariants)[keyof typeof SjButtonVariants];
 
 export const SjTypographyVariants = {
   default: 'default',
@@ -46,6 +49,7 @@ export const SjTypographyVariants = {
   h5: 'h5',
   h6: 'h6',
   p: 'p',
+  paragraph: 'paragraph',
   span: 'span',
   strong: 'strong',
   body: 'body',
@@ -54,4 +58,5 @@ export const SjTypographyVariants = {
   pre: 'pre',
 } as const;
 
-export type SjTypographyVariant = typeof SjTypographyVariants[keyof typeof SjTypographyVariants];
+export type SjTypographyVariant =
+  (typeof SjTypographyVariants)[keyof typeof SjTypographyVariants];

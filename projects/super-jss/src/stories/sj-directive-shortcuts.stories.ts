@@ -4,7 +4,6 @@ import { SjDirective } from 'super-jss';
 
 const meta: Meta = {
   title: 'SJ/[sj] Basic + Shortcuts',
-  tags: ['autodocs'],
   decorators: [moduleMetadata({ imports: [SjDirective] })],
   parameters: {
     docs: {

@@ -1,6 +1,20 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, Renderer2, SimpleChanges, computed, effect } from '@angular/core';
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  Renderer2,
+  SimpleChanges,
+  computed,
+  effect,
+} from '@angular/core';
 import { SjStyle } from '../models/interfaces';
-import { createSjTypographyApi, SjTypographyApi } from '../blueprints/typography';
+import {
+  createSjTypographyApi,
+  SjTypographyApi,
+} from '../blueprints/typography';
 import { SjTypographyVariant } from '../models/variants';
 import { SjThemeService } from '../services';
 import type { SjInput } from '../directives/sj.directive';
@@ -16,10 +30,33 @@ export class SjTypographyComponent implements AfterContentInit, OnChanges {
   private static _nextId = 1;
   @Input() variant: SjTypographyVariant = 'default';
   // Optional: explicitly choose tag; when set it takes precedence over variant mapping
-  @Input() component: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'strong' | 'small' | 'pre' | 'code' | 'label' | 'div' | undefined;
+  @Input() component:
+    | 'h1'
+    | 'h2'
+    | 'h3'
+    | 'h4'
+    | 'h5'
+    | 'h6'
+    | 'p'
+    | 'span'
+    | 'strong'
+    | 'small'
+    | 'pre'
+    | 'code'
+    | 'label'
+    | 'div'
+    | 'blockquote'
+    | 'cite'
+    | undefined;
+  @Input() align: 'left' | 'center' | 'right' | 'justify' | undefined;
+  @Input() noWrap: boolean = false;
+  @Input() gutterBottom: boolean = false;
+  @Input() paragraph: boolean = false;
   @Input() sj: SjInput | undefined;
 
-  private sjTypographyApi = computed(() => createSjTypographyApi(this.themeService.sjTheme()));
+  private sjTypographyApi = computed(() =>
+    createSjTypographyApi(this.themeService.sjTheme())
+  );
 
   private targetEl: HTMLElement | null = null;
   private lastAppliedClass: string | null = null;
@@ -28,7 +65,7 @@ export class SjTypographyComponent implements AfterContentInit, OnChanges {
     private themeService: SjThemeService,
     private cssGenerator: SjCssGeneratorService,
     private hostRef: ElementRef<HTMLElement>,
-    private renderer: Renderer2,
+    private renderer: Renderer2
   ) {
     // Ensure styles re-apply on theme structure changes
     effect(() => {
@@ -62,12 +99,28 @@ export class SjTypographyComponent implements AfterContentInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const variantChanged = !!changes['variant'] && !changes['variant'].firstChange;
-    const componentChanged = !!changes['component'] && !changes['component'].firstChange;
-    if (variantChanged || componentChanged) {
+    const variantChanged =
+      !!changes['variant'] && !changes['variant'].firstChange;
+    const componentChanged =
+      !!changes['component'] && !changes['component'].firstChange;
+    const alignChanged = !!changes['align'] && !changes['align'].firstChange;
+    const noWrapChanged = !!changes['noWrap'] && !changes['noWrap'].firstChange;
+    const gutterBottomChanged =
+      !!changes['gutterBottom'] && !changes['gutterBottom'].firstChange;
+    const paragraphChanged =
+      !!changes['paragraph'] && !changes['paragraph'].firstChange;
+
+    if (variantChanged || componentChanged || paragraphChanged) {
       this.rebuildTargetElement();
     }
-    if (changes['sj'] || variantChanged || componentChanged) {
+    if (
+      changes['sj'] ||
+      variantChanged ||
+      componentChanged ||
+      alignChanged ||
+      noWrapChanged ||
+      gutterBottomChanged
+    ) {
       this.applyToTarget();
     }
   }
@@ -83,8 +136,9 @@ export class SjTypographyComponent implements AfterContentInit, OnChanges {
       case 'h6':
         return this.variant;
       case 'p':
+      case 'paragraph':
       case 'body':
-        return 'p';
+        return this.paragraph || this.variant === 'paragraph' ? 'p' : 'div';
       case 'caption':
       case 'small':
         return 'small';
@@ -108,33 +162,56 @@ export class SjTypographyComponent implements AfterContentInit, OnChanges {
     try {
       const id = SjTypographyComponent._nextId++;
       this.renderer.addClass(replacement, `SjTypography--${id}`);
-      this.renderer.setAttribute(replacement, 'data-sj-component', 'SjTypography');
+      this.renderer.setAttribute(
+        replacement,
+        'data-sj-component',
+        'SjTypography'
+      );
       this.renderer.setAttribute(replacement, 'data-sj-id', String(id));
     } catch {}
-    while (old.firstChild) this.renderer.appendChild(replacement, old.firstChild);
+    while (old.firstChild)
+      this.renderer.appendChild(replacement, old.firstChild);
     this.renderer.insertBefore(parent, replacement, old);
     this.renderer.removeChild(parent, old);
     this.targetEl = replacement as HTMLElement;
     this.lastAppliedClass = null;
   }
 
-  private selectedSj(api: SjTypographyApi): (overrides?: Partial<SjStyle>) => SjStyle {
+  private selectedSj(
+    api: SjTypographyApi
+  ): (overrides?: Partial<SjStyle>) => SjStyle {
     switch (this.variant) {
-      case 'h1': return api.h1;
-      case 'h2': return api.h2;
-      case 'h3': return api.h3;
-      case 'h4': return api.h4;
-      case 'h5': return api.h5;
-      case 'h6': return api.h6;
-      case 'p': return api.p;
-      case 'span': return api.span;
-      case 'strong': return api.strong;
-      case 'body': return api.body;
-      case 'caption': return api.caption;
-      case 'small': return api.small;
-      case 'pre': return api.pre;
+      case 'h1':
+        return api.h1;
+      case 'h2':
+        return api.h2;
+      case 'h3':
+        return api.h3;
+      case 'h4':
+        return api.h4;
+      case 'h5':
+        return api.h5;
+      case 'h6':
+        return api.h6;
+      case 'p':
+        return api.p;
+      case 'paragraph':
+        return api.paragraph;
+      case 'span':
+        return api.span;
+      case 'strong':
+        return api.strong;
+      case 'body':
+        return api.body;
+      case 'caption':
+        return api.caption;
+      case 'small':
+        return api.small;
+      case 'pre':
+        return api.pre;
       case 'default':
-      default: return api;
+      default:
+        return api;
     }
   }
 
@@ -142,14 +219,37 @@ export class SjTypographyComponent implements AfterContentInit, OnChanges {
     const baseFn = this.selectedSj(this.sjTypographyApi());
     const base = baseFn();
     const user = this.sj;
-    let merged: any;
-    if (user === undefined) {
-      merged = base;
-    } else if (Array.isArray(user)) {
-      merged = [() => base, ...user];
-    } else {
-      merged = [() => base, user];
+    let merged: any = [() => base];
+
+    // Add typography-specific overrides
+    const typographyOverrides: Partial<SjStyle> = {};
+
+    if (this.align) {
+      typographyOverrides.textAlign = this.align;
     }
+
+    if (this.noWrap) {
+      typographyOverrides.whiteSpace = 'nowrap';
+      typographyOverrides.overflow = 'hidden';
+      typographyOverrides.textOverflow = 'ellipsis';
+    }
+
+    if (this.gutterBottom) {
+      typographyOverrides.marginBottom = this.themeService.sjTheme().spacing(1);
+    }
+
+    if (Object.keys(typographyOverrides).length > 0) {
+      merged.push(() => typographyOverrides);
+    }
+
+    if (user) {
+      if (Array.isArray(user)) {
+        merged = merged.concat(user);
+      } else {
+        merged.push(user);
+      }
+    }
+
     // Shallow merge like sj.compose
     let acc: any = {};
     const push = (v: any) => {
@@ -169,10 +269,19 @@ export class SjTypographyComponent implements AfterContentInit, OnChanges {
     if (!this.targetEl) return;
     const theme = this.themeService.sjTheme();
     const styles = this.composeStyle();
-    const classes = (this.cssGenerator as any).getOrGenerateClassBundle
-      ? (this.cssGenerator as any).getOrGenerateClassBundle(styles, theme, this.themeService.themeVersion())
-      : this.cssGenerator.getOrGenerateClasses(styles, theme, this.themeService.themeVersion());
-    const canonical = Array.isArray(classes) && classes.length ? classes[0] : null;
+    const classes = this.cssGenerator.getOrGenerateClassBundle
+      ? this.cssGenerator.getOrGenerateClassBundle(
+          styles,
+          theme,
+          this.themeService.themeVersion()
+        )
+      : this.cssGenerator.getOrGenerateClasses(
+          styles,
+          theme,
+          this.themeService.themeVersion()
+        );
+    const canonical =
+      Array.isArray(classes) && classes.length ? classes[0] : null;
     if (!canonical) return;
     if (this.lastAppliedClass) {
       this.renderer.removeClass(this.targetEl, this.lastAppliedClass);

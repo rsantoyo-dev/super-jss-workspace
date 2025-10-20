@@ -1,11 +1,22 @@
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { sj, SjTypographyComponent, SjFlexComponent, SjCardComponent, SjRootApi } from 'super-jss';
+import {
+  sj,
+  SjTypographyComponent,
+  SjFlexComponent,
+  SjCardComponent,
+  SjRootApi,
+} from 'super-jss';
 
 @Component({
   selector: 'app-perf-benchmark',
   standalone: true,
-  imports: [CommonModule, SjTypographyComponent, SjFlexComponent, SjCardComponent],
+  imports: [
+    CommonModule,
+    SjTypographyComponent,
+    SjFlexComponent,
+    SjCardComponent,
+  ],
   template: `
     <style>
       .perf-css-grid {
@@ -88,7 +99,7 @@ import { sj, SjTypographyComponent, SjFlexComponent, SjCardComponent, SjRootApi 
       </sj-typography>
       <sj-typography variant="small" [sj]="[sj.opacity(0.8)]">
         Renders {{ itemsCount() }} boxes styled via [sj]. Styles use tokens to
-        avoid excessive unique rules.
+        avoid excessive unique rules. (Max: 5,000)
       </sj-typography>
       <sj-card [sj]="[sj.flexDirection('row')]">
         <button (click)="setMode('sj')" [disabled]="mode() === 'sj'">
@@ -109,7 +120,7 @@ import { sj, SjTypographyComponent, SjFlexComponent, SjCardComponent, SjRootApi 
           [value]="itemsCount()"
           (input)="setCount(+($any($event.target).value || 0))"
           min="0"
-          max="2000"
+          max="5000"
         />
         <small style="color:#61748a">(updates count immediately)</small>
 
@@ -120,6 +131,7 @@ import { sj, SjTypographyComponent, SjFlexComponent, SjCardComponent, SjRootApi 
           <button (click)="setCount(500)">500</button>
           <button (click)="setCount(1000)">1,000</button>
           <button (click)="setCount(2000)">2,000</button>
+          <button (click)="setCount(5000)">5,000</button>
         </div>
       </div>
 
@@ -238,8 +250,8 @@ export class PerfBenchmarkComponent {
     sj.borderRadius(999),
     sj.backgroundColor('green.500'),
   ];
-  // Dynamic count presets: default to 1000
-  readonly itemsCount = signal<number>(1000);
+  // Dynamic count presets: default to 5000
+  readonly itemsCount = signal<number>(5000);
   readonly items = computed(() =>
     Array.from({ length: this.itemsCount() }, (_, i) => i + 1)
   );
@@ -248,7 +260,7 @@ export class PerfBenchmarkComponent {
   // no per-item text; count-only benchmark
 
   setCount(n: number) {
-    const clamped = Math.max(0, Math.min(2000, n));
+    const clamped = Math.max(0, Math.min(5000, n));
     this.itemsCount.set(clamped);
   }
 

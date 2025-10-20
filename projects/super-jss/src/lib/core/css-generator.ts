@@ -1,4 +1,9 @@
-import { SjBreakPoints, SjStyle, SjResolvedTheme, ResponsiveStyle } from '../models/interfaces';
+import {
+  SjBreakPoints,
+  SjStyle,
+  SjResolvedTheme,
+  ResponsiveStyle,
+} from '../models/interfaces';
 import { shorthandMappings } from '../models/mappings';
 import { generateAtomicClassName } from './class-name';
 import { resolveThemeColor } from '../core/core-methods';
@@ -188,9 +193,31 @@ export class CssGenerator {
     if (value === undefined) {
       return 'initial';
     }
+
+    // Typography properties should handle numbers differently than spacing properties
+    const typographyProps = new Set([
+      'fontSize',
+      'lineHeight',
+      'letterSpacing',
+      'wordSpacing',
+      'fs',
+      'lh',
+      'ls',
+      'ws',
+      'fSize',
+      'fVariant',
+    ]);
+
     if (typeof value === 'number') {
-      return this.theme.spacing(value);
+      if (typographyProps.has(key)) {
+        // For typography, convert numbers to rem units (1 = 1rem)
+        return `${value}rem`;
+      } else {
+        // For spacing properties, use theme spacing function
+        return this.theme.spacing(value);
+      }
     }
+
     let v = resolveThemeColor(value, this.theme);
     if (key === 'fontFamily' && typeof v === 'string') {
       // If it's a list, assume user provided correct quoting per family (don't wrap)

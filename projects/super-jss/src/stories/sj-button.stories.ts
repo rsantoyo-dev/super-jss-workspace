@@ -5,7 +5,6 @@ import { SjButtonComponent, SjDirective, sj } from 'super-jss';
 const meta: Meta = {
   title: 'SJ/Button',
   component: SjButtonComponent as any,
-  tags: ['autodocs'],
   decorators: [moduleMetadata({ imports: [SjDirective] })],
   argTypes: {
     variant: { control: 'select', options: ['filled', 'outlined', 'flat'] },

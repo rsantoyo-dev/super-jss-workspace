@@ -1,0 +1,33 @@
+---
+title: 'sj Root API Basics'
+---
+
+The `sj` root API exposes every CSS property as a typed function and a small set of curated shorthands.
+
+Use it inline for great IDE autocomplete in Angular templates. These basic examples use plain CSS values (no theming).
+
+## Examples
+
+### Properties & shorthands (inline array)
+
+```html
+<div [sj]="[ sj.padding('16px'), sj.backgroundColor('#f7f7f7'), sj.color('#333'), sj.brad('8px') ]">
+  padding:16px, bg:#f7f7f7, color:#333, radius:8px
+</div>
+```
+
+### Responsive (longhand CSS functions)
+
+```html
+<div [sj]="[ sj.padding({ xs: '8px', md: '16px' }), sj.backgroundColor('#eee'), sj.brad('8px') ]">
+  padding: xs 8px → md 16px (sj.padding responsive object)
+</div>
+```
+
+### Mixing sj.* and literal objects
+
+```html
+<div [sj]="[ sj.padding('12px'), { backgroundColor: 'red', marginTop: '2px', borderRadius: '6px', color: '#fff' } ]">
+  [sj] can take an array mixing sj.* helpers and plain objects
+</div>
+```

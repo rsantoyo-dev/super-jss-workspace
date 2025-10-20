@@ -1,0 +1,53 @@
+---
+title: Flex
+---
+
+import { SjFlexComponent } from 'super-jss';
+
+A powerful and flexible layout component. Use the `use*` inputs for common flexbox patterns and density adjustments. For fine-grained control, including responsive layouts and properties like `justifyContent` or `alignItems`, use the `[sj]` input.
+
+## Props
+
+| Prop | Type | Options | Default |
+| --- | --- | --- | --- |
+| `component` | `'div' │ 'section' │ 'article' │ 'span'` | `div`, `section`, `article`, `span` | `'div'` |
+| `host` | `boolean` | `true`, `false` | `false` |
+| `useCol` | `boolean` | `true`, `false` | `false` |
+| `useWrap` | `boolean` | `true`, `false` | `false` |
+| `useInline` | `boolean` | `true`, `false` | `false` |
+| `useCenter` | `boolean` | `true`, `false` | `false` |
+| `useBetween` | `boolean` | `true`, `false` | `false` |
+| `useAround` | `boolean` | `true`, `false` | `false` |
+| `useEvenly` | `boolean` | `true`, `false` | `false` |
+| `useGap` | `undefined │ 'none' │ 1 │ 2 │ 3 │ 4 │ 'compact' │ 'default' │ 'comfortable' │ 'spacious'` | `undefined`, `none`, `1`, `2`, `3`, `4`, `compact`, `default`, `comfortable`, `spacious` | `undefined` |
+| `usePadding` | `undefined │ 'none' │ 1 │ 2 │ 3 │ 4 │ 'compact' │ 'default' │ 'comfortable' │ 'spacious'` | `undefined`, `none`, `1`, `2`, `3`, `4`, `compact`, `default`, `comfortable`, `spacious` | `undefined` |
+| `playgroundSj` | `SjStyle │ SjStyle[]` | - | `undefined` |
+
+## Examples
+
+### Basic Row
+
+```html
+<sj-flex [sj]="[{ padding: '2px' }]">
+  <div style="padding: 0.5rem; background-color: lightblue; border-radius: 0.5rem;">One</div>
+  <div style="padding: 0.5rem; background-color: lightgreen; border-radius: 0.5rem;">Two</div>
+</sj-flex>
+```
+
+### Column Centered
+
+```html
+<sj-flex useCol useCenter useGap="default">
+  <div style="padding: 0.5rem; background-color: lightblue; border-radius: 0.5rem;">One</div>
+  <div style="padding: 0.5rem; background-color: lightgreen; border-radius: 0.5rem;">Two</div>
+</sj-flex>
+```
+
+### Alignment
+
+```html
+<sj-flex [sj]="[{ justifyContent: 'space-between', alignItems: 'center', minHeight: '6rem', padding: '0.5rem' }]">
+  <div style="padding: 0.5rem; background-color: lightblue; border-radius: 0.5rem;">Left</div>
+  <div style="padding: 0.5rem; background-color: lightgreen; border-radius: 0.5rem;">Right</div>
+</sj-flex>
+```

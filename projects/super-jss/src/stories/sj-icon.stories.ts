@@ -5,7 +5,6 @@ import { SjIconComponent, SjDirective, sj, icon } from 'super-jss';
 const meta: Meta = {
   title: 'SJ/Icon',
   component: SjIconComponent as any,
-  tags: ['autodocs'],
   decorators: [moduleMetadata({ imports: [SjIconComponent, SjDirective] })],
   parameters: {
     docs: {

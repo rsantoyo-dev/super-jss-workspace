@@ -9,6 +9,7 @@ export type SjTypographyApi = ((overrides?: Partial<SjStyle>) => SjStyle) & {
   h5: (overrides?: Partial<SjStyle>) => SjStyle;
   h6: (overrides?: Partial<SjStyle>) => SjStyle;
   p: (overrides?: Partial<SjStyle>) => SjStyle;
+  paragraph: (overrides?: Partial<SjStyle>) => SjStyle;
   span: (overrides?: Partial<SjStyle>) => SjStyle;
   strong: (overrides?: Partial<SjStyle>) => SjStyle;
   body: (overrides?: Partial<SjStyle>) => SjStyle;
@@ -18,13 +19,17 @@ export type SjTypographyApi = ((overrides?: Partial<SjStyle>) => SjStyle) & {
 };
 
 export function createSjTypographyApi(theme: SjResolvedTheme) {
-  const omitFontFamily = (s: Partial<SjStyle> | undefined): Partial<SjStyle> => {
+  const omitFontFamily = (
+    s: Partial<SjStyle> | undefined
+  ): Partial<SjStyle> => {
     if (!s) return {};
     const { fontFamily, ...rest } = s as any;
     return rest as any;
   };
   // Use default style without fontFamily so classes don't emit it by default
-  const defaultNoFF: Partial<SjStyle> = omitFontFamily(theme.typography.default as any);
+  const defaultNoFF: Partial<SjStyle> = omitFontFamily(
+    theme.typography.default as any
+  );
   const defaultFfVal = (theme.typography as any)?.default?.fontFamily as any;
   const defaultFfStr = Array.isArray(defaultFfVal)
     ? (defaultFfVal as any).join(', ')
@@ -139,6 +144,13 @@ export function createSjTypographyApi(theme: SjResolvedTheme) {
   });
 
   sjTypographyApi.p = (overrides: Partial<SjStyle> = {}): SjStyle => ({
+    ...(defaultFfProp as any),
+    ...(defaultNoFF || {}),
+    ...(theme.typography.P || {}),
+    ...overrides,
+  });
+
+  sjTypographyApi.paragraph = (overrides: Partial<SjStyle> = {}): SjStyle => ({
     ...(defaultFfProp as any),
     ...(defaultNoFF || {}),
     ...(theme.typography.P || {}),

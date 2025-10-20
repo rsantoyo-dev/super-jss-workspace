@@ -6,7 +6,6 @@ import { SjStyle } from '../lib/models/interfaces';
 const meta: Meta = {
   title: 'SJ/Flex',
   component: SjFlexComponent as any,
-  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {

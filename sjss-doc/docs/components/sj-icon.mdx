@@ -1,0 +1,47 @@
+---
+title: Icon
+---
+
+import { SjIconComponent } from 'super-jss';
+
+`<sj-icon>` renders theme-aware SVG icons. Size is controlled by the host via `size` (px/rem). Colors accept palette tokens or raw CSS.
+
+## Props
+
+| Prop | Type | Options | Default |
+| --- | --- | --- | --- |
+| `name` | `string` | (see all icons below) | - |
+| `size` | `string │ number` | - | `'1rem'` |
+| `fill` | `string` | - | `undefined` |
+| `stroke` | `string` | - | `undefined` |
+| `fillOpacity` | `number` | 0-1 | `undefined` |
+| `strokeOpacity` | `number` | 0-1 | `undefined` |
+| `sj` | `SjStyle │ SjStyle[]` | - | `undefined` |
+
+## Examples
+
+### All Icons
+
+```html
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem;">
+  <div *ngFor="let n of iconNames" style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem; padding: 0.5rem; background-color: lightgray; border-radius: 0.5rem;">
+    <sj-icon [name]="n" size="2rem"></sj-icon>
+    <code style="font-size: 0.8rem; color: dimgray;">{{ n }}</code>
+  </div>
+</div>
+```
+
+### Accessibility
+
+```html
+<div style="display: flex; flex-direction: column; gap: 1rem;">
+  <div>
+    <p>This icon is decorative and is hidden from screen readers:</p>
+    <sj-icon name="sun"></sj-icon>
+  </div>
+  <div>
+    <p>This icon has a label and is announced by screen readers:</p>
+    <sj-icon name="moon" label="Moon icon"></sj-icon>
+  </div>
+</div>
+```

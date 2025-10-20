@@ -4,7 +4,6 @@ import { SjInput, SjPaperComponent, sj } from 'super-jss';
 const meta: Meta = {
   title: 'SJ/Paper',
   component: SjPaperComponent as any,
-  tags: ['autodocs'],
   argTypes: {
     variant: {
       control: 'select',

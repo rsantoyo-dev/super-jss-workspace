@@ -3,11 +3,14 @@ import { DefinePlugin } from 'webpack';
 
 const config: StorybookConfig = {
   "stories": [
+    "../src/stories/**/*.mdx",
     "../src/stories/sj-*.stories.ts"
   ],
   "addons": [
     "@storybook/addon-docs"
   ],
+  // Enable Autodocs globally so you don't need to tag every story
+  docs: { autodocs: true },
   "framework": {
     "name": "@storybook/angular",
     "options": {}

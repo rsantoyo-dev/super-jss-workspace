@@ -5,7 +5,6 @@ import { SjInputComponent, SjPaperComponent, SjDirective, SjIconComponent, sj, i
 const meta: Meta = {
   title: 'SJ/Input',
   component: SjInputComponent as any,
-  tags: ['autodocs'],
   decorators: [moduleMetadata({ imports: [SjPaperComponent, SjDirective, SjIconComponent] })],
   argTypes: {
     variant: { control: 'select', options: ['outlined', 'filled', 'flat'] },

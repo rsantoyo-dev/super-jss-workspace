@@ -1,0 +1,84 @@
+---
+title: '[sj] Directive Basics'
+---
+
+`[sj]` is a lightweight Angular directive that lets you author styles as plain JavaScript objects directly in your templates.
+
+Key ideas:
+- Use camelCase CSS properties (e.g., padding, backgroundColor).
+- Values can be raw CSS (px, rem, hex) or theme tokens — start with raw CSS here.
+- Inline or class property: bind a literal object, or a component field typed as `SjStyle` or `SjStyle[]`.
+- You can pass a single object, an array of objects (merged left→right), or responsive objects.
+- The library generates tiny atomic CSS classes at runtime; no global CSS needed.
+
+These first examples avoid theming to show the most basic form.
+
+## Examples
+
+### Padding (simple object)
+
+```html
+<div [sj]="{ padding: '24px', backgroundColor: '#f7f7f7', borderRadius: '8px' }">
+  div with padding: 24px (plain CSS units)
+</div>
+```
+
+### Responsive Padding
+
+```html
+<div [sj]="{
+  padding: { xs: '16px', sm: '24px', md: '32px' },
+  backgroundColor: '#f7f7f7',
+  borderRadius: '8px'
+}">
+  div with responsive padding: xs=16px, sm=24px, md=32px
+</div>
+```
+
+### Class property (SjStyle)
+
+```typescript
+// component.ts
+import { SjStyle } from 'super-jss';
+
+@Component({
+  ...
+})
+class MyComponent {
+  box: SjStyle = {
+    padding: '20px',
+    backgroundColor: '#eeeeee',
+    borderRadius: '8px',
+  };
+}
+```
+
+```html
+<!-- template.html -->
+<div [sj]="box">bound to class property typed as SjStyle</div>
+```
+
+### Class property (SjStyle[])
+
+```typescript
+// component.ts
+import { SjStyle } from 'super-jss';
+
+@Component({
+  ...
+})
+class MyComponent {
+  styles: SjStyle[] = [
+    { padding: '12px' },
+    { backgroundColor: '#f7f7f7' },
+    { borderRadius: '6px' },
+  ];
+}
+```
+
+```html
+<!-- template.html -->
+<div [sj]="styles">
+  bound to class property typed as SjStyle[] (merged left→right)
+</div>
+```

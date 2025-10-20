@@ -1,0 +1,42 @@
+---
+title: Card
+---
+
+import { SjCardComponent } from 'super-jss';
+
+The `sj-card` component is a versatile surface for displaying content and actions.
+
+## Props
+
+| Prop | Type | Options | Default |
+| --- | --- | --- | --- |
+| `variant` | `'flat' │ 'outlined' │ 'elevated' │ 'interactive'` | `flat`, `outlined`, `elevated`, `interactive` | `'flat'` |
+| `usePaint` | `'none' │ 'auto' │ 'primary' │ 'secondary' │ 'success' │ 'info' │ 'warning' │ 'error' │ 'dark' │ 'neutral' │ 'light'` | `none`, `auto`, `primary`, `secondary`, `success`, `info`, `warning`, `error`, `dark`, `neutral`, `light` | `'none'` |
+| `usePadding` | `undefined │ 'none' │ 1 │ 2 │ 3 │ 4 │ 'compact' │ 'default' │ 'comfortable' │ 'spacious'` | `undefined`, `none`, `1`, `2`, `3`, `4`, `compact`, `default`, `comfortable`, `spacious` | `undefined` |
+| `useRounded` | `undefined │ 'none' │ 1 │ 2 │ 3 │ 4 │ 'compact' │ 'default' │ 'comfortable' │ 'spacious'` | `undefined`, `none`, `1`, `2`, `3`, `4`, `compact`, `default`, `comfortable`, `spacious` | `undefined` |
+| `sj` | `SjStyle │ SjStyle[]` | - | `undefined` |
+
+## Examples
+
+### Playground
+
+```html
+<sj-card variant="flat" usePaint="none">Card Content</sj-card>
+```
+
+### Interactive Accessibility
+
+```html
+<div style="display: flex; gap: 1rem;">
+  <a href="#" style="text-decoration: none; color: inherit;">
+    <sj-card variant="interactive" usePadding="default" useRounded="default">
+      <h3>Navigational Card</h3>
+      <p>This card is wrapped in an anchor tag and navigates on click.</p>
+    </sj-card>
+  </a>
+  <sj-card variant="interactive" usePadding="default" useRounded="default" role="button" tabindex="0" (click)="onClick()">
+    <h3>Action Card</h3>
+    <p>This card has a role of "button" and a click handler.</p>
+  </sj-card>
+</div>
+```

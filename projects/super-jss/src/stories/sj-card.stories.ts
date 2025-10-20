@@ -4,7 +4,6 @@ import { SjCardComponent } from '../lib/components/sj-card.component';
 const meta: Meta<SjCardComponent> = {
   title: 'SJ/Card',
   component: SjCardComponent,
-  tags: ['autodocs'],
   argTypes: {
     variant: { control: 'select', options: ['flat', 'outlined', 'elevated', 'interactive'] },
     usePaint: {

@@ -38,7 +38,6 @@ class SjBasicArrayExampleComponent {
 
 const meta: Meta = {
   title: 'SJ/[sj] Basic',
-  tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
