@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input, effect } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  effect,
+} from '@angular/core';
 import { sjButton, SjButtonApi } from '../blueprints/button';
 import { SjStyle, SjPalette } from '../models/interfaces';
 import type { SjInput } from '../directives/sj.directive';
@@ -14,7 +19,11 @@ import { toDensityLevel } from '../utils';
   imports: [SjDirective, SjMarkerDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <button [sj]="hostSj" [sjMarker]="'SjButton'">
+    <button
+      [sj]="hostSj"
+      [sjMarker]="'SjButton'"
+      [attr.data-sj-component]="'sj-button_' + (variant || 'filled')"
+    >
       <ng-content></ng-content>
     </button>
   `,
@@ -29,6 +38,8 @@ export class SjButtonComponent {
   @Input() useDensity: 1 | 2 | 3 | 4 = 2;
   // Optional user overrides to merge after the variant
   @Input() sj: SjInput | undefined;
+  // Back-compat: allow [color] as palette family selector (maps to usePaint family)
+  @Input() color: keyof SjPalette | undefined;
 
   // Additional sugars consistent with flex/paper philosophy
   @Input() useFullWidth = false;
@@ -122,10 +133,9 @@ export class SjButtonComponent {
     } as SjStyle;
   }
 
-  private variantStyles(
-    kind: 'filled' | 'outlined' | 'flat'
-  ): SjStyle {
-    const color: keyof SjPalette = 'primary';
+  private variantStyles(kind: 'filled' | 'outlined' | 'flat'): SjStyle {
+    // Prefer explicit [color] when provided; default to primary
+    const color: keyof SjPalette = (this.color as any) || 'primary';
     if (kind === 'filled') {
       return {
         backgroundColor: `${color}.main`,
@@ -133,7 +143,10 @@ export class SjButtonComponent {
         borderStyle: 'solid',
         borderWidth: 0.1,
         borderColor: 'transparent',
-        '&:hover': { backgroundColor: `${color}.dark`, transform: 'translateY(-1px)' },
+        '&:hover': {
+          backgroundColor: `${color}.dark`,
+          transform: 'translateY(-1px)',
+        },
         '&:active': { transform: 'translateY(0)' },
         '&:focus-visible': { outlineColor: `${color}.main` },
         '&:disabled': {
@@ -164,7 +177,10 @@ export class SjButtonComponent {
         borderStyle: 'solid',
         borderWidth: 0.1,
         borderColor: `${color}.main`,
-        '&:hover': { backgroundColor: 'light.main', transform: 'translateY(-1px)' },
+        '&:hover': {
+          backgroundColor: 'light.main',
+          transform: 'translateY(-1px)',
+        },
         '&:active': { transform: 'translateY(0)' },
         '&:focus-visible': { outlineColor: `${color}.main` },
         '&:disabled': { borderColor: `${color}.main`, color: 'neutral.dark' },
@@ -190,10 +206,14 @@ export class SjButtonComponent {
       backgroundColor: 'transparent',
       color: `${color}.main`,
       borderStyle: 'solid',
-              borderWidth: 0.1,
-              borderColor: 'transparent',
-              '&:hover': { backgroundColor: 'light.main', transform: 'translateY(-1px)' },
-              '&:active': { transform: 'translateY(0)' },      '&:focus-visible': { outlineColor: `${color}.main` },
+      borderWidth: 0.1,
+      borderColor: 'transparent',
+      '&:hover': {
+        backgroundColor: 'light.main',
+        transform: 'translateY(-1px)',
+      },
+      '&:active': { transform: 'translateY(0)' },
+      '&:focus-visible': { outlineColor: `${color}.main` },
       '&:disabled': { color: 'neutral.dark' },
       '&.active': {
         backgroundColor: 'light.main',
@@ -224,7 +244,11 @@ export class SjButtonComponent {
         (style as any).display = 'flex';
       }
       // Apply paint semantics depending on the current variant
-      if (this.usePaint && this.usePaint !== 'none' && this.usePaint !== 'auto') {
+      if (
+        this.usePaint &&
+        this.usePaint !== 'none' &&
+        this.usePaint !== 'auto'
+      ) {
         const fam = String(this.usePaint) as keyof SjPalette;
         // Normalize kind to our simplified set; treat unknowns as 'filled'
         const v = String(this.variant);
@@ -237,11 +261,21 @@ export class SjButtonComponent {
           (style as any).borderColor = 'transparent';
           // keep existing hover/focus/disabled behaviors but tint them
           const hov = ((style as any)['&:hover'] as any) || {};
-          ((style as any)['&:hover'] as any) = { ...hov, backgroundColor: `${fam}.dark` };
+          ((style as any)['&:hover'] as any) = {
+            ...hov,
+            backgroundColor: `${fam}.dark`,
+          };
           const foc = ((style as any)['&:focus-visible'] as any) || {};
-          ((style as any)['&:focus-visible'] as any) = { ...foc, outlineColor: `${fam}.main` };
+          ((style as any)['&:focus-visible'] as any) = {
+            ...foc,
+            outlineColor: `${fam}.main`,
+          };
           const dis = ((style as any)['&:disabled'] as any) || {};
-          ((style as any)['&:disabled'] as any) = { ...dis, backgroundColor: `${fam}.main`, borderColor: 'transparent' };
+          ((style as any)['&:disabled'] as any) = {
+            ...dis,
+            backgroundColor: `${fam}.main`,
+            borderColor: 'transparent',
+          };
         } else if (kind === 'outlined') {
           (style as any).backgroundColor = 'transparent';
           (style as any).color = `${fam}.main`;
@@ -249,18 +283,34 @@ export class SjButtonComponent {
           (style as any).borderWidth = 0.1;
           (style as any).borderColor = `${fam}.main`;
           const hov = ((style as any)['&:hover'] as any) || {};
-          ((style as any)['&:hover'] as any) = { ...hov, backgroundColor: 'light.main' };
+          ((style as any)['&:hover'] as any) = {
+            ...hov,
+            backgroundColor: 'light.main',
+          };
           const foc = ((style as any)['&:focus-visible'] as any) || {};
-          ((style as any)['&:focus-visible'] as any) = { ...foc, outlineColor: `${fam}.main` };
+          ((style as any)['&:focus-visible'] as any) = {
+            ...foc,
+            outlineColor: `${fam}.main`,
+          };
           const dis = ((style as any)['&:disabled'] as any) || {};
-          ((style as any)['&:disabled'] as any) = { ...dis, borderColor: `${fam}.main`, color: 'neutral.dark' };
+          ((style as any)['&:disabled'] as any) = {
+            ...dis,
+            borderColor: `${fam}.main`,
+            color: 'neutral.dark',
+          };
         } else {
           // flat: paint only affects text color
           (style as any).color = `${fam}.main`;
           const foc = ((style as any)['&:focus-visible'] as any) || {};
-          ((style as any)['&:focus-visible'] as any) = { ...foc, outlineColor: `${fam}.main` };
+          ((style as any)['&:focus-visible'] as any) = {
+            ...foc,
+            outlineColor: `${fam}.main`,
+          };
           const hov = ((style as any)['&:hover'] as any) || {};
-          ((style as any)['&:hover'] as any) = { ...hov, backgroundColor: 'light.main' };
+          ((style as any)['&:hover'] as any) = {
+            ...hov,
+            backgroundColor: 'light.main',
+          };
         }
       }
       const theme = this.themeService.sjTheme();

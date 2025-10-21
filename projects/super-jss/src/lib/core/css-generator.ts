@@ -209,6 +209,10 @@ export class CssGenerator {
     ]);
 
     if (typeof value === 'number') {
+      // Keep line-height unitless when numeric (CSS best practice and matches tests)
+      if (key === 'lineHeight' || key === 'lh') {
+        return String(value);
+      }
       if (typographyProps.has(key)) {
         // For typography, convert numbers to rem units (1 = 1rem)
         return `${value}rem`;

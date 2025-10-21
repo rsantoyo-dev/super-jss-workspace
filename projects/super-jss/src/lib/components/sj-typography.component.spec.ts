@@ -61,8 +61,9 @@ describe('SjTypographyComponent theme updates', () => {
     fixture.detectChanges();
     await sleep(0);
 
-    const typographyEl: HTMLElement =
-      fixture.nativeElement.querySelector('.SjTypography');
+    const typographyEl: HTMLElement = fixture.nativeElement.querySelector(
+      '[data-sj-component^="sj-typography"]'
+    );
     const initialFont = getComputedStyle(typographyEl).fontFamily;
 
     expect(initialFont).toContain('Helvetica');
@@ -88,8 +89,9 @@ describe('SjTypographyComponent theme updates', () => {
     fixture.detectChanges();
     await sleep(0);
 
-    const typographyEl: HTMLElement =
-      fixture.nativeElement.querySelector('.SjTypography');
+    const typographyEl: HTMLElement = fixture.nativeElement.querySelector(
+      '[data-sj-component^="sj-typography"]'
+    );
     const computedStyle = getComputedStyle(typographyEl);
     expect(computedStyle.textAlign).toBe('center');
   });
@@ -100,8 +102,9 @@ describe('SjTypographyComponent theme updates', () => {
     fixture.detectChanges();
     await sleep(0);
 
-    const typographyEl: HTMLElement =
-      fixture.nativeElement.querySelector('.SjTypography');
+    const typographyEl: HTMLElement = fixture.nativeElement.querySelector(
+      '[data-sj-component^="sj-typography"]'
+    );
     const computedStyle = getComputedStyle(typographyEl);
     expect(computedStyle.whiteSpace).toBe('nowrap');
     expect(computedStyle.overflow).toBe('hidden');
@@ -114,8 +117,9 @@ describe('SjTypographyComponent theme updates', () => {
     fixture.detectChanges();
     await sleep(0);
 
-    const typographyEl: HTMLElement =
-      fixture.nativeElement.querySelector('.SjTypography');
+    const typographyEl: HTMLElement = fixture.nativeElement.querySelector(
+      '[data-sj-component^="sj-typography"]'
+    );
     const computedStyle = getComputedStyle(typographyEl);
     expect(computedStyle.marginBottom).toBe('8px'); // 1 * 8px spacing unit
   });
@@ -126,8 +130,21 @@ describe('SjTypographyComponent theme updates', () => {
     fixture.detectChanges();
     await sleep(0);
 
-    const typographyEl: HTMLElement =
-      fixture.nativeElement.querySelector('.SjTypography');
+    const typographyEl: HTMLElement = fixture.nativeElement.querySelector(
+      '[data-sj-component^="sj-typography"]'
+    );
+    expect(typographyEl.tagName.toLowerCase()).toBe('p');
+  });
+
+  it('should support p variant', async () => {
+    const testComponent = fixture.componentInstance as any;
+    testComponent.typographyVariant = 'p';
+    fixture.detectChanges();
+    await sleep(0);
+
+    const typographyEl: HTMLElement = fixture.nativeElement.querySelector(
+      '[data-sj-component^="sj-typography"]'
+    );
     expect(typographyEl.tagName.toLowerCase()).toBe('p');
   });
 });

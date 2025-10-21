@@ -9,17 +9,32 @@ export class SjMarkerDirective implements OnInit {
 
   @Input('sjMarker') marker: string | undefined;
 
-  constructor(private el: ElementRef<HTMLElement>, private renderer: Renderer2) {}
+  constructor(
+    private el: ElementRef<HTMLElement>,
+    private renderer: Renderer2
+  ) {}
 
   ngOnInit(): void {
-    const name = this.marker && String(this.marker).trim() ? String(this.marker).trim() : 'Sj';
+    const raw =
+      this.marker && String(this.marker).trim()
+        ? String(this.marker).trim()
+        : 'Sj';
+    const name = raw
+      .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+      .replace(/\s+/g, '-')
+      .toLowerCase();
     const id = SjMarkerDirective._nextId++;
     try {
-      this.renderer.addClass(this.el.nativeElement, name);
-      this.renderer.addClass(this.el.nativeElement, `${name}--${id}`);
-      this.renderer.setAttribute(this.el.nativeElement, 'data-sj-component', name);
-      this.renderer.setAttribute(this.el.nativeElement, 'data-sj-id', String(id));
+      this.renderer.setAttribute(
+        this.el.nativeElement,
+        'data-sj-component',
+        name
+      );
+      this.renderer.setAttribute(
+        this.el.nativeElement,
+        'data-sj-id',
+        String(id)
+      );
     } catch {}
   }
 }
-

@@ -113,14 +113,28 @@ export abstract class SjBaseComponent implements AfterContentInit, OnChanges {
 
   private applyMarkerToEl(el: HTMLElement) {
     const marker = this.marker || this.defaultMarker;
+    // Normalize to kebab-case for DOM class/attributes (e.g., SjCard -> sj-card)
+    const kebab = (marker || '')
+      .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+      .replace(/\s+/g, '-')
+      .toLowerCase();
     try {
-      // Add specific marker class; keep generic for debugging consistency
-      this.renderer.addClass(el, marker);
-      // Add data attributes for tooling/debugging
-      this.renderer.setAttribute(el, 'data-sj-component', marker);
+      // Add data attributes for tooling/debugging (use kebab-case for consistency)
+      // Only set data-sj-component if not already set by subclass (e.g., with variant)
+      if (kebab && !el.getAttribute('data-sj-component')) {
+        this.renderer.setAttribute(el, 'data-sj-component', kebab);
+      }
       this.renderer.setAttribute(el, 'data-sj-id', String(this._instanceId));
+      // Allow subclasses to add extra markers (e.g., variant/state)
+      this.applyExtraMarkers(el);
     } catch {}
   }
+
+  // Subclasses can override to add data attributes or other non-style markers
+  // This is called whenever markers are applied/refreshed to an element
+  // (both for host parent and target element)
+  // Default: no-op
+  protected applyExtraMarkers(el: HTMLElement): void {}
 
   protected composeBaseStyle(): SjStyle {
     const style: SjStyle = {};
@@ -184,6 +198,8 @@ export abstract class SjBaseComponent implements AfterContentInit, OnChanges {
 
   protected applyToTarget(): void {
     if (!this.targetEl) return;
+    // Refresh markers on the target element (e.g., variant updates)
+    this.applyMarkerToEl(this.targetEl);
     const theme = this.themeService.sjTheme();
     const styles = this.composeStyle();
     const classes = (this.cssGenerator as any).getOrGenerateClassBundle
@@ -210,6 +226,11 @@ export abstract class SjBaseComponent implements AfterContentInit, OnChanges {
   protected applyToParent(): void {
     if (!this.parentEl) return;
     this.applyMarkerToEl(this.parentEl);
+    // Add explicit host markers for observability
+    try {
+      this.renderer.addClass(this.parentEl, 'host');
+      this.renderer.setAttribute(this.parentEl, 'data-sj-mode', 'host');
+    } catch {}
     const theme = this.themeService.sjTheme();
     const styles = this.composeStyle();
     const classes = (this.cssGenerator as any).getOrGenerateClassBundle

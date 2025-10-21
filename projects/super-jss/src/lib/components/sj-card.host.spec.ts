@@ -8,7 +8,7 @@ import { SjThemeService } from '../services';
   imports: [SjCardComponent],
   template: `
     <div id="parent">
-      <sj-card host useSurface [variant]="'flat'">
+      <sj-card host [variant]="'flat'">
         <span id="content">CardChild</span>
       </sj-card>
     </div>
@@ -32,14 +32,19 @@ describe('SjCardComponent host mode', () => {
     fixture.detectChanges();
 
     const parent: HTMLElement = fixture.nativeElement.querySelector('#parent');
-    const cardEl: HTMLElement | null = fixture.nativeElement.querySelector('sj-card');
-    const content: HTMLElement = fixture.nativeElement.querySelector('#content');
+    const cardEl: HTMLElement | null =
+      fixture.nativeElement.querySelector('sj-card');
+    const content: HTMLElement =
+      fixture.nativeElement.querySelector('#content');
 
     expect(cardEl).toBeNull();
     expect(content).toBeTruthy();
     expect(content.parentElement).toBe(parent);
     const classes = Array.from(parent.classList);
     expect(classes.some((c: string) => /(^|-)sjb-/.test(c))).toBeTrue();
+    expect(classes).toContain('host');
+    expect(parent.getAttribute('data-sj-component')).toBe('sj-card_flat');
+    expect(parent.getAttribute('data-sj-mode')).toBe('host');
   });
 
   it('prefixes class with version when theme changes', () => {

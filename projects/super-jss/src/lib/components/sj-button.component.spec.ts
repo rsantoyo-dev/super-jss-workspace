@@ -25,7 +25,13 @@ class ButtonHarnessComponent {}
 
 const hexToRgb = (hex: string) => {
   const h = hex.replace('#', '');
-  const full = h.length === 3 ? h.split('').map((c) => c + c).join('') : h;
+  const full =
+    h.length === 3
+      ? h
+          .split('')
+          .map((c) => c + c)
+          .join('')
+      : h;
   const num = parseInt(full, 16);
   const r = (num >> 16) & 255;
   const g = (num >> 8) & 255;
@@ -38,39 +44,52 @@ describe('SjButtonComponent', () => {
   let theme: SjThemeService;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({ imports: [ButtonHarnessComponent] }).compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [ButtonHarnessComponent],
+    }).compileComponents();
     theme = TestBed.inject(SjThemeService);
     fixture = TestBed.createComponent(ButtonHarnessComponent);
   });
 
   it('applies filled variant bg/contrast and selected (active) style', async () => {
     fixture.detectChanges();
-    const filled: HTMLElement = fixture.nativeElement.querySelector('#filled');
+    const filled: HTMLElement =
+      fixture.nativeElement.querySelector('#filled button');
 
     const primary = theme.sjTheme().palette.primary;
-    expect(getComputedStyle(filled).backgroundColor).toBe(hexToRgb(primary.main));
+    expect(getComputedStyle(filled).backgroundColor).toBe(
+      hexToRgb(primary.main)
+    );
 
     filled.classList.add('active');
     // active should darken background
-    expect(getComputedStyle(filled).backgroundColor).toBe(hexToRgb(primary.dark));
+    expect(getComputedStyle(filled).backgroundColor).toBe(
+      hexToRgb(primary.dark)
+    );
   });
 
   it('applies outlined border and active background', () => {
     fixture.detectChanges();
-    const outlined: HTMLElement = fixture.nativeElement.querySelector('#outlined');
+    const outlined: HTMLElement =
+      fixture.nativeElement.querySelector('#outlined button');
 
     const secondary = theme.sjTheme().palette.secondary;
-    expect(getComputedStyle(outlined).borderTopColor).toBe(hexToRgb(secondary.main));
+    expect(getComputedStyle(outlined).borderTopColor).toBe(
+      hexToRgb(secondary.main)
+    );
 
     outlined.classList.add('active');
     // outlined active uses light surface bg
     const light = theme.sjTheme().palette.light;
-    expect(getComputedStyle(outlined).backgroundColor).toBe(hexToRgb(light.main));
+    expect(getComputedStyle(outlined).backgroundColor).toBe(
+      hexToRgb(light.main)
+    );
   });
 
   it('applies flat text color and active background', () => {
     fixture.detectChanges();
-    const flat: HTMLElement = fixture.nativeElement.querySelector('#flat');
+    const flat: HTMLElement =
+      fixture.nativeElement.querySelector('#flat button');
 
     const primary = theme.sjTheme().palette.primary;
     expect(getComputedStyle(flat).color).toBe(hexToRgb(primary.main));
@@ -80,4 +99,3 @@ describe('SjButtonComponent', () => {
     expect(getComputedStyle(flat).backgroundColor).toBe(hexToRgb(light.main));
   });
 });
-

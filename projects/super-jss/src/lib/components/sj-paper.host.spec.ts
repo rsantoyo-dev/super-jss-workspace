@@ -8,7 +8,7 @@ import { SjThemeService } from '../services';
   imports: [SjPaperComponent],
   template: `
     <div id="parent">
-      <sj-paper host useSurface [density]="2">
+      <sj-paper host [usePadding]="'default'" [useRounded]="'default'">
         <span id="content">Child</span>
       </sj-paper>
     </div>
@@ -35,7 +35,8 @@ describe('SjPaperComponent host mode', () => {
     const parent: HTMLElement = fixture.nativeElement.querySelector('#parent');
     const paperEl: HTMLElement | null =
       fixture.nativeElement.querySelector('sj-paper');
-    const content: HTMLElement = fixture.nativeElement.querySelector('#content');
+    const content: HTMLElement =
+      fixture.nativeElement.querySelector('#content');
 
     // wrapper removed in host mode
     expect(paperEl).toBeNull();
@@ -44,7 +45,13 @@ describe('SjPaperComponent host mode', () => {
     expect(content.parentElement).toBe(parent);
     // parent should have a generated bundle class (sjb-... possibly with version prefix)
     const classes = Array.from(parent.classList);
-    expect(classes.some((c: string) => /(^|-)sjb-/.test(c))).withContext('missing bundle class').toBeTrue();
+    expect(classes.some((c: string) => /(^|-)sjb-/.test(c)))
+      .withContext('missing bundle class')
+      .toBeTrue();
+    expect(classes).toContain('host');
+    // Combined marker now includes variant (default)
+    expect(parent.getAttribute('data-sj-component')).toBe('sj-paper_default');
+    expect(parent.getAttribute('data-sj-mode')).toBe('host');
   });
 
   it('re-applies class when theme version changes', () => {
@@ -52,11 +59,22 @@ describe('SjPaperComponent host mode', () => {
     const parent: HTMLElement = fixture.nativeElement.querySelector('#parent');
 
     // bump theme version by setting any theme part
-    theme.setTheme({ breakpoints: { xs: 0, sm: 640, md: 900, lg: 1200, xl: 1920, xxl: 2560 } as any });
+    theme.setTheme({
+      breakpoints: {
+        xs: 0,
+        sm: 640,
+        md: 900,
+        lg: 1200,
+        xl: 1920,
+        xxl: 2560,
+      } as any,
+    });
     fixture.detectChanges();
 
     const classes = Array.from(parent.classList);
     // For version > 0 we prefix classes with v{n}-sjb-...
-    expect(classes.some((c: string) => /^v\d+-sjb-/.test(c))).withContext('missing versioned bundle class').toBeTrue();
+    expect(classes.some((c: string) => /^v\d+-sjb-/.test(c)))
+      .withContext('missing versioned bundle class')
+      .toBeTrue();
   });
 });

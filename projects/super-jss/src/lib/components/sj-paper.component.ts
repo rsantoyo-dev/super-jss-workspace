@@ -13,7 +13,9 @@ import { SjThemeService, SjCssGeneratorService } from '../services';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SjPaperComponent extends SjBaseComponent {
-  protected override get defaultMarker(): string { return 'SjPaper'; }
+  protected override get defaultMarker(): string {
+    return 'SjPaper';
+  }
   @Input() variant: SjPaperVariant = 'default';
   @Input() usePadding:
     | 1
@@ -53,6 +55,16 @@ export class SjPaperComponent extends SjBaseComponent {
     super(hostRef, renderer, themeService, cssGenerator);
   }
 
+  protected override applyExtraMarkers(el: HTMLElement): void {
+    try {
+      this.renderer.setAttribute(
+        el,
+        'data-sj-component',
+        `sj-paper_${this.variant}`
+      );
+    } catch {}
+  }
+
   private getVariantStyles(): SjStyle {
     const variantMap: Record<
       SjPaperVariant,
@@ -87,17 +99,21 @@ export class SjPaperComponent extends SjBaseComponent {
           : 'filled'; // treat 'default' and 'filled' as filled
 
       if (kind === 'filled') {
-        (paperStyles as any).backgroundColor = isAuto ? 'light.light' : `${fam}.main`;
-        if(!isAuto) (paperStyles as any).color = `${fam}.contrast`;
+        (paperStyles as any).backgroundColor = isAuto
+          ? 'light.light'
+          : `${fam}.main`;
+        if (!isAuto) (paperStyles as any).color = `${fam}.contrast`;
         (paperStyles as any).borderColor = 'transparent';
       } else if (kind === 'outlined') {
         (paperStyles as any).backgroundColor = 'transparent';
         (paperStyles as any).color = isAuto ? 'inherit' : `${fam}.main`;
         (paperStyles as any).borderStyle = 'solid';
         (paperStyles as any).borderWidth = 0.1;
-        (paperStyles as any).borderColor = isAuto ? 'light.dark' : `${fam}.main`;
+        (paperStyles as any).borderColor = isAuto
+          ? 'light.dark'
+          : `${fam}.main`;
       } else {
-        if(!isAuto) (paperStyles as any).color = `${fam}.main`;
+        if (!isAuto) (paperStyles as any).color = `${fam}.main`;
       }
     }
 

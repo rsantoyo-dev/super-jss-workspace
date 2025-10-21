@@ -81,12 +81,14 @@ export class SjTypographyComponent implements AfterContentInit, OnChanges {
 
     const tag = this.resolveTag();
     const newEl = this.renderer.createElement(tag);
-    // Add marker class and data attributes for debugging/authoring
-    this.renderer.addClass(newEl, 'SjTypography');
+    // Add data attributes for debugging/authoring (kebab-case)
     try {
       const id = SjTypographyComponent._nextId++;
-      this.renderer.addClass(newEl, `SjTypography--${id}`);
-      this.renderer.setAttribute(newEl, 'data-sj-component', 'SjTypography');
+      const marker =
+        this.variant && this.variant !== 'default'
+          ? `sj-typography_${this.variant}`
+          : 'sj-typography';
+      this.renderer.setAttribute(newEl, 'data-sj-component', marker);
       this.renderer.setAttribute(newEl, 'data-sj-id', String(id));
     } catch {}
 
@@ -136,9 +138,11 @@ export class SjTypographyComponent implements AfterContentInit, OnChanges {
       case 'h6':
         return this.variant;
       case 'p':
+        return 'p';
       case 'paragraph':
+        return 'p';
       case 'body':
-        return this.paragraph || this.variant === 'paragraph' ? 'p' : 'div';
+        return this.paragraph ? 'p' : 'div';
       case 'caption':
       case 'small':
         return 'small';
@@ -158,15 +162,13 @@ export class SjTypographyComponent implements AfterContentInit, OnChanges {
     const parent = old.parentElement;
     if (!parent) return;
     const replacement = this.renderer.createElement(this.resolveTag());
-    this.renderer.addClass(replacement, 'SjTypography');
     try {
       const id = SjTypographyComponent._nextId++;
-      this.renderer.addClass(replacement, `SjTypography--${id}`);
-      this.renderer.setAttribute(
-        replacement,
-        'data-sj-component',
-        'SjTypography'
-      );
+      const marker =
+        this.variant && this.variant !== 'default'
+          ? `sj-typography_${this.variant}`
+          : 'sj-typography';
+      this.renderer.setAttribute(replacement, 'data-sj-component', marker);
       this.renderer.setAttribute(replacement, 'data-sj-id', String(id));
     } catch {}
     while (old.firstChild)
