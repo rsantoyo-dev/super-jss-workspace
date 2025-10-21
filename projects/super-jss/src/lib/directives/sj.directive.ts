@@ -34,7 +34,7 @@ export type SjInput =
   // Opt-in only: apply styles/typography when [sj] is present
   // Exclude components that render styles on other elements
   selector:
-    '[sj]:not(sj-host):not(sj-typography):not(sj-card):not(sj-paper):not(sj-flex)',
+    '[sj]:not(sj-host):not(sj-typography):not(sj-card):not(sj-paper):not(sj-flex):not(sj-button):not(sj-input)',
 })
 export class SjDirective implements OnChanges {
   /**

@@ -49,10 +49,12 @@ interface ThemeMeta {
         <sj-flex
           useGap="compact"
           useRounded="default"
-          [sj]="[sj.flexDirection('row'), sj.p(0)]"
+          [sj]="[sj.flexDirection('row')]"
         >
           @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {
           <sj-button
+            [useDensity]="1"
+            useRounded="default"
             [variant]="'contained'"
             [sj]="{ bg: theme.theme.palette?.primary?.dark }"
             (mouseenter)="onHover(theme.name)"
@@ -62,7 +64,6 @@ interface ThemeMeta {
             <sj-icon
               [name]="icon.moon"
               [fill]="'light'"
-              size="1.5rem"
               [ariaHidden]="false"
               role="img"
               [label]="theme.name"
@@ -71,6 +72,7 @@ interface ThemeMeta {
 
           } @else {
           <sj-button
+            [useDensity]="1"
             [variant]="'contained'"
             [sj]="{ bg: theme.theme.palette?.primary?.light }"
             (mouseenter)="onHover(theme.name)"
@@ -79,7 +81,6 @@ interface ThemeMeta {
           >
             <sj-icon
               [name]="icon.sun"
-              size="1.5rem"
               [ariaHidden]="false"
               role="img"
               [label]="theme.name"
@@ -89,6 +90,7 @@ interface ThemeMeta {
           <sj-flex [sj]="{ bg: sj.palette.primary.main, p: 0.1 }"></sj-flex>
           @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
           <sj-button
+            [useDensity]="1"
             [variant]="'contained'"
             [sj]="{ bg: theme.theme.palette?.primary?.dark }"
             (mouseenter)="onHover(theme.name)"
@@ -107,6 +109,7 @@ interface ThemeMeta {
 
           } @else {
           <sj-button
+            [useDensity]="1"
             [variant]="'contained'"
             [sj]="{ bg: theme.theme.palette?.primary?.light }"
             (mouseenter)="onHover(theme.name)"

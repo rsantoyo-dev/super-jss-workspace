@@ -40,7 +40,7 @@ import { DemoElementOptionsComponent } from './components/demo-element-options.c
       [sj]="[
         sj.fxDir(sj.fxDir.options.column),
         sj.bg(sj.palette.light.main),
-        sj.minHeight({ xs: '100dvh', md: '100vh' })
+        sj.minH('100vh')
       ]"
     >
       <app-header (menuClick)="toggleSidenav()"></app-header>
@@ -52,7 +52,6 @@ import { DemoElementOptionsComponent } from './components/demo-element-options.c
           sj.gridTemplateColumns({ xs: '1fr', sm: '30% 70%', md: '15% 85%' }),
           sj.gridTemplateRows('1fr'),
           sj.alignItems('stretch'),
-          sj.h('100%'),
           sj.padding(0),
           sj.gap(0)
         ]"
@@ -61,7 +60,7 @@ import { DemoElementOptionsComponent } from './components/demo-element-options.c
         <app-sidenav [sj]="[sj.h('100%')]"></app-sidenav>
         }
 
-        <sj-paper variant="flat" [sj]="[sj.h('auto')]">
+        <sj-paper variant="filled" [sj]="[sj.minH('100vh')]">
           <sj-paper variant="flat" usePadding [sj]="[]">
             <app-breakpoint-indicator></app-breakpoint-indicator>
           </sj-paper>

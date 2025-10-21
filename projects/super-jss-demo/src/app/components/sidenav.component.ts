@@ -18,7 +18,14 @@ import {
     ...SJ_BASE_COMPONENTS_IMPORTS,
   ],
   template: `
-    <sj-card host [sj]="[sj.h(sj.height.options.auto)]">
+    <sj-card
+      host
+      [sj]="[
+        sj.h(sj.height.options.auto),
+
+        sj.backgroundColor(sj.backgroundColor.options.light.light)
+      ]"
+    >
       <sj-flex useCol useGap usePadding>
         <sj-button
           [useFullWidth]="true"
