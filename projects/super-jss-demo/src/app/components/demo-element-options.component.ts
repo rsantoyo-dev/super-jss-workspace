@@ -20,6 +20,7 @@ import { SectionContainerComponent } from './section-container.component';
   template: `
     <app-section title="SjRootApi Showcase">
       <!-- Hero: primary bg + contrast text with hover darkening -->
+      <!-- TODO: CHECK padding to have the ability to get theme densities. -->
       <div
         [sj]="[
           sj.d('flex'),
