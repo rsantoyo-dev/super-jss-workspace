@@ -258,6 +258,20 @@ const SjDisplayTokens = {
   none: 'none',
 } as const;
 
+// Border style tokens (common CSS keywords)
+const SjBorderStyleTokens = {
+  none: 'none',
+  hidden: 'hidden',
+  dotted: 'dotted',
+  dashed: 'dashed',
+  solid: 'solid',
+  double: 'double',
+  groove: 'groove',
+  ridge: 'ridge',
+  inset: 'inset',
+  outset: 'outset',
+} as const;
+
 // Position tokens
 const SjPositionTokens = {
   static: 'static',
@@ -422,6 +436,7 @@ type SjCssApiWithOptions = Omit<
   SjCssApi,
   | 'color'
   | 'backgroundColor'
+  | 'borderStyle'
   | 'borderColor'
   | 'outlineColor'
   | 'textDecorationColor'
@@ -448,6 +463,7 @@ type SjCssApiWithOptions = Omit<
     typeof SjPaletteTokens
   >;
   borderColor: WithOptions<SjCssApi['borderColor'], typeof SjPaletteTokens>;
+  borderStyle: WithOptions<SjCssApi['borderStyle'], typeof SjBorderStyleTokens>;
   outlineColor: WithOptions<SjCssApi['outlineColor'], typeof SjPaletteTokens>;
   textDecorationColor: WithOptions<
     SjCssApi['textDecorationColor'],
@@ -582,6 +598,7 @@ const optionsMapCss: Record<string, unknown> = {
     direction: SjFlexTokens.direction,
     wrap: SjFlexTokens.wrap,
   },
+  borderStyle: SjBorderStyleTokens,
   // Surface-related density mirrors for discoverability under sj.property.options
   padding: {
     compact: 1,

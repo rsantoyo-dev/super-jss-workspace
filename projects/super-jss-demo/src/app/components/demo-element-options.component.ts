@@ -15,169 +15,122 @@ import { SectionContainerComponent } from './section-container.component';
   imports: [
     CommonModule,
     SectionContainerComponent,
-    SJ_BASE_COMPONENTS_IMPORTS,
+    ...SJ_BASE_COMPONENTS_IMPORTS,
   ],
   template: `
-    <app-section title="Dynamic Options">
-      <div [sj]="[sj.padding(sj.padding.options.default)]">
-        Testing dynamic options...
-      </div>
-
-      <!-- Test various CSS properties with dynamic options -->
+    <app-section title="SjRootApi Showcase">
+      <!-- Hero: primary bg + contrast text with hover darkening -->
       <div
         [sj]="[
-          sj.margin(sj.margin.options.default),
-          sj.padding(sj.padding.options.spacious),
-          sj.gap(sj.gap.options.compact),
-          sj.borderRadius(sj.borderRadius.options.comfortable),
-          sj.display(sj.display.options.flex),
-          sj.position(sj.position.options.relative),
-          sj.justifyContent(sj.justifyContent.options.center),
-          sj.alignItems(sj.alignItems.options.center),
-          sj.flexDirection(sj.flexDirection.options.column),
-          sj.flexWrap(sj.flexWrap.options.wrap),
-          sj.color(sj.color.options.primary.main),
-          sj.backgroundColor(sj.backgroundColor.options.secondary.light),
-          sj.width(sj.width.options.auto),
-          sj.height(sj.height.options.fitContent),
-          sj.border('1px solid #ccc')
+          sj.d('flex'),
+          sj.fxDir('column'),
+          sj.fxAItems('center'),
+          sj.fxJustify('center'),
+          sj.gap({ xs: 0.5, md: 1 }),
+          sj.p({ xs: 0.75, md: 1.25 }),
+          sj.brad(0.75),
+          sj.bg(sj.palette.primary.main),
+          sj.c(sj.palette.primary.contrast),
+          sj.hover([sj.bg(sj.palette.primary.dark)])
         ]"
       >
-        <h3>Dynamic Options Test</h3>
-        <p>This div uses various CSS properties with their .options</p>
-
-        <!-- Showcase expanded color options -->
-        <div
-          [sj]="[sj.padding(sj.padding.options.default), sj.margin('0.5rem 0')]"
+        <sj-typography variant="strong" [sj]="[sj.m(0)]"
+          >SJSS · sjRootApi</sj-typography
         >
-          <div
-            [sj]="[
-              sj.color(sj.color.options.primary.main),
-              sj.backgroundColor(sj.backgroundColor.options.light.main)
-            ]"
-          >
-            Primary text on light background
-          </div>
-          <div
-            [sj]="[
-              sj.color(sj.color.options.secondary.contrast),
-              sj.backgroundColor(sj.backgroundColor.options.secondary.main)
-            ]"
-          >
-            Secondary contrast text on secondary background
-          </div>
-          <div
-            [sj]="[
-              sj.borderColor(sj.borderColor.options.success.main),
-              sj.border('2px solid'),
-              sj.padding(sj.padding.options.compact)
-            ]"
-          >
-            Success border color
-          </div>
-          <div
-            [sj]="[
-              sj.fill(sj.fill.options.warning.main),
-              sj.stroke(sj.stroke.options.error.main)
-            ]"
-            style="width: 50px; height: 50px;"
-          >
-            SVG fill/stroke colors (applied to SVG elements)
-          </div>
-        </div>
+        <sj-typography variant="small" [sj]="[sj.m(0), sj.opacity(0.9)]">
+          Tokens, responsive objects, and pseudo‑selectors — inline.
+        </sj-typography>
+      </div>
 
-        <!-- Showcase border width options -->
-        <div
-          [sj]="[sj.padding(sj.padding.options.default), sj.margin('0.5rem 0')]"
-        >
-          <h4>Border Width Options:</h4>
-          <div
-            [sj]="[
-              compactPrimaryBorder(),
-              sj.padding(sj.padding.options.compact),
-              sj.margin('0.25rem')
-            ]"
-          >
-            Compact border (1px)
-          </div>
-          <div
-            [sj]="[
-              defaultSecondaryBorder(),
-              sj.padding(sj.padding.options.compact),
-              sj.margin('0.25rem')
-            ]"
-          >
-            Default border (2px)
-          </div>
-          <div
-            [sj]="[
-              comfortableSuccessBorder(),
-              sj.padding(sj.padding.options.compact),
-              sj.margin('0.25rem')
-            ]"
-          >
-            Comfortable border (3px)
-          </div>
-          <div
-            [sj]="[
-              spaciousWarningBorder(),
-              sj.padding(sj.padding.options.compact),
-              sj.margin('0.25rem')
-            ]"
-          >
-            Spacious border (4px)
-          </div>
-        </div>
-
+      <!-- Grid of themed examples (all styled via sjRootApi) -->
+      <div
+        [sj]="[
+          sj.mt(1),
+          sj.d('grid'),
+          sj.gap({ xs: 0.5, md: 1 }),
+          sj.gridTemplateColumns({ xs: '1fr', md: 'repeat(2, 1fr)' })
+        ]"
+      >
+        <!-- Interactive card with hover transform/shadow -->
         <div
           [sj]="[
-            sj.padding(sj.padding.options.spacious),
-            sj.backgroundColor('lightblue')
+            sj.p(0.75),
+            sj.brad(0.5),
+            sj.bg(sj.palette.light.main),
+            sj.c(sj.palette.dark.main),
+            sj.boxShadow('0 2px 10px rgba(0,0,0,0.08)'),
+            sj.transition('transform 120ms ease, box-shadow 120ms ease'),
+            sj.hover([
+              sj.transform('translateY(-2px)'),
+              sj.boxShadow('0 10px 24px rgba(0,0,0,0.18)')
+            ])
           ]"
         >
-          Nested div with spacious padding
+          <sj-typography variant="strong" [sj]="sj.m(0)"
+            >Interactive card</sj-typography
+          >
+          <sj-typography variant="small" [sj]="sj.m(0)"
+            >Hover me for elevation ✨</sj-typography
+          >
+        </div>
+
+        <!-- Secondary surface using main/contrast tokens with hover darkening -->
+        <div
+          [sj]="[
+            sj.p(0.75),
+            sj.brad(0.5),
+            sj.bg(sj.palette.secondary.main),
+            sj.c(sj.palette.secondary.contrast),
+            sj.hover([sj.bg(sj.palette.secondary.dark)])
+          ]"
+        >
+          <sj-typography variant="strong" [sj]="sj.m(0)"
+            >Secondary surface</sj-typography
+          >
+          <sj-typography variant="small" [sj]="sj.m(0)"
+            >Theme tokens for bg/contrast</sj-typography
+          >
+        </div>
+
+        <!-- Themed button (hover + active) using only sjRootApi -->
+        <button
+          [sj]="[
+            sj.bg(sj.palette.primary.main),
+            sj.c(sj.palette.primary.contrast),
+            sj.brad(0.5),
+            sj.p({ xs: 0.5, md: 0.75 }),
+            sj.fontWeight(600),
+            sj.cursor('pointer'),
+            sj.border('none'),
+            sj.transition('background-color 120ms ease, transform 60ms ease'),
+            sj.hover([sj.bg(sj.palette.primary.dark)]),
+            sj.active([sj.transform('scale(0.98)')])
+          ]"
+        >
+          Themed Button
+        </button>
+
+        <!-- Example returning SjStyle[] from TS for clarity -->
+        <div [sj]="primaryOutlineStyles()">
+          Primary outline from TS (typed SjStyle[])
         </div>
       </div>
     </app-section>
   `,
 })
 export class DemoElementOptionsComponent {
-  sj: SjRootApi = sj;
+  readonly sj: SjRootApi = sj;
 
-  // Border style methods for clean semantic border definitions
-  private createBorderStyle(width: number, color: string): SjStyle {
-    return {
-      borderWidth: width,
-      borderStyle: 'solid',
-      borderColor: color,
-    };
-  }
-
-  compactPrimaryBorder(): SjStyle {
-    return this.createBorderStyle(
-      this.sj.borderWidth.options.compact,
-      this.sj.borderColor.options.primary.main
-    );
-  }
-
-  defaultSecondaryBorder(): SjStyle {
-    return this.createBorderStyle(
-      this.sj.borderWidth.options.default,
-      this.sj.borderColor.options.secondary.main
-    );
-  }
-
-  comfortableSuccessBorder(): SjStyle {
-    return this.createBorderStyle(
-      this.sj.borderWidth.options.comfortable,
-      this.sj.borderColor.options.success.main
-    );
-  }
-
-  spaciousWarningBorder(): SjStyle {
-    return this.createBorderStyle(
-      this.sj.borderWidth.options.spacious,
-      this.sj.borderColor.options.warning.main
-    );
+  // Single typed SjStyle[] example (built via sjRootApi functions only)
+  primaryOutlineStyles(): SjStyle[] {
+    return [
+      this.sj.borderWidth(this.sj.borderWidth.options.default),
+      this.sj.borderStyle(this.sj.borderStyle.options.solid),
+      this.sj.borderColor(this.sj.palette.primary.main),
+      this.sj.brad(0.5),
+      this.sj.p(0.5),
+      this.sj.bg(this.sj.palette.light.light),
+      this.sj.c(this.sj.palette.dark.main),
+    ];
   }
 }
