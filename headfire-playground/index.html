@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Headfire Playground</title>
+    <!-- External Headfire DSL: runtime will fetch + compile these files on load. -->
+    <link rel="stylesheet" href="/hf.dsl.css" data-headfire />
+    <link rel="stylesheet" href="/components/button.hf.css" data-headfire />
+    <link rel="stylesheet" href="/components/card.hf.css" data-headfire />
+    <link rel="stylesheet" href="/components/typography.hf.css" data-headfire />
+    <!-- Local runtime: injects default themes, compiles DSL, and wires theme toggle -->
+    <script defer src="/dsl-runtime.js"></script>
+    <!-- Dev: recompile DSL on save via Vite HMR -->
+    <script type="module">
+      import "/@vite/client";
+      if (import.meta.hot) {
+        import.meta.hot.on("vite:beforeUpdate", () => {
+          window.Headfire?.recompile?.();
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="hf-demo">Hello Headfire</div>
+      <div class="hf-resp" style="margin-top: 12px">
+        Responsive: xs padding 8px, md 16px; bg changes at lg
+      </div>
+      <div class="hf-scope" style="margin-top: 12px">
+        <h3>Universal Selector Demo</h3>
+        <p>All children inherit basic styles via <code>.hf-scope *</code>.</p>
+        <button class="hf-btn">Try Hover</button>
+      </div>
+      <!-- Component DSL demos -->
+      <section class="hf-card" style="margin-top: 16px; max-width: 640px">
+        <h2 class="hf-typography hf-typography--title">Card Title</h2>
+        <p class="hf-typography hf-typography--subtitle">Card Subtitle</p>
+        <p class="hf-typography hf-typography--body">
+          This card uses per‑component DSL files loaded from
+          <code>/components/*.hf.css</code>. Resize to see responsive padding,
+          and click toggle to switch themes.
+        </p>
+        <div style="display: flex; gap: 8px; margin-top: 8px">
+          <button class="hf-button">Primary Action</button>
+          <button class="hf-button" data-hf-theme-toggle>Toggle Theme</button>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+/* Headfire base (PoC): minimal reset + utility layer hook */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+
+/* Utilities/recipes can be appended here during build in a real release */
+@layer headfire-utilities {}
+

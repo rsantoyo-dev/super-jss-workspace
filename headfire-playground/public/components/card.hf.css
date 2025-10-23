@@ -1,0 +1,10 @@
+/* Card component DSL */
+.hf-card {
+  background: xs(theme(dark-light)) md(theme(app-bg));
+  color: theme(dark-contrast);
+  padding: xs(1rem) md(1.5rem);
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+.hf-card + .hf-card { margin-top: 1rem; }
+

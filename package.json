@@ -36,7 +36,12 @@
     "deploy:docs": "npm run docs:build && npm run netlify:docs",
     "deploy:storybook": "ng run super-jss:build-storybook && npm run netlify:storybook",
     "build:storybook": "npm run build-storybook",
-    "super-deploy": "npm run publish && npm run deploy:demo && npm run deploy:storybook && npm run mkdocs-deploy"
+    "super-deploy": "npm run publish && npm run deploy:demo && npm run deploy:storybook && npm run mkdocs-deploy",
+    "hf:build": "npm --prefix headfire-core run build",
+    "hf:dev": "npm run hf:build && npm --prefix headfire-playground run dev",
+    "hf_core:watch": "sh -c 'npm --prefix headfire-core run watch'",
+    "hf_playground:watch": "sh -c 'npm --prefix headfire-playground run dev'",
+    "hf:preview": "npm --prefix headfire-playground run preview"
   },
   "dependencies": {
     "@angular/animations": "20.0.0",

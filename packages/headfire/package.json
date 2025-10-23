@@ -1,0 +1,16 @@
+{
+  "name": "headfire",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Headfire – CSS-first responsive + theme utilities (zero-config)",
+  "style": "dist/headfire.css",
+  "exports": {
+    ".": "./dist/headfire.css",
+    "./css": "./dist/headfire.css",
+    "./runtime": "./dist/dsl-runtime.js",
+    "./applyTheme": "./dist/applyTheme.js",
+    "./themes/light.css": "./dist/themes/light.css",
+    "./themes/dark.css": "./dist/themes/dark.css"
+  }
+}
+

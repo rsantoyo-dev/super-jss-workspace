@@ -1,0 +1,9 @@
+/* Typography component DSL */
+.hf-typography {
+  color: theme(dark-contrast);
+  line-height: 1.5;
+}
+.hf-typography--title { font-size: xs(1.5rem) md(2rem); font-weight: 700; }
+.hf-typography--subtitle { font-size: xs(1.125rem) md(1.25rem); font-weight: 600; opacity: 0.9; }
+.hf-typography--body { font-size: 1rem; }
+

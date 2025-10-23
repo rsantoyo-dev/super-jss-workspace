@@ -1,0 +1,15 @@
+/* Button component DSL */
+.hf-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2rem;
+  background: xs(theme(primary)) md(theme(dark-light));
+  color: theme(primary-contrast);
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.hf-button:hover { filter: brightness(1.05); }
+

@@ -1,0 +1,32 @@
+// Headfire SCSS helpers: responsive mixin + theme() function
+
+$hf-breakpoints: (
+  xs: 0px,
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+) !default;
+
+@function hf-bp($key) {
+  @return map-get($hf-breakpoints, $key);
+}
+
+// Responsive mixin: pass a map of (xs: value, md: value, ...)
+@mixin hf-r($prop, $map) {
+  @if map-has-key($map, xs) {
+    #{$prop}: map-get($map, xs);
+  }
+  @each $bp, $val in $map {
+    @if $bp != xs {
+      @media (min-width: hf-bp($bp)) {
+        #{$prop}: $val;
+      }
+    }
+  }
+}
+
+@function theme($key) {
+  @return var(--#{$key});
+}
+

@@ -1,0 +1,12 @@
+/* Dark theme variables (scoped) */
+:root[data-hf-theme="dark"] {
+  --primary: #60a5fa;
+  --primary-contrast: #1f2937;
+  --space-2: 8px;
+  --space-4: 16px;
+  --dark-light: #374151;
+  --dark-main: #1f2937;
+  --dark-contrast: #f9fafb;
+  --app-bg: #0b1020;
+}
+
