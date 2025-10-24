@@ -80,9 +80,13 @@ const config: Config = {
           position: 'left',
           label: 'Docs',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/super-jss/super-jss',
+          href: 'https://www.npmjs.com/package/super-jss',
+          label: 'npm',
+          position: 'right',
+        },
+        {
+          href: 'https://github.com/rsantoyo-dev/super-jss-workspace',
           label: 'GitHub',
           position: 'right',
         },
@@ -92,46 +96,31 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Links',
           items: [
-            {
-              label: 'Docs',
-              to: '/docs',
-            },
+            { label: 'Docs', to: '/docs' },
+            { label: 'npm', href: 'https://www.npmjs.com/package/super-jss' },
+            { label: 'GitHub', href: 'https://github.com/rsantoyo-dev/super-jss-workspace' },
           ],
         },
         {
-          title: 'Community',
+          title: 'Playgrounds',
           items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
-            },
+            { label: 'sjRootApi (StackBlitz)', href: 'https://stackblitz.com/edit/stackblitz-starters-lgwyvmd2?file=src%2Fmain.ts' },
+            { label: 'Workspace (StackBlitz)', href: 'https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace?file=projects/super-jss-demo/src/app/app.component.ts' },
+            { label: 'Storybook', href: 'https://sjss-storybook.netlify.app/?path=/docs/sj-sj-basic--docs' },
+            { label: 'Demo: Paper', href: 'https://sjssdemo.netlify.app/paper' },
           ],
         },
         {
-          title: 'More',
+          title: 'Articles',
           items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/super-jss/super-jss',
-            },
+            { label: 'Journey to CSS‑in‑JS for Angular', href: 'https://www.designsystemscollective.com/my-journey-to-css-in-js-for-angular-building-super-jss-sjss-e1e5e8817a15' },
+            { label: 'From Flash to Angular Signals', href: 'https://www.designsystemscollective.com/from-flash-to-angular-signals-my-accidental-journey-to-design-systems-b5e6e39dd12b' },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Super-JSS. Built with Docusaurus.`,
+      copyright: `© ${new Date().getFullYear()} Super‑JSS. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

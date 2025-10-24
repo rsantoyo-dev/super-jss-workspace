@@ -23,24 +23,54 @@ import { SectionContainerComponent } from './section-container.component';
       <!-- TODO: CHECK padding to have the ability to get theme densities. -->
       <div
         [sj]="[
-          sj.d('flex'),
-          sj.fxDir('column'),
-          sj.fxAItems('center'),
-          sj.fxJustify('center'),
-          sj.gap({ xs: 0.5, md: 1 }),
-          sj.p({ xs: 0.75, md: 1.25 }),
-          sj.brad(0.75),
+          sj.d(sj.display.options.flex),
+          sj.fxDir(sj.flexDirection.options.column),
+          sj.fxAItems(sj.alignItems.options.center),
+          sj.fxJustify(sj.justifyContent.options.center),
+          sj.gap(sj.gap.options.default),
+          sj.p(sj.padding.options.default),
+          sj.brad(sj.borderRadius.options.default),
           sj.bg(sj.palette.primary.main),
           sj.c(sj.palette.primary.contrast),
           sj.hover([sj.bg(sj.palette.primary.dark)])
         ]"
       >
-        <sj-typography variant="strong" [sj]="[sj.m(0)]"
-          >SJSS · sjRootApi</sj-typography
-        >
-        <sj-typography variant="small" [sj]="[sj.m(0), sj.opacity(0.9)]">
+        <sj-typography variant="strong">SJSS · sjRootApi</sj-typography>
+        <sj-typography variant="small" [sj]="[sj.opacity(0.9)]">
           Tokens, responsive objects, and pseudo‑selectors — inline.
         </sj-typography>
+
+        <div
+          [sj]="[
+            sj.d('flex'),
+            sj.fxDir('row'),
+            sj.gap(0.5),
+            sj.mt(0.5)
+          ]"
+        >
+          <a
+            href="https://sjss.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            [sj]="[
+              sj.c(sj.palette.primary.contrast),
+              sj.opacity(0.95),
+              sj.textDecoration('none'),
+              sj.hover([ sj.textDecoration('underline'), sj.opacity(1) ])
+            ]"
+          >Docs</a>
+          <a
+            href="https://www.npmjs.com/package/super-jss"
+            target="_blank"
+            rel="noopener noreferrer"
+            [sj]="[
+              sj.c(sj.palette.primary.contrast),
+              sj.opacity(0.95),
+              sj.textDecoration('none'),
+              sj.hover([ sj.textDecoration('underline'), sj.opacity(1) ])
+            ]"
+          >npm</a>
+        </div>
       </div>
 
       <!-- Grid of themed examples (all styled via sjRootApi) -->

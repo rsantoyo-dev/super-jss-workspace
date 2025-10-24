@@ -5,24 +5,6 @@
 [![Storybook](https://img.shields.io/badge/Storybook-Visit-FF4785)](https://sjss-storybook.netlify.app/)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-<div align="center">
-
-<h1>SJSS — Design Systems. Reimagined for Angular.</h1>
-<p>
-Build dynamic, token‑driven, responsive UIs using Angular Signals.<br>
-SJSS brings Tailwind’s speed and MUI’s theming — natively in Angular 20.
-</p>
-
-<p>
-  <a href="https://sjss.dev/installation"><strong>🚀 Get Started</strong></a>
-  ·
-  <a href="https://sjssdemo.netlify.app/"><strong>👀 View Demo</strong></a>
-  ·
-  <a href="https://sjss-storybook.netlify.app/"><strong>📚 Open Storybook</strong></a>
-</p>
-
-</div>
-
 Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angular 20. It generates atomic CSS as you use it, supports responsive breakpoints and theming, and gives you a minimal, ergonomic API.
 
 - ⚡ Angular‑native: built on Signals
@@ -31,14 +13,14 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 - 🎨 Pseudo‑selectors: `&:hover`, `&:focus`, etc.
 - 🧩 Ready‑made building blocks: `<sj-paper>`, `<sj-card>`, `<sj-button>`
 
-## Important links
+## Quick links
 
-- Documentation: <https://sjss.dev>
-- Demo & lib workspace (StackBlitz): <https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace?file=projects/super-jss-demo/src/app/app.component.ts>
-- GitHub repository: <https://github.com/rsantoyo-dev/super-jss-workspace>
-- Deployed demo: <https://sjssdemo.netlify.app/>
-- Storybook: <https://sjss-storybook.netlify.app/>
-- NPM: <https://www.npmjs.com/package/super-jss>
+- Docs: https://sjss.netlify.app/
+- StackBlitz — sjRootApi: https://stackblitz.com/edit/stackblitz-starters-lgwyvmd2?file=src%2Fmain.ts
+- Demo: https://sjssdemo.netlify.app/
+- GitHub: https://github.com/rsantoyo-dev/super-jss-workspace
+- Storybook: https://sjss-storybook.netlify.app/
+
 
 ## Why SJSS (in 30 seconds)
 
@@ -194,7 +176,7 @@ Blueprints are also callable:
 sj.sjCard();                 // default card
 sj.sjCard.outlined();        // outlined
 sj.sjCard.elevated();        // elevated
-sjCard.info();               // info blueprint (not a component variant)
+sj.sjCard.info();            // info blueprint (not a component variant)
 ```
 
 ## Responsive examples
@@ -208,43 +190,6 @@ sjCard.info();               // info blueprint (not a component variant)
   ]"
 ></div>
 ```
-
-## FAQ
-
-Q: Why this approach vs. utility frameworks or huge token bags?
-A: SJSS generates only the atomic CSS you actually use, at runtime. No prebuilt megabundle. You write plain CSS properties, enhanced with `.options` for discoverability. Compared to utility-first CSS, you: (1) keep styling colocated with your component logic, (2) get type‑safe, theme‑aware values, and (3) ship less. Compared to heavy design-token bags, we keep only the essentials at root: `sj.palette` and `sj.breakpoints`.
-
-Q: How do I maintain theming long-term?
-A: Use semantic palette tokens everywhere (`'primary.main'`, `'light.dark'`). Centralize your theme in one place (theme service/config). Because styles reference semantic tokens, swapping a palette or adjusting contrast cascades automatically without touching components. Prefer semantic tokens over raw hex in app code.
-
-Q: What’s the responsive story?
-A: Every property supports responsive objects: `{ xs, sm, md, lg, xl, xxl }`. This keeps responsive intent in one place per style. Example: `sj.flexDirection({ xs: 'column', md: 'row' })` and `sj.gap({ xs: 0.5, md: 1 })`.
-
-Q: Is it SSR‑friendly and fast?
-A: Yes. The library avoids direct DOM access during import and only generates minimal, deterministic atomic classes at runtime. Styles are memoized, deduped, and composed; pseudo‑selectors are compiled into atomic rules and reused. Result: tiny CSS, predictable ordering, and quick first paint.
-
-Q: How do I discover valid values fast?
-A: Use `.options` on common props: `sj.display.options`, `sj.flexDirection.options`, `sj.justifyContent.options`, `sj.alignItems.options`, `sj.width.options`, `sj.height.options`, `sj.position.options`. Your IDE will autocomplete ergonomic aliases like `spaceBetween`, `flexStart`, etc.
-
-Q: Can I mix literal values with tokens?
-A: Absolutely. Use literals where convenient (`'fit-content'`, `'1fr 2fr'`, `600`) and tokens for theme consistency (`'primary.main'`, `'neutral.contrast'`).
-
-Q: How do I center with flex quickly?
-A: `sj.display(sj.display.options.flex)`, `sj.justifyContent(sj.justifyContent.options.center)`, and `sj.alignItems(sj.alignItems.options.center)`. That’s it.
-
-## 💖 Support
-
-If you find Super JSS useful, consider supporting its development:
-
-- ☕ ☕ ☕ [Buy me a coffee](https://buymeacoffee.com/rsantoyo)
-
-## 📬 Contact
-
-For inquiries, feedback, or issues, reach out at [ricardo.santoyo@hotmail.com](mailto:ricardo.santoyo@hotmail.com).
-
-## License
-
-MIT © Ricardo Santoyo
 
 ## Surfaces (density‑driven spacing)
 
@@ -292,3 +237,41 @@ Notes
 
 - Densities live under `theme.components.surfaces` (padding, gap, radius) and use your theme.spacing units.
 - `[sj]` merges last; explicit overrides always win.
+
+
+## FAQ
+
+Q: Why this approach vs. utility frameworks or huge token bags?
+A: SJSS generates only the atomic CSS you actually use, at runtime. No prebuilt megabundle. You write plain CSS properties, enhanced with `.options` for discoverability. Compared to utility-first CSS, you: (1) keep styling colocated with your component logic, (2) get type‑safe, theme‑aware values, and (3) ship less. Compared to heavy design-token bags, we keep only the essentials at root: `sj.palette` and `sj.breakpoints`.
+
+Q: How do I maintain theming long-term?
+A: Use semantic palette tokens everywhere (`'primary.main'`, `'light.dark'`). Centralize your theme in one place (theme service/config). Because styles reference semantic tokens, swapping a palette or adjusting contrast cascades automatically without touching components. Prefer semantic tokens over raw hex in app code.
+
+Q: What’s the responsive story?
+A: Every property supports responsive objects: `{ xs, sm, md, lg, xl, xxl }`. This keeps responsive intent in one place per style. Example: `sj.flexDirection({ xs: 'column', md: 'row' })` and `sj.gap({ xs: 0.5, md: 1 })`.
+
+Q: Is it SSR‑friendly and fast?
+A: Yes. The library avoids direct DOM access during import and only generates minimal, deterministic atomic classes at runtime. Styles are memoized, deduped, and composed; pseudo‑selectors are compiled into atomic rules and reused. Result: tiny CSS, predictable ordering, and quick first paint.
+
+Q: How do I discover valid values fast?
+A: Use `.options` on common props: `sj.display.options`, `sj.flexDirection.options`, `sj.justifyContent.options`, `sj.alignItems.options`, `sj.width.options`, `sj.height.options`, `sj.position.options`. Your IDE will autocomplete ergonomic aliases like `spaceBetween`, `flexStart`, etc.
+
+Q: Can I mix literal values with tokens?
+A: Absolutely. Use literals where convenient (`'fit-content'`, `'1fr 2fr'`, `600`) and tokens for theme consistency (`'primary.main'`, `'neutral.contrast'`).
+
+Q: How do I center with flex quickly?
+A: `sj.display(sj.display.options.flex)`, `sj.justifyContent(sj.justifyContent.options.center)`, and `sj.alignItems(sj.alignItems.options.center)`. That’s it.
+
+## 💖 Support
+
+If you find Super JSS useful, consider supporting its development:
+
+- ☕ ☕ ☕ [Buy me a coffee](https://buymeacoffee.com/rsantoyo)
+
+## 📬 Contact
+
+For inquiries, feedback, or issues, reach out at [ricardo.santoyo@hotmail.com](mailto:ricardo.santoyo@hotmail.com).
+
+## License
+
+MIT © Ricardo Santoyo
