@@ -10,18 +10,16 @@ import type { SjInput } from '../directives/sj.directive';
 import { SjButtonVariant } from '../models/variants';
 import { SjThemeService } from '../services';
 import { SjDirective } from '../directives/sj.directive';
-import { SjMarkerDirective } from '../directives/sj-marker.directive';
 import { toDensityLevel } from '../utils';
 
 @Component({
   selector: 'sj-button',
   standalone: true,
-  imports: [SjDirective, SjMarkerDirective],
+  imports: [SjDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
       [sj]="hostSj"
-      [sjMarker]="'SjButton'"
       [attr.data-sj-component]="'sj-button_' + (variant || 'filled')"
     >
       <ng-content></ng-content>
