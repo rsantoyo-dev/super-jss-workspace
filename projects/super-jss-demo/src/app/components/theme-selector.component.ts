@@ -45,6 +45,28 @@ interface ThemeMeta {
           [sj]="[sj.c(sj.palette.primary.contrast)]"
           >{{ previewLabel() }}</sj-typography
         >
+        <!-- Breakpoints overview -->
+        <sj-flex useCol useGap="compact" [sj]="[]">
+          <sj-typography
+            [variant]="'caption'"
+            [sj]="[sj.c(sj.palette.primary.light)]"
+          >
+            @for (bp of orderedBps; track bp; let last = $last) {
+            <span
+              [sj]="
+                currentBp() === bp ? [sj.c(sj.palette.primary.contrast)] : []
+              "
+            >
+              {{ bp }}: {{ breakpoints()[bp] }}px </span
+            >@if (!last){, } }
+          </sj-typography>
+          <sj-typography
+            [variant]="'caption'"
+            [sj]="[sj.c(sj.palette.primary.light)]"
+          >
+            Font: <span [sj]="[sj.c(sj.palette.primary.contrast)]">{{ fontFamilyDisplay() }}</span>
+          </sj-typography>
+        </sj-flex>
 
         <sj-flex
           useGap="compact"
@@ -53,7 +75,7 @@ interface ThemeMeta {
         >
           @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {
           <sj-button
-            [useDensity]="1"
+            [useDensity]="2"
             useRounded="default"
             [variant]="'contained'"
             [sj]="{ bg: theme.theme.palette?.primary?.dark }"
@@ -72,7 +94,7 @@ interface ThemeMeta {
 
           } @else {
           <sj-button
-            [useDensity]="1"
+            [useDensity]="2"
             [variant]="'contained'"
             [sj]="{ bg: theme.theme.palette?.primary?.light }"
             (mouseenter)="onHover(theme.name)"
@@ -90,7 +112,7 @@ interface ThemeMeta {
           <sj-flex [sj]="{ bg: sj.palette.primary.main, p: 0.1 }"></sj-flex>
           @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
           <sj-button
-            [useDensity]="1"
+            [useDensity]="2"
             [variant]="'contained'"
             [sj]="{ bg: theme.theme.palette?.primary?.dark }"
             (mouseenter)="onHover(theme.name)"
@@ -109,7 +131,7 @@ interface ThemeMeta {
 
           } @else {
           <sj-button
-            [useDensity]="1"
+            [useDensity]="2"
             [variant]="'contained'"
             [sj]="{ bg: theme.theme.palette?.primary?.light }"
             (mouseenter)="onHover(theme.name)"
@@ -134,6 +156,28 @@ export class ThemeSelectorComponent {
   readonly sj: SjRootApi = sj;
   readonly theme = inject(SjThemeService);
   protected readonly icon = icon;
+  protected readonly JSON = JSON;
+  breakpoints = computed(() => this.theme.sjTheme().breakpoints);
+  currentBp = computed(() => this.theme.currentBreakpoint());
+  orderedBps: Array<'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'> = [
+    'xs',
+    'sm',
+    'md',
+    'lg',
+    'xl',
+    'xxl',
+  ];
+  fontFamilyDisplay = computed(() => {
+    const ff: any = (this.theme.sjTheme().typography as any)?.default?.fontFamily;
+    if (!ff) return '';
+    // If it's an array, show only the first family as the primary intended font
+    let raw = Array.isArray(ff) ? ff[0] : String(ff);
+    if (typeof raw !== 'string') raw = String(raw);
+    // If it's a comma-separated string, take the first segment
+    const first = raw.split(',')[0]?.trim() ?? '';
+    // Strip surrounding quotes for display
+    return first.replace(/^['"]|['"]$/g, '');
+  });
 
   themes: ThemeMeta[] = [
     {

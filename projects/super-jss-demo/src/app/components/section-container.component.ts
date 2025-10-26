@@ -17,15 +17,13 @@ import {
   // Apply SjDirective to the host so the section styles the component itself
   hostDirectives: [{ directive: SjDirective }],
   template: `
-    <sj-paper host usePadding [sj]="[]">
+    <sj-paper host variant="flat" usePadding [sj]="[]">
       <sj-flex useCol useGap>
-        <sj-typography variant="h5">{{ title }}</sj-typography>
+        <sj-typography variant="h3">{{ title }}</sj-typography>
 
-        <sj-paper usePadding useRounded [variant]="'outlined'">
-          <sj-flex useCol useGap>
-            <ng-content></ng-content>
-          </sj-flex>
-        </sj-paper>
+        <sj-flex useCol useGap>
+          <ng-content></ng-content>
+        </sj-flex>
       </sj-flex>
     </sj-paper>
   `,

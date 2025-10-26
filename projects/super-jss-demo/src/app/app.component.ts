@@ -13,8 +13,6 @@ import {
   SjRootApi,
 } from 'super-jss';
 
-import { BreakpointIndicatorComponent } from './components/breakpoint-indicator.component';
-
 import { RouterOutlet } from '@angular/router';
 
 import { SidenavComponent } from './components/sidenav.component';
@@ -28,7 +26,6 @@ import { DemoElementOptionsComponent } from './components/demo-element-options.c
     SjDirective,
     HeaderComponent,
     SidenavComponent,
-    BreakpointIndicatorComponent,
     SjButtonComponent,
     SjFlexComponent,
     ...SJ_BASE_COMPONENTS_IMPORTS,
@@ -61,10 +58,6 @@ import { DemoElementOptionsComponent } from './components/demo-element-options.c
         }
 
         <sj-paper variant="filled" [sj]="[sj.minH('100vh')]">
-          <sj-paper variant="flat" usePadding [sj]="[]">
-            <app-breakpoint-indicator></app-breakpoint-indicator>
-          </sj-paper>
-
           <router-outlet></router-outlet>
         </sj-paper>
 
