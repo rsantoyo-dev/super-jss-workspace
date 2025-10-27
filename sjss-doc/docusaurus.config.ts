@@ -109,7 +109,7 @@ const config: Config = {
             { label: 'sjRootApi (StackBlitz)', href: 'https://stackblitz.com/edit/stackblitz-starters-lgwyvmd2?file=src%2Fmain.ts' },
             { label: 'Workspace (StackBlitz)', href: 'https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace?file=projects/super-jss-demo/src/app/app.component.ts' },
             { label: 'Storybook', href: 'https://sjss-storybook.netlify.app/?path=/docs/sj-sj-basic--docs' },
-            { label: 'Demo: Paper', href: 'https://sjssdemo.netlify.app/paper' },
+            { label: 'Demo', href: 'https://sjssdemo.netlify.app' },
           ],
         },
         {
@@ -120,7 +120,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `© ${new Date().getFullYear()} Super‑JSS. Built with Docusaurus.`,
+      copyright: 'Contact: <a href="mailto:ricardo.santoyo@hotmail.com">ricardo.santoyo@hotmail.com</a>',
     },
     prism: {
       theme: prismThemes.github,

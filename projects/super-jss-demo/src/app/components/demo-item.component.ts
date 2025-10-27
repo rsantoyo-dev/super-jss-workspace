@@ -12,19 +12,43 @@ import { CodeBlockComponent } from './code-block.component';
       host
       usePadding="default"
       useRounded="default"
-      variant="outlined"
+      variant="flat"
       [sj]="[]"
     >
       <sj-flex useCol useGap>
-        <sj-typography
-          variant="h6"
-          [sj]="[sj.c(titleColor || 'primary'), sj.mt(0)]"
-          >{{ title }}</sj-typography
+        <div
+          [sj]="[
+            sj.mb(0.5),
+            sj.pb(0.25),
+            sj.borderBottomStyle('solid'),
+            sj.borderBottomWidth(0.05),
+            sj.borderBottomColor('light.dark')
+          ]"
         >
+          <sj-typography
+            variant="h6"
+            [sj]="[sj.c(titleColor || 'primary'), sj.mt(0)]"
+            >{{ title }}</sj-typography
+          >
+          <sj-typography
+            *ngIf="subtitle"
+            variant="small"
+            [sj]="[sj.c('neutral.dark'), sj.mt(0)]"
+            >{{ subtitle }}</sj-typography
+          >
+        </div>
 
-        <div [sj]="">
+        <div [sj]="[]">
           <ng-content></ng-content>
         </div>
+
+        <div *ngIf="code && code.length" [sj]="[sj.d('flex'), sj.justifyContent('flex-end')]">
+          <sj-button variant="flat" (click)="toggle()" [sj]="[sj.c('neutral.dark')]">
+            {{ expanded() ? 'Hide code' : 'Show code' }}
+          </sj-button>
+        </div>
+
+        <app-code-block *ngIf="expanded() && code" [code]="code!"></app-code-block>
       </sj-flex>
     </sj-card>
   `,
@@ -32,6 +56,7 @@ import { CodeBlockComponent } from './code-block.component';
 export class DemoItemComponent {
   readonly sj: SjRootApi = sj;
   @Input() title = '';
+  @Input() subtitle: string | undefined;
   @Input() titleColor: string | undefined;
   @Input() code: string | undefined;
 

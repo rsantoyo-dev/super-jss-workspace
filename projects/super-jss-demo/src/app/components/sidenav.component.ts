@@ -20,99 +20,39 @@ import {
   template: `
     <sj-card
       host
-      [sj]="[
-        sj.h(sj.height.options.auto),
-
-        sj.backgroundColor(sj.backgroundColor.options.light.light)
-      ]"
+      [sj]="[sj.h(sj.height.options.auto), sj.backgroundColor('light.light')]"
     >
       <sj-flex useCol useGap usePadding>
+        @for (item of menu; track item.route) {
         <sj-button
           [useFullWidth]="true"
           [variant]="'outlined'"
-          routerLink="/home"
+          [usePaint]="'primary'"
+          [routerLink]="item.route"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
           (click)="navigate.emit()"
-          ><sj-typography [variant]="'span'">Home</sj-typography>
+        >
+          <sj-typography [variant]="'span'" [sj]="sj.c('inherit')">
+            {{ item.label }}
+          </sj-typography>
         </sj-button>
-
-        <sj-button
-          [useFullWidth]="true"
-          [variant]="'outlined'"
-          routerLink="/typography"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="navigate.emit()"
-          ><sj-typography [variant]="'span'"
-            >Typography</sj-typography
-          ></sj-button
-        >
-        <sj-button
-          [useFullWidth]="true"
-          [variant]="'outlined'"
-          routerLink="/buttons"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="navigate.emit()"
-          ><sj-typography [variant]="'span'">Buttons</sj-typography></sj-button
-        >
-        <sj-button
-          [useFullWidth]="true"
-          [variant]="'outlined'"
-          routerLink="/inputs"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="navigate.emit()"
-          ><sj-typography [variant]="'span'">Inputs</sj-typography></sj-button
-        >
-        <sj-button
-          [useFullWidth]="true"
-          [variant]="'outlined'"
-          routerLink="/paper"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="navigate.emit()"
-          ><sj-typography [variant]="'span'">Paper</sj-typography></sj-button
-        >
-        <sj-button
-          [useFullWidth]="true"
-          [variant]="'outlined'"
-          routerLink="/cards"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="navigate.emit()"
-          ><sj-typography [variant]="'span'">Cards</sj-typography></sj-button
-        >
-        <sj-button
-          [useFullWidth]="true"
-          [variant]="'outlined'"
-          [variant]="'flat'"
-          [variant]="'outlined'"
-          routerLink="/palette"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="navigate.emit()"
-        >
-          <sj-typography [variant]="'span'">Palette</sj-typography>
-        </sj-button>
-        <sj-button
-          [useFullWidth]="true"
-          [variant]="'outlined'"
-          routerLink="/theming"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="navigate.emit()"
-        >
-          <sj-typography [variant]="'span'">Theming</sj-typography>
-        </sj-button>
-
-        
+        }
       </sj-flex>
     </sj-card>
   `,
 })
 export class SidenavComponent {
   sj: SjRootApi = sj;
+  menu = [
+    { label: 'Home', route: '/home' },
+    { label: 'Typography', route: '/typography' },
+    { label: 'Buttons', route: '/buttons' },
+    { label: 'Inputs', route: '/inputs' },
+    { label: 'Paper', route: '/paper' },
+    { label: 'Cards', route: '/cards' },
+    { label: 'Palette', route: '/palette' },
+    { label: 'Theming', route: '/theming' },
+  ];
   @Output() navigate = new EventEmitter<void>();
 }

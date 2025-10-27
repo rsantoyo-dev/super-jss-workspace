@@ -86,59 +86,7 @@ export default function Home(): ReactNode {
       <main>
         <Install />
         <LivePlayground />
-        <Resources />
       </main>
     </Layout>
-  );
-}
-
-function Resources() {
-  const items = [
-    {
-      title: 'My journey to CSS‑in‑JS for Angular',
-      url:
-        'https://www.designsystemscollective.com/my-journey-to-css-in-js-for-angular-building-super-jss-sjss-e1e5e8817a15',
-    },
-    {
-      title: 'From Flash to Angular Signals: my accidental journey',
-      url:
-        'https://www.designsystemscollective.com/from-flash-to-angular-signals-my-accidental-journey-to-design-systems-b5e6e39dd12b',
-    },
-    {
-      title: 'Workspace on StackBlitz (full repo)',
-      url:
-        'https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace?file=projects/super-jss-demo/src/app/app.component.ts',
-    },
-    {
-      title: 'sjRootApi on StackBlitz',
-      url:
-        'https://stackblitz.com/edit/stackblitz-starters-lgwyvmd2?file=src%2Fmain.ts',
-    },
-    {
-      title: 'Storybook: SJ basics',
-      url:
-        'https://sjss-storybook.netlify.app/?path=/docs/sj-sj-basic--docs',
-    },
-    {
-      title: 'Demo: Paper page',
-      url: 'https://sjssdemo.netlify.app/paper',
-    },
-  ];
-
-  return (
-    <section className={styles.resources}>
-      <div className="container">
-        <Heading as="h2">Resources</Heading>
-        <ul className={styles.resourceList}>
-          {items.map((it) => (
-            <li key={it.url}>
-              <a href={it.url} target="_blank" rel="noopener noreferrer">
-                {it.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
   );
 }

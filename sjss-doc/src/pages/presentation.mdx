@@ -1,0 +1,168 @@
+---
+title: Super‑JSS for Angular: Atomic CSS, Signals, and Tokens
+description: Draft outline and speaker notes for a 45‑minute talk (+15 Q&A) on Super‑JSS. Hidden page for preparation.
+---
+
+# Super‑JSS for Angular: Atomic CSS, Signals, and Tokens
+
+One runtime pipeline to generate tiny, deterministic CSS with Angular Signals; responsive, token‑driven styling; and a small, typed API that stays close to CSS.
+
+> Speaker notes: This is a working draft for the IBM Frontend internal talk. Keep content concise on slides; expand verbally using the notes. Add StackBlitz links later.
+
+## Abstract
+- Generate atomic CSS at runtime with Signals, with one merged stylesheet.
+- Drive responsive and theming via tokens and ordered breakpoints (xs→xxl).
+- Compose UIs with a minimal, typed API (`sj`) plus curated options and sugars.
+
+## Audience & Goals
+- Audience: Frontend engineers/designers (Carbon‑aligned), Angular‑curious.
+- Goals:
+  - Understand the atomic CSS pipeline and why Signals matter.
+  - See responsive + tokens working together without rebuilds.
+  - Learn the building blocks for incremental adoption.
+
+## Agenda (45 + 15)
+1) 0–3 Welcome + context (the pain we address)
+2) 3–10 Atomic CSS via Signals (core pipeline)
+3) 10–22 Deep‑dive: merge/cache/generation/injection
+4) 22–30 Responsive + tokens (breakpoints, spacing, palette)
+5) 30–38 Options and sugars for consistency (DX + A11y)
+6) 38–43 Building blocks and adoption path
+7) 43–45 Wrap‑up (3 takeaways)
+8) 15 Q&A
+
+> Speaker notes: Aim for 3 short demos (60–90s each) embedded in sections 3–5. Keep each demo to 2 steps max and show visual effect before code.
+
+## Key Messages
+- Deterministic atomic CSS with minimal friction and one stylesheet.
+- Responsive + theming “token‑driven” without rebuilds.
+- Small, typed API with human‑named options and useful sugars.
+
+---
+
+## 1) Atomic CSS via Signals
+
+What happens when `[sj]` changes:
+- Reactive triggers: themeVersion and current breakpoint drive re‑render points.
+- Resolve + merge: inputs become a single SjStyle object (memoized).
+- Generate: walk style tree, expand shorthands, handle `&:hover`/variants.
+- Resolve values: numbers → spacing or rem (typography); tokens → colors.
+- Inject: merge declarations per selector/media, append once to a single `<style>`.
+
+Pipeline (mental model):
+```
+[sj] input(s)
+  → resolve/merge (memo)
+  → generate atomic rules (deterministic class ids)
+  → merge by selector/media
+  → append to single <style data-sjss>
+```
+
+> Speaker notes: Emphasize “one style element, merged rules, dedupe sets/maps, versioned class prefixes” as reasons DevTools stay readable and runtime churn stays low.
+
+---
+
+## 2) Responsive + Theme‑Driven Styling
+
+- Breakpoints: xs, sm, md, lg, xl, xxl; min‑width media queries in theme order.
+- Responsive values: any prop can accept `{ xs, sm, md, lg, xl, xxl }`.
+- Spacing semantics: numeric spacing uses `theme.spacing(n)`; typography gets rem and unitless line‑height.
+- Color tokens: `primary.main`, `blue.500` resolve from palette/colors.
+- Live updates: `setTheme` / `setThemeReset` clear caches and re‑apply fast.
+
+> Speaker notes: Show how a single numeric value becomes spacing via theme; demo switching palette or spacing function and watching classes update.
+
+---
+
+## 3) Options and Sugars (DX + Consistency)
+
+- Human‑named options: `sj.padding.options.default` (compact/default/comfortable/spacious) → responsive presets without remembering numbers.
+- Sugars as UX macros: `usePaint="primary"` sets background + readable text + sensible hover/focus, addressing common A11y needs.
+- Why it matters: fewer manual decisions → cohesive rhythm and contrast across the system.
+
+> Speaker notes: Contrast “padding: 16px vs 20px everywhere” with density tokens. Explain that sugars encode UX decisions so teams don’t re‑solve contrast and spacing.
+
+---
+
+## 4) Building Blocks for Super‑JSS
+
+- `sj` root API: every CSS property is a typed function; `.options` provide curated values (tokens, keywords) with autocomplete.
+- Shorthands: `p/px/py`, `m/mx/my`, `bg/c`, `fxDir/fxJustify/fxAItems` map to real CSS props.
+- Thin components: `sj-paper`, `sj-card`, `sj-button`, `sj-flex` layer small patterns over `[sj]` while staying opt‑in.
+- Deterministic ids: short semantic hashes for tiny class names.
+- One stylesheet: faster parse, less churn; versioning avoids stale rules.
+
+> Speaker notes: Reinforce that this is “CSS, but typed and ergonomic,” not a new language. Control is still granular when needed.
+
+---
+
+## 5) Live Demo Plan (3 micro‑demos)
+
+1) Atomic pipeline in action (60–90s)
+   - Step 1: Toggle theme spacing/palette.
+   - Step 2: Show classes update with version prefix; show single `<style>` grows.
+   - Fallback: Pre‑recorded GIF.
+
+2) Responsive + tokens (60–90s)
+   - Step 1: Apply `{ xs, md }` object to padding.
+   - Step 2: Resize to cross breakpoints; highlight current BP.
+
+3) Options + sugars (60–90s)
+   - Step 1: Switch `sj.padding.options.default` across 2 components.
+   - Step 2: Add `usePaint="primary"`; hover/focus show good contrast.
+
+> TODO: Add StackBlitz links here for each demo.
+
+---
+
+## 6) Adoption Path & Interop
+
+- Start small: add `[sj]` to one component and migrate gradually.
+- Map existing tokens (e.g., Carbon palette/spacing) to theme.
+- SSR/CSP: single style tag strategy; avoid unsafe inline styles.
+- Performance guardrails: numbers for spacing, use `setTheme` (don’t mutate in place), bundle class option for fewer applied classes.
+
+> Speaker notes: Focus on incremental wins. Mention that options/sugars reduce design review churn by encoding UX rules.
+
+---
+
+## 7) Closing & Takeaways
+
+- Signals enable precise, fast style recomputation.
+- Tokens + breakpoints deliver consistent responsive design.
+- The `sj` API and sugars turn CSS‑in‑JS into an executable design system.
+
+> Speaker notes: Leave with a clear “why now” and “how to start this week.”
+
+---
+
+## Q&A Anchors (15 min)
+
+- Token mapping (e.g., Carbon) and theming strategy.
+- SSR/CSP considerations and style host.
+- Performance in large pages; caching and class bundling.
+- Migration: hybrid approaches, risks, and rollbacks.
+
+---
+
+## Optional: Origin Story (Speaker Notes)
+
+- Motivation: Angular had great component libs (Material) but mixing responsive libs + handwritten CSS led to inconsistency. Tailwind felt verbose; devs preferred JS, not remembering utility strings.
+- First step: `SjStyle` as typed camelCase CSS with responsive objects.
+- API evolution: `sj` root API for inline template autocomplete with `.options` (human names) so engineers don’t learn a new DSL.
+- Performance pass: dedupe + one style tag + class bundling; keep data markers for debugging.
+- Sugars: `usePadding/useGap/useRounded` (density), `usePaint` (contrast + states) for consistent UX.
+- Signals rewrite: Angular 17+ made reactivity precise; theme changes ripple instantly.
+
+> Speaker notes: Use a personal tone here if time permits. Keep dates off slides unless you want to pin a timeline.
+
+---
+
+## TODOs (to fill before the talk)
+
+- Add 3 StackBlitz links (atomic pipeline, responsive + tokens, options + sugars).
+- Prepare 2–3 screenshots/GIFs as demo fallbacks.
+- Add a simple diagram (pipeline) as SVG or Mermaid.
+- Create a short “Quick Start” slide with 3 commands or 3 code lines.
+
+<!-- Hidden page. Not linked in navbar/sidebars on purpose. -->

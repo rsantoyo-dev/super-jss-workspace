@@ -12,6 +12,7 @@ import { SectionContainerComponent } from './section-container.component';
 
 interface DemoPaper {
   title: string;
+  subtitle?: string;
   paperType: SjStyle;
   message: string;
   titleColor: string;
@@ -31,29 +32,30 @@ interface DemoPaper {
   template: `
     <app-section title="Paper (Surface)">
       <sj-typography variant="span">
-        Paper is a neutral visual surface component. Use
-        <code>&lt;sj-paper variant="..."&gt;</code> for filled/flat/outlined
-        looks. For consistent spacing and corners, use the density-aware inputs
-        <code>usePadding</code>, <code>useGap</code>, <code>usePadding</code>,
-        and <code>useRounded</code>.
+        Paper is a neutral surface. Use
+        <code>&lt;sj-paper variant="..."&gt;</code> for flat/outlined/filled.
+        Prefer density tokens for consistent spacing and corners:
+        <code>usePadding</code>, <code>useGap</code>, <code>useRounded</code>.
       </sj-typography>
+
+      <sj-typography variant="h6" [sj]="{ mt: 1 }">Variants & usage</sj-typography>
 
       <div
         [sj]="[
           sj.d(sj.d.options.grid),
           sj.gridTemplateColumns('repeat(auto-fit, minmax(360px, 1fr))'),
-          sj.gap({ xs: 0.5, md: 1 }),
-          sj.mt(0)
+          sj.gap(sj.gap.options.compact)
         ]"
       >
         @for (paper of paperData; track paper.title) {
         <app-demo-item
           [title]="paper.title"
+          [subtitle]="paper.subtitle"
           [titleColor]="paper.titleColor"
           [code]="paper.usageExample"
         >
-          <sj-paper [sj]="[paper.paperType, sj.mt(0)]">
-            <sj-typography variant="p" [sj]="[sj.m(0), sj.mt(0)]">{{
+          <sj-paper [sj]="[paper.paperType]">
+            <sj-typography variant="p" [sj]="sj.m(0)">{{
               paper.message
             }}</sj-typography>
           </sj-paper>
@@ -87,7 +89,7 @@ interface DemoPaper {
           sj.gap({ xs: 0.5, md: 1 })
         ]"
       >
-        <app-demo-item title="Compact" [code]="codeSurface('compact')">
+        <app-demo-item title="Compact" subtitle='usePadding="compact" useRounded="compact"' [code]="codeSurface('compact')">
           <sj-paper
             variant="outlined"
             useRounded="compact"
@@ -96,12 +98,12 @@ interface DemoPaper {
             <sj-typography variant="strong" [sj]="sj.m(0)"
               >Compact</sj-typography
             >
-            <sj-typography variant="small" u [sj]="sj.m(0)"
+            <sj-typography variant="small" [sj]="sj.m(0)"
               >usePadding="compact"</sj-typography
             >
           </sj-paper>
         </app-demo-item>
-        <app-demo-item title="Default" [code]="codeSurface('default')">
+        <app-demo-item title="Default" subtitle='usePadding="default" useRounded="default"' [code]="codeSurface('default')">
           <sj-paper
             variant="outlined"
             usePadding="default"
@@ -115,7 +117,7 @@ interface DemoPaper {
             >
           </sj-paper>
         </app-demo-item>
-        <app-demo-item title="Comfortable" [code]="codeSurface('comfortable')">
+        <app-demo-item title="Comfortable" subtitle='usePadding="comfortable" useRounded="comfortable"' [code]="codeSurface('comfortable')">
           <sj-paper
             variant="outlined"
             usePadding="comfortable"
@@ -129,7 +131,7 @@ interface DemoPaper {
             >
           </sj-paper>
         </app-demo-item>
-        <app-demo-item title="Spacious" [code]="codeSurface('spacious')">
+        <app-demo-item title="Spacious" subtitle='usePadding="spacious" useRounded="spacious"' [code]="codeSurface('spacious')">
           <sj-paper
             variant="outlined"
             usePadding="spacious"
@@ -162,7 +164,7 @@ interface DemoPaper {
           sj.mt(0.5)
         ]"
       >
-        <app-demo-item title="Padding" [code]="codeToggle('usePadding')">
+        <app-demo-item title="Padding" subtitle='usePadding="default"' [code]="codeToggle('usePadding')">
           <sj-paper variant="outlined" usePadding="default">
             <sj-typography variant="strong" [sj]="sj.m(0)"
               >Padding</sj-typography
@@ -172,7 +174,7 @@ interface DemoPaper {
             >
           </sj-paper>
         </app-demo-item>
-        <app-demo-item title="Gap" [code]="codeToggle('useGap')">
+        <app-demo-item title="Gap" subtitle='useGap="default"' [code]="codeToggle('useGap')">
           <sj-paper variant="outlined" useGap="default">
             <sj-typography variant="strong" [sj]="sj.m(0)">Gap</sj-typography>
             <sj-typography variant="small" [sj]="sj.m(0)"
@@ -180,7 +182,7 @@ interface DemoPaper {
             >
           </sj-paper>
         </app-demo-item>
-        <app-demo-item title="Rounded" [code]="codeToggle('useRounded')">
+        <app-demo-item title="Rounded" subtitle='useRounded="default" usePadding="default"' [code]="codeToggle('useRounded')">
           <sj-paper variant="outlined" useRounded="default">
             <sj-typography variant="strong" [sj]="sj.m(0)"
               >Rounded</sj-typography
@@ -222,37 +224,35 @@ export class DemoPaperComponent {
   private buildPaperData(): DemoPaper[] {
     const items = [
       {
-        title: '<sj-paper>',
+        title: 'Filled paper',
+        subtitle: 'default',
         build: () => this.sjPaper(),
-        message: 'Component default (filled) neutral surface.',
+        message: 'Filled (default).',
         titleColor: 'primary',
-        usageExample: `<sj-paper variant="filled">...</sj-paper>`,
+        usageExample: `<sj-paper>...</sj-paper>`,
       },
       {
-        title: '<sj-paper variant="flat">',
+        title: 'Flat paper',
+        subtitle: 'variant="flat"',
         build: () => this.sjPaper.flat(),
-        message: 'Flat surface, no background/border.',
+        message: 'Flat (no background/border).',
         titleColor: 'primary',
         usageExample: `<sj-paper variant="flat">...</sj-paper>`,
       },
       {
-        title: '<sj-paper variant="outlined">',
+        title: 'Outlined paper',
+        subtitle: 'variant="outlined"',
         build: () => this.sjPaper.outlined(),
-        message: 'Outlined surface, transparent body.',
+        message: 'Outlined (transparent background).',
         titleColor: 'primary',
         usageExample: `<sj-paper variant="outlined">...</sj-paper>`,
       },
+      
       {
-        title: '<sj-paper variant="filled">',
-        build: () => this.sjPaper.filled(),
-        message: 'Explicit filled variant (same as default).',
-        titleColor: 'primary',
-        usageExample: `<sj-paper variant="filled">...</sj-paper>`,
-      },
-      {
-        title: `<sj-paper [sj]="{ bg: 'secondary.main' }">`,
+        title: 'Paper',
+        subtitle: `[sj]="{ bg: 'secondary.main' }"`,
         build: () => this.sjPaper({ bg: 'secondary.main' }),
-        message: 'Override background via [sj] for custom surfaces.',
+        message: 'Custom background.',
         titleColor: 'secondary.contrast',
         usageExample: `<sj-paper [sj]="{ bg: 'secondary.main' }">...</sj-paper>`,
       },

@@ -7,14 +7,19 @@ import { DemoItemComponent } from './demo-item.component';
 @Component({
   selector: 'app-palette',
   standalone: true,
-  imports: [CommonModule, SectionContainerComponent, SJ_BASE_COMPONENTS_IMPORTS, DemoItemComponent],
+  imports: [
+    CommonModule,
+    SectionContainerComponent,
+    SJ_BASE_COMPONENTS_IMPORTS,
+    DemoItemComponent,
+  ],
   template: `
     <app-section title="Palette">
-      <sj-typography variant="p">
+      <sj-typography variant="p" [sj]="[sj.c('light.contrast')]">
         The theme palette defines semantic colors. Each color typically includes
         main, light, dark, and contrast variants. Toggle to view usage.
       </sj-typography>
-      
+
       <div
         [sj]="[
           sj.d(sj.d.options.grid),
@@ -23,29 +28,35 @@ import { DemoItemComponent } from './demo-item.component';
         ]"
       >
         @for (color of demoColors(); track color[0]) {
-          <app-demo-item [title]="color[0]" [titleColor]="color[0]" [code]="codeForColor(color[0])">
-            <div [sj]="[sj.d('flex'), sj.fxDir({ xs: 'column' }), sj.gap(0.5)]">
-              @for (colorVariant of color; track colorVariant) {
-                <sj-card
-                  [variant]="sj.sjCard.variants.flat"
-                  [sj]="[sj.bg(colorVariant), sj.flexGrow(1), sj.p(0.5)]"
-                >
-                  <sj-typography
-                    variant="span"
-                    [sj]="[
-                      sj.d(sj.d.options.flex),
-                      sj.justifyContent(sj.justifyContent.options.center),
-                      sj.alignItems(sj.alignItems.options.center),
-                      sj.w('100%'),
-                      sj.c(textColorFor(colorVariant)),
-                      sj.m(0)
-                    ]"
-                    >{{ colorVariant }}</sj-typography
-                  >
-                </sj-card>
-              }
-            </div>
-          </app-demo-item>
+        <app-demo-item
+          [title]="color[0]"
+          [titleColor]="color[0]"
+          [code]="codeForColor(color[0])"
+        >
+          <div [sj]="[sj.d('flex'), sj.fxDir({ xs: 'column' }), sj.gap(0.5)]">
+            @for (colorVariant of color; track colorVariant) {
+            <sj-card
+              [variant]="sj.sjCard.variants.outlined"
+              useRounded="default"
+              usePadding="default"
+              [sj]="[sj.bg(colorVariant), sj.flexGrow(1)]"
+            >
+              <sj-typography
+                variant="span"
+                [sj]="[
+                  sj.d(sj.d.options.flex),
+                  sj.justifyContent(sj.justifyContent.options.center),
+                  sj.alignItems(sj.alignItems.options.center),
+                  sj.w('100%'),
+                  sj.c(textColorFor(colorVariant)),
+                  sj.m(0)
+                ]"
+                >{{ colorVariant }}</sj-typography
+              >
+            </sj-card>
+            }
+          </div>
+        </app-demo-item>
         }
       </div>
     </app-section>
@@ -67,8 +78,6 @@ export class PaletteComponent {
     ['neutral', 'neutral.light', 'neutral.dark', 'neutral.contrast'],
     ['light', 'light.light', 'light.dark', 'light.contrast'],
   ]);
-
-  
 
   textColorFor(variant: string): string {
     if (variant.endsWith('.contrast')) return 'neutral.dark';
