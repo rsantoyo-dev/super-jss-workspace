@@ -52,6 +52,25 @@ export class SjCssGeneratorService {
   }
 
   /**
+   * Orders declarations so that shorthands (e.g., padding) are emitted before
+   * corresponding longhands (e.g., padding-top). This ensures that longhands
+   * take precedence within the merged declaration block.
+   */
+  private orderDeclarations(decls: string[]): string[] {
+    const prop = (d: string) => d.split(':', 1)[0].trim();
+    return [...decls].sort((a, b) => {
+      const pa = prop(a);
+      const pb = prop(b);
+      if (pa === pb) return 0;
+      // If pa is a shorthand of pb (e.g., padding vs padding-top), put pa first
+      if (pb.startsWith(pa + '-')) return -1;
+      // If pa is a longhand of pb (e.g., padding-top vs padding), put pa after
+      if (pa.startsWith(pb + '-')) return 1;
+      return 0;
+    });
+  }
+
+  /**
    * Returns prefixed class names for styles, appending new CSS to a single <style> tag.
    * Deduplicates previously generated rules using an in-memory cache.
    * @param styles Style object to convert.
@@ -121,12 +140,21 @@ export class SjCssGeneratorService {
 
     // Reconstruct merged CSS text
     let newCss = '';
-    for (const [mediaKey, selectorMap] of mediaMap.entries()) {
+    // Emit media blocks first, then top-level (empty key) last so non-responsive
+    // longhands can override responsive shorthands across breakpoints.
+    const mediaEntries = Array.from(mediaMap.entries()).sort((a, b) => {
+      // Put top-level (empty key) FIRST, then media queries.
+      const aTop = a[0] === '' ? 0 : 1;
+      const bTop = b[0] === '' ? 0 : 1;
+      return aTop - bTop;
+    });
+    for (const [mediaKey, selectorMap] of mediaEntries) {
       const inMedia = mediaKey !== '';
       if (inMedia) newCss += `${mediaKey} {\n`;
 
       for (const [selector, declSet] of selectorMap.entries()) {
-        const decls = Array.from(declSet).join('; ');
+        const ordered = this.orderDeclarations(Array.from(declSet));
+        const decls = ordered.join('; ');
         const declStr = decls.endsWith(';')
           ? decls
           : decls + (decls ? ';' : '');
@@ -221,12 +249,18 @@ export class SjCssGeneratorService {
 
       // Reconstruct merged CSS text
       let newCss = '';
-      for (const [mediaKey, selectorMap] of mediaMap.entries()) {
+      const mediaEntries = Array.from(mediaMap.entries()).sort((a, b) => {
+        const aTop = a[0] === '' ? 0 : 1;
+        const bTop = b[0] === '' ? 0 : 1;
+        return aTop - bTop; // '' goes first
+      });
+      for (const [mediaKey, selectorMap] of mediaEntries) {
         const inMedia = mediaKey !== '';
         if (inMedia) newCss += `${mediaKey} {\n`;
 
         for (const [selector, declSet] of selectorMap.entries()) {
-          const decls = Array.from(declSet).join('; ');
+          const ordered = this.orderDeclarations(Array.from(declSet));
+          const decls = ordered.join('; ');
           // Ensure declarations end with a semicolon
           const declStr = decls.endsWith(';')
             ? decls

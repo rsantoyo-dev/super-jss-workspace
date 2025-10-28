@@ -22,7 +22,12 @@ import {
       host
       [sj]="[sj.h(sj.height.options.auto), sj.backgroundColor('light.light')]"
     >
-      <sj-flex useCol useGap usePadding>
+      <sj-flex
+        useCol
+        useGap
+        usePadding
+        [sj]="sj.py(sj.padding.options.spacious)"
+      >
         @for (item of menu; track item.route) {
         <sj-button
           [useFullWidth]="true"

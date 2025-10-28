@@ -41,7 +41,7 @@ export class CssGenerator {
     variantPrefix = ''
   ): void {
     for (const key in styles) {
-      const value = styles[key as keyof SjStyle];
+      let value = styles[key as keyof SjStyle];
 
       if (key.startsWith('&')) {
         const newPseudoClass = key.substring(1);
@@ -56,6 +56,18 @@ export class CssGenerator {
       } else {
         // Handle directional shorthands (px/py/mx/my) before generic mapping
         if (key === 'px' || key === 'py' || key === 'mx' || key === 'my') {
+          // Allow density tokens (1..4) for padding axis shorthands (px/py)
+          // by converting them into responsive objects from theme surfaces.
+          let axisValue: any = value;
+          if (
+            (key === 'px' || key === 'py') &&
+            typeof value === 'number' &&
+            value >= 1 &&
+            value <= 4
+          ) {
+            const dens = this.densityToResponsive('padding', value);
+            if (dens) axisValue = dens as any;
+          }
           const parts =
             key === 'px'
               ? [
@@ -77,16 +89,16 @@ export class CssGenerator {
                   { cssProp: 'marginBottom', derivedKey: 'mb' },
                 ];
 
-          if (typeof value === 'object' && value !== null) {
+          if (typeof axisValue === 'object' && axisValue !== null) {
             // Responsive object: emit media rules per breakpoint per side
             const orderedBps = Object.keys(
               this.theme.breakpoints
             ) as (keyof SjBreakPoints)[];
             for (const bp of orderedBps) {
-              if (!Object.prototype.hasOwnProperty.call(value as any, bp)) {
+              if (!Object.prototype.hasOwnProperty.call(axisValue as any, bp)) {
                 continue;
               }
-              const bpValue = (value as any)[bp] as string | number | undefined;
+              const bpValue = (axisValue as any)[bp] as string | number | undefined;
               for (const part of parts) {
                 const className = generateAtomicClassName(
                   variantPrefix,
@@ -113,11 +125,11 @@ export class CssGenerator {
                 variantPrefix,
                 part.derivedKey,
                 undefined,
-                value
+                axisValue
               );
               const resolved = this.resolveStyleValue(
                 part.derivedKey,
-                value as any
+                axisValue as any
               );
               const cssRule = `.${className}${pseudoClass} { ${this.kebabCase(
                 part.cssProp
@@ -128,6 +140,19 @@ export class CssGenerator {
           continue; // skip standard handling for these shorthands
         }
         const cssProperty = shorthandMappings[key] || key;
+
+        // Coerce density tokens (1..4) on spacing props into responsive values
+        if (
+          typeof value === 'number' &&
+          value >= 1 &&
+          value <= 4 &&
+          (String(cssProperty).startsWith('padding') || String(cssProperty) === 'gap')
+        ) {
+          const dens = this.densityToResponsive(String(cssProperty), value);
+          if (dens) {
+            value = dens as any;
+          }
+        }
 
         if (typeof value === 'object' && value !== null) {
           // Handle responsive styles: honor theme breakpoint order (xs -> xxl)
@@ -178,6 +203,32 @@ export class CssGenerator {
         }
       }
     }
+  }
+
+  /**
+   * Maps a density level (1..4) to a ResponsiveStyle using the theme's
+   * surfaces maps for spacing-related properties.
+   */
+  private densityToResponsive(
+    prop: string,
+    level: number
+  ): ResponsiveStyle | null {
+    const surfaces = this.theme.components?.surfaces ?? {};
+    // Padding family (apply same responsive numbers to the specified side)
+    if (prop.startsWith('padding')) {
+      const m = (surfaces as any).padding?.[level];
+      if (m && typeof m === 'object') {
+        return m as ResponsiveStyle;
+      }
+    }
+    // Gap
+    if (prop === 'gap') {
+      const m = (surfaces as any).gap?.[level];
+      if (m && typeof m === 'object') {
+        return m as ResponsiveStyle;
+      }
+    }
+    return null;
   }
 
   /**

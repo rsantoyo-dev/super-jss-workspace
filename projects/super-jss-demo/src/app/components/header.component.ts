@@ -47,7 +47,19 @@ import { ThemeSelectorComponent } from './theme-selector.component';
             ]"
             >☰</sj-button
           >
-          <sj-flex [sj]="[sj.fxAItems('center'), sj.gap(0.5)]">
+          <a
+            href="https://sjss.dev"
+            target="_blank"
+            rel="noreferrer"
+            [sj]="[
+              sj.d('inline-flex'),
+              sj.fxAItems('center'),
+              sj.gap(0.5),
+              sj.textDecoration('none'),
+              sj.c('primary.contrast'),
+              { '&:hover': { textDecoration: 'underline' } }
+            ]"
+          >
             <sj-icon
               [name]="icon.superJson"
               size="3.5rem"
@@ -56,10 +68,10 @@ import { ThemeSelectorComponent } from './theme-selector.component';
               role="img"
               [sj]="[sj.c('primary.contrast')]"
             ></sj-icon>
-            <sj-typography variant="h4" [sj]="[sj.c('primary.contrast')]">
+            <sj-typography variant="h4" [sj]="[sj.c('primary.contrast'), sj.m(0)]">
               SUPER JSS
             </sj-typography>
-          </sj-flex>
+          </a>
           <sj-typography [variant]="'small'" [sj]="[sj.c('primary.contrast')]">
             The ultimate solution for dynamic styling
           </sj-typography>

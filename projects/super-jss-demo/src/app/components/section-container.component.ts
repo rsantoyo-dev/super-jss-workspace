@@ -17,8 +17,8 @@ import {
   // Apply SjDirective to the host so the section styles the component itself
   hostDirectives: [{ directive: SjDirective }],
   template: `
-    <sj-paper host variant="flat" usePadding [sj]="[sj.bg('light')]">
-      <sj-flex useCol useGap>
+    <sj-paper host variant="flat" [usePadding]="4" [sj]="[sj.bg('light')]">
+      <sj-flex useCol useGap="default">
         <sj-typography variant="h3" [sj]="[sj.c('light.contrast')]">{{
           title
         }}</sj-typography>

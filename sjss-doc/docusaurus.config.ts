@@ -5,6 +5,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
+const GTAG_ID = process.env.GTAG_ID;
+
 const config: Config = {
   title: 'Super-JSS',
   tagline: 'A super-powered CSS-in-JS library for Angular',
@@ -16,7 +18,8 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://super-jss.dev',
+  // Public canonical site URL
+  url: 'https://sjss.dev',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -127,22 +130,34 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
-  plugins: [
-    // Prevent bundling Angular/our Angular lib in the React docs app
-    () => ({
-      name: 'docusaurus-plugin-super-jss-alias',
-      configureWebpack() {
-        return {
-          resolve: {
-            alias: {
-              'super-jss': path.resolve(__dirname, 'src/stubs/empty.js'),
-              '@storybook/angular': path.resolve(__dirname, 'src/stubs/empty.js'),
+  plugins: (
+    [
+      // Google Analytics 4 via gtag (enabled if GTAG_ID is set)
+      GTAG_ID
+        ? [
+            '@docusaurus/plugin-google-gtag',
+            {
+              trackingID: GTAG_ID,
+              anonymizeIP: true,
             },
-          },
-        };
-      },
-    }),
-  ],
+          ]
+        : null,
+      // Prevent bundling Angular/our Angular lib in the React docs app
+      () => ({
+        name: 'docusaurus-plugin-super-jss-alias',
+        configureWebpack() {
+          return {
+            resolve: {
+              alias: {
+                'super-jss': path.resolve(__dirname, 'src/stubs/empty.js'),
+                '@storybook/angular': path.resolve(__dirname, 'src/stubs/empty.js'),
+              },
+            },
+          };
+        },
+      }),
+    ].filter(Boolean) as any
+  ),
 };
 
 export default config;
