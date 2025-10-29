@@ -18,13 +18,15 @@ import {
   hostDirectives: [{ directive: SjDirective }],
   template: `
     <sj-paper host variant="flat" [usePadding]="4" [sj]="[sj.bg('light')]">
-      <sj-flex useCol useGap="default">
-        <sj-typography variant="h3" [sj]="[sj.c('light.contrast')]">{{
-          title
-        }}</sj-typography>
+      <sj-flex useCenter>
+        <sj-flex useCol useGap="default" [sj]="[sj.maxWidth('800px')]">
+          <sj-typography variant="h3" [sj]="[sj.c('light.contrast')]">{{
+            title
+          }}</sj-typography>
 
-        <sj-flex useCol useGap>
-          <ng-content></ng-content>
+          <sj-flex useCol useGap>
+            <ng-content></ng-content>
+          </sj-flex>
         </sj-flex>
       </sj-flex>
     </sj-paper>

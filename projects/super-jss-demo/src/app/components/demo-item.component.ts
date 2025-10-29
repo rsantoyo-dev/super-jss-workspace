@@ -1,12 +1,13 @@
 import { Component, Input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { SJ_BASE_COMPONENTS_IMPORTS, SjRootApi, sj } from 'super-jss';
 import { CodeBlockComponent } from './code-block.component';
 
 @Component({
   standalone: true,
   selector: 'app-demo-item',
-  imports: [CommonModule, ...SJ_BASE_COMPONENTS_IMPORTS, CodeBlockComponent],
+  imports: [CommonModule, RouterModule, ...SJ_BASE_COMPONENTS_IMPORTS, CodeBlockComponent],
   template: `
     <sj-card
       host
@@ -16,26 +17,19 @@ import { CodeBlockComponent } from './code-block.component';
       [sj]="[]"
     >
       <sj-flex useCol useGap>
-        <div
-          [sj]="[
-            sj.mb(0.5),
-            sj.pb(0.25),
-            sj.borderBottomStyle('solid'),
-            sj.borderBottomWidth(0.05),
-            sj.borderBottomColor('light.dark')
-          ]"
-        >
-          <sj-typography
-            variant="h6"
-            [sj]="[sj.c(titleColor || 'primary'), sj.mt(0)]"
-            >{{ title }}</sj-typography
-          >
-          <sj-typography
-            *ngIf="subtitle"
-            variant="small"
-            [sj]="[sj.c('neutral.dark'), sj.mt(0)]"
-            >{{ subtitle }}</sj-typography
-          >
+        <div [sj]="[ sj.mb(0.5), sj.pb(0.25), sj.borderBottomStyle('solid'), sj.borderBottomWidth(0.05), sj.borderBottomColor('light.dark') ]">
+          <sj-flex [sj]="[ sj.justifyContent('space-between'), sj.fxAItems('baseline'), sj.gap(0.5) ]">
+            <div>
+              <sj-typography variant="h6" [sj]="[ sj.c(titleColor || 'primary'), sj.mt(0) ]">{{ title }}</sj-typography>
+              <sj-typography *ngIf="subtitle" variant="small" [sj]="[ sj.c('neutral.dark'), sj.mt(0) ]">{{ subtitle }}</sj-typography>
+            </div>
+            <div *ngIf="href || route" [sj]="[ sj.d('inline-flex'), sj.gap(0.5) ]">
+              <a *ngIf="href" [href]="href" target="_blank" rel="noreferrer"
+                 [sj]="[ sj.c('neutral.dark'), sj.textDecoration('none'), { '&:hover': { textDecoration: 'underline' } } ]">{{ actionLabel }}</a>
+              <a *ngIf="route" [routerLink]="route"
+                 [sj]="[ sj.c('neutral.dark'), sj.textDecoration('none'), { '&:hover': { textDecoration: 'underline' } } ]">{{ actionLabel }}</a>
+            </div>
+          </sj-flex>
         </div>
 
         <div [sj]="[]">
@@ -59,6 +53,10 @@ export class DemoItemComponent {
   @Input() subtitle: string | undefined;
   @Input() titleColor: string | undefined;
   @Input() code: string | undefined;
+  // Optional quick action link (external or router). If both provided, both render.
+  @Input() href: string | undefined;
+  @Input() route: string | undefined;
+  @Input() actionLabel = 'Open';
 
   expanded = signal(false);
   toggle() {

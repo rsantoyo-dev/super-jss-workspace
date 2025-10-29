@@ -82,12 +82,54 @@ export type SjTheme = {
   palette?: SjPalette;
   components?: {
     surfaces?: {
-      padding?: Partial<Record<1 | 2 | 3 | 4, ResponsiveStyle | number>>;
-      gap?: Partial<Record<1 | 2 | 3 | 4, ResponsiveStyle | number>>;
-      radius?: Partial<
-        Record<1 | 2 | 3 | 4, ResponsiveStyle | number | string>
+      /**
+       * Density-driven padding map. Values can be:
+       * - number or ResponsiveStyle (applies equally to all sides)
+       * - side map to target per-side/axis values
+       */
+      padding?: Partial<
+        Record<
+          1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
+          | ResponsiveStyle
+          | number
+          | {
+              all?: ResponsiveStyle | number;
+              x?: ResponsiveStyle | number;
+              y?: ResponsiveStyle | number;
+              top?: ResponsiveStyle | number;
+              right?: ResponsiveStyle | number;
+              bottom?: ResponsiveStyle | number;
+              left?: ResponsiveStyle | number;
+            }
+        >
       >;
-      border?: Partial<Record<1 | 2 | 3 | 4, ResponsiveStyle | number>>;
+      gap?: Partial<
+        Record<
+          1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
+          ResponsiveStyle | number
+        >
+      >;
+      radius?: Partial<
+        Record<
+          1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
+          ResponsiveStyle | number | string
+        >
+      >;
+      border?: Partial<
+        Record<
+          1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
+          ResponsiveStyle | number
+        >
+      >;
+    };
+    /**
+     * Optional design presets expressed as arrays of SjStyle, to be applied
+     * directly via [sj] (e.g., [ ...theme.components.surfacesPresets.padding[5] ]).
+     * Useful for asymmetric or richer density patterns without complicating
+     * the core surfaces maps.
+     */
+    surfacesPresets?: {
+      padding?: Partial<Record<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12, SjStyle[]>>;
     };
   };
 };

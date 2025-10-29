@@ -37,8 +37,9 @@ export const DEFAULT_TYPOGRAPHY: SjTypography = {
     fontWeight: '600',
   },
   P: {
-    fontSize: { xs: 0.875, sm: 1, md: 1.125 },
+    fontSize: { xs: 1, md: 1.075 },
     fontWeight: '400',
+    lineHeight: { xs: 1.35, md: 1.375 },
   },
   SPAN: {
     fontSize: { xs: 0.875, sm: 0.9375, md: 1 },

@@ -3,7 +3,7 @@ import { DEFAULT_BREAKPOINTS } from '../shared-options/breakpoints';
 import { DEFAULT_COLORS } from '../shared-options/colors';
 import { DEFAULT_SPACING } from '../shared-options/spacing';
 import { DEFAULT_TYPOGRAPHY } from '../shared-options/typography';
-import { DEFAULT_SURFACES } from '../shared-options/surfaces';
+import { DEFAULT_SURFACES, DEFAULT_SURFACES_PRESETS } from '../shared-options/surfaces';
 
 const lightPalette: SjPalette = {
   primary: {
@@ -140,6 +140,7 @@ export const defaultTheme: SjTheme = {
   palette: lightPalette,
   components: {
     surfaces: DEFAULT_SURFACES,
+    surfacesPresets: DEFAULT_SURFACES_PRESETS,
   },
 };
 

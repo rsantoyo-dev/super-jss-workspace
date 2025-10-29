@@ -56,16 +56,14 @@ export class CssGenerator {
       } else {
         // Handle directional shorthands (px/py/mx/my) before generic mapping
         if (key === 'px' || key === 'py' || key === 'mx' || key === 'my') {
-          // Allow density tokens (1..4) for padding axis shorthands (px/py)
-          // by converting them into responsive objects from theme surfaces.
           let axisValue: any = value;
-          if (
-            (key === 'px' || key === 'py') &&
-            typeof value === 'number' &&
-            value >= 1 &&
-            value <= 4
-          ) {
-            const dens = this.densityToResponsive('padding', value);
+          // If user passed an explicit density token marker via sj.padding.options.*, map to responsive
+          const densityAxis = this.getDensityLevel(value);
+          if ((key === 'px' || key === 'py') && densityAxis) {
+            const dens = this.densityToResponsive(
+              key === 'px' ? 'padding-x' : 'padding-y',
+              densityAxis
+            );
             if (dens) axisValue = dens as any;
           }
           const parts =
@@ -90,32 +88,52 @@ export class CssGenerator {
                 ];
 
           if (typeof axisValue === 'object' && axisValue !== null) {
-            // Responsive object: emit media rules per breakpoint per side
+            // Responsive object: fill-forward values so missing breakpoints inherit
+            // the last defined value. Emit base rule for xs (top-level) and media for others.
             const orderedBps = Object.keys(
               this.theme.breakpoints
             ) as (keyof SjBreakPoints)[];
+            let lastVal: string | number | undefined = undefined;
             for (const bp of orderedBps) {
-              if (!Object.prototype.hasOwnProperty.call(axisValue as any, bp)) {
-                continue;
+              if (Object.prototype.hasOwnProperty.call(axisValue as any, bp)) {
+                lastVal = (axisValue as any)[bp] as string | number | undefined;
               }
-              const bpValue = (axisValue as any)[bp] as string | number | undefined;
+              if (lastVal === undefined) continue;
+
               for (const part of parts) {
-                const className = generateAtomicClassName(
-                  variantPrefix,
-                  part.derivedKey,
-                  bp,
-                  bpValue
-                );
-                const resolved = this.resolveStyleValue(
-                  part.derivedKey,
-                  bpValue
-                );
-                const mediaQuery = `@media (min-width: ${
-                  this.theme.breakpoints[bp]
-                }px) {\n  .${className}${pseudoClass} { ${this.kebabCase(
-                  part.cssProp
-                )}: ${resolved}; }\n}`;
-                cssMap.set(className, mediaQuery);
+                if (bp === 'xs' && this.theme.breakpoints.xs === 0) {
+                  const className = generateAtomicClassName(
+                    variantPrefix,
+                    part.derivedKey,
+                    undefined,
+                    lastVal
+                  );
+                  const resolved = this.resolveStyleValue(
+                    part.derivedKey,
+                    lastVal
+                  );
+                  const cssRule = `.${className}${pseudoClass} { ${this.kebabCase(
+                    part.cssProp
+                  )}: ${resolved}; }`;
+                  cssMap.set(className, cssRule);
+                } else {
+                  const className = generateAtomicClassName(
+                    variantPrefix,
+                    part.derivedKey,
+                    bp,
+                    lastVal
+                  );
+                  const resolved = this.resolveStyleValue(
+                    part.derivedKey,
+                    lastVal
+                  );
+                  const mediaQuery = `@media (min-width: ${
+                    this.theme.breakpoints[bp]
+                  }px) {\n  .${className}${pseudoClass} { ${this.kebabCase(
+                    part.cssProp
+                  )}: ${resolved}; }\n}`;
+                  cssMap.set(className, mediaQuery);
+                }
               }
             }
           } else {
@@ -141,51 +159,57 @@ export class CssGenerator {
         }
         const cssProperty = shorthandMappings[key] || key;
 
-        // Coerce density tokens (1..4) on spacing props into responsive values
+        // Density tokens via explicit sj.*.options.* marker (padding/gap)
+        const densityLevel = this.getDensityLevel(value);
         if (
-          typeof value === 'number' &&
-          value >= 1 &&
-          value <= 4 &&
+          densityLevel &&
           (String(cssProperty).startsWith('padding') || String(cssProperty) === 'gap')
         ) {
-          const dens = this.densityToResponsive(String(cssProperty), value);
-          if (dens) {
-            value = dens as any;
-          }
+          const dens = this.densityToResponsive(String(cssProperty), densityLevel);
+          if (dens) value = dens as any;
         }
 
         if (typeof value === 'object' && value !== null) {
-          // Handle responsive styles: honor theme breakpoint order (xs -> xxl)
+          // Handle responsive styles with fill-forward semantics:
+          // generate a rule for each breakpoint from the last defined value.
           const orderedBps = Object.keys(
             this.theme.breakpoints
           ) as (keyof SjBreakPoints)[];
+          let lastVal: string | number | undefined = undefined;
           for (const bp of orderedBps) {
-            if (!Object.prototype.hasOwnProperty.call(value as any, bp))
-              continue;
-            const className = generateAtomicClassName(
-              variantPrefix,
-              key,
-              bp,
-              (value as any)[bp]
-            );
-            const bpValue = (value as any)[bp] as string | number | undefined;
-            let responsiveValue: string;
-            if (
-              typeof bpValue === 'string' ||
-              typeof bpValue === 'number' ||
-              bpValue === undefined
-            ) {
-              responsiveValue = this.resolveStyleValue(key, bpValue);
-            } else {
-              // If bpValue is an object (SjStyle or ResponsiveStyle), skip or handle accordingly
-              responsiveValue = 'initial';
+            if (Object.prototype.hasOwnProperty.call(value as any, bp)) {
+              lastVal = (value as any)[bp] as string | number | undefined;
             }
-            const mediaQuery = `@media (min-width: ${
-              this.theme.breakpoints[bp]
-            }px) {\n  .${className}${pseudoClass} { ${this.kebabCase(
-              cssProperty as string
-            )}: ${responsiveValue}; }\n}`;
-            cssMap.set(className, mediaQuery);
+            if (lastVal === undefined) continue;
+
+            const responsiveValue = this.resolveStyleValue(key, lastVal);
+            if (bp === 'xs' && this.theme.breakpoints.xs === 0) {
+              // Top-level rule for xs
+              const className = generateAtomicClassName(
+                variantPrefix,
+                key,
+                undefined,
+                lastVal
+              );
+              const cssRule = `.${className}${pseudoClass} { ${this.kebabCase(
+                cssProperty as string
+              )}: ${responsiveValue}; }`;
+              cssMap.set(className, cssRule);
+            } else {
+              // Media rule for this breakpoint (including inherited values)
+              const className = generateAtomicClassName(
+                variantPrefix,
+                key,
+                bp,
+                lastVal
+              );
+              const mediaQuery = `@media (min-width: ${
+                this.theme.breakpoints[bp]
+              }px) {\n  .${className}${pseudoClass} { ${this.kebabCase(
+                cssProperty as string
+              )}: ${responsiveValue}; }\n}`;
+              cssMap.set(className, mediaQuery);
+            }
           }
         } else {
           // Handle non-responsive styles
@@ -209,25 +233,47 @@ export class CssGenerator {
    * Maps a density level (1..4) to a ResponsiveStyle using the theme's
    * surfaces maps for spacing-related properties.
    */
-  private densityToResponsive(
-    prop: string,
-    level: number
-  ): ResponsiveStyle | null {
-    const surfaces = this.theme.components?.surfaces ?? {};
-    // Padding family (apply same responsive numbers to the specified side)
+  private densityToResponsive(prop: string, level: number): ResponsiveStyle | null {
+    const srf = (this.theme.components as any)?.surfaces ?? {};
+    const pad = (srf.padding || {})[level];
+    const getRS = (v: any): ResponsiveStyle | null => {
+      if (!v) return null;
+      if (typeof v === 'number') return { xs: v } as any;
+      if (typeof v === 'object') return v as ResponsiveStyle;
+      return null;
+    };
     if (prop.startsWith('padding')) {
-      const m = (surfaces as any).padding?.[level];
-      if (m && typeof m === 'object') {
-        return m as ResponsiveStyle;
+      if (!pad) return null;
+      // Support: ResponsiveStyle/number OR side maps with all/x/y/top/right/bottom/left
+      if (typeof pad === 'number' || (typeof pad === 'object' && (pad.xs || pad.sm || pad.md || pad.lg || pad.xl || pad.xxl))) {
+        return getRS(pad);
       }
+      const sideMap = pad as any;
+      // Determine which side/axis
+      if (prop === 'padding-x' || prop === 'px') return getRS(sideMap.x) || getRS(sideMap.all);
+      if (prop === 'padding-y' || prop === 'py') return getRS(sideMap.y) || getRS(sideMap.all);
+      if (prop === 'paddingTop') return getRS(sideMap.top) || getRS(sideMap.y) || getRS(sideMap.all);
+      if (prop === 'paddingBottom') return getRS(sideMap.bottom) || getRS(sideMap.y) || getRS(sideMap.all);
+      if (prop === 'paddingLeft') return getRS(sideMap.left) || getRS(sideMap.x) || getRS(sideMap.all);
+      if (prop === 'paddingRight') return getRS(sideMap.right) || getRS(sideMap.x) || getRS(sideMap.all);
+      // generic padding: prefer all, else y as a reasonable fallback
+      return getRS(sideMap.all) || getRS(sideMap.y) || null;
     }
-    // Gap
     if (prop === 'gap') {
-      const m = (surfaces as any).gap?.[level];
-      if (m && typeof m === 'object') {
-        return m as ResponsiveStyle;
-      }
+      const gp = (srf.gap || {})[level];
+      return getRS(gp);
     }
+    return null;
+  }
+
+  /** Extracts density level from an explicit sj token object. */
+  private getDensityLevel(v: any): number | null {
+    try {
+      if (v && typeof v === 'object' && (v as any).__sjDensity != null) {
+        const n = Number((v as any).__sjDensity);
+        if (Number.isFinite(n) && n >= 1 && n <= 12) return n;
+      }
+    } catch {}
     return null;
   }
 

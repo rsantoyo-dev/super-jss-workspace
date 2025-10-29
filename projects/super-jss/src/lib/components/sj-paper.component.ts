@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { sjPaper, SjPaperApi } from '../blueprints/paper';
 import { SjStyle } from '../models/interfaces';
+import { deepMerge } from '../utils';
 import { SjPaperVariant } from '../models/variants';
 import { SjBaseComponent } from '../core/base.component';
 import { ElementRef, Renderer2 } from '@angular/core';
@@ -22,6 +23,15 @@ export class SjPaperComponent extends SjBaseComponent {
     | 2
     | 3
     | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | number
     | 'compact'
     | 'default'
     | 'comfortable'
@@ -108,7 +118,7 @@ export class SjPaperComponent extends SjBaseComponent {
         (paperStyles as any).backgroundColor = 'transparent';
         (paperStyles as any).color = isAuto ? 'inherit' : `${fam}.main`;
         (paperStyles as any).borderStyle = 'solid';
-        (paperStyles as any).borderWidth = 0.1;
+        (paperStyles as any).borderWidth = 0.05;
         (paperStyles as any).borderColor = isAuto
           ? 'light.dark'
           : `${fam}.main`;
@@ -119,11 +129,12 @@ export class SjPaperComponent extends SjBaseComponent {
 
     const theme = this.themeService.sjTheme();
     const surfaces = theme.components?.surfaces ?? {};
-    const mapDensity = (v: any): 1 | 2 | 3 | 4 | undefined => {
+    const presets = (theme.components as any)?.surfacesPresets ?? {};
+    const mapDensity = (v: any): 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined => {
       if (v === undefined || v === null || v === 'none') return undefined;
       if (v === true || v === '' || v === 'true') return 2;
       if (typeof v === 'number')
-        return Math.max(1, Math.min(4, Math.round(v))) as 1 | 2 | 3 | 4;
+        return Math.max(1, Math.min(12, Math.round(v))) as any;
       const m: Record<string, 1 | 2 | 3 | 4> = {
         compact: 1,
         default: 2,
@@ -135,8 +146,23 @@ export class SjPaperComponent extends SjBaseComponent {
 
     // Handle surface-specific sugars
     const padLevel = mapDensity(this.usePadding);
-    if (padLevel && (surfaces.padding as any)?.[padLevel] !== undefined) {
-      paperStyles.padding = (surfaces.padding as any)[padLevel];
+    if (padLevel) {
+      if (padLevel >= 1 && padLevel <= 4) {
+        if ((surfaces.padding as any)?.[padLevel] !== undefined) {
+          paperStyles.padding = (surfaces.padding as any)[padLevel];
+        }
+      } else {
+        const presetArr = (presets.padding as any)?.[padLevel] as SjStyle[] | undefined;
+        if (Array.isArray(presetArr)) {
+          for (const st of presetArr) {
+            try {
+              Object.assign(paperStyles, deepMerge({}, st));
+            } catch {
+              Object.assign(paperStyles, st as any);
+            }
+          }
+        }
+      }
     }
 
     const roundedLevel = mapDensity(this.useRounded);

@@ -22,6 +22,9 @@ import {
 import { SjCssGeneratorService } from './sj-css-generator.service';
 import { defaultTheme } from '../themes/theme-definitions/default-theme';
 
+// Internal: holds a reference to the active SjThemeService for sj.theme accessors
+export let sjActiveThemeService: SjThemeService | undefined;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -57,11 +60,15 @@ export class SjThemeService implements OnDestroy {
   ) {
     // Apply initial typography to document
     this.applyDocumentTypography(this.sjTheme());
+    // Register this instance for global sj.theme access (internal)
+    try { sjActiveThemeService = this; } catch {}
     // Only initialize resize listener in browser environment
     if (isPlatformBrowser(this.platformId)) {
       this.initResizeListener();
     }
   }
+
+  
 
   /**
    * Subscribes to window resize and updates width/breakpoint signals (debounced).
@@ -152,6 +159,7 @@ export class SjThemeService implements OnDestroy {
   /** Cleans up window resize subscription when the service is destroyed. */
   ngOnDestroy() {
     this.resizeSubscription?.unsubscribe();
+    try { if (sjActiveThemeService === this) sjActiveThemeService = undefined; } catch {}
   }
 
   /** Apply current theme variables (typography + app background) to :root/body */

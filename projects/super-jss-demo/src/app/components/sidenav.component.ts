@@ -20,6 +20,7 @@ import {
   template: `
     <sj-card
       host
+      usePadding="default"
       [sj]="[sj.h(sj.height.options.auto), sj.backgroundColor('light.light')]"
     >
       <sj-flex
@@ -58,6 +59,7 @@ export class SidenavComponent {
     { label: 'Cards', route: '/cards' },
     { label: 'Palette', route: '/palette' },
     { label: 'Theming', route: '/theming' },
+    { label: 'Padding', route: '/padding' },
   ];
   @Output() navigate = new EventEmitter<void>();
 }

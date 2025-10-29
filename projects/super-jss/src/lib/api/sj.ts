@@ -1,4 +1,5 @@
 import * as CSS from 'csstype';
+import { sjActiveThemeService } from '../services/sj-theme.service';
 import {
   ResponsiveStyle,
   SjShorthandCustomStyle,
@@ -124,6 +125,8 @@ type ReservedRootKeys =
   | 'focus'
   | 'active'
   | 'disabled'
+  | 'theme'
+  | 'presets'
   | 'palette'
   | 'breakpoints'
   | 'sjBox'
@@ -182,6 +185,12 @@ export type SjApi = {
   // Minimal root registries
   palette: typeof SjPaletteTokens;
   breakpoints: typeof SjBreakpointTokens;
+  // Optional runtime theme-driven presets (designer-friendly alias)
+  presets: {
+    // Designer-friendly: always present at type-level; runtime fills from theme
+    // and returns [] for unknown keys via a Proxy.
+    padding: { [key: number]: SjStyle[] };
+  };
 };
 
 // Unified root API type: expose css functions and shorthands at root for autocomplete
@@ -489,10 +498,10 @@ type SjCssApiWithOptions = Omit<
   padding: WithOptions<
     SjCssApi['padding'],
     {
-      compact: 1;
-      default: 2;
-      comfortable: 3;
-      spacious: 4;
+      compact: any;
+      default: any;
+      comfortable: any;
+      spacious: any;
     }
   >;
   borderRadius: WithOptions<
@@ -537,10 +546,10 @@ type SjShApiWithOptions = Omit<
   gap: WithOptions<
     SjShApi['gap'],
     {
-      compact: 1;
-      default: 2;
-      comfortable: 3;
-      spacious: 4;
+      compact: any;
+      default: any;
+      comfortable: any;
+      spacious: any;
     }
   >;
 };
@@ -575,6 +584,7 @@ const sjBase: SjApi = {
 // Removed sj.stack() from public API; use root sj.* css/shorthands instead
 
 // Curated option maps for props/shorthands
+const densityToken = (n: 1 | 2 | 3 | 4) => ({ __sjDensity: n } as any);
 const optionsMapCss: Record<string, unknown> = {
   // Color properties - all get full palette access
   color: SjPaletteTokens,
@@ -601,10 +611,10 @@ const optionsMapCss: Record<string, unknown> = {
   borderStyle: SjBorderStyleTokens,
   // Surface-related density mirrors for discoverability under sj.property.options
   padding: {
-    compact: 1,
-    default: 2,
-    comfortable: 3,
-    spacious: 4,
+    compact: densityToken(1),
+    default: densityToken(2),
+    comfortable: densityToken(3),
+    spacious: densityToken(4),
   },
   borderRadius: {
     compact: 1,
@@ -626,10 +636,10 @@ const optionsMapSh: Record<string, unknown> = {
   fxJustify: FlexJustifyOptions,
   fxAItems: FlexAlignOptions,
   gap: {
-    compact: 1,
-    default: 2,
-    comfortable: 3,
-    spacious: 4,
+    compact: densityToken(1),
+    default: densityToken(2),
+    comfortable: densityToken(3),
+    spacious: densityToken(4),
   },
 };
 
@@ -739,6 +749,39 @@ const sjProxy: SjRootApi = new Proxy(sjBase as any, {
     // existing fields/namespaces first (style, flex, grid, button, tokens, etc.)
     if (typeof propKey === 'symbol' || Reflect.has(target, propKey)) {
       return Reflect.get(target, propKey, receiver);
+    }
+    // Simple runtime theme access: sj.theme -> active resolved theme (or undefined)
+    if (propKey === 'theme') {
+      try {
+        return sjActiveThemeService ? sjActiveThemeService.sjTheme() : undefined;
+      } catch {
+        return undefined;
+      }
+    }
+    // Designer-friendly alias: sj.presets -> theme.components.surfacesPresets
+    if (propKey === 'presets') {
+      try {
+        const t = sjActiveThemeService?.sjTheme();
+        const sp = (t as any)?.components?.surfacesPresets ?? {};
+        const paddingSrc = (sp as any).padding ?? {};
+        const padding = new Proxy(paddingSrc, {
+          get(target: any, k: PropertyKey) {
+            if (k in target) return target[k];
+            return [];
+          },
+        });
+        return { padding } as any;
+      } catch {
+        const padding = new Proxy(
+          {},
+          {
+            get() {
+              return [];
+            },
+          }
+        );
+        return { padding } as any;
+      }
     }
     // if a shorthand exists, return it (typed via SjShApi)
     if (propKey in sh) {

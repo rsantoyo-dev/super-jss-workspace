@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   SjDirective,
@@ -8,6 +8,8 @@ import {
   SjRootApi,
 } from 'super-jss';
 import { SectionContainerComponent } from './section-container.component';
+import { DemoItemComponent } from './demo-item.component';
+import { SjThemeService } from 'super-jss';
 
 @Component({
   selector: 'app-demo-element-options',
@@ -16,6 +18,7 @@ import { SectionContainerComponent } from './section-container.component';
     CommonModule,
     SectionContainerComponent,
     ...SJ_BASE_COMPONENTS_IMPORTS,
+    DemoItemComponent,
   ],
   template: `
     <app-section title="SjRootApi Showcase">
@@ -40,14 +43,7 @@ import { SectionContainerComponent } from './section-container.component';
           Tokens, responsive objects, and pseudo‑selectors — inline.
         </sj-typography>
 
-        <div
-          [sj]="[
-            sj.d('flex'),
-            sj.fxDir('row'),
-            sj.gap(0.5),
-            sj.mt(0.5)
-          ]"
-        >
+        <div [sj]="[sj.d('flex'), sj.fxDir('row'), sj.gap(0.5), sj.mt(0.5)]">
           <a
             href="https://sjss.netlify.app/"
             target="_blank"
@@ -56,9 +52,10 @@ import { SectionContainerComponent } from './section-container.component';
               sj.c(sj.palette.primary.contrast),
               sj.opacity(0.95),
               sj.textDecoration('none'),
-              sj.hover([ sj.textDecoration('underline'), sj.opacity(1) ])
+              sj.hover([sj.textDecoration('underline'), sj.opacity(1)])
             ]"
-          >Docs</a>
+            >Docs</a
+          >
           <a
             href="https://www.npmjs.com/package/super-jss"
             target="_blank"
@@ -67,9 +64,10 @@ import { SectionContainerComponent } from './section-container.component';
               sj.c(sj.palette.primary.contrast),
               sj.opacity(0.95),
               sj.textDecoration('none'),
-              sj.hover([ sj.textDecoration('underline'), sj.opacity(1) ])
+              sj.hover([sj.textDecoration('underline'), sj.opacity(1)])
             ]"
-          >npm</a>
+            >npm</a
+          >
         </div>
       </div>
 
@@ -129,7 +127,7 @@ import { SectionContainerComponent } from './section-container.component';
             sj.bg(sj.palette.primary.main),
             sj.c(sj.palette.primary.contrast),
             sj.brad(0.5),
-            sj.p({ xs: 0.5, md: 0.75 }),
+            sj.p(sj.padding.options.default),
             sj.fontWeight(600),
             sj.cursor('pointer'),
             sj.border('none'),
@@ -146,11 +144,87 @@ import { SectionContainerComponent } from './section-container.component';
           Primary outline from TS (typed SjStyle[])
         </div>
       </div>
+
+      <!-- Element options demo (discoverable .options on common props) -->
+      <app-demo-item
+        title="Element options"
+        subtitle="display, flexDirection, justifyContent, alignItems"
+        [titleColor]="'primary'"
+        [code]="elementOptionsCode"
+      >
+        <div
+          [sj]="[
+            sj.d(sj.display.options.flex),
+            sj.fxDir(sj.flexDirection.options.row),
+            sj.fxJustify(sj.justifyContent.options.spaceBetween),
+            sj.fxAItems(sj.alignItems.options.center),
+            sj.gap({ xs: 0.5, md: 1 }),
+            sj.p(0.5),
+            sj.brad(0.5),
+            sj.bg(sj.palette.light.main)
+          ]"
+        >
+          <sj-typography variant="small" [sj]="sj.m(0)">Left</sj-typography>
+          <sj-typography variant="small" [sj]="sj.m(0)">Center</sj-typography>
+          <sj-typography variant="small" [sj]="sj.m(0)">Right</sj-typography>
+        </div>
+      </app-demo-item>
+
+      <!-- Padding presets gallery (1–12) -->
+      <app-demo-item
+        title="Padding presets gallery"
+        subtitle="1–12 designed spacings via surfacesPresets.padding"
+        [titleColor]="'primary'"
+      >
+        <div
+          [sj]="[
+            sj.mt(0.5),
+            sj.d('grid'),
+            sj.gap({ xs: 0.5, md: 1 }),
+            sj.gridTemplateColumns({ xs: '1fr', md: 'repeat(3, 1fr)' })
+          ]"
+        >
+          @for (id of [1,2,3,4,5,6,7,8,9,10,11,12]; track id) {
+          <div
+            [sj]="
+              (paddingPresets[id] || []).concat([
+                sj.bg(sj.palette.light.main),
+                sj.c(sj.palette.dark.main),
+                sj.brad(0.5),
+                sj.borderStyle(sj.borderStyle.options.solid),
+                sj.borderWidth(0.05),
+                sj.borderColor('neutral.light')
+              ])
+            "
+          >
+            <sj-typography variant="small" [sj]="sj.m(0)"
+              >Preset {{ id }}</sj-typography
+            >
+            <sj-typography variant="small" [sj]="sj.m(0)">
+              Sample text showing padding shape.
+            </sj-typography>
+          </div>
+          }
+        </div>
+      </app-demo-item>
     </app-section>
   `,
 })
 export class DemoElementOptionsComponent {
   readonly sj: SjRootApi = sj;
+  readonly theme = inject(SjThemeService);
+
+  // Code snippets shown in DemoItem
+  elementOptionsCode = `
+<div [sj]="[
+  sj.d(sj.display.options.flex),
+  sj.fxDir(sj.flexDirection.options.row),
+  sj.fxJustify(sj.justifyContent.options.spaceBetween),
+  sj.fxAItems(sj.alignItems.options.center),
+  sj.gap({ xs: 0.5, md: 1 }),
+  sj.p(0.5),
+  sj.brad(0.5)
+]"></div>`;
 
   // Single typed SjStyle[] example (built via sjRootApi functions only)
   primaryOutlineStyles(): SjStyle[] {
@@ -163,5 +237,11 @@ export class DemoElementOptionsComponent {
       this.sj.bg(this.sj.palette.light.light),
       this.sj.c(this.sj.palette.dark.main),
     ];
+  }
+
+  // Minimal getter to access padding presets without template casts
+  get paddingPresets(): Record<number, SjStyle[]> {
+    const p = this.theme.sjTheme().components.surfacesPresets?.padding ?? {};
+    return p as unknown as Record<number, SjStyle[]>;
   }
 }

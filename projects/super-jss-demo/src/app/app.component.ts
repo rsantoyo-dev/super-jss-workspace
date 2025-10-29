@@ -57,7 +57,14 @@ import { DemoElementOptionsComponent } from './components/demo-element-options.c
         <app-sidenav [sj]="[sj.h('100%')]"></app-sidenav>
         }
 
-        <sj-paper variant="filled" [sj]="[sj.minH('100vh')]">
+        <sj-paper
+          variant="filled"
+          [sj]="[
+            sj.minH('100vh'),
+            sj.display('flex'),
+            sj.justifyContent('center')
+          ]"
+        >
           <router-outlet></router-outlet>
         </sj-paper>
 

@@ -9,6 +9,7 @@ import { PerfBenchmarkComponent } from './components/perf-benchmark.component';
 import { HeroComponent } from './components/hero.component';
 import { DemoInputsComponent } from './components/demo-inputs.component';
 import { DemoElementOptionsComponent } from './components/demo-element-options.component';
+import { DemoPaddingComponent } from './components/demo-padding.component';
 
 export const routes: Routes = [
   { path: 'hero', component: HeroComponent },
@@ -20,6 +21,7 @@ export const routes: Routes = [
   { path: 'inputs', component: DemoInputsComponent },
   { path: 'palette', component: PaletteComponent },
   { path: 'element-options', component: DemoElementOptionsComponent },
+  { path: 'padding', component: DemoPaddingComponent },
   { path: 'perf', component: PerfBenchmarkComponent },
   { path: 'home', component: DemoPaperComponent },
   { path: '', redirectTo: 'paper', pathMatch: 'full' },
