@@ -17,6 +17,7 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 
 - Docs: https://sjss.netlify.app/
 - StackBlitz — sjRootApi: https://stackblitz.com/edit/stackblitz-starters-lgwyvmd2?file=src%2Fmain.ts
+- StackBlitz — Padding & Flex: https://stackblitz.com/edit/stackblitz-starters-wkjbpaq7?file=src%2Fmain.ts
 - Demo: https://sjssdemo.netlify.app/
 - GitHub: https://github.com/rsantoyo-dev/super-jss-workspace
 - Storybook: https://sjss-storybook.netlify.app/
@@ -147,6 +148,28 @@ sj.position.options;        // { static, relative, absolute, fixed, sticky }
 sj.palette.primary.main;
 sj.breakpoints.md;
 ```
+
+## Live examples (StackBlitz)
+
+Note: Some Markdown renderers (e.g., GitHub) may strip iframes. If you don’t see the embeds below, use the direct links above.
+
+<!-- Padding & Flex example -->
+<iframe
+  src="https://stackblitz.com/edit/stackblitz-starters-wkjbpaq7?embed=1&file=src%2Fmain.ts&hideExplorer=1&hideNavigation=1&view=preview"
+  title="SJSS • Padding & Flex"
+  style="width:100%; height:520px; border:0; border-radius:8px; overflow:hidden;"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; clipboard-write"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+<!-- sjRootApi example -->
+<iframe
+  src="https://stackblitz.com/edit/stackblitz-starters-lgwyvmd2?embed=1&file=src/main.ts&hideExplorer=1&hideNavigation=1&view=preview"
+  title="SJSS • sjRootApi"
+  style="width:100%; height:520px; border:0; border-radius:8px; overflow:hidden;"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; clipboard-write"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
 
 ## Components and blueprints
 

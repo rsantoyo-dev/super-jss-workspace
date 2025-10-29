@@ -12,7 +12,11 @@ import { SectionContainerComponent } from './section-container.component';
     ...SJ_BASE_COMPONENTS_IMPORTS,
   ],
   template: `
-    <app-section title="Padding System">
+    <app-section title="Padding System"
+      ><sj-typography variant="small" [sj]="sj.c('neutral.dark')">
+        demoing sj-paper, sj-flex, sj-typography padding options and sj
+        directive
+      </sj-typography>
       <sj-typography variant="p" [sj]="sj.c('neutral.dark')">
         There are different needs when it comes to spacing inside components.
         Super-JSS provides multiple ways to handle padding, from simple

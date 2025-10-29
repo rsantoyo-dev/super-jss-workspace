@@ -1,9 +1,9 @@
-import type { ReactNode } from 'react';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Layout from '@theme/Layout';
-import Heading from '@theme/Heading';
-import styles from './index.module.css';
+import type { ReactNode } from "react";
+import Link from "@docusaurus/Link";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import Layout from "@theme/Layout";
+import Heading from "@theme/Heading";
+import styles from "./index.module.css";
 
 function Hero() {
   const { siteConfig } = useDocusaurusContext();
@@ -63,12 +63,34 @@ function LivePlayground() {
     <section className={styles.playground}>
       <div className="container">
         <Heading as="h2">Try it</Heading>
+        <p>Live StackBlitz demo of the sj Padding System</p>
+        <div className={styles.embedWrap}>
+          <iframe
+            src="https://stackblitz.com/edit/stackblitz-starters-wkjbpaq7?embed=1&file=src%2Fmain.ts&hideExplorer=1&hideNavigation=1&view=preview"
+            title="SJSS • sjPaddingSystem"
+            style={{
+              width: "100%",
+              height: 520,
+              border: 0,
+              borderRadius: 8,
+              overflow: "hidden",
+            }}
+            allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; clipboard-write"
+            sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+          />
+        </div>
         <p>Live StackBlitz demo of the sj root API:</p>
         <div className={styles.embedWrap}>
           <iframe
             src="https://stackblitz.com/edit/stackblitz-starters-lgwyvmd2?embed=1&file=src/main.ts&hideExplorer=1&hideNavigation=1&view=preview"
             title="SJSS • sjRootApi"
-            style={{ width: '100%', height: 520, border: 0, borderRadius: 8, overflow: 'hidden' }}
+            style={{
+              width: "100%",
+              height: 520,
+              border: 0,
+              borderRadius: 8,
+              overflow: "hidden",
+            }}
             allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; clipboard-write"
             sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
           />
@@ -81,7 +103,10 @@ function LivePlayground() {
 export default function Home(): ReactNode {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout title={`${siteConfig.title}`} description="Atomic CSS‑in‑JS for Angular 20">
+    <Layout
+      title={`${siteConfig.title}`}
+      description="Atomic CSS‑in‑JS for Angular 20"
+    >
       <Hero />
       <main>
         <Install />

@@ -11,6 +11,11 @@ SJSS brings Tailwind’s speed and MUI’s theming — natively in Angular 20.<
   <a href="https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace?file=projects/super-jss-demo/src/app/app.component.ts" class="md-button">⚡ Try on StackBlitz</a>
 </p>
 
+<p>
+  <a href="https://stackblitz.com/edit/stackblitz-starters-wkjbpaq7?file=src%2Fmain.ts" class="md-button">🧪 Padding & Flex Live Example</a>
+  <!-- Simple focused sandbox showing numbers vs density tokens and sj-flex usage -->
+</p>
+
 </div>
 
 # Super JSS — Atomic CSS‑in‑JS for Angular 20
@@ -31,6 +36,7 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 
 - Documentation: <https://sjss.dev>
 - Demo & lib workspace (StackBlitz): <https://stackblitz.com/~/github.com/rsantoyo-dev/super-jss-workspace?file=projects/super-jss-demo/src/app/app.component.ts>
+- Padding & Flex example (StackBlitz): <https://stackblitz.com/edit/stackblitz-starters-wkjbpaq7?file=src%2Fmain.ts>
 - GitHub repository: <https://github.com/rsantoyo-dev/super-jss-workspace>
 - Deployed demo: <https://sjssdemo.netlify.app/>
 - Storybook: <https://sjss-storybook.netlify.app/>
@@ -204,6 +210,21 @@ sj.sjCard.elevated();        // elevated
   ]"
 ></div>
 ```
+
+## Live example — Padding, sj-flex and tokens
+
+The following embedded StackBlitz shows the spacing hierarchy in action:
+
+- Numbers use the spacing system (e.g., `sj.p(2)` → `2rem`).
+- Density tokens apply responsive values (e.g., `sj.p(sj.padding.options.default)`).
+- `sj-flex` demonstrates quick layout and gap usage with tokens.
+
+<iframe src="https://stackblitz.com/edit/stackblitz-starters-wkjbpaq7?embed=1&file=src/main.ts&hideExplorer=1&hideNavigation=1&theme=light&view=preview"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="SJSS Padding & Flex Example"
+  allow="accelerometer; ambient-light-sensor; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts">
+</iframe>
 
 ## FAQ
 
