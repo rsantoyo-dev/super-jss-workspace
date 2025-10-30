@@ -39,7 +39,10 @@ import { SjFlexComponent } from 'super-jss';
         sj.overflowX('hidden')
       ]"
     >
-      <app-header (menuClick)="toggleSidenav()"></app-header>
+      <app-header
+        (menuClick)="toggleSidenav()"
+        [showMobileMenu]="showSidenav()"
+      ></app-header>
 
       <sj-paper
         variant="flat"
@@ -56,54 +59,69 @@ import { SjFlexComponent } from 'super-jss';
         <app-sidenav [sj]="[sj.h('100%')]"></app-sidenav>
         }
 
-        <sj-paper
-          [sj]="[
-            sj.minH('auto'),
-            sj.display('block')
-          ]"
-        >
+        <sj-paper [sj]="[sj.minH('auto'), sj.display('block')]">
           <router-outlet></router-outlet>
         </sj-paper>
-
-        @if (!theme.isDesktop()) { @if (showSidenav()) {
-          <!-- Fullscreen overlay above header and content to capture outside clicks -->
-          <sj-button
-            [sj]="[
-              sj.position(sj.position.options.fixed),
-              sj.inset(0),
-              sj.zIndex(2000),
-              sj.bg('transparent')
-            ]"
-            (click)="closeSidenav()"
-          ></sj-button>
-        <!-- Drawer panel (render only when open to avoid FOUC) -->
-          <sj-flex
-            [sj]="[
-              sj.position(sj.position.options.fixed),
-              sj.top(0),
-              sj.left(0),
-              sj.height('100%'),
-              sj.width({ xs: '80%', sm: '320px' }),
-              sj.backgroundColor(sj.palette.light.light),
-              sj.boxShadow('0 8px 24px rgba(0,0,0,0.2)'),
-              sj.zIndex(3000),
-              sj.padding(0.5),
-              sj.transition('transform 0.2s ease-out')
-            ]"
-          >
-          <sj-flex
-            [sj]="[
-              sj.fxAItems(sj.fxAItems.options.center),
-              sj.justifyContent(sj.justifyContent.options.spaceBetween)
-            ]"
-          >
-            <sj-typography variant="strong" [sj]="[]">Menu</sj-typography>
-            <sj-button (click)="closeSidenav()">✕</sj-button>
-          </sj-flex>
-          <app-sidenav (navigate)="closeSidenav()"></app-sidenav>
-        </sj-flex>
-        } }
       </sj-paper>
+
+      <!-- Mobile menu overlay - always present but controlled by CSS -->
+      <div
+        class="mobile-overlay"
+        [sj]="[
+          sj.position('fixed'),
+          sj.top(0),
+          sj.left(0),
+          sj.width('100vw'),
+          sj.height('100vh'),
+          sj.zIndex(9998),
+          sj.bg('rgba(0,0,0,0.5)'),
+          sj.cursor('pointer'),
+          sj.d(!theme.isDesktop() && showSidenav() ? 'block' : 'none')
+        ]"
+        (click)="closeSidenav()"
+      ></div>
+      <!-- Drawer panel - always present but controlled by CSS -->
+      <sj-flex
+        class="mobile-drawer"
+        [sj]="[
+          sj.position('fixed'),
+          sj.top(0),
+          sj.left(0),
+          sj.height('100vh'),
+          sj.width({ xs: '280px', sm: '320px' }),
+          sj.backgroundColor('light.light'),
+          sj.boxShadow('0 8px 24px rgba(0,0,0,0.2)'),
+          sj.zIndex(9999),
+          sj.padding(0.5),
+          sj.transition('transform 0.3s ease-out'),
+          sj.transform(
+            !theme.isDesktop() && showSidenav()
+              ? 'translateX(0)'
+              : 'translateX(-100%)'
+          ),
+          sj.d(!theme.isDesktop() ? 'block' : 'none')
+        ]"
+      >
+        <sj-flex
+          [sj]="[
+            sj.fxAItems('center'),
+            sj.justifyContent('space-between'),
+            sj.mb(1)
+          ]"
+        >
+          <sj-typography variant="strong" [sj]="[sj.c('primary.main')]"
+            >Menu</sj-typography
+          >
+          <sj-button
+            variant="outlined"
+            (click)="closeSidenav()"
+            [sj]="[sj.p(0.25), sj.brad(0.25)]"
+          >
+            ✕
+          </sj-button>
+        </sj-flex>
+        <app-sidenav (navigate)="closeSidenav()"></app-sidenav>
+      </sj-flex>
     </sj-paper>
   `,
 })
@@ -125,7 +143,14 @@ export class AppComponent {
     // Auto-close drawer when entering desktop
     effect(() => {
       const isDesktop = this.theme.isDesktop();
+      console.log(
+        'Desktop check:',
+        isDesktop,
+        'sidenav state:',
+        this.showSidenav()
+      );
       if (isDesktop && this.showSidenav()) {
+        console.log('Auto-closing sidenav due to desktop mode');
         this.showSidenav.set(false);
       }
       return isDesktop;
@@ -151,9 +176,13 @@ export class AppComponent {
     this.showSidenav.set(true);
   }
   closeSidenav() {
+    console.log('Closing sidenav, current state:', this.showSidenav());
     this.showSidenav.set(false);
+    console.log('After close, state:', this.showSidenav());
   }
   toggleSidenav() {
+    console.log('Toggling sidenav, current state:', this.showSidenav());
     this.showSidenav.set(!this.showSidenav());
+    console.log('After toggle, state:', this.showSidenav());
   }
 }

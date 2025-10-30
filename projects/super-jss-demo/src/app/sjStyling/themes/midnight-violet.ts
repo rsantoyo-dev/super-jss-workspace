@@ -1,4 +1,11 @@
-import { SjTheme, SjPalette, SjTypography, SjBreakPoints } from 'super-jss';
+import {
+  SjTheme,
+  SjPalette,
+  SjTypography,
+  SjBreakPoints,
+  DEFAULT_SPACING,
+  SYSTEMIC_SPACING,
+} from 'super-jss';
 
 const primary = {
   main: '#6A1B9A', // deep violet
@@ -81,7 +88,25 @@ const breakpoints: SjBreakPoints = {
   xxl: 2560,
 };
 
-const spacing = (factor: number): string => `${factor * 0.75}rem`;
+// Align spacing with default systemic scale (steps 1..20)
+const spacing = (factor: number): string => {
+  const n = Number(factor);
+  const rounded = Math.round(n);
+  const clamped = Math.max(1, Math.min(20, rounded));
+  if (
+    typeof window !== 'undefined' &&
+    (window as any).ngDevMode &&
+    (n !== rounded || rounded < 1 || rounded > 20)
+  ) {
+    try {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `[SJSS] theme.spacing expects integer step 1..20; received ${factor}. Using ${clamped}.`
+      );
+    } catch {}
+  }
+  return DEFAULT_SPACING(SYSTEMIC_SPACING(clamped));
+};
 
 export const midnightVioletTheme: SjTheme = {
   name: 'Midnight Violet',

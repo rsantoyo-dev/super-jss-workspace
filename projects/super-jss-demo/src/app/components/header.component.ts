@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Output, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   SjDirective,
@@ -39,7 +39,11 @@ import { ThemeSelectorComponent } from './theme-selector.component';
             variant="flat"
             (click)="menuClick.emit()"
             [sj]="[
-              sj.d({ xs: 'inline-flex', sm: 'inline-flex', md: 'none' }),
+              sj.d({
+                xs: showMobileMenu ? 'none' : 'inline-flex',
+                sm: showMobileMenu ? 'none' : 'inline-flex',
+                md: 'none'
+              }),
               sj.position('fixed'),
               sj.top('12px'),
               sj.left('12px'),
@@ -70,7 +74,10 @@ import { ThemeSelectorComponent } from './theme-selector.component';
               role="img"
               [sj]="[sj.c('primary.contrast')]"
             ></sj-icon>
-            <sj-typography variant="h4" [sj]="[sj.c('primary.contrast'), sj.m(0)]">
+            <sj-typography
+              variant="h4"
+              [sj]="[sj.c('primary.contrast'), sj.m(0)]"
+            >
               SUPER JSS
             </sj-typography>
           </a>
@@ -86,6 +93,7 @@ import { ThemeSelectorComponent } from './theme-selector.component';
 })
 export class HeaderComponent {
   @Output() menuClick = new EventEmitter<void>();
+  @Input() showMobileMenu = false;
   readonly sj: SjRootApi = sj;
   readonly icon = icon;
 

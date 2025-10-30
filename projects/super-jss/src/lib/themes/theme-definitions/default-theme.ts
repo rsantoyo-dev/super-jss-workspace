@@ -132,10 +132,10 @@ const darkPalette: SjPalette = {
     contrast: '#FFFFFF',
   },
   light: {
-    main: '#9E9E9E', // gray-500
-    light: '#BDBDBD', // gray-400
-    dark: '#757575', // gray-600
-    contrast: '#FFFFFF',
+    main: '#282828ff', // gray-500
+    light: '#070707ff', // gray-400
+    dark: '#4f4f4fff', // gray-600
+    contrast: '#ffffffff',
   },
 };
 
