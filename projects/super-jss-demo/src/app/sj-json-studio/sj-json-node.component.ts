@@ -1,6 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SjDirective, SjFlexComponent, SjButtonComponent, SjTypographyComponent, sj, SjRootApi } from 'super-jss';
+import {
+  SjDirective,
+  SjFlexComponent,
+  SjButtonComponent,
+  SjTypographyComponent,
+  sj,
+  SjRootApi,
+} from 'super-jss';
 
 export interface JsonNode {
   key: string;
@@ -34,7 +41,7 @@ export interface JsonNode {
         (node.children?.length ?? 0) > 0) {
         <sj-button
           [variant]="sj.sjButton.variants.outlined"
-          [sj]="{ px: 0.25, py: 0.1 }"
+          [sj]="{ px: 0.25, py: 0.1, brad: 0.25 }"
           (click)="toggle()"
         >
           <sj-typography
@@ -56,7 +63,31 @@ export interface JsonNode {
           >{{ node.key }}:</sj-typography
         >
 
-        @switch (node.type) { @case ('string') { @if (isHexColor(node.value)) {
+        @if (isRoot) {
+        <sj-flex [sj]="[sj.gap(0.25), sj.ml(0.5)]">
+          <sj-button
+            [variant]="sj.sjButton.variants.outlined"
+            [sj]="{ px: 0.25, py: 0.1, brad: 0.25 }"
+            (click)="addNode()"
+          >
+            <sj-typography variant="small" [sj]="{ c: sj.palette.success.main }"
+              >+</sj-typography
+            >
+          </sj-button>
+          @if (node.children && node.children.length > 0) {
+          <sj-button
+            [variant]="sj.sjButton.variants.outlined"
+            [sj]="{ px: 0.25, py: 0.1, brad: 0.25 }"
+            (click)="removeNode()"
+          >
+            <sj-typography variant="small" [sj]="{ c: sj.palette.error.main }"
+              >-</sj-typography
+            >
+          </sj-button>
+          }
+        </sj-flex>
+        } @switch (node.type) { @case ('string') { @if (isHexColor(node.value))
+        {
         <sj-typography
           variant="span"
           [sj]="[

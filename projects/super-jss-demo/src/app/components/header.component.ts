@@ -39,9 +39,11 @@ import { ThemeSelectorComponent } from './theme-selector.component';
             variant="flat"
             (click)="menuClick.emit()"
             [sj]="[
-              sj.d({ xs: 'inline-flex', sm: 'none' }),
-              sj.alignSelf('flex-start'),
-              sj.mb(0.25),
+              sj.d({ xs: 'inline-flex', sm: 'inline-flex', md: 'none' }),
+              sj.position('fixed'),
+              sj.top('12px'),
+              sj.left('12px'),
+              sj.zIndex(1100),
               sj.bg('transparent'),
               sj.c('primary.contrast')
             ]"

@@ -170,10 +170,10 @@ import { SjThemeService } from 'super-jss';
         </div>
       </app-demo-item>
 
-      <!-- Padding presets gallery (1–12) -->
+      <!-- Padding densities (1–4) -->
       <app-demo-item
-        title="Padding presets gallery"
-        subtitle="1–12 designed spacings via surfacesPresets.padding"
+        title="Padding densities (1–4)"
+        subtitle="compact, default, comfortable, spacious"
         [titleColor]="'primary'"
       >
         <div
@@ -181,28 +181,22 @@ import { SjThemeService } from 'super-jss';
             sj.mt(0.5),
             sj.d('grid'),
             sj.gap({ xs: 0.5, md: 1 }),
-            sj.gridTemplateColumns({ xs: '1fr', md: 'repeat(3, 1fr)' })
+            sj.gridTemplateColumns({ xs: '1fr', md: 'repeat(4, 1fr)' })
           ]"
         >
-          @for (id of [1,2,3,4,5,6,7,8,9,10,11,12]; track id) {
+          @for (id of [1,2,3,4]; track id) {
           <div
-            [sj]="
-              (paddingPresets[id] || []).concat([
-                sj.bg(sj.palette.light.main),
-                sj.c(sj.palette.dark.main),
-                sj.brad(0.5),
-                sj.borderStyle(sj.borderStyle.options.solid),
-                sj.borderWidth(0.05),
-                sj.borderColor('neutral.light')
-              ])
-            "
+            [sj]="[
+              sj.padding(densityOption(id)),
+              sj.bg(sj.palette.light.main),
+              sj.c(sj.palette.dark.main),
+              sj.brad(0.5),
+              sj.borderStyle(sj.borderStyle.options.solid),
+              sj.borderWidth(0.05),
+              sj.borderColor('neutral.light')
+            ]"
           >
-            <sj-typography variant="small" [sj]="sj.m(0)"
-              >Preset {{ id }}</sj-typography
-            >
-            <sj-typography variant="small" [sj]="sj.m(0)">
-              Sample text showing padding shape.
-            </sj-typography>
+            <sj-typography variant="small" [sj]="sj.m(0)">Density {{ id }}</sj-typography>
           </div>
           }
         </div>
@@ -239,9 +233,18 @@ export class DemoElementOptionsComponent {
     ];
   }
 
-  // Minimal getter to access padding presets without template casts
-  get paddingPresets(): Record<number, SjStyle[]> {
-    const p = this.theme.sjTheme().components.surfacesPresets?.padding ?? {};
-    return p as unknown as Record<number, SjStyle[]>;
+  densityOption(id: number): any {
+    switch (id) {
+      case 1:
+        return this.sj.padding.options.compact;
+      case 2:
+        return this.sj.padding.options.default;
+      case 3:
+        return this.sj.padding.options.comfortable;
+      case 4:
+      default:
+        return this.sj.padding.options.spacious;
+    }
   }
+
 }

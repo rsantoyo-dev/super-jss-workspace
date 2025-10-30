@@ -1,5 +1,6 @@
 import * as CSS from 'csstype';
 import { sjActiveThemeService } from '../services/sj-theme.service';
+import { SYSTEMIC_SPACING } from '../themes/shared-options/spacing';
 import {
   ResponsiveStyle,
   SjShorthandCustomStyle,
@@ -126,7 +127,6 @@ type ReservedRootKeys =
   | 'active'
   | 'disabled'
   | 'theme'
-  | 'presets'
   | 'palette'
   | 'breakpoints'
   | 'sjBox'
@@ -185,12 +185,8 @@ export type SjApi = {
   // Minimal root registries
   palette: typeof SjPaletteTokens;
   breakpoints: typeof SjBreakpointTokens;
-  // Optional runtime theme-driven presets (designer-friendly alias)
-  presets: {
-    // Designer-friendly: always present at type-level; runtime fills from theme
-    // and returns [] for unknown keys via a Proxy.
-    padding: { [key: number]: SjStyle[] };
-  };
+  // Spacing scale helper (1..20) → numeric factor used by theme.spacing
+  space: (n: number) => number;
 };
 
 // Unified root API type: expose css functions and shorthands at root for autocomplete
@@ -578,6 +574,7 @@ const sjBase: SjApi = {
 
   palette: SjPaletteTokens,
   breakpoints: SjBreakpointTokens,
+  space: (n: number) => SYSTEMIC_SPACING(n),
 } as SjApi;
 
 // -------- Layout families: sj.flex.*, sj.grid.* --------
@@ -756,31 +753,6 @@ const sjProxy: SjRootApi = new Proxy(sjBase as any, {
         return sjActiveThemeService ? sjActiveThemeService.sjTheme() : undefined;
       } catch {
         return undefined;
-      }
-    }
-    // Designer-friendly alias: sj.presets -> theme.components.surfacesPresets
-    if (propKey === 'presets') {
-      try {
-        const t = sjActiveThemeService?.sjTheme();
-        const sp = (t as any)?.components?.surfacesPresets ?? {};
-        const paddingSrc = (sp as any).padding ?? {};
-        const padding = new Proxy(paddingSrc, {
-          get(target: any, k: PropertyKey) {
-            if (k in target) return target[k];
-            return [];
-          },
-        });
-        return { padding } as any;
-      } catch {
-        const padding = new Proxy(
-          {},
-          {
-            get() {
-              return [];
-            },
-          }
-        );
-        return { padding } as any;
       }
     }
     // if a shorthand exists, return it (typed via SjShApi)

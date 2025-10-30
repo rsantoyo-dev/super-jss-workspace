@@ -18,21 +18,23 @@ import {
     ...SJ_BASE_COMPONENTS_IMPORTS,
   ],
   template: `
-    <sj-card
+    <sj-paper
       host
-      usePadding="default"
+      usePadding="compact"
       [sj]="[sj.h(sj.height.options.auto), sj.backgroundColor('light.light')]"
     >
       <sj-flex
         useCol
-        useGap
-        usePadding
-        [sj]="sj.py(sj.padding.options.spacious)"
+        useGap="compact"
+        usePadding="compact"
+        useFullWidth
+        [sj]="sj.py(sj.padding.options.compact)"
       >
         @for (item of menu; track item.route) {
         <sj-button
+          [useDensity]="1"
           [useFullWidth]="true"
-          [variant]="'outlined'"
+          [variant]="'default'"
           [usePaint]="'primary'"
           [routerLink]="item.route"
           routerLinkActive="active"
@@ -45,7 +47,7 @@ import {
         </sj-button>
         }
       </sj-flex>
-    </sj-card>
+    </sj-paper>
   `,
 })
 export class SidenavComponent {
@@ -53,13 +55,14 @@ export class SidenavComponent {
   menu = [
     { label: 'Home', route: '/home' },
     { label: 'Typography', route: '/typography' },
+    { label: 'Spacing', route: '/spacing' },
+    { label: 'Padding', route: '/padding' },
+    { label: 'Palette', route: '/palette' },
     { label: 'Buttons', route: '/buttons' },
     { label: 'Inputs', route: '/inputs' },
     { label: 'Paper', route: '/paper' },
     { label: 'Cards', route: '/cards' },
-    { label: 'Palette', route: '/palette' },
     { label: 'Theming', route: '/theming' },
-    { label: 'Padding', route: '/padding' },
   ];
   @Output() navigate = new EventEmitter<void>();
 }

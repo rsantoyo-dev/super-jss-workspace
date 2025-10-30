@@ -52,6 +52,28 @@ export class SjTypographyComponent implements AfterContentInit, OnChanges {
   @Input() noWrap: boolean = false;
   @Input() gutterBottom: boolean = false;
   @Input() paragraph: boolean = false;
+  // Typography weight override: token | numeric | responsive
+  @Input() useWeight:
+    | number
+    | 'thin'
+    | 'extraLight'
+    | 'light'
+    | 'regular'
+    | 'medium'
+    | 'semiBold'
+    | 'bold'
+    | 'extraBold'
+    | 'black'
+    | 'default'
+    | {
+        xs?: number | string;
+        sm?: number | string;
+        md?: number | string;
+        lg?: number | string;
+        xl?: number | string;
+        xxl?: number | string;
+      }
+    | undefined;
   @Input() sj: SjInput | undefined;
 
   private sjTypographyApi = computed(() =>
@@ -226,6 +248,64 @@ export class SjTypographyComponent implements AfterContentInit, OnChanges {
     // Add typography-specific overrides
     const typographyOverrides: Partial<SjStyle> = {};
 
+    // Map useWeight tokens/numbers/responsive to fontWeight
+    const mapWeightToken = (v: string): number | undefined => {
+      const key = String(v).toLowerCase();
+      const map: Record<string, number | undefined> = {
+        thin: 100,
+        extralight: 200,
+        'extra-light': 200,
+        light: 300,
+        regular: 400,
+        normal: 400,
+        medium: 500,
+        semibold: 600,
+        'semi-bold': 600,
+        bold: 700,
+        extrabold: 800,
+        'extra-bold': 800,
+        black: 900,
+        default: undefined,
+      };
+      if (!Number.isNaN(Number(key)) && key.trim() !== '') {
+        const n = Number(key);
+        if (Number.isFinite(n)) return n;
+      }
+      return map[key];
+    };
+
+    const resolveWeight = (
+      v:
+        | number
+        | string
+        | { [k in 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl']?: number | string }
+        | undefined
+    ): any => {
+      if (v == null) return undefined;
+      if (typeof v === 'number') return v;
+      if (typeof v === 'string') {
+        const mapped = mapWeightToken(v);
+        return mapped === undefined ? undefined : mapped;
+      }
+      // responsive object
+      const out: any = {};
+      for (const bp of ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'] as const) {
+        const raw = (v as any)[bp];
+        if (raw === undefined) continue;
+        if (typeof raw === 'number') out[bp] = raw;
+        else {
+          const mapped = mapWeightToken(String(raw));
+          if (mapped !== undefined) out[bp] = mapped;
+        }
+      }
+      return Object.keys(out).length ? out : undefined;
+    };
+
+    const weight = resolveWeight(this.useWeight as any);
+    if (weight !== undefined) {
+      (typographyOverrides as any).fontWeight = weight as any;
+    }
+
     if (this.align) {
       typographyOverrides.textAlign = this.align;
     }
@@ -275,12 +355,12 @@ export class SjTypographyComponent implements AfterContentInit, OnChanges {
       ? this.cssGenerator.getOrGenerateClassBundle(
           styles,
           theme,
-          this.themeService.themeVersion()
+          this.themeService.cacheVersion()
         )
       : this.cssGenerator.getOrGenerateClasses(
           styles,
           theme,
-          this.themeService.themeVersion()
+          this.themeService.cacheVersion()
         );
     const canonical =
       Array.isArray(classes) && classes.length ? classes[0] : null;

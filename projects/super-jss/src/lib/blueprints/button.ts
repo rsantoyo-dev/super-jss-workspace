@@ -28,7 +28,8 @@ const sjButtonBase = (): SjStyle => ({
   padding: { xs: 0.25, md: 0.5, xl: 0.75 },
   borderRadius: 0.5,
   borderStyle: 'solid',
-  borderWidth: 0.1,
+  // 1px borders by default
+  borderWidth: 0.0625,
   borderColor: 'transparent',
   textDecoration: 'none',
   cursor: 'pointer',

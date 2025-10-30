@@ -64,19 +64,22 @@ interface ThemeMeta {
             [variant]="'caption'"
             [sj]="[sj.c(sj.palette.primary.light)]"
           >
-            Font: <span [sj]="[sj.c(sj.palette.primary.contrast)]">{{ fontFamilyDisplay() }}</span>
+            Font:
+            <span [sj]="[sj.c(sj.palette.primary.contrast)]">{{
+              fontFamilyDisplay()
+            }}</span>
           </sj-typography>
         </sj-flex>
 
         <sj-flex
           useGap="compact"
-          useRounded="default"
+          useRounded="compact"
           [sj]="[sj.flexDirection('row')]"
         >
           @for (theme of libraryThemes; track theme.name){ @if (theme.isDark) {
           <sj-button
-            [useDensity]="2"
-            useRounded="default"
+            [useDensity]="1"
+            useRounded="compact"
             [variant]="'contained'"
             [sj]="{ bg: theme.theme.palette?.primary?.dark }"
             (mouseenter)="onHover(theme.name)"
@@ -94,7 +97,7 @@ interface ThemeMeta {
 
           } @else {
           <sj-button
-            [useDensity]="2"
+            [useDensity]="1"
             [variant]="'contained'"
             [sj]="{ bg: theme.theme.palette?.primary?.light }"
             (mouseenter)="onHover(theme.name)"
@@ -112,7 +115,7 @@ interface ThemeMeta {
           <sj-flex [sj]="{ bg: sj.palette.primary.main, p: 0.1 }"></sj-flex>
           @for (theme of customThemes; track theme.name){ @if (theme.isDark) {
           <sj-button
-            [useDensity]="2"
+            [useDensity]="1"
             [variant]="'contained'"
             [sj]="{ bg: theme.theme.palette?.primary?.dark }"
             (mouseenter)="onHover(theme.name)"
@@ -131,7 +134,7 @@ interface ThemeMeta {
 
           } @else {
           <sj-button
-            [useDensity]="2"
+            [useDensity]="1"
             [variant]="'contained'"
             [sj]="{ bg: theme.theme.palette?.primary?.light }"
             (mouseenter)="onHover(theme.name)"
@@ -168,7 +171,8 @@ export class ThemeSelectorComponent {
     'xxl',
   ];
   fontFamilyDisplay = computed(() => {
-    const ff: any = (this.theme.sjTheme().typography as any)?.default?.fontFamily;
+    const ff: any = (this.theme.sjTheme().typography as any)?.default
+      ?.fontFamily;
     if (!ff) return '';
     // If it's an array, show only the first family as the primary intended font
     let raw = Array.isArray(ff) ? ff[0] : String(ff);

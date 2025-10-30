@@ -1,7 +1,7 @@
 import { SjPalette, SjTheme } from '../../models/interfaces';
 import { DEFAULT_BREAKPOINTS } from '../shared-options/breakpoints';
 import { DEFAULT_COLORS } from '../shared-options/colors';
-import { DEFAULT_SPACING } from '../shared-options/spacing';
+import { DEFAULT_SPACING, SYSTEMIC_SPACING } from '../shared-options/spacing';
 import { DEFAULT_TYPOGRAPHY } from '../shared-options/typography';
 
 const lightPrimary = {
@@ -137,7 +137,25 @@ const darkPalette: SjPalette = {
 export const oceanTheme: SjTheme = {
   name: 'Ocean Light',
   breakpoints: DEFAULT_BREAKPOINTS,
-  spacing: DEFAULT_SPACING,
+  // Match default theme spacing semantics (systemic 1..20 steps)
+  spacing: (factor: number) => {
+    const n = Number(factor);
+    const rounded = Math.round(n);
+    const clamped = Math.max(1, Math.min(20, rounded));
+    if (
+      typeof window !== 'undefined' &&
+      (window as any).ngDevMode &&
+      (n !== rounded || rounded < 1 || rounded > 20)
+    ) {
+      try {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `[SJSS] theme.spacing expects integer step 1..20; received ${factor}. Using ${clamped}.`
+        );
+      } catch {}
+    }
+    return DEFAULT_SPACING(SYSTEMIC_SPACING(clamped));
+  },
   typography: DEFAULT_TYPOGRAPHY,
   colors: DEFAULT_COLORS,
   palette: lightPalette,

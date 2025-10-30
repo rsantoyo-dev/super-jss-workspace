@@ -53,6 +53,8 @@ export class SjThemeService implements OnDestroy {
     ['md', 'lg', 'xl', 'xxl'].includes(this.currentBreakpoint())
   );
 
+  private _buildSeq = 0;
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -60,12 +62,28 @@ export class SjThemeService implements OnDestroy {
   ) {
     // Apply initial typography to document
     this.applyDocumentTypography(this.sjTheme());
+    // Dev cache-busting: bump a build sequence on each service construction
+    try {
+      if (isPlatformBrowser(this.platformId)) {
+        const win = this.document.defaultView as any;
+        win.__sj_build_seq = (win.__sj_build_seq || 0) + 1;
+        this._buildSeq = Number(win.__sj_build_seq) || 0;
+        // Reset CSS cache so new bundles append cleanly after edits
+        const cssGenerator = this.injector.get(SjCssGeneratorService);
+        cssGenerator.clearCache();
+      }
+    } catch {}
     // Register this instance for global sj.theme access (internal)
     try { sjActiveThemeService = this; } catch {}
     // Only initialize resize listener in browser environment
     if (isPlatformBrowser(this.platformId)) {
       this.initResizeListener();
     }
+  }
+
+  /** Version used for CSS caching: theme version + build sequence (dev). */
+  public cacheVersion(): number {
+    return (this.themeVersion() || 0) + (this._buildSeq || 0);
   }
 
   
@@ -95,6 +113,8 @@ export class SjThemeService implements OnDestroy {
           this.windowWidth.set(w);
           const bp = getCurrentBreakpoint(this.sjTheme().breakpoints, w);
           if (bp !== this.currentBreakpoint()) {
+            // Only update the breakpoint signal; do not clear CSS or bump theme
+            // version here to avoid transient unstyled content on resize.
             this.currentBreakpoint.set(bp);
           }
         });

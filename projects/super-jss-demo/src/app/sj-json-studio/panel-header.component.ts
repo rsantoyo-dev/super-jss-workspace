@@ -1,5 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { sjButton, sjCard, SjDirective, SjStyle, sj, SjFlexComponent, SjTypographyComponent } from 'super-jss';
+import {
+  sjButton,
+  sjCard,
+  SjDirective,
+  SjStyle,
+  sj,
+  SjFlexComponent,
+  SjTypographyComponent,
+} from 'super-jss';
 
 @Component({
   selector: 'app-panel-header',
@@ -130,9 +138,15 @@ export class PanelHeaderComponent {
   left: SjStyle = { d: 'flex', gap: 0.5, fxAItems: 'center' };
   right: SjStyle = { d: 'flex', gap: 0.25, fxAItems: 'center' };
 
-  iconBtn: SjStyle = sjButton.containedSecondary({
-    bg: 'light',
-    d: 'inline-flex',
+  iconBtn: SjStyle = sjButton.outlined({
+    bg: 'light.main',
+    c: 'primary.main',
+    px: 0.5,
+    py: 0.25,
+    brad: 0.25,
+    cursor: 'pointer',
+    border: '1px solid',
+    bc: 'primary.light',
   });
 
   toggleGroup: SjStyle = { d: 'flex', gap: 0.25, ml: 0.5 } as any;
@@ -141,6 +155,13 @@ export class PanelHeaderComponent {
     return sjButton({
       bg: active ? 'secondary.main' : 'primary.light',
       c: active ? 'secondary.contrast' : 'primary.contrast',
+      px: 0.75,
+      py: 0.25,
+      brad: 0.25,
+      cursor: 'pointer',
+      border: 'none',
+      fontSize: '12px',
+      fontWeight: '500',
     });
   }
 

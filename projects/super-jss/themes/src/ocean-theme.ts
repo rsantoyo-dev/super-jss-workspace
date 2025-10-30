@@ -1,4 +1,4 @@
-import { SjPalette, SjTheme, DEFAULT_BREAKPOINTS, DEFAULT_COLORS, DEFAULT_SPACING, DEFAULT_TYPOGRAPHY } from 'super-jss';
+import { SjPalette, SjTheme, DEFAULT_BREAKPOINTS, DEFAULT_COLORS, DEFAULT_SPACING, DEFAULT_TYPOGRAPHY, SYSTEMIC_SPACING } from 'super-jss';
 
 // Derive info from primary hue (lighter tints) so it stays related
 const lightPrimary = {
@@ -134,7 +134,19 @@ const darkPalette: SjPalette = {
 export const oceanTheme: SjTheme = {
   name: 'Ocean Light',
   breakpoints: DEFAULT_BREAKPOINTS,
-  spacing: DEFAULT_SPACING,
+  // Align with default theme systemic spacing steps (1..20)
+  spacing: (factor: number) => {
+    const n = Number(factor);
+    const rounded = Math.round(n);
+    const clamped = Math.max(1, Math.min(20, rounded));
+    if (typeof window !== 'undefined' && (window as any).ngDevMode && (n !== rounded || rounded < 1 || rounded > 20)) {
+      try {
+        // eslint-disable-next-line no-console
+        console.warn(`[SJSS] theme.spacing expects integer step 1..20; received ${factor}. Using ${clamped}.`);
+      } catch {}
+    }
+    return DEFAULT_SPACING(SYSTEMIC_SPACING(clamped));
+  },
   typography: DEFAULT_TYPOGRAPHY,
   colors: DEFAULT_COLORS,
   palette: lightPalette,

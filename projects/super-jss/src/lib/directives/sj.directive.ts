@@ -147,7 +147,7 @@ export class SjDirective implements OnChanges {
     return this.cacheManager.getOrGenerateClasses(
       processedStyles,
       theme,
-      this.sjt.themeVersion(),
+      this.sjt.cacheVersion(),
       this.cssGenerator
     );
   }

@@ -68,6 +68,10 @@ import { sjCard, SjStyle } from 'super-jss';
           (update)="onNodeUpdate($event)"
           (remove)="onNodeRemove($event)"
         ></app-json-node>
+        } @else if (error()) {
+        <div [sj]="styles.error">
+          <p>{{ error() }}</p>
+        </div>
         } }
       </sj-flex>
     </sj-flex>

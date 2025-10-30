@@ -3,65 +3,61 @@ import { SjTypography } from '../../models/interfaces';
 const defaultStyle = {
   fontFamily:
     'system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-  color: 'dark.dark',
-  marginBlockStart: 'auto',
-  marginBlockEnd: 'auto',
+  // Remove UA margins; set to zero for consistent spacing control
+  marginBlockStart: '0',
+  marginBlockEnd: '0',
   marginInlineStart: 0,
   marginInlineEnd: 0,
+  color: 'inherit',
+  fontWeight: '400',
 };
 
 export const DEFAULT_TYPOGRAPHY: SjTypography = {
   default: defaultStyle,
   H1: {
-    fontSize: { xs: 2.25, sm: 2.5, md: 3, lg: 3.5, xl: 4 },
-    fontWeight: '700',
+    // Minor third scale (≈1.2) across breakpoints
+    // steps: xs: 2.488, sm/md: 2.986, lg: 3.583, xl: 4.299
+    fontSize: { xs: 2.488, sm: 2.986, md: 2.986, lg: 3.583, xl: 4.299 },
   },
   H2: {
-    fontSize: { xs: 1.875, sm: 2, md: 2.5, lg: 3, xl: 3.5 },
-    fontWeight: '600',
+    // steps: xs: 2.074, sm/md: 2.488, lg: 2.986, xl: 3.583
+    fontSize: { xs: 2.074, sm: 2.488, md: 2.488, lg: 2.986, xl: 3.583 },
   },
   H3: {
-    fontSize: { xs: 1.5, sm: 1.75, md: 2, lg: 2.25, xl: 2.5 },
-    fontWeight: '600',
+    // steps: xs: 1.728, sm/md: 2.074, lg: 2.488, xl: 2.986
+    fontSize: { xs: 1.728, sm: 2.074, md: 2.074, lg: 2.488, xl: 2.986 },
   },
   H4: {
-    fontSize: { xs: 1.25, sm: 1.375, md: 1.5, lg: 1.75, xl: 2 },
-    fontWeight: '600',
+    // steps: xs: 1.44, sm/md: 1.728, lg: 2.074, xl: 2.488
+    fontSize: { xs: 1.44, sm: 1.728, md: 1.728, lg: 2.074, xl: 2.488 },
   },
   H5: {
-    fontSize: { xs: 1.125, sm: 1.25, md: 1.375, lg: 1.5, xl: 1.75 },
-    fontWeight: '600',
+    // steps: xs: 1.2, sm/md: 1.44, lg: 1.728, xl: 2.074
+    fontSize: { xs: 1.2, sm: 1.44, md: 1.44, lg: 1.728, xl: 2.074 },
   },
   H6: {
-    fontSize: { xs: 1, sm: 1.125, md: 1.25, lg: 1.375, xl: 1.5 },
-    fontWeight: '600',
+    // steps: xs: 1, sm/md: 1.2, lg: 1.44, xl: 1.728
+    fontSize: { xs: 1, sm: 1.2, md: 1.2, lg: 1.44, xl: 1.728 },
   },
   P: {
-    fontSize: { xs: 1, md: 1.075 },
-    fontWeight: '400',
+    fontSize: { xs: 1, md: 1 },
     lineHeight: { xs: 1.35, md: 1.375 },
   },
   SPAN: {
-    fontSize: { xs: 0.875, sm: 0.9375, md: 1 },
-    fontWeight: '400',
-  },
-  STRONG: {
-    fontSize: 'inherit',
-    fontWeight: '700',
-    lineHeight: 'inherit',
+    fontSize: { xs: 1, sm: 1, md: 1 },
   },
   BODY: {
-    fontSize: { xs: 0.875, sm: 1, md: 1.125 },
-    fontWeight: '400',
+    // Align body to the minor third neighbors around 1rem
+    fontSize: { xs: 0.833, sm: 1, md: 1.2 },
   },
   CAPTION: {
-    fontSize: { xs: 0.75, sm: 0.8125, md: 0.875 },
-    fontWeight: '400',
+    // Extra-small caption size
+    fontSize: { xs: 0.694, sm: 0.694, md: 0.694 },
     opacity: 0.8,
   },
   SMALL: {
-    fontSize: { xs: 0.75, sm: 0.8125, md: 0.875 },
-    fontWeight: '400',
+    // Small text per minor third (≈0.833rem)
+    fontSize: { xs: 0.833, sm: 0.833, md: 0.833 },
   },
   PRE: {
     fontSize: { xs: 0.875, sm: 0.9375, md: 1 },

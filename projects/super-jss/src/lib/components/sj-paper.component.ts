@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { sjPaper, SjPaperApi } from '../blueprints/paper';
 import { SjStyle } from '../models/interfaces';
-import { deepMerge } from '../utils';
 import { SjPaperVariant } from '../models/variants';
 import { SjBaseComponent } from '../core/base.component';
 import { ElementRef, Renderer2 } from '@angular/core';
@@ -23,15 +22,6 @@ export class SjPaperComponent extends SjBaseComponent {
     | 2
     | 3
     | 4
-    | 5
-    | 6
-    | 7
-    | 8
-    | 9
-    | 10
-    | 11
-    | 12
-    | number
     | 'compact'
     | 'default'
     | 'comfortable'
@@ -129,12 +119,11 @@ export class SjPaperComponent extends SjBaseComponent {
 
     const theme = this.themeService.sjTheme();
     const surfaces = theme.components?.surfaces ?? {};
-    const presets = (theme.components as any)?.surfacesPresets ?? {};
-    const mapDensity = (v: any): 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined => {
+    const mapDensity = (v: any): 1 | 2 | 3 | 4 | undefined => {
       if (v === undefined || v === null || v === 'none') return undefined;
       if (v === true || v === '' || v === 'true') return 2;
       if (typeof v === 'number')
-        return Math.max(1, Math.min(12, Math.round(v))) as any;
+        return Math.max(1, Math.min(4, Math.round(v))) as any;
       const m: Record<string, 1 | 2 | 3 | 4> = {
         compact: 1,
         default: 2,
@@ -146,23 +135,8 @@ export class SjPaperComponent extends SjBaseComponent {
 
     // Handle surface-specific sugars
     const padLevel = mapDensity(this.usePadding);
-    if (padLevel) {
-      if (padLevel >= 1 && padLevel <= 4) {
-        if ((surfaces.padding as any)?.[padLevel] !== undefined) {
-          paperStyles.padding = (surfaces.padding as any)[padLevel];
-        }
-      } else {
-        const presetArr = (presets.padding as any)?.[padLevel] as SjStyle[] | undefined;
-        if (Array.isArray(presetArr)) {
-          for (const st of presetArr) {
-            try {
-              Object.assign(paperStyles, deepMerge({}, st));
-            } catch {
-              Object.assign(paperStyles, st as any);
-            }
-          }
-        }
-      }
+    if (padLevel && (surfaces.padding as any)?.[padLevel] !== undefined) {
+      paperStyles.padding = (surfaces.padding as any)[padLevel];
     }
 
     const roundedLevel = mapDensity(this.useRounded);

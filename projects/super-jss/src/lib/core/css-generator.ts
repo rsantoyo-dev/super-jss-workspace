@@ -306,6 +306,10 @@ export class CssGenerator {
     ]);
 
     if (typeof value === 'number') {
+      // Font weight: keep numeric as-is (not spacing, not rem)
+      if (key === 'fontWeight' || key === 'fw') {
+        return String(value);
+      }
       // Keep line-height unitless when numeric (CSS best practice and matches tests)
       if (key === 'lineHeight' || key === 'lh') {
         return String(value);

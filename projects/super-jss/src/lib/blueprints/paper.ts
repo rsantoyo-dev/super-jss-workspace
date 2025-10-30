@@ -17,7 +17,7 @@ const sjPaperBase = (): SjStyle => ({
 
 const borderThin: SjStyle = {
   borderStyle: 'solid',
-  borderWidth: 0.1,
+  borderWidth: 0.05, // ~0.8px hairline on common DPRs
   borderColor: 'light.dark',
 };
 

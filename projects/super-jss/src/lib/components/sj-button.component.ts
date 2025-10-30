@@ -139,7 +139,7 @@ export class SjButtonComponent {
         backgroundColor: `${color}.main`,
         color: `${color}.contrast`,
         borderStyle: 'solid',
-        borderWidth: 0.1,
+        borderWidth: 0.0625,
         borderColor: 'transparent',
         '&:hover': {
           backgroundColor: `${color}.dark`,
@@ -173,7 +173,7 @@ export class SjButtonComponent {
         backgroundColor: 'transparent',
         color: `${color}.dark`,
         borderStyle: 'solid',
-        borderWidth: 0.1,
+        borderWidth: 0.0625,
         borderColor: `${color}.main`,
         '&:hover': {
           backgroundColor: 'light.main',
@@ -204,7 +204,7 @@ export class SjButtonComponent {
       backgroundColor: 'transparent',
       color: `${color}.main`,
       borderStyle: 'solid',
-      borderWidth: 0.1,
+      borderWidth: 0.0625,
       borderColor: 'transparent',
       '&:hover': {
         backgroundColor: 'light.main',

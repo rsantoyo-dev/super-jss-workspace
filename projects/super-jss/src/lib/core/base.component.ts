@@ -206,12 +206,12 @@ export abstract class SjBaseComponent implements AfterContentInit, OnChanges {
       ? (this.cssGenerator as any).getOrGenerateClassBundle(
           styles,
           theme,
-          this.themeService.themeVersion()
+          this.themeService.cacheVersion()
         )
       : this.cssGenerator.getOrGenerateClasses(
           styles,
           theme,
-          this.themeService.themeVersion()
+          this.themeService.cacheVersion()
         );
     const canonical =
       Array.isArray(classes) && classes.length ? classes[0] : null;
@@ -237,12 +237,12 @@ export abstract class SjBaseComponent implements AfterContentInit, OnChanges {
       ? (this.cssGenerator as any).getOrGenerateClassBundle(
           styles,
           theme,
-          this.themeService.themeVersion()
+          this.themeService.cacheVersion()
         )
       : this.cssGenerator.getOrGenerateClasses(
           styles,
           theme,
-          this.themeService.themeVersion()
+          this.themeService.cacheVersion()
         );
     const canonical =
       Array.isArray(classes) && classes.length ? classes[0] : null;

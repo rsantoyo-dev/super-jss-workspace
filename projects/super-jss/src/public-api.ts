@@ -16,5 +16,6 @@ export * from './lib/utils';
 export { DEFAULT_BREAKPOINTS } from './lib/themes/shared-options/breakpoints';
 export { DEFAULT_COLORS } from './lib/themes/shared-options/colors';
 export { DEFAULT_SPACING } from './lib/themes/shared-options/spacing';
+export { SYSTEMIC_SPACING, SYSTEMIC_SPACING_STEP } from './lib/themes/shared-options/spacing';
 export { DEFAULT_TYPOGRAPHY } from './lib/themes/shared-options/typography';
 export { defaultTheme, defaultDarkTheme } from './lib/themes/theme-definitions/default-theme';

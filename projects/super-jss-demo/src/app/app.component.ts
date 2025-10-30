@@ -17,7 +17,6 @@ import { RouterOutlet } from '@angular/router';
 
 import { SidenavComponent } from './components/sidenav.component';
 import { SjFlexComponent } from 'super-jss';
-import { DemoElementOptionsComponent } from './components/demo-element-options.component';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +28,6 @@ import { DemoElementOptionsComponent } from './components/demo-element-options.c
     SjButtonComponent,
     SjFlexComponent,
     ...SJ_BASE_COMPONENTS_IMPORTS,
-    DemoElementOptionsComponent,
   ],
   template: `
     <sj-paper
@@ -37,7 +35,8 @@ import { DemoElementOptionsComponent } from './components/demo-element-options.c
       [sj]="[
         sj.fxDir(sj.fxDir.options.column),
         sj.bg(sj.palette.light.main),
-        sj.minH('100vh')
+        sj.minH('100vh'),
+        sj.overflowX('hidden')
       ]"
     >
       <app-header (menuClick)="toggleSidenav()"></app-header>
@@ -46,54 +45,52 @@ import { DemoElementOptionsComponent } from './components/demo-element-options.c
         variant="flat"
         [sj]="[
           sj.d(sj.d.options.grid),
-          sj.gridTemplateColumns({ xs: '1fr', sm: '30% 70%', md: '15% 85%' }),
-          sj.gridTemplateRows('1fr'),
+          sj.gridTemplateColumns({ xs: '1fr', md: '15% 85%' }),
+          sj.gridTemplateRows('auto'),
           sj.alignItems('stretch'),
           sj.padding(0),
           sj.gap(0)
         ]"
       >
-        @if (theme.currentBreakpoint() !== sj.breakpoints.xs){
+        @if (theme.isDesktop()){
         <app-sidenav [sj]="[sj.h('100%')]"></app-sidenav>
         }
 
         <sj-paper
-          variant="filled"
           [sj]="[
-            sj.minH('100vh'),
-            sj.display('flex'),
-            sj.justifyContent('center')
+            sj.minH('auto'),
+            sj.display('block')
           ]"
         >
           <router-outlet></router-outlet>
         </sj-paper>
 
-        @if (theme.isMobile()) { @if (showSidenav()) {
-        <sj-button
-          [sj]="[
-            sj.position(sj.position.options.fixed),
-            sj.inset(0),
-            sj.zIndex(1000)
-          ]"
-          (click)="closeSidenav()"
-        ></sj-button>
-        }
-        <!-- Drawer panel -->
-        <sj-flex
-          [sj]="[
-            sj.position(sj.position.options.fixed),
-            sj.top(0),
-            sj.left(0),
-            sj.height('100%'),
-            sj.width({ xs: '80%', sm: '320px' }),
-            sj.backgroundColor(sj.palette.light.light),
-            sj.boxShadow('0 8px 24px rgba(0,0,0,0.2)'),
-            sj.zIndex(1001),
-            sj.padding(0.5),
-            sj.transition('transform 0.2s ease-out'),
-            sj.transform(showSidenav() ? 'translateX(0)' : 'translateX(-100%)')
-          ]"
-        >
+        @if (!theme.isDesktop()) { @if (showSidenav()) {
+          <!-- Fullscreen overlay above header and content to capture outside clicks -->
+          <sj-button
+            [sj]="[
+              sj.position(sj.position.options.fixed),
+              sj.inset(0),
+              sj.zIndex(2000),
+              sj.bg('transparent')
+            ]"
+            (click)="closeSidenav()"
+          ></sj-button>
+        <!-- Drawer panel (render only when open to avoid FOUC) -->
+          <sj-flex
+            [sj]="[
+              sj.position(sj.position.options.fixed),
+              sj.top(0),
+              sj.left(0),
+              sj.height('100%'),
+              sj.width({ xs: '80%', sm: '320px' }),
+              sj.backgroundColor(sj.palette.light.light),
+              sj.boxShadow('0 8px 24px rgba(0,0,0,0.2)'),
+              sj.zIndex(3000),
+              sj.padding(0.5),
+              sj.transition('transform 0.2s ease-out')
+            ]"
+          >
           <sj-flex
             [sj]="[
               sj.fxAItems(sj.fxAItems.options.center),
@@ -105,28 +102,7 @@ import { DemoElementOptionsComponent } from './components/demo-element-options.c
           </sj-flex>
           <app-sidenav (navigate)="closeSidenav()"></app-sidenav>
         </sj-flex>
-        }
-
-        <!-- Floating burger button on mobile when sidenav is closed -->
-        @if (theme.isMobile() && !showSidenav()) {
-        <sj-button
-          variant="outlined"
-          (click)="openSidenav()"
-          [sj]="[
-            sj.position('fixed'),
-            sj.right('16px'),
-            sj.bottom('16px'),
-            sj.zIndex(900),
-            sj.brad('50%'),
-            sj.w('48px'),
-            sj.h('48px'),
-            sj.d('flex'),
-            sj.fxAItems('center'),
-            sj.fxJustify('center')
-          ]"
-          >☰</sj-button
-        >
-        }
+        } }
       </sj-paper>
     </sj-paper>
   `,
@@ -146,13 +122,13 @@ export class AppComponent {
       this.themeData = this.theme.sjTheme();
     });
 
-    // Auto-close mobile drawer when leaving xs breakpoint
+    // Auto-close drawer when entering desktop
     effect(() => {
-      const isMobile = this.theme.isMobile();
-      if (!isMobile && this.showSidenav()) {
+      const isDesktop = this.theme.isDesktop();
+      if (isDesktop && this.showSidenav()) {
         this.showSidenav.set(false);
       }
-      return isMobile;
+      return isDesktop;
     });
   }
   // Receive edits, but do not apply until user confirms

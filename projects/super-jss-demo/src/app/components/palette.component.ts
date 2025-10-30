@@ -16,8 +16,8 @@ import { DemoItemComponent } from './demo-item.component';
   template: `
     <app-section title="Palette">
       <sj-typography variant="p" [sj]="[sj.c('light.contrast')]">
-        The theme palette defines semantic colors. Each color typically includes
-        main, light, dark, and contrast variants. Toggle to view usage.
+        The theme palette defines semantic colors. Each color includes main,
+        light, dark, and contrast variants.
       </sj-typography>
 
       <div
@@ -28,17 +28,13 @@ import { DemoItemComponent } from './demo-item.component';
         ]"
       >
         @for (color of demoColors(); track color[0]) {
-        <app-demo-item
-          [title]="color[0]"
-          [titleColor]="color[0]"
-          [code]="codeForColor(color[0])"
-        >
-          <div [sj]="[sj.d('flex'), sj.fxDir({ xs: 'column' }), sj.gap(0.5)]">
+        <app-demo-item [title]="color[0]" [titleColor]="color[0]">
+          <sj-flex useCol>
             @for (colorVariant of color; track colorVariant) {
             <sj-card
               [variant]="sj.sjCard.variants.outlined"
               useRounded="default"
-              usePadding="default"
+              usePadding="compact"
               [sj]="[sj.bg(colorVariant), sj.flexGrow(1)]"
             >
               <sj-typography
@@ -55,7 +51,7 @@ import { DemoItemComponent } from './demo-item.component';
               >
             </sj-card>
             }
-          </div>
+          </sj-flex>
         </app-demo-item>
         }
       </div>
@@ -64,7 +60,6 @@ import { DemoItemComponent } from './demo-item.component';
 })
 export class PaletteComponent {
   readonly sj: SjRootApi = sj;
-  readonly outlinedCardSnippet = `<sj-card [variant]="sj.sjCard.variants.outlined">…</sj-card>`;
 
   demoColors = signal([
     ['primary', 'primary.light', 'primary.dark', 'primary.contrast'],
@@ -85,40 +80,5 @@ export class PaletteComponent {
     return `${key}.contrast`;
   }
 
-  codeForColor(colorName: string): string {
-    // Present clearly separated examples with small titles as comments and indentation
-    const bgLiteral = `<sj-card
-  variant="flat"
-  [sj]="{ bg: '${colorName}' }">…</sj-card>`;
-    const bgApiToken = `<sj-card
-  variant=\"flat\"
-  [sj]=\"sj.backgroundColor('${colorName}')\">…</sj-card>`;
-    const bgApiOptions = `<sj-card
-  variant=\"flat\"
-  [sj]=\"sj.bg(sj.bg.options.${colorName}.main || '${colorName}')\">…</sj-card>`;
-
-    const bgTextLiteral = `<sj-card
-  variant="flat"
-  [sj]="{ bg: '${colorName}', c: '${colorName}.contrast' }">…</sj-card>`;
-    const bgTextApi = `<sj-card
-  variant=\"flat\"
-  [sj]=\"sj.compose(sj.backgroundColor('${colorName}'), sj.c('${colorName}.contrast'))\">…</sj-card>`;
-
-    return [
-      `// Component + object literal (background)`,
-      bgLiteral,
-      '',
-      `// API + token string (background)`,
-      bgApiToken,
-      '',
-      `// API + options token (background)`,
-      bgApiOptions,
-      '',
-      `// Component + object literal (background + text)`,
-      bgTextLiteral,
-      '',
-      `// API + token string (background + text)`,
-      bgTextApi,
-    ].join('\n');
-  }
+  // code sample generation removed
 }
