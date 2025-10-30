@@ -1,67 +1,70 @@
 import { SjTypography } from '../../models/interfaces';
 
 const defaultStyle = {
+  // UI font family
   fontFamily:
-    'system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    'Inter, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   // Remove UA margins; set to zero for consistent spacing control
   marginBlockStart: '0',
   marginBlockEnd: '0',
   marginInlineStart: 0,
   marginInlineEnd: 0,
   color: 'inherit',
-  fontWeight: '400',
+  fontWeight: 400,
 };
 
 export const DEFAULT_TYPOGRAPHY: SjTypography = {
   default: defaultStyle,
   H1: {
-    // Minor third scale (≈1.2) across breakpoints
-    // steps: xs: 2.488, sm/md: 2.986, lg: 3.583, xl: 4.299
-    fontSize: { xs: 2.488, sm: 2.986, md: 2.986, lg: 3.583, xl: 4.299 },
+    fontFamily: '"Bricolage Grotesque", Inter, system-ui, sans-serif',
+    fontSize: { xs: '36px', sm: '40px', md: '48px', lg: '56px', xl: '64px' },
+    fontWeight: 700,
   },
   H2: {
-    // steps: xs: 2.074, sm/md: 2.488, lg: 2.986, xl: 3.583
-    fontSize: { xs: 2.074, sm: 2.488, md: 2.488, lg: 2.986, xl: 3.583 },
+    fontFamily: '"Bricolage Grotesque", Inter, system-ui, sans-serif',
+    fontSize: { xs: '30px', sm: '32px', md: '40px', lg: '48px', xl: '56px' },
+    fontWeight: 700,
   },
   H3: {
-    // steps: xs: 1.728, sm/md: 2.074, lg: 2.488, xl: 2.986
-    fontSize: { xs: 1.728, sm: 2.074, md: 2.074, lg: 2.488, xl: 2.986 },
+    fontFamily: '"Bricolage Grotesque", Inter, system-ui, sans-serif',
+    fontSize: { xs: '24px', sm: '28px', md: '32px', lg: '36px', xl: '40px' },
+    fontWeight: 600,
   },
   H4: {
-    // steps: xs: 1.44, sm/md: 1.728, lg: 2.074, xl: 2.488
-    fontSize: { xs: 1.44, sm: 1.728, md: 1.728, lg: 2.074, xl: 2.488 },
+    fontFamily: '"Bricolage Grotesque", Inter, system-ui, sans-serif',
+    fontSize: { xs: '20px', sm: '22px', md: '24px', lg: '28px', xl: '32px' },
+    fontWeight: 600,
   },
   H5: {
-    // steps: xs: 1.2, sm/md: 1.44, lg: 1.728, xl: 2.074
-    fontSize: { xs: 1.2, sm: 1.44, md: 1.44, lg: 1.728, xl: 2.074 },
+    fontFamily: '"Bricolage Grotesque", Inter, system-ui, sans-serif',
+    fontSize: { xs: '18px', sm: '20px', md: '22px', lg: '24px', xl: '28px' },
+    fontWeight: 600,
   },
   H6: {
-    // steps: xs: 1, sm/md: 1.2, lg: 1.44, xl: 1.728
-    fontSize: { xs: 1, sm: 1.2, md: 1.2, lg: 1.44, xl: 1.728 },
+    fontFamily: '"Bricolage Grotesque", Inter, system-ui, sans-serif',
+    fontSize: { xs: '16px', sm: '18px', md: '20px', lg: '22px', xl: '24px' },
+    fontWeight: 600,
   },
   P: {
-    fontSize: { xs: 1, md: 1 },
+    fontSize: { xs: '16px', md: '17.2px' },
+    fontWeight: 400,
     lineHeight: { xs: 1.35, md: 1.375 },
   },
   SPAN: {
-    fontSize: { xs: 1, sm: 1, md: 1 },
+    fontSize: { xs: '14px', sm: '15px', md: '16px' },
+    fontWeight: 400,
   },
-  BODY: {
-    // Align body to the minor third neighbors around 1rem
-    fontSize: { xs: 0.833, sm: 1, md: 1.2 },
-  },
+  BODY: { fontSize: { xs: '14px', sm: '16px', md: '18px' }, fontWeight: 400 },
   CAPTION: {
-    // Extra-small caption size
-    fontSize: { xs: 0.694, sm: 0.694, md: 0.694 },
+    fontSize: { xs: '12px', sm: '13px', md: '14px' },
     opacity: 0.8,
   },
   SMALL: {
-    // Small text per minor third (≈0.833rem)
-    fontSize: { xs: 0.833, sm: 0.833, md: 0.833 },
+    fontSize: { xs: '12px', sm: '13px', md: '14px' },
   },
   PRE: {
-    fontSize: { xs: 0.875, sm: 0.9375, md: 1 },
+    fontSize: { xs: '14px', sm: '15px', md: '16px' },
     fontFamily:
-      '"SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace',
+      'Menlo, "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace',
   },
 };

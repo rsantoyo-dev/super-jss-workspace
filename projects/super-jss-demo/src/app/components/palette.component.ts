@@ -1,8 +1,12 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SJ_BASE_COMPONENTS_IMPORTS, sj, SjRootApi } from 'super-jss';
+import {
+  SJ_BASE_COMPONENTS_IMPORTS,
+  sj,
+  SjRootApi,
+  SjThemeService,
+} from 'super-jss';
 import { SectionContainerComponent } from './section-container.component';
-import { DemoItemComponent } from './demo-item.component';
 
 @Component({
   selector: 'app-palette',
@@ -11,7 +15,6 @@ import { DemoItemComponent } from './demo-item.component';
     CommonModule,
     SectionContainerComponent,
     SJ_BASE_COMPONENTS_IMPORTS,
-    DemoItemComponent,
   ],
   template: `
     <app-section title="Palette">
@@ -20,65 +23,114 @@ import { DemoItemComponent } from './demo-item.component';
         light, dark, and contrast variants.
       </sj-typography>
 
-      <div
-        [sj]="[
-          sj.d(sj.d.options.grid),
-          sj.gridTemplateColumns('repeat(auto-fit, minmax(280px, 1fr))'),
-          sj.gap({ xs: 0.5, md: 1 })
-        ]"
-      >
-        @for (color of demoColors(); track color[0]) {
-        <app-demo-item [title]="color[0]" [titleColor]="color[0]">
-          <sj-flex useCol>
-            @for (colorVariant of color; track colorVariant) {
-            <sj-card
-              [variant]="sj.sjCard.variants.outlined"
-              useRounded="default"
-              usePadding="compact"
-              [sj]="[sj.bg(colorVariant), sj.flexGrow(1)]"
+      @for (family of families; track family) {
+      <sj-flex useCol useGap="compact">
+        <sj-typography variant="h6" [sj]="[sj.c('light.contrast'), sj.m(0)]"
+          >palette/light/{{ family }}</sj-typography
+        >
+        <div
+          [sj]="[
+            sj.d('grid'),
+            sj.gridTemplateColumns({ xs: 'repeat(4, minmax(80px, 1fr))' }),
+            sj.gap(sj.gap.options.default)
+          ]"
+        >
+          @for (tone of tones; track tone) {
+          <sj-paper
+            useRounded="default"
+            usePadding="compact"
+            variant="flat"
+            [sj]="[
+              sj.bg(family + '.' + tone),
+              sj.c(textColorFor(family, tone)),
+              sj.minH('140px'),
+              sj.position('relative'),
+              sj.brad(0.75)
+            ]"
+          >
+            <sj-typography variant="p">{{ tone }}</sj-typography>
+            <sj-typography
+              variant="small"
+              [sj]="[
+                sj.position('absolute'),
+                sj.right(1),
+                sj.bottom(1),
+                sj.textAlign('right'),
+                sj.p(sj.padding.options.compact)
+              ]"
             >
-              <sj-typography
-                variant="span"
-                [sj]="[
-                  sj.d(sj.d.options.flex),
-                  sj.justifyContent(sj.justifyContent.options.center),
-                  sj.alignItems(sj.alignItems.options.center),
-                  sj.w('100%'),
-                  sj.c(textColorFor(colorVariant)),
-                  sj.m(0)
-                ]"
-                >{{ colorVariant }}</sj-typography
-              >
-            </sj-card>
-            }
-          </sj-flex>
-        </app-demo-item>
-        }
-      </div>
+              {{ hexFor(family, tone) }}<br />{{ rgbFor(family, tone) }}
+            </sj-typography>
+          </sj-paper>
+          }
+        </div>
+      </sj-flex>
+      }
     </app-section>
   `,
 })
 export class PaletteComponent {
   readonly sj: SjRootApi = sj;
+  private readonly theme = inject(SjThemeService);
+  readonly families: Array<
+    | 'primary'
+    | 'secondary'
+    | 'tertiary'
+    | 'success'
+    | 'info'
+    | 'warning'
+    | 'error'
+    | 'dark'
+    | 'neutral'
+    | 'light'
+  > = [
+    'primary',
+    'secondary',
+    'tertiary',
+    'success',
+    'info',
+    'warning',
+    'error',
+    'dark',
+    'neutral',
+    'light',
+  ];
+  readonly tones: Array<'main' | 'light' | 'dark' | 'contrast'> = [
+    'main',
+    'light',
+    'dark',
+    'contrast',
+  ];
 
-  demoColors = signal([
-    ['primary', 'primary.light', 'primary.dark', 'primary.contrast'],
-    ['secondary', 'secondary.light', 'secondary.dark', 'secondary.contrast'],
-    ['tertiary', 'tertiary.light', 'tertiary.dark', 'tertiary.contrast'],
-    ['success', 'success.light', 'success.dark', 'success.contrast'],
-    ['info', 'info.light', 'info.dark', 'info.contrast'],
-    ['warning', 'warning.light', 'warning.dark', 'warning.contrast'],
-    ['error', 'error.light', 'error.dark', 'error.contrast'],
-    ['dark', 'dark.light', 'dark.dark', 'dark.contrast'],
-    ['neutral', 'neutral.light', 'neutral.dark', 'neutral.contrast'],
-    ['light', 'light.light', 'light.dark', 'light.contrast'],
-  ]);
-
-  textColorFor(variant: string): string {
-    if (variant.endsWith('.contrast')) return 'neutral.dark';
-    const key = variant.includes('.') ? variant.split('.')[0] : variant;
-    return `${key}.contrast`;
+  textColorFor(family: string, tone: string): string {
+    const hex = this.hexFor(family, tone).toLowerCase();
+    const rgb = this.hexToRgb(hex);
+    if (!rgb) return 'light.contrast';
+    const [r, g, b] = rgb;
+    const lum = 0.2126 * (r / 255) + 0.7152 * (g / 255) + 0.0722 * (b / 255);
+    return lum < 0.55 ? '#FFFFFF' : '#000000';
   }
 
-  // code sample generation removed
+  hexFor(family: string, tone: string): string {
+    const pal: any = this.theme.sjTheme().palette as any;
+    const fam = pal[family];
+    if (!fam) return '#000000';
+    const v = fam[tone];
+    return typeof v === 'string' ? v : '#000000';
+  }
+
+  rgbFor(family: string, tone: string): string {
+    const rgb = this.hexToRgb(this.hexFor(family, tone));
+    return rgb ? `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})` : '';
+  }
+
+  private hexToRgb(hex: string): [number, number, number] | null {
+    const h = hex.startsWith('#') ? hex.slice(1) : hex;
+    if (h.length !== 6) return null;
+    const r = parseInt(h.slice(0, 2), 16);
+    const g = parseInt(h.slice(2, 4), 16);
+    const b = parseInt(h.slice(4, 6), 16);
+    if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) return null;
+    return [r, g, b];
+  }
 }
