@@ -49,7 +49,9 @@ export interface JsonNode {
           [usePaint]="'primary'"
           (click)="toggle($event)"
         >
-          <sj-typography variant="small" [sj]="{ c: sj.palette.primary.main }"
+          <sj-typography
+            variant="small"
+            [sj]="{ c: sj.palette.primary.main }"
             >{{ node.expanded ? '/' : '>' }}</sj-typography
           >
         </sj-button>
@@ -66,30 +68,7 @@ export interface JsonNode {
           >{{ node.key }}:</sj-typography
         >
 
-        @if (isRoot) {
-        <sj-flex [sj]="[sj.gap(0.25), sj.ml(0.5)]">
-          <sj-button
-            [variant]="'outlined'"
-            [useDensity]="1"
-            [useRounded]="'compact'"
-            [usePaint]="'success'"
-            (click)="addNode()"
-          >
-            <sj-typography variant="small">+</sj-typography>
-          </sj-button>
-          @if (node.children && node.children.length > 0) {
-          <sj-button
-            [variant]="'outlined'"
-            [useDensity]="1"
-            [useRounded]="'compact'"
-            [usePaint]="'error'"
-            (click)="removeNode()"
-          >
-            <sj-typography variant="small">-</sj-typography>
-          </sj-button>
-          }
-        </sj-flex>
-        } @switch (node.type) { @case ('string') { @if (isHexColor(node.value))
+        @switch (node.type) { @case ('string') { @if (isHexColor(node.value))
         {
         <sj-typography
           variant="span"
@@ -154,7 +133,7 @@ export interface JsonNode {
         <input
           [sj]="{
             m: 0,
-            bg: sj.palette.light.light,
+            bg: 'light.light',
             bs: 'none',
             bw: 0,
             w: 'auto',
@@ -166,7 +145,7 @@ export interface JsonNode {
           (ngModelChange)="onValueChange()"
         />
         } @case ('null') {
-        <sj-typography variant="span" [sj]="{ c: sj.palette.neutral.main }"
+        <sj-typography variant="span" [sj]="{ c: 'neutral.main' }"
           >null</sj-typography
         >
         } }
@@ -198,7 +177,6 @@ export interface JsonNode {
 })
 export class JsonNodeComponent {
   readonly sj: SjRootApi = sj;
-  // All styling is inline via [sj]
 
   @Input({ required: true }) node!: JsonNode;
   @Input() isRoot = false;
@@ -210,7 +188,6 @@ export class JsonNodeComponent {
     const updated: JsonNode = {
       ...this.node,
       expanded: !this.node.expanded,
-      // Preserve children reference (no change) but keep shape stable
       children: this.node.children ? [...this.node.children] : undefined,
     };
     this.node = updated;

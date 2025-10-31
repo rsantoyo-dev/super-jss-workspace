@@ -22,7 +22,7 @@ import {
   panelHeader,
   headerBtn,
 } from './json-studio.sjstyles';
-import { SjDirective, SjFlexComponent } from 'super-jss';
+import { SjDirective, SjFlexComponent, SjTypographyComponent } from 'super-jss';
 import { PanelHeaderComponent } from './panel-header.component';
 import { sjCard, SjStyle } from 'super-jss';
 
@@ -36,6 +36,7 @@ import { sjCard, SjStyle } from 'super-jss';
     SjDirective,
     PanelHeaderComponent,
     SjFlexComponent,
+    SjTypographyComponent,
   ],
   template: `
     <sj-flex [sj]="treePanelStyle">
@@ -49,6 +50,9 @@ import { sjCard, SjStyle } from 'super-jss';
         (viewModeChange)="viewMode.set($event)"
       />
       <sj-flex [sj]="treeContentStyle">
+        <sj-flex [hidden]="!error()" [sj]="styles.error">
+          <sj-typography variant="p" [sj]>Error: {{ error() }}</sj-typography>
+        </sj-flex>
         @if (viewMode() === 'raw') {
 
         <textarea
@@ -68,10 +72,6 @@ import { sjCard, SjStyle } from 'super-jss';
           (update)="onNodeUpdate($event)"
           (remove)="onNodeRemove($event)"
         ></app-json-node>
-        } @else if (error()) {
-        <div [sj]="styles.error">
-          <p>{{ error() }}</p>
-        </div>
         } }
       </sj-flex>
     </sj-flex>

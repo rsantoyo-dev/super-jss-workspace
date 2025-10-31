@@ -7,10 +7,10 @@ import {
   SjThemeService,
 } from 'super-jss';
 import { DemoItemComponent } from './demo-item.component';
-import { JsonStudioComponent } from '../sj-json-studio/json-studio.component';
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { SectionContainerComponent } from './section-container.component';
+import { JsonStudioComponent } from '../sj-json-studio/json-studio.component';
 
 @Component({
   standalone: true,
@@ -18,10 +18,11 @@ import { SectionContainerComponent } from './section-container.component';
   imports: [
     CommonModule,
     SjDirective,
-    JsonStudioComponent,
     SectionContainerComponent,
     ...SJ_BASE_COMPONENTS_IMPORTS,
+    JsonStudioComponent,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
     <app-section title="Theming">
       <sj-paper variant="flat" usePadding="default">

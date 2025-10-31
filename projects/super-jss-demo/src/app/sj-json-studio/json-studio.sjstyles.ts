@@ -14,24 +14,38 @@ export const headerBar: SjStyle = {
   bc: 'light.dark',
 };
 
+
+
 export const studioContainer: SjStyle = sjCard({
   p: 0,
+  bs: 'none',
   bw: 0,
   w: '100%',
 });
 
-export const editorPanel: SjStyle = {
-  d: 'grid',
-  b: '1px solid',
-  bc: 'light.dark',
-};
+
+// export const editorPanel: SjStyle = {
+//   d: 'grid',
+//   bg: 'red',
+//   b: '1px solid',
+//   bc: 'light.dark',
+
+// };
+
+export const editorPanel: SjStyle = sjCard({
+  p: 0,
+  bs: 'none',
+  bw: 0,
+  d: 'flex',
+  fxDir: 'column',
+});
 
 export const textareaStyle: SjStyle = sjCard.flat({
   w: '100%',
   // Fill available space from flex parent
   fxGrow: '1',
   fxBasis: '0',
-
+  
   minH: 0,
 
   fontFamily: 'monospace',
