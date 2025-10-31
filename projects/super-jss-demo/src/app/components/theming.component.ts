@@ -21,50 +21,50 @@ import { SectionContainerComponent } from './section-container.component';
     JsonStudioComponent,
     SectionContainerComponent,
     ...SJ_BASE_COMPONENTS_IMPORTS,
-    DemoItemComponent,
   ],
   template: `
     <app-section title="Theming">
-      <app-demo-item
-        title="Theming"
-        [titleColor]="'primary'"
-        [code]="codeThemeSnippet"
-      >
-        <sj-paper variant="flat" usePadding="default" [sj]="[]">
-          <sj-flex
-            [sj]="[
-              sj.fxDir(sj.fxDir.options.row),
-              sj.justifyContent(sj.justifyContent.options.spaceBetween),
-              sj.alignItems(sj.alignItems.options.center)
-            ]"
-          >
-            <sj-typography variant="h2" [sj]="[sj.margin(0)]"
-              >Theming</sj-typography
+      <sj-paper variant="flat" usePadding="default">
+        <sj-flex
+          [sj]="[
+            sj.fxDir(sj.fxDir.options.row),
+            sj.justifyContent(sj.justifyContent.options.spaceBetween),
+            sj.alignItems(sj.alignItems.options.center)
+          ]"
+        >
+          <sj-typography variant="h2" [sj]="[sj.m(0)]">Theming</sj-typography>
+          <sj-flex [sj]="[sj.fxDir(sj.fxDir.options.row), sj.gap(0.5)]">
+            <sj-button
+              [variant]="'outlined'"
+              (click)="discardEditedTheme()"
+              [sj]="
+                !pendingThemePatch
+                  ? { opacity: 0.6, pointerEvents: 'none' }
+                  : undefined
+              "
             >
-            <sj-flex [sj]="[sj.fxDir(sj.fxDir.options.row), sj.gap(0.5)]">
-              <button
-                [disabled]="!pendingThemePatch"
-                (click)="discardEditedTheme()"
-                [sj]="sj.sjButton.outlined()"
-              >
-                <sj-typography variant="span" [sj]="[]">Discard</sj-typography>
-              </button>
-              <button
-                [disabled]="!pendingThemePatch"
-                (click)="applyEditedTheme()"
-                [sj]="sj.sjButton.containedPrimary()"
-              >
-                <sj-typography variant="span" [sj]="[]">Apply</sj-typography>
-              </button>
-            </sj-flex>
+              Discard
+            </sj-button>
+            <sj-button
+              [variant]="'filled'"
+              color="primary"
+              (click)="applyEditedTheme()"
+              [sj]="
+                !pendingThemePatch
+                  ? { opacity: 0.6, pointerEvents: 'none' }
+                  : undefined
+              "
+            >
+              Apply
+            </sj-button>
           </sj-flex>
+        </sj-flex>
 
-          <app-json-studio
-            [value]="themeData"
-            (valueChange)="onStudioChange($event)"
-          ></app-json-studio>
-        </sj-paper>
-      </app-demo-item>
+        <app-json-studio
+          [value]="themeData"
+          (valueChange)="onStudioChange($event)"
+        ></app-json-studio>
+      </sj-paper>
     </app-section>
   `,
 })

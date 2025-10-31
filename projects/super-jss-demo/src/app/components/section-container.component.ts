@@ -17,9 +17,14 @@ import {
   // Apply SjDirective to the host so the section styles the component itself
   hostDirectives: [{ directive: SjDirective }],
   template: `
-    <sj-paper host variant="flat" [usePadding]="4" [sj]="[sj.bg('light'), sj.overflowX('hidden')]">
-      <sj-flex [sj]="sj.justifyContent('center')">
-        <sj-flex useCol useGap="default" [sj]="[sj.maxWidth('800px')]">
+    <sj-paper
+      host
+      variant="flat"
+      [usePadding]="4"
+      [sj]="[sj.bg('light'), sj.overflowX('hidden')]"
+    >
+      <sj-flex [sj]="[sj.justifyContent('center'), sj.w('100%')]">
+        <sj-flex useCol useGap="default" [sj]="[sj.width('inherit')]">
           <sj-typography variant="h3" [sj]="[sj.c('light.contrast')]">{{
             title
           }}</sj-typography>

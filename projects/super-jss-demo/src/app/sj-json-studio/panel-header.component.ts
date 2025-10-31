@@ -1,18 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {
-  sjButton,
-  sjCard,
-  SjDirective,
-  SjStyle,
-  sj,
-  SjFlexComponent,
-  SjTypographyComponent,
-} from 'super-jss';
+import { sjButton, sjCard, SjStyle, sj, SjFlexComponent, SjTypographyComponent, SjButtonComponent } from 'super-jss';
 
 @Component({
   selector: 'app-panel-header',
   standalone: true,
-  imports: [SjDirective, SjFlexComponent, SjTypographyComponent],
+  imports: [SjFlexComponent, SjTypographyComponent, SjButtonComponent],
   template: `
     <sj-flex
       [sj]="
@@ -32,79 +24,76 @@ import {
         >
         @if (viewMode) {
         <sj-flex [sj]="toggleGroup">
-          <button
-            [sj]="toggleBtn(viewMode === 'tree')"
+          <sj-button
+            [variant]="'flat'"
+            [useDensity]="1"
+            [useRounded]="'compact'"
+            [usePaint]="viewMode === 'tree' ? 'secondary' : 'primary'"
+            [sj]="{ fontSize: 0.75 }"
             (click)="onToggle('tree')"
             title="Tree view"
             aria-label="Tree view"
           >
-            <sj-typography variant="small" [sj]>Tree</sj-typography>
-          </button>
-          <button
-            [sj]="toggleBtn(viewMode === 'raw')"
+            Tree
+          </sj-button>
+          <sj-button
+            [variant]="'flat'"
+            [useDensity]="1"
+            [useRounded]="'compact'"
+            [usePaint]="viewMode === 'raw' ? 'secondary' : 'primary'"
+            [sj]="{ fontSize: 0.75 }"
             (click)="onToggle('raw')"
             title="Raw view"
             aria-label="Raw view"
           >
-            <sj-typography variant="small" [sj]>Raw</sj-typography>
-          </button>
+            Raw
+          </sj-button>
         </sj-flex>
         }
       </sj-flex>
 
       <sj-flex [sj]="right">
-        <button
-          [sj]="sjButton"
+        <sj-button
+          [variant]="'flat'"
+          [useDensity]="1"
+          [useRounded]="'compact'"
+          [usePaint]="'primary'"
+          [sj]="mode === 'collapsed' ? { opacity: 0.6, pointerEvents: 'none' } : { fontSize: 0.75 }"
           (click)="collapse.emit()"
           title="Collapse"
-          [disabled]="mode === 'collapsed'"
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <rect x="4" y="18" width="16" height="2" rx="1" />
           </svg>
-        </button>
-        <button
-          [sj]="sjButton"
+        </sj-button>
+        <sj-button
+          [variant]="'flat'"
+          [useDensity]="1"
+          [useRounded]="'compact'"
+          [usePaint]="'primary'"
+          [sj]="mode === 'normal' ? { opacity: 0.6, pointerEvents: 'none' } : { fontSize: 0.75 }"
           (click)="normal.emit()"
           title="Expand (300px)"
-          [disabled]="mode === 'normal'"
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <rect x="5" y="6" width="14" height="12" rx="2" />
           </svg>
-        </button>
+        </sj-button>
         @if (viewMode !== 'raw') {
-        <button
-          [sj]="sjButton"
+        <sj-button
+          [variant]="'flat'"
+          [useDensity]="1"
+          [useRounded]="'compact'"
+          [usePaint]="'primary'"
+          [sj]="mode === 'full' ? { opacity: 0.6, pointerEvents: 'none' } : { fontSize: 0.75 }"
           (click)="full.emit()"
           title="Full (auto height)"
           aria-label="Full"
-          [disabled]="mode === 'full'"
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M8 4H4v4h2V6h2V4zm8 0v2h2v2h2V4h-4zM4 16v4h4v-2H6v-2H4zm16 0h-2v2h-2v2h4v-4z"
-            />
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 4H4v4h2V6h2V4zm8 0v2h2v2h2V4h-4zM4 16v4h4v-2H6v-2H4zm16 0h-2v2h-2v2h4v-4z" />
           </svg>
-        </button>
+        </sj-button>
         }
       </sj-flex>
     </sj-flex>

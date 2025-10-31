@@ -5,6 +5,7 @@ import {
   SjFlexComponent,
   SjButtonComponent,
   SjTypographyComponent,
+  SjInputComponent,
   sj,
   SjRootApi,
 } from 'super-jss';
@@ -26,27 +27,29 @@ export interface JsonNode {
     SjFlexComponent,
     SjButtonComponent,
     SjTypographyComponent,
+    SjInputComponent,
   ],
   template: `
-    <sj-flex [sj]="[sj.fxDir(sj.fxDir.options.column), sj.ml(0.5)]">
+    <sj-flex [sj]="[sj.fxDir(sj.fxDir.options.column), sj.ml(0.5), sj.w('100%') ]">
       <sj-flex
         [sj]="[
           sj.d(sj.d.options.flex),
           sj.fxDir(sj.fxDir.options.row),
           sj.alignItems(sj.alignItems.options.center),
-          sj.gap(0.5)
+          sj.gap(0.5),
+          sj.w('100%')
         ]"
       >
         @if ((node.type === 'object' || node.type === 'array') &&
         (node.children?.length ?? 0) > 0) {
         <sj-button
-          [variant]="sj.sjButton.variants.outlined"
-          [sj]="{ px: 0.25, py: 0.1, brad: 0.25 }"
-          (click)="toggle()"
+          [variant]="'outlined'"
+          [useDensity]="1"
+          [useRounded]="'compact'"
+          [usePaint]="'primary'"
+          (click)="toggle($event)"
         >
-          <sj-typography
-            variant="small"
-            [sj]="{ c: sj.palette.primary.light }"
+          <sj-typography variant="small" [sj]="{ c: sj.palette.primary.main }"
             >{{ node.expanded ? '/' : '>' }}</sj-typography
           >
         </sj-button>
@@ -58,7 +61,7 @@ export interface JsonNode {
         }
         <sj-typography
           variant="span"
-          (click)="toggle()"
+          (click)="toggle($event)"
           [sj]="sj.cursor('pointer')"
           >{{ node.key }}:</sj-typography
         >
@@ -66,23 +69,23 @@ export interface JsonNode {
         @if (isRoot) {
         <sj-flex [sj]="[sj.gap(0.25), sj.ml(0.5)]">
           <sj-button
-            [variant]="sj.sjButton.variants.outlined"
-            [sj]="{ px: 0.25, py: 0.1, brad: 0.25 }"
+            [variant]="'outlined'"
+            [useDensity]="1"
+            [useRounded]="'compact'"
+            [usePaint]="'success'"
             (click)="addNode()"
           >
-            <sj-typography variant="small" [sj]="{ c: sj.palette.success.main }"
-              >+</sj-typography
-            >
+            <sj-typography variant="small">+</sj-typography>
           </sj-button>
           @if (node.children && node.children.length > 0) {
           <sj-button
-            [variant]="sj.sjButton.variants.outlined"
-            [sj]="{ px: 0.25, py: 0.1, brad: 0.25 }"
+            [variant]="'outlined'"
+            [useDensity]="1"
+            [useRounded]="'compact'"
+            [usePaint]="'error'"
             (click)="removeNode()"
           >
-            <sj-typography variant="small" [sj]="{ c: sj.palette.error.main }"
-              >-</sj-typography
-            >
+            <sj-typography variant="small">-</sj-typography>
           </sj-button>
           }
         </sj-flex>
@@ -91,9 +94,10 @@ export interface JsonNode {
         <sj-typography
           variant="span"
           [sj]="[
-            sj.display('inline-flex'),
+            sj.display('flex'),
             sj.alignItems(sj.alignItems.options.center),
-            sj.gap(0.5)
+            sj.gap(0.5),
+            { fxGrow: 1, minW: 0 }
           ]"
         >
           <input
@@ -110,51 +114,42 @@ export interface JsonNode {
             [(ngModel)]="node.value"
             (ngModelChange)="onValueChange()"
           />
-          <input
-            [sj]="{
-              m: 0,
-              bg: sj.palette.light.light,
-              bs: 'none',
-              bw: 0,
-              w: 'auto',
-              minW: 4,
-              h: 1.5
-            }"
+          <sj-input
+            variant="outlined"
             type="text"
-            [(ngModel)]="node.value"
-            (ngModelChange)="onValueChange()"
-          />
+            [usePaint]="'none'"
+            [usePadding]="'default'"
+            [useRounded]="'default'"
+            [fullWidth]="true"
+            [sj]="[{ minW: 0 }]"
+            [(value)]="node.value"
+            (valueChange)="onValueChange()"
+          ></sj-input>
         </sj-typography>
         } @else {
-        <input
-          [sj]="{
-            m: 0,
-            bg: sj.palette.light.light,
-            bs: 'none',
-            bw: 0,
-            w: 'auto',
-            minW: 4,
-            h: 1.5
-          }"
+        <sj-input
+          variant="outlined"
           type="text"
-          [(ngModel)]="node.value"
-          (ngModelChange)="onValueChange()"
-        />
+          [usePaint]="'none'"
+          [usePadding]="'default'"
+          [useRounded]="'default'"
+          [fullWidth]="true"
+          [sj]="[{ fxGrow: 1, minW: 0 }]"
+          [(value)]="node.value"
+          (valueChange)="onValueChange()"
+        ></sj-input>
         } } @case ('number') {
-        <input
-          [sj]="{
-            m: 0,
-            bg: sj.palette.light.light,
-            bs: 'none',
-            bw: 0,
-            w: 'auto',
-            minW: 4,
-            h: 1.5
-          }"
+        <sj-input
+          variant="outlined"
           type="number"
-          [(ngModel)]="node.value"
-          (ngModelChange)="onValueChange()"
-        />
+          [usePaint]="'none'"
+          [usePadding]="'default'"
+          [useRounded]="'default'"
+          [fullWidth]="true"
+          [sj]="[{ fxGrow: 1, minW: 0 }]"
+          [value]="node.value"
+          (valueChange)="node.value = toNumber($event); onValueChange()"
+        ></sj-input>
         } @case ('boolean') {
         <input
           [sj]="{
@@ -184,10 +179,11 @@ export interface JsonNode {
           sj.pl(1.25),
           sj.borderLeftStyle('solid'),
           sj.borderLeftWidth(0.1),
-          sj.borderLeftColor(sj.palette.light.dark)
+          sj.borderLeftColor(sj.palette.light.dark),
+          sj.w('100%')
         ]"
       >
-        @for (child of (node.children ?? []); track $index) {
+        @for (child of (node.children ?? []); track child.key) {
         <app-json-node
           [node]="child"
           (update)="onUpdate($event)"
@@ -209,9 +205,16 @@ export class JsonNodeComponent {
   @Output() update = new EventEmitter<JsonNode>();
   @Output() remove = new EventEmitter<JsonNode>();
 
-  toggle() {
-    this.node.expanded = !this.node.expanded;
-    this.update.emit(this.node);
+  toggle(evt?: Event) {
+    try { evt?.stopPropagation(); } catch {}
+    const updated: JsonNode = {
+      ...this.node,
+      expanded: !this.node.expanded,
+      // Preserve children reference (no change) but keep shape stable
+      children: this.node.children ? [...this.node.children] : undefined,
+    };
+    this.node = updated;
+    this.update.emit(updated);
   }
 
   onValueChange() {
@@ -219,45 +222,35 @@ export class JsonNodeComponent {
   }
 
   onUpdate(childNode: JsonNode) {
-    const childIndex = this.node.children?.findIndex(
-      (c) => c.key === childNode.key
-    );
-    if (childIndex !== undefined && childIndex > -1 && this.node.children) {
-      this.node.children[childIndex] = childNode;
-      this.update.emit(this.node);
+    if (!this.node.children) return;
+    const childIndex = this.node.children.findIndex((c) => c.key === childNode.key);
+    if (childIndex > -1) {
+      const newChildren = [...this.node.children];
+      newChildren[childIndex] = childNode;
+      const updated: JsonNode = { ...this.node, children: newChildren };
+      this.node = updated;
+      this.update.emit(updated);
     }
   }
 
   onRemove(childNode: JsonNode) {
-    const childIndex = this.node.children?.findIndex(
-      (c) => c.key === childNode.key
-    );
-    if (childIndex !== undefined && childIndex > -1 && this.node.children) {
-      this.node.children.splice(childIndex, 1);
-      this.update.emit(this.node);
-    }
+    if (!this.node.children) return;
+    const newChildren = this.node.children.filter((c) => c.key !== childNode.key);
+    const updated: JsonNode = { ...this.node, children: newChildren };
+    this.node = updated;
+    this.update.emit(updated);
   }
 
   addNode() {
-    if (!this.node.children) {
-      this.node.children = [];
-    }
-    if (this.node.type === 'object') {
-      this.node.children.push({
-        key: 'new_key',
-        value: 'new_value',
-        type: 'string',
-        expanded: true,
-      });
-    } else if (this.node.type === 'array') {
-      this.node.children.push({
-        key: this.node.children.length.toString(),
-        value: 'new_value',
-        type: 'string',
-        expanded: true,
-      });
-    }
-    this.update.emit(this.node);
+    const existing = this.node.children ?? [];
+    const nextChild: JsonNode =
+      this.node.type === 'object'
+        ? { key: 'new_key', value: 'new_value', type: 'string', expanded: true }
+        : { key: existing.length.toString(), value: 'new_value', type: 'string', expanded: true };
+    const newChildren = [...existing, nextChild];
+    const updated: JsonNode = { ...this.node, children: newChildren };
+    this.node = updated;
+    this.update.emit(updated);
   }
 
   removeNode() {
@@ -268,5 +261,10 @@ export class JsonNodeComponent {
   isHexColor(val: any): boolean {
     if (typeof val !== 'string') return false;
     return /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(val.trim());
+  }
+
+  toNumber(val: string): number {
+    const n = Number(val);
+    return Number.isFinite(n) ? n : 0;
   }
 }

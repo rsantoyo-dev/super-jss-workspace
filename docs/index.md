@@ -226,6 +226,20 @@ The following embedded StackBlitz shows the spacing hierarchy in action:
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts">
 </iframe>
 
+## Live example — SJSS Padding System (GitHub StackBlitz)
+
+The following embed loads the padding system demo directly from the GitHub‑backed StackBlitz project. It highlights numeric spacing vs density tokens and basic sj‑flex usage.
+
+<iframe src="https://stackblitz.com/~/github.com/rsantoyo-dev/sjss-padding-system?embed=1&file=src/main.ts&hideExplorer=1&hideNavigation=1&theme=light&view=preview"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="SJSS Padding System (GitHub StackBlitz)"
+  allow="accelerometer; ambient-light-sensor; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts">
+</iframe>
+
+If the embed doesn’t load locally, open it directly:
+[Open on StackBlitz](https://stackblitz.com/~/github.com/rsantoyo-dev/sjss-padding-system?file=src/main.ts).
+
 ## FAQ
 
 Q: Why this approach vs. utility frameworks or huge token bags?
