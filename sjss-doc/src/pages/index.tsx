@@ -66,8 +66,8 @@ function LivePlayground() {
         <p>Live StackBlitz demo of the sj Padding System</p>
         <div className={styles.embedWrap}>
           <iframe
-            src="https://stackblitz.com/edit/stackblitz-starters-wkjbpaq7?embed=1&file=src%2Fmain.ts&hideExplorer=1&hideNavigation=1&view=preview"
-            title="SJSS • sjPaddingSystem"
+            src="https://stackblitz.com/edit/sjss-padding-system?embed=1&file=src/main.ts&hideExplorer=1&hideNavigation=1&theme=light&view=preview"
+            title="SJSS • sjPaddingSystem (GitHub)"
             style={{
               width: "100%",
               height: 520,
@@ -79,10 +79,21 @@ function LivePlayground() {
             sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
           />
         </div>
+        <p>
+          If the embed doesn’t load locally, open it directly:{" "}
+          <a
+            href="https://stackblitz.com/~/github.com/rsantoyo-dev/sjss-padding-system?file=src/main.ts"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            Open on StackBlitz
+          </a>
+          .
+        </p>
         <p>Live StackBlitz demo of the sj root API:</p>
         <div className={styles.embedWrap}>
           <iframe
-            src="https://stackblitz.com/edit/stackblitz-starters-lgwyvmd2?embed=1&file=src/main.ts&hideExplorer=1&hideNavigation=1&view=preview"
+            src="https://stackblitz.com/edit/sjss-root-api?embed=1&file=src%2Fmain.ts&hideExplorer=1&hideNavigation=1&view=preview"
             title="SJSS • sjRootApi"
             style={{
               width: "100%",
@@ -95,6 +106,17 @@ function LivePlayground() {
             sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
           />
         </div>
+        <p>
+          If the embed doesn’t load locally, open it directly: {" "}
+          <a
+            href="https://stackblitz.com/edit/sjss-root-api?file=src%2Fmain.ts"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            Open on StackBlitz
+          </a>
+          .
+        </p>
       </div>
     </section>
   );
