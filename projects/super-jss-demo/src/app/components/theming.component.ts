@@ -8,9 +8,10 @@ import {
 } from 'super-jss';
 import { DemoItemComponent } from './demo-item.component';
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
-import { SectionContainerComponent } from './section-container.component';
+import { Component, inject, ViewChild } from '@angular/core';
 import { JsonStudioComponent } from '../sj-json-studio/json-studio.component';
+import { SectionContainerComponent } from './section-container.component';
+// Using custom JsonStudioComponent for theme editing
 
 @Component({
   standalone: true,
@@ -19,10 +20,9 @@ import { JsonStudioComponent } from '../sj-json-studio/json-studio.component';
     CommonModule,
     SjDirective,
     SectionContainerComponent,
-    ...SJ_BASE_COMPONENTS_IMPORTS,
     JsonStudioComponent,
+    ...SJ_BASE_COMPONENTS_IMPORTS,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
     <app-section title="Theming">
       <sj-paper variant="flat" usePadding="default">
@@ -62,8 +62,8 @@ import { JsonStudioComponent } from '../sj-json-studio/json-studio.component';
         </sj-flex>
 
         <app-json-studio
-          [value]="themeData"
-          (valueChange)="onStudioChange($event)"
+          [value]="data"
+          (valueChange)="getData($event)"
         ></app-json-studio>
       </sj-paper>
     </app-section>
@@ -76,8 +76,19 @@ export class ThemingComponent {
   pendingThemePatch: Partial<SjTheme> | null = null;
   codeThemeSnippet: string = `// TypeScript: update theme at runtime\nthis.theme.setTheme({ palette: { primary: { main: 'purple' } } });`;
 
+  // JsonStudioComponent configuration and backing data
+  public data: any;
+  @ViewChild(JsonStudioComponent, { static: false })
+  editor!: JsonStudioComponent;
+
   constructor() {
     this.themeData = this.theme.sjTheme();
+    // Initialize editor data with current theme (deep clone to avoid accidental mutation)
+    try {
+      this.data = JSON.parse(JSON.stringify(this.themeData));
+    } catch {
+      this.data = this.themeData;
+    }
   }
 
   onStudioChange(patch: Partial<SjTheme>) {
@@ -94,5 +105,11 @@ export class ThemingComponent {
 
   discardEditedTheme() {
     this.pendingThemePatch = null;
+  }
+
+  // JsonStudioComponent change handler
+  getData(updated: any) {
+    this.pendingThemePatch = updated;
+    this.data = updated;
   }
 }
