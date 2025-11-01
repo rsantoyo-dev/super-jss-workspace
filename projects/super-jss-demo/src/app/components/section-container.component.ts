@@ -21,7 +21,12 @@ import {
       host
       variant="flat"
       [usePadding]="4"
-      [sj]="[sj.bg('light'), sj.overflowX('hidden')]"
+      [sj]="[
+        sj.bg('light'),
+        sj.overflowX('hidden'),
+        sj.maxWidth({ xs: '100%', md: '90%', lg: '80%', xl: '70%' }),
+        sj.mx('auto')
+      ]"
     >
       <sj-flex [sj]="[sj.justifyContent('center'), sj.w('100%')]">
         <sj-flex useCol useGap="default" [sj]="[sj.width('inherit')]">
@@ -39,5 +44,6 @@ import {
 })
 export class SectionContainerComponent {
   readonly sj: SjRootApi = sj;
+
   @Input() title = '';
 }

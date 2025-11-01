@@ -55,7 +55,7 @@ export class SjInputComponent implements OnInit {
   }
   // Visual variant
   @Input() variant: 'flat' | 'outlined' | 'filled' = 'outlined';
-  @Input() type: 'text' | 'email' | 'password' | 'search' | 'number' | 'url' = 'text';
+  @Input() type: 'text' | 'email' | 'password' | 'search' | 'number' | 'url' | 'color' = 'text';
 
   // Surface sugars
   @Input() usePadding:

@@ -25,15 +25,16 @@ import {
     >
       <sj-flex
         useCol
-        useGap="compact"
+        useGap="default"
         usePadding="compact"
         useFullWidth
         [sj]="sj.py(sj.padding.options.compact)"
       >
         @for (item of menu; track item.route) {
         <sj-button
-          [useDensity]="1"
+          [useDensity]="2"
           [useFullWidth]="true"
+          useRounded="compact"
           [variant]="'default'"
           [usePaint]="'primary'"
           [routerLink]="item.route"
@@ -41,7 +42,7 @@ import {
           [routerLinkActiveOptions]="{ exact: true }"
           (click)="navigate.emit()"
         >
-          <sj-typography [variant]="'span'" [sj]="sj.c('inherit')">
+          <sj-typography [variant]="'small'" [sj]="sj.c('inherit')">
             {{ item.label }}
           </sj-typography>
         </sj-button>

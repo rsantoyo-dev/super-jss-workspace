@@ -5,6 +5,7 @@ import {
   sj,
   SjRootApi,
   SjThemeService,
+  deepMerge,
 } from 'super-jss';
 import { DemoItemComponent } from './demo-item.component';
 import { CommonModule } from '@angular/common';
@@ -26,41 +27,6 @@ import { SectionContainerComponent } from './section-container.component';
   template: `
     <app-section title="Theming">
       <sj-paper variant="flat" usePadding="default">
-        <sj-flex
-          [sj]="[
-            sj.fxDir(sj.fxDir.options.row),
-            sj.justifyContent(sj.justifyContent.options.spaceBetween),
-            sj.alignItems(sj.alignItems.options.center)
-          ]"
-        >
-          <sj-typography variant="h2" [sj]="[sj.m(0)]">Theming</sj-typography>
-          <sj-flex [sj]="[sj.fxDir(sj.fxDir.options.row), sj.gap(0.5)]">
-            <sj-button
-              [variant]="'outlined'"
-              (click)="discardEditedTheme()"
-              [sj]="
-                !pendingThemePatch
-                  ? { opacity: 0.6, pointerEvents: 'none' }
-                  : undefined
-              "
-            >
-              Discard
-            </sj-button>
-            <sj-button
-              [variant]="'filled'"
-              color="primary"
-              (click)="applyEditedTheme()"
-              [sj]="
-                !pendingThemePatch
-                  ? { opacity: 0.6, pointerEvents: 'none' }
-                  : undefined
-              "
-            >
-              Apply
-            </sj-button>
-          </sj-flex>
-        </sj-flex>
-
         <app-json-studio
           [value]="data"
           (valueChange)="getData($event)"
@@ -74,6 +40,9 @@ export class ThemingComponent {
   readonly theme = inject(SjThemeService);
   themeData: SjTheme;
   pendingThemePatch: Partial<SjTheme> | null = null;
+  private applyTimer: any = null;
+  private readonly autoApplyDelayMs = 2000;
+  private lastAppliedJson = '';
   codeThemeSnippet: string = `// TypeScript: update theme at runtime\nthis.theme.setTheme({ palette: { primary: { main: 'purple' } } });`;
 
   // JsonStudioComponent configuration and backing data
@@ -83,6 +52,7 @@ export class ThemingComponent {
 
   constructor() {
     this.themeData = this.theme.sjTheme();
+    try { this.lastAppliedJson = JSON.stringify(this.themeData); } catch { this.lastAppliedJson = ''; }
     // Initialize editor data with current theme (deep clone to avoid accidental mutation)
     try {
       this.data = JSON.parse(JSON.stringify(this.themeData));
@@ -92,24 +62,52 @@ export class ThemingComponent {
   }
 
   onStudioChange(patch: Partial<SjTheme>) {
-    this.pendingThemePatch = patch;
+    // Merge incremental patch into pending/full theme snapshot
+    this.pendingThemePatch = deepMerge(this.pendingThemePatch || this.themeData, patch as any);
+    this.scheduleAutoApply();
   }
 
   applyEditedTheme() {
-    if (this.pendingThemePatch) {
-      this.theme.setTheme(this.pendingThemePatch);
-      this.pendingThemePatch = null;
+    if (this.applyTimer) clearTimeout(this.applyTimer);
+    if (!this.pendingThemePatch) return;
+    const json = safeStringify(this.pendingThemePatch);
+    if (json && json !== this.lastAppliedJson) {
+      this.theme.setTheme(this.pendingThemePatch as any);
       this.themeData = this.theme.sjTheme();
+      this.lastAppliedJson = safeStringify(this.themeData) || json;
     }
+    this.pendingThemePatch = null;
   }
 
   discardEditedTheme() {
+    if (this.applyTimer) clearTimeout(this.applyTimer);
     this.pendingThemePatch = null;
   }
 
   // JsonStudioComponent change handler
   getData(updated: any) {
-    this.pendingThemePatch = updated;
+    // Full updated theme object from editor
+    this.pendingThemePatch = updated as Partial<SjTheme>;
     this.data = updated;
+    this.scheduleAutoApply();
   }
+
+  private scheduleAutoApply() {
+    if (this.applyTimer) clearTimeout(this.applyTimer);
+    this.applyTimer = setTimeout(() => {
+      if (!this.pendingThemePatch) return;
+      const json = safeStringify(this.pendingThemePatch);
+      if (json && json !== this.lastAppliedJson) {
+        this.theme.setTheme(this.pendingThemePatch as any);
+        this.themeData = this.theme.sjTheme();
+        this.lastAppliedJson = safeStringify(this.themeData) || json;
+      }
+      this.pendingThemePatch = null;
+    }, this.autoApplyDelayMs);
+  }
+}
+
+// Safe stringify helper that tolerates non-serializable values
+function safeStringify(v: any): string | '' {
+  try { return JSON.stringify(v); } catch { return ''; }
 }

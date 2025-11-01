@@ -27,6 +27,11 @@ import {
     `:host .sj-hidden-color-input::-webkit-color-swatch {\n      border: none;\n    }`,
     `:host .sj-hidden-color-input::-moz-color-swatch {\n      border: none;\n    }`,
     `:host .sj-hidden-color-input::-moz-focus-inner {\n      border: 0;\n      padding: 0;\n    }`,
+    `:host .sj-input-native[type="color"] {\n      -webkit-appearance: none;\n      appearance: none;\n      border: 0;\n      padding: 0;\n      background: transparent;\n      outline: none;\n      width: 100%;\n      height: 100%;\n      opacity: 0;\n      cursor: pointer;\n    }`,
+    `:host .sj-input-native[type="color"]::-webkit-color-swatch-wrapper {\n      padding: 0;\n    }`,
+    `:host .sj-input-native[type="color"]::-webkit-color-swatch {\n      border: none;\n    }`,
+    `:host .sj-input-native[type="color"]::-moz-color-swatch {\n      border: none;\n    }`,
+    `:host .sj-input-native[type="color"]::-moz-focus-inner {\n      border: 0;\n      padding: 0;\n    }`,
   ],
   template: `
     <sj-paper variant="outlined">
@@ -59,7 +64,6 @@ import {
               {
               <label
                 [sj]="{
-                  h: 5,
                   position: 'relative',
                   display: 'inline-block',
                   cursor: 'pointer'
@@ -67,30 +71,34 @@ import {
               >
                 <sj-paper
                   useRounded="compact"
+                  usePadding="compact"
                   [sj]="{
-                    w: 5,
-                    h: 5,
+                    w: 2,
+                    h: 2,
                     bc: 'light.dark',
                     bg: resolveColor(node),
                     cursor: 'pointer'
                   }"
                 ></sj-paper>
-                <input
-                  class="sj-hidden-color-input"
+                <sj-input
+                  density="compact"
+                  variant="flat"
                   type="color"
+                  usePadding="compact"
+                  useRounded="compact"
                   aria-label="Pick color"
-                  [ngModel]="resolveColor(node)"
-                  (ngModelChange)="onEditLeaf(path ?? [], $event, node)"
+                  [value]="resolveColor(node)"
+                  (valueChange)="onEditLeaf(path ?? [], $event, node)"
                   [sj]="{
-                    display: 'flex',
-                    width: 'auto'
+                    position: 'absolute',
+                    width: '1%',
                   }"
-                />
+                ></sj-input>
               </label>
               }
               <sj-input
                 variant="outlined"
-                type="text"
+                [type]="isNumber(node) ? 'number' : 'text'"
                 [usePadding]="'compact'"
                 [useRounded]="'compact'"
                 [value]="stringify(node)"
@@ -176,6 +184,10 @@ export class JsonTreeComponent {
 
   isArray(v: any): boolean {
     return Array.isArray(v);
+  }
+
+  isNumber(v: any): boolean {
+    return typeof v === 'number' && Number.isFinite(v);
   }
 
   isHexColor(v: any): boolean {

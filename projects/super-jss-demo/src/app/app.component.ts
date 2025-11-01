@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, OnDestroy, effect, inject, signal } from '@angular/core';
 import { HeaderComponent } from './components/header.component';
 
 import {
@@ -11,6 +11,7 @@ import {
   SjStyle,
   SjThemeService,
   SjRootApi,
+  deepMerge,
 } from 'super-jss';
 
 import { RouterOutlet } from '@angular/router';
@@ -125,11 +126,13 @@ import { SjFlexComponent } from 'super-jss';
     </sj-paper>
   `,
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   sj: SjRootApi = sj;
   theme = inject(SjThemeService);
   themeData: SjTheme;
   pendingThemePatch: SjTheme | null = null;
+  private applyTimer: any = null;
+  private readonly autoApplyDelayMs = 2000;
 
   currentBP = signal('xs');
   showSidenav = signal(false);
@@ -158,7 +161,20 @@ export class AppComponent {
   }
   // Receive edits, but do not apply until user confirms
   onStudioChange(patch: Partial<SjTheme>) {
-    this.pendingThemePatch = { ...this.themeData, ...patch };
+    // Accumulate patch over time, merging into the latest theme snapshot
+    this.pendingThemePatch = deepMerge(
+      this.pendingThemePatch || this.themeData,
+      patch as any
+    ) as SjTheme;
+
+    // Debounce theme application to avoid thrashing CSS regeneration
+    if (this.applyTimer) clearTimeout(this.applyTimer);
+    this.applyTimer = setTimeout(() => {
+      if (this.pendingThemePatch) {
+        this.theme.setTheme(this.pendingThemePatch);
+        this.pendingThemePatch = null;
+      }
+    }, this.autoApplyDelayMs);
   }
 
   applyEditedTheme() {
@@ -184,5 +200,9 @@ export class AppComponent {
     console.log('Toggling sidenav, current state:', this.showSidenav());
     this.showSidenav.set(!this.showSidenav());
     console.log('After toggle, state:', this.showSidenav());
+  }
+
+  ngOnDestroy(): void {
+    if (this.applyTimer) clearTimeout(this.applyTimer);
   }
 }
