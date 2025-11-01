@@ -16,6 +16,7 @@ import {
   SjDirective,
   sj,
 } from 'super-jss';
+import { JsonTreeComponent } from './json-tree.component';
 
 @Component({
   selector: 'app-json-studio',
@@ -27,6 +28,7 @@ import {
     SjFlexComponent,
     SjTypographyComponent,
     SjDirective,
+    JsonTreeComponent,
   ],
   template: `
     <sj-flex
@@ -43,30 +45,20 @@ import {
         <sj-typography variant="small" [sj]="{ c: sj.palette.neutral.main }"
           >JSON Editor</sj-typography
         >
-        <!-- <sj-flex [sj]="[sj.fxDir(sj.fxDir.options.row), sj.gap(0.25)]">
+        <sj-flex [sj]="[sj.fxDir(sj.fxDir.options.row), sj.gap(0.25)]">
           <sj-button
-            [variant]="'outlined'"
-            [useDensity]="1"
-            [useRounded]="'compact'"
-            [usePaint]="'primary'"
-            [sj]="{ fontSize: 0.75 }"
-            (click)="formatJson()"
-            title="Format JSON"
+            [variant]="'flat'"
+            [sj]="mode() === 'raw' ? { fw: 600 } : {}"
+            (click)="setMode('raw')"
+            >Raw</sj-button
           >
-            Format
-          </sj-button>
           <sj-button
-            [variant]="'outlined'"
-            [useDensity]="1"
-            [useRounded]="'compact'"
-            [usePaint]="'primary'"
-            [sj]="{ fontSize: 0.75 }"
-            (click)="compactJson()"
-            title="Compact JSON"
+            [variant]="'flat'"
+            [sj]="mode() === 'tree' ? { fw: 600 } : {}"
+            (click)="setMode('tree')"
+            >Tree</sj-button
           >
-            Compact
-          </sj-button>
-        </sj-flex> -->
+        </sj-flex>
       </sj-flex>
 
       <!-- Error display -->
@@ -79,6 +71,7 @@ import {
       }
 
       <!-- Editor -->
+      @if (mode() === 'raw') {
       <textarea
         id="raw-editor"
         [sj]="styles.editor"
@@ -89,53 +82,24 @@ import {
         wrap="off"
         spellcheck="false"
       ></textarea>
+      } @else {
+        <app-json-tree [value]="treeValue()" (valueChange)="onTreeChange($event)" />
+      }
     </sj-flex>
   `,
-  styles: [
-    `
-      .json-studio {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        width: 100%;
-      }
-      .editor {
-        width: 100%;
-        min-height: 300px;
-        resize: vertical;
-        box-sizing: border-box;
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-          'Liberation Mono', 'Courier New', monospace;
-        font-size: 13px;
-        line-height: 1.4;
-        padding: 12px;
-        border: 1px solid #d0d7de;
-        border-radius: 6px;
-        background: #fff;
-        color: #24292f;
-      }
-      .editor:focus {
-        outline: 2px solid #80bfff;
-        outline-offset: 2px;
-      }
-      .error {
-        color: #842029;
-        background: #f8d7da;
-        border: 1px solid #f5c2c7;
-        border-radius: 6px;
-        padding: 8px 12px;
-      }
-      .error p {
-        margin: 0;
-      }
-    `,
-  ],
 })
 export class JsonStudioComponent implements OnChanges {
   @Input() value: any | null = null;
   @Output() valueChange = new EventEmitter<any>();
 
   readonly sj = sj;
+
+  // simple mode signal to toggle between Raw and Tree
+  mode = signal<'raw' | 'tree'>('tree');
+
+  setMode(m: 'raw' | 'tree') {
+    this.mode.set(m);
+  }
 
   readonly styles = {
     error: {
@@ -173,6 +137,15 @@ export class JsonStudioComponent implements OnChanges {
 }`);
   error = signal<string | null>(null);
 
+  // Derived value for tree input (parse jsonString when switching views)
+  treeValue = (): any => {
+    try {
+      return JSON.parse(this.jsonString());
+    } catch {
+      return null;
+    }
+  };
+
   ngOnChanges(changes: SimpleChanges): void {
     if ('value' in changes) {
       if (this.value != null) {
@@ -196,6 +169,10 @@ export class JsonStudioComponent implements OnChanges {
     } catch (e: any) {
       this.error.set(String(e?.message ?? e));
     }
+  }
+
+  onTreeChange(updated: any) {
+    this.valueChange.emit(updated);
   }
 
   preventUndo(event: KeyboardEvent) {

@@ -46,7 +46,9 @@ export abstract class SjBaseComponent implements AfterContentInit, OnChanges {
     protected cssGenerator: SjCssGeneratorService
   ) {
     effect(() => {
+      // Re-render on both theme structure/version changes and direct theme swaps
       this.themeService.themeVersion();
+      this.themeService.sjTheme();
       if (this.host) {
         if (this.parentEl) this.applyToParent();
       } else {

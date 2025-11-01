@@ -30,13 +30,19 @@ export interface JsonNode {
     SjInputComponent,
   ],
   template: `
-    <sj-flex [sj]="[sj.fxDir(sj.fxDir.options.column), sj.ml(0.5), sj.w('100%') ]">
+    <sj-flex
+      [sj]="[
+        sj.fxDir(sj.fxDir.options.row),
+        sj.ml(sj.margin.options.comfortable),
+        sj.w('100%')
+      ]"
+    >
       <sj-flex
         [sj]="[
           sj.d(sj.d.options.flex),
           sj.fxDir(sj.fxDir.options.row),
           sj.alignItems(sj.alignItems.options.center),
-          sj.gap(0.5),
+          sj.gap(sj.gap.options.compact),
           sj.w('100%')
         ]"
       >
@@ -68,8 +74,7 @@ export interface JsonNode {
           >{{ node.key }}:</sj-typography
         >
 
-        @switch (node.type) { @case ('string') { @if (isHexColor(node.value))
-        {
+        @switch (node.type) { @case ('string') { @if (isHexColor(node.value)) {
         <sj-typography
           variant="span"
           [sj]="[
@@ -184,7 +189,9 @@ export class JsonNodeComponent {
   @Output() remove = new EventEmitter<JsonNode>();
 
   toggle(evt?: Event) {
-    try { evt?.stopPropagation(); } catch {}
+    try {
+      evt?.stopPropagation();
+    } catch {}
     const updated: JsonNode = {
       ...this.node,
       expanded: !this.node.expanded,
@@ -200,7 +207,9 @@ export class JsonNodeComponent {
 
   onUpdate(childNode: JsonNode) {
     if (!this.node.children) return;
-    const childIndex = this.node.children.findIndex((c) => c.key === childNode.key);
+    const childIndex = this.node.children.findIndex(
+      (c) => c.key === childNode.key
+    );
     if (childIndex > -1) {
       const newChildren = [...this.node.children];
       newChildren[childIndex] = childNode;
@@ -212,7 +221,9 @@ export class JsonNodeComponent {
 
   onRemove(childNode: JsonNode) {
     if (!this.node.children) return;
-    const newChildren = this.node.children.filter((c) => c.key !== childNode.key);
+    const newChildren = this.node.children.filter(
+      (c) => c.key !== childNode.key
+    );
     const updated: JsonNode = { ...this.node, children: newChildren };
     this.node = updated;
     this.update.emit(updated);
@@ -223,7 +234,12 @@ export class JsonNodeComponent {
     const nextChild: JsonNode =
       this.node.type === 'object'
         ? { key: 'new_key', value: 'new_value', type: 'string', expanded: true }
-        : { key: existing.length.toString(), value: 'new_value', type: 'string', expanded: true };
+        : {
+            key: existing.length.toString(),
+            value: 'new_value',
+            type: 'string',
+            expanded: true,
+          };
     const newChildren = [...existing, nextChild];
     const updated: JsonNode = { ...this.node, children: newChildren };
     this.node = updated;

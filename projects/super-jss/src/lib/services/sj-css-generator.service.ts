@@ -290,10 +290,21 @@ export class SjCssGeneratorService {
 
     // Only manipulate DOM in browser environment
     if (this.isBrowser && this.styleEl) {
-      this.renderer.removeChild(this.document.head, this.styleEl);
-      this.styleEl = this.renderer.createElement('style');
-      this.renderer.setAttribute(this.styleEl, 'data-sjss', '');
-      this.renderer.appendChild(this.document.head, this.styleEl);
+      try {
+        // Safer than removing/recreating the <style>: clear its content in place
+        // to avoid transient unstyled flashes and preserve the node reference.
+        while (this.styleEl.firstChild) {
+          this.renderer.removeChild(this.styleEl, this.styleEl.firstChild);
+        }
+      } catch {
+        // Fallback: recreate if clearing fails for any reason
+        try {
+          this.renderer.removeChild(this.document.head, this.styleEl);
+        } catch {}
+        this.styleEl = this.renderer.createElement('style');
+        this.renderer.setAttribute(this.styleEl, 'data-sjss', '');
+        this.renderer.appendChild(this.document.head, this.styleEl);
+      }
     }
   }
 

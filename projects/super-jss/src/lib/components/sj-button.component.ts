@@ -278,7 +278,7 @@ export class SjButtonComponent {
           (style as any).backgroundColor = 'transparent';
           (style as any).color = `${fam}.main`;
           (style as any).borderStyle = 'solid';
-          (style as any).borderWidth = 0.1;
+          (style as any).borderWidth = 0.625;
           (style as any).borderColor = `${fam}.main`;
           const hov = ((style as any)['&:hover'] as any) || {};
           ((style as any)['&:hover'] as any) = {

@@ -71,6 +71,9 @@ export class SjThemeService implements OnDestroy {
         // Reset CSS cache so new bundles append cleanly after edits
         const cssGenerator = this.injector.get(SjCssGeneratorService);
         cssGenerator.clearCache();
+        // Force a re-render of SJ components/directives after clearing caches.
+        // This avoids transient missing styles in dev/HMR where only the CSS cache changes.
+        this.themeVersion.set((this.themeVersion() || 0) + 1);
       }
     } catch {}
     // Register this instance for global sj.theme access (internal)
@@ -133,6 +136,10 @@ export class SjThemeService implements OnDestroy {
   ): void;
   public setTheme(theme: SjTheme): void;
   public setTheme(theme: any) {
+    // Clear CSS first to avoid a window where old rules remain applied to new DOM
+    const cssGenerator = this.injector.get(SjCssGeneratorService);
+    cssGenerator.clearCache();
+
     const currentTheme = this.sjTheme();
     const merged = deepMerge(currentTheme, theme as any);
     let newTheme = resolveTheme(merged as SjTheme);
@@ -143,9 +150,7 @@ export class SjThemeService implements OnDestroy {
     } as SjResolvedTheme;
     this.theme.set(newTheme);
 
-    const cssGenerator = this.injector.get(SjCssGeneratorService);
-    cssGenerator.clearCache();
-
+    // Bump version to force re-render and regeneration of classes
     this.themeVersion.set(this.themeVersion() + 1);
 
     // Reflect typography font on document when theme changes
@@ -159,6 +164,10 @@ export class SjThemeService implements OnDestroy {
   public setThemeReset(
     theme: import('../models/interfaces').DeepPartial<SjTheme> | SjTheme
   ): void {
+    // Clear CSS first so new theme produces a fresh stylesheet
+    const cssGenerator = this.injector.get(SjCssGeneratorService);
+    cssGenerator.clearCache();
+
     const base = resolveTheme(defaultTheme);
     const merged = deepMerge(base, theme as any);
     let newTheme = resolveTheme(merged as SjTheme);
@@ -167,9 +176,6 @@ export class SjThemeService implements OnDestroy {
       typography: normalizeTypography(newTheme.typography),
     } as SjResolvedTheme;
     this.theme.set(newTheme);
-
-    const cssGenerator = this.injector.get(SjCssGeneratorService);
-    cssGenerator.clearCache();
 
     this.themeVersion.set(this.themeVersion() + 1);
 

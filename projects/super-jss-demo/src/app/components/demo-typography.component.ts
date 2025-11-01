@@ -263,7 +263,20 @@ export class DemoTypographyComponent {
     | 'caption'
     | 'small'
     | 'pre'
-  )[] = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'body', 'caption', 'small', 'pre'];
+  )[] = [
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'p',
+    'span',
+    'body',
+    'caption',
+    'small',
+    'pre',
+  ];
 
   private readonly variantSamples: Record<string, string> = {
     h1: 'Taxing Laughter: The Joke Tax Chronicles',

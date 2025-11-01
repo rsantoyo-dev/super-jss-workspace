@@ -108,7 +108,7 @@ export class SjPaperComponent extends SjBaseComponent {
         (paperStyles as any).backgroundColor = 'transparent';
         (paperStyles as any).color = isAuto ? 'inherit' : `${fam}.main`;
         (paperStyles as any).borderStyle = 'solid';
-        (paperStyles as any).borderWidth = 0.05;
+        (paperStyles as any).borderWidth = '0.05rem';
         (paperStyles as any).borderColor = isAuto
           ? 'light.dark'
           : `${fam}.main`;
