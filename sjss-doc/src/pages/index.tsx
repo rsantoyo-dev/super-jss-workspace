@@ -114,7 +114,7 @@ function DemoInvite() {
         </p>
         <a href="https://sjssdemo.netlify.app/" target="_blank" rel="noreferrer noopener">
           <img
-            src="/img/Screenshot%202025-11-01%20at%204.40.29%E2%80%AFPM.png"
+            src="https://raw.githubusercontent.com/rsantoyo-dev/super-jss-workspace/refs/heads/master/sjss-doc/static/img/theme-editor.png"
             alt="SJSS demo app showing the live theme editor"
             style={{ width: "100%", maxWidth: 600, margin: "0 auto", display: "block", borderRadius: 8, border: 0, boxShadow: "0 2px 16px rgba(0,0,0,0.15)" }}
           />

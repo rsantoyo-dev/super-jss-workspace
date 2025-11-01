@@ -28,8 +28,7 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 - [GitHub](https://github.com/rsantoyo-dev/super-jss-workspace)
 
 <a href="https://sjssdemo.netlify.app/" target="_blank" rel="noreferrer">
-  <img src="../../sjss-doc/static/img/theme-editor.png" alt="SJSS live theme editor demo" width="720" />
-  
+  <img src="https://raw.githubusercontent.com/rsantoyo-dev/super-jss-workspace/refs/heads/master/sjss-doc/static/img/theme-editor.png" alt="SJSS live theme editor demo" width="720" />
 </a>
 
 
