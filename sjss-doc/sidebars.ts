@@ -17,6 +17,18 @@ const sidebars: SidebarsConfig = {
         'core/directive-shortcuts',
         'core/sj-api',
         'core/sj-api-tokens',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Theming',
+      items: [
+        'core/theming-palette',
+        'core/theming-typography',
+        'core/theming-spacing',
+        'core/theming-padding',
+        'core/theming-breakpoints',
+        'core/theming-colors',
         'core/theming',
         'core/services',
       ],

@@ -1,0 +1,27 @@
+---
+title: "Breakpoints"
+description: "Responsive breakpoints"
+---
+
+# Breakpoints
+
+Use responsive objects with keys `xs, sm, md, lg, xl, xxl` to express styles across breakpoints.
+
+```html
+<div [sj]="{ padding: { xs: 1, md: 2 } }">Padding changes at md</div>
+<sj-flex [sj]="sj.gridTemplateColumns({ xs: '1fr', md: '1fr 1fr' })"></sj-flex>
+```
+
+Default breakpoints can be customized in your theme.
+
+## Live Example
+
+<iframe
+  src="https://stackblitz.com/edit/sjss-palette?embed=1&file=src%2Fmain.ts&hideExplorer=1&hideNavigation=1&view=preview"
+  title="SJSS • Palette (Breakpoints demo)"
+  style={{ width: '100%', height: 520, border: 0, borderRadius: 8, overflow: 'hidden' }}
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; clipboard-write"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+/>
+
+If the embed doesn’t load, open it directly: <a href="https://stackblitz.com/edit/sjss-palette?file=src%2Fmain.ts" target="_blank" rel="noreferrer noopener">Open on StackBlitz</a>.

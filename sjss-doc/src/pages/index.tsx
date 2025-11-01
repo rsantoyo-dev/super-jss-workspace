@@ -50,8 +50,10 @@ function Install() {
           <code>npm i super-jss</code>
         </pre>
         <p className={styles.note}>
-          Tip: for Angular template autocomplete, install the Angular Language
-          Service extension in your IDE.
+          Super JSS (SJSS) is atomic CSS‑in‑JS for Angular: write styles as
+          plain JavaScript objects with the <code>[sj]</code> directive, use
+          theme tokens for colors/spacing/typography, and ship tiny runtime‑generated
+          CSS with responsive breakpoints built in.
         </p>
       </div>
     </section>
@@ -63,11 +65,11 @@ function LivePlayground() {
     <section className={styles.playground}>
       <div className="container">
         <Heading as="h2">Try it</Heading>
-        <p>Live StackBlitz demo of the sj Padding System</p>
+        <p>Live StackBlitz demo (Palette)</p>
         <div className={styles.embedWrap}>
           <iframe
-            src="https://stackblitz.com/edit/sjss-padding-system?embed=1&file=src/main.ts&hideExplorer=1&hideNavigation=1&theme=light&view=preview"
-            title="SJSS • sjPaddingSystem (GitHub)"
+            src="https://stackblitz.com/edit/sjss-palette?embed=1&file=src%2Fmain.ts&hideExplorer=1&hideNavigation=1&view=preview"
+            title="SJSS • Palette"
             style={{
               width: "100%",
               height: 520,
@@ -82,7 +84,7 @@ function LivePlayground() {
         <p>
           If the embed doesn’t load locally, open it directly:{" "}
           <a
-            href="https://stackblitz.com/~/github.com/rsantoyo-dev/sjss-padding-system?file=src/main.ts"
+            href="https://stackblitz.com/edit/sjss-palette?file=src%2Fmain.ts"
             target="_blank"
             rel="noreferrer noopener"
           >
@@ -90,33 +92,33 @@ function LivePlayground() {
           </a>
           .
         </p>
-        <p>Live StackBlitz demo of the sj root API:</p>
-        <div className={styles.embedWrap}>
-          <iframe
-            src="https://stackblitz.com/edit/sjss-root-api?embed=1&file=src%2Fmain.ts&hideExplorer=1&hideNavigation=1&view=preview"
-            title="SJSS • sjRootApi"
-            style={{
-              width: "100%",
-              height: 520,
-              border: 0,
-              borderRadius: 8,
-              overflow: "hidden",
-            }}
-            allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; clipboard-write"
-            sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-          />
-        </div>
+
+        
+      </div>
+    </section>
+  );
+}
+
+function DemoInvite() {
+  return (
+    <section className={styles.playground}>
+      <div className="container">
+        <Heading as="h2">Live Angular Demo</Heading>
         <p>
-          If the embed doesn’t load locally, open it directly: {" "}
-          <a
-            href="https://stackblitz.com/edit/sjss-root-api?file=src%2Fmain.ts"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Open on StackBlitz
+          Try the full demo app with a live theme editor at
+          {" "}
+          <a href="https://sjssdemo.netlify.app/" target="_blank" rel="noreferrer noopener">
+            sjssdemo.netlify.app
           </a>
-          .
+          . Edit palette, spacing, and typography in real time.
         </p>
+        <a href="https://sjssdemo.netlify.app/" target="_blank" rel="noreferrer noopener">
+          <img
+            src="/img/Screenshot%202025-11-01%20at%204.40.29%E2%80%AFPM.png"
+            alt="SJSS demo app showing the live theme editor"
+            style={{ width: "100%", maxWidth: 600, margin: "0 auto", display: "block", borderRadius: 8, border: 0, boxShadow: "0 2px 16px rgba(0,0,0,0.15)" }}
+          />
+        </a>
       </div>
     </section>
   );
@@ -131,6 +133,7 @@ export default function Home(): ReactNode {
     >
       <Hero />
       <main>
+        <DemoInvite />
         <Install />
         <LivePlayground />
       </main>

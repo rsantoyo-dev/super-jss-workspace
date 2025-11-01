@@ -15,12 +15,22 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 
 ## Quick links
 
-- Docs: https://sjss.netlify.app/
-- StackBlitz — sjRootApi: https://stackblitz.com/edit/stackblitz-starters-lgwyvmd2?file=src%2Fmain.ts
-- StackBlitz — Padding & Flex: https://stackblitz.com/edit/stackblitz-starters-wkjbpaq7?file=src%2Fmain.ts
-- Demo: https://sjssdemo.netlify.app/
-- GitHub: https://github.com/rsantoyo-dev/super-jss-workspace
-- Storybook: https://sjss-storybook.netlify.app/
+- [Docs](https://sjss.netlify.app/)
+- [Live Demo](https://sjssdemo.netlify.app/) — theme editor in action
+- [Storybook](https://sjss-storybook.netlify.app/) — component reference
+- [StackBlitz · sjRootApi](https://stackblitz.com/edit/stackblitz-starters-lgwyvmd2?file=src%2Fmain.ts)
+- [StackBlitz · Padding & Flex](https://stackblitz.com/edit/stackblitz-starters-wkjbpaq7?file=src%2Fmain.ts)
+- [StackBlitz · Palette](https://stackblitz.com/edit/sjss-palette?file=src%2Fmain.ts)
+- [StackBlitz · Typography](https://stackblitz.com/edit/sjss-typography?file=src%2Fmain.ts)
+- [StackBlitz · Spacing](https://stackblitz.com/edit/sjss-spacing?file=src%2Fmain.ts)
+- [StackBlitz · Padding System](https://stackblitz.com/edit/sjss-padding-system?file=src%2Fmain.ts)
+- [StackBlitz · Colors (theme.colors)](https://stackblitz.com/edit/sjss-colors?file=src%2Fmain.ts)
+- [GitHub](https://github.com/rsantoyo-dev/super-jss-workspace)
+
+<a href="https://sjssdemo.netlify.app/" target="_blank" rel="noreferrer">
+  <img src="../../sjss-doc/static/img/theme-editor.png" alt="SJSS live theme editor demo" width="720" />
+  
+</a>
 
 
 ## Why SJSS (in 30 seconds)

@@ -56,6 +56,7 @@ export class SidenavComponent {
   menu = [
     { label: 'Home', route: '/home' },
     { label: 'Palette', route: '/palette' },
+    { label: 'Colors', route: '/colors' },
     { label: 'Typography', route: '/typography' },
     { label: 'Spacing', route: '/spacing' },
     { label: 'Padding', route: '/padding' },

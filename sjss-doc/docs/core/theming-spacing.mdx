@@ -1,0 +1,27 @@
+---
+title: "Spacing"
+description: "Theme spacing scale"
+---
+
+# Spacing
+
+SJSS uses a spacing function to map numbers (e.g., `1..20`) to pixel values based on the theme.
+
+```html
+<div [sj]="sj.p(2)">Padding using spacing(2)</div>
+<div [sj]="sj.m({ xs: 1, md: 2 })">Responsive margins</div>
+```
+
+Tip: Use component densities (e.g., `usePadding="compact|default|comfortable|spacious"`) for consistent surfaces.
+
+## Live Example
+
+<iframe
+  src="https://stackblitz.com/edit/sjss-spacing?embed=1&file=src%2Fmain.ts&hideExplorer=1&hideNavigation=1&view=preview"
+  title="SJSS • Spacing"
+  style={{ width: '100%', height: 520, border: 0, borderRadius: 8, overflow: 'hidden' }}
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; clipboard-write"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+/>
+
+If the embed doesn’t load, open it directly: <a href="https://stackblitz.com/edit/sjss-spacing?file=src%2Fmain.ts" target="_blank" rel="noreferrer noopener">Open on StackBlitz</a>.

@@ -5,25 +5,42 @@
  */
 
 /* You can override the default Infima variables here. */
+/* Align Docusaurus colors & fonts with SJSS default theme */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Bricolage+Grotesque:wght@600;700&display=swap');
+
 :root {
-  --ifm-color-primary: #3498DB;
-  --ifm-color-primary-dark: #2E86C1;
-  --ifm-color-primary-darker: #1976D2;
-  --ifm-color-primary-darkest: #1565C0;
-  --ifm-color-primary-light: #64B5F6;
-  --ifm-color-primary-lighter: #90CAF9;
-  --ifm-color-primary-lightest: #BBDEFB;
+  /* SJSS defaultTheme.palette.primary (light mode) */
+  --ifm-color-primary: #0F172A; /* primary.main */
+  --ifm-color-primary-dark: #050911; /* primary.dark */
+  --ifm-color-primary-darker: #050911; /* fallback to .dark */
+  --ifm-color-primary-darkest: #050911; /* fallback to .dark */
+  --ifm-color-primary-light: #273555; /* primary.light */
+  --ifm-color-primary-lighter: #273555; /* fallback to .light */
+  --ifm-color-primary-lightest: #273555; /* fallback to .light */
+
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.06);
+
+  /* Typography alignment with SJSS DEFAULT_TYPOGRAPHY */
+  --ifm-font-family-base: Inter, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ifm-heading-font-family: "Bricolage Grotesque", Inter, system-ui, sans-serif;
+  --ifm-font-family-monospace: Menlo, "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
 }
 
 [data-theme='dark'] {
-  --ifm-color-primary: #64B5F6;
-  --ifm-color-primary-dark: #90CAF9;
-  --ifm-color-primary-darker: #BBDEFB;
-  --ifm-color-primary-darkest: #E3F2FD;
-  --ifm-color-primary-light: #0D47A1;
-  --ifm-color-primary-lighter: #1565C0;
-  --ifm-color-primary-lightest: #1976D2;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  /* SJSS defaultDarkTheme.palette.primary (dark mode) */
+  --ifm-color-primary: #8093C2; /* primary.main */
+  --ifm-color-primary-dark: #50638F; /* primary.dark */
+  --ifm-color-primary-darker: #50638F; /* fallback to .dark */
+  --ifm-color-primary-darkest: #50638F; /* fallback to .dark */
+  --ifm-color-primary-light: #94ABE0; /* primary.light */
+  --ifm-color-primary-lighter: #94ABE0; /* fallback to .light */
+  --ifm-color-primary-lightest: #94ABE0; /* fallback to .light */
+
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.06);
+
+  /* Keep typography consistent in dark mode */
+  --ifm-font-family-base: Inter, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ifm-heading-font-family: "Bricolage Grotesque", Inter, system-ui, sans-serif;
+  --ifm-font-family-monospace: Menlo, "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
 }

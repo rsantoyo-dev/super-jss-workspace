@@ -3,6 +3,7 @@ import { DemoTypographyComponent } from './components/demo-typography.component'
 import { DemoButtonsComponent } from './components/demo-buttons.component';
 import { DemoCardsComponent } from './components/demo-cards.component';
 import { PaletteComponent } from './components/palette.component';
+import { ColorsComponent } from './components/colors.component';
 import { DemoPaperComponent } from './components/demo-paper.component';
 import { ThemingComponent } from './components/theming.component';
 import { PerfBenchmarkComponent } from './components/perf-benchmark.component';
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'buttons', component: DemoButtonsComponent },
   { path: 'inputs', component: DemoInputsComponent },
   { path: 'palette', component: PaletteComponent },
+  { path: 'colors', component: ColorsComponent },
   { path: 'element-options', component: DemoElementOptionsComponent },
   { path: 'padding', component: DemoPaddingComponent },
   { path: 'spacing', component: DemoSpacingComponent },

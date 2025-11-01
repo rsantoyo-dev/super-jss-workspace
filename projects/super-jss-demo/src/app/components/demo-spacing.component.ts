@@ -13,6 +13,16 @@ import { SectionContainerComponent } from './section-container.component';
   ],
   template: `
     <app-section title="Spacing Scale (1–20)">
+      <sj-flex useGap="compact">
+        <sj-typography variant="small">Live StackBlitz demo:</sj-typography>
+        <a
+          href="https://stackblitz.com/edit/sjss-spacing?file=src%2Fmain.ts"
+          target="_blank"
+          rel="noreferrer"
+          [sj]="sj.c('primary.main')"
+          >Open</a
+        >
+      </sj-flex>
       <sj-typography variant="small" [sj]="sj.c('neutral.dark')">
         sj.space(n) returns the rem factor for the systemic spacing step n.
         Example: sj.space(3) = 0.5rem (8px).
