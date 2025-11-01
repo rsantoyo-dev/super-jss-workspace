@@ -5,9 +5,9 @@ export const DEFAULT_SURFACES: NonNullable<
 > = {
   padding: {
     1: { xs: 1, md: 2 },
-    2: { xs: 2, md: 3 },
-    3: { xs: 3, md: 4 },
-    4: { xs: 4, md: 6 },
+    2: { xs: 2, md: 3, lg: 4 },
+    3: { xs: 3, md: 4, lg: 5 },
+    4: { xs: 4, md: 6, lg: 7 },
   },
   gap: {
     1: { xs: 1, md: 2 },

@@ -7,6 +7,7 @@ import { DemoPaperComponent } from './components/demo-paper.component';
 import { ThemingComponent } from './components/theming.component';
 import { PerfBenchmarkComponent } from './components/perf-benchmark.component';
 import { HeroComponent } from './components/hero.component';
+import { HomeComponent } from './components/home.component';
 import { DemoInputsComponent } from './components/demo-inputs.component';
 import { DemoElementOptionsComponent } from './components/demo-element-options.component';
 import { DemoPaddingComponent } from './components/demo-padding.component';
@@ -25,6 +26,6 @@ export const routes: Routes = [
   { path: 'padding', component: DemoPaddingComponent },
   { path: 'spacing', component: DemoSpacingComponent },
   { path: 'perf', component: PerfBenchmarkComponent },
-  { path: 'home', component: DemoPaperComponent },
-  { path: '', redirectTo: 'paper', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];

@@ -41,40 +41,40 @@ interface DemoInput {
   template: `
     <app-section title="Inputs">
       <sj-typography variant="span">
-        Minimal, theme-aware inputs that follow Paper/Button variants. Use density tokens for spacing and paint for palettes.
+        Minimal, theme-aware inputs that follow Paper/Button variants. Use
+        density tokens for spacing and paint for palettes.
       </sj-typography>
 
-      <div
-        [sj]="[
-          sj.d(sj.d.options.grid),
-          sj.gridTemplateColumns('repeat(auto-fit, minmax(360px, 1fr))'),
-          sj.gap({ xs: 0.5, md: 1 }),
-          sj.mt(0)
-        ]"
-      >
+      <sj-flex useCol useGap="default" usePadding="default">
         @for (item of inputData; track item.title) {
-          <app-demo-item [title]="item.title" [titleColor]="item.titleColor" [code]="item.usageExample">
-            <div [sj]="[ sj.w('360px') ]">
-              <sj-input
-                [variant]="item.variant"
-                [usePaint]="$any(item.usePaint)"
-                [usePadding]="$any(item.usePadding)"
-                [useRounded]="$any(item.useRounded)"
-                [fullWidth]="$any(item.fullWidth)"
-                [disabled]="$any(item.disabled)"
-                [invalid]="$any(item.invalid)"
-                [placeholder]="$any(item.placeholder)"
-              >
-                <ng-container *ngIf="item.withPrefixSuffix">
-                  <sj-icon prefix [name]="icon.superJson" size="1rem"></sj-icon>
-                  <span suffix [sj]="[ sj.c('neutral.dark') ]">{{'@'}}</span>
-                </ng-container>
-              </sj-input>
-            </div>
-            <sj-typography variant="small" [sj]="[ sj.c('neutral.dark') ]">{{ item.message }}</sj-typography>
-          </app-demo-item>
+        <app-demo-item
+          [title]="item.title"
+          [titleColor]="item.titleColor"
+          [code]="item.usageExample"
+        >
+          <div [sj]="[sj.w('360px')]">
+            <sj-input
+              [variant]="item.variant"
+              [usePaint]="$any(item.usePaint)"
+              [usePadding]="$any(item.usePadding)"
+              [useRounded]="$any(item.useRounded)"
+              [fullWidth]="$any(item.fullWidth)"
+              [disabled]="$any(item.disabled)"
+              [invalid]="$any(item.invalid)"
+              [placeholder]="$any(item.placeholder)"
+            >
+              <ng-container *ngIf="item.withPrefixSuffix">
+                <sj-icon prefix [name]="icon.superJson" size="1rem"></sj-icon>
+                <span suffix [sj]="[sj.c('neutral.dark')]">{{ '@' }}</span>
+              </ng-container>
+            </sj-input>
+          </div>
+          <sj-typography variant="small" [sj]="[sj.c('neutral.dark')]">{{
+            item.message
+          }}</sj-typography>
+        </app-demo-item>
         }
-      </div>
+      </sj-flex>
     </app-section>
   `,
 })

@@ -26,7 +26,7 @@ import {
       <sj-flex
         useCol
         useGap="default"
-        usePadding="compact"
+        usePadding="default"
         useFullWidth
         [sj]="sj.py(sj.padding.options.compact)"
       >
@@ -35,7 +35,7 @@ import {
           [useDensity]="2"
           [useFullWidth]="true"
           useRounded="compact"
-          [variant]="'default'"
+          [variant]="'flat'"
           [usePaint]="'primary'"
           [routerLink]="item.route"
           routerLinkActive="active"
@@ -55,15 +55,15 @@ export class SidenavComponent {
   sj: SjRootApi = sj;
   menu = [
     { label: 'Home', route: '/home' },
+    { label: 'Palette', route: '/palette' },
     { label: 'Typography', route: '/typography' },
     { label: 'Spacing', route: '/spacing' },
     { label: 'Padding', route: '/padding' },
-    { label: 'Palette', route: '/palette' },
+    { label: 'Theming', route: '/theming' },
+    { label: 'Paper', route: '/paper' },
     { label: 'Buttons', route: '/buttons' },
     { label: 'Inputs', route: '/inputs' },
-    { label: 'Paper', route: '/paper' },
     { label: 'Cards', route: '/cards' },
-    { label: 'Theming', route: '/theming' },
   ];
   @Output() navigate = new EventEmitter<void>();
 }

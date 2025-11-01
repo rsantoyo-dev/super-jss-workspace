@@ -6,6 +6,7 @@ import {
   Output,
   input,
   computed,
+  signal,
 } from '@angular/core';
 import {
   SjPaperComponent,
@@ -53,7 +54,24 @@ import {
             [sj]="sj.ml((depth ?? 0) * 1)"
           >
             @if (!isPrimitive(node)) {
-            <sj-typography variant="small">{{ label }}</sj-typography>
+            <sj-flex
+              [sj]="[sj.fxDir('row'), sj.gap(0.25), sj.fxAItems('center')]"
+            >
+              <span
+                (click)="toggleNode(path ?? [])"
+                [sj]="{
+                  cursor: 'pointer',
+                  userSelect: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center'
+                }"
+              >
+                <span [sj]="{ display: 'inline-block', width: '1rem' }">
+                  {{ isCollapsed(path ?? []) ? '▸' : '▾' }}
+                </span>
+                <sj-typography variant="small">{{ label }}</sj-typography>
+              </span>
+            </sj-flex>
             } @if (isPrimitive(node)) {
             <sj-flex
               useGap="compact"
@@ -107,7 +125,11 @@ import {
             </sj-flex>
             } @else if (isArray(node)) {
             <!-- One child per row for arrays -->
-            <sj-flex useCol useGap="compact">
+            <sj-flex
+              useCol
+              useGap="compact"
+              [sj]="{ display: isCollapsed(path ?? []) ? 'none' : 'flex' }"
+            >
               @for (item of node; track $index) {
               <ng-container
                 [ngTemplateOutlet]="renderNode"
@@ -122,7 +144,11 @@ import {
             </sj-flex>
             } @else {
             <!-- One child per row for objects -->
-            <sj-flex useCol useGap="compact">
+            <sj-flex
+              useCol
+              useGap="compact"
+              [sj]="{ display: isCollapsed(path ?? []) ? 'none' : 'flex' }"
+            >
               @for (k of objectKeys(node); track k) {
               <ng-container
                 [ngTemplateOutlet]="renderNode"
@@ -148,8 +174,6 @@ import {
             path: []
           }"
         ></ng-container>
-
-        <button type="button" (click)="emit()">Emit JSON</button>
       </sj-flex>
     </sj-paper>
   `,
@@ -168,9 +192,30 @@ export class JsonTreeComponent {
   readonly sj: SjRootApi = sj;
   value = input<any>();
   @Output() valueChange = new EventEmitter<any>();
+  // Track expanded nodes (by path key). Root is open by default, others closed
+  private expanded = signal<Set<string>>(new Set());
 
   emit() {
     this.valueChange.emit(this.value());
+  }
+
+  // Collapse/expand helpers
+  private pathKey(path: any[]): string {
+    return (path || []).join('__');
+  }
+  isCollapsed(path: any[] | undefined): boolean {
+    const p = path || [];
+    if (p.length === 0) return false; // root open by default
+    const key = this.pathKey(p);
+    return !this.expanded().has(key);
+  }
+  toggleNode(path: any[] | undefined) {
+    const p = path || [];
+    const key = this.pathKey(p);
+    const next = new Set(this.expanded());
+    if (next.has(key)) next.delete(key);
+    else next.add(key);
+    this.expanded.set(next);
   }
 
   isPrimitive(v: any): boolean {

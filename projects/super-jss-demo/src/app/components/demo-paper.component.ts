@@ -36,15 +36,11 @@ interface DemoPaper {
         <code>usePadding</code>, <code>useGap</code>, <code>useRounded</code>.
       </sj-typography>
 
-      <sj-typography variant="h6" [sj]="{ mt: 1 }">Variants & usage</sj-typography>
-
-      <div
-        [sj]="[
-          sj.d(sj.d.options.grid),
-          sj.gridTemplateColumns('repeat(auto-fit, minmax(360px, 1fr))'),
-          sj.gap(sj.gap.options.compact)
-        ]"
+      <sj-typography variant="h6" [sj]="{ mt: 1 }"
+        >Variants & usage</sj-typography
       >
+
+      <sj-flex useCol useGap="default" usePadding="default">
         @for (paper of paperData; track paper.title) {
         <app-demo-item
           [title]="paper.title"
@@ -58,7 +54,7 @@ interface DemoPaper {
           </sj-paper>
         </app-demo-item>
         }
-      </div>
+      </sj-flex>
 
       <sj-typography variant="h6" [sj]="{ mt: 1 }"
         >Component basics: sj-paper</sj-typography
@@ -82,11 +78,14 @@ interface DemoPaper {
       <div
         [sj]="[
           sj.d(sj.d.options.grid),
-          sj.gridTemplateColumns('repeat(auto-fit, minmax(280px, 1fr))'),
+          sj.gridTemplateColumns('1fr'),
           sj.gap({ xs: 0.5, md: 1 })
         ]"
       >
-        <app-demo-item title="Compact" subtitle='usePadding="compact" useRounded="compact"'>
+        <app-demo-item
+          title="Compact"
+          subtitle='usePadding="compact" useRounded="compact"'
+        >
           <sj-paper
             variant="outlined"
             useRounded="compact"
@@ -100,7 +99,10 @@ interface DemoPaper {
             >
           </sj-paper>
         </app-demo-item>
-        <app-demo-item title="Default" subtitle='usePadding="default" useRounded="default"'>
+        <app-demo-item
+          title="Default"
+          subtitle='usePadding="default" useRounded="default"'
+        >
           <sj-paper
             variant="outlined"
             usePadding="default"
@@ -114,7 +116,10 @@ interface DemoPaper {
             >
           </sj-paper>
         </app-demo-item>
-        <app-demo-item title="Comfortable" subtitle='usePadding="comfortable" useRounded="comfortable"'>
+        <app-demo-item
+          title="Comfortable"
+          subtitle='usePadding="comfortable" useRounded="comfortable"'
+        >
           <sj-paper
             variant="outlined"
             usePadding="comfortable"
@@ -128,7 +133,10 @@ interface DemoPaper {
             >
           </sj-paper>
         </app-demo-item>
-        <app-demo-item title="Spacious" subtitle='usePadding="spacious" useRounded="spacious"'>
+        <app-demo-item
+          title="Spacious"
+          subtitle='usePadding="spacious" useRounded="spacious"'
+        >
           <sj-paper
             variant="outlined"
             usePadding="spacious"
@@ -156,7 +164,7 @@ interface DemoPaper {
       <div
         [sj]="[
           sj.d(sj.d.options.grid),
-          sj.gridTemplateColumns('repeat(auto-fit, minmax(280px, 1fr))'),
+          sj.gridTemplateColumns('1fr'),
           sj.gap({ xs: 0.5, md: 1 }),
           sj.mt(0.5)
         ]"
@@ -179,7 +187,10 @@ interface DemoPaper {
             >
           </sj-paper>
         </app-demo-item>
-        <app-demo-item title="Rounded" subtitle='useRounded="default" usePadding="default"'>
+        <app-demo-item
+          title="Rounded"
+          subtitle='useRounded="default" usePadding="default"'
+        >
           <sj-paper variant="outlined" useRounded="default">
             <sj-typography variant="strong" [sj]="sj.m(0)"
               >Rounded</sj-typography
@@ -227,7 +238,7 @@ export class DemoPaperComponent {
         message: 'Outlined (transparent background).',
         titleColor: 'primary',
       },
-      
+
       {
         title: 'Paper',
         subtitle: `[sj]="{ bg: 'secondary.main' }"`,

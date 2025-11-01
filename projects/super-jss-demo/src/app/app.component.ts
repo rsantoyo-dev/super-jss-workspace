@@ -60,7 +60,9 @@ import { SjFlexComponent } from 'super-jss';
         <app-sidenav [sj]="[sj.h('100%')]"></app-sidenav>
         }
 
-        <sj-paper [sj]="[sj.minH('auto'), sj.display('block')]">
+        <sj-paper
+          [sj]="[sj.minH('100vh'), sj.display('block'), sj.bg('light')]"
+        >
           <router-outlet></router-outlet>
         </sj-paper>
       </sj-paper>

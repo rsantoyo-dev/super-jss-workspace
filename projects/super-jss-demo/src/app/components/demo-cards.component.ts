@@ -9,7 +9,16 @@ interface DemoCard {
   message: string;
   titleColor: string;
   variant: string | undefined;
-  tint?: 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'error' | 'dark' | 'neutral' | 'light';
+  tint?:
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'info'
+    | 'warning'
+    | 'error'
+    | 'dark'
+    | 'neutral'
+    | 'light';
   overrides?: any;
   usageExample: string;
 }
@@ -35,9 +44,8 @@ interface DemoCard {
       <sj-flex
         [sj]="[
           sj.d(sj.d.options.grid),
-          sj.gridTemplateColumns('repeat(auto-fit, minmax(380px, 1fr))'),
-          sj.gap({ xs: 0.5, md: 1 }),
-          sj.mt(0)
+          sj.gridTemplateColumns('1fr'),
+          sj.gap(sj.padding.options.default)
         ]"
       >
         @for (card of cardData; track card.title) {
@@ -46,10 +54,12 @@ interface DemoCard {
           [titleColor]="card.titleColor"
           [code]="card.usageExample"
         >
-          <sj-card [variant]="$any(card.variant)" [usePaint]="$any(card.tint)" [sj]="card.overrides">
-            <sj-typography variant="p" [sj]="[sj.m(0), sj.mt(0)]">{{
-              card.message
-            }}</sj-typography>
+          <sj-card
+            [variant]="$any(card.variant)"
+            [usePaint]="$any(card.tint)"
+            [sj]="card.overrides"
+          >
+            <sj-typography variant="p">{{ card.message }}</sj-typography>
           </sj-card>
         </app-demo-item>
         }

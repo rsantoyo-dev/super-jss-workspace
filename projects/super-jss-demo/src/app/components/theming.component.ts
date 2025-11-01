@@ -41,7 +41,7 @@ export class ThemingComponent {
   themeData: SjTheme;
   pendingThemePatch: Partial<SjTheme> | null = null;
   private applyTimer: any = null;
-  private readonly autoApplyDelayMs = 2000;
+  private readonly autoApplyDelayMs = 600;
   private lastAppliedJson = '';
   codeThemeSnippet: string = `// TypeScript: update theme at runtime\nthis.theme.setTheme({ palette: { primary: { main: 'purple' } } });`;
 

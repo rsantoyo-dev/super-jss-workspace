@@ -25,7 +25,12 @@ interface DemoButton {
 @Component({
   selector: 'app-demo-buttons',
   standalone: true,
-  imports: [CommonModule, SectionContainerComponent, SJ_BASE_COMPONENTS_IMPORTS, DemoItemComponent],
+  imports: [
+    CommonModule,
+    SectionContainerComponent,
+    SJ_BASE_COMPONENTS_IMPORTS,
+    DemoItemComponent,
+  ],
   template: `
     <app-section title="Buttons">
       <!-- Header content lives inside SectionContainer's outlined card -->
@@ -38,16 +43,25 @@ interface DemoButton {
       <div
         [sj]="[
           sj.d(sj.d.options.grid),
-          sj.gridTemplateColumns('repeat(auto-fit, minmax(360px, 1fr))'),
+          sj.gridTemplateColumns('1fr'),
           sj.gap({ xs: 0.5, md: 1 }),
           sj.mt(0)
         ]"
       >
         @for (button of buttonData; track button.title) {
-          <app-demo-item [title]="button.title" [titleColor]="button.titleColor" [code]="button.usageExample">
-            <sj-typography variant="span">{{ button.message }}</sj-typography>
-            <sj-button type="button" [variant]="$any(button.variant)" [sj]="button.overrides">{{ button.label }}</sj-button>
-          </app-demo-item>
+        <app-demo-item
+          [title]="button.title"
+          [titleColor]="button.titleColor"
+          [code]="button.usageExample"
+        >
+          <sj-typography variant="span">{{ button.message }}</sj-typography>
+          <sj-button
+            type="button"
+            [variant]="$any(button.variant)"
+            [sj]="button.overrides"
+            >{{ button.label }}</sj-button
+          >
+        </app-demo-item>
         }
       </div>
     </app-section>
@@ -71,7 +85,8 @@ export class DemoButtonsComponent {
       {
         title: '<sj-button variant="light">',
         label: 'Light Button',
-        message: 'Subtle surface-friendly background with strong text contrast.',
+        message:
+          'Subtle surface-friendly background with strong text contrast.',
         titleColor: 'primary',
         variant: 'light',
         usageExample: `<sj-button variant="light">Light</sj-button>`,
@@ -133,7 +148,8 @@ export class DemoButtonsComponent {
         usageExample: `<sj-button variant="containedDark">Dark</sj-button>`,
       },
       {
-        title: '<sj-button variant="contained" [sj]="{ px: 2, borderRadius: 2 }">',
+        title:
+          '<sj-button variant="contained" [sj]="{ px: 2, borderRadius: 2 }">',
         label: 'Custom Contained',
         message: 'Padding and pill radius tweaks.',
         titleColor: 'primary',
