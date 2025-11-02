@@ -1,0 +1,53 @@
+import { Meta, Title, Description, Heading, Story, Source, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './sj-directive-basics.stories';
+
+<Meta of={Stories} />
+
+<Title>[sj] Directive Basics</Title>
+
+<Description>
+[sj] starts with plain JS objects, then evolves naturally to the sj Root API. The API returns SjStyle objects you compose in an array, unlocking autocomplete, tokens, responsive values and pseudo‑states.
+
+Key ideas:
+
+- [sj] accepts a single SjStyle object or an array of them.
+- The sj Root API functions (e.g., `sj.padding(...)`, `sj.bg(...)`) each return an SjStyle.
+- Mix plain CSS values and theme tokens; both are valid.
+- Pseudo‑selectors work either as plain objects (`'&:hover': { ... }`) or via helpers (`sj.hover([...])`).
+</Description>
+
+<Heading>1) Padding (simple object)</Heading>
+<Canvas withSource={false}>
+  <Story of={Stories.Padding} />
+  <Source of={Stories.Padding} />
+</Canvas>
+
+<Heading>2) Same example via sj API (array of SjStyle)</Heading>
+<Canvas withSource={false}>
+  <Story of={Stories.ApiArray} />
+  <Source of={Stories.ApiArray} />
+</Canvas>
+
+<Heading>3) Responsive via sj API</Heading>
+<Canvas withSource={false}>
+  <Story of={Stories.ApiResponsive} />
+  <Source of={Stories.ApiResponsive} />
+</Canvas>
+
+<Heading>4) Hover states — plain object</Heading>
+<Canvas withSource={false}>
+  <Story of={Stories.HoverTraditional} />
+  <Source
+    language="html"
+    code={`<button [sj]="{\n  padding: '12px 16px',\n  backgroundColor: '#e5e7eb',\n  borderRadius: '8px',\n  transition: 'all .15s ease',\n  '&:hover': { backgroundColor: '#d1d5db', transform: 'translateY(-1px)', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' }\n}">hover me (plain object)</button>`}
+  />
+</Canvas>
+
+<Heading>5) Hover states — sj.hover helper</Heading>
+<Canvas withSource={false}>
+  <Story of={Stories.HoverApi} />
+  <Source
+    language="html"
+    code={`<button [sj]="[\n  sj.px('16px'), sj.py('12px'), sj.brad('8px'), sj.bg('#e5e7eb'), sj.transition('all .15s ease'),\n  sj.hover([ sj.bg('#d1d5db'), sj.transform('translateY(-1px)'), sj.boxShadow('0 4px 12px rgba(0,0,0,0.12)') ])\n]">hover me (sj.hover)</button>`}
+  />
+</Canvas>

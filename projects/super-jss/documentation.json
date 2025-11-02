@@ -8,60 +8,8 @@
     "directives": [],
     "components": [
         {
-            "name": "SjBasicArrayExampleComponent",
-            "id": "component-SjBasicArrayExampleComponent-6a37c544912fe691c198327a8f8214f15b88e8ca5b384ba1aa4a454ff18dedb513dda7ec5f574f1f3b729756f33f34a63b9238f1a8dcb085ca0044e1727cfe82",
-            "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "story-sj-basic-array",
-            "styleUrls": [],
-            "styles": [],
-            "template": "<div [sj]=\"styles\">\n  bound to class property typed as SjStyle[] (merged left→right)\n</div>\n",
-            "templateUrl": [],
-            "viewProviders": [],
-            "hostDirectives": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "styles",
-                    "defaultValue": "[\n    { padding: '12px' },\n    { backgroundColor: '#f7f7f7' },\n    { borderRadius: '6px' },\n  ]",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "SjStyle[]",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 32
-                }
-            ],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "standalone": true,
-            "imports": [
-                {
-                    "name": "SjDirective",
-                    "type": "directive"
-                }
-            ],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import type { Meta, StoryObj } from '@storybook/angular';\nimport { moduleMetadata } from '@storybook/angular';\nimport { Component } from '@angular/core';\nimport { SjDirective } from 'super-jss';\nimport type { SjStyle } from 'super-jss';\n\n@Component({\n  standalone: true,\n  selector: 'story-sj-basic-class',\n  imports: [SjDirective],\n  template: ` <div [sj]=\"box\">bound to class property typed as SjStyle</div> `,\n})\nclass SjBasicClassExampleComponent {\n  box: SjStyle = {\n    padding: '20px',\n    backgroundColor: '#eeeeee',\n    borderRadius: '8px',\n  };\n}\n\n@Component({\n  standalone: true,\n  selector: 'story-sj-basic-array',\n  imports: [SjDirective],\n  template: `\n    <div [sj]=\"styles\">\n      bound to class property typed as SjStyle[] (merged left→right)\n    </div>\n  `,\n})\nclass SjBasicArrayExampleComponent {\n  styles: SjStyle[] = [\n    { padding: '12px' },\n    { backgroundColor: '#f7f7f7' },\n    { borderRadius: '6px' },\n  ];\n}\n\nconst meta: Meta = {\n  title: 'SJ/[sj] Basic',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        SjDirective,\n        SjBasicClassExampleComponent,\n        SjBasicArrayExampleComponent,\n      ],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          '[sj] is a lightweight Angular directive that lets you author styles as plain JavaScript objects directly in your templates.\\n\\nKey ideas:\\n- Use camelCase CSS properties (e.g., padding, backgroundColor).\\n- Values can be raw CSS (px, rem, hex) or theme tokens — start with raw CSS here.\\n- Inline or class property: bind a literal object, or a component field typed as `SjStyle` or `SjStyle[]`.\\n- You can pass a single object, an array of objects (merged left→right), or responsive objects like { xs, sm, md, ... }.\\n- The library generates tiny atomic CSS classes at runtime; no global CSS needed.\\n\\nThese first examples avoid theming to show the most basic form.',\n      },\n    },\n  },\n};\n\nexport default meta;\ntype Story = StoryObj;\n\nexport const Padding: Story = {\n  name: 'Padding (simple object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{ padding: '24px', backgroundColor: '#f7f7f7', borderRadius: '8px' }\">\n        div with padding: 24px (plain CSS units)\n      </div>\n    `,\n  }),\n};\n\nexport const ResponsivePadding: Story = {\n  name: 'Padding (responsive object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{\n        padding: { xs: '16px', sm: '24px', md: '32px' },\n        backgroundColor: '#f7f7f7',\n        borderRadius: '8px'\n      }\">\n        div with responsive padding: xs=16px, sm=24px, md=32px\n      </div>\n    `,\n  }),\n};\n\nexport const ClassPropertySjStyle: Story = {\n  name: 'Class property (SjStyle)',\n  render: () => ({ props: {}, template: `<story-sj-basic-class></story-sj-basic-class>` }),\n  parameters: { docs: { disable: true } },\n};\n\nexport const ClassPropertySjStyleArray: Story = {\n  name: 'Class property (SjStyle[])',\n  render: () => ({ props: {}, template: `<story-sj-basic-array></story-sj-basic-array>` }),\n  parameters: { docs: { disable: true } },\n};\n",
-            "assetsDirs": [],
-            "styleUrlsData": "",
-            "stylesData": "",
-            "extends": []
-        },
-        {
             "name": "SjBasicClassExampleComponent",
-            "id": "component-SjBasicClassExampleComponent-6a37c544912fe691c198327a8f8214f15b88e8ca5b384ba1aa4a454ff18dedb513dda7ec5f574f1f3b729756f33f34a63b9238f1a8dcb085ca0044e1727cfe82",
+            "id": "component-SjBasicClassExampleComponent-c4dc631a4caf2f3ad30c4005ef27c27ce08e2eaf5d0c49629c1ddd36a30f9f0322a46b45f313c55db1f6541d9bbecef8cae0831e1cc8b4fa737761fe4ec36b4c",
             "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -80,7 +28,7 @@
             "propertiesClass": [
                 {
                     "name": "box",
-                    "defaultValue": "{\n    padding: '20px',\n    backgroundColor: '#eeeeee',\n    borderRadius: '8px',\n  }",
+                    "defaultValue": "{\n    padding: '24px',\n    backgroundColor: '#f7f7f7',\n    borderRadius: '8px',\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "SjStyle",
@@ -105,7 +53,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import type { Meta, StoryObj } from '@storybook/angular';\nimport { moduleMetadata } from '@storybook/angular';\nimport { Component } from '@angular/core';\nimport { SjDirective } from 'super-jss';\nimport type { SjStyle } from 'super-jss';\n\n@Component({\n  standalone: true,\n  selector: 'story-sj-basic-class',\n  imports: [SjDirective],\n  template: ` <div [sj]=\"box\">bound to class property typed as SjStyle</div> `,\n})\nclass SjBasicClassExampleComponent {\n  box: SjStyle = {\n    padding: '20px',\n    backgroundColor: '#eeeeee',\n    borderRadius: '8px',\n  };\n}\n\n@Component({\n  standalone: true,\n  selector: 'story-sj-basic-array',\n  imports: [SjDirective],\n  template: `\n    <div [sj]=\"styles\">\n      bound to class property typed as SjStyle[] (merged left→right)\n    </div>\n  `,\n})\nclass SjBasicArrayExampleComponent {\n  styles: SjStyle[] = [\n    { padding: '12px' },\n    { backgroundColor: '#f7f7f7' },\n    { borderRadius: '6px' },\n  ];\n}\n\nconst meta: Meta = {\n  title: 'SJ/[sj] Basic',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        SjDirective,\n        SjBasicClassExampleComponent,\n        SjBasicArrayExampleComponent,\n      ],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          '[sj] is a lightweight Angular directive that lets you author styles as plain JavaScript objects directly in your templates.\\n\\nKey ideas:\\n- Use camelCase CSS properties (e.g., padding, backgroundColor).\\n- Values can be raw CSS (px, rem, hex) or theme tokens — start with raw CSS here.\\n- Inline or class property: bind a literal object, or a component field typed as `SjStyle` or `SjStyle[]`.\\n- You can pass a single object, an array of objects (merged left→right), or responsive objects like { xs, sm, md, ... }.\\n- The library generates tiny atomic CSS classes at runtime; no global CSS needed.\\n\\nThese first examples avoid theming to show the most basic form.',\n      },\n    },\n  },\n};\n\nexport default meta;\ntype Story = StoryObj;\n\nexport const Padding: Story = {\n  name: 'Padding (simple object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{ padding: '24px', backgroundColor: '#f7f7f7', borderRadius: '8px' }\">\n        div with padding: 24px (plain CSS units)\n      </div>\n    `,\n  }),\n};\n\nexport const ResponsivePadding: Story = {\n  name: 'Padding (responsive object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{\n        padding: { xs: '16px', sm: '24px', md: '32px' },\n        backgroundColor: '#f7f7f7',\n        borderRadius: '8px'\n      }\">\n        div with responsive padding: xs=16px, sm=24px, md=32px\n      </div>\n    `,\n  }),\n};\n\nexport const ClassPropertySjStyle: Story = {\n  name: 'Class property (SjStyle)',\n  render: () => ({ props: {}, template: `<story-sj-basic-class></story-sj-basic-class>` }),\n  parameters: { docs: { disable: true } },\n};\n\nexport const ClassPropertySjStyleArray: Story = {\n  name: 'Class property (SjStyle[])',\n  render: () => ({ props: {}, template: `<story-sj-basic-array></story-sj-basic-array>` }),\n  parameters: { docs: { disable: true } },\n};\n",
+            "sourceCode": "import type { Meta, StoryObj } from '@storybook/angular';\nimport { moduleMetadata } from '@storybook/angular';\nimport { Component } from '@angular/core';\nimport { SjDirective, sj } from 'super-jss';\nimport type { SjStyle } from 'super-jss';\n\n@Component({\n  standalone: true,\n  selector: 'story-sj-basic-class',\n  imports: [SjDirective],\n  template: ` <div [sj]=\"box\">bound to class property typed as SjStyle</div> `,\n})\nclass SjBasicClassExampleComponent {\n  box: SjStyle = {\n    padding: '24px',\n    backgroundColor: '#f7f7f7',\n    borderRadius: '8px',\n  };\n}\n\nconst meta: Meta = {\n  title: 'SJ/[sj] Basic',\n  decorators: [moduleMetadata({ imports: [SjDirective, SjBasicClassExampleComponent] })],\n  parameters: {\n    layout: 'padded',\n    docs: {\n      description: {\n        component:\n          '[sj] lets you author styles as plain JS objects. Start with a simple object, then evolve to the sj Root API for typed props, tokens, responsive values, and pseudo‑states.\\n\\nKey ideas:\\n- [sj] accepts a single object or an array of SjStyle objects.\\n- The sj Root API (e.g., sj.padding, sj.bg) returns SjStyle objects you compose in an array.\\n- Use plain CSS values or theme tokens; both work.\\n- Pseudo‑selectors work with both plain objects and sj helpers (e.g., sj.hover([...])).',\n      },\n    },\n  },\n};\n\nexport default meta;\ntype Story = StoryObj;\n\nexport const Padding: Story = {\n  name: 'Padding (simple object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{ padding: '24px', backgroundColor: '#f7f7f7', borderRadius: '8px' }\">\n        div with padding: 24px (plain CSS units)\n      </div>\n    `,\n  }),\n};\n\nexport const ApiArray: Story = {\n  name: 'Same example via sj API (array of SjStyle)',\n  render: () => ({\n    props: { sj },\n    template: `\n      <div [sj]=\"[ sj.padding('24px'), sj.backgroundColor('#f7f7f7'), sj.borderRadius('8px') ]\">\n        same result, using sj.* API (array of SjStyle)\n      </div>\n    `,\n  }),\n};\n\nexport const ApiResponsive: Story = {\n  name: 'Responsive via sj API',\n  render: () => ({\n    props: { sj },\n    template: `\n      <div [sj]=\"[ sj.padding({ xs: '16px', sm: '24px', md: '32px' }), sj.bg('#f7f7f7'), sj.brad('8px') ]\">\n        responsive padding with sj.padding(&#123; xs, sm, md &#125;)\n      </div>\n    `,\n  }),\n};\n\nexport const HoverTraditional: Story = {\n  name: 'Hover (plain object)',\n  render: () => ({\n    props: {},\n    template: `\n      <button [sj]=\"{\n        padding: '12px 16px',\n        backgroundColor: '#e5e7eb',\n        borderRadius: '8px',\n        transition: 'all .15s ease',\n        '&:hover': { backgroundColor: '#d1d5db', transform: 'translateY(-1px)', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' }\n      }\">\n        hover me (plain object)\n      </button>\n    `,\n  }),\n};\n\nexport const HoverApi: Story = {\n  name: 'Hover (sj.hover helper)',\n  render: () => ({\n    props: { sj },\n    template: `\n      <button [sj]=\"[\n        sj.px('16px'), sj.py('12px'), sj.brad('8px'), sj.bg('#e5e7eb'), sj.transition('all .15s ease'),\n        sj.hover([ sj.bg('#d1d5db'), sj.transform('translateY(-1px)'), sj.boxShadow('0 4px 12px rgba(0,0,0,0.12)') ])\n      ]\">\n        hover me (sj.hover)\n      </button>\n    `,\n  }),\n};\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -156,6 +104,26 @@
                 "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display:flex; flex-direction:column; gap:8px\">\n        <sj-typography variant=\"h1\">Heading 1</sj-typography>\n        <sj-typography variant=\"h2\">Heading 2</sj-typography>\n        <sj-typography variant=\"h3\">Heading 3</sj-typography>\n        <sj-typography variant=\"h4\">Heading 4</sj-typography>\n        <sj-typography variant=\"h5\">Heading 5</sj-typography>\n        <sj-typography variant=\"h6\">Heading 6</sj-typography>\n        <sj-typography variant=\"p\">Paragraph text</sj-typography>\n        <sj-typography variant=\"span\">Span text</sj-typography>\n        <sj-typography variant=\"strong\">Strong text</sj-typography>\n        <sj-typography variant=\"small\">Small text</sj-typography>\n        <sj-typography variant=\"pre\">preformatted</sj-typography>\n      </div>\n    `,\n  }),\n}"
             },
             {
+                "name": "ApiArray",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Same example via sj API (array of SjStyle)',\n  render: () => ({\n    props: { sj },\n    template: `\n      <div [sj]=\"[ sj.padding('24px'), sj.backgroundColor('#f7f7f7'), sj.borderRadius('8px') ]\">\n        same result, using sj.* API (array of SjStyle)\n      </div>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "ApiResponsive",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Responsive via sj API',\n  render: () => ({\n    props: { sj },\n    template: `\n      <div [sj]=\"[ sj.padding({ xs: '16px', sm: '24px', md: '32px' }), sj.bg('#f7f7f7'), sj.brad('8px') ]\">\n        responsive padding with sj.padding(&#123; xs, sm, md &#125;)\n      </div>\n    `,\n  }),\n}"
+            },
+            {
                 "name": "BasicRow",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -164,26 +132,6 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    playgroundSj: {\n      padding: '2px',\n    },\n  },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [sj]=\"[ sj.p(3) ]\">\n        <div [sj]=\"[ sj.p(0.5), sj.bg('primary.light'), sj.brad(0.5) ]\">One</div>\n        <div [sj]=\"[ sj.p(0.5), sj.bg('secondary.light'), sj.brad(0.5) ]\">Two</div>\n      </sj-flex>\n    `,\n  }),\n}"
-            },
-            {
-                "name": "ClassPropertySjStyle",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  name: 'Class property (SjStyle)',\n  render: () => ({ props: {}, template: `<story-sj-basic-class></story-sj-basic-class>` }),\n  parameters: { docs: { disable: true } },\n}"
-            },
-            {
-                "name": "ClassPropertySjStyleArray",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  name: 'Class property (SjStyle[])',\n  render: () => ({ props: {}, template: `<story-sj-basic-array></story-sj-basic-array>` }),\n  parameters: { docs: { disable: true } },\n}"
             },
             {
                 "name": "ColumnCentered",
@@ -256,6 +204,26 @@
                 "defaultValue": "{\n  args: { variant: 'flat', usePadding: 'default', useRounded: 'default' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `<sj-paper [variant]=\"variant\" [usePadding]=\"usePadding\" [useRounded]=\"useRounded\">Flat paper</sj-paper>`,\n  }),\n}"
             },
             {
+                "name": "HoverApi",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Hover (sj.hover helper)',\n  render: () => ({\n    props: { sj },\n    template: `\n      <button [sj]=\"[\n        sj.px('16px'), sj.py('12px'), sj.brad('8px'), sj.bg('#e5e7eb'), sj.transition('all .15s ease'),\n        sj.hover([ sj.bg('#d1d5db'), sj.transform('translateY(-1px)'), sj.boxShadow('0 4px 12px rgba(0,0,0,0.12)') ])\n      ]\">\n        hover me (sj.hover)\n      </button>\n    `,\n  }),\n}"
+            },
+            {
+                "name": "HoverTraditional",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  name: 'Hover (plain object)',\n  render: () => ({\n    props: {},\n    template: `\n      <button [sj]=\"{\n        padding: '12px 16px',\n        backgroundColor: '#e5e7eb',\n        borderRadius: '8px',\n        transition: 'all .15s ease',\n        '&:hover': { backgroundColor: '#d1d5db', transform: 'translateY(-1px)', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' }\n      }\">\n        hover me (plain object)\n      </button>\n    `,\n  }),\n}"
+            },
+            {
                 "name": "InteractiveAccessibility",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -293,7 +261,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta",
-                "defaultValue": "{\n  title: 'SJ/[sj] Basic',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        SjDirective,\n        SjBasicClassExampleComponent,\n        SjBasicArrayExampleComponent,\n      ],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          '[sj] is a lightweight Angular directive that lets you author styles as plain JavaScript objects directly in your templates.\\n\\nKey ideas:\\n- Use camelCase CSS properties (e.g., padding, backgroundColor).\\n- Values can be raw CSS (px, rem, hex) or theme tokens — start with raw CSS here.\\n- Inline or class property: bind a literal object, or a component field typed as `SjStyle` or `SjStyle[]`.\\n- You can pass a single object, an array of objects (merged left→right), or responsive objects like { xs, sm, md, ... }.\\n- The library generates tiny atomic CSS classes at runtime; no global CSS needed.\\n\\nThese first examples avoid theming to show the most basic form.',\n      },\n    },\n  },\n}"
+                "defaultValue": "{\n  title: 'SJ/[sj] Basic',\n  decorators: [moduleMetadata({ imports: [SjDirective, SjBasicClassExampleComponent] })],\n  parameters: {\n    layout: 'padded',\n    docs: {\n      description: {\n        component:\n          '[sj] lets you author styles as plain JS objects. Start with a simple object, then evolve to the sj Root API for typed props, tokens, responsive values, and pseudo‑states.\\n\\nKey ideas:\\n- [sj] accepts a single object or an array of SjStyle objects.\\n- The sj Root API (e.g., sj.padding, sj.bg) returns SjStyle objects you compose in an array.\\n- Use plain CSS values or theme tokens; both work.\\n- Pseudo‑selectors work with both plain objects and sj helpers (e.g., sj.hover([...])).',\n      },\n    },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -526,16 +494,6 @@
                 "defaultValue": "{\n  args: { useGap: 'default' },\n  render: (args) => ({\n    props: { ...args, sj },\n    template: `\n      <sj-flex [useGap]=\"useGap\" [sj]=\"[ sj.gap({ xs: .25, md: .75 }) ]\">\n        <div [sj]=\"[ sj.p(0.3), sj.bg('primary.light'), sj.brad(0.5) ]\">xs/md gap override</div>\n        <div [sj]=\"[ sj.p(0.3), sj.bg('secondary.light'), sj.brad(0.5) ]\">(sj.gap wins)</div>\n      </sj-flex>\n    `,\n  }),\n}"
             },
             {
-                "name": "ResponsivePadding",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  name: 'Padding (responsive object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{\n        padding: { xs: '16px', sm: '24px', md: '32px' },\n        backgroundColor: '#f7f7f7',\n        borderRadius: '8px'\n      }\">\n        div with responsive padding: xs=16px, sm=24px, md=32px\n      </div>\n    `,\n  }),\n}"
-            },
-            {
                 "name": "ResponsiveShorthands",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -647,7 +605,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 183
+                "kind": 184
             },
             {
                 "name": "Story",
@@ -658,7 +616,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 183
+                "kind": 184
             },
             {
                 "name": "Story",
@@ -669,7 +627,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 183
+                "kind": 184
             },
             {
                 "name": "Story",
@@ -680,7 +638,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 183
+                "kind": 184
             },
             {
                 "name": "Story",
@@ -691,7 +649,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 183
+                "kind": 184
             },
             {
                 "name": "Story",
@@ -702,7 +660,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 183
+                "kind": 184
             },
             {
                 "name": "Story",
@@ -713,7 +671,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 183
+                "kind": 184
             },
             {
                 "name": "Story",
@@ -724,7 +682,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 183
+                "kind": 184
             },
             {
                 "name": "Story",
@@ -735,7 +693,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 183
+                "kind": 184
             },
             {
                 "name": "Story",
@@ -746,7 +704,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 183
+                "kind": 184
             },
             {
                 "name": "Story",
@@ -757,7 +715,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 183
+                "kind": 184
             }
         ],
         "enumerations": [],
@@ -940,24 +898,44 @@
             ],
             "projects/super-jss/src/stories/sj-directive-basics.stories.ts": [
                 {
-                    "name": "ClassPropertySjStyle",
+                    "name": "ApiArray",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  name: 'Class property (SjStyle)',\n  render: () => ({ props: {}, template: `<story-sj-basic-class></story-sj-basic-class>` }),\n  parameters: { docs: { disable: true } },\n}"
+                    "defaultValue": "{\n  name: 'Same example via sj API (array of SjStyle)',\n  render: () => ({\n    props: { sj },\n    template: `\n      <div [sj]=\"[ sj.padding('24px'), sj.backgroundColor('#f7f7f7'), sj.borderRadius('8px') ]\">\n        same result, using sj.* API (array of SjStyle)\n      </div>\n    `,\n  }),\n}"
                 },
                 {
-                    "name": "ClassPropertySjStyleArray",
+                    "name": "ApiResponsive",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  name: 'Class property (SjStyle[])',\n  render: () => ({ props: {}, template: `<story-sj-basic-array></story-sj-basic-array>` }),\n  parameters: { docs: { disable: true } },\n}"
+                    "defaultValue": "{\n  name: 'Responsive via sj API',\n  render: () => ({\n    props: { sj },\n    template: `\n      <div [sj]=\"[ sj.padding({ xs: '16px', sm: '24px', md: '32px' }), sj.bg('#f7f7f7'), sj.brad('8px') ]\">\n        responsive padding with sj.padding(&#123; xs, sm, md &#125;)\n      </div>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "HoverApi",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'Hover (sj.hover helper)',\n  render: () => ({\n    props: { sj },\n    template: `\n      <button [sj]=\"[\n        sj.px('16px'), sj.py('12px'), sj.brad('8px'), sj.bg('#e5e7eb'), sj.transition('all .15s ease'),\n        sj.hover([ sj.bg('#d1d5db'), sj.transform('translateY(-1px)'), sj.boxShadow('0 4px 12px rgba(0,0,0,0.12)') ])\n      ]\">\n        hover me (sj.hover)\n      </button>\n    `,\n  }),\n}"
+                },
+                {
+                    "name": "HoverTraditional",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  name: 'Hover (plain object)',\n  render: () => ({\n    props: {},\n    template: `\n      <button [sj]=\"{\n        padding: '12px 16px',\n        backgroundColor: '#e5e7eb',\n        borderRadius: '8px',\n        transition: 'all .15s ease',\n        '&:hover': { backgroundColor: '#d1d5db', transform: 'translateY(-1px)', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' }\n      }\">\n        hover me (plain object)\n      </button>\n    `,\n  }),\n}"
                 },
                 {
                     "name": "meta",
@@ -967,7 +945,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta",
-                    "defaultValue": "{\n  title: 'SJ/[sj] Basic',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        SjDirective,\n        SjBasicClassExampleComponent,\n        SjBasicArrayExampleComponent,\n      ],\n    }),\n  ],\n  parameters: {\n    docs: {\n      description: {\n        component:\n          '[sj] is a lightweight Angular directive that lets you author styles as plain JavaScript objects directly in your templates.\\n\\nKey ideas:\\n- Use camelCase CSS properties (e.g., padding, backgroundColor).\\n- Values can be raw CSS (px, rem, hex) or theme tokens — start with raw CSS here.\\n- Inline or class property: bind a literal object, or a component field typed as `SjStyle` or `SjStyle[]`.\\n- You can pass a single object, an array of objects (merged left→right), or responsive objects like { xs, sm, md, ... }.\\n- The library generates tiny atomic CSS classes at runtime; no global CSS needed.\\n\\nThese first examples avoid theming to show the most basic form.',\n      },\n    },\n  },\n}"
+                    "defaultValue": "{\n  title: 'SJ/[sj] Basic',\n  decorators: [moduleMetadata({ imports: [SjDirective, SjBasicClassExampleComponent] })],\n  parameters: {\n    layout: 'padded',\n    docs: {\n      description: {\n        component:\n          '[sj] lets you author styles as plain JS objects. Start with a simple object, then evolve to the sj Root API for typed props, tokens, responsive values, and pseudo‑states.\\n\\nKey ideas:\\n- [sj] accepts a single object or an array of SjStyle objects.\\n- The sj Root API (e.g., sj.padding, sj.bg) returns SjStyle objects you compose in an array.\\n- Use plain CSS values or theme tokens; both work.\\n- Pseudo‑selectors work with both plain objects and sj helpers (e.g., sj.hover([...])).',\n      },\n    },\n  },\n}"
                 },
                 {
                     "name": "Padding",
@@ -978,16 +956,6 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\n  name: 'Padding (simple object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{ padding: '24px', backgroundColor: '#f7f7f7', borderRadius: '8px' }\">\n        div with padding: 24px (plain CSS units)\n      </div>\n    `,\n  }),\n}"
-                },
-                {
-                    "name": "ResponsivePadding",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  name: 'Padding (responsive object)',\n  render: () => ({\n    props: {},\n    template: `\n      <div [sj]=\"{\n        padding: { xs: '16px', sm: '24px', md: '32px' },\n        backgroundColor: '#f7f7f7',\n        borderRadius: '8px'\n      }\">\n        div with responsive padding: xs=16px, sm=24px, md=32px\n      </div>\n    `,\n  }),\n}"
                 }
             ],
             "projects/super-jss/src/stories/sj-button.stories.ts": [
@@ -1320,7 +1288,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 183
+                    "kind": 184
                 }
             ],
             "projects/super-jss/src/stories/sj-card.stories.ts": [
@@ -1333,7 +1301,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 183
+                    "kind": 184
                 }
             ],
             "projects/super-jss/src/stories/sj-directive-basics.stories.ts": [
@@ -1346,7 +1314,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 183
+                    "kind": 184
                 }
             ],
             "projects/super-jss/src/stories/sj-directive-shortcuts.stories.ts": [
@@ -1359,7 +1327,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 183
+                    "kind": 184
                 }
             ],
             "projects/super-jss/src/stories/sj-flex.stories.ts": [
@@ -1372,7 +1340,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 183
+                    "kind": 184
                 }
             ],
             "projects/super-jss/src/stories/sj-icon.stories.ts": [
@@ -1385,7 +1353,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 183
+                    "kind": 184
                 }
             ],
             "projects/super-jss/src/stories/sj-input.stories.ts": [
@@ -1398,7 +1366,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 183
+                    "kind": 184
                 }
             ],
             "projects/super-jss/src/stories/sj-paper.stories.ts": [
@@ -1411,7 +1379,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 183
+                    "kind": 184
                 }
             ],
             "projects/super-jss/src/stories/sj-root-api-tokens.stories.ts": [
@@ -1424,7 +1392,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 183
+                    "kind": 184
                 }
             ],
             "projects/super-jss/src/stories/sj-root-api.stories.ts": [
@@ -1437,7 +1405,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 183
+                    "kind": 184
                 }
             ],
             "projects/super-jss/src/stories/sj-typography.stories.ts": [
@@ -1450,12 +1418,16 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 183
+                    "kind": 184
                 }
             ]
         }
     },
-    "routes": [],
+    "routes": {
+        "name": "<root>",
+        "kind": "module",
+        "children": []
+    },
     "coverage": {
         "count": 0,
         "status": "low",
@@ -1574,15 +1546,6 @@
                 "filePath": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
                 "type": "component",
                 "linktype": "component",
-                "name": "SjBasicArrayExampleComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/2",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
-                "type": "component",
-                "linktype": "component",
                 "name": "SjBasicClassExampleComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/2",
@@ -1593,7 +1556,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "ClassPropertySjStyle",
+                "name": "ApiArray",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -1603,7 +1566,27 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "ClassPropertySjStyleArray",
+                "name": "ApiResponsive",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "HoverApi",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "HoverTraditional",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -1624,16 +1607,6 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "Padding",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/super-jss/src/stories/sj-directive-basics.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "ResponsivePadding",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

@@ -36,7 +36,7 @@ import {
           [useFullWidth]="true"
           useRounded="compact"
           [variant]="'flat'"
-          [usePaint]="'primary'"
+          [usePaint]="'dark'"
           [routerLink]="item.route"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"

@@ -6,136 +6,139 @@ import { DEFAULT_TYPOGRAPHY } from '../shared-options/typography';
 import { DEFAULT_SURFACES } from '../shared-options/surfaces';
 
 const lightPalette: SjPalette = {
-  // Primary
+  // Primary (brand teal)
   primary: {
-    main: '#0F172A',
-    light: '#273555',
-    dark: '#050911',
+    main: DEFAULT_COLORS.teal[500], // #2C415C
+    light: DEFAULT_COLORS.teal[300], // #8AA7BA (focus ring / tints)
+    dark: DEFAULT_COLORS.teal[600], // #25374E
     contrast: DEFAULT_COLORS.white,
   },
-  // Secondary
+  // Secondary (neutral mid-gray)
   secondary: {
     main: DEFAULT_COLORS.gray[600],
     light: DEFAULT_COLORS.gray[400],
-    dark: DEFAULT_COLORS.gray[900],
+    dark: DEFAULT_COLORS.gray[700],
     contrast: DEFAULT_COLORS.white,
   },
-  // Tertiary (gray family)
+  // Tertiary (neutral light gray)
   tertiary: {
     main: DEFAULT_COLORS.gray[300],
     light: DEFAULT_COLORS.gray[200],
     dark: DEFAULT_COLORS.gray[400],
-    contrast: DEFAULT_COLORS.cyan.contrast,
+    contrast: DEFAULT_COLORS.gray.contrast,
   },
-  // Success
+  // Success (AA pairs)
   success: {
-    main: '#3caf40',
-    light: '#7ee583',
-    dark: '#298f2e',
-    contrast: DEFAULT_COLORS.gray[900],
+    main: DEFAULT_COLORS.green[700], // #166534
+    light: DEFAULT_COLORS.green[600], // #15803D
+    dark: DEFAULT_COLORS.green[700],
+    contrast: DEFAULT_COLORS.white,
   },
   // Info
   info: {
-    main: '#8ac8fb',
-    light: '#d5eafb',
-    dark: '#50a2e5',
-    contrast: '#0F172A',
-  },
-  // Warning
-  warning: {
-    main: DEFAULT_COLORS.orange[500],
-    light: '#FFC673',
-    dark: DEFAULT_COLORS.orange[700],
-    contrast: DEFAULT_COLORS.gray[900],
-  },
-  // Error
-  error: {
-    main: DEFAULT_COLORS.red[500],
-    light: '#F79494',
-    dark: DEFAULT_COLORS.red[700],
+    main: DEFAULT_COLORS.blue[500], // #2563EB
+    light: DEFAULT_COLORS.blue[400], // #3B82F6
+    dark: DEFAULT_COLORS.blue[500],
     contrast: DEFAULT_COLORS.white,
   },
-  // Dark/neutral/light aligned to greys
+  // Warning (amber)
+  warning: {
+    main: DEFAULT_COLORS.orange[500], // #F59E0B
+    light: DEFAULT_COLORS.orange[500],
+    dark: DEFAULT_COLORS.orange[600], // #D97706
+    contrast: DEFAULT_COLORS.gray[900], // #0B1220
+  },
+  // Error (caution)
+  error: {
+    main: DEFAULT_COLORS.red[600], // #C61625
+    light: DEFAULT_COLORS.red[500], // #EC1B2E
+    dark: DEFAULT_COLORS.red[600],
+    contrast: DEFAULT_COLORS.white,
+  },
+  // Dark/neutral/light aligned to semantic neutrals
   dark: {
-    main: DEFAULT_COLORS.gray[800],
-    light: DEFAULT_COLORS.gray[600],
-    dark: DEFAULT_COLORS.black,
+    main: DEFAULT_COLORS.gray[800], // text
+    light: DEFAULT_COLORS.gray[600], // textSubtle
+    dark: DEFAULT_COLORS.gray[900],
     contrast: DEFAULT_COLORS.white,
   },
   neutral: {
-    main: '#B8BFBE',
-    light: '#DFF0EC',
-    dark: '#77918C',
-    contrast: '#050911', // primary.dark
+    main: DEFAULT_COLORS.gray[200], // surface border/base
+    light: DEFAULT_COLORS.gray[50], // surfaceAlt/bg
+    dark: DEFAULT_COLORS.gray[300],
+    contrast: DEFAULT_COLORS.gray[900],
   },
   light: {
-    main: DEFAULT_COLORS.gray[200],
-    light: DEFAULT_COLORS.gray[50],
-    dark: DEFAULT_COLORS.gray[400],
+    main: DEFAULT_COLORS.white, // surface
+    light: DEFAULT_COLORS.gray[50], // bg
+    dark: DEFAULT_COLORS.gray[100], // border-adjacent
     contrast: DEFAULT_COLORS.gray[900],
   },
 };
 
 const darkPalette: SjPalette = {
+  // Brand remains consistent
   primary: {
-    main: '#8093C2',
-    light: '#94ABE0',
-    dark: '#50638F',
-    contrast: DEFAULT_COLORS.gray[900],
+    main: DEFAULT_COLORS.teal[500],
+    light: DEFAULT_COLORS.teal[300],
+    dark: DEFAULT_COLORS.teal[600],
+    contrast: DEFAULT_COLORS.white,
   },
   secondary: {
-    main: '#A8A8A8',
-    light: '#F0F0F0',
-    dark: '#878787',
-    contrast: '#FFFFFF',
+    main: DEFAULT_COLORS.gray[400],
+    light: DEFAULT_COLORS.gray[300],
+    dark: DEFAULT_COLORS.gray[500],
+    contrast: DEFAULT_COLORS.gray[900],
   },
   tertiary: {
-    main: '#EEEEEE', // gray-200
-    light: '#F5F5F5', // gray-100
-    dark: '#E0E0E0', // gray-300
-    contrast: '#FFFFFF',
+    main: DEFAULT_COLORS.gray[200],
+    light: DEFAULT_COLORS.gray[100],
+    dark: DEFAULT_COLORS.gray[300],
+    contrast: DEFAULT_COLORS.white,
   },
   success: {
-    main: DEFAULT_COLORS.green[300], // '#81C784'
-    light: DEFAULT_COLORS.green[200],
-    dark: DEFAULT_COLORS.green[400],
-    contrast: '#212121', // dark.dark
+    main: DEFAULT_COLORS.green[600], // #15803D
+    light: DEFAULT_COLORS.green[700], // #166534
+    dark: DEFAULT_COLORS.green[600],
+    contrast: DEFAULT_COLORS.white,
   },
   info: {
-    main: DEFAULT_COLORS.cyan[700],
-    light: DEFAULT_COLORS.cyan[500],
-    dark: DEFAULT_COLORS.cyan[900],
-    contrast: DEFAULT_COLORS.black,
+    main: DEFAULT_COLORS.blue[400], // #3B82F6
+    light: DEFAULT_COLORS.blue[500],
+    dark: DEFAULT_COLORS.blue[400],
+    contrast: DEFAULT_COLORS.gray[900], // on dark surfaces
   },
   warning: {
-    main: '#F5A04A',
-    light: '#F3C172',
-    dark: '#CC733D',
+    main: DEFAULT_COLORS.orange[600], // #D97706
+    light: DEFAULT_COLORS.orange[500],
+    dark: DEFAULT_COLORS.orange[600],
     contrast: DEFAULT_COLORS.gray[900],
   },
   error: {
-    main: '#DB4646',
-    light: '#F07A6E',
-    dark: '#BF3F3F',
-    contrast: '#FFFFFF',
+    main: DEFAULT_COLORS.red[600], // #C61625
+    light: DEFAULT_COLORS.red[500],
+    dark: DEFAULT_COLORS.red[600],
+    contrast: DEFAULT_COLORS.white,
   },
+  // Neutrals tuned for dark canvas
   dark: {
-    main: '#424242', // gray-800
-    light: '#616161', // gray-700
+    main: DEFAULT_COLORS.gray[50], // text
+    light: DEFAULT_COLORS.gray[300], // textSubtle
     dark: DEFAULT_COLORS.gray[900],
-    contrast: '#FFFFFF',
+    contrast: DEFAULT_COLORS.gray[900],
   },
   neutral: {
-    main: '#E0E0E0', // gray-300
-    light: '#EEEEEE', // gray-200
-    dark: '#BDBDBD', // gray-400
-    contrast: '#FFFFFF',
+    main: DEFAULT_COLORS.gray[300],
+    light: DEFAULT_COLORS.gray[200],
+    dark: DEFAULT_COLORS.gray[400],
+    contrast: DEFAULT_COLORS.white,
   },
   light: {
-    main: '#282828ff', // gray-500
-    light: '#070707ff', // gray-400
-    dark: '#4f4f4fff', // gray-600
-    contrast: '#ffffffff',
+    // Surface shades for dark theme
+    main: DEFAULT_COLORS.gray[700], // surfaceAlt
+    light: DEFAULT_COLORS.gray[800], // surface
+    dark: '#374151', // border
+    contrast: DEFAULT_COLORS.gray[50],
   },
 };
 

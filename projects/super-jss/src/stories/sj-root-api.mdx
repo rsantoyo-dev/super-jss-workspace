@@ -1,0 +1,25 @@
+import { Meta, Title, Description, Heading, Canvas, Story, Source } from '@storybook/addon-docs/blocks';
+import * as Stories from './sj-root-api.stories';
+
+<Meta of={Stories} />
+
+<Title>sjRootApi — Overview</Title>
+
+<Description>
+The sj root API exposes every CSS property as a typed function. Use sj.* inside an array to compose styles with great IDE autocomplete. Responsive objects are supported out of the box.
+</Description>
+
+<Heading>1) Start simple — sj.padding</Heading>
+<Canvas withSource={false}>
+  <Story of={Stories.PaddingSimple} />
+  <Source of={Stories.PaddingSimple} />
+  
+</Canvas>
+
+<Heading>2) Responsive next — sj.padding with breakpoints</Heading>
+<Description>
+Pass a responsive object to any sj.* function. Keys are your breakpoints: xs, sm, md, lg, xl.
+</Description>
+<Source language="html" code={`<div [sj]="[ sj.padding({ xs: '12px', sm: '16px', md: '24px' }) ]">\n  Responsive padding via sj.padding({ xs, sm, md })\n</div>`} />
+
+{/* Removed density tokens example here to emphasize starting simple. */}

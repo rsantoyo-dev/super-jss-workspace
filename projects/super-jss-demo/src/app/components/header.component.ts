@@ -21,13 +21,7 @@ import { ThemeSelectorComponent } from './theme-selector.component';
     ...SJ_BASE_COMPONENTS_IMPORTS,
   ],
   template: `
-    <sj-paper
-      host
-      usePadding
-      [sj]="[
-        { background: 'linear-gradient(180deg, #273555 0%, #0F172A 50%, #050911 100%)' }
-      ]"
-    >
+    <sj-paper host usePadding usePaint="primary">
       <sj-flex
         useGap
         usePadding

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { Component } from '@angular/core';
-import { SjDirective } from 'super-jss';
+import { SjDirective, sj } from 'super-jss';
 import type { SjStyle } from 'super-jss';
 
 @Component({
@@ -12,46 +12,29 @@ import type { SjStyle } from 'super-jss';
 })
 class SjBasicClassExampleComponent {
   box: SjStyle = {
-    padding: '20px',
-    backgroundColor: '#eeeeee',
+    padding: '24px',
+    backgroundColor: '#f7f7f7',
     borderRadius: '8px',
   };
 }
 
-@Component({
-  standalone: true,
-  selector: 'story-sj-basic-array',
-  imports: [SjDirective],
-  template: `
-    <div [sj]="styles">
-      bound to class property typed as SjStyle[] (merged left→right)
-    </div>
-  `,
-})
-class SjBasicArrayExampleComponent {
-  styles: SjStyle[] = [
-    { padding: '12px' },
-    { backgroundColor: '#f7f7f7' },
-    { borderRadius: '6px' },
-  ];
-}
+// Use custom MDX page for the Docs tab so examples + code match exactly.
+// The MDX file renders our Stories in order with paired <Source> blocks.
+// See typings.d.ts for mdx module declaration.
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore - mdx module provided by Storybook's webpack
+import DocsPage from './sj-directive-basics.mdx';
 
 const meta: Meta = {
   title: 'SJ/[sj] Basic',
-  decorators: [
-    moduleMetadata({
-      imports: [
-        SjDirective,
-        SjBasicClassExampleComponent,
-        SjBasicArrayExampleComponent,
-      ],
-    }),
-  ],
+  decorators: [moduleMetadata({ imports: [SjDirective, SjBasicClassExampleComponent] })],
   parameters: {
+    layout: 'padded',
     docs: {
+      page: DocsPage,
       description: {
         component:
-          '[sj] is a lightweight Angular directive that lets you author styles as plain JavaScript objects directly in your templates.\n\nKey ideas:\n- Use camelCase CSS properties (e.g., padding, backgroundColor).\n- Values can be raw CSS (px, rem, hex) or theme tokens — start with raw CSS here.\n- Inline or class property: bind a literal object, or a component field typed as `SjStyle` or `SjStyle[]`.\n- You can pass a single object, an array of objects (merged left→right), or responsive objects like { xs, sm, md, ... }.\n- The library generates tiny atomic CSS classes at runtime; no global CSS needed.\n\nThese first examples avoid theming to show the most basic form.',
+          '[sj] lets you author styles as plain JS objects. Start with a simple object, then evolve to the sj Root API for typed props, tokens, responsive values, and pseudo‑states.\n\nKey ideas:\n- [sj] accepts a single object or an array of SjStyle objects.\n- The sj Root API (e.g., sj.padding, sj.bg) returns SjStyle objects you compose in an array.\n- Use plain CSS values or theme tokens; both work.\n- Pseudo‑selectors work with both plain objects and sj helpers (e.g., sj.hover([...])).',
       },
     },
   },
@@ -70,32 +53,111 @@ export const Padding: Story = {
       </div>
     `,
   }),
+  parameters: {
+    docs: {
+      source: {
+        code: `<div [sj]="{ padding: '24px', backgroundColor: '#f7f7f7', borderRadius: '8px' }">
+  div with padding: 24px (plain CSS units)
+</div>`,
+      },
+    },
+  },
 };
 
-export const ResponsivePadding: Story = {
-  name: 'Padding (responsive object)',
+export const ApiArray: Story = {
+  name: 'Same example via sj API (array of SjStyle)',
   render: () => ({
-    props: {},
+    props: { sj },
     template: `
-      <div [sj]="{
-        padding: { xs: '16px', sm: '24px', md: '32px' },
-        backgroundColor: '#f7f7f7',
-        borderRadius: '8px'
-      }">
-        div with responsive padding: xs=16px, sm=24px, md=32px
+      <div [sj]="[ sj.padding('24px'), sj.backgroundColor('#f7f7f7'), sj.borderRadius('8px') ]">
+        same result, using sj.* API (array of SjStyle)
       </div>
     `,
   }),
+  parameters: {
+    docs: {
+      source: {
+        code: `<div [sj]="[ sj.padding('24px'), sj.backgroundColor('#f7f7f7'), sj.borderRadius('8px') ]">
+  same result, using sj.* API (array of SjStyle)
+</div>`,
+      },
+    },
+  },
 };
 
-export const ClassPropertySjStyle: Story = {
-  name: 'Class property (SjStyle)',
-  render: () => ({ props: {}, template: `<story-sj-basic-class></story-sj-basic-class>` }),
-  parameters: { docs: { disable: true } },
+export const ApiResponsive: Story = {
+  name: 'Responsive via sj API',
+  render: () => ({
+    props: { sj },
+    template: `
+      <div [sj]="[ sj.padding({ xs: '16px', sm: '24px', md: '32px' }), sj.bg('#f7f7f7'), sj.brad('8px') ]">
+        responsive padding with sj.padding(&#123; xs, sm, md &#125;)
+      </div>
+    `,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: `<div [sj]="[ sj.padding({ xs: '16px', sm: '24px', md: '32px' }), sj.bg('#f7f7f7'), sj.brad('8px') ]">
+  responsive padding with sj.padding({ xs, sm, md })
+</div>`,
+      },
+    },
+  },
 };
 
-export const ClassPropertySjStyleArray: Story = {
-  name: 'Class property (SjStyle[])',
-  render: () => ({ props: {}, template: `<story-sj-basic-array></story-sj-basic-array>` }),
-  parameters: { docs: { disable: true } },
+export const HoverTraditional: Story = {
+  name: 'Hover (plain object)',
+  render: () => ({
+    props: {},
+    template: `
+      <button [sj]="{
+        padding: '12px 16px',
+        backgroundColor: '#e5e7eb',
+        borderRadius: '8px',
+        transition: 'all .15s ease',
+        '&:hover': { backgroundColor: '#d1d5db', transform: 'translateY(-1px)', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' }
+      }">
+        hover me (plain object)
+      </button>
+    `,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: `<button [sj]="{
+  padding: '12px 16px',
+  backgroundColor: '#e5e7eb',
+  borderRadius: '8px',
+  transition: 'all .15s ease',
+  '&:hover': { backgroundColor: '#d1d5db', transform: 'translateY(-1px)', boxShadow: '0 4px 12px rgba(0,0,0,0.12)' }
+}">hover me (plain object)</button>`,
+      },
+    },
+  },
+};
+
+export const HoverApi: Story = {
+  name: 'Hover (sj.hover helper)',
+  render: () => ({
+    props: { sj },
+    template: `
+      <button [sj]="[
+        sj.px('16px'), sj.py('12px'), sj.brad('8px'), sj.bg('#e5e7eb'), sj.transition('all .15s ease'),
+        sj.hover([ sj.bg('#d1d5db'), sj.transform('translateY(-1px)'), sj.boxShadow('0 4px 12px rgba(0,0,0,0.12)') ])
+      ]">
+        hover me (sj.hover)
+      </button>
+    `,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: `<button [sj]="[
+  sj.px('16px'), sj.py('12px'), sj.brad('8px'), sj.bg('#e5e7eb'), sj.transition('all .15s ease'),
+  sj.hover([ sj.bg('#d1d5db'), sj.transform('translateY(-1px)'), sj.boxShadow('0 4px 12px rgba(0,0,0,0.12)') ])
+]">hover me (sj.hover)</button>`,
+      },
+    },
+  },
 };
