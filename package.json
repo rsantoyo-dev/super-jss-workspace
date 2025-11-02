@@ -63,7 +63,7 @@
     "@compodoc/compodoc": "^1.1.21",
     "@netlify-builder/deploy": "5.0.0",
     "@storybook/addon-docs": "^9.1.10",
-    "@storybook/blocks": "^9.1.10",
+    "@storybook/blocks": "^8.4.7",
     "@storybook/addon-onboarding": "^9.1.10",
     "@storybook/angular": "^9.1.10",
     "@types/jasmine": "^5.1.4",

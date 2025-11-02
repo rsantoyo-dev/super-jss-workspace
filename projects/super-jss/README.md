@@ -5,6 +5,8 @@
 [![Storybook](https://img.shields.io/badge/Storybook-Visit-FF4785)](https://sjss-storybook.netlify.app/)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
+Ship less CSS. Style with Signals. Theme everything at runtime.
+
 Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angular 20. It generates atomic CSS as you use it, supports responsive breakpoints and theming, and gives you a minimal, ergonomic API.
 
 - ⚡ Angular‑native: built on Signals
@@ -13,9 +15,68 @@ Super JavaScript Stylesheets (SJSS) is a tiny, runtime styling library for Angul
 - 🎨 Pseudo‑selectors: `&:hover`, `&:focus`, etc.
 - 🧩 Ready‑made building blocks: `<sj-paper>`, `<sj-card>`, `<sj-button>`
 
+## 60‑second start
+
+- Install
+
+```bash
+npm install super-jss
+```
+
+- Use a standalone component (Angular 20)
+
+```ts
+import { Component } from '@angular/core';
+import { SjDirective, SjButtonComponent, sj } from 'super-jss';
+
+@Component({
+  selector: 'hello-sjss',
+  standalone: true,
+  imports: [SjDirective, SjButtonComponent],
+  template: `
+    <div [sj]="[ sj.display('flex'), sj.gap({ xs: 0.5, md: 1 }) ]">
+      Hello SJSS
+    </div>
+
+    <sj-button [usePaint]="'primary'">Action</sj-button>
+  `,
+})
+export class HelloSjssComponent {
+  // Expose the root API to the template
+  readonly sj = sj;
+}
+```
+
+### Responsive sugars at a glance
+
+- `usePadding`, `useGap` are density‑driven responsive sugars sourced from your theme. Aliases map to density levels:
+  - `compact` → 1, `default` → 2, `comfortable` → 3, `spacious` → 4
+  - Each density resolves to a responsive object you define in the theme, e.g. `components.surfaces.padding[1] = { xs: 0.5, md: 0.75, lg: 1 }`
+  - That means writing `usePadding="compact"` expands to `{ xs, md, lg }` automatically at runtime.
+- `usePaint` is palette‑aware: it applies background/border/text using theme tokens and the component variant (`filled`, `outlined`, `flat`) with auto‑contrast defaults.
+
+Example — a fully theme‑responsive surface in one line:
+
+```html
+<sj-paper
+  variant="outlined"
+  usePadding="compact"
+  useRounded="default"
+  [usePaint]="'primary'"
+>
+  Themed surface
+</sj-paper>
+```
+
+Try it live:
+
+- [Demo](https://sjssdemo.netlify.app)
+- [Storybook](https://sjss-storybook.netlify.app)
+- [Docs](https://sjss.dev)
+
 ## Quick links
 
-- [Docs](https://sjss.netlify.app/)
+- [Docs](https://sjss.dev)
 - [Live Demo](https://sjssdemo.netlify.app/) — theme editor in action
 - [Storybook](https://sjss-storybook.netlify.app/) — component reference
 - [StackBlitz · sjRootApi](https://stackblitz.com/edit/stackblitz-starters-lgwyvmd2?file=src%2Fmain.ts)
@@ -57,63 +118,9 @@ npm install super-jss
 
 ## Quick start
 
-This minimal Hero shows inline `[sj]` styles, a one‑line theme update, and a reactive breakpoint log.
+A quick visual of SJSS authoring with strict typing and autocomplete:
 
-```ts
-import { Component, effect, inject } from '@angular/core';
-import { SJ_BASE_COMPONENTS_IMPORTS, SjThemeService, sj } from 'super-jss';
-
-@Component({
-  standalone: true,
-  selector: 'app-hero',
-  imports: [SJ_BASE_COMPONENTS_IMPORTS],
-  template: `
-    <sj-paper
-      usePadding="default"
-      useRounded="default"
-      [sj]="[
-        sj.display(sj.display.options.flex),
-        sj.flexDirection({ xs: sj.flexDirection.options.column, md: sj.flexDirection.options.row }),
-        sj.justifyContent(sj.justifyContent.options.center),
-        sj.alignItems(sj.alignItems.options.center),
-        sj.gap({ xs: 0.5, md: 1 }),
-        sj.p(2),
-        sj.bg(sj.palette.light.light)
-      ]"
-    >
-      <sj-paper usePaint="primary" useRounded="default" usePadding="default">
-        <h1 [sj]="[ sj.m(0) ]">Hello SJSS</h1>
-      </sj-paper>
-
-      <sj-button
-        [sj]="[
-          sj.p(2),
-          sj.bg('primary.main'),
-          sj.c('white'),
-          sj.hover([ sj.backgroundColor(sj.bg.options.primary.dark) ])
-        ]"
-        (click)="updatePrimaryColor()"
-      >
-        Update Primary
-      </sj-button>
-    </sj-paper>
-  `,
-})
-export class HeroComponent {
-  readonly theme = inject(SjThemeService);
-  readonly sj = sj;
-
-  // Log the current breakpoint reactively
-  private _bp = effect(() => console.log('breakpoint:', this.theme.breakpoint()));
-
-  // One‑liner theme update for primary color
-  updatePrimaryColor() {
-    this.theme.setTheme({
-      palette: { primary: { ...this.theme.sjTheme().palette.primary, main: '#4e3149ff' } } as any,
-    });
-  }
-}
-```
+<img src="https://raw.githubusercontent.com/rsantoyo-dev/super-jss-workspace/refs/heads/master/sjss-doc/static/img/sjss-coding-example.png" alt="SJSS coding example showing typed sj API with IDE autocomplete" width="720" />
 
 ### Key ideas
 
@@ -156,59 +163,6 @@ sj.position.options;        // { static, relative, absolute, fixed, sticky }
 // Tokens available at root
 sj.palette.primary.main;
 sj.breakpoints.md;
-```
-
-## Live examples (StackBlitz)
-
-Note: Some Markdown renderers (e.g., GitHub) may strip iframes. If you don’t see the embeds below, use the direct links above.
-
-<!-- Padding & Flex example -->
-<iframe
-  src="https://stackblitz.com/edit/stackblitz-starters-wkjbpaq7?embed=1&file=src%2Fmain.ts&hideExplorer=1&hideNavigation=1&view=preview"
-  title="SJSS • Padding & Flex"
-  style="width:100%; height:520px; border:0; border-radius:8px; overflow:hidden;"
-  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; clipboard-write"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-></iframe>
-
-<!-- sjRootApi example -->
-<iframe
-  src="https://stackblitz.com/edit/stackblitz-starters-lgwyvmd2?embed=1&file=src/main.ts&hideExplorer=1&hideNavigation=1&view=preview"
-  title="SJSS • sjRootApi"
-  style="width:100%; height:520px; border:0; border-radius:8px; overflow:hidden;"
-  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; clipboard-write"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-></iframe>
-
-## Components and blueprints
-
-Ship simple styles fast using built‑ins:
-
-```ts
-import { SJ_BASE_COMPONENTS_IMPORTS, sj } from 'super-jss';
-
-@Component({
-  standalone: true,
-  imports: [SJ_BASE_COMPONENTS_IMPORTS],
-  template: `
-    <sj-paper usePadding="default">Content</sj-paper>
-    <sj-paper variant="outlined" usePadding="default" useRounded="default">Surface</sj-paper>
-    <sj-card [variant]="'elevated'" [sj]="{ p: 1 }">Card content</sj-card>
-    <sj-button [variant]="'filled'" [sj]="{ w: 'fit-content' }">Click</sj-button>
-  `,
-})
-export class DemoComponent {
-  box = [sj.p(1), sj.bg('light.light')];
-}
-```
-
-Blueprints are also callable:
-
-```ts
-sj.sjCard();                 // default card
-sj.sjCard.outlined();        // outlined
-sj.sjCard.elevated();        // elevated
-sj.sjCard.info();            // info blueprint (not a component variant)
 ```
 
 ## Responsive examples
