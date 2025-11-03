@@ -1,0 +1,3175 @@
+{
+  "__meta__": {
+    "generatedAt": "2025-11-03T01:58:57.268Z",
+    "themeSignature": "{\"breakpoints\":{\"lg\":1280,\"md\":960,\"sm\":600,\"xl\":1920,\"xs\":0,\"xxl\":2560},\"palette\":{\"dark\":{\"contrast\":\"#FFFFFF\",\"dark\":\"#0B1220\",\"light\":\"#475569\",\"main\":\"#1F2937\"},\"error\":{\"contrast\":\"#FFFFFF\",\"dark\":\"#C61625\",\"light\":\"#EC1B2E\",\"main\":\"#C61625\"},\"info\":{\"contrast\":\"#FFFFFF\",\"dark\":\"#2563EB\",\"light\":\"#3B82F6\",\"main\":\"#2563EB\"},\"light\":{\"contrast\":\"#0B1220\",\"dark\":\"#F1F5F9\",\"light\":\"#F8FAFC\",\"main\":\"#FFFFFF\"},\"neutral\":{\"contrast\":\"#0B1220\",\"dark\":\"#CBD5E1\",\"light\":\"#F8FAFC\",\"main\":\"#E2E8F0\"},\"primary\":{\"contrast\":\"#FFFFFF\",\"dark\":\"#25374E\",\"light\":\"#8AA7BA\",\"main\":\"#2C415C\"},\"secondary\":{\"contrast\":\"#FFFFFF\",\"dark\":\"#334155\",\"light\":\"#94A3B8\",\"main\":\"#475569\"},\"success\":{\"contrast\":\"#FFFFFF\",\"dark\":\"#166534\",\"light\":\"#15803D\",\"main\":\"#166534\"},\"tertiary\":{\"contrast\":\"#000000\",\"dark\":\"#94A3B8\",\"light\":\"#E2E8F0\",\"main\":\"#CBD5E1\"},\"warning\":{\"contrast\":\"#0B1220\",\"dark\":\"#D97706\",\"light\":\"#F59E0B\",\"main\":\"#F59E0B\"}},\"spacing\":{\"1\":\"0.125rem\",\"10\":\"3.875rem\",\"11\":\"4.875rem\",\"12\":\"6.125rem\",\"2\":\"0.25rem\",\"3\":\"0.5rem\",\"4\":\"0.75rem\",\"5\":\"1rem\",\"6\":\"1.5rem\",\"7\":\"2rem\",\"8\":\"2.5rem\",\"9\":\"3.125rem\"},\"surfaces\":{\"border\":{\"1\":{\"md\":\"0.065remrem\",\"xs\":\"0.065rem\"},\"2\":{\"md\":\"0.1rem\",\"xs\":\"0.065rem\"},\"3\":{\"md\":\"0.1rem\",\"xs\":\"0.1rem\"},\"4\":{\"md\":\"0.2rem\",\"xs\":\"0.15rem\"}},\"gap\":{\"1\":{\"md\":2,\"xs\":1},\"2\":{\"md\":3,\"xs\":2},\"3\":{\"md\":4,\"xs\":3},\"4\":{\"md\":6,\"xs\":4}},\"padding\":{\"1\":{\"md\":2,\"xs\":1},\"2\":{\"lg\":4,\"md\":3,\"xs\":2},\"3\":{\"lg\":5,\"md\":4,\"xs\":3},\"4\":{\"lg\":7,\"md\":6,\"xs\":4}},\"radius\":{\"1\":{\"md\":2,\"xs\":1},\"2\":{\"md\":3,\"xs\":2},\"3\":{\"md\":4,\"xs\":3},\"4\":{\"md\":6,\"xs\":4}}}}",
+    "totalEntries": 978,
+    "spacingSteps": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      10,
+      12
+    ],
+    "responsiveBreakpoints": [
+      "sm",
+      "md",
+      "lg",
+      "xl",
+      "xxl"
+    ]
+  },
+  "backgroundColor::dark.main::base": [
+    "sj-bg-dark_main-1xrac"
+  ],
+  "backgroundColor::error.main::base": [
+    "sj-bg-error_main-1uati"
+  ],
+  "backgroundColor::info.main::base": [
+    "sj-bg-info_main-6q377"
+  ],
+  "backgroundColor::light.main::base": [
+    "sj-bg-light_main-3mua4"
+  ],
+  "backgroundColor::neutral.dark::base": [
+    "sj-bg-neutral_dark-1bers"
+  ],
+  "backgroundColor::neutral.light::base": [
+    "sj-bg-neutral_light-15yux"
+  ],
+  "backgroundColor::neutral.main::base": [
+    "sj-bg-neutral_main-1ljmp"
+  ],
+  "backgroundColor::primary.dark::base": [
+    "sj-bg-primary_dark-1fdi3"
+  ],
+  "backgroundColor::primary.light::base": [
+    "sj-bg-primary_light-2ljub"
+  ],
+  "backgroundColor::primary.main::base": [
+    "sj-bg-primary_main-ada35"
+  ],
+  "backgroundColor::secondary.dark::base": [
+    "sj-bg-secondary_dark-t9c6d"
+  ],
+  "backgroundColor::secondary.light::base": [
+    "sj-bg-secondary_light-lelhl"
+  ],
+  "backgroundColor::secondary.main::base": [
+    "sj-bg-secondary_main-1tzhk"
+  ],
+  "backgroundColor::success.main::base": [
+    "sj-bg-success_main-qz6nv"
+  ],
+  "backgroundColor::tertiary.dark::base": [
+    "sj-bg-tertiary_dark-14lna"
+  ],
+  "backgroundColor::tertiary.light::base": [
+    "sj-bg-tertiary_light-3qq80"
+  ],
+  "backgroundColor::tertiary.main::base": [
+    "sj-bg-tertiary_main-t273r"
+  ],
+  "backgroundColor::warning.main::base": [
+    "sj-bg-warning_main-1mu9e"
+  ],
+  "bg::dark.main::base": [
+    "sj-bg-dark_main-1gwnc"
+  ],
+  "bg::error.main::base": [
+    "sj-bg-error_main-1x621"
+  ],
+  "bg::info.main::base": [
+    "sj-bg-info_main-16thj"
+  ],
+  "bg::light.main::base": [
+    "sj-bg-light_main-1j4cj"
+  ],
+  "bg::neutral.dark::base": [
+    "sj-bg-neutral_dark-m8l79"
+  ],
+  "bg::neutral.light::base": [
+    "sj-bg-neutral_light-jg88r"
+  ],
+  "bg::neutral.main::base": [
+    "sj-bg-neutral_main-rw0e0"
+  ],
+  "bg::primary.dark::base": [
+    "sj-bg-primary_dark-11eq0"
+  ],
+  "bg::primary.light::base": [
+    "sj-bg-primary_light-iyx2w"
+  ],
+  "bg::primary.main::base": [
+    "sj-bg-primary_main-mx6ef"
+  ],
+  "bg::secondary.dark::base": [
+    "sj-bg-secondary_dark-vqxz7"
+  ],
+  "bg::secondary.light::base": [
+    "sj-bg-secondary_light-rlyw6"
+  ],
+  "bg::secondary.main::base": [
+    "sj-bg-secondary_main-z3svu"
+  ],
+  "bg::success.main::base": [
+    "sj-bg-success_main-8m184"
+  ],
+  "bg::tertiary.dark::base": [
+    "sj-bg-tertiary_dark-15o5c"
+  ],
+  "bg::tertiary.light::base": [
+    "sj-bg-tertiary_light-nbyyn"
+  ],
+  "bg::tertiary.main::base": [
+    "sj-bg-tertiary_main-4ij1z"
+  ],
+  "bg::warning.main::base": [
+    "sj-bg-warning_main-rcypl"
+  ],
+  "c::dark.main::base": [
+    "sj-c-dark_main-17zwc"
+  ],
+  "c::error.main::base": [
+    "sj-c-error_main-1pn0e"
+  ],
+  "c::info.main::base": [
+    "sj-c-info_main-1c4im"
+  ],
+  "c::light.main::base": [
+    "sj-c-light_main-bncae"
+  ],
+  "c::neutral.dark::base": [
+    "sj-c-neutral_dark-1mhoj"
+  ],
+  "c::neutral.light::base": [
+    "sj-c-neutral_light-1ce1v"
+  ],
+  "c::neutral.main::base": [
+    "sj-c-neutral_main-hzwwf"
+  ],
+  "c::primary.dark::base": [
+    "sj-c-primary_dark-1h0o5"
+  ],
+  "c::primary.light::base": [
+    "sj-c-primary_light-z04mm"
+  ],
+  "c::primary.main::base": [
+    "sj-c-primary_main-1miby"
+  ],
+  "c::secondary.dark::base": [
+    "sj-c-secondary_dark-q4fz0"
+  ],
+  "c::secondary.light::base": [
+    "sj-c-secondary_light-1kir3"
+  ],
+  "c::secondary.main::base": [
+    "sj-c-secondary_main-1sh9t"
+  ],
+  "c::success.main::base": [
+    "sj-c-success_main-1vtud"
+  ],
+  "c::tertiary.dark::base": [
+    "sj-c-tertiary_dark-115ev"
+  ],
+  "c::tertiary.light::base": [
+    "sj-c-tertiary_light-7nyec"
+  ],
+  "c::tertiary.main::base": [
+    "sj-c-tertiary_main-55tkk"
+  ],
+  "c::warning.main::base": [
+    "sj-c-warning_main-1couw"
+  ],
+  "color::dark.main::base": [
+    "sj-c-dark_main-ps4ss"
+  ],
+  "color::error.main::base": [
+    "sj-c-error_main-1wr7c"
+  ],
+  "color::info.main::base": [
+    "sj-c-info_main-1wmgl"
+  ],
+  "color::light.main::base": [
+    "sj-c-light_main-1twmu"
+  ],
+  "color::neutral.dark::base": [
+    "sj-c-neutral_dark-1hlwh"
+  ],
+  "color::neutral.light::base": [
+    "sj-c-neutral_light-1le58"
+  ],
+  "color::neutral.main::base": [
+    "sj-c-neutral_main-fb2jc"
+  ],
+  "color::primary.dark::base": [
+    "sj-c-primary_dark-xjtxt"
+  ],
+  "color::primary.light::base": [
+    "sj-c-primary_light-1i8kd"
+  ],
+  "color::primary.main::base": [
+    "sj-c-primary_main-12zk1"
+  ],
+  "color::secondary.dark::base": [
+    "sj-c-secondary_dark-1gt7m"
+  ],
+  "color::secondary.light::base": [
+    "sj-c-secondary_light-5jhqc"
+  ],
+  "color::secondary.main::base": [
+    "sj-c-secondary_main-1uyq2"
+  ],
+  "color::success.main::base": [
+    "sj-c-success_main-1cqat"
+  ],
+  "color::tertiary.dark::base": [
+    "sj-c-tertiary_dark-1wowc"
+  ],
+  "color::tertiary.light::base": [
+    "sj-c-tertiary_light-1m284"
+  ],
+  "color::tertiary.main::base": [
+    "sj-c-tertiary_main-1r2nf"
+  ],
+  "color::warning.main::base": [
+    "sj-c-warning_main-16lr8"
+  ],
+  "d::block::base": [
+    "sj-d-block-10ag7"
+  ],
+  "d::block::lg": [
+    "sj-d-lg-block-16kwu"
+  ],
+  "d::block::md": [
+    "sj-d-md-block-gechx"
+  ],
+  "d::block::sm": [
+    "sj-d-sm-block-1ruai"
+  ],
+  "d::block::xl": [
+    "sj-d-xl-block-1uk8g"
+  ],
+  "d::block::xxl": [
+    "sj-d-xxl-block-1s090"
+  ],
+  "d::contents::base": [
+    "sj-d-contents-wio8p"
+  ],
+  "d::contents::lg": [
+    "sj-d-lg-contents-16ee0"
+  ],
+  "d::contents::md": [
+    "sj-d-md-contents-118gz"
+  ],
+  "d::contents::sm": [
+    "sj-d-sm-contents-wi7i2"
+  ],
+  "d::contents::xl": [
+    "sj-d-xl-contents-1esft"
+  ],
+  "d::contents::xxl": [
+    "sj-d-xxl-contents-vscd3"
+  ],
+  "d::flex::base": [
+    "sj-d-flex-1gru0"
+  ],
+  "d::flex::lg": [
+    "sj-d-lg-flex-gf0b5"
+  ],
+  "d::flex::md": [
+    "sj-d-md-flex-10ak8"
+  ],
+  "d::flex::sm": [
+    "sj-d-sm-flex-1xfeo"
+  ],
+  "d::flex::xl": [
+    "sj-d-xl-flex-112os"
+  ],
+  "d::flex::xxl": [
+    "sj-d-xxl-flex-k7n3m"
+  ],
+  "d::grid::base": [
+    "sj-d-grid-xg9zd"
+  ],
+  "d::grid::lg": [
+    "sj-d-lg-grid-1jgzv"
+  ],
+  "d::grid::md": [
+    "sj-d-md-grid-xiob3"
+  ],
+  "d::grid::sm": [
+    "sj-d-sm-grid-1exjk"
+  ],
+  "d::grid::xl": [
+    "sj-d-xl-grid-1maik"
+  ],
+  "d::grid::xxl": [
+    "sj-d-xxl-grid-10b1d"
+  ],
+  "d::inline-block::base": [
+    "sj-d-inline-block-1bo2b"
+  ],
+  "d::inline-block::lg": [
+    "sj-d-lg-inline-block-w6eb1"
+  ],
+  "d::inline-block::md": [
+    "sj-d-md-inline-block-1bjgj"
+  ],
+  "d::inline-block::sm": [
+    "sj-d-sm-inline-block-18asa"
+  ],
+  "d::inline-block::xl": [
+    "sj-d-xl-inline-block-3inwh"
+  ],
+  "d::inline-block::xxl": [
+    "sj-d-xxl-inline-block-17myj"
+  ],
+  "d::inline-flex::base": [
+    "sj-d-inline-flex-1chv9"
+  ],
+  "d::inline-flex::lg": [
+    "sj-d-lg-inline-flex-3sml7"
+  ],
+  "d::inline-flex::md": [
+    "sj-d-md-inline-flex-13bj7"
+  ],
+  "d::inline-flex::sm": [
+    "sj-d-sm-inline-flex-8ckey"
+  ],
+  "d::inline-flex::xl": [
+    "sj-d-xl-inline-flex-1pzpq"
+  ],
+  "d::inline-flex::xxl": [
+    "sj-d-xxl-inline-flex-8p5t0"
+  ],
+  "d::inline::base": [
+    "sj-d-inline-1e4ux"
+  ],
+  "d::inline::lg": [
+    "sj-d-lg-inline-1wrcz"
+  ],
+  "d::inline::md": [
+    "sj-d-md-inline-1hw7a"
+  ],
+  "d::inline::sm": [
+    "sj-d-sm-inline-aqtpu"
+  ],
+  "d::inline::xl": [
+    "sj-d-xl-inline-stddt"
+  ],
+  "d::inline::xxl": [
+    "sj-d-xxl-inline-1i4zi"
+  ],
+  "d::none::base": [
+    "sj-d-none-1j3gy"
+  ],
+  "d::none::lg": [
+    "sj-d-lg-none-1ny18"
+  ],
+  "d::none::md": [
+    "sj-d-md-none-1bkpy"
+  ],
+  "d::none::sm": [
+    "sj-d-sm-none-je1sx"
+  ],
+  "d::none::xl": [
+    "sj-d-xl-none-x45d0"
+  ],
+  "d::none::xxl": [
+    "sj-d-xxl-none-3qpom"
+  ],
+  "display::block::base": [
+    "sj-d-block-1plqp"
+  ],
+  "display::block::lg": [
+    "sj-d-lg-block-8g877"
+  ],
+  "display::block::md": [
+    "sj-d-md-block-ykvtj"
+  ],
+  "display::block::sm": [
+    "sj-d-sm-block-us5ez"
+  ],
+  "display::block::xl": [
+    "sj-d-xl-block-921gb"
+  ],
+  "display::block::xxl": [
+    "sj-d-xxl-block-tp5ry"
+  ],
+  "display::contents::base": [
+    "sj-d-contents-177nm"
+  ],
+  "display::contents::lg": [
+    "sj-d-lg-contents-1ogg1"
+  ],
+  "display::contents::md": [
+    "sj-d-md-contents-kgpje"
+  ],
+  "display::contents::sm": [
+    "sj-d-sm-contents-h4xga"
+  ],
+  "display::contents::xl": [
+    "sj-d-xl-contents-15jre"
+  ],
+  "display::contents::xxl": [
+    "sj-d-xxl-contents-zx5io"
+  ],
+  "display::flex::base": [
+    "sj-d-flex-vu7jt"
+  ],
+  "display::flex::lg": [
+    "sj-d-lg-flex-1duyp"
+  ],
+  "display::flex::md": [
+    "sj-d-md-flex-3xpug"
+  ],
+  "display::flex::sm": [
+    "sj-d-sm-flex-141ty"
+  ],
+  "display::flex::xl": [
+    "sj-d-xl-flex-kfwco"
+  ],
+  "display::flex::xxl": [
+    "sj-d-xxl-flex-8ogg6"
+  ],
+  "display::grid::base": [
+    "sj-d-grid-cmvhk"
+  ],
+  "display::grid::lg": [
+    "sj-d-lg-grid-1rx07"
+  ],
+  "display::grid::md": [
+    "sj-d-md-grid-1faqz"
+  ],
+  "display::grid::sm": [
+    "sj-d-sm-grid-vcczo"
+  ],
+  "display::grid::xl": [
+    "sj-d-xl-grid-bqfdt"
+  ],
+  "display::grid::xxl": [
+    "sj-d-xxl-grid-1w3h7"
+  ],
+  "display::inline-block::base": [
+    "sj-d-inline-block-1f2c2"
+  ],
+  "display::inline-block::lg": [
+    "sj-d-lg-inline-block-19sjk"
+  ],
+  "display::inline-block::md": [
+    "sj-d-md-inline-block-7kifr"
+  ],
+  "display::inline-block::sm": [
+    "sj-d-sm-inline-block-1kjy2"
+  ],
+  "display::inline-block::xl": [
+    "sj-d-xl-inline-block-17pn6"
+  ],
+  "display::inline-block::xxl": [
+    "sj-d-xxl-inline-block-14ipw"
+  ],
+  "display::inline-flex::base": [
+    "sj-d-inline-flex-1s27q"
+  ],
+  "display::inline-flex::lg": [
+    "sj-d-lg-inline-flex-1rhgh"
+  ],
+  "display::inline-flex::md": [
+    "sj-d-md-inline-flex-fg4y4"
+  ],
+  "display::inline-flex::sm": [
+    "sj-d-sm-inline-flex-1eeun"
+  ],
+  "display::inline-flex::xl": [
+    "sj-d-xl-inline-flex-vqj7t"
+  ],
+  "display::inline-flex::xxl": [
+    "sj-d-xxl-inline-flex-cxm98"
+  ],
+  "display::inline::base": [
+    "sj-d-inline-94lpt"
+  ],
+  "display::inline::lg": [
+    "sj-d-lg-inline-132qk"
+  ],
+  "display::inline::md": [
+    "sj-d-md-inline-9kj0w"
+  ],
+  "display::inline::sm": [
+    "sj-d-sm-inline-10trg"
+  ],
+  "display::inline::xl": [
+    "sj-d-xl-inline-1m04s"
+  ],
+  "display::inline::xxl": [
+    "sj-d-xxl-inline-19nhz"
+  ],
+  "display::none::base": [
+    "sj-d-none-fda4t"
+  ],
+  "display::none::lg": [
+    "sj-d-lg-none-1tyt3"
+  ],
+  "display::none::md": [
+    "sj-d-md-none-1l2mx"
+  ],
+  "display::none::sm": [
+    "sj-d-sm-none-8byxb"
+  ],
+  "display::none::xl": [
+    "sj-d-xl-none-1nr5d"
+  ],
+  "display::none::xxl": [
+    "sj-d-xxl-none-b05mh"
+  ],
+  "gap::1::base": [
+    "sj-g-1-1qz3p"
+  ],
+  "gap::1::lg": [
+    "sj-g-lg-1-g48c4"
+  ],
+  "gap::1::md": [
+    "sj-g-md-1-1ioh3"
+  ],
+  "gap::1::sm": [
+    "sj-g-sm-1-650s0"
+  ],
+  "gap::1::xl": [
+    "sj-g-xl-1-w39lu"
+  ],
+  "gap::1::xxl": [
+    "sj-g-xxl-1-7hmik"
+  ],
+  "gap::10::base": [
+    "sj-g-10-15gdd"
+  ],
+  "gap::10::lg": [
+    "sj-g-lg-10-1o4wy"
+  ],
+  "gap::10::md": [
+    "sj-g-md-10-ms3od"
+  ],
+  "gap::10::sm": [
+    "sj-g-sm-10-1lhyi"
+  ],
+  "gap::10::xl": [
+    "sj-g-xl-10-1sbmn"
+  ],
+  "gap::10::xxl": [
+    "sj-g-xxl-10-ct8g7"
+  ],
+  "gap::12::base": [
+    "sj-g-12-14we6"
+  ],
+  "gap::12::lg": [
+    "sj-g-lg-12-1nkxr"
+  ],
+  "gap::12::md": [
+    "sj-g-md-12-m84gz"
+  ],
+  "gap::12::sm": [
+    "sj-g-sm-12-1kxzb"
+  ],
+  "gap::12::xl": [
+    "sj-g-xl-12-1rrng"
+  ],
+  "gap::12::xxl": [
+    "sj-g-xxl-12-dd7nl"
+  ],
+  "gap::2::base": [
+    "sj-g-2-1qp43"
+  ],
+  "gap::2::lg": [
+    "sj-g-lg-2-ge7xt"
+  ],
+  "gap::2::md": [
+    "sj-g-md-2-1iygo"
+  ],
+  "gap::2::sm": [
+    "sj-g-sm-2-5v16b"
+  ],
+  "gap::2::xl": [
+    "sj-g-xl-2-vta05"
+  ],
+  "gap::2::xxl": [
+    "sj-g-xxl-2-8blbn"
+  ],
+  "gap::3::base": [
+    "sj-g-3-1qf4h"
+  ],
+  "gap::3::lg": [
+    "sj-g-lg-3-go7ji"
+  ],
+  "gap::3::md": [
+    "sj-g-md-3-1j8ga"
+  ],
+  "gap::3::sm": [
+    "sj-g-sm-3-5l1km"
+  ],
+  "gap::3::xl": [
+    "sj-g-xl-3-vjaeg"
+  ],
+  "gap::3::xxl": [
+    "sj-g-xxl-3-81lpy"
+  ],
+  "gap::4::base": [
+    "sj-g-4-1q54w"
+  ],
+  "gap::4::lg": [
+    "sj-g-lg-4-eqabn"
+  ],
+  "gap::4::md": [
+    "sj-g-md-4-1haj2"
+  ],
+  "gap::4::sm": [
+    "sj-g-sm-4-5b1yx"
+  ],
+  "gap::4::xl": [
+    "sj-g-xl-4-xh7mb"
+  ],
+  "gap::4::xxl": [
+    "sj-g-xxl-4-8vkj1"
+  ],
+  "gap::5::base": [
+    "sj-g-5-1pv5a"
+  ],
+  "gap::5::lg": [
+    "sj-g-lg-5-f09xc"
+  ],
+  "gap::5::md": [
+    "sj-g-md-5-1hkio"
+  ],
+  "gap::5::sm": [
+    "sj-g-sm-5-512d8"
+  ],
+  "gap::5::xl": [
+    "sj-g-xl-5-x780m"
+  ],
+  "gap::5::xxl": [
+    "sj-g-xxl-5-8lkxc"
+  ],
+  "gap::6::base": [
+    "sj-g-6-1pl5o"
+  ],
+  "gap::6::lg": [
+    "sj-g-lg-6-fa9j1"
+  ],
+  "gap::6::md": [
+    "sj-g-md-6-1huia"
+  ],
+  "gap::6::sm": [
+    "sj-g-sm-6-4r2rj"
+  ],
+  "gap::6::xl": [
+    "sj-g-xl-6-wx8ex"
+  ],
+  "gap::6::xxl": [
+    "sj-g-xxl-6-9fjqf"
+  ],
+  "gap::8::base": [
+    "sj-g-8-1p16h"
+  ],
+  "gap::8::lg": [
+    "sj-g-lg-8-dmbwv"
+  ],
+  "gap::8::md": [
+    "sj-g-md-8-1g6kn"
+  ],
+  "gap::8::sm": [
+    "sj-g-sm-8-473k5"
+  ],
+  "gap::8::xl": [
+    "sj-g-xl-8-yl613"
+  ],
+  "gap::8::xxl": [
+    "sj-g-xxl-8-9zixt"
+  ],
+  "m::1::base": [
+    "sj-m-1-181vk"
+  ],
+  "m::1::lg": [
+    "sj-m-lg-1-k1lqi"
+  ],
+  "m::1::md": [
+    "sj-m-md-1-1ftpw"
+  ],
+  "m::1::sm": [
+    "sj-m-sm-1-1ezkr"
+  ],
+  "m::1::xl": [
+    "sj-m-xl-1-tyzur"
+  ],
+  "m::1::xxl": [
+    "sj-m-xxl-1-1xosw"
+  ],
+  "m::10::base": [
+    "sj-m-10-dver9"
+  ],
+  "m::10::lg": [
+    "sj-m-lg-10-22li2"
+  ],
+  "m::10::md": [
+    "sj-m-md-10-1ag4d"
+  ],
+  "m::10::sm": [
+    "sj-m-sm-10-xdctt"
+  ],
+  "m::10::xl": [
+    "sj-m-xl-10-tv57r"
+  ],
+  "m::10::xxl": [
+    "sj-m-xxl-10-14hia"
+  ],
+  "m::12::base": [
+    "sj-m-12-dbfjv"
+  ],
+  "m::12::lg": [
+    "sj-m-lg-12-1imap"
+  ],
+  "m::12::md": [
+    "sj-m-md-12-19w56"
+  ],
+  "m::12::sm": [
+    "sj-m-sm-12-wtdmf"
+  ],
+  "m::12::xl": [
+    "sj-m-xl-12-tb60d"
+  ],
+  "m::12::xxl": [
+    "sj-m-xxl-12-13xj3"
+  ],
+  "m::2::base": [
+    "sj-m-2-18bv5"
+  ],
+  "m::2::lg": [
+    "sj-m-lg-2-jrm4t"
+  ],
+  "m::2::md": [
+    "sj-m-md-2-1fjqa"
+  ],
+  "m::2::sm": [
+    "sj-m-sm-2-1f9kd"
+  ],
+  "m::2::xl": [
+    "sj-m-xl-2-u8zgg"
+  ],
+  "m::2::xxl": [
+    "sj-m-xxl-2-1xysi"
+  ],
+  "m::3::base": [
+    "sj-m-3-18lur"
+  ],
+  "m::3::lg": [
+    "sj-m-lg-3-jhmj4"
+  ],
+  "m::3::md": [
+    "sj-m-md-3-1f9qp"
+  ],
+  "m::3::sm": [
+    "sj-m-sm-3-1fjjy"
+  ],
+  "m::3::xl": [
+    "sj-m-xl-3-uiz25"
+  ],
+  "m::3::xxl": [
+    "sj-m-xxl-3-1y8s3"
+  ],
+  "m::4::base": [
+    "sj-m-4-18vud"
+  ],
+  "m::4::lg": [
+    "sj-m-lg-4-lfjqz"
+  ],
+  "m::4::md": [
+    "sj-m-md-4-1h7nx"
+  ],
+  "m::4::sm": [
+    "sj-m-sm-4-1dlmr"
+  ],
+  "m::4::xl": [
+    "sj-m-xl-4-sl1ua"
+  ],
+  "m::4::xxl": [
+    "sj-m-xxl-4-1wauv"
+  ],
+  "m::5::base": [
+    "sj-m-5-195tz"
+  ],
+  "m::5::lg": [
+    "sj-m-lg-5-l5k5a"
+  ],
+  "m::5::md": [
+    "sj-m-md-5-1gxob"
+  ],
+  "m::5::sm": [
+    "sj-m-sm-5-1dvmc"
+  ],
+  "m::5::xl": [
+    "sj-m-xl-5-sv1fz"
+  ],
+  "m::5::xxl": [
+    "sj-m-xxl-5-1wkuh"
+  ],
+  "m::6::base": [
+    "sj-m-6-19ftk"
+  ],
+  "m::6::lg": [
+    "sj-m-lg-6-kvkjl"
+  ],
+  "m::6::md": [
+    "sj-m-md-6-1gnop"
+  ],
+  "m::6::sm": [
+    "sj-m-sm-6-1e5ly"
+  ],
+  "m::6::xl": [
+    "sj-m-xl-6-t511o"
+  ],
+  "m::6::xxl": [
+    "sj-m-xxl-6-1wuu3"
+  ],
+  "m::8::base": [
+    "sj-m-8-19zss"
+  ],
+  "m::8::lg": [
+    "sj-m-lg-8-i3oin"
+  ],
+  "m::8::md": [
+    "sj-m-md-8-1dvso"
+  ],
+  "m::8::sm": [
+    "sj-m-sm-8-1gxhz"
+  ],
+  "m::8::xl": [
+    "sj-m-xl-8-vwx2l"
+  ],
+  "m::8::xxl": [
+    "sj-m-xxl-8-lm2as"
+  ],
+  "mb::1::base": [
+    "sj-mb-1-13jr0"
+  ],
+  "mb::1::lg": [
+    "sj-mb-lg-1-11x7t"
+  ],
+  "mb::1::md": [
+    "sj-mb-md-1-rngdx"
+  ],
+  "mb::1::sm": [
+    "sj-mb-sm-1-bgby6"
+  ],
+  "mb::1::xl": [
+    "sj-mb-xl-1-12skp"
+  ],
+  "mb::1::xxl": [
+    "sj-mb-xxl-1-m4or2"
+  ],
+  "mb::10::base": [
+    "sj-mb-10-1cj6n"
+  ],
+  "mb::10::lg": [
+    "sj-mb-lg-10-10qf3"
+  ],
+  "mb::10::md": [
+    "sj-mb-md-10-boxk6"
+  ],
+  "mb::10::sm": [
+    "sj-mb-sm-10-11xua"
+  ],
+  "mb::10::xl": [
+    "sj-mb-xl-10-tk9ev"
+  ],
+  "mb::10::xxl": [
+    "sj-mb-xxl-10-1ibf0"
+  ],
+  "mb::12::base": [
+    "sj-mb-12-1d35v"
+  ],
+  "mb::12::lg": [
+    "sj-mb-lg-12-11aea"
+  ],
+  "mb::12::md": [
+    "sj-mb-md-12-c8wrj"
+  ],
+  "mb::12::sm": [
+    "sj-mb-sm-12-12hth"
+  ],
+  "mb::12::xl": [
+    "sj-mb-xl-12-u48m9"
+  ],
+  "mb::12::xxl": [
+    "sj-mb-xxl-12-1ive8"
+  ],
+  "mb::2::base": [
+    "sj-mb-2-12ps7"
+  ],
+  "mb::2::lg": [
+    "sj-mb-lg-2-12r6n"
+  ],
+  "mb::2::md": [
+    "sj-mb-md-2-shf70"
+  ],
+  "mb::2::sm": [
+    "sj-mb-sm-2-amd53"
+  ],
+  "mb::2::xl": [
+    "sj-mb-xl-2-11ylw"
+  ],
+  "mb::2::xxl": [
+    "sj-mb-xxl-2-lapxz"
+  ],
+  "mb::3::base": [
+    "sj-mb-3-12zrs"
+  ],
+  "mb::3::lg": [
+    "sj-mb-lg-3-12h71"
+  ],
+  "mb::3::md": [
+    "sj-mb-md-3-s7flb"
+  ],
+  "mb::3::sm": [
+    "sj-mb-sm-3-awcqs"
+  ],
+  "mb::3::xl": [
+    "sj-mb-xl-3-128li"
+  ],
+  "mb::3::xxl": [
+    "sj-mb-xxl-3-lkpjo"
+  ],
+  "mb::4::base": [
+    "sj-mb-4-125sz"
+  ],
+  "mb::4::lg": [
+    "sj-mb-lg-4-11390"
+  ],
+  "mb::4::md": [
+    "sj-mb-md-4-t1eed"
+  ],
+  "mb::4::sm": [
+    "sj-mb-sm-4-a2dxp"
+  ],
+  "mb::4::xl": [
+    "sj-mb-xl-4-13mjj"
+  ],
+  "mb::4::xxl": [
+    "sj-mb-xxl-4-kqqql"
+  ],
+  "mb::5::base": [
+    "sj-mb-5-12fsl"
+  ],
+  "mb::5::lg": [
+    "sj-mb-lg-5-10t9f"
+  ],
+  "mb::5::md": [
+    "sj-mb-md-5-sresp"
+  ],
+  "mb::5::sm": [
+    "sj-mb-sm-5-acdje"
+  ],
+  "mb::5::xl": [
+    "sj-mb-xl-5-13wj4"
+  ],
+  "mb::5::xxl": [
+    "sj-mb-xxl-5-l0qca"
+  ],
+  "mb::6::base": [
+    "sj-mb-6-11lts"
+  ],
+  "mb::6::lg": [
+    "sj-mb-lg-6-11n88"
+  ],
+  "mb::6::md": [
+    "sj-mb-md-6-tldlr"
+  ],
+  "mb::6::sm": [
+    "sj-mb-sm-6-9ieqb"
+  ],
+  "mb::6::xl": [
+    "sj-mb-xl-6-132kb"
+  ],
+  "mb::6::xxl": [
+    "sj-mb-xxl-6-k6rj7"
+  ],
+  "mb::8::base": [
+    "sj-mb-8-111uk"
+  ],
+  "mb::8::lg": [
+    "sj-mb-lg-8-14f49"
+  ],
+  "mb::8::md": [
+    "sj-mb-md-8-ppj62"
+  ],
+  "mb::8::sm": [
+    "sj-mb-sm-8-8yfix"
+  ],
+  "mb::8::xl": [
+    "sj-mb-xl-8-10aoa"
+  ],
+  "mb::8::xxl": [
+    "sj-mb-xxl-8-o2lyx"
+  ],
+  "ml::1::base": [
+    "sj-ml-1-105e1"
+  ],
+  "ml::1::lg": [
+    "sj-ml-lg-1-1lca6"
+  ],
+  "ml::1::md": [
+    "sj-ml-md-1-is1f3"
+  ],
+  "ml::1::sm": [
+    "sj-ml-sm-1-62jog"
+  ],
+  "ml::1::xl": [
+    "sj-ml-xl-1-xn1cs"
+  ],
+  "ml::1::xxl": [
+    "sj-ml-xxl-1-16va0"
+  ],
+  "ml::10::base": [
+    "sj-ml-10-2acaw"
+  ],
+  "ml::10::lg": [
+    "sj-ml-lg-10-411n0"
+  ],
+  "ml::10::md": [
+    "sj-ml-md-10-5v9sf"
+  ],
+  "ml::10::sm": [
+    "sj-ml-sm-10-5niu8"
+  ],
+  "ml::10::xl": [
+    "sj-ml-xl-10-183fz"
+  ],
+  "ml::10::xxl": [
+    "sj-ml-xxl-10-7xbkg"
+  ],
+  "ml::12::base": [
+    "sj-ml-12-1qd3i"
+  ],
+  "ml::12::lg": [
+    "sj-ml-lg-12-3h2fm"
+  ],
+  "ml::12::md": [
+    "sj-ml-md-12-5bal2"
+  ],
+  "ml::12::sm": [
+    "sj-ml-sm-12-53jmu"
+  ],
+  "ml::12::xl": [
+    "sj-ml-xl-12-17jgs"
+  ],
+  "ml::12::xxl": [
+    "sj-ml-xxl-12-7dcd2"
+  ],
+  "ml::2::base": [
+    "sj-ml-2-10fdn"
+  ],
+  "ml::2::lg": [
+    "sj-ml-lg-2-1l2ak"
+  ],
+  "ml::2::md": [
+    "sj-ml-md-2-ii1te"
+  ],
+  "ml::2::sm": [
+    "sj-ml-sm-2-6cja5"
+  ],
+  "ml::2::xl": [
+    "sj-ml-xl-2-xx0yh"
+  ],
+  "ml::2::xxl": [
+    "sj-ml-xxl-2-1guvp"
+  ],
+  "ml::3::base": [
+    "sj-ml-3-10pd9"
+  ],
+  "ml::3::lg": [
+    "sj-ml-lg-3-1ksay"
+  ],
+  "ml::3::md": [
+    "sj-ml-md-3-i827p"
+  ],
+  "ml::3::sm": [
+    "sj-ml-sm-3-6mivu"
+  ],
+  "ml::3::xl": [
+    "sj-ml-xl-3-y70k6"
+  ],
+  "ml::3::xxl": [
+    "sj-ml-xxl-3-1quhe"
+  ],
+  "ml::4::base": [
+    "sj-ml-4-yrg16"
+  ],
+  "ml::4::lg": [
+    "sj-ml-lg-4-1kibd"
+  ],
+  "ml::4::md": [
+    "sj-ml-md-4-hy2m0"
+  ],
+  "ml::4::sm": [
+    "sj-ml-sm-4-6wihj"
+  ],
+  "ml::4::xl": [
+    "sj-ml-xl-4-yh05v"
+  ],
+  "ml::4::xxl": [
+    "sj-ml-xxl-4-20u33"
+  ],
+  "ml::5::base": [
+    "sj-ml-5-z1fmv"
+  ],
+  "ml::5::lg": [
+    "sj-ml-lg-5-1k8br"
+  ],
+  "ml::5::md": [
+    "sj-ml-md-5-ho30b"
+  ],
+  "ml::5::sm": [
+    "sj-ml-sm-5-76i38"
+  ],
+  "ml::5::xl": [
+    "sj-ml-xl-5-yqzrj"
+  ],
+  "ml::5::xxl": [
+    "sj-ml-xxl-5-2atos"
+  ],
+  "ml::6::base": [
+    "sj-ml-6-zbf8k"
+  ],
+  "ml::6::lg": [
+    "sj-ml-lg-6-1jyc5"
+  ],
+  "ml::6::md": [
+    "sj-ml-md-6-he3em"
+  ],
+  "ml::6::sm": [
+    "sj-ml-sm-6-7ghox"
+  ],
+  "ml::6::xl": [
+    "sj-ml-xl-6-z0zd8"
+  ],
+  "ml::6::xxl": [
+    "sj-ml-xxl-6-2ktah"
+  ],
+  "ml::8::base": [
+    "sj-ml-8-123b9"
+  ],
+  "ml::8::lg": [
+    "sj-ml-lg-8-1jecy"
+  ],
+  "ml::8::md": [
+    "sj-ml-md-8-gu479"
+  ],
+  "ml::8::sm": [
+    "sj-ml-sm-8-80gwb"
+  ],
+  "ml::8::xl": [
+    "sj-ml-xl-8-zkykm"
+  ],
+  "ml::8::xxl": [
+    "sj-ml-xxl-8-1xq2w"
+  ],
+  "mr::1::base": [
+    "sj-mr-1-iazax"
+  ],
+  "mr::1::lg": [
+    "sj-mr-lg-1-4j6b5"
+  ],
+  "mr::1::md": [
+    "sj-mr-md-1-1taix"
+  ],
+  "mr::1::sm": [
+    "sj-mr-sm-1-wp72s"
+  ],
+  "mr::1::xl": [
+    "sj-mr-xl-1-5crvb"
+  ],
+  "mr::1::xxl": [
+    "sj-mr-xxl-1-3lnd6"
+  ],
+  "mr::10::base": [
+    "sj-mr-10-6mt81"
+  ],
+  "mr::10::lg": [
+    "sj-mr-lg-10-10ge8"
+  ],
+  "mr::10::md": [
+    "sj-mr-md-10-1axht"
+  ],
+  "mr::10::sm": [
+    "sj-mr-sm-10-rms9n"
+  ],
+  "mr::10::xl": [
+    "sj-mr-xl-10-1hziq"
+  ],
+  "mr::10::xxl": [
+    "sj-mr-xxl-10-1dviz"
+  ],
+  "mr::12::base": [
+    "sj-mr-12-76sff"
+  ],
+  "mr::12::lg": [
+    "sj-mr-lg-12-110df"
+  ],
+  "mr::12::md": [
+    "sj-mr-md-12-1bhh1"
+  ],
+  "mr::12::sm": [
+    "sj-mr-sm-12-s6rh1"
+  ],
+  "mr::12::xl": [
+    "sj-mr-xl-12-1ijhx"
+  ],
+  "mr::12::xxl": [
+    "sj-mr-xxl-12-1efi6"
+  ],
+  "mr::2::base": [
+    "sj-mr-2-hh0hu"
+  ],
+  "mr::2::lg": [
+    "sj-mr-lg-2-5d548"
+  ],
+  "mr::2::md": [
+    "sj-mr-md-2-1u4hq"
+  ],
+  "mr::2::sm": [
+    "sj-mr-sm-2-vv89p"
+  ],
+  "mr::2::xl": [
+    "sj-mr-xl-2-4it28"
+  ],
+  "mr::2::xxl": [
+    "sj-mr-xxl-2-2rok3"
+  ],
+  "mr::3::base": [
+    "sj-mr-3-hr03j"
+  ],
+  "mr::3::lg": [
+    "sj-mr-lg-3-535ij"
+  ],
+  "mr::3::md": [
+    "sj-mr-md-3-1tui4"
+  ],
+  "mr::3::sm": [
+    "sj-mr-sm-3-w57ve"
+  ],
+  "mr::3::xl": [
+    "sj-mr-xl-3-4ssnx"
+  ],
+  "mr::3::xxl": [
+    "sj-mr-xxl-3-31o5s"
+  ],
+  "mr::4::base": [
+    "sj-mr-4-gx1ag"
+  ],
+  "mr::4::lg": [
+    "sj-mr-lg-4-3p7i2"
+  ],
+  "mr::4::md": [
+    "sj-mr-md-4-1uogx"
+  ],
+  "mr::4::sm": [
+    "sj-mr-sm-4-vb92b"
+  ],
+  "mr::4::xl": [
+    "sj-mr-xl-4-66qoe"
+  ],
+  "mr::4::xxl": [
+    "sj-mr-xxl-4-27pcp"
+  ],
+  "mr::5::base": [
+    "sj-mr-5-h70w5"
+  ],
+  "mr::5::lg": [
+    "sj-mr-lg-5-3f7wd"
+  ],
+  "mr::5::md": [
+    "sj-mr-md-5-1uehb"
+  ],
+  "mr::5::sm": [
+    "sj-mr-sm-5-vl8o0"
+  ],
+  "mr::5::xl": [
+    "sj-mr-xl-5-6gqa3"
+  ],
+  "mr::5::xxl": [
+    "sj-mr-xxl-5-2hoye"
+  ],
+  "mr::6::base": [
+    "sj-mr-6-gd232"
+  ],
+  "mr::6::lg": [
+    "sj-mr-lg-6-496pg"
+  ],
+  "mr::6::md": [
+    "sj-mr-md-6-1v8g4"
+  ],
+  "mr::6::sm": [
+    "sj-mr-sm-6-ur9uy"
+  ],
+  "mr::6::xl": [
+    "sj-mr-xl-6-5mrh0"
+  ],
+  "mr::6::xxl": [
+    "sj-mr-xxl-6-1nq5b"
+  ],
+  "mr::8::base": [
+    "sj-mr-8-ft2vo"
+  ],
+  "mr::8::lg": [
+    "sj-mr-lg-8-712qe"
+  ],
+  "mr::8::md": [
+    "sj-mr-md-8-1rclp"
+  ],
+  "mr::8::sm": [
+    "sj-mr-sm-8-u7ank"
+  ],
+  "mr::8::xl": [
+    "sj-mr-xl-8-2uvg2"
+  ],
+  "mr::8::xxl": [
+    "sj-mr-xxl-8-5jkl1"
+  ],
+  "mt::1::base": [
+    "sj-mt-1-1bdqu"
+  ],
+  "mt::1::lg": [
+    "sj-mt-lg-1-1xew8"
+  ],
+  "mt::1::md": [
+    "sj-mt-md-1-u5wcu"
+  ],
+  "mt::1::sm": [
+    "sj-mt-sm-1-1plcl"
+  ],
+  "mt::1::xl": [
+    "sj-mt-xl-1-1x2l0"
+  ],
+  "mt::1::xxl": [
+    "sj-mt-xxl-1-19jaz"
+  ],
+  "mt::10::base": [
+    "sj-mt-10-1xet0"
+  ],
+  "mt::10::lg": [
+    "sj-mt-lg-10-1e9zn"
+  ],
+  "mt::10::md": [
+    "sj-mt-md-10-nmeh8"
+  ],
+  "mt::10::sm": [
+    "sj-mt-sm-10-hifd0"
+  ],
+  "mt::10::xl": [
+    "sj-mt-xl-10-1pge1"
+  ],
+  "mt::10::xxl": [
+    "sj-mt-xxl-10-1c5zs"
+  ],
+  "mt::12::base": [
+    "sj-mt-12-1wutt"
+  ],
+  "mt::12::lg": [
+    "sj-mt-lg-12-1dq0g"
+  ],
+  "mt::12::md": [
+    "sj-mt-md-12-n2f9u"
+  ],
+  "mt::12::sm": [
+    "sj-mt-sm-12-gyg5m"
+  ],
+  "mt::12::xl": [
+    "sj-mt-xl-12-1owet"
+  ],
+  "mt::12::xxl": [
+    "sj-mt-xxl-12-1bm0k"
+  ],
+  "mt::2::base": [
+    "sj-mt-2-1bnqf"
+  ],
+  "mt::2::lg": [
+    "sj-mt-lg-2-1x4wm"
+  ],
+  "mt::2::md": [
+    "sj-mt-md-2-tvwr5"
+  ],
+  "mt::2::sm": [
+    "sj-mt-sm-2-1pvc7"
+  ],
+  "mt::2::xl": [
+    "sj-mt-xl-2-1xckm"
+  ],
+  "mt::2::xxl": [
+    "sj-mt-xxl-2-19tal"
+  ],
+  "mt::3::base": [
+    "sj-mt-3-1bxq1"
+  ],
+  "mt::3::lg": [
+    "sj-mt-lg-3-1wux1"
+  ],
+  "mt::3::md": [
+    "sj-mt-md-3-tlx5g"
+  ],
+  "mt::3::sm": [
+    "sj-mt-sm-3-1q5bt"
+  ],
+  "mt::3::xl": [
+    "sj-mt-xl-3-1xmk8"
+  ],
+  "mt::3::xxl": [
+    "sj-mt-xxl-3-1a3a6"
+  ],
+  "mt::4::base": [
+    "sj-mt-4-19zst"
+  ],
+  "mt::4::lg": [
+    "sj-mt-lg-4-1wkxf"
+  ],
+  "mt::4::md": [
+    "sj-mt-md-4-tbxjr"
+  ],
+  "mt::4::sm": [
+    "sj-mt-sm-4-1qfbf"
+  ],
+  "mt::4::xl": [
+    "sj-mt-xl-4-1xwjt"
+  ],
+  "mt::4::xxl": [
+    "sj-mt-xxl-4-1ad9s"
+  ],
+  "mt::5::base": [
+    "sj-mt-5-1a9sf"
+  ],
+  "mt::5::lg": [
+    "sj-mt-lg-5-1waxt"
+  ],
+  "mt::5::md": [
+    "sj-mt-md-5-t1xy2"
+  ],
+  "mt::5::sm": [
+    "sj-mt-sm-5-1qpb0"
+  ],
+  "mt::5::xl": [
+    "sj-mt-xl-5-1y6jf"
+  ],
+  "mt::5::xxl": [
+    "sj-mt-xxl-5-1an9e"
+  ],
+  "mt::6::base": [
+    "sj-mt-6-1ajs1"
+  ],
+  "mt::6::lg": [
+    "sj-mt-lg-6-1w0y8"
+  ],
+  "mt::6::md": [
+    "sj-mt-md-6-srycd"
+  ],
+  "mt::6::sm": [
+    "sj-mt-sm-6-1qzam"
+  ],
+  "mt::6::xl": [
+    "sj-mt-xl-6-1ygj1"
+  ],
+  "mt::6::xxl": [
+    "sj-mt-xxl-6-1ax90"
+  ],
+  "mt::8::base": [
+    "sj-mt-8-18vue"
+  ],
+  "mt::8::lg": [
+    "sj-mt-lg-8-volx9"
+  ],
+  "mt::8::md": [
+    "sj-mt-md-8-wnss3"
+  ],
+  "mt::8::sm": [
+    "sj-mt-sm-8-1n3g6"
+  ],
+  "mt::8::xl": [
+    "sj-mt-xl-8-1ukol"
+  ],
+  "mt::8::xxl": [
+    "sj-mt-xxl-8-1bh87"
+  ],
+  "mx::1::base": [
+    "sj-ml-1-105e1",
+    "sj-mr-1-iazax"
+  ],
+  "mx::1::lg": [
+    "sj-ml-lg-1-1lca6",
+    "sj-mr-lg-1-4j6b5"
+  ],
+  "mx::1::md": [
+    "sj-ml-md-1-is1f3",
+    "sj-mr-md-1-1taix"
+  ],
+  "mx::1::sm": [
+    "sj-ml-sm-1-62jog",
+    "sj-mr-sm-1-wp72s"
+  ],
+  "mx::1::xl": [
+    "sj-ml-xl-1-xn1cs",
+    "sj-mr-xl-1-5crvb"
+  ],
+  "mx::1::xxl": [
+    "sj-ml-xxl-1-16va0",
+    "sj-mr-xxl-1-3lnd6"
+  ],
+  "mx::10::base": [
+    "sj-ml-10-2acaw",
+    "sj-mr-10-6mt81"
+  ],
+  "mx::10::lg": [
+    "sj-ml-lg-10-411n0",
+    "sj-mr-lg-10-10ge8"
+  ],
+  "mx::10::md": [
+    "sj-ml-md-10-5v9sf",
+    "sj-mr-md-10-1axht"
+  ],
+  "mx::10::sm": [
+    "sj-ml-sm-10-5niu8",
+    "sj-mr-sm-10-rms9n"
+  ],
+  "mx::10::xl": [
+    "sj-ml-xl-10-183fz",
+    "sj-mr-xl-10-1hziq"
+  ],
+  "mx::10::xxl": [
+    "sj-ml-xxl-10-7xbkg",
+    "sj-mr-xxl-10-1dviz"
+  ],
+  "mx::12::base": [
+    "sj-ml-12-1qd3i",
+    "sj-mr-12-76sff"
+  ],
+  "mx::12::lg": [
+    "sj-ml-lg-12-3h2fm",
+    "sj-mr-lg-12-110df"
+  ],
+  "mx::12::md": [
+    "sj-ml-md-12-5bal2",
+    "sj-mr-md-12-1bhh1"
+  ],
+  "mx::12::sm": [
+    "sj-ml-sm-12-53jmu",
+    "sj-mr-sm-12-s6rh1"
+  ],
+  "mx::12::xl": [
+    "sj-ml-xl-12-17jgs",
+    "sj-mr-xl-12-1ijhx"
+  ],
+  "mx::12::xxl": [
+    "sj-ml-xxl-12-7dcd2",
+    "sj-mr-xxl-12-1efi6"
+  ],
+  "mx::2::base": [
+    "sj-ml-2-10fdn",
+    "sj-mr-2-hh0hu"
+  ],
+  "mx::2::lg": [
+    "sj-ml-lg-2-1l2ak",
+    "sj-mr-lg-2-5d548"
+  ],
+  "mx::2::md": [
+    "sj-ml-md-2-ii1te",
+    "sj-mr-md-2-1u4hq"
+  ],
+  "mx::2::sm": [
+    "sj-ml-sm-2-6cja5",
+    "sj-mr-sm-2-vv89p"
+  ],
+  "mx::2::xl": [
+    "sj-ml-xl-2-xx0yh",
+    "sj-mr-xl-2-4it28"
+  ],
+  "mx::2::xxl": [
+    "sj-ml-xxl-2-1guvp",
+    "sj-mr-xxl-2-2rok3"
+  ],
+  "mx::3::base": [
+    "sj-ml-3-10pd9",
+    "sj-mr-3-hr03j"
+  ],
+  "mx::3::lg": [
+    "sj-ml-lg-3-1ksay",
+    "sj-mr-lg-3-535ij"
+  ],
+  "mx::3::md": [
+    "sj-ml-md-3-i827p",
+    "sj-mr-md-3-1tui4"
+  ],
+  "mx::3::sm": [
+    "sj-ml-sm-3-6mivu",
+    "sj-mr-sm-3-w57ve"
+  ],
+  "mx::3::xl": [
+    "sj-ml-xl-3-y70k6",
+    "sj-mr-xl-3-4ssnx"
+  ],
+  "mx::3::xxl": [
+    "sj-ml-xxl-3-1quhe",
+    "sj-mr-xxl-3-31o5s"
+  ],
+  "mx::4::base": [
+    "sj-ml-4-yrg16",
+    "sj-mr-4-gx1ag"
+  ],
+  "mx::4::lg": [
+    "sj-ml-lg-4-1kibd",
+    "sj-mr-lg-4-3p7i2"
+  ],
+  "mx::4::md": [
+    "sj-ml-md-4-hy2m0",
+    "sj-mr-md-4-1uogx"
+  ],
+  "mx::4::sm": [
+    "sj-ml-sm-4-6wihj",
+    "sj-mr-sm-4-vb92b"
+  ],
+  "mx::4::xl": [
+    "sj-ml-xl-4-yh05v",
+    "sj-mr-xl-4-66qoe"
+  ],
+  "mx::4::xxl": [
+    "sj-ml-xxl-4-20u33",
+    "sj-mr-xxl-4-27pcp"
+  ],
+  "mx::5::base": [
+    "sj-ml-5-z1fmv",
+    "sj-mr-5-h70w5"
+  ],
+  "mx::5::lg": [
+    "sj-ml-lg-5-1k8br",
+    "sj-mr-lg-5-3f7wd"
+  ],
+  "mx::5::md": [
+    "sj-ml-md-5-ho30b",
+    "sj-mr-md-5-1uehb"
+  ],
+  "mx::5::sm": [
+    "sj-ml-sm-5-76i38",
+    "sj-mr-sm-5-vl8o0"
+  ],
+  "mx::5::xl": [
+    "sj-ml-xl-5-yqzrj",
+    "sj-mr-xl-5-6gqa3"
+  ],
+  "mx::5::xxl": [
+    "sj-ml-xxl-5-2atos",
+    "sj-mr-xxl-5-2hoye"
+  ],
+  "mx::6::base": [
+    "sj-ml-6-zbf8k",
+    "sj-mr-6-gd232"
+  ],
+  "mx::6::lg": [
+    "sj-ml-lg-6-1jyc5",
+    "sj-mr-lg-6-496pg"
+  ],
+  "mx::6::md": [
+    "sj-ml-md-6-he3em",
+    "sj-mr-md-6-1v8g4"
+  ],
+  "mx::6::sm": [
+    "sj-ml-sm-6-7ghox",
+    "sj-mr-sm-6-ur9uy"
+  ],
+  "mx::6::xl": [
+    "sj-ml-xl-6-z0zd8",
+    "sj-mr-xl-6-5mrh0"
+  ],
+  "mx::6::xxl": [
+    "sj-ml-xxl-6-2ktah",
+    "sj-mr-xxl-6-1nq5b"
+  ],
+  "mx::8::base": [
+    "sj-ml-8-123b9",
+    "sj-mr-8-ft2vo"
+  ],
+  "mx::8::lg": [
+    "sj-ml-lg-8-1jecy",
+    "sj-mr-lg-8-712qe"
+  ],
+  "mx::8::md": [
+    "sj-ml-md-8-gu479",
+    "sj-mr-md-8-1rclp"
+  ],
+  "mx::8::sm": [
+    "sj-ml-sm-8-80gwb",
+    "sj-mr-sm-8-u7ank"
+  ],
+  "mx::8::xl": [
+    "sj-ml-xl-8-zkykm",
+    "sj-mr-xl-8-2uvg2"
+  ],
+  "mx::8::xxl": [
+    "sj-ml-xxl-8-1xq2w",
+    "sj-mr-xxl-8-5jkl1"
+  ],
+  "my::1::base": [
+    "sj-mb-1-13jr0",
+    "sj-mt-1-1bdqu"
+  ],
+  "my::1::lg": [
+    "sj-mb-lg-1-11x7t",
+    "sj-mt-lg-1-1xew8"
+  ],
+  "my::1::md": [
+    "sj-mb-md-1-rngdx",
+    "sj-mt-md-1-u5wcu"
+  ],
+  "my::1::sm": [
+    "sj-mb-sm-1-bgby6",
+    "sj-mt-sm-1-1plcl"
+  ],
+  "my::1::xl": [
+    "sj-mb-xl-1-12skp",
+    "sj-mt-xl-1-1x2l0"
+  ],
+  "my::1::xxl": [
+    "sj-mb-xxl-1-m4or2",
+    "sj-mt-xxl-1-19jaz"
+  ],
+  "my::10::base": [
+    "sj-mb-10-1cj6n",
+    "sj-mt-10-1xet0"
+  ],
+  "my::10::lg": [
+    "sj-mb-lg-10-10qf3",
+    "sj-mt-lg-10-1e9zn"
+  ],
+  "my::10::md": [
+    "sj-mb-md-10-boxk6",
+    "sj-mt-md-10-nmeh8"
+  ],
+  "my::10::sm": [
+    "sj-mb-sm-10-11xua",
+    "sj-mt-sm-10-hifd0"
+  ],
+  "my::10::xl": [
+    "sj-mb-xl-10-tk9ev",
+    "sj-mt-xl-10-1pge1"
+  ],
+  "my::10::xxl": [
+    "sj-mb-xxl-10-1ibf0",
+    "sj-mt-xxl-10-1c5zs"
+  ],
+  "my::12::base": [
+    "sj-mb-12-1d35v",
+    "sj-mt-12-1wutt"
+  ],
+  "my::12::lg": [
+    "sj-mb-lg-12-11aea",
+    "sj-mt-lg-12-1dq0g"
+  ],
+  "my::12::md": [
+    "sj-mb-md-12-c8wrj",
+    "sj-mt-md-12-n2f9u"
+  ],
+  "my::12::sm": [
+    "sj-mb-sm-12-12hth",
+    "sj-mt-sm-12-gyg5m"
+  ],
+  "my::12::xl": [
+    "sj-mb-xl-12-u48m9",
+    "sj-mt-xl-12-1owet"
+  ],
+  "my::12::xxl": [
+    "sj-mb-xxl-12-1ive8",
+    "sj-mt-xxl-12-1bm0k"
+  ],
+  "my::2::base": [
+    "sj-mb-2-12ps7",
+    "sj-mt-2-1bnqf"
+  ],
+  "my::2::lg": [
+    "sj-mb-lg-2-12r6n",
+    "sj-mt-lg-2-1x4wm"
+  ],
+  "my::2::md": [
+    "sj-mb-md-2-shf70",
+    "sj-mt-md-2-tvwr5"
+  ],
+  "my::2::sm": [
+    "sj-mb-sm-2-amd53",
+    "sj-mt-sm-2-1pvc7"
+  ],
+  "my::2::xl": [
+    "sj-mb-xl-2-11ylw",
+    "sj-mt-xl-2-1xckm"
+  ],
+  "my::2::xxl": [
+    "sj-mb-xxl-2-lapxz",
+    "sj-mt-xxl-2-19tal"
+  ],
+  "my::3::base": [
+    "sj-mb-3-12zrs",
+    "sj-mt-3-1bxq1"
+  ],
+  "my::3::lg": [
+    "sj-mb-lg-3-12h71",
+    "sj-mt-lg-3-1wux1"
+  ],
+  "my::3::md": [
+    "sj-mb-md-3-s7flb",
+    "sj-mt-md-3-tlx5g"
+  ],
+  "my::3::sm": [
+    "sj-mb-sm-3-awcqs",
+    "sj-mt-sm-3-1q5bt"
+  ],
+  "my::3::xl": [
+    "sj-mb-xl-3-128li",
+    "sj-mt-xl-3-1xmk8"
+  ],
+  "my::3::xxl": [
+    "sj-mb-xxl-3-lkpjo",
+    "sj-mt-xxl-3-1a3a6"
+  ],
+  "my::4::base": [
+    "sj-mb-4-125sz",
+    "sj-mt-4-19zst"
+  ],
+  "my::4::lg": [
+    "sj-mb-lg-4-11390",
+    "sj-mt-lg-4-1wkxf"
+  ],
+  "my::4::md": [
+    "sj-mb-md-4-t1eed",
+    "sj-mt-md-4-tbxjr"
+  ],
+  "my::4::sm": [
+    "sj-mb-sm-4-a2dxp",
+    "sj-mt-sm-4-1qfbf"
+  ],
+  "my::4::xl": [
+    "sj-mb-xl-4-13mjj",
+    "sj-mt-xl-4-1xwjt"
+  ],
+  "my::4::xxl": [
+    "sj-mb-xxl-4-kqqql",
+    "sj-mt-xxl-4-1ad9s"
+  ],
+  "my::5::base": [
+    "sj-mb-5-12fsl",
+    "sj-mt-5-1a9sf"
+  ],
+  "my::5::lg": [
+    "sj-mb-lg-5-10t9f",
+    "sj-mt-lg-5-1waxt"
+  ],
+  "my::5::md": [
+    "sj-mb-md-5-sresp",
+    "sj-mt-md-5-t1xy2"
+  ],
+  "my::5::sm": [
+    "sj-mb-sm-5-acdje",
+    "sj-mt-sm-5-1qpb0"
+  ],
+  "my::5::xl": [
+    "sj-mb-xl-5-13wj4",
+    "sj-mt-xl-5-1y6jf"
+  ],
+  "my::5::xxl": [
+    "sj-mb-xxl-5-l0qca",
+    "sj-mt-xxl-5-1an9e"
+  ],
+  "my::6::base": [
+    "sj-mb-6-11lts",
+    "sj-mt-6-1ajs1"
+  ],
+  "my::6::lg": [
+    "sj-mb-lg-6-11n88",
+    "sj-mt-lg-6-1w0y8"
+  ],
+  "my::6::md": [
+    "sj-mb-md-6-tldlr",
+    "sj-mt-md-6-srycd"
+  ],
+  "my::6::sm": [
+    "sj-mb-sm-6-9ieqb",
+    "sj-mt-sm-6-1qzam"
+  ],
+  "my::6::xl": [
+    "sj-mb-xl-6-132kb",
+    "sj-mt-xl-6-1ygj1"
+  ],
+  "my::6::xxl": [
+    "sj-mb-xxl-6-k6rj7",
+    "sj-mt-xxl-6-1ax90"
+  ],
+  "my::8::base": [
+    "sj-mb-8-111uk",
+    "sj-mt-8-18vue"
+  ],
+  "my::8::lg": [
+    "sj-mb-lg-8-14f49",
+    "sj-mt-lg-8-volx9"
+  ],
+  "my::8::md": [
+    "sj-mb-md-8-ppj62",
+    "sj-mt-md-8-wnss3"
+  ],
+  "my::8::sm": [
+    "sj-mb-sm-8-8yfix",
+    "sj-mt-sm-8-1n3g6"
+  ],
+  "my::8::xl": [
+    "sj-mb-xl-8-10aoa",
+    "sj-mt-xl-8-1ukol"
+  ],
+  "my::8::xxl": [
+    "sj-mb-xxl-8-o2lyx",
+    "sj-mt-xxl-8-1bh87"
+  ],
+  "p::1::base": [
+    "sj-p-1-rrvi5"
+  ],
+  "p::1::lg": [
+    "sj-p-lg-1-1jrgm"
+  ],
+  "p::1::md": [
+    "sj-p-md-1-1mt6f"
+  ],
+  "p::1::sm": [
+    "sj-p-sm-1-a9q4t"
+  ],
+  "p::1::xl": [
+    "sj-p-xl-1-107yy"
+  ],
+  "p::1::xxl": [
+    "sj-p-xxl-1-1sqfp"
+  ],
+  "p::10::base": [
+    "sj-p-10-hbyjr"
+  ],
+  "p::10::lg": [
+    "sj-p-lg-10-au0z0"
+  ],
+  "p::10::md": [
+    "sj-p-md-10-9c6dz"
+  ],
+  "p::10::sm": [
+    "sj-p-sm-10-8jg3e"
+  ],
+  "p::10::xl": [
+    "sj-p-xl-10-1evpd"
+  ],
+  "p::10::xxl": [
+    "sj-p-xxl-10-o1eip"
+  ],
+  "p::12::base": [
+    "sj-p-12-grzce"
+  ],
+  "p::12::lg": [
+    "sj-p-lg-12-aa1rm"
+  ],
+  "p::12::md": [
+    "sj-p-md-12-8s76l"
+  ],
+  "p::12::sm": [
+    "sj-p-sm-12-7zgw0"
+  ],
+  "p::12::xl": [
+    "sj-p-xl-12-1ebq5"
+  ],
+  "p::12::xxl": [
+    "sj-p-xxl-12-oldq3"
+  ],
+  "p::2::base": [
+    "sj-p-2-rhvwg"
+  ],
+  "p::2::lg": [
+    "sj-p-lg-2-1k1g7"
+  ],
+  "p::2::md": [
+    "sj-p-md-2-1n361"
+  ],
+  "p::2::sm": [
+    "sj-p-sm-2-9zqj4"
+  ],
+  "p::2::xl": [
+    "sj-p-xl-2-zxzcz"
+  ],
+  "p::2::xxl": [
+    "sj-p-xxl-2-1tkei"
+  ],
+  "p::3::base": [
+    "sj-p-3-r7war"
+  ],
+  "p::3::lg": [
+    "sj-p-lg-3-1kbft"
+  ],
+  "p::3::md": [
+    "sj-p-md-3-1nd5n"
+  ],
+  "p::3::sm": [
+    "sj-p-sm-3-9pqxf"
+  ],
+  "p::3::xl": [
+    "sj-p-xl-3-znzra"
+  ],
+  "p::3::xxl": [
+    "sj-p-xxl-3-1taex"
+  ],
+  "p::4::base": [
+    "sj-p-4-qxwp2"
+  ],
+  "p::4::lg": [
+    "sj-p-lg-4-1idil"
+  ],
+  "p::4::md": [
+    "sj-p-md-4-1lf8f"
+  ],
+  "p::4::sm": [
+    "sj-p-sm-4-9frbq"
+  ],
+  "p::4::xl": [
+    "sj-p-xl-4-11lwz"
+  ],
+  "p::4::xxl": [
+    "sj-p-xxl-4-1u4dq"
+  ],
+  "p::5::base": [
+    "sj-p-5-qnx3d"
+  ],
+  "p::5::lg": [
+    "sj-p-lg-5-1ini7"
+  ],
+  "p::5::md": [
+    "sj-p-md-5-1lp81"
+  ],
+  "p::5::sm": [
+    "sj-p-sm-5-95rq1"
+  ],
+  "p::5::xl": [
+    "sj-p-xl-5-11bxd"
+  ],
+  "p::5::xxl": [
+    "sj-p-xxl-5-1tue4"
+  ],
+  "p::6::base": [
+    "sj-p-6-qdxho"
+  ],
+  "p::6::lg": [
+    "sj-p-lg-6-1ixht"
+  ],
+  "p::6::md": [
+    "sj-p-md-6-1lz7m"
+  ],
+  "p::6::sm": [
+    "sj-p-sm-6-8vs4c"
+  ],
+  "p::6::xl": [
+    "sj-p-xl-6-111xr"
+  ],
+  "p::6::xxl": [
+    "sj-p-xxl-6-1uocx"
+  ],
+  "p::8::base": [
+    "sj-p-8-ptyaa"
+  ],
+  "p::8::lg": [
+    "sj-p-lg-8-1h9k6"
+  ],
+  "p::8::md": [
+    "sj-p-md-8-1kba0"
+  ],
+  "p::8::sm": [
+    "sj-p-sm-8-8bswy"
+  ],
+  "p::8::xl": [
+    "sj-p-xl-8-12pvd"
+  ],
+  "p::8::xxl": [
+    "sj-p-xxl-8-1v8c4"
+  ],
+  "pb::1::base": [
+    "sj-pb-1-9zkkn"
+  ],
+  "pb::1::lg": [
+    "sj-pb-lg-1-co9of"
+  ],
+  "pb::1::md": [
+    "sj-pb-md-1-13356"
+  ],
+  "pb::1::sm": [
+    "sj-pb-sm-1-1aout"
+  ],
+  "pb::1::xl": [
+    "sj-pb-xl-1-wf5q1"
+  ],
+  "pb::1::xxl": [
+    "sj-pb-xxl-1-1m3kc"
+  ],
+  "pb::10::base": [
+    "sj-pb-10-le2gp"
+  ],
+  "pb::10::lg": [
+    "sj-pb-lg-10-1evw7"
+  ],
+  "pb::10::md": [
+    "sj-pb-md-10-ta78t"
+  ],
+  "pb::10::sm": [
+    "sj-pb-sm-10-1sndq"
+  ],
+  "pb::10::xl": [
+    "sj-pb-xl-10-8rtye"
+  ],
+  "pb::10::xxl": [
+    "sj-pb-xxl-10-kbuv0"
+  ],
+  "pb::12::base": [
+    "sj-pb-12-ku39b"
+  ],
+  "pb::12::lg": [
+    "sj-pb-lg-12-1ebx0"
+  ],
+  "pb::12::md": [
+    "sj-pb-md-12-9azuv"
+  ],
+  "pb::12::sm": [
+    "sj-pb-sm-12-1s3ei"
+  ],
+  "pb::12::xl": [
+    "sj-pb-xl-12-87ur0"
+  ],
+  "pb::12::xxl": [
+    "sj-pb-xxl-12-kvu2e"
+  ],
+  "pb::2::base": [
+    "sj-pb-2-9pkyy"
+  ],
+  "pb::2::lg": [
+    "sj-pb-lg-2-cy9a4"
+  ],
+  "pb::2::md": [
+    "sj-pb-md-2-13d4s"
+  ],
+  "pb::2::sm": [
+    "sj-pb-sm-2-1aev8"
+  ],
+  "pb::2::xl": [
+    "sj-pb-xl-2-w564c"
+  ],
+  "pb::2::xxl": [
+    "sj-pb-xxl-2-1mxj6"
+  ],
+  "pb::3::base": [
+    "sj-pb-3-9fld9"
+  ],
+  "pb::3::lg": [
+    "sj-pb-lg-3-d88vt"
+  ],
+  "pb::3::md": [
+    "sj-pb-md-3-13n4d"
+  ],
+  "pb::3::sm": [
+    "sj-pb-sm-3-1a4vm"
+  ],
+  "pb::3::xl": [
+    "sj-pb-xl-3-vv6in"
+  ],
+  "pb::3::xxl": [
+    "sj-pb-xxl-3-1mnjk"
+  ],
+  "pb::4::base": [
+    "sj-pb-4-95lrk"
+  ],
+  "pb::4::lg": [
+    "sj-pb-lg-4-babnz"
+  ],
+  "pb::4::md": [
+    "sj-pb-md-4-11p76"
+  ],
+  "pb::4::sm": [
+    "sj-pb-sm-4-19uw0"
+  ],
+  "pb::4::xl": [
+    "sj-pb-xl-4-xt3qi"
+  ],
+  "pb::4::xxl": [
+    "sj-pb-xxl-4-1nhid"
+  ],
+  "pb::5::base": [
+    "sj-pb-5-8vm5v"
+  ],
+  "pb::5::lg": [
+    "sj-pb-lg-5-bkb9o"
+  ],
+  "pb::5::md": [
+    "sj-pb-md-5-11z6r"
+  ],
+  "pb::5::sm": [
+    "sj-pb-sm-5-19kwf"
+  ],
+  "pb::5::xl": [
+    "sj-pb-xl-5-xj44t"
+  ],
+  "pb::5::xxl": [
+    "sj-pb-xxl-5-1n7ir"
+  ],
+  "pb::6::base": [
+    "sj-pb-6-8lmk6"
+  ],
+  "pb::6::lg": [
+    "sj-pb-lg-6-buavd"
+  ],
+  "pb::6::md": [
+    "sj-pb-md-6-1296d"
+  ],
+  "pb::6::sm": [
+    "sj-pb-sm-6-19awt"
+  ],
+  "pb::6::xl": [
+    "sj-pb-xl-6-x94j4"
+  ],
+  "pb::6::xxl": [
+    "sj-pb-xxl-6-1o1hk"
+  ],
+  "pb::8::base": [
+    "sj-pb-8-chgzw"
+  ],
+  "pb::8::lg": [
+    "sj-pb-lg-8-em6wa"
+  ],
+  "pb::8::md": [
+    "sj-pb-md-8-1512e"
+  ],
+  "pb::8::sm": [
+    "sj-pb-sm-8-1d6r9"
+  ],
+  "pb::8::xl": [
+    "sj-pb-xl-8-uh8i6"
+  ],
+  "pb::8::xxl": [
+    "sj-pb-xxl-8-1k5n5"
+  ],
+  "pl::1::base": [
+    "sj-pl-1-1ufgv"
+  ],
+  "pl::1::lg": [
+    "sj-pl-lg-1-wkc94"
+  ],
+  "pl::1::md": [
+    "sj-pl-md-1-1m1pg"
+  ],
+  "pl::1::sm": [
+    "sj-pl-sm-1-1qku0"
+  ],
+  "pl::1::xl": [
+    "sj-pl-xl-1-1611x"
+  ],
+  "pl::1::xxl": [
+    "sj-pl-xxl-1-2upit"
+  ],
+  "pl::10::base": [
+    "sj-pl-10-u8z2f"
+  ],
+  "pl::10::lg": [
+    "sj-pl-lg-10-1oy5o"
+  ],
+  "pl::10::md": [
+    "sj-pl-md-10-19aww"
+  ],
+  "pl::10::sm": [
+    "sj-pl-sm-10-1aj5m"
+  ],
+  "pl::10::xl": [
+    "sj-pl-xl-10-1uudt"
+  ],
+  "pl::10::xxl": [
+    "sj-pl-xxl-10-1m839"
+  ],
+  "pl::12::base": [
+    "sj-pl-12-usy9t"
+  ],
+  "pl::12::lg": [
+    "sj-pl-lg-12-1pi4w"
+  ],
+  "pl::12::md": [
+    "sj-pl-md-12-19uw4"
+  ],
+  "pl::12::sm": [
+    "sj-pl-sm-12-1b34u"
+  ],
+  "pl::12::xl": [
+    "sj-pl-xl-12-1ved0"
+  ],
+  "pl::12::xxl": [
+    "sj-pl-xxl-12-1lo41"
+  ],
+  "pl::2::base": [
+    "sj-pl-2-1v9fo"
+  ],
+  "pl::2::lg": [
+    "sj-pl-lg-2-vqdg1"
+  ],
+  "pl::2::md": [
+    "sj-pl-md-2-1l7qm"
+  ],
+  "pl::2::sm": [
+    "sj-pl-sm-2-1rest"
+  ],
+  "pl::2::xl": [
+    "sj-pl-xl-2-16v0q"
+  ],
+  "pl::2::xxl": [
+    "sj-pl-xxl-2-2kpx4"
+  ],
+  "pl::3::base": [
+    "sj-pl-3-1uzg3"
+  ],
+  "pl::3::lg": [
+    "sj-pl-lg-3-w0d1q"
+  ],
+  "pl::3::md": [
+    "sj-pl-md-3-1lhq8"
+  ],
+  "pl::3::sm": [
+    "sj-pl-sm-3-1r4t7"
+  ],
+  "pl::3::xl": [
+    "sj-pl-xl-3-16l14"
+  ],
+  "pl::3::xxl": [
+    "sj-pl-xxl-3-2aqbf"
+  ],
+  "pl::4::base": [
+    "sj-pl-4-1vtew"
+  ],
+  "pl::4::lg": [
+    "sj-pl-lg-4-xeb27"
+  ],
+  "pl::4::md": [
+    "sj-pl-md-4-1knrf"
+  ],
+  "pl::4::sm": [
+    "sj-pl-sm-4-1pqv7"
+  ],
+  "pl::4::xl": [
+    "sj-pl-xl-4-15734"
+  ],
+  "pl::4::xxl": [
+    "sj-pl-xxl-4-20qpq"
+  ],
+  "pl::5::base": [
+    "sj-pl-5-1vjfa"
+  ],
+  "pl::5::lg": [
+    "sj-pl-lg-5-xoanw"
+  ],
+  "pl::5::md": [
+    "sj-pl-md-5-1kxr1"
+  ],
+  "pl::5::sm": [
+    "sj-pl-sm-5-1pgvl"
+  ],
+  "pl::5::xl": [
+    "sj-pl-xl-5-14x3i"
+  ],
+  "pl::5::xxl": [
+    "sj-pl-xxl-5-1qr41"
+  ],
+  "pl::6::base": [
+    "sj-pl-6-1wde3"
+  ],
+  "pl::6::lg": [
+    "sj-pl-lg-6-wubut"
+  ],
+  "pl::6::md": [
+    "sj-pl-md-6-1k3s8"
+  ],
+  "pl::6::sm": [
+    "sj-pl-sm-6-1qaue"
+  ],
+  "pl::6::xl": [
+    "sj-pl-xl-6-15r2b"
+  ],
+  "pl::6::xxl": [
+    "sj-pl-xxl-6-1gric"
+  ],
+  "pl::8::base": [
+    "sj-pl-8-1shjn"
+  ],
+  "pl::8::lg": [
+    "sj-pl-lg-8-yi9gz"
+  ],
+  "pl::8::md": [
+    "sj-pl-md-8-1jjt0"
+  ],
+  "pl::8::sm": [
+    "sj-pl-sm-8-1t2qf"
+  ],
+  "pl::8::xl": [
+    "sj-pl-xl-8-18iyc"
+  ],
+  "pl::8::xxl": [
+    "sj-pl-xxl-8-5cly2"
+  ],
+  "pr::1::base": [
+    "sj-pr-1-o7moe"
+  ],
+  "pr::1::lg": [
+    "sj-pr-lg-1-11w2v"
+  ],
+  "pr::1::md": [
+    "sj-pr-md-1-5f7kf"
+  ],
+  "pr::1::sm": [
+    "sj-pr-sm-1-10cdr"
+  ],
+  "pr::1::xl": [
+    "sj-pr-xl-1-1kwgg"
+  ],
+  "pr::1::xxl": [
+    "sj-pr-xxl-1-1n5ay"
+  ],
+  "pr::10::base": [
+    "sj-pr-10-141vp"
+  ],
+  "pr::10::lg": [
+    "sj-pr-lg-10-otuxl"
+  ],
+  "pr::10::md": [
+    "sj-pr-md-10-1mi5p"
+  ],
+  "pr::10::sm": [
+    "sj-pr-sm-10-1rn06"
+  ],
+  "pr::10::xl": [
+    "sj-pr-xl-10-1dybd"
+  ],
+  "pr::10::xxl": [
+    "sj-pr-xxl-10-1t0n6"
+  ],
+  "pr::12::base": [
+    "sj-pr-12-13hwh"
+  ],
+  "pr::12::lg": [
+    "sj-pr-lg-12-o9vq7"
+  ],
+  "pr::12::md": [
+    "sj-pr-md-12-1ly6h"
+  ],
+  "pr::12::sm": [
+    "sj-pr-sm-12-1r30z"
+  ],
+  "pr::12::xl": [
+    "sj-pr-xl-12-1dec6"
+  ],
+  "pr::12::xxl": [
+    "sj-pr-xxl-12-1tkmd"
+  ],
+  "pr::2::base": [
+    "sj-pr-2-nxn2p"
+  ],
+  "pr::2::lg": [
+    "sj-pr-lg-2-1262h"
+  ],
+  "pr::2::md": [
+    "sj-pr-md-2-5p764"
+  ],
+  "pr::2::sm": [
+    "sj-pr-sm-2-102e6"
+  ],
+  "pr::2::xl": [
+    "sj-pr-xl-2-1kmgu"
+  ],
+  "pr::2::xxl": [
+    "sj-pr-xxl-2-2h440"
+  ],
+  "pr::3::base": [
+    "sj-pr-3-nnnh0"
+  ],
+  "pr::3::lg": [
+    "sj-pr-lg-3-12g22"
+  ],
+  "pr::3::md": [
+    "sj-pr-md-3-5z6rt"
+  ],
+  "pr::3::sm": [
+    "sj-pr-sm-3-zseki"
+  ],
+  "pr::3::xl": [
+    "sj-pr-xl-3-1kch8"
+  ],
+  "pr::3::xxl": [
+    "sj-pr-xxl-3-274ib"
+  ],
+  "pr::4::base": [
+    "sj-pr-4-ndnvb"
+  ],
+  "pr::4::lg": [
+    "sj-pr-lg-4-10i4u"
+  ],
+  "pr::4::md": [
+    "sj-pr-md-4-419jz"
+  ],
+  "pr::4::sm": [
+    "sj-pr-sm-4-zieyt"
+  ],
+  "pr::4::xl": [
+    "sj-pr-xl-4-1maeg"
+  ],
+  "pr::4::xxl": [
+    "sj-pr-xxl-4-313be"
+  ],
+  "pr::5::base": [
+    "sj-pr-5-n3o9m"
+  ],
+  "pr::5::lg": [
+    "sj-pr-lg-5-10s4g"
+  ],
+  "pr::5::md": [
+    "sj-pr-md-5-4b95o"
+  ],
+  "pr::5::sm": [
+    "sj-pr-sm-5-z8fd4"
+  ],
+  "pr::5::xl": [
+    "sj-pr-xl-5-1m0ev"
+  ],
+  "pr::5::xxl": [
+    "sj-pr-xxl-5-2r3pp"
+  ],
+  "pr::6::base": [
+    "sj-pr-6-mtonx"
+  ],
+  "pr::6::lg": [
+    "sj-pr-lg-6-11242"
+  ],
+  "pr::6::md": [
+    "sj-pr-md-6-4l8rd"
+  ],
+  "pr::6::sm": [
+    "sj-pr-sm-6-yyfrf"
+  ],
+  "pr::6::xl": [
+    "sj-pr-xl-6-1lqf9"
+  ],
+  "pr::6::xxl": [
+    "sj-pr-xxl-6-3l2is"
+  ],
+  "pr::8::base": [
+    "sj-pr-8-qpj3n"
+  ],
+  "pr::8::lg": [
+    "sj-pr-lg-8-13u03"
+  ],
+  "pr::8::md": [
+    "sj-pr-md-8-7d4sa"
+  ],
+  "pr::8::sm": [
+    "sj-pr-sm-8-12ua7"
+  ],
+  "pr::8::xl": [
+    "sj-pr-xl-8-1iyj8"
+  ],
+  "pr::8::xxl": [
+    "sj-pr-xxl-8-1yqc5"
+  ],
+  "pt::1::base": [
+    "sj-pt-1-1wqf2"
+  ],
+  "pt::1::lg": [
+    "sj-pt-lg-1-xfknk"
+  ],
+  "pt::1::md": [
+    "sj-pt-md-1-17pc3"
+  ],
+  "pt::1::sm": [
+    "sj-pt-sm-1-by6es"
+  ],
+  "pt::1::xl": [
+    "sj-pt-xl-1-lcj35"
+  ],
+  "pt::1::xxl": [
+    "sj-pt-xxl-1-uapvt"
+  ],
+  "pt::10::base": [
+    "sj-pt-10-1eyhy"
+  ],
+  "pt::10::lg": [
+    "sj-pt-lg-10-4dq5y"
+  ],
+  "pt::10::md": [
+    "sj-pt-md-10-tf7p6"
+  ],
+  "pt::10::sm": [
+    "sj-pt-sm-10-1a35n"
+  ],
+  "pt::10::xl": [
+    "sj-pt-xl-10-1dld9"
+  ],
+  "pt::10::xxl": [
+    "sj-pt-xxl-10-qj0jd"
+  ],
+  "pt::12::base": [
+    "sj-pt-12-1fih6"
+  ],
+  "pt::12::lg": [
+    "sj-pt-lg-12-4xpdc"
+  ],
+  "pt::12::md": [
+    "sj-pt-md-12-tz6wk"
+  ],
+  "pt::12::sm": [
+    "sj-pt-sm-12-1an4u"
+  ],
+  "pt::12::xl": [
+    "sj-pt-xl-12-1e5ch"
+  ],
+  "pt::12::xxl": [
+    "sj-pt-xxl-12-pz1bz"
+  ],
+  "pt::2::base": [
+    "sj-pt-2-1xkdv"
+  ],
+  "pt::2::lg": [
+    "sj-pt-lg-2-wlluh"
+  ],
+  "pt::2::md": [
+    "sj-pt-md-2-16vda"
+  ],
+  "pt::2::sm": [
+    "sj-pt-sm-2-15wzh"
+  ],
+  "pt::2::xl": [
+    "sj-pt-xl-2-m6hw7"
+  ],
+  "pt::2::xxl": [
+    "sj-pt-xxl-2-u0qa4"
+  ],
+  "pt::3::base": [
+    "sj-pt-3-1xae9"
+  ],
+  "pt::3::lg": [
+    "sj-pt-lg-3-wvlg6"
+  ],
+  "pt::3::md": [
+    "sj-pt-md-3-175cw"
+  ],
+  "pt::3::sm": [
+    "sj-pt-sm-3-vxdsq"
+  ],
+  "pt::3::xl": [
+    "sj-pt-xl-3-lwiai"
+  ],
+  "pt::3::xxl": [
+    "sj-pt-xxl-3-tqqof"
+  ],
+  "pt::4::base": [
+    "sj-pt-4-1y4d2"
+  ],
+  "pt::4::lg": [
+    "sj-pt-lg-4-y9jgn"
+  ],
+  "pt::4::md": [
+    "sj-pt-md-4-16be3"
+  ],
+  "pt::4::sm": [
+    "sj-pt-sm-4-1yj3f"
+  ],
+  "pt::4::xl": [
+    "sj-pt-xl-4-kika2"
+  ],
+  "pt::4::xxl": [
+    "sj-pt-xxl-4-tgr2q"
+  ],
+  "pt::5::base": [
+    "sj-pt-5-1xudg"
+  ],
+  "pt::5::lg": [
+    "sj-pt-lg-5-yjj2c"
+  ],
+  "pt::5::md": [
+    "sj-pt-md-5-16ldo"
+  ],
+  "pt::5::sm": [
+    "sj-pt-sm-5-1y93t"
+  ],
+  "pt::5::xl": [
+    "sj-pt-xl-5-k8kod"
+  ],
+  "pt::5::xxl": [
+    "sj-pt-xxl-5-t6rh1"
+  ],
+  "pt::6::base": [
+    "sj-pt-6-1yoca"
+  ],
+  "pt::6::lg": [
+    "sj-pt-lg-6-xpk99"
+  ],
+  "pt::6::md": [
+    "sj-pt-md-6-15rev"
+  ],
+  "pt::6::sm": [
+    "sj-pt-sm-6-1ykpt"
+  ],
+  "pt::6::xl": [
+    "sj-pt-xl-6-l2jhg"
+  ],
+  "pt::6::xxl": [
+    "sj-pt-xxl-6-swrvc"
+  ],
+  "pt::8::base": [
+    "sj-pt-8-77fh7"
+  ],
+  "pt::8::lg": [
+    "sj-pt-lg-8-uxo8b"
+  ],
+  "pt::8::md": [
+    "sj-pt-md-8-19n9b"
+  ],
+  "pt::8::sm": [
+    "sj-pt-sm-8-1xf50"
+  ],
+  "pt::8::xl": [
+    "sj-pt-xl-8-jelva"
+  ],
+  "pt::8::xxl": [
+    "sj-pt-xxl-8-scsny"
+  ],
+  "px::1::base": [
+    "sj-pl-1-1ufgv",
+    "sj-pr-1-o7moe"
+  ],
+  "px::1::lg": [
+    "sj-pl-lg-1-wkc94",
+    "sj-pr-lg-1-11w2v"
+  ],
+  "px::1::md": [
+    "sj-pl-md-1-1m1pg",
+    "sj-pr-md-1-5f7kf"
+  ],
+  "px::1::sm": [
+    "sj-pl-sm-1-1qku0",
+    "sj-pr-sm-1-10cdr"
+  ],
+  "px::1::xl": [
+    "sj-pl-xl-1-1611x",
+    "sj-pr-xl-1-1kwgg"
+  ],
+  "px::1::xxl": [
+    "sj-pl-xxl-1-2upit",
+    "sj-pr-xxl-1-1n5ay"
+  ],
+  "px::10::base": [
+    "sj-pl-10-u8z2f",
+    "sj-pr-10-141vp"
+  ],
+  "px::10::lg": [
+    "sj-pl-lg-10-1oy5o",
+    "sj-pr-lg-10-otuxl"
+  ],
+  "px::10::md": [
+    "sj-pl-md-10-19aww",
+    "sj-pr-md-10-1mi5p"
+  ],
+  "px::10::sm": [
+    "sj-pl-sm-10-1aj5m",
+    "sj-pr-sm-10-1rn06"
+  ],
+  "px::10::xl": [
+    "sj-pl-xl-10-1uudt",
+    "sj-pr-xl-10-1dybd"
+  ],
+  "px::10::xxl": [
+    "sj-pl-xxl-10-1m839",
+    "sj-pr-xxl-10-1t0n6"
+  ],
+  "px::12::base": [
+    "sj-pl-12-usy9t",
+    "sj-pr-12-13hwh"
+  ],
+  "px::12::lg": [
+    "sj-pl-lg-12-1pi4w",
+    "sj-pr-lg-12-o9vq7"
+  ],
+  "px::12::md": [
+    "sj-pl-md-12-19uw4",
+    "sj-pr-md-12-1ly6h"
+  ],
+  "px::12::sm": [
+    "sj-pl-sm-12-1b34u",
+    "sj-pr-sm-12-1r30z"
+  ],
+  "px::12::xl": [
+    "sj-pl-xl-12-1ved0",
+    "sj-pr-xl-12-1dec6"
+  ],
+  "px::12::xxl": [
+    "sj-pl-xxl-12-1lo41",
+    "sj-pr-xxl-12-1tkmd"
+  ],
+  "px::2::base": [
+    "sj-pl-2-1v9fo",
+    "sj-pr-2-nxn2p"
+  ],
+  "px::2::lg": [
+    "sj-pl-lg-2-vqdg1",
+    "sj-pr-lg-2-1262h"
+  ],
+  "px::2::md": [
+    "sj-pl-md-2-1l7qm",
+    "sj-pr-md-2-5p764"
+  ],
+  "px::2::sm": [
+    "sj-pl-sm-2-1rest",
+    "sj-pr-sm-2-102e6"
+  ],
+  "px::2::xl": [
+    "sj-pl-xl-2-16v0q",
+    "sj-pr-xl-2-1kmgu"
+  ],
+  "px::2::xxl": [
+    "sj-pl-xxl-2-2kpx4",
+    "sj-pr-xxl-2-2h440"
+  ],
+  "px::3::base": [
+    "sj-pl-3-1uzg3",
+    "sj-pr-3-nnnh0"
+  ],
+  "px::3::lg": [
+    "sj-pl-lg-3-w0d1q",
+    "sj-pr-lg-3-12g22"
+  ],
+  "px::3::md": [
+    "sj-pl-md-3-1lhq8",
+    "sj-pr-md-3-5z6rt"
+  ],
+  "px::3::sm": [
+    "sj-pl-sm-3-1r4t7",
+    "sj-pr-sm-3-zseki"
+  ],
+  "px::3::xl": [
+    "sj-pl-xl-3-16l14",
+    "sj-pr-xl-3-1kch8"
+  ],
+  "px::3::xxl": [
+    "sj-pl-xxl-3-2aqbf",
+    "sj-pr-xxl-3-274ib"
+  ],
+  "px::4::base": [
+    "sj-pl-4-1vtew",
+    "sj-pr-4-ndnvb"
+  ],
+  "px::4::lg": [
+    "sj-pl-lg-4-xeb27",
+    "sj-pr-lg-4-10i4u"
+  ],
+  "px::4::md": [
+    "sj-pl-md-4-1knrf",
+    "sj-pr-md-4-419jz"
+  ],
+  "px::4::sm": [
+    "sj-pl-sm-4-1pqv7",
+    "sj-pr-sm-4-zieyt"
+  ],
+  "px::4::xl": [
+    "sj-pl-xl-4-15734",
+    "sj-pr-xl-4-1maeg"
+  ],
+  "px::4::xxl": [
+    "sj-pl-xxl-4-20qpq",
+    "sj-pr-xxl-4-313be"
+  ],
+  "px::5::base": [
+    "sj-pl-5-1vjfa",
+    "sj-pr-5-n3o9m"
+  ],
+  "px::5::lg": [
+    "sj-pl-lg-5-xoanw",
+    "sj-pr-lg-5-10s4g"
+  ],
+  "px::5::md": [
+    "sj-pl-md-5-1kxr1",
+    "sj-pr-md-5-4b95o"
+  ],
+  "px::5::sm": [
+    "sj-pl-sm-5-1pgvl",
+    "sj-pr-sm-5-z8fd4"
+  ],
+  "px::5::xl": [
+    "sj-pl-xl-5-14x3i",
+    "sj-pr-xl-5-1m0ev"
+  ],
+  "px::5::xxl": [
+    "sj-pl-xxl-5-1qr41",
+    "sj-pr-xxl-5-2r3pp"
+  ],
+  "px::6::base": [
+    "sj-pl-6-1wde3",
+    "sj-pr-6-mtonx"
+  ],
+  "px::6::lg": [
+    "sj-pl-lg-6-wubut",
+    "sj-pr-lg-6-11242"
+  ],
+  "px::6::md": [
+    "sj-pl-md-6-1k3s8",
+    "sj-pr-md-6-4l8rd"
+  ],
+  "px::6::sm": [
+    "sj-pl-sm-6-1qaue",
+    "sj-pr-sm-6-yyfrf"
+  ],
+  "px::6::xl": [
+    "sj-pl-xl-6-15r2b",
+    "sj-pr-xl-6-1lqf9"
+  ],
+  "px::6::xxl": [
+    "sj-pl-xxl-6-1gric",
+    "sj-pr-xxl-6-3l2is"
+  ],
+  "px::8::base": [
+    "sj-pl-8-1shjn",
+    "sj-pr-8-qpj3n"
+  ],
+  "px::8::lg": [
+    "sj-pl-lg-8-yi9gz",
+    "sj-pr-lg-8-13u03"
+  ],
+  "px::8::md": [
+    "sj-pl-md-8-1jjt0",
+    "sj-pr-md-8-7d4sa"
+  ],
+  "px::8::sm": [
+    "sj-pl-sm-8-1t2qf",
+    "sj-pr-sm-8-12ua7"
+  ],
+  "px::8::xl": [
+    "sj-pl-xl-8-18iyc",
+    "sj-pr-xl-8-1iyj8"
+  ],
+  "px::8::xxl": [
+    "sj-pl-xxl-8-5cly2",
+    "sj-pr-xxl-8-1yqc5"
+  ],
+  "py::1::base": [
+    "sj-pb-1-9zkkn",
+    "sj-pt-1-1wqf2"
+  ],
+  "py::1::lg": [
+    "sj-pb-lg-1-co9of",
+    "sj-pt-lg-1-xfknk"
+  ],
+  "py::1::md": [
+    "sj-pb-md-1-13356",
+    "sj-pt-md-1-17pc3"
+  ],
+  "py::1::sm": [
+    "sj-pb-sm-1-1aout",
+    "sj-pt-sm-1-by6es"
+  ],
+  "py::1::xl": [
+    "sj-pb-xl-1-wf5q1",
+    "sj-pt-xl-1-lcj35"
+  ],
+  "py::1::xxl": [
+    "sj-pb-xxl-1-1m3kc",
+    "sj-pt-xxl-1-uapvt"
+  ],
+  "py::10::base": [
+    "sj-pb-10-le2gp",
+    "sj-pt-10-1eyhy"
+  ],
+  "py::10::lg": [
+    "sj-pb-lg-10-1evw7",
+    "sj-pt-lg-10-4dq5y"
+  ],
+  "py::10::md": [
+    "sj-pb-md-10-ta78t",
+    "sj-pt-md-10-tf7p6"
+  ],
+  "py::10::sm": [
+    "sj-pb-sm-10-1sndq",
+    "sj-pt-sm-10-1a35n"
+  ],
+  "py::10::xl": [
+    "sj-pb-xl-10-8rtye",
+    "sj-pt-xl-10-1dld9"
+  ],
+  "py::10::xxl": [
+    "sj-pb-xxl-10-kbuv0",
+    "sj-pt-xxl-10-qj0jd"
+  ],
+  "py::12::base": [
+    "sj-pb-12-ku39b",
+    "sj-pt-12-1fih6"
+  ],
+  "py::12::lg": [
+    "sj-pb-lg-12-1ebx0",
+    "sj-pt-lg-12-4xpdc"
+  ],
+  "py::12::md": [
+    "sj-pb-md-12-9azuv",
+    "sj-pt-md-12-tz6wk"
+  ],
+  "py::12::sm": [
+    "sj-pb-sm-12-1s3ei",
+    "sj-pt-sm-12-1an4u"
+  ],
+  "py::12::xl": [
+    "sj-pb-xl-12-87ur0",
+    "sj-pt-xl-12-1e5ch"
+  ],
+  "py::12::xxl": [
+    "sj-pb-xxl-12-kvu2e",
+    "sj-pt-xxl-12-pz1bz"
+  ],
+  "py::2::base": [
+    "sj-pb-2-9pkyy",
+    "sj-pt-2-1xkdv"
+  ],
+  "py::2::lg": [
+    "sj-pb-lg-2-cy9a4",
+    "sj-pt-lg-2-wlluh"
+  ],
+  "py::2::md": [
+    "sj-pb-md-2-13d4s",
+    "sj-pt-md-2-16vda"
+  ],
+  "py::2::sm": [
+    "sj-pb-sm-2-1aev8",
+    "sj-pt-sm-2-15wzh"
+  ],
+  "py::2::xl": [
+    "sj-pb-xl-2-w564c",
+    "sj-pt-xl-2-m6hw7"
+  ],
+  "py::2::xxl": [
+    "sj-pb-xxl-2-1mxj6",
+    "sj-pt-xxl-2-u0qa4"
+  ],
+  "py::3::base": [
+    "sj-pb-3-9fld9",
+    "sj-pt-3-1xae9"
+  ],
+  "py::3::lg": [
+    "sj-pb-lg-3-d88vt",
+    "sj-pt-lg-3-wvlg6"
+  ],
+  "py::3::md": [
+    "sj-pb-md-3-13n4d",
+    "sj-pt-md-3-175cw"
+  ],
+  "py::3::sm": [
+    "sj-pb-sm-3-1a4vm",
+    "sj-pt-sm-3-vxdsq"
+  ],
+  "py::3::xl": [
+    "sj-pb-xl-3-vv6in",
+    "sj-pt-xl-3-lwiai"
+  ],
+  "py::3::xxl": [
+    "sj-pb-xxl-3-1mnjk",
+    "sj-pt-xxl-3-tqqof"
+  ],
+  "py::4::base": [
+    "sj-pb-4-95lrk",
+    "sj-pt-4-1y4d2"
+  ],
+  "py::4::lg": [
+    "sj-pb-lg-4-babnz",
+    "sj-pt-lg-4-y9jgn"
+  ],
+  "py::4::md": [
+    "sj-pb-md-4-11p76",
+    "sj-pt-md-4-16be3"
+  ],
+  "py::4::sm": [
+    "sj-pb-sm-4-19uw0",
+    "sj-pt-sm-4-1yj3f"
+  ],
+  "py::4::xl": [
+    "sj-pb-xl-4-xt3qi",
+    "sj-pt-xl-4-kika2"
+  ],
+  "py::4::xxl": [
+    "sj-pb-xxl-4-1nhid",
+    "sj-pt-xxl-4-tgr2q"
+  ],
+  "py::5::base": [
+    "sj-pb-5-8vm5v",
+    "sj-pt-5-1xudg"
+  ],
+  "py::5::lg": [
+    "sj-pb-lg-5-bkb9o",
+    "sj-pt-lg-5-yjj2c"
+  ],
+  "py::5::md": [
+    "sj-pb-md-5-11z6r",
+    "sj-pt-md-5-16ldo"
+  ],
+  "py::5::sm": [
+    "sj-pb-sm-5-19kwf",
+    "sj-pt-sm-5-1y93t"
+  ],
+  "py::5::xl": [
+    "sj-pb-xl-5-xj44t",
+    "sj-pt-xl-5-k8kod"
+  ],
+  "py::5::xxl": [
+    "sj-pb-xxl-5-1n7ir",
+    "sj-pt-xxl-5-t6rh1"
+  ],
+  "py::6::base": [
+    "sj-pb-6-8lmk6",
+    "sj-pt-6-1yoca"
+  ],
+  "py::6::lg": [
+    "sj-pb-lg-6-buavd",
+    "sj-pt-lg-6-xpk99"
+  ],
+  "py::6::md": [
+    "sj-pb-md-6-1296d",
+    "sj-pt-md-6-15rev"
+  ],
+  "py::6::sm": [
+    "sj-pb-sm-6-19awt",
+    "sj-pt-sm-6-1ykpt"
+  ],
+  "py::6::xl": [
+    "sj-pb-xl-6-x94j4",
+    "sj-pt-xl-6-l2jhg"
+  ],
+  "py::6::xxl": [
+    "sj-pb-xxl-6-1o1hk",
+    "sj-pt-xxl-6-swrvc"
+  ],
+  "py::8::base": [
+    "sj-pb-8-chgzw",
+    "sj-pt-8-77fh7"
+  ],
+  "py::8::lg": [
+    "sj-pb-lg-8-em6wa",
+    "sj-pt-lg-8-uxo8b"
+  ],
+  "py::8::md": [
+    "sj-pb-md-8-1512e",
+    "sj-pt-md-8-19n9b"
+  ],
+  "py::8::sm": [
+    "sj-pb-sm-8-1d6r9",
+    "sj-pt-sm-8-1xf50"
+  ],
+  "py::8::xl": [
+    "sj-pb-xl-8-uh8i6",
+    "sj-pt-xl-8-jelva"
+  ],
+  "py::8::xxl": [
+    "sj-pb-xxl-8-1k5n5",
+    "sj-pt-xxl-8-scsny"
+  ]
+}

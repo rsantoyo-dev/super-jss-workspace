@@ -318,12 +318,32 @@ export class CssGenerator {
         // For typography, convert numbers to rem units (1 = 1rem)
         return `${value}rem`;
       } else {
+        // Zero is a valid CSS value and should not map to theme.spacing(0)
+        if (value === 0) {
+          return '0';
+        }
         // For spacing properties, use theme spacing function
         return this.theme.spacing(value);
       }
     }
 
-    let v = resolveThemeColor(value, this.theme);
+    // Palette token → CSS custom property for instant theme swaps
+    if (typeof value === 'string') {
+      const parts = value.split('.');
+      const families = this.theme.palette as any;
+      const tones = new Set(['main', 'light', 'dark', 'contrast']);
+      if (parts.length === 1 && (value in families)) {
+        const fam = parts[0];
+        return `var(--sj-palette-${fam}-main)`;
+      }
+      if (parts.length === 2 && (parts[0] in families) && tones.has(parts[1])) {
+        const fam = parts[0];
+        const tone = parts[1];
+        return `var(--sj-palette-${fam}-${tone})`;
+      }
+    }
+
+    let v = resolveThemeColor(value as any, this.theme);
     if (key === 'fontFamily' && typeof v === 'string') {
       // If it's a list, assume user provided correct quoting per family (don't wrap)
       if (!v.includes(',')) {

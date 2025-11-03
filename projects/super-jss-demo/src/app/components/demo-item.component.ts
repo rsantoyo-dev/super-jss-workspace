@@ -7,12 +7,7 @@ import { CodeBlockComponent } from './code-block.component';
 @Component({
   standalone: true,
   selector: 'app-demo-item',
-  imports: [
-    CommonModule,
-    RouterModule,
-    ...SJ_BASE_COMPONENTS_IMPORTS,
-    CodeBlockComponent,
-  ],
+  imports: [CommonModule, RouterModule, ...SJ_BASE_COMPONENTS_IMPORTS],
   template: `
     <sj-card
       host

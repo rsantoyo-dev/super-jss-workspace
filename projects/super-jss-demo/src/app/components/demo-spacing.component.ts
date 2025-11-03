@@ -1,6 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SJ_BASE_COMPONENTS_IMPORTS, SjRootApi, sj } from 'super-jss';
+import {
+  SJ_BASE_COMPONENTS_IMPORTS,
+  SjRootApi,
+  SjThemeService,
+  sj,
+} from 'super-jss';
 import { SectionContainerComponent } from './section-container.component';
 
 @Component({
@@ -35,7 +40,7 @@ import { SectionContainerComponent } from './section-container.component';
           sj.gap(sj.gap.options.compact)
         ]"
       >
-        @for (item of steps; track item) {
+        @for (item of stepsToShow(); track item) {
         <sj-paper useRounded variant="outlined">
           <sj-flex
             useCol
@@ -142,6 +147,33 @@ import { SectionContainerComponent } from './section-container.component';
 })
 export class DemoSpacingComponent {
   readonly sj: SjRootApi = sj;
+
+  readonly theme = inject(SjThemeService);
+
+  breakpoints = computed(() => this.theme.sjTheme().breakpoints);
+  currentBp = computed(() => this.theme.currentBreakpoint());
+  isMobileOrTablet = computed(() => {
+    const bp = this.currentBp();
+    return bp === 'xs' || bp === 'sm' || bp === 'md';
+  });
+
+  // Derive directly from current breakpoint so it re-evaluates on every bp change
+  stepsToShow = computed(() => {
+    const bp = this.currentBp(); // track breakpoint changes explicitly
+    const isSmall = bp === 'xs' || bp === 'sm' || bp === 'md';
+    return isSmall ? this.steps.filter((item) => item < 12) : this.steps;
+  });
+
   readonly bigSteps = Array.from({ length: 6 }, (_, i) => (i + 1) * 2);
-  readonly steps = Array.from({ length: 12 }, (_, i) => i + 1);
+  readonly steps = Array.from({ length: 16 }, (_, i) => i + 1);
+
+  // Debug: track recomputation order on breakpoint changes
+  _debug = effect(() => {
+    const bp = this.currentBp();
+    const len = this.stepsToShow().length;
+    const ver = this.theme.themeVersion();
+    // eslint-disable-next-line no-console
+    console.log('[SpacingDemo]', { bp, stepsToShow: len, themeVersion: ver });
+    return { bp, len, ver };
+  });
 }

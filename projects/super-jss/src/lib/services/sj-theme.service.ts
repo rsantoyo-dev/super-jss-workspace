@@ -1,4 +1,13 @@
-import { Injectable, computed, signal, OnDestroy, WritableSignal, Injector, PLATFORM_ID, Inject } from '@angular/core';
+import {
+  Injectable,
+  computed,
+  signal,
+  OnDestroy,
+  WritableSignal,
+  Injector,
+  PLATFORM_ID,
+  Inject,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import {
   SjBreakPoints,
@@ -13,6 +22,7 @@ import { getCurrentBreakpoint, resolveThemeColor } from '../core/core-methods';
 import { deepMerge } from '../utils';
 import { DOCUMENT } from '@angular/common';
 import {
+  auditTime,
   debounceTime,
   distinctUntilChanged,
   fromEvent,
@@ -20,6 +30,7 @@ import {
   Subscription,
 } from 'rxjs';
 import { SjCssGeneratorService } from './sj-css-generator.service';
+import { StyleRegistry } from '../core/style-registry';
 import { defaultTheme } from '../themes/theme-definitions/default-theme';
 
 // Internal: holds a reference to the active SjThemeService for sj.theme accessors
@@ -40,6 +51,8 @@ export class SjThemeService implements OnDestroy {
   windowWidth = signal(0);
   themeVersion = signal(0);
   private resizeSubscription?: Subscription;
+  // Optional: purge generated CSS when breakpoint changes (off by default)
+  private purgeCssOnBreakpoint = false;
 
   // Removed bundled presets from core to reduce bundle size. Consumers can
   // import presets from secondary entry: `super-jss/themes`.
@@ -58,7 +71,8 @@ export class SjThemeService implements OnDestroy {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private injector: Injector
+    private injector: Injector,
+    private styleRegistry: StyleRegistry
   ) {
     // Apply initial typography to document
     this.applyDocumentTypography(this.sjTheme());
@@ -77,7 +91,9 @@ export class SjThemeService implements OnDestroy {
       }
     } catch {}
     // Register this instance for global sj.theme access (internal)
-    try { sjActiveThemeService = this; } catch {}
+    try {
+      sjActiveThemeService = this;
+    } catch {}
     // Only initialize resize listener in browser environment
     if (isPlatformBrowser(this.platformId)) {
       this.initResizeListener();
@@ -88,8 +104,6 @@ export class SjThemeService implements OnDestroy {
   public cacheVersion(): number {
     return (this.themeVersion() || 0) + (this._buildSeq || 0);
   }
-
-  
 
   /**
    * Subscribes to window resize and updates width/breakpoint signals (debounced).
@@ -110,7 +124,8 @@ export class SjThemeService implements OnDestroy {
       );
 
       this.resizeSubscription = fromEvent(window, 'resize')
-        .pipe(debounceTime(5))
+        // Phase 4: dedupe resize globally — throttle to ~1 emit per frame chunk
+        .pipe(auditTime(80))
         .subscribe(() => {
           const w = window.innerWidth;
           this.windowWidth.set(w);
@@ -119,6 +134,19 @@ export class SjThemeService implements OnDestroy {
             // Only update the breakpoint signal; do not clear CSS or bump theme
             // version here to avoid transient unstyled content on resize.
             this.currentBreakpoint.set(bp);
+            // Optionally purge generated CSS when bp changes (demo/diagnostic)
+            if (this.purgeCssOnBreakpoint) {
+              // Defer purge to the next macrotask so Angular's bp-dependent
+              // views finish reconciling before we clear and regenerate CSS.
+              setTimeout(() => {
+                try {
+                  const cssGenerator = this.injector.get(SjCssGeneratorService);
+                  cssGenerator.clearCache();
+                } catch {}
+                // Bump version so components/directives regenerate CSS bundles
+                this.themeVersion.set(1);
+              }, 0);
+            }
           }
         });
     }
@@ -185,7 +213,66 @@ export class SjThemeService implements OnDestroy {
   /** Cleans up window resize subscription when the service is destroyed. */
   ngOnDestroy() {
     this.resizeSubscription?.unsubscribe();
-    try { if (sjActiveThemeService === this) sjActiveThemeService = undefined; } catch {}
+    try {
+      if (sjActiveThemeService === this) sjActiveThemeService = undefined;
+    } catch {}
+  }
+
+  /** Enable/disable purging generated CSS on breakpoint changes (off by default). */
+  public setPurgeCssOnBreakpoint(enabled: boolean): void {
+    this.purgeCssOnBreakpoint = !!enabled;
+  }
+
+  /** Enable/disable the next-gen engine (global style registry + batching). */
+  public enableNextGenEngine(enabled: boolean): void {
+    try {
+      this.styleRegistry.setEnabled(!!enabled);
+    } catch {}
+  }
+
+  /** Configure CSS batching (Phase 6): useIdle scheduling and threshold. */
+  public configureCssBatching(options: {
+    useIdle?: boolean;
+    idleThreshold?: number;
+  }): void {
+    try {
+      const cssGenerator = this.injector.get(SjCssGeneratorService);
+      cssGenerator.configureBatching(options || {});
+    } catch {}
+  }
+
+  /** Phase 7: expose perf stats (registry + generator) for demo dashboards. */
+  public getPerfStats() {
+    try {
+      const css = this.injector.get(SjCssGeneratorService);
+      return {
+        registry: this.styleRegistry.snapshot(),
+        generator: css.getStats(),
+        themeVersion: this.themeVersion(),
+        breakpoint: this.currentBreakpoint(),
+      };
+    } catch {
+      return {
+        registry: {},
+        generator: {},
+        themeVersion: 0,
+        breakpoint: 'xs',
+      } as any;
+    }
+  }
+
+  public resetPerfCounters(): void {
+    try {
+      this.styleRegistry.resetCounters();
+    } catch {}
+  }
+
+  /** Force-flush pending CSS injection batches immediately. */
+  public flushCssNow(): void {
+    try {
+      const css = this.injector.get(SjCssGeneratorService);
+      css.flushNow();
+    } catch {}
   }
 
   /** Apply current theme variables (typography + app background) to :root/body */
@@ -208,6 +295,30 @@ export class SjThemeService implements OnDestroy {
         this.document.documentElement.style.setProperty('--sj-app-bg', bg);
         if (this.document.body) {
           this.document.body.style.setProperty('--sj-app-bg', bg);
+        }
+      } catch {}
+
+      // Phase 2: publish palette tokens as CSS variables for near-zero-cost theme swaps
+      try {
+        const palette = theme.palette as any;
+        const setVar = (name: string, val: string) =>
+          this.document.documentElement.style.setProperty(name, val);
+        const families = Object.keys(palette || {});
+        for (const fam of families) {
+          const tones: Array<'main' | 'light' | 'dark' | 'contrast'> = [
+            'main',
+            'light',
+            'dark',
+            'contrast',
+          ];
+          for (const tone of tones) {
+            const val = String((palette?.[fam]?.[tone] ?? '') || '');
+            if (!val) continue;
+            setVar(
+              `--sj-palette-${fam}-${tone}`,
+              resolveThemeColor(val, theme)
+            );
+          }
         }
       } catch {}
     } catch {

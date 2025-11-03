@@ -15,6 +15,8 @@ import { SjCssGeneratorService, SjThemeService } from '../services';
 @Directive()
 export abstract class SjBaseComponent implements AfterContentInit, OnChanges {
   @Input() sj: SjInput | undefined;
+  /** When false, this component will not auto-re-render on theme changes. */
+  @Input({ transform: (v: any) => !(v === false || v === 'false') }) reactive = true;
   @Input() component:
     | 'div'
     | 'section'
@@ -46,13 +48,15 @@ export abstract class SjBaseComponent implements AfterContentInit, OnChanges {
     protected cssGenerator: SjCssGeneratorService
   ) {
     effect(() => {
-      // Re-render on both theme structure/version changes and direct theme swaps
+      // Re-render on theme changes if reactive; otherwise, only on @Input changes
       this.themeService.themeVersion();
       this.themeService.sjTheme();
-      if (this.host) {
-        if (this.parentEl) this.applyToParent();
-      } else {
-        this.applyToTarget();
+      if (this.reactive) {
+        if (this.host) {
+          if (this.parentEl) this.applyToParent();
+        } else {
+          this.applyToTarget();
+        }
       }
     });
   }

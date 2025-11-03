@@ -8,8 +8,10 @@ import {
 import { DOCUMENT } from '@angular/common';
 import { isPlatformBrowser } from '@angular/common';
 import { SjStyle, SjResolvedTheme } from '../models/interfaces';
-import { CssGenerator } from '../core/css-generator';
 import { generateBundleId } from '../core/class-name';
+import { CssGenerator } from '../core/css-generator';
+import { StyleRegistry } from '../core/style-registry';
+import { ensurePrecomputedStylesheet } from '../precomputed/precomputed-styles';
 
 @Injectable({
   providedIn: 'root',
@@ -21,17 +23,26 @@ export class SjCssGeneratorService {
   private renderer: Renderer2;
   private styleEl?: HTMLStyleElement;
   private isBrowser: boolean;
+  // Microtask-batched CSS appends to reduce DOM writes under load
+  private cssQueue: string[] = [];
+  private flushScheduled = false;
+  private useIdleFlush = true;
+  private idleThreshold = 50; // when queue size >= threshold → schedule idle flush
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private rendererFactory: RendererFactory2
+    private rendererFactory: RendererFactory2,
+    private registry: StyleRegistry
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.renderer = this.rendererFactory.createRenderer(null, null);
 
     // Only create and append style element in browser environment
     if (this.isBrowser) {
+      ensurePrecomputedStylesheet(this.document);
+      // Phase 5: seed generated class set from any existing SSR/inline styles
+      this.seedExistingStyleClasses();
       this.styleEl = this.renderer.createElement('style');
       this.renderer.setAttribute(this.styleEl, 'data-sjss', '');
       this.renderer.appendChild(this.document.head, this.styleEl);
@@ -49,6 +60,92 @@ export class SjCssGeneratorService {
     if (!cssText || !this.styleEl) return;
     const node = this.renderer.createText(cssText);
     this.renderer.appendChild(this.styleEl, node);
+  }
+
+  /**
+   * Phase 5 (SSR hydration): scan existing <style> tags for class selectors and
+   * pre-populate the generatedClasses set so we don't emit duplicates on startup.
+   */
+  private seedExistingStyleClasses() {
+    try {
+      const styles = Array.from(
+        this.document.querySelectorAll('style[data-sjss], style[data-sj-precomputed], style')
+      );
+      const classRegex = /\.([a-zA-Z0-9_-]+)\s*\{/g;
+      for (const s of styles) {
+        if (!s || !s.textContent) continue;
+        const text = s.textContent;
+        let m: RegExpExecArray | null;
+        while ((m = classRegex.exec(text)) !== null) {
+          const cls = m[1];
+          // Heuristic: mark our classes/bundles as present (common prefixes: sj-, v<ver>-)
+          if (cls && (cls.startsWith('sj') || cls.startsWith('v'))) {
+            this.generatedClasses.add(cls);
+          }
+        }
+      }
+    } catch {
+      // ignore failures in non-browser / CSP-constrained envs
+    }
+  }
+
+  private enqueueCss(cssText: string) {
+    if (!cssText) return;
+    this.cssQueue.push(cssText);
+    if (!this.flushScheduled) {
+      this.flushScheduled = true;
+      // If a large batch has accumulated and idle callback exists, prefer idle flush
+      if (this.useIdleFlush && this.cssQueue.length >= this.idleThreshold) {
+        this.scheduleIdleFlush();
+      } else {
+        try {
+          queueMicrotask(() => this.flushCssQueue());
+        } catch {
+          setTimeout(() => this.flushCssQueue(), 0);
+        }
+      }
+    }
+  }
+
+  private flushCssQueue() {
+    this.flushScheduled = false;
+    if (!this.styleEl || this.cssQueue.length === 0) {
+      this.cssQueue.length = 0;
+      return;
+    }
+    const cssText = this.cssQueue.join('\n');
+    this.cssQueue.length = 0;
+    this.appendCss(cssText);
+  }
+
+  /** Force an immediate flush of any pending CSS batches (latency-sensitive paths). */
+  public flushNow(): void {
+    try {
+      this.flushCssQueue();
+    } catch {}
+  }
+
+  /** Schedule a flush using requestIdleCallback (or a timeout fallback). */
+  private scheduleIdleFlush() {
+    try {
+      const win = this.document.defaultView as any;
+      const ric: any = win && (win.requestIdleCallback || win.webkitRequestIdleCallback);
+      if (typeof ric === 'function') {
+        ric(() => this.flushCssQueue());
+        return;
+      }
+    } catch {}
+    // Fallback when no idle callback: delay a bit to avoid blocking busy frames
+    setTimeout(() => this.flushCssQueue(), 32);
+  }
+
+  /** Configure batching/idle flush behavior (Phase 6). */
+  public configureBatching(opts: { useIdle?: boolean; idleThreshold?: number }): void {
+    if (!opts) return;
+    if (typeof opts.useIdle === 'boolean') this.useIdleFlush = opts.useIdle;
+    if (typeof opts.idleThreshold === 'number' && opts.idleThreshold > 0) {
+      this.idleThreshold = Math.floor(opts.idleThreshold);
+    }
   }
 
   /**
@@ -164,7 +261,8 @@ export class SjCssGeneratorService {
       if (inMedia) newCss += `}\n`;
     }
 
-    this.appendCss(newCss);
+    // Batch CSS appends across calls for perf under load
+    this.enqueueCss(newCss);
 
     // Store computed classes in cache so repeated identical style objects
     // return immediately without re-generating CSS.
@@ -184,6 +282,13 @@ export class SjCssGeneratorService {
   ): string[] {
     const prefix = version > 0 ? `v${version}-` : '';
     const cacheKey = prefix + 'bundle::' + JSON.stringify(styles || {});
+    // Next-gen registry: if enabled and bundle known, return immediately
+    try {
+      if (this.registry.isEnabled()) {
+        const known = this.registry.getBundleClass(cacheKey);
+        if (known) return [known];
+      }
+    } catch {}
     const cached = this.classCache.get(cacheKey);
     if (cached) return cached;
 
@@ -271,12 +376,16 @@ export class SjCssGeneratorService {
         if (inMedia) newCss += `}\n`;
       }
 
-      this.appendCss(newCss);
+      // Batch CSS appends across calls for perf under load
+      this.enqueueCss(newCss);
       this.generatedClasses.add(bundleId);
     }
 
     const classes = [bundleId];
     this.classCache.set(cacheKey, classes);
+    try {
+      if (this.registry.isEnabled()) this.registry.setBundleClass(cacheKey, bundleId);
+    } catch {}
     return classes;
   }
 
@@ -309,4 +418,13 @@ export class SjCssGeneratorService {
   }
 
   // bundle id generation moved to core/class-name.ts
+
+  /** Perf stats for Phase 7 dashboard. */
+  public getStats() {
+    return {
+      generatedClasses: this.generatedClasses.size,
+      cacheEntries: this.classCache.size,
+      pendingCssChunks: this.cssQueue.length,
+    } as const;
+  }
 }

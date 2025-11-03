@@ -1,4 +1,5 @@
 import { SjStyle } from '../models/interfaces';
+import { lookupPrecomputedClasses } from '../precomputed/precomputed-styles';
 import { deepMerge } from './deep-merge';
 
 type SjStyleProducer = () => SjStyle;
@@ -139,7 +140,16 @@ export class StyleCacheManager {
     let classes: string[] | undefined;
     try {
       classes = this.styleCache.get(cacheKey);
-      if (!classes && Object.keys(processedStyles).length > 0) {
+      const hasStyles = Object.keys(processedStyles).length > 0;
+
+      if (!classes && hasStyles) {
+        const precomputed = lookupPrecomputedClasses(processedStyles, theme);
+        if (precomputed && precomputed.length) {
+          classes = [...precomputed];
+          this.styleCache.set(cacheKey, classes);
+          return classes;
+        }
+
         // Prefer bundled single-class generation when available for faster application
         // fallback to atomic class generation.
         if (cssGenerator.getOrGenerateClassBundle) {

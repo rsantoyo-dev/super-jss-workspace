@@ -6,9 +6,9 @@
   },
   "assets": [
     "README.md",
-    "LICENSE.txt"
+    "LICENSE.txt",
+    "src/lib/precomputed/sj-precomputed.json",
+    "src/lib/precomputed/sj-precomputed.css"
   ],
-  "allowedNonPeerDependencies": [
-    "csstype"
-  ]
+  "allowedNonPeerDependencies": ["csstype"]
 }

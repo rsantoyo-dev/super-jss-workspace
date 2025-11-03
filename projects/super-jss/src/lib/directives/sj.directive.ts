@@ -43,6 +43,8 @@ export class SjDirective implements OnChanges {
    * or a mixed array of styles and producers for dynamic styling.
    */
   @Input() sj: SjInput | undefined;
+  /** When false, the directive will not auto-re-render on theme changes. */
+  @Input({ transform: (v: any) => !(v === false || v === 'false') }) reactive = true;
 
   private lastClasses: string[] = [];
   private cacheManager = new StyleCacheManager();
@@ -63,17 +65,20 @@ export class SjDirective implements OnChanges {
     private cssGenerator: SjCssGeneratorService,
     private renderer: Renderer2
   ) {
-    // Initialize effect to re-render styles when the current breakpoint or theme changes.
+    // Initialize effect to re-render styles when the theme changes (if reactive).
     effect(() => {
-      this.sjt.currentBreakpoint(); // depend on currentBreakpoint (responsive changes)
+      // Do NOT depend on currentBreakpoint: CSS media queries handle responsive
+      // class application between breakpoints (no per-node re-render on resize).
       // Snapshot theme ref as well so overrides that don't bump version still update
       this.sjt.sjTheme();
       // Removed windowWidth dependency to avoid re-rendering on every pixel resize.
       // Media queries handle responsive class application between breakpoints.
       const tv = this.sjt.themeVersion(); // depend on themeVersion (theme structure changes)
       // Clear local style cache when themeVersion changes to avoid stale classes
-      this.cacheManager.clearCaches();
-      this.renderStyles();
+      if (this.reactive) {
+        this.cacheManager.clearCaches();
+        this.renderStyles();
+      }
       return tv;
     });
   }

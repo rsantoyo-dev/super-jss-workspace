@@ -45,6 +45,7 @@ import { SjFlexComponent } from 'super-jss';
         [showMobileMenu]="showSidenav()"
       ></app-header>
 
+
       <sj-paper
         variant="flat"
         [sj]="[
@@ -141,6 +142,14 @@ export class AppComponent implements OnDestroy {
 
   constructor() {
     this.themeData = this.theme.sjTheme();
+    // Keep default behavior for apps: do NOT purge CSS on breakpoint changes.
+    // This avoids flicker and retains cached styles. The spacing demo still
+    // updates correctly via Signals. Toggle to `true` only for diagnostics.
+    try { this.theme.setPurgeCssOnBreakpoint(false); } catch {}
+    // Enable next-gen style registry + batched injection for the demo
+    try { this.theme.enableNextGenEngine(true); } catch {}
+    // Phase 6: disable idle flush to avoid any perceived delay in interactive paths
+    try { this.theme.configureCssBatching({ useIdle: false }); } catch {}
     effect(() => {
       this.themeData = this.theme.sjTheme();
     });
