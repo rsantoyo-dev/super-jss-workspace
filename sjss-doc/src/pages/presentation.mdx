@@ -28,6 +28,17 @@ description: "Slides for presenting Super‑JSS. Big type for projection."
   - 2.  Responsive + theme‑driven styling (tokens + breakpoints)
   - 3.  Building blocks of Super‑JSS
 
+<small>
+  Quick links: <a href="https://sjssdemo.netlify.app">Live demo</a>,
+  <a href="https://www.npmjs.com/package/super-jss">npm</a>,
+  <a href="https://github.com/rsantoyo-dev/super-jss-workspace">GitHub</a>,
+  <a href="https://sjss.dev/docs/core/theming-typography">Typography</a>,
+  <a href="https://sjss.dev/docs/core/theming-spacing">Spacing</a>,
+  <a href="https://sjss.dev/docs/core/theming-padding">Padding densities</a>,
+  <a href="https://sjss.dev/docs/core/theming-breakpoints">Breakpoints</a>,
+  <a href="https://sjss.dev/docs/core/theming-colors">Colors</a>
+</small>
+
 <hr />
 
 ## Phase 0 — Responsive Style Engine (No Theme, No Signals)
@@ -36,7 +47,7 @@ description: "Slides for presenting Super‑JSS. Big type for projection."
 
 - Make any CSS property responsive from a plain TypeScript object.
 
-````ts
+```ts
 // Allow values per breakpoint right on the object a developer writes.
 export type ResponsiveStyle = {
   xs?: string | number;
@@ -56,7 +67,8 @@ type WithResponsive<T> = {
 export type SjStyle = WithResponsive<CSS.Properties<string | number>> & {
   [key: string]: ResponsiveStyle | string | number | SjStyle | undefined;
 };
-````
+```
+
 <!-- becomes responsive padding (see example below) -->
 
 This means every CSS property can now be expressed as:
@@ -81,63 +93,96 @@ el.style.setProperty("padding", "4px");
 const styles = this.cache.resolveAndMergeOnce(input);
 for (const [prop, value] of flattenResponsive(styles, breakpoints)) {
   el.style.setProperty(prop, value);
+}
 ```
 
-```ts
+### Output Example — Inline DOM Updates
+
+With a responsive object like `{ padding: { xs: 4, md: 16 } }`, Phase 0 simply mutated `element.style`.
+
+```html
+<!-- viewport ≥ md -->
+<div style="padding: 16px;"></div>
+```
+
+When the viewport collapsed to the `xs` breakpoint, the directive rewrote the inline style:
+
+```html
+<!-- viewport = xs -->
+<div style="padding: 4px;"></div>
+```
+
+This is how the DOM behaved before hashing or class generation — just direct writes per breakpoint change.
+
+```html
 <div
-      [sj]="{
+  [sj]="{
         padding: '16px',
         backgroundColor: 'lightgray',
         maxWidth: '800px',
         width: '100%',
         margin: '0 auto'
       }"
-    >
-      <h1
-        [sj]="{
+>
+  <h1
+    [sj]="{
           fontSize: '24px',
           fontWeight: 'bold',
           marginBottom: '8px'
         }"
-      >
-        Welcome to Super JSS with Angular!
-      </h1>
-      <p
-        [sj]="{
+  >
+    Welcome to Super JSS with Angular!
+  </h1>
+  <p
+    [sj]="{
           fontSize: '16px',
           marginBottom: '8px'
         }"
-      >
-        This is a sample application demonstrating the use of Super JSS for
-        styling Angular components.
-      </p>
-      <!-- create a loop of facts about super jss -->
-      @for (fact of facts; track fact) {
-      <p
-        [sj]="{
+  >
+    This is a sample application demonstrating the use of Super JSS for styling
+    Angular components.
+  </p>
+  <!-- create a loop of facts about super jss -->
+  @for (fact of facts; track fact) {
+  <p
+    [sj]="{
           fontSize: '14px',
           marginBottom: '4px',
           padding: '8px 12px',
           backgroundColor: 'white',
           borderRadius: '4px'
         }"
-      >
-        - {{ fact }}
-      </p>
-      }
-    </div>
+  >
+    - {{ fact }}
+  </p>
+  }
+</div>
 ```
 
 <iframe
   src="https://stackblitz.com/edit/sjss-base-sj-style?embed=1&file=src%2Fmain.ts&hideExplorer=1&hideNavigation=1&view=preview"
   title="SJSS • Base SjStyle"
-  style={{ width: '100%', height: 520, border: 0, borderRadius: 8, overflow: 'hidden' }}
+  style={{
+    width: "100%",
+    height: 520,
+    border: 0,
+    borderRadius: 8,
+    overflow: "hidden",
+  }}
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; clipboard-write"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 />
 
 <small>
-If the embed doesn’t load, open it directly: <a href="https://stackblitz.com/edit/sjss-base-sj-style?file=src%2Fmain.ts" target="_blank" rel="noreferrer noopener">StackBlitz</a>.
+  If the embed doesn’t load, open it directly:{" "}
+  <a
+    href="https://stackblitz.com/edit/sjss-base-sj-style?file=src%2Fmain.ts"
+    target="_blank"
+    rel="noreferrer noopener"
+  >
+    StackBlitz
+  </a>
+  .
 </small>
 
 No hashing, no caching, no classes — just inline responsive CSS at runtime.
@@ -536,31 +581,69 @@ variant     → component‑specific (e.g., paper: default | filled | outlined |
 
 ## Theme Definition & Examples
 
+<small>
+  Docs quick links: <a href="../docs/core/theming-palette">Palette</a>,
+  <a href="https://sjss.dev/docs/core/theming-typography">Typography</a>,
+  <a href="https://sjss.dev/docs/core/theming-spacing">Spacing</a>,
+  <a href="https://sjss.dev/docs/core/theming-padding">Padding densities</a>,
+  <a href="https://sjss.dev/docs/core/theming-breakpoints">Breakpoints</a>,
+  <a href="https://sjss.dev/docs/core/theming-colors">Colors</a>
+</small>
+
 ### Type (simplified)
 
 ```ts
 export type SjTheme = {
   name?: string;
-  breakpoints?: SjBreakPoints;                // xs…xxl
-  spacing?: (factor: number) => string;       // systemic spacing (1..20) → rem
-  typography?: SjTypography;                  // default + variants
-  colors?: SjColors;                          // optional hue ladders
-  palette?: SjPalette;                        // semantic families (primary, light, …)
+  breakpoints?: SjBreakPoints; // xs…xxl
+  spacing?: (factor: number) => string; // systemic spacing (1..20) → rem
+  typography?: SjTypography; // default + variants
+  colors?: SjColors; // optional hue ladders
+  palette?: SjPalette; // semantic families (primary, light, …)
   components?: {
     surfaces?: {
       // Density maps: level (1..12) → ResponsiveStyle | number | side map
-      padding?: Partial<Record<1|2|3|4|5|6|7|8|9|10|11|12,
-        | ResponsiveStyle
-        | number
-        | { all?: ResponsiveStyle|number; x?: ResponsiveStyle|number; y?: ResponsiveStyle|number;
-            top?: ResponsiveStyle|number; right?: ResponsiveStyle|number; bottom?: ResponsiveStyle|number; left?: ResponsiveStyle|number }
-      >>;
-      gap?:    Partial<Record<1|2|3|4|5|6|7|8|9|10|11|12, ResponsiveStyle|number>>;
-      radius?: Partial<Record<1|2|3|4|5|6|7|8|9|10|11|12, ResponsiveStyle|number|string>>;
-      border?: Partial<Record<1|2|3|4|5|6|7|8|9|10|11|12, ResponsiveStyle|number>>;
+      padding?: Partial<
+        Record<
+          1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
+          | ResponsiveStyle
+          | number
+          | {
+              all?: ResponsiveStyle | number;
+              x?: ResponsiveStyle | number;
+              y?: ResponsiveStyle | number;
+              top?: ResponsiveStyle | number;
+              right?: ResponsiveStyle | number;
+              bottom?: ResponsiveStyle | number;
+              left?: ResponsiveStyle | number;
+            }
+        >
+      >;
+      gap?: Partial<
+        Record<
+          1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
+          ResponsiveStyle | number
+        >
+      >;
+      radius?: Partial<
+        Record<
+          1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
+          ResponsiveStyle | number | string
+        >
+      >;
+      border?: Partial<
+        Record<
+          1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,
+          ResponsiveStyle | number
+        >
+      >;
     };
     // Optional asymmetric presets (arrays of SjStyle to spread into [sj])
-    surfacesPresets?: { padding?: Partial<Record<1|2|3|4|5|6|7|8|9|10|11|12, SjStyle[]>> };
+    surfacesPresets?: {
+      padding?: Partial<
+        Record<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12, SjStyle[]>
+      >;
+    };
   };
 };
 ```
@@ -569,13 +652,23 @@ export type SjTheme = {
 
 ```ts
 export const defaultTheme: SjTheme = {
-  name: 'Default Light',
+  name: "Default Light",
   breakpoints: { xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920, xxl: 2560 },
   spacing: (n) => `${SYSTEMIC_SPACING(n)}rem`,
   typography: DEFAULT_TYPOGRAPHY,
   palette: {
-    primary: { main: '#2C415C', light: '#8AA7BA', dark: '#25374E', contrast: '#FFFFFF' },
-    light:   { main: '#FFFFFF', light: '#F8FAFC', dark: '#F1F5F9', contrast: '#0B1220' },
+    primary: {
+      main: "#2C415C",
+      light: "#8AA7BA",
+      dark: "#25374E",
+      contrast: "#FFFFFF",
+    },
+    light: {
+      main: "#FFFFFF",
+      light: "#F8FAFC",
+      dark: "#F1F5F9",
+      contrast: "#0B1220",
+    },
     // …secondary, success, info, warning, error, dark, neutral, tertiary
   },
   components: {
@@ -584,9 +677,9 @@ export const defaultTheme: SjTheme = {
         1: { xs: 1, md: 2 },
         2: { xs: 2, md: 3, lg: 4 },
       },
-      gap:    { 1: { xs: 1, md: 2 } },
+      gap: { 1: { xs: 1, md: 2 } },
       radius: { 1: { xs: 1, md: 2 } },
-      border: { 1: { xs: '0.065rem', md: '0.065rem' } },
+      border: { 1: { xs: "0.065rem", md: "0.065rem" } },
     },
   },
 };
@@ -609,6 +702,7 @@ this.theme.setTheme({ components: { surfaces: { padding: { 2: { xs: 2, md: 3, lg
 ```
 
 Tips
+
 - Prefer palette tokens in sjRoot (Phase 2) so theme swaps are instant via CSS variables.
 - Drive density/rounding through the theme’s `components.surfaces` maps for consistent spacing.
 
@@ -617,41 +711,106 @@ Tips
 ## Live Examples (StackBlitz)
 
 ### Spacing Scale (1–20)
+
 <iframe
   src="https://stackblitz.com/edit/sjss-spacing?embed=1&file=src%2Fmain.ts&hideExplorer=1&hideNavigation=1&view=preview"
   title="SJSS • Spacing Scale"
-  style={{ width: '100%', height: 520, border: 0, borderRadius: 8, overflow: 'hidden' }}
+  style={{
+    width: "100%",
+    height: 520,
+    border: 0,
+    borderRadius: 8,
+    overflow: "hidden",
+  }}
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; clipboard-write"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 />
-<small>See the systemic spacing (1..20) and responsive objects in action. <a href="https://stackblitz.com/edit/sjss-spacing?file=src%2Fmain.ts" target="_blank" rel="noreferrer noopener">Open</a></small>
+<small>
+  See the systemic spacing (1..20) and responsive objects in action.{" "}
+  <a
+    href="https://stackblitz.com/edit/sjss-spacing?file=src%2Fmain.ts"
+    target="_blank"
+    rel="noreferrer noopener"
+  >
+    Open
+  </a>
+</small>
 
 ### Palette Tokens (Theming)
+
 <iframe
   src="https://stackblitz.com/edit/sjss-palette?embed=1&file=src%2Fmain.ts&hideExplorer=1&hideNavigation=1&view=preview"
   title="SJSS • Palette Tokens"
-  style={{ width: '100%', height: 520, border: 0, borderRadius: 8, overflow: 'hidden' }}
+  style={{
+    width: "100%",
+    height: 520,
+    border: 0,
+    borderRadius: 8,
+    overflow: "hidden",
+  }}
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; clipboard-write"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 />
-<small>Use semantic tokens like 'primary.main' and 'light.light' — theme swaps update instantly via CSS variables. <a href="https://stackblitz.com/edit/sjss-palette?file=src%2Fmain.ts" target="_blank" rel="noreferrer noopener">Open</a></small>
+<small>
+  Use semantic tokens like 'primary.main' and 'light.light' — theme swaps update
+  instantly via CSS variables.{" "}
+  <a
+    href="https://stackblitz.com/edit/sjss-palette?file=src%2Fmain.ts"
+    target="_blank"
+    rel="noreferrer noopener"
+  >
+    Open
+  </a>
+</small>
 
 ### Color Hues (Optional Ladders)
+
 <iframe
   src="https://stackblitz.com/edit/sjss-colors?embed=1&file=src%2Fmain.ts&hideExplorer=1&hideNavigation=1&view=preview"
   title="SJSS • Colors"
-  style={{ width: '100%', height: 520, border: 0, borderRadius: 8, overflow: 'hidden' }}
+  style={{
+    width: "100%",
+    height: 520,
+    border: 0,
+    borderRadius: 8,
+    overflow: "hidden",
+  }}
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; clipboard-write"
   sandbox="allow-forms allow-modals allow-presentation allow-same-origin allow-scripts"
 />
-<small>Hue ladders (e.g., blue.500) when you need them — still theme-aware. <a href="https://stackblitz.com/edit/sjss-colors?file=src%2Fmain.ts" target="_blank" rel="noreferrer noopener">Open</a></small>
+<small>
+  Hue ladders (e.g., blue.500) when you need them — still theme-aware.{" "}
+  <a
+    href="https://stackblitz.com/edit/sjss-colors?file=src%2Fmain.ts"
+    target="_blank"
+    rel="noreferrer noopener"
+  >
+    Open
+  </a>
+</small>
 
 ### Typography Variants
+
 <iframe
   src="https://stackblitz.com/edit/sjss-typography?embed=1&file=src%2Fmain.ts&hideExplorer=1&hideNavigation=1&view=preview"
   title="SJSS • Typography"
-  style={{ width: '100%', height: 520, border: 0, borderRadius: 8, overflow: 'hidden' }}
+  style={{
+    width: "100%",
+    height: 520,
+    border: 0,
+    borderRadius: 8,
+    overflow: "hidden",
+  }}
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; clipboard-write"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 />
-<small>Theme‑driven rhythm and variants (H1…SMALL) with sjRoot overrides. <a href="https://stackblitz.com/edit/sjss-typography?file=src%2Fmain.ts" target="_blank" rel="noreferrer noopener">Open</a></small>
+<small>
+  Theme‑driven rhythm and variants (H1…SMALL) with sjRoot overrides.{" "}
+  <a
+    href="https://stackblitz.com/edit/sjss-typography?file=src%2Fmain.ts"
+    target="_blank"
+    rel="noreferrer noopener"
+  >
+    Open
+  </a>
+</small>
